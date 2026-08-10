@@ -1,0 +1,260 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "LEARNER_DOES_NOT_GENERALIZE: chosen plugin=ruleind, held-out TEST-split edge accuracy=0.4118 (n=68) does not clear 0.6 (train edge acc=0.9821, n=503) -- the fitted classifier overfits/does not transfer to unseen paragraphs; unsafe to compose into the loop.",
+  "summary": "HARD_FAIL: LEARNER_DOES_NOT_GENERALIZE: chosen plugin=ruleind, held-out TEST-split edge accuracy=0.4118 (n=68) does not clear 0.6 (train edge acc=0.9821, n=503) -- the fitted classifier overfits/does not transfer to unseen paragraphs; unsafe to compose into the loop.",
+  "elapsed_s": 2.079,
+  "run_mode": "smoke",
+  "anchor_name": "wiqa_causal_chain_learned_signs_v1",
+  "n_items": 300,
+  "n_degraded": 0,
+  "degraded_frac": 0.0,
+  "gate_thresh": 0.05,
+  "n_dim": 1024,
+  "seeds": [
+    7
+  ],
+  "decisive_margin": 0.05,
+  "decisive_collapse_fraction_threshold": 0.5,
+  "leak_match_rate_threshold": 0.9,
+  "edge_generalization_threshold": 0.6,
+  "chosen_plugin": "ruleind",
+  "learner_fit_metrics": {
+    "ruleind": {
+      "n_rules": 2,
+      "n_episodic": 464,
+      "model_bits": 18.956,
+      "data_bits_rules": 9.0,
+      "data_bits_residual": 464.0
+    },
+    "estimation": {
+      "n_keys": 503,
+      "n_classes": 2,
+      "model_bits": 503.0,
+      "data_bits": 294.236
+    },
+    "gam": {
+      "n_main_keys": 531,
+      "n_interaction_keys": 14,
+      "n_classes": 2,
+      "model_bits": 545.0,
+      "data_bits": 249.156
+    }
+  },
+  "edge_train_acc": 0.9821073558648111,
+  "edge_train_n": 503,
+  "edge_test_acc": 0.4117647058823529,
+  "edge_test_n": 68,
+  "n_train_edge_pool": 503,
+  "n_test_edge_pool": 68,
+  "train_edge_class_balance": {
+    "neg": 258,
+    "pos": 245
+  },
+  "test_edge_class_balance": {
+    "neg": 40,
+    "pos": 28
+  },
+  "leak_check_single_edge": {
+    "n": 27,
+    "first_edge_match_rate": 0.5556,
+    "last_edge_match_rate": 0.5185,
+    "leak_match_rate": 0.5556
+  },
+  "dj_leak_check_by_hop": {
+    "hop_le_1": {
+      "checked": 84,
+      "matched": 84,
+      "match_rate": 1.0
+    },
+    "hop_ge_2": {
+      "checked": 51,
+      "matched": 51,
+      "match_rate": 1.0
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_items": 300,
+      "elapsed_s": 0.0479,
+      "per_subset": {
+        "all": {
+          "n": 300,
+          "majority": 0.4,
+          "polecho": 0.37666666666666665,
+          "bow": 0.37666666666666665,
+          "loop_hand_rule": 0.38333333333333336,
+          "loop_learned": 0.38333333333333336,
+          "loop_learned_scramble": 0.38
+        },
+        "oracle_covered": {
+          "n": 135,
+          "majority": 0.5851851851851851,
+          "polecho": 0.45925925925925926,
+          "bow": 0.5333333333333333,
+          "loop_hand_rule": 0.4740740740740741,
+          "loop_learned": 0.4740740740740741,
+          "loop_learned_scramble": 0.4666666666666667
+        },
+        "oracle_covered_multihop": {
+          "n": 51,
+          "majority": 0.6078431372549019,
+          "polecho": 0.47058823529411764,
+          "bow": 0.5490196078431373,
+          "loop_hand_rule": 0.49019607843137253,
+          "loop_learned": 0.49019607843137253,
+          "loop_learned_scramble": 0.47058823529411764
+        }
+      }
+    }
+  },
+  "band_detail": {
+    "subset_table": {
+      "all": {
+        "n": 300,
+        "majority": 0.4,
+        "polecho": 0.37666666666666665,
+        "bow": 0.37666666666666665,
+        "loop_hand_rule": 0.38333333333333336,
+        "loop_learned": 0.38333333333333336,
+        "loop_learned_scramble_vals": [
+          0.38
+        ],
+        "loop_learned_scramble_median": 0.38,
+        "loop_learned_minus_majority": -0.016666666666666663,
+        "loop_learned_minus_polecho": 0.00666666666666671,
+        "loop_learned_minus_bow": 0.00666666666666671,
+        "loop_learned_minus_hand_rule": 0.0
+      },
+      "oracle_covered": {
+        "n": 135,
+        "majority": 0.5851851851851851,
+        "polecho": 0.45925925925925926,
+        "bow": 0.5333333333333333,
+        "loop_hand_rule": 0.4740740740740741,
+        "loop_learned": 0.4740740740740741,
+        "loop_learned_scramble_vals": [
+          0.4666666666666667
+        ],
+        "loop_learned_scramble_median": 0.4666666666666667,
+        "loop_learned_minus_majority": -0.11111111111111105,
+        "loop_learned_minus_polecho": 0.014814814814814836,
+        "loop_learned_minus_bow": -0.059259259259259234,
+        "loop_learned_minus_hand_rule": 0.0
+      },
+      "oracle_covered_multihop": {
+        "n": 51,
+        "majority": 0.6078431372549019,
+        "polecho": 0.47058823529411764,
+        "bow": 0.5490196078431373,
+        "loop_hand_rule": 0.49019607843137253,
+        "loop_learned": 0.49019607843137253,
+        "loop_learned_scramble_vals": [
+          0.47058823529411764
+        ],
+        "loop_learned_scramble_median": 0.47058823529411764,
+        "loop_learned_minus_majority": -0.11764705882352938,
+        "loop_learned_minus_polecho": 0.019607843137254888,
+        "loop_learned_minus_bow": -0.058823529411764774,
+        "loop_learned_minus_hand_rule": 0.0
+      }
+    },
+    "primary_subset": "oracle_covered_multihop",
+    "collapse_frac": 1.0,
+    "learner_fit_ok": true,
+    "chosen_plugin": "ruleind",
+    "leak_safe": true,
+    "leak_detail": {
+      "n": 27,
+      "first_edge_match_rate": 0.5556,
+      "last_edge_match_rate": 0.5185,
+      "leak_match_rate": 0.5556
+    },
+    "generalizes": false,
+    "edge_train_acc": 0.9821073558648111,
+    "edge_train_n": 503,
+    "edge_test_acc": 0.4117647058823529,
+    "edge_test_n": 68,
+    "beats_all_3_baselines": false,
+    "scramble_collapses": true
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "majority": "82702934d7f0a6da629f116ef5e142b5007d15fe4366654eb76294ad33f75b2c",
+      "polecho": "e1c1ad953c0e53bbc3d74953ef2743541687d50030df80d62e2cbe4768bf72d1",
+      "bow": "a1a33f69cdcad3c98e7064184ec840713cb799d42e7343a0f15fb7cb01578b65",
+      "loop_hand_rule": "05c5fa653972eb1cee38f699d816e462b372d45df623f79461c862400e5c359c",
+      "loop_learned": "7bf15364efa0e596a5eaa2b62517c55b6e420a1446b237fcca25ef401fe844cb",
+      "loop_learned_scramble": "47057a47c0f315401775af362e0dc8aef509080a55e4fe5b1b95c8d2b4176727"
+    },
+    "pairs_differ": {
+      "majority_vs_polecho": true,
+      "majority_vs_bow": true,
+      "majority_vs_loop_hand_rule": true,
+      "majority_vs_loop_learned": true,
+      "majority_vs_loop_learned_scramble": true,
+      "polecho_vs_bow": true,
+      "polecho_vs_loop_hand_rule": true,
+      "polecho_vs_loop_learned": true,
+      "polecho_vs_loop_learned_scramble": true,
+      "bow_vs_loop_hand_rule": true,
+      "bow_vs_loop_learned": true,
+      "bow_vs_loop_learned_scramble": true,
+      "loop_hand_rule_vs_loop_learned": true,
+      "loop_hand_rule_vs_loop_learned_scramble": true,
+      "loop_learned_vs_loop_learned_scramble": true
+    },
+    "all_differ": true
+  },
+  "examples": {
+    "learned_wins_vs_hand_rule": [
+      {
+        "question_id": "influence_graph:45:664:23#0",
+        "gold": "more",
+        "hop": 2,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "less"
+      }
+    ],
+    "n_learned_wins_vs_hand_rule_total": 1,
+    "learned_loses_vs_hand_rule": [
+      {
+        "question_id": "influence_graph:1204:1636:34#1",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      }
+    ],
+    "n_learned_loses_vs_hand_rule_total": 1
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "3-way discrete classification accuracy comparison on a real benchmark (WIQA); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: reuses v2's GATE_THRESH/anchor mechanism and polarity lexicon unchanged; the learned-classifier hyperparameters are each hdlab/learner plugin's own module defaults, not tuned against dev numbers",
+  "hp_scope": {
+    "oracle_covered_multihop": [
+      "decisive_gate_beats_all_3_baselines",
+      "decisive_gate_scramble_collapse",
+      "decisive_gate_no_leak",
+      "decisive_gate_generalizes",
+      "decisive_gate_learner_fit"
+    ]
+  },
+  "progress_logging": "print_flush_true",
+  "candidate_plugins": [
+    "ruleind",
+    "estimation",
+    "gam"
+  ],
+  "supervision_source_note": "TRAIN/TEST hop=1 (adjacent-anchor) records from WIQA's official with_explanation release, dj-derived per-edge sign (dj in {RESULTS_IN,RESULTS_IN_OPP} only), deduped by (para_id,lo,hi); decisive evaluation restricted to DEV hop>=2 items, scored against answer_label (never dj) -- see module docstring leak-safety section."
+}

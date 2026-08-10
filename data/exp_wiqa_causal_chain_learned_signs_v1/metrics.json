@@ -1,0 +1,400 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "LEARNER_DOES_NOT_GENERALIZE: chosen plugin=ruleind, held-out TEST-split edge accuracy=0.4118 (n=68) does not clear 0.6 (train edge acc=0.9821, n=503) -- the fitted classifier overfits/does not transfer to unseen paragraphs; unsafe to compose into the loop.",
+  "summary": "HARD_FAIL: LEARNER_DOES_NOT_GENERALIZE: chosen plugin=ruleind, held-out TEST-split edge accuracy=0.4118 (n=68) does not clear 0.6 (train edge acc=0.9821, n=503) -- the fitted classifier overfits/does not transfer to unseen paragraphs; unsafe to compose into the loop.",
+  "elapsed_s": 16.003,
+  "run_mode": "full",
+  "anchor_name": "wiqa_causal_chain_learned_signs_v1",
+  "n_items": 6894,
+  "n_degraded": 0,
+  "degraded_frac": 0.0,
+  "gate_thresh": 0.05,
+  "n_dim": 1024,
+  "seeds": [
+    7,
+    17,
+    29
+  ],
+  "decisive_margin": 0.05,
+  "decisive_collapse_fraction_threshold": 0.5,
+  "leak_match_rate_threshold": 0.9,
+  "edge_generalization_threshold": 0.6,
+  "chosen_plugin": "ruleind",
+  "learner_fit_metrics": {
+    "ruleind": {
+      "n_rules": 2,
+      "n_episodic": 464,
+      "model_bits": 18.956,
+      "data_bits_rules": 9.0,
+      "data_bits_residual": 464.0
+    },
+    "estimation": {
+      "n_keys": 503,
+      "n_classes": 2,
+      "model_bits": 503.0,
+      "data_bits": 294.236
+    },
+    "gam": {
+      "n_main_keys": 531,
+      "n_interaction_keys": 14,
+      "n_classes": 2,
+      "model_bits": 545.0,
+      "data_bits": 249.156
+    }
+  },
+  "edge_train_acc": 0.9821073558648111,
+  "edge_train_n": 503,
+  "edge_test_acc": 0.4117647058823529,
+  "edge_test_n": 68,
+  "n_train_edge_pool": 503,
+  "n_test_edge_pool": 68,
+  "train_edge_class_balance": {
+    "neg": 258,
+    "pos": 245
+  },
+  "test_edge_class_balance": {
+    "neg": 40,
+    "pos": 28
+  },
+  "leak_check_single_edge": {
+    "n": 457,
+    "first_edge_match_rate": 0.5295,
+    "last_edge_match_rate": 0.5208,
+    "leak_match_rate": 0.5295
+  },
+  "dj_leak_check_by_hop": {
+    "hop_le_1": {
+      "checked": 1897,
+      "matched": 1897,
+      "match_rate": 1.0
+    },
+    "hop_ge_2": {
+      "checked": 996,
+      "matched": 996,
+      "match_rate": 1.0
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_items": 6894,
+      "elapsed_s": 1.0946,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop_hand_rule": 0.35668697418044676,
+          "loop_learned": 0.3540760081230055,
+          "loop_learned_scramble": 0.3540760081230055
+        },
+        "oracle_covered": {
+          "n": 2893,
+          "majority": 0.5063947459384722,
+          "polecho": 0.40753543034911854,
+          "bow": 0.46733494642239887,
+          "loop_hand_rule": 0.44244728655375043,
+          "loop_learned": 0.4362253715865883,
+          "loop_learned_scramble": 0.4362253715865883
+        },
+        "oracle_covered_multihop": {
+          "n": 996,
+          "majority": 0.5100401606425703,
+          "polecho": 0.41365461847389556,
+          "bow": 0.4578313253012048,
+          "loop_hand_rule": 0.45883534136546184,
+          "loop_learned": 0.4457831325301205,
+          "loop_learned_scramble": 0.44377510040160645
+        }
+      }
+    },
+    "17": {
+      "seed": 17,
+      "n_items": 6894,
+      "elapsed_s": 1.1364,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop_hand_rule": 0.35668697418044676,
+          "loop_learned": 0.3540760081230055,
+          "loop_learned_scramble": 0.3540760081230055
+        },
+        "oracle_covered": {
+          "n": 2893,
+          "majority": 0.5063947459384722,
+          "polecho": 0.40753543034911854,
+          "bow": 0.46733494642239887,
+          "loop_hand_rule": 0.44244728655375043,
+          "loop_learned": 0.4362253715865883,
+          "loop_learned_scramble": 0.4362253715865883
+        },
+        "oracle_covered_multihop": {
+          "n": 996,
+          "majority": 0.5100401606425703,
+          "polecho": 0.41365461847389556,
+          "bow": 0.4578313253012048,
+          "loop_hand_rule": 0.45883534136546184,
+          "loop_learned": 0.4457831325301205,
+          "loop_learned_scramble": 0.4427710843373494
+        }
+      }
+    },
+    "29": {
+      "seed": 29,
+      "n_items": 6894,
+      "elapsed_s": 1.0499,
+      "per_subset": {
+        "all": {
+          "n": 6894,
+          "majority": 0.3333333333333333,
+          "polecho": 0.34203655352480417,
+          "bow": 0.32811140121845084,
+          "loop_hand_rule": 0.35668697418044676,
+          "loop_learned": 0.3540760081230055,
+          "loop_learned_scramble": 0.3540760081230055
+        },
+        "oracle_covered": {
+          "n": 2893,
+          "majority": 0.5063947459384722,
+          "polecho": 0.40753543034911854,
+          "bow": 0.46733494642239887,
+          "loop_hand_rule": 0.44244728655375043,
+          "loop_learned": 0.4362253715865883,
+          "loop_learned_scramble": 0.4362253715865883
+        },
+        "oracle_covered_multihop": {
+          "n": 996,
+          "majority": 0.5100401606425703,
+          "polecho": 0.41365461847389556,
+          "bow": 0.4578313253012048,
+          "loop_hand_rule": 0.45883534136546184,
+          "loop_learned": 0.4457831325301205,
+          "loop_learned_scramble": 0.44176706827309237
+        }
+      }
+    }
+  },
+  "band_detail": {
+    "subset_table": {
+      "all": {
+        "n": 6894,
+        "majority": 0.3333333333333333,
+        "polecho": 0.34203655352480417,
+        "bow": 0.32811140121845084,
+        "loop_hand_rule": 0.35668697418044676,
+        "loop_learned": 0.3540760081230055,
+        "loop_learned_scramble_vals": [
+          0.3540760081230055,
+          0.3540760081230055,
+          0.3540760081230055
+        ],
+        "loop_learned_scramble_median": 0.3540760081230055,
+        "loop_learned_minus_majority": 0.020742674789672177,
+        "loop_learned_minus_polecho": 0.012039454598201327,
+        "loop_learned_minus_bow": 0.025964606904554655,
+        "loop_learned_minus_hand_rule": -0.0026109660574412663
+      },
+      "oracle_covered": {
+        "n": 2893,
+        "majority": 0.5063947459384722,
+        "polecho": 0.40753543034911854,
+        "bow": 0.46733494642239887,
+        "loop_hand_rule": 0.44244728655375043,
+        "loop_learned": 0.4362253715865883,
+        "loop_learned_scramble_vals": [
+          0.4362253715865883,
+          0.4362253715865883,
+          0.4362253715865883
+        ],
+        "loop_learned_scramble_median": 0.4362253715865883,
+        "loop_learned_minus_majority": -0.07016937435188392,
+        "loop_learned_minus_polecho": 0.028689941237469763,
+        "loop_learned_minus_bow": -0.03110957483581056,
+        "loop_learned_minus_hand_rule": -0.006221914967162123
+      },
+      "oracle_covered_multihop": {
+        "n": 996,
+        "majority": 0.5100401606425703,
+        "polecho": 0.41365461847389556,
+        "bow": 0.4578313253012048,
+        "loop_hand_rule": 0.45883534136546184,
+        "loop_learned": 0.4457831325301205,
+        "loop_learned_scramble_vals": [
+          0.44377510040160645,
+          0.4427710843373494,
+          0.44176706827309237
+        ],
+        "loop_learned_scramble_median": 0.4427710843373494,
+        "loop_learned_minus_majority": -0.06425702811244982,
+        "loop_learned_minus_polecho": 0.03212851405622491,
+        "loop_learned_minus_bow": -0.01204819277108432,
+        "loop_learned_minus_hand_rule": -0.013052208835341361
+      }
+    },
+    "primary_subset": "oracle_covered_multihop",
+    "collapse_frac": 0.0937499999999994,
+    "learner_fit_ok": true,
+    "chosen_plugin": "ruleind",
+    "leak_safe": true,
+    "leak_detail": {
+      "n": 457,
+      "first_edge_match_rate": 0.5295,
+      "last_edge_match_rate": 0.5208,
+      "leak_match_rate": 0.5295
+    },
+    "generalizes": false,
+    "edge_train_acc": 0.9821073558648111,
+    "edge_train_n": 503,
+    "edge_test_acc": 0.4117647058823529,
+    "edge_test_n": 68,
+    "beats_all_3_baselines": false,
+    "scramble_collapses": false
+  },
+  "arms_differ_verified": true,
+  "arms_differ_check": {
+    "sigs": {
+      "majority": "b442863dbeee2721482294a87358db962200f076df815d5a8227d182b03b508a",
+      "polecho": "0757308a8714a2fb8b0f14c7eae199276405e3ba3a177a4c4b42b5bcf2107513",
+      "bow": "42501d31304c187a9138ca190622ab2e8a1ada26de0c99c258910d5d8e542abd",
+      "loop_hand_rule": "77301d3085ce87fecabd1855e2a8a5f71d843d0e4fb185cc8d5de735510a5e98",
+      "loop_learned": "530abd4cc065e575687cf7ad4543ef5087de9e24b02f64a2af52b4793fdd2520",
+      "loop_learned_scramble": "d3d939971ec98b947ee9ce1f847520490765a371938cf7514f249373296d7eba"
+    },
+    "pairs_differ": {
+      "majority_vs_polecho": true,
+      "majority_vs_bow": true,
+      "majority_vs_loop_hand_rule": true,
+      "majority_vs_loop_learned": true,
+      "majority_vs_loop_learned_scramble": true,
+      "polecho_vs_bow": true,
+      "polecho_vs_loop_hand_rule": true,
+      "polecho_vs_loop_learned": true,
+      "polecho_vs_loop_learned_scramble": true,
+      "bow_vs_loop_hand_rule": true,
+      "bow_vs_loop_learned": true,
+      "bow_vs_loop_learned_scramble": true,
+      "loop_hand_rule_vs_loop_learned": true,
+      "loop_hand_rule_vs_loop_learned_scramble": true,
+      "loop_learned_vs_loop_learned_scramble": true
+    },
+    "all_differ": true
+  },
+  "examples": {
+    "learned_wins_vs_hand_rule": [
+      {
+        "question_id": "influence_graph:1204:1635:2#0",
+        "gold": "more",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#2",
+        "gold": "more",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:9#0",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "less",
+        "pred_loop_hand_rule": "more",
+        "pred_polecho": "less"
+      },
+      {
+        "question_id": "influence_graph:1204:1636:29#2",
+        "gold": "more",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      },
+      {
+        "question_id": "influence_graph:1204:1636:38#1",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "less",
+        "pred_loop_hand_rule": "more",
+        "pred_polecho": "less"
+      }
+    ],
+    "n_learned_wins_vs_hand_rule_total": 14,
+    "learned_loses_vs_hand_rule": [
+      {
+        "question_id": "influence_graph:1204:1635:2#1",
+        "gold": "more",
+        "hop": 4,
+        "pred_loop_learned": "less",
+        "pred_loop_hand_rule": "more",
+        "pred_polecho": "less"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:2#3",
+        "gold": "more",
+        "hop": 4,
+        "pred_loop_learned": "less",
+        "pred_loop_hand_rule": "more",
+        "pred_polecho": "less"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:21#1",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:22#0",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      },
+      {
+        "question_id": "influence_graph:1204:1635:22#1",
+        "gold": "less",
+        "hop": 4,
+        "pred_loop_learned": "more",
+        "pred_loop_hand_rule": "less",
+        "pred_polecho": "more"
+      }
+    ],
+    "n_learned_loses_vs_hand_rule_total": 32
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "3-way discrete classification accuracy comparison on a real benchmark (WIQA); no capacity/noise-floor discriminator threshold to CRLB-check",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: reuses v2's GATE_THRESH/anchor mechanism and polarity lexicon unchanged; the learned-classifier hyperparameters are each hdlab/learner plugin's own module defaults, not tuned against dev numbers",
+  "hp_scope": {
+    "oracle_covered_multihop": [
+      "decisive_gate_beats_all_3_baselines",
+      "decisive_gate_scramble_collapse",
+      "decisive_gate_no_leak",
+      "decisive_gate_generalizes",
+      "decisive_gate_learner_fit"
+    ]
+  },
+  "progress_logging": "print_flush_true",
+  "candidate_plugins": [
+    "ruleind",
+    "estimation",
+    "gam"
+  ],
+  "supervision_source_note": "TRAIN/TEST hop=1 (adjacent-anchor) records from WIQA's official with_explanation release, dj-derived per-edge sign (dj in {RESULTS_IN,RESULTS_IN_OPP} only), deduped by (para_id,lo,hi); decisive evaluation restricted to DEV hop>=2 items, scored against answer_label (never dj) -- see module docstring leak-safety section."
+}
