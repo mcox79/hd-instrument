@@ -55,6 +55,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import platform
 import re
@@ -125,6 +126,47 @@ def content_words(text: str) -> List[str]:
 def pair_key(a: str, b: str) -> str:
     lo, hi = (a, b) if a <= b else (b, a)
     return f"{lo}::{hi}"
+
+
+# =====================================================================================
+# FAULT-2 diagnosis + fix (2026-08-10 coordinator follow-up): the smoke's CRUTCH_RESOLVED
+# lift over BoW was thin (+0.02-0.03). Two candidate loci: (a) RETRIEVAL -- the gap->CSKG
+# query never reaches a fact connected to the GOLD answer at all; (b) USE -- a fact IS
+# reachable for gold but the SCORING formula ranks a distractor's fact higher. The legacy
+# scoring formula `max(trust) * len(edges)` lets a candidate with several TRUST_MID (0.6)
+# edges (e.g. 3 edges = 1.8) outrank a candidate with a single TRUST_HIGH (1.0) edge -- an
+# edge-COUNT artifact, not evidence strength; this is a USE-quality bug by construction,
+# independent of whether retrieval reached gold. score_mode="max_trust" removes the count
+# multiplier (rank by strongest single piece of evidence only, secondary count tie-break via
+# a small epsilon so ties still resolve deterministically toward more corroborated pairs
+# without letting count DOMINATE trust). MEASURED@diagnostic run (see report) decides which
+# mode ships.
+def _edge_weight(edges: List[Tuple[str, float]], score_mode: str) -> float:
+    max_t = max(t for _, t in edges)
+    if score_mode in ("max_trust", "hub_penalized"):  # hub_penalized uses max_trust as its base
+        return max_t + 0.001 * min(len(edges), 20)  # count only breaks ties, never dominates trust
+    if score_mode == "count_weighted":
+        return max_t * len(edges)  # legacy (pre-2026-08-10 fix) formula
+    raise ValueError(f"unknown score_mode {score_mode!r}")
+
+
+# ---- FAULT-2 diagnosis round 2 (2026-08-10): the max_trust fix (edge-COUNT-inflation hypothesis)
+# MEASURED zero delta on real SIQa+CSKG data (97% of CSKG pairs have exactly 1 edge; the crafted
+# multi-edge-inflation scenario barely occurs). Sampling actual retrieval_hit-but-wrong-argmax
+# items found the REAL cause instead: a small set of high-DEGREE, SIQa-template-generic concepts
+# ('person', 'mouth', 'want', 'next', 'need', 'baby'...) recur across unrelated items (SIQa's
+# question templates: "How would X feel/be described?", "What will X want to do next?") and connect
+# to almost anything in a 1.15M-edge KB, producing spurious or wrong-candidate-favoring crutch
+# scores that carry no real item-specific signal -- a classic high-document-frequency/low-
+# informativeness hub-node problem (same intuition as IDF down-weighting in IR). hub_penalized
+# divides the max_trust base score by (1 + log1p(degree)) of the MORE-CONNECTED of the two concepts
+# in the driving pair, so a hub-mediated edge is discounted relative to a specific, low-degree,
+# genuinely-informative connection.
+def _hub_penalty(a: str, b: str, node_degree: Optional[Dict[str, int]]) -> float:
+    if not node_degree:
+        return 1.0
+    deg = max(node_degree.get(a, 0), node_degree.get(b, 0))
+    return 1.0 / (1.0 + math.log1p(deg))
 
 
 # =====================================================================================
@@ -206,6 +248,21 @@ def cskg_node_set_from_index(idx: Dict[str, List]) -> frozenset:
         nodes.add(a)
         nodes.add(b)
     return frozenset(nodes)
+
+
+def compute_node_degree(idx: Dict[str, List]) -> Dict[str, int]:
+    """pair-count per concept (a proxy for CSKG node degree -- how many DISTINCT other concepts
+    this concept connects to). MEASURED@diag 2026-08-10 root-cause for the retrieval-vs-use split's
+    USE shortfall (see _edge_weight docstring 'hub_penalized'): a handful of SIQa-template-generic
+    concepts (e.g. 'person', 'mouth', 'want', 'next', 'need') recur across MANY unrelated items and
+    connect to almost anything in a 1.15M-edge KB, producing a spuriously-tied or wrong-candidate-
+    favoring crutch score that has nothing to do with the item's actual content."""
+    deg: Dict[str, int] = {}
+    for k in idx:
+        a, b = k.split("::", 1)
+        deg[a] = deg.get(a, 0) + 1
+        deg[b] = deg.get(b, 0) + 1
+    return deg
 
 
 def _stem_variants(c: str) -> List[str]:
@@ -291,9 +348,14 @@ def argmax_tiebreak(scores: List[float]) -> int:
 
 
 def crutch_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[List[str]],
-                            idx: Dict[str, List[Tuple[str, float]]]
+                            idx: Dict[str, List[Tuple[str, float]]],
+                            score_mode: str = "count_weighted",
+                            node_degree: Optional[Dict[str, int]] = None
                             ) -> Tuple[List[float], List[Optional[str]]]:
-    """Returns (per-candidate crutch score, per-candidate best driving pair_key or None)."""
+    """Returns (per-candidate crutch score, per-candidate best driving pair_key or None).
+    score_mode: "count_weighted" (legacy) | "max_trust" (edge-count-inflation fix, MEASURED zero
+    delta on real data) | "hub_penalized" (max_trust base / hub-degree penalty, see _hub_penalty
+    docstring -- requires node_degree, the shipped 2026-08-10 fix)."""
     scores = []
     driving = []
     for ans_concepts in ans_concepts_list:
@@ -307,7 +369,9 @@ def crutch_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[Lis
                 edges = idx.get(pk)
                 if not edges:
                     continue
-                w = max(t for _, t in edges) * len(edges)
+                w = _edge_weight(edges, score_mode)
+                if score_mode == "hub_penalized":
+                    w *= _hub_penalty(cc, ac, node_degree)
                 if w > best_score:
                     best_score = w
                     best_pair = pk
@@ -331,7 +395,9 @@ def _scramble_partner(seed_key: str, node_list: List[str], exclude: str) -> str:
 def scramble_crutch_candidate_scores(item_id: str, ctx_concepts: List[str],
                                      ans_concepts_list: List[List[str]],
                                      idx: Dict[str, List[Tuple[str, float]]],
-                                     node_list: List[str]
+                                     node_list: List[str],
+                                     score_mode: str = "count_weighted",
+                                     node_degree: Optional[Dict[str, int]] = None
                                      ) -> Tuple[List[float], List[Optional[str]]]:
     """Same firing structure as crutch_candidate_scores but looks up a deterministically-WRONG
     concept in place of each true context concept -- 'a random OTHER CSKG neighbor unrelated to
@@ -350,7 +416,9 @@ def scramble_crutch_candidate_scores(item_id: str, ctx_concepts: List[str],
                 edges = idx.get(pk)
                 if not edges:
                     continue
-                w = max(t for _, t in edges) * len(edges)
+                w = _edge_weight(edges, score_mode)
+                if score_mode == "hub_penalized":
+                    w *= _hub_penalty(wrong_cc, ac, node_degree)
                 if w > best_score:
                     best_score = w
                     best_pair = pk
@@ -382,11 +450,55 @@ def library_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[Li
 
 
 # =====================================================================================
+# FAULT-2 diagnosis: RETRIEVAL-vs-USE decomposition for gap_driven's CRUTCH_RESOLVED items.
+# RETRIEVAL quality = did the gap->CSKG query reach ANY edge connecting a context concept to the
+# GOLD answer's concepts (score[gold] > 0), regardless of whether it won the argmax? USE quality =
+# GIVEN a gold-connected edge exists (retrieval succeeded), did the scoring/argmax correctly rank
+# gold on top? A low retrieval_hit_rate means the query/coverage is the bottleneck (need a broader
+# gap->fact query); a high retrieval_hit_rate but low use_quality_given_hit means the SCORING
+# formula is mis-ranking a reachable correct fact behind a distractor's fact (need a better
+# fact->answer scoring rule). Recomputes crutch_candidate_scores for CRUTCH_RESOLVED items only
+# (cheap: bounded per-item dict lookups, same cost class as the resolution call itself).
+def retrieval_use_diagnostic(dev: List[dict], node_set: frozenset,
+                             idx: Dict[str, List[Tuple[str, float]]],
+                             gap_rows: List[dict], score_mode: str,
+                             node_degree: Optional[Dict[str, int]] = None) -> dict:
+    n_hit = n_use_ok = n_miss = n_correct_despite_miss = n_total = 0
+    for r in gap_rows:
+        if r["tag"] != "CRUTCH_RESOLVED":
+            continue
+        it = dev[r["item_idx"]]
+        gold_idx = label_idx(it)
+        ctx_concepts = extract_concepts(it["context"] + " " + it["question"], node_set)
+        ans_concepts_list = [extract_concepts(it[k], node_set) for k in ("answerA", "answerB", "answerC")]
+        c_scores, _ = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx, score_mode, node_degree)
+        n_total += 1
+        if c_scores[gold_idx] > 0:
+            n_hit += 1
+            if r["pred_idx"] == gold_idx:
+                n_use_ok += 1
+        else:
+            n_miss += 1
+            if r["pred_idx"] == gold_idx:
+                n_correct_despite_miss += 1  # structurally near-impossible (argmax=0 can't beat
+                                              # a rival >0 candidate) but tallied for audit honesty
+    return {
+        "n_crutch_resolved": n_total,
+        "retrieval_hit_rate": (n_hit / n_total) if n_total else None,
+        "use_quality_given_hit": (n_use_ok / n_hit) if n_hit else None,
+        "retrieval_miss_rate": (n_miss / n_total) if n_total else None,
+        "correct_despite_retrieval_miss": (n_correct_despite_miss / n_miss) if n_miss else None,
+    }
+
+
+# =====================================================================================
 # per-item resolution (one arm, one item, given current library state)
 def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str, float]]],
                  gate_thresh: float, arm: str, item_id: str,
                  store: Optional[HDFactStore] = None,
-                 node_list: Optional[List[str]] = None) -> dict:
+                 node_list: Optional[List[str]] = None,
+                 score_mode: str = "count_weighted",
+                 node_degree: Optional[Dict[str, int]] = None) -> dict:
     b_scores = bow_scores(item)
     ctx_concepts = extract_concepts(item["context"] + " " + item["question"], node_set)
     ans_concepts_list = [extract_concepts(item[k], node_set) for k in ("answerA", "answerB", "answerC")]
@@ -396,7 +508,8 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
         return {"tag": "BOW_RESOLVED", "pred_idx": pred, "driving_pair": None}
 
     if arm == "always_crutch":
-        c_scores, c_driving = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx)
+        c_scores, c_driving = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx, score_mode,
+                                                       node_degree)
         if max(c_scores) > 0:
             pred = argmax_tiebreak(c_scores)
             return {"tag": "CRUTCH_RESOLVED", "pred_idx": pred, "driving_pair": c_driving[pred]}
@@ -414,7 +527,8 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
         if max(l_scores) > 0:
             pred = argmax_tiebreak(l_scores)
             return {"tag": "LIBRARY_RESOLVED", "pred_idx": pred, "driving_pair": l_driving[pred]}
-        c_scores, c_driving = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx)
+        c_scores, c_driving = crutch_candidate_scores(ctx_concepts, ans_concepts_list, idx, score_mode,
+                                                       node_degree)
         if max(c_scores) > 0:
             pred = argmax_tiebreak(c_scores)
             return {"tag": "CRUTCH_RESOLVED", "pred_idx": pred, "driving_pair": c_driving[pred]}
@@ -427,7 +541,8 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
             pred = argmax_tiebreak(l_scores)
             return {"tag": "LIBRARY_RESOLVED", "pred_idx": pred, "driving_pair": l_driving[pred]}
         c_scores, c_driving = scramble_crutch_candidate_scores(item_id, ctx_concepts,
-                                                                ans_concepts_list, idx, node_list)
+                                                                ans_concepts_list, idx, node_list,
+                                                                score_mode, node_degree)
         if max(c_scores) > 0:
             pred = argmax_tiebreak(c_scores)
             return {"tag": "CRUTCH_RESOLVED", "pred_idx": pred, "driving_pair": c_driving[pred]}
@@ -468,7 +583,8 @@ def process_exposure_slice(train_slice: List[dict], node_set: frozenset,
 # =====================================================================================
 # main run
 def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optional[int],
-       seed: int = 7) -> dict:
+       seed: int = 7, promote_min_exposure: int = PROMOTE_MIN_EXPOSURE,
+       score_mode: str = "count_weighted") -> dict:
     t0 = time.perf_counter()
     _write_start_marker(output_dir, run_mode, expected_n_units=len(CHECKPOINTS))
 
@@ -476,7 +592,9 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     idx = load_cskg_index()
     node_set = cskg_node_set_from_index(idx)
     node_list = sorted(node_set)  # deterministic order (sorted, not list(set()))
-    _hb(output_dir, "cskg_loaded", t0, {"n_pairs": len(idx), "n_nodes": len(node_list)})
+    node_degree = compute_node_degree(idx) if score_mode == "hub_penalized" else None
+    _hb(output_dir, "cskg_loaded", t0, {"n_pairs": len(idx), "n_nodes": len(node_list),
+        "node_degree_computed": node_degree is not None})
 
     print("[load] Social IQa...", flush=True)
     train_all, dev_all = load_siqa()
@@ -546,9 +664,14 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             for _ in range(N_PASSES_PER_CHECKPOINT):
                 pass_counter += 1
                 consolidation_pass(real_lib, pass_counter, register=False, native_store=real_store,
-                                   promote_source="cskg_crutch_real")
+                                   promote_source="cskg_crutch_real",
+                                   promote_min_exposure=promote_min_exposure)
+                # scramble arm gets the SAME loosened gate (fair control per drill 4 -- if lowering
+                # the exposure floor let scrambled/false pairs promote too, that would falsify the
+                # fix; the false-memory guard is schema_thresh + PROMOTE_MIN_CONSISTENCY, untouched)
                 consolidation_pass(scr_lib, pass_counter, register=False, native_store=scr_store,
-                                   promote_source="cskg_crutch_scramble")
+                                   promote_source="cskg_crutch_scramble",
+                                   promote_min_exposure=promote_min_exposure)
         prev_cum = cum
         _hb(output_dir, f"checkpoint_{ck_i}_exposure_done", t0,
             {"frac": frac, "n_exposed": cum, "real_lib_items": len(real_lib.items),
@@ -564,13 +687,19 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             for j, it in enumerate(dev):
                 item_id = f"dev{j}"
                 res = resolve_item(it, node_set, idx, gate_thresh, arm, item_id,
-                                   store=store, node_list=node_list)
+                                   store=store, node_list=node_list, score_mode=score_mode,
+                                   node_degree=node_degree)
                 res["correct"] = (res["pred_idx"] == label_idx(it))
                 res["item_idx"] = j
                 rows.append(res)
             per_arm_rows[arm] = rows
             if arm == "always_crutch":
                 always_cache = rows
+
+        # FAULT-2 diagnostic: retrieval-vs-use split on this checkpoint's gap_driven CRUTCH_RESOLVED
+        # items (cheap: only re-scores the CRUTCH_RESOLVED subset, not the full dev set)
+        ru_diag = retrieval_use_diagnostic(dev, node_set, idx, per_arm_rows["gap_driven"], score_mode,
+                                           node_degree)
 
         acc = {arm: sum(1 for r in rows if r["correct"]) / len(rows) for arm, rows in per_arm_rows.items()}
         tag_counts = {arm: {t: sum(1 for r in rows if r["tag"] == t)
@@ -595,11 +724,12 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             "real_lib_pending": len(real_lib.items),
             "real_promoted_n": len(real_store.live_facts()),
             "scr_promoted_n": len(scr_store.live_facts()),
+            "retrieval_use_diagnostic": ru_diag,
             "per_arm_rows": {arm: rows for arm, rows in per_arm_rows.items()},
         })
         print(f"[checkpoint {ck_i} frac={frac}] acc={acc} crutch_fire={crutch_fire_rate:.4f} "
-              f"lib_resolved={library_resolved_rate:.4f} promoted={len(real_store.live_facts())}",
-              flush=True)
+              f"lib_resolved={library_resolved_rate:.4f} promoted={len(real_store.live_facts())} "
+              f"retrieval_use={ru_diag}", flush=True)
 
     # ---- RE-ENCOUNTER FADE RATE (coordinator refinement) ----
     # cohort0 = dev items that genuinely needed the live crutch at checkpoint 0% (zero exposure).
@@ -641,7 +771,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             probe_item = {"context": ctx_text, "question": "What is most related to this?",
                          "answerA": b, "answerB": distractor, "answerC": "unrelated", "label": "1"}
             res = resolve_item(probe_item, node_set, idx, gate_thresh, "gap_driven", f"probe_{pk}",
-                               store=real_store, node_list=node_list)
+                               store=real_store, node_list=node_list, score_mode=score_mode,
+                               node_degree=node_degree)
             n_probe += 1
             if res["tag"] == "LIBRARY_RESOLVED":
                 n_native_probe += 1
@@ -763,8 +894,10 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         "config": {"checkpoints": CHECKPOINTS, "n_passes_per_checkpoint": N_PASSES_PER_CHECKPOINT,
                   "train_cap": train_cap, "dev_cap": dev_cap, "seed": seed,
                   "gate_thresh_median_margin": gate_thresh,
-                  "promote_min_exposure": PROMOTE_MIN_EXPOSURE,
-                  "promote_min_consistency": PROMOTE_MIN_CONSISTENCY},
+                  "promote_min_exposure": promote_min_exposure,
+                  "promote_min_exposure_default": PROMOTE_MIN_EXPOSURE,
+                  "promote_min_consistency": PROMOTE_MIN_CONSISTENCY,
+                  "score_mode": score_mode, "node_degree_computed": node_degree is not None},
         "stage0_bow_baseline_accuracy": bow_acc,
         "leakage_audit": {"n_sample": len(leak_sample), "n_leaked": n_leak, "leakage_rate": leakage_rate},
         "checkpoints": checkpoint_summary,
@@ -862,9 +995,85 @@ def self_test() -> dict:
     res_always = resolve_item(item, node_set, idx, gate_thresh=0.9, arm="always_crutch", item_id="t0")
     assert res_always["tag"] in ("CRUTCH_RESOLVED", "BOW_RESOLVED")
 
+    # ---- FAULT-2 fix: score_mode="max_trust" must NOT let edge-COUNT outrank edge-TRUST ----
+    # candidate A: 1 TRUST_HIGH edge (party--happy). candidate B: 3 TRUST_MID edges (party--wet,
+    # crafted so count_weighted's max*len formula (0.6*3=1.8) beats a single TRUST_HIGH (1.0*1=1.0)
+    # -- reproducing the exact use-quality bug this fix targets.
+    idx2 = dict(idx)
+    idx2[pair_key("party", "wet")] = [("/r/A", 0.6), ("/r/B", 0.6), ("/r/C", 0.6)]
+    cw_scores, _ = crutch_candidate_scores(["party"], [["happy"], ["wet"]], idx2, "count_weighted")
+    mt_scores, _ = crutch_candidate_scores(["party"], [["happy"], ["wet"]], idx2, "max_trust")
+    assert cw_scores[1] > cw_scores[0], cw_scores  # legacy bug: 3-edge TRUST_MID beats 1-edge TRUST_HIGH
+    assert mt_scores[0] > mt_scores[1], mt_scores  # fix: single TRUST_HIGH correctly ranks first
+    assert argmax_tiebreak(cw_scores) == 1 and argmax_tiebreak(mt_scores) == 0
+
+    # ---- FAULT-2 shipped fix: hub_penalized -- a HIGH-DEGREE ("template-generic") concept must be
+    # discounted relative to a LOW-degree, equally-trusted, genuinely-specific connection. Candidate
+    # A links via a hub concept ("mouth", degree=500 in this synthetic degree map); candidate B links
+    # via a low-degree specific concept ("happy", degree=1) at the SAME trust weight -- hub_penalized
+    # must rank B above A despite identical raw trust, exactly the pattern sampled from real
+    # retrieval-hit-but-wrong-argmax items (MEASURED@diag, see cell docstring).
+    idx3 = dict(idx)
+    idx3[pair_key("mouth", "genericword")] = [("/r/X", 1.0)]
+    deg_map = {"mouth": 500, "genericword": 500, "happy": 1, "party": 1}
+    hp_scores, hp_driving = crutch_candidate_scores(["party", "mouth"], [["happy"], ["genericword"]],
+                                                     idx3, "hub_penalized", deg_map)
+    assert hp_scores[0] > hp_scores[1], hp_scores  # low-degree "happy" link beats hub "mouth" link
+    plain_scores, _ = crutch_candidate_scores(["party", "mouth"], [["happy"], ["genericword"]],
+                                              idx3, "max_trust", None)
+    assert plain_scores[0] == plain_scores[1], plain_scores  # w/o the penalty they'd tie (both TRUST_HIGH)
+
+    # ---- retrieval_use_diagnostic: a tiny synthetic dev + gap_driven rows, one CRUTCH_RESOLVED
+    # item that DID reach gold (retrieval hit, use correct) and one that reached only the wrong
+    # candidate (retrieval hit on distractor, gold unreachable -> retrieval MISS)
+    dev_syn = [
+        {"context": "There was a big party today.", "question": "How would people feel?",
+         "answerA": "happy", "answerB": "unrelated", "answerC": "sad", "label": "1"},  # gold=idx0
+        {"context": "There was a big party today.", "question": "How would people feel?",
+         "answerA": "unrelated", "answerB": "sad", "answerC": "happy", "label": "2"},  # gold=idx1=sad
+    ]
+    gap_rows_syn = [
+        {"item_idx": 0, "tag": "CRUTCH_RESOLVED", "pred_idx": 0, "driving_pair": pair_key("party", "happy")},
+        {"item_idx": 1, "tag": "CRUTCH_RESOLVED", "pred_idx": 2, "driving_pair": pair_key("party", "happy")},
+    ]
+    ru = retrieval_use_diagnostic(dev_syn, node_set, idx, gap_rows_syn, "count_weighted")
+    assert ru["n_crutch_resolved"] == 2, ru
+    assert ru["retrieval_hit_rate"] == 0.5, ru  # item0's gold(happy) reachable; item1's gold(sad) is not
+    assert ru["use_quality_given_hit"] == 1.0, ru  # item0's hit was also correctly used (pred==gold)
+
+    # ---- promote_min_exposure threading: a LOWER floor promotes with FEWER exposures than default.
+    # 4 traces = exactly MIN_CONFIRM (the bank-eligibility floor; below this an item never reaches
+    # the promotion branch at all, regardless of promote_min_exposure -- this IS the mechanism the
+    # FAULT-1 sweep measures: promote_min_exposure only binds when set ABOVE min_confirm=4).
+    lib_lo = Library()
+    store_lo = HDFactStore(n_dim=256, seed=3, use_index=True)
+    pk2 = pair_key("hunger", "food")
+    for i in range(4):
+        cvec = context_vector(f"She felt hungry and wanted food right now, moment {i}.")
+        lib_lo.flag(pk2, f"lo{i}", "POS", cvec, 0)
+    for p in range(1, 6):
+        consolidation_pass(lib_lo, p, register=False, native_store=store_lo,
+                           promote_source="selftest_lo", promote_min_exposure=4)
+    assert lib_lo.items[pk2].status == "GROUNDED_POS", lib_lo.items[pk2].status
+    hits_lo = store_lo.query(pk2, "OUTCOME_POLARITY")
+    assert hits_lo, "lowered promote_min_exposure=4 must promote a 4-trace item (default=8 would not)"
+    # same 4-trace item at the DEFAULT floor (8) must NOT promote -- confirms the param is load-bearing
+    lib_hi = Library()
+    store_hi = HDFactStore(n_dim=256, seed=4, use_index=True)
+    for i in range(4):
+        cvec = context_vector(f"She felt hungry and wanted food right now, moment {i}.")
+        lib_hi.flag(pk2, f"hi{i}", "POS", cvec, 0)
+    for p in range(1, 6):
+        consolidation_pass(lib_hi, p, register=False, native_store=store_hi, promote_source="selftest_hi")
+    hits_hi = store_hi.query(pk2, "OUTCOME_POLARITY")
+    assert not hits_hi, "default promote_min_exposure=8 must NOT promote a 4-trace item"
+
     print("[self-test] PASS: real Library/consolidation_pass/HDFactStore promotion + routing + "
-          "scramble-partner determinism all exercised", flush=True)
-    return {"promote_ok": True, "routing_ok": True, "scramble_deterministic": True}
+          "scramble-partner determinism + score_mode max_trust fix + retrieval_use_diagnostic + "
+          "promote_min_exposure threading all exercised", flush=True)
+    return {"promote_ok": True, "routing_ok": True, "scramble_deterministic": True,
+           "score_mode_fix_ok": True, "retrieval_use_diagnostic_ok": True,
+           "promote_min_exposure_threading_ok": True}
 
 
 # =====================================================================================
@@ -874,6 +1083,16 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--full", action="store_true")
     ap.add_argument("--device", default="cpu")
+    # 2026-08-10 FAULT-1/FAULT-2 diagnostic follow-up: --diag runs a custom-scale profile (not the
+    # certified --smoke/--full contract) so the promote_min_exposure sweep + score_mode A/B can be
+    # measured cheaply before committing to a FULL dispatch. Output dir is disclosed + tagged.
+    ap.add_argument("--diag", action="store_true")
+    ap.add_argument("--train-cap", type=int, default=None)
+    ap.add_argument("--dev-cap", type=int, default=None)
+    ap.add_argument("--promote-min-exposure", type=int, default=PROMOTE_MIN_EXPOSURE)
+    ap.add_argument("--score-mode", default="count_weighted",
+                    choices=["count_weighted", "max_trust", "hub_penalized"])
+    ap.add_argument("--out-tag", default="diag")
     args, _ = ap.parse_known_args()
 
     if args.self_test:
@@ -885,7 +1104,14 @@ def main():
         run(out, run_mode="smoke", train_cap=SMOKE_TRAIN_CAP, dev_cap=SMOKE_DEV_CAP)
         sys.exit(0)
 
-    run(OUTPUT_DIR_FULL, run_mode="full", train_cap=None, dev_cap=None)
+    if args.diag:
+        out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_{args.out_tag}")
+        run(out, run_mode="diag", train_cap=args.train_cap, dev_cap=args.dev_cap,
+            promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
+        sys.exit(0)
+
+    run(OUTPUT_DIR_FULL, run_mode="full", train_cap=None, dev_cap=None,
+        promote_min_exposure=args.promote_min_exposure, score_mode=args.score_mode)
     sys.exit(0)
 
 
@@ -894,6 +1120,11 @@ if __name__ == "__main__":
         _out = os.path.join(REPO_ROOT, "data", ANCHOR_NAME + "_selftest")
     elif "--smoke" in sys.argv:
         _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_smoke")
+    elif "--diag" in sys.argv:
+        _tag = "diag"
+        if "--out-tag" in sys.argv:
+            _tag = sys.argv[sys.argv.index("--out-tag") + 1]
+        _out = os.path.join(REPO_ROOT, "data", f"exp_{ANCHOR_NAME}_{_tag}")
     else:
         _out = OUTPUT_DIR_FULL
     try:
