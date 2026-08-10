@@ -1,0 +1,110 @@
+{
+  "dev": {
+    "n_steps": 1204,
+    "n_participant_paragraph_pairs": 175,
+    "majority": {
+      "majority_label": "NONE",
+      "accuracy": 0.7425249169435216,
+      "macro_f1": 0.2130600571973308,
+      "n": 1204,
+      "label_dist": {
+        "NONE": 894,
+        "MOVE": 157,
+        "CREATE": 85,
+        "DESTROY": 68
+      }
+    },
+    "content_bow_single_sentence": {
+      "accuracy": 0.7558139534883721,
+      "macro_f1": 0.4163029846699447,
+      "n": 1204,
+      "mentioned": {
+        "accuracy": 0.5023041474654378,
+        "macro_f1": 0.3927210003647591,
+        "n": 434
+      },
+      "unmentioned": {
+        "accuracy": 0.8987012987012987,
+        "macro_f1": 0.23666210670314639,
+        "n": 770
+      }
+    },
+    "bag_of_existence_paragraph_level": {
+      "ever_create": {
+        "accuracy": 0.6228571428571429,
+        "macro_f1": 0.6200657894736843,
+        "positive_rate_gold": 0.4857142857142857,
+        "n": 175
+      },
+      "ever_move": {
+        "accuracy": 0.64,
+        "macro_f1": 0.6361506220916802,
+        "positive_rate_gold": 0.5257142857142857,
+        "n": 175
+      },
+      "ever_destroy": {
+        "accuracy": 0.6114285714285714,
+        "macro_f1": 0.37943262411347517,
+        "positive_rate_gold": 0.38857142857142857,
+        "n": 175
+      }
+    }
+  },
+  "test": {
+    "n_steps": 1674,
+    "n_participant_paragraph_pairs": 236,
+    "majority": {
+      "majority_label": "NONE",
+      "accuracy": 0.7604540023894862,
+      "macro_f1": 0.21598235493722429,
+      "n": 1674,
+      "label_dist": {
+        "NONE": 1273,
+        "MOVE": 152,
+        "CREATE": 128,
+        "DESTROY": 121
+      }
+    },
+    "content_bow_single_sentence": {
+      "accuracy": 0.7658303464755077,
+      "macro_f1": 0.37650204896844913,
+      "n": 1674,
+      "mentioned": {
+        "accuracy": 0.4810810810810811,
+        "macro_f1": 0.3465253740552578,
+        "n": 555
+      },
+      "unmentioned": {
+        "accuracy": 0.9070598748882931,
+        "macro_f1": 0.23781630740393628,
+        "n": 1119
+      }
+    },
+    "bag_of_existence_paragraph_level": {
+      "ever_create": {
+        "accuracy": 0.4872881355932203,
+        "macro_f1": 0.48319609085150667,
+        "positive_rate_gold": 0.5338983050847458,
+        "n": 236
+      },
+      "ever_move": {
+        "accuracy": 0.6228813559322034,
+        "macro_f1": 0.5635713840463773,
+        "positive_rate_gold": 0.3771186440677966,
+        "n": 236
+      },
+      "ever_destroy": {
+        "accuracy": 0.4788135593220339,
+        "macro_f1": 0.3307665706051873,
+        "positive_rate_gold": 0.5042372881355932,
+        "n": 236
+      }
+    }
+  },
+  "cited_published_baseline_for_corroboration": {
+    "source": "Dalvi et al. 2018 NAACL, Table (rule-based vs ProGlobal), Cat-3 (location) sub-metric",
+    "rule_based_F1_cat3": 2.4,
+    "proglobal_cross_step_memory_F1_cat3": 35.9,
+    "note": "CITED, not re-derived here; corroborates the mentioned-vs-unmentioned collapse measured above."
+  }
+}
