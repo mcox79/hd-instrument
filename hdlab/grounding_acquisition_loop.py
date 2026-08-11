@@ -103,6 +103,17 @@ _STOPWORDS = frozenset({
 })
 
 
+def content_words(window_text: str) -> List[str]:
+    """Pure content-word extraction (2026-08-11, additive extraction of context_vector's own
+    filter -- SAME regex + stopword + length rule, byte-identical output on the same input;
+    context_vector below now calls this instead of inlining the filter, so this is a refactor,
+    not a behavior change). Exists so a caller can compare WORD IDENTITY across two texts (e.g.
+    for a concept-similarity-based coherence metric) without re-deriving the exact same
+    tokenization rule context_vector uses internally -- keeps both paths using ONE filter."""
+    return [w for w in re.findall(r"[a-z']+", window_text.lower())
+            if w not in _STOPWORDS and len(w) > 2]
+
+
 def context_vector(window_text: str, d: int = D) -> np.ndarray:
     """Deterministic bag-of-content-words bipolar bundle (Kanerva random-indexing / BEAGLE-style
     context encoding). Each content word's vector = a hashlib.sha256-seeded bipolar draw (fixed
@@ -110,8 +121,7 @@ def context_vector(window_text: str, d: int = D) -> np.ndarray:
     context = sign(sum of its content words' vectors). Deterministic, PROT-023/F.5-compliant
     (hashlib, not built-in hash()). Returns an all-zero vector if the window has no content word
     (caller must guard cosine against a zero-norm vector -- see _cos)."""
-    words = [w for w in re.findall(r"[a-z']+", window_text.lower())
-             if w not in _STOPWORDS and len(w) > 2]
+    words = content_words(window_text)
     if not words:
         return np.zeros(d, dtype=np.float64)
     acc = np.zeros(d, dtype=np.float64)
@@ -180,7 +190,9 @@ class Library:
         return True
 
 
-def schema_consistency_split_half(traces: List[Trace], min_half_size: int = 2) -> Optional[float]:
+def schema_consistency_split_half(traces: List[Trace], min_half_size: int = 2,
+                                  coherence_fn: Optional[Callable[[List[Trace], List[Trace]], float]] = None
+                                  ) -> Optional[float]:
     """Split-half context-coherence (reuses exp_confidence_gated_codebook_consolidation_v1's
     split-by-position reliability SHAPE -- there: two independent PPMI builds over disjoint token
     halves; here: two independent context-vector bundles over disjoint TRACE halves, ordered by
@@ -197,20 +209,33 @@ def schema_consistency_split_half(traces: List[Trace], min_half_size: int = 2) -
     genuinely-informative (if noisier) 1-vs-1 or 1-vs-2 split at n=2..3. This does not change the
     split-half MATH, only the minimum n at which it is computed at all.
 
-    Uses the RAW (non-sign-cleaned) sum of each half's context vectors, not the bipolar-cleaned
-    bundle context_vector() itself returns: sign-cleanup's zero-tie-break-to-+1 convention (matches
-    predictive_coding.py's own bipolar-cleanup convention) injects a systematic POSITIVE bias into
-    the cosine between any two SMALL (e.g. 2-item) independently-random bundles, since ~50% of
-    coordinates tie at 0 and both sides break the SAME direction -- confirmed empirically (self_test
-    below caught a spurious 0.36 cosine between two independent noise bundles-of-2 under sign-
-    cleanup). Cosine of the raw (uncleaned) sums has no such artifact and is the correct metric for
-    a smooth reliability signal (we are not requesting a clean concept symbol here, just a coherence
-    SCORE)."""
+    coherence_fn (2026-08-11, additive; default None preserves the exact prior raw-context-vec-
+    cosine computation byte-for-byte): when provided, called as coherence_fn(half_a, half_b) ->
+    float and used IN PLACE OF the raw cosine-of-summed-context-vectors metric below. This is the
+    hook the independence-weighted-corroboration drill's follow-on (cross-source PARAPHRASE
+    alignment) uses to swap the surface-word-overlap check for a graded, concept-similarity-based
+    coherence metric -- see experiments/exp_three_tier_loop_concept_coherence_v1.py's own
+    concept_coherence_score, which this module knows nothing about (this module stays generic;
+    it only calls whatever callable the caller supplies on the two half-lists of Trace objects).
+    The n < 2*min_half_size defer gate above is evaluated identically regardless of coherence_fn
+    (evidence-count sufficiency is orthogonal to which coherence metric computes the score).
+
+    DEFAULT METRIC (coherence_fn is None): uses the RAW (non-sign-cleaned) sum of each half's
+    context vectors, not the bipolar-cleaned bundle context_vector() itself returns: sign-cleanup's
+    zero-tie-break-to-+1 convention (matches predictive_coding.py's own bipolar-cleanup convention)
+    injects a systematic POSITIVE bias into the cosine between any two SMALL (e.g. 2-item)
+    independently-random bundles, since ~50% of coordinates tie at 0 and both sides break the SAME
+    direction -- confirmed empirically (self_test below caught a spurious 0.36 cosine between two
+    independent noise bundles-of-2 under sign-cleanup). Cosine of the raw (uncleaned) sums has no
+    such artifact and is the correct metric for a smooth reliability signal (we are not requesting
+    a clean concept symbol here, just a coherence SCORE)."""
     n = len(traces)
     if n < 2 * min_half_size:
         return None
     half = n // 2
     a, b = traces[:half], traces[half:]
+    if coherence_fn is not None:
+        return float(coherence_fn(a, b))
     va = np.sum([t.context_vec for t in a], axis=0)
     vb = np.sum([t.context_vec for t in b], axis=0)
     return _cos(va, vb)
@@ -254,7 +279,9 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                         promote_relation: str = PROMOTE_RELATION,
                         promote_source: str = "grounding_acquisition_loop",
                         trace_weight_fn: Optional[Callable[[List[Trace]], float]] = None,
-                        schema_min_half_size: int = 2) -> dict:
+                        schema_min_half_size: int = 2,
+                        coherence_fn: Optional[Callable[[List[Trace], List[Trace]], float]] = None
+                        ) -> dict:
     """One offline 'sleep' pass over the WHOLE library (Diekelmann & Born: offline, separate from
     the reading/FLAG pass). For each PENDING item with >= min_confirm traces:
       1. mark first_min_confirm_pass on the FIRST pass this threshold is reached (if not yet set).
@@ -306,6 +333,13 @@ def consolidation_pass(library: Library, pass_idx: int, *,
     SEPARATE, still-mandatory condition; trace_weight_fn only changes what counts as "enough
     evidence to be schema-scored at all," never bypasses the schema check itself.
 
+    coherence_fn (2026-08-11, optional, additive -- default None preserves the exact prior
+    raw-context-vec-cosine schema-coherence metric byte-for-byte): threads through UNCHANGED to
+    schema_consistency_split_half's own coherence_fn parameter (see that function's docstring).
+    Lets a caller replace the surface-word-overlap coherence check with a graded, meaning-based
+    one (e.g. concept_similarity-based) without this module knowing anything about words or
+    concepts -- same "organ stays generic" discipline as trace_weight_fn above.
+
     Returns a per-pass report dict; mutates `library` in place."""
     newly_grounded = {"POS": [], "NEG": [], "NEUTRAL": []}
     newly_escalated: List[str] = []
@@ -322,7 +356,8 @@ def consolidation_pass(library: Library, pass_idx: int, *,
             it.first_min_confirm_pass = pass_idx
         if pass_idx <= it.first_min_confirm_pass:
             continue  # mandatory intervening-pass wait; not a failure, no patience cost
-        schema_score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size)
+        schema_score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size,
+                                                     coherence_fn=coherence_fn)
         if schema_score is None:
             continue  # insufficient evidence for a split yet (should not occur once n>=MIN_CONFIRM=4,
                        # but defensive: defer, no patience cost -- not-enough-evidence is not a guard
@@ -404,6 +439,27 @@ def self_test() -> dict:
         f"independent-random-noise traces must split-half near cos=0.0, got {scrambled_score}")
     assert coherent_score > scrambled_score + 0.3, "discriminant-validity: coherent must clear scrambled"
     assert schema_consistency_split_half(coherent_traces[:3]) is None, "n=3 (<4) must defer (None), not score"
+
+    # (2b) coherence_fn (2026-08-11, additive): default None reproduces the raw-cosine metric
+    # byte-for-byte (regression check); a caller-supplied function is ACTUALLY consulted (proves
+    # threading is load-bearing, not silently ignored -- same convention as prelim_tier's own
+    # "caller-supplied functions are ACTUALLY used" check).
+    default_score = schema_consistency_split_half(coherent_traces, coherence_fn=None)
+    assert default_score == coherent_score, (
+        f"coherence_fn=None must reproduce the default cosine metric byte-for-byte, got "
+        f"{default_score} vs {coherent_score}")
+    sentinel_calls = []
+
+    def _sentinel_coherence_fn(a, b):
+        sentinel_calls.append((len(a), len(b)))
+        return 0.777
+
+    swapped_score = schema_consistency_split_half(coherent_traces, coherence_fn=_sentinel_coherence_fn)
+    assert swapped_score == 0.777, (
+        f"COHERENCE_FN NOT LOAD-BEARING: a caller-supplied coherence_fn must override the default "
+        f"metric, got {swapped_score}")
+    assert len(sentinel_calls) == 1 and sentinel_calls[0] == (2, 2), (
+        f"coherence_fn must be called exactly once with the two half-lists, got {sentinel_calls}")
 
     # (3) Library.flag: appends + terminal no-op.
     lib = Library()

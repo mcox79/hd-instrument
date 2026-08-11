@@ -52,6 +52,7 @@ from __future__ import annotations
 
 from typing import Callable, Dict, List, Optional, Set
 
+import numpy as np
 import torch
 
 from hdlab.grounding_acquisition_loop import (
@@ -144,7 +145,9 @@ def update_prelim_and_generalize(state: TierState,
                                  hub_score_fn: Optional[Callable[[str], float]] = None,
                                  hub_score_thresh: float = float("inf"),
                                  trace_weight_fn: Optional[Callable[[List[Trace]], float]] = None,
-                                 schema_min_half_size: int = 2) -> dict:
+                                 schema_min_half_size: int = 2,
+                                 coherence_fn: Optional[Callable[[List[Trace], List[Trace]], float]] = None
+                                 ) -> dict:
     """One checkpoint's PRELIM-retain + CA3/DG cluster-registration + combined-evidence-promotion
     pass. Reuses schema_consistency_split_half / _vote_margin (grounding_acquisition_loop, byte-
     identical to the single-item BANK gate) and ScriptLibrary.match_or_spawn / build_instance_
@@ -176,6 +179,14 @@ def update_prelim_and_generalize(state: TierState,
         unchanged (default 2 preserves the prior n<4->None floor; a caller lowering min_confirm
         below 4 via trace_weight_fn should also consider lowering this, else the schema-coherence
         guard becomes the new binding floor -- see that function's own docstring).
+    coherence_fn(half_a_traces, half_b_traces) -> float, optional (2026-08-11, additive; default
+        None preserves the exact prior raw-context-vec-cosine RETAIN-gate schema check byte-for-
+        byte): threads through UNCHANGED to schema_consistency_split_half's own coherence_fn
+        parameter -- lets a caller replace the surface-word-overlap coherence check (the SAME
+        second floor trace_weight_fn's own docstring above names) with a graded, meaning-based
+        metric (e.g. concept_similarity-based cross-source paraphrase alignment) without this
+        module knowing anything about words or concepts, same "organ stays generic" discipline as
+        every other caller-supplied hook in this module.
 
     Returns a per-pass report dict; mutates `state` in place. Field names match the source cell's
     own tier_diag_log entries exactly (newly_retained, n_hub_excluded, n_prelim_pending_items,
@@ -192,7 +203,8 @@ def update_prelim_and_generalize(state: TierState,
         if hub_score_fn is not None and hub_score_fn(pk) > hub_score_thresh:
             n_hub_excluded += 1
             continue
-        score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size)
+        score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size,
+                                              coherence_fn=coherence_fn)
         if score is None or score < schema_thresh:
             continue
         margin, pos, neg = _vote_margin(it.traces)
@@ -425,10 +437,46 @@ def self_test() -> dict:
         f"caller-supplied function drives clustering), got {len(cluster_ids)} clusters: "
         f"{state7.pk_cluster}")
 
+    # (7) coherence_fn (2026-08-11, additive): a caller-supplied coherence function must be
+    # ACTUALLY consulted by the RETAIN gate (not silently ignored) -- a sentinel function that
+    # always returns a score BELOW schema_thresh must block retain even though the default
+    # (raw-cosine) metric on the SAME identical-context traces would retain; and a sentinel that
+    # always returns a score ABOVE schema_thresh must retain even on genuinely-incoherent
+    # (independent-random) context, proving the module no longer computes its own cosine at all
+    # once coherence_fn is supplied (load-bearing, same convention as check (6) above).
+    state8 = TierState(seed_base=1100)
+    pk_coh = default_pair_key("boat", "fix")
+    for i in range(5):
+        cvec = context_vector(f"Owen wanted to fix the boat before the trip departed, day {i}.")
+        state8.prelim_lib.flag(pk_coh, f"c{i}", "POS", cvec, 0)
+    diag_blocked = update_prelim_and_generalize(state8, cluster_key_fn, novelty_thresh=0.15,
+                                                coherence_fn=lambda a, b: 0.0)
+    assert diag_blocked["newly_retained"] == 0, (
+        f"coherence_fn returning a below-threshold score must block retain even on real coherent "
+        f"context, got {diag_blocked}")
+    assert state8.prelim_store.query(pk_coh, "OUTCOME_POLARITY") == [], (
+        "coherence_fn=always-0.0 must prevent retain regardless of the default cosine metric")
+
+    state9 = TierState(seed_base=1200)
+    pk_incoh = default_pair_key("wagon", "fix")
+    rng9 = np.random.default_rng(3)
+    for i in range(5):
+        cvec = rng9.choice([-1.0, 1.0], size=256)  # independent random noise -- genuinely incoherent
+        state9.prelim_lib.flag(pk_incoh, f"n{i}", "POS", cvec, 0)
+    diag_forced = update_prelim_and_generalize(state9, cluster_key_fn, novelty_thresh=0.15,
+                                               coherence_fn=lambda a, b: 0.999)
+    assert diag_forced["newly_retained"] == 1, (
+        f"coherence_fn returning an above-threshold score must retain even on genuinely-incoherent "
+        f"(independent-random) context -- proves the module computes NO cosine of its own once "
+        f"coherence_fn is supplied, got {diag_forced}")
+    assert state9.prelim_store.query(pk_incoh, "OUTCOME_POLARITY") != [], (
+        "coherence_fn=always-0.999 must force retain on incoherent context (load-bearing proof)")
+
     print("[self-test] PASS: real Library/HDFactStore/ScriptLibrary objects exercised; "
           "retain-forever + re-encounter-pull + combined-evidence-promotion + fidelity-guard + "
-          "generalized hub-exclusion + caller-supplied-cluster_key_fn-is-load-bearing all "
-          "reproduced from experiments/exp_crutch_fade_social_iqa_v1.py's own fixtures", flush=True)
+          "generalized hub-exclusion + caller-supplied-cluster_key_fn-is-load-bearing + "
+          "caller-supplied-coherence_fn-is-load-bearing all reproduced from "
+          "experiments/exp_crutch_fade_social_iqa_v1.py's own fixtures", flush=True)
     return {
         "retain_ok": True,
         "retain_forever_pending_ok": True,
@@ -437,6 +485,7 @@ def self_test() -> dict:
         "fidelity_guard_ok": True,
         "hub_exclusion_generalized_ok": True,
         "cluster_key_fn_load_bearing_ok": True,
+        "coherence_fn_load_bearing_ok": True,
     }
 
 

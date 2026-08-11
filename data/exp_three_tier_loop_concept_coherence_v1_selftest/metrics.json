@@ -1,0 +1,49 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "regression: grounding_acquisition_loop.self_test() and prelim_tier.self_test() both pass unchanged after the additive coherence_fn edits; closed-form concept-coherence boundary proofs pass (real paraphrase pair coheres, cross-domain/wrong-material distinct-fact pairs rejected, OOV-both-sides -> 0.0); real-pipeline control checks pass (paraphrase pair retains WITH concept coherence and does NOT retain WITHOUT it; distinct-fact pair never retains) -- the mechanism works correctly before touching real data",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.22805320005863905,
+  "ts_iso": "2026-08-11T21:23:00.883790+00:00",
+  "anchor_name": "three_tier_loop_concept_coherence_v1",
+  "run_mode": "self_test",
+  "result": {
+    "grounding_acquisition_loop_regression_ok": true,
+    "prelim_tier_regression_ok": true,
+    "leaf_oxygen_paraphrase_ok": true,
+    "leaf_oxygen_score": 0.8,
+    "oov_both_sides_zero_ok": true,
+    "control_checks": {
+      "closed_form_ok": true,
+      "real_pipeline_ok": true,
+      "paraphrase_new_score": 0.6667,
+      "paraphrase_old_score": 0.0781,
+      "cross_domain_neg_score": 0.0,
+      "wrong_material_neg_score": 0.0,
+      "real_pipeline_pos_retained_with_concept": true,
+      "real_pipeline_pos_retained_with_old": false,
+      "real_pipeline_neg_retained": false,
+      "control_check_ok": true
+    },
+    "gal_self_test": {
+      "context_vector_deterministic": true,
+      "schema_metric_discriminant_valid": true,
+      "coherent_score": 1.0,
+      "scrambled_score": 0.108,
+      "intervening_pass_rule_ok": true,
+      "guard_rejects_scrambled_context_ok": true,
+      "real_credit_window_exercised": true,
+      "native_promotion_connector_ok": true,
+      "native_promotion_guard_holds_ok": true
+    },
+    "pt_self_test": {
+      "retain_ok": true,
+      "retain_forever_pending_ok": true,
+      "pull_ok": true,
+      "combined_evidence_promotion_ok": true,
+      "fidelity_guard_ok": true,
+      "hub_exclusion_generalized_ok": true,
+      "cluster_key_fn_load_bearing_ok": true,
+      "coherence_fn_load_bearing_ok": true
+    }
+  }
+}

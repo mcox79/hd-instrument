@@ -1,0 +1,535 @@
+{
+  "verdict": "HARD_FAIL_controls_broken",
+  "verdict_msg": "one or more mandatory can-fail controls FAILED: control_check_ok=True no_leak_ok=True reference_reproduces_prior=True scramble_collapses=False positive_control_ok=True n_regressed=0 baseline_reproduces_parent=True -- the concept-coherence fix cannot be trusted until every control passes",
+  "summary": "one or more mandatory can-fail controls FAILED: control_check_ok=True no_leak_ok=True reference_reproduces_prior=True scramble_collapses=False positive_control_ok=True n_regressed=0 baseline_reproduces_parent=True -- the concept-coherence fix cannot be trusted until every control passes",
+  "elapsed_s": 55.95328460005112,
+  "ts_iso": "2026-08-11T21:25:47.476162+00:00",
+  "anchor_name": "three_tier_loop_concept_coherence_v1",
+  "run_mode": "full",
+  "process_filter": "ALL",
+  "n_ent": 4946,
+  "n_targets": 121,
+  "n_eligible": 62,
+  "n_eligible_scramble": 5,
+  "positive_control_arm3_reproduction": 0.39669421487603307,
+  "positive_control_ok": true,
+  "novelty_thresh": 0.44120909497141836,
+  "calibration_fallback": false,
+  "concept_metric": {
+    "CONCEPT_MATCH_THRESHOLD": 0.5,
+    "SCHEMA_THRESH": 0.1,
+    "reused_from": "hdlab.lexical_similarity.SIMILARITY_LINK_THRESHOLD"
+  },
+  "coverage_histogram_eligible": {
+    "1": 26,
+    "2": 28,
+    "3": 8
+  },
+  "closed_form_schema_audit": {
+    "n_gaps_2plus": 36,
+    "n_old_cross": 15,
+    "n_new_cross": 36,
+    "n_newly_crossing": 21,
+    "n_regressed": 0
+  },
+  "closed_form_schema_audit_rows_sample": [
+    {
+      "pk": "electricity_generation||energy||light::CREATE",
+      "n_sources": 3,
+      "old_score": 0.2007,
+      "new_score": 0.6667,
+      "old_crosses": true,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||energy||light::MOVE",
+      "n_sources": 3,
+      "old_score": 0.2007,
+      "new_score": 0.6667,
+      "old_crosses": true,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||lettuce::CREATE",
+      "n_sources": 2,
+      "old_score": 0.0938,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||pee::CREATE",
+      "n_sources": 2,
+      "old_score": 0.0312,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||person::CREATE",
+      "n_sources": 2,
+      "old_score": 0.0391,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||rain::CREATE",
+      "n_sources": 3,
+      "old_score": 0.1512,
+      "new_score": 0.6667,
+      "old_crosses": true,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||soup::CREATE",
+      "n_sources": 2,
+      "old_score": 0.0547,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||lettuce::MOVE",
+      "n_sources": 2,
+      "old_score": 0.0938,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||pee::MOVE",
+      "n_sources": 2,
+      "old_score": 0.0312,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    },
+    {
+      "pk": "electricity_generation||water||person::MOVE",
+      "n_sources": 2,
+      "old_score": 0.0391,
+      "new_score": 0.6667,
+      "old_crosses": false,
+      "new_crosses": true
+    }
+  ],
+  "control_checks": {
+    "closed_form_ok": true,
+    "real_pipeline_ok": true,
+    "paraphrase_new_score": 0.6667,
+    "paraphrase_old_score": 0.0781,
+    "cross_domain_neg_score": 0.0,
+    "wrong_material_neg_score": 0.0,
+    "real_pipeline_pos_retained_with_concept": true,
+    "real_pipeline_pos_retained_with_old": false,
+    "real_pipeline_neg_retained": false,
+    "control_check_ok": true
+  },
+  "n_waves": 3,
+  "r_visits": 6,
+  "arm_results": {
+    "W_baseline": {
+      "arm_name": "W_baseline",
+      "n_targets": 62,
+      "n_eligible": 62,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 10,
+          "n_total_resolved": 10,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 2,
+          "n_newly_retained_this_pass": 10,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": [
+            "electricity_generation||energy||light::CREATE",
+            "electricity_generation||energy||light::MOVE",
+            "electricity_generation||water||rain::CREATE",
+            "electricity_generation||water||rain::MOVE",
+            "erosion_weathering||water||rain::MOVE",
+            "hydrocarbon_formation||energy||light::CREATE",
+            "photosynthesis||energy||light::CREATE",
+            "photosynthesis||energy||light::DESTROY",
+            "photosynthesis||water||rain::DESTROY",
+            "respiration||energy||light::CREATE"
+          ]
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 15,
+          "n_total_resolved": 15,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_newly_retained_this_pass": 5,
+          "n_banked_pos_this_pass": 10,
+          "resolved_pks": [
+            "electricity_generation||energy||light::CREATE",
+            "electricity_generation||energy||light::MOVE",
+            "electricity_generation||water||rain::CREATE",
+            "electricity_generation||water||rain::MOVE",
+            "erosion_weathering||rock||moon::MOVE",
+            "erosion_weathering||water||rain::MOVE",
+            "hydrocarbon_formation||energy||light::CREATE",
+            "igneous_rock_cycle||rock||moon::CREATE",
+            "photosynthesis||energy||light::CREATE",
+            "photosynthesis||energy||light::DESTROY",
+            "photosynthesis||water||lettuce::DESTROY",
+            "photosynthesis||water||pee::DESTROY",
+            "photosynthesis||water||rain::DESTROY",
+            "respiration||energy||light::CREATE",
+            "sedimentation||rock||moon::CREATE"
+          ]
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 15,
+        "n_total_resolved": 15,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 3,
+        "n_newly_retained_this_pass": 5,
+        "n_banked_pos_this_pass": 10,
+        "resolved_pks": [
+          "electricity_generation||energy||light::CREATE",
+          "electricity_generation||energy||light::MOVE",
+          "electricity_generation||water||rain::CREATE",
+          "electricity_generation||water||rain::MOVE",
+          "erosion_weathering||rock||moon::MOVE",
+          "erosion_weathering||water||rain::MOVE",
+          "hydrocarbon_formation||energy||light::CREATE",
+          "igneous_rock_cycle||rock||moon::CREATE",
+          "photosynthesis||energy||light::CREATE",
+          "photosynthesis||energy||light::DESTROY",
+          "photosynthesis||water||lettuce::DESTROY",
+          "photosynthesis||water||pee::DESTROY",
+          "photosynthesis||water||rain::DESTROY",
+          "respiration||energy||light::CREATE",
+          "sedimentation||rock||moon::CREATE"
+        ]
+      },
+      "use_concept_coherence": false
+    },
+    "W_concept": {
+      "arm_name": "W_concept",
+      "n_targets": 62,
+      "n_eligible": 62,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 12,
+          "n_total_resolved": 12,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 2,
+          "n_newly_retained_this_pass": 12,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": [
+            "electricity_generation||energy||light::CREATE",
+            "electricity_generation||energy||light::MOVE",
+            "electricity_generation||water||rain::CREATE",
+            "electricity_generation||water||rain::MOVE",
+            "erosion_weathering||water||rain::MOVE",
+            "hydrocarbon_formation||energy||light::CREATE",
+            "photosynthesis||energy||light::CREATE",
+            "photosynthesis||energy||light::DESTROY",
+            "photosynthesis||oxygen||adenozine::CREATE",
+            "photosynthesis||oxygen||water::CREATE",
+            "photosynthesis||water||rain::DESTROY",
+            "respiration||energy||light::CREATE"
+          ]
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 36,
+          "n_total_resolved": 36,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 6,
+          "n_newly_retained_this_pass": 24,
+          "n_banked_pos_this_pass": 12,
+          "resolved_pks": [
+            "electricity_generation||energy||light::CREATE",
+            "electricity_generation||energy||light::MOVE",
+            "electricity_generation||water||lettuce::CREATE",
+            "electricity_generation||water||lettuce::MOVE",
+            "electricity_generation||water||pee::CREATE",
+            "electricity_generation||water||pee::MOVE",
+            "electricity_generation||water||person::CREATE",
+            "electricity_generation||water||person::MOVE",
+            "electricity_generation||water||rain::CREATE",
+            "electricity_generation||water||rain::MOVE",
+            "electricity_generation||water||soup::CREATE",
+            "electricity_generation||water||soup::MOVE",
+            "erosion_weathering||rock||moon::MOVE",
+            "erosion_weathering||rock||pluto::MOVE",
+            "erosion_weathering||water||rain::MOVE",
+            "hydrocarbon_formation||energy||light::CREATE",
+            "igneous_rock_cycle||lava||lava_lake::CREATE",
+            "igneous_rock_cycle||lava||lava_lake::MOVE",
+            "igneous_rock_cycle||lava||volcano::MOVE",
+            "igneous_rock_cycle||rock||moon::CREATE",
+            "igneous_rock_cycle||rock||pluto::CREATE",
+            "photosynthesis||energy||light::CREATE",
+            "photosynthesis||energy||light::DESTROY",
+            "photosynthesis||oxygen||adenozine::CREATE",
+            "photosynthesis||oxygen||water::CREATE",
+            "photosynthesis||sugar||cotton_candy::CREATE",
+            "photosynthesis||sugar||jelly_beans::CREATE",
+            "photosynthesis||sugar||pepsi::CREATE",
+            "photosynthesis||water||lettuce::DESTROY",
+            "photosynthesis||water||pee::DESTROY",
+            "photosynthesis||water||person::DESTROY",
+            "photosynthesis||water||rain::DESTROY",
+            "photosynthesis||water||soup::DESTROY",
+            "respiration||energy||light::CREATE",
+            "sedimentation||rock||moon::CREATE",
+            "sedimentation||rock||pluto::CREATE"
+          ]
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 36,
+        "n_total_resolved": 36,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 6,
+        "n_newly_retained_this_pass": 24,
+        "n_banked_pos_this_pass": 12,
+        "resolved_pks": [
+          "electricity_generation||energy||light::CREATE",
+          "electricity_generation||energy||light::MOVE",
+          "electricity_generation||water||lettuce::CREATE",
+          "electricity_generation||water||lettuce::MOVE",
+          "electricity_generation||water||pee::CREATE",
+          "electricity_generation||water||pee::MOVE",
+          "electricity_generation||water||person::CREATE",
+          "electricity_generation||water||person::MOVE",
+          "electricity_generation||water||rain::CREATE",
+          "electricity_generation||water||rain::MOVE",
+          "electricity_generation||water||soup::CREATE",
+          "electricity_generation||water||soup::MOVE",
+          "erosion_weathering||rock||moon::MOVE",
+          "erosion_weathering||rock||pluto::MOVE",
+          "erosion_weathering||water||rain::MOVE",
+          "hydrocarbon_formation||energy||light::CREATE",
+          "igneous_rock_cycle||lava||lava_lake::CREATE",
+          "igneous_rock_cycle||lava||lava_lake::MOVE",
+          "igneous_rock_cycle||lava||volcano::MOVE",
+          "igneous_rock_cycle||rock||moon::CREATE",
+          "igneous_rock_cycle||rock||pluto::CREATE",
+          "photosynthesis||energy||light::CREATE",
+          "photosynthesis||energy||light::DESTROY",
+          "photosynthesis||oxygen||adenozine::CREATE",
+          "photosynthesis||oxygen||water::CREATE",
+          "photosynthesis||sugar||cotton_candy::CREATE",
+          "photosynthesis||sugar||jelly_beans::CREATE",
+          "photosynthesis||sugar||pepsi::CREATE",
+          "photosynthesis||water||lettuce::DESTROY",
+          "photosynthesis||water||pee::DESTROY",
+          "photosynthesis||water||person::DESTROY",
+          "photosynthesis||water||rain::DESTROY",
+          "photosynthesis||water||soup::DESTROY",
+          "respiration||energy||light::CREATE",
+          "sedimentation||rock||moon::CREATE",
+          "sedimentation||rock||pluto::CREATE"
+        ]
+      },
+      "use_concept_coherence": true
+    },
+    "W_scramble": {
+      "arm_name": "W_scramble",
+      "n_targets": 5,
+      "n_eligible": 5,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 2,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": [
+            "igneous_rock_cycle||lava||lava_lake::CREATE",
+            "igneous_rock_cycle||lava||lava_lake::MOVE"
+          ]
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 2,
+        "n_total_resolved": 2,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_newly_retained_this_pass": 2,
+        "n_banked_pos_this_pass": 0,
+        "resolved_pks": [
+          "igneous_rock_cycle||lava||lava_lake::CREATE",
+          "igneous_rock_cycle||lava||lava_lake::MOVE"
+        ]
+      },
+      "use_concept_coherence": true
+    },
+    "R_reference": {
+      "arm_name": "R_reference",
+      "ablation_mode": "full",
+      "n_targets": 121,
+      "n_eligible": 62,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 59
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 8
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 23,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 46
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 40,
+          "n_middle": 22,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 40,
+        "n_middle": 22,
+        "n_total_resolved": 62,
+        "n_combined_promoted_this_pass": 10,
+        "n_clusters_eligible_size": 6,
+        "n_banked_pos_this_pass": 0
+      }
+    }
+  },
+  "concept_gate_discriminates": true,
+  "eligible_2plus_count": 36,
+  "blocked_count": 21,
+  "newly_retained_count": 21,
+  "regressed_count": 0,
+  "newly_retained_fraction": 1.0,
+  "end_to_end_retain_ok": true,
+  "scramble_collapses": false,
+  "no_leak_ok": true,
+  "reference_reproduces_prior": true,
+  "baseline_reproduces_parent": true,
+  "controls_ok": false,
+  "cardinality_ok": true,
+  "arm_curve_digests": {
+    "W_baseline": "2bee3e780f2409d69dfae125a4c24765d2c32f955e0cf041142bf98693bf10dd",
+    "W_concept": "05d8e0bc4d79b4c8c33e825361fe8cf27649b5211c3e9792893dd91d7bfecc8a",
+    "W_scramble": "7b6b0031a4e652049f5952fa4291a3286a1e01895f3adedb1ee99577632d51d6",
+    "R_reference": "ed9a715b1dfa2d654087f64c04d449f3893f4ba1193b7fc99c8ca8832274b76a"
+  },
+  "arms_differ_baseline_vs_concept_ok": true,
+  "arms_differ_concept_vs_reference_ok": true,
+  "arms_differ_concept_vs_scramble_ok": true,
+  "bands": {
+    "schema_thresh": 0.1,
+    "concept_match_threshold": 0.5,
+    "end_to_end_retain_fraction_floor": 0.3,
+    "reference_tolerance_abs": 15,
+    "reference_cited_n_foundation": 40,
+    "positive_control_tolerance": 0.1,
+    "baseline_cited_n_middle": 15
+  }
+}
