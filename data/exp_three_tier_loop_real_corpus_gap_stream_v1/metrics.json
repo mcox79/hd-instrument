@@ -1,0 +1,346 @@
+{
+  "verdict": "HARD_PASS_three_tier_dynamics_load_bearing_on_real_data",
+  "verdict_msg": "delta_B_frac=1.0000 (>=0.50, middle-db load-bearing); delta_C_foundation_frac=0.6452 (>=0.30, sweep load-bearing); controls clean (scramble=5 vs real=62, no_leak=True, arms_differ=True)",
+  "summary": "delta_B_frac=1.0000 (>=0.50, middle-db load-bearing); delta_C_foundation_frac=0.6452 (>=0.30, sweep load-bearing); controls clean (scramble=5 vs real=62, no_leak=True, arms_differ=True)",
+  "elapsed_s": 18.69124339998234,
+  "ts_iso": "2026-08-11T19:25:30.007154+00:00",
+  "anchor_name": "three_tier_loop_real_corpus_gap_stream_v1",
+  "run_mode": "full",
+  "process_filter": "ALL",
+  "n_ent": 4946,
+  "n_targets": 121,
+  "n_eligible": 62,
+  "gather_coverage": 1.0,
+  "positive_control_arm3_reproduction": 0.39669421487603307,
+  "positive_control_ok": true,
+  "positive_control_cited_prior": 0.3802,
+  "novelty_thresh": 0.44120909497141836,
+  "calibration_fallback": false,
+  "visits_per_gap": 6,
+  "arm_results": {
+    "A_full": {
+      "arm_name": "A_full",
+      "ablation_mode": "full",
+      "n_targets": 121,
+      "n_eligible": 62,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 59
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 8
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 23,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 46
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 40,
+          "n_middle": 22,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 40,
+        "n_middle": 22,
+        "n_total_resolved": 62,
+        "n_combined_promoted_this_pass": 10,
+        "n_clusters_eligible_size": 6,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "B_no_middle": {
+      "arm_name": "B_no_middle",
+      "ablation_mode": "no_middle",
+      "n_targets": 121,
+      "n_eligible": 62,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 59
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 8
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 46
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "C_no_sweep": {
+      "arm_name": "C_no_sweep",
+      "ablation_mode": "no_sweep",
+      "n_targets": 121,
+      "n_eligible": 62,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 59
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 8
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 0,
+          "n_middle": 62,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 23,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 0,
+          "n_middle": 62,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 46
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 0,
+          "n_middle": 62,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 0,
+        "n_middle": 62,
+        "n_total_resolved": 62,
+        "n_combined_promoted_this_pass": 10,
+        "n_clusters_eligible_size": 6,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "A_scramble_control": {
+      "arm_name": "A_scramble_control",
+      "ablation_mode": "full",
+      "n_targets": 121,
+      "n_eligible": 5,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 116
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 1
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 0,
+          "n_middle": 5,
+          "n_total_resolved": 5,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 0,
+          "n_middle": 5,
+          "n_total_resolved": 5,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 3
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 0,
+          "n_middle": 5,
+          "n_total_resolved": 5,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 0,
+        "n_middle": 5,
+        "n_total_resolved": 5,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      }
+    }
+  },
+  "delta_b_frac": 1.0,
+  "delta_c_foundation_frac": 0.6451612903225806,
+  "scramble_resolved_final": 5,
+  "scramble_clean": true,
+  "no_leak_ok": true,
+  "arms_differ_ok": true,
+  "c_middle_matches_a_middle": false,
+  "cardinality_ok": true,
+  "arm_curve_digests": {
+    "A_full": "ed9a715b1dfa2d654087f64c04d449f3893f4ba1193b7fc99c8ca8832274b76a",
+    "B_no_middle": "ec18cb84869b03d7be17d95bc38664179b49b25aba084d16086c9789c82097cc",
+    "C_no_sweep": "ce7a04f5553286fbdbf03149130ed0ec3c16b02011ad30ce4d8eecbf8792b871"
+  },
+  "bands": {
+    "hard_pass_delta_b_min": 0.5,
+    "hard_pass_delta_c_foundation_min": 0.3,
+    "hard_fail_delta_b_floor": 0.1,
+    "hard_fail_delta_c_foundation_floor": 0.05,
+    "positive_control_tolerance": 0.1
+  }
+}
