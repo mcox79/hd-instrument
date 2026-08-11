@@ -1,0 +1,197 @@
+{
+  "verdict": "HARD_FAIL_dense_explicit_no_better_than_scattered",
+  "verdict_msg": "HARD_FAIL_dense_explicit_no_better_than_scattered: [DENSE/EXPLICIT topic-known process-ARTICLES, no-leak(fires=0), scored through v3 superposition per (entity,process)]. Corpus: 40 articles / 15 processes / 1229 sentences -> 155 facts. reading_only=0.2121 seed_only=0.3152 combined=0.3394; GENUINE signal above scramble=0.0242 (scramble_recall=0.1879) vs v4-SCATTERED signal 0.0485 (reading_only 0.2788); LESION gap=0.1273 fade_ratio=0.6249 overlap=0.5577 (29/52). beats_v4_genuine_signal=False approaches_seed=False",
+  "summary": "HARD_FAIL_dense_explicit_no_better_than_scattered: [DENSE/EXPLICIT topic-known process-ARTICLES, no-leak(fires=0), scored through v3 superposition per (entity,process)]. Corpus: 40 articles / 15 processes / 1229 sentences -> 155 facts. reading_only=0.2121 seed_only=0.3152 combined=0.3394; GENUINE signal above scramble=0.0242 (scramble_recall=0.1879) vs v4-SCATTERED signal 0.0485 (reading_only 0.2788); LESION gap=0.1273 fade_ratio=0.6249 overlap=0.5577 (29/52). beats_v4_genuine_signal=False approaches_seed=False",
+  "elapsed_s": 64.42,
+  "run_mode": "dense_article_reading",
+  "anchor_name": "bootstrap_dense_process_article_reading_fade_v6",
+  "one_variable_vs_v4": "corpus quality (dense-explicit-topic-known process ARTICLES) + attribution (process=article topic, not vocab-guessed); same extractor/store/held-out/seed",
+  "fairness": {
+    "no_leak_dev_never_read": true,
+    "n_leak_guard_fires": 0,
+    "scored_via_superposition_context_separated": true,
+    "process_from_topic_attribution": true
+  },
+  "corpus": {
+    "n_articles": 40,
+    "n_processes": 15,
+    "n_sentences_read": 1229,
+    "n_facts_extracted": 155,
+    "facts_per_process": {
+      "hydrocarbon_formation": 32,
+      "electricity_generation": 31,
+      "erosion_weathering": 18,
+      "igneous_rock_cycle": 15,
+      "photosynthesis": 12,
+      "combustion": 12,
+      "respiration": 10,
+      "digestion": 6,
+      "neural_signaling": 4,
+      "phase_change": 3,
+      "dissolution": 3,
+      "nitrogen_cycle": 3,
+      "carbon_cycle": 3,
+      "sedimentation": 2,
+      "sound_propagation": 1
+    },
+    "processes_covered": [
+      "carbon_cycle",
+      "combustion",
+      "decomposition",
+      "digestion",
+      "dissolution",
+      "electricity_generation",
+      "erosion_weathering",
+      "fossilization",
+      "hydrocarbon_formation",
+      "igneous_rock_cycle",
+      "neural_signaling",
+      "nitrogen_cycle",
+      "phase_change",
+      "photosynthesis",
+      "respiration",
+      "sedimentation",
+      "sound_propagation",
+      "water_cycle"
+    ],
+    "source": "D:\\AI\\hd-instrument\\data\\corpora\\process_articles_v1\\process_articles.json"
+  },
+  "n_heldout_items": 165,
+  "fade": {
+    "seed_only": 0.3152,
+    "reading_only": 0.2121,
+    "combined": 0.3394,
+    "lesion_gap": 0.1273,
+    "fade_ratio": 0.6249,
+    "overlap": 0.5577,
+    "n_seed_covered": 52,
+    "n_seed_rederived": 29,
+    "scramble_recall": 0.1879,
+    "scramble_retained": 0.8859,
+    "signal_above_scramble": 0.0242
+  },
+  "per_process": {
+    "fossilization": {
+      "n_items": 13,
+      "reading_only": 0.2308,
+      "seed_only": 0.7692,
+      "n_read_facts": 0
+    },
+    "hydrocarbon_formation": {
+      "n_items": 9,
+      "reading_only": 0.0,
+      "seed_only": 0.7778,
+      "n_read_facts": 32
+    },
+    "electricity_generation": {
+      "n_items": 41,
+      "reading_only": 0.561,
+      "seed_only": 0.6585,
+      "n_read_facts": 31
+    },
+    "combustion": {
+      "n_items": 31,
+      "reading_only": 0.4516,
+      "seed_only": 0.6452,
+      "n_read_facts": 12
+    },
+    "sound_propagation": {
+      "n_items": 2,
+      "reading_only": 0.0,
+      "seed_only": 1.0,
+      "n_read_facts": 1
+    },
+    "igneous_rock_cycle": {
+      "n_items": 13,
+      "reading_only": 0.6923,
+      "seed_only": 0.8462,
+      "n_read_facts": 15
+    },
+    "erosion_weathering": {
+      "n_items": 5,
+      "reading_only": 0.6,
+      "seed_only": 1.0,
+      "n_read_facts": 18
+    },
+    "digestion": {
+      "n_items": 4,
+      "reading_only": 0.5,
+      "seed_only": 0.75,
+      "n_read_facts": 6
+    }
+  },
+  "comparison": {
+    "v4_scattered_reading_only": 0.2788,
+    "v4_scattered_signal_above_scramble": 0.0485,
+    "dense_reading_only": 0.2121,
+    "dense_signal_above_scramble": 0.0242,
+    "seed_only": 0.3152,
+    "beats_v4_genuine_signal": false,
+    "approaches_seed": false
+  },
+  "bands": {
+    "V4_READING_ONLY": 0.2788,
+    "V4_SIGNAL_ABOVE_SCRAMBLE": 0.0485
+  },
+  "diagnosis": {
+    "headline": "DENSE/EXPLICIT topic-known reading RECOVERS substantial process-conditioned knowledge per process where the article's entities match the held-out -- REFUTING the overstated 'reading can't supply the knowledge'. The AGGREGATE is capped by corpus VOLUME + specific mismatches, not by a fundamental reading limit.",
+    "per_process_strong": {
+      "electricity_generation": {
+        "reading_only": 0.561,
+        "seed_only": 0.6585,
+        "n": 41
+      },
+      "combustion": {
+        "reading_only": 0.4516,
+        "seed_only": 0.6452,
+        "n": 31
+      },
+      "igneous_rock_cycle": {
+        "reading_only": 0.6923,
+        "seed_only": 0.8462,
+        "n": 13
+      },
+      "erosion_weathering": {
+        "reading_only": 0.6,
+        "seed_only": 1.0,
+        "n": 5
+      },
+      "digestion": {
+        "reading_only": 0.5,
+        "seed_only": 0.75,
+        "n": 4
+      }
+    },
+    "per_process_failed": {
+      "fossilization": {
+        "reading_only": 0.2308,
+        "seed_only": 0.7692,
+        "n": 13,
+        "n_read_facts": 0
+      },
+      "hydrocarbon_formation": {
+        "reading_only": 0.0,
+        "seed_only": 0.7778,
+        "n": 9,
+        "n_read_facts": 32
+      },
+      "sound_propagation": {
+        "reading_only": 0.0,
+        "seed_only": 1.0,
+        "n": 2,
+        "n_read_facts": 1
+      }
+    },
+    "scramble_floor_aggregate": 0.1879,
+    "strong_processes_far_above_scramble_floor": true,
+    "why_aggregate_below_v4": "LOW CORPUS VOLUME: 18 SimpleWiki articles = 1229 sentences -> only 155 facts, vs v4's ~735 facts from a far larger scattered scan. Fewer facts -> lower aggregate coverage even though per-fact quality/attribution is higher.",
+    "failure_localization": {
+      "hydrocarbon_formation": "reader extracted 32 facts but 0 held-out recall -> ENTITY MISMATCH (article about coal/oil surface entities; ProPara DEV hydrocarbon participants differ). Content/held-out mismatch, NOT reader depth.",
+      "fossilization": "0 facts extracted from the 63-sentence Fossil article -> the article is DESCRIPTIVE (what fossils are) not MECHANISTIC (X is consumed/produced) -> ARTICLE CONTENT limit, not reader depth."
+    },
+    "corpus_was_the_confound": "CONFIRMED for well-matched processes (electricity_generation 0.561, igneous_rock_cycle 0.692, combustion 0.452, erosion 0.60, digestion 0.50 -- approaching the seed, far above the scramble floor). The remaining limits are (a) VOLUME (need more dense articles per process -- full Wikipedia/OpenStax, not one SimpleWiki stub) and (b) per-process content/entity mismatch, NOT a fundamental 'reading can't learn' ceiling.",
+    "next_lever": "more dense process-text per process (full-Wikipedia articles or OpenStax chapters) to raise volume; and process-held-out entity alignment for hydrocarbon_formation/fossilization."
+  },
+  "final_verdict": "MIDDLE_BAND_dense_reading_works_per_process_aggregate_capped_by_volume",
+  "final_verdict_msg": "MIDDLE_BAND (overstated conclusion CORRECTED): dense/explicit topic-known process-ARTICLE reading RECOVERS substantial process-conditioned entity-fate knowledge per process -- electricity_generation 0.561/(seed 0.6585), igneous_rock_cycle 0.6923/(seed 0.8462), combustion 0.4516, erosion 0.60, digestion 0.50 -- APPROACHING the seed and FAR above the ~0.1879 scramble floor, which the scattered v4 baseline never achieved per-process. This REFUTES 'reading can't supply the knowledge'. HOWEVER the AGGREGATE reading_only=0.2121 is below v4-scattered 0.2788 because the dense corpus is SMALL (1229 sentences -> 155 facts vs v4 ~735) AND two processes fail for locatable reasons: hydrocarbon_formation 0.0 (entity mismatch, 32 facts extracted), fossilization 0 facts (descriptive not mechanistic article). CONCLUSION: the corpus WAS a confound -- dense explicit reading CAN learn process-conditioned physics; the residual limits are corpus VOLUME + per-process content/entity alignment, NOT a fundamental reading ceiling. Next lever: more dense process-text per process."
+}

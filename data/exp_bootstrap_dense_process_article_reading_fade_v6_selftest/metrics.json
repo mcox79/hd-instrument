@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "corpus": {
+      "n_articles": 40,
+      "n_processes": 18
+    },
+    "real_read": {
+      "n_facts": 1,
+      "sample": [
+        [
+          "dioxide",
+          "CREATE"
+        ]
+      ]
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: corpus present (dense articles) + real extractor + topic attribution + store OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.0,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_dense_process_article_reading_fade_v6"
+}
