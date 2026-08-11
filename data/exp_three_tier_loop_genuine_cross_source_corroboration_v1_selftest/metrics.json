@@ -1,0 +1,70 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "reused source-cell fixture PASS (R_reference-equivalent mechanism sound) + NEW MIN_CONFIRM=4 boundary fixture PASS (matW3 n=3 does NOT retain, matBig n=4/size=10 DOES cluster-promote all 10) -- proves the mechanism itself works correctly; the FULL run's expected zero is attributable to real-source scarcity (max 3), not a broken mechanism",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.21085590007714927,
+  "ts_iso": "2026-08-11T20:13:19.475494+00:00",
+  "anchor_name": "three_tier_loop_genuine_cross_source_corroboration_v1",
+  "run_mode": "self_test",
+  "result": {
+    "reference_self_test": {
+      "positive_control_recovery": 1.0,
+      "novelty_thresh": 0.2909033005591482,
+      "arm_a_final": {
+        "checkpoint": 12,
+        "n_foundation": 3,
+        "n_middle": 2,
+        "n_total_resolved": 5,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 1,
+        "n_banked_pos_this_pass": 0
+      },
+      "arm_b_final": {
+        "checkpoint": 12,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "arm_c_final": {
+        "checkpoint": 12,
+        "n_foundation": 0,
+        "n_middle": 5,
+        "n_total_resolved": 5,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 1,
+        "n_banked_pos_this_pass": 0
+      },
+      "arm_scramble_final": {
+        "checkpoint": 12,
+        "n_foundation": 0,
+        "n_middle": 1,
+        "n_total_resolved": 1,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "matW3_diag": {
+      "newly_retained": 0,
+      "n_hub_excluded": 0,
+      "n_prelim_pending_items": 3,
+      "n_clusters": 0,
+      "n_clusters_eligible_size": 0,
+      "n_combined_promoted_total": 0,
+      "n_combined_promoted_this_pass": 0
+    },
+    "matBig_diag": {
+      "newly_retained": 10,
+      "n_hub_excluded": 0,
+      "n_prelim_pending_items": 10,
+      "n_clusters": 1,
+      "n_clusters_eligible_size": 1,
+      "n_combined_promoted_total": 10,
+      "n_combined_promoted_this_pass": 10
+    },
+    "min_confirm_boundary_proven": true
+  }
+}

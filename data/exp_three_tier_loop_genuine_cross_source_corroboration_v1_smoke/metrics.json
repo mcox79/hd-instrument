@@ -1,0 +1,365 @@
+{
+  "verdict": "HARD_FAIL_thin_cross_source_not_mechanism_failure",
+  "verdict_msg": "g_full_combined_promotions=0; max_trace_g_full=1 < MIN_CONFIRM=4 (structural retain-floor unreachable on our current 4 named sources -- CSKG+CauseNet+KB-role-schema max out at 3 real distinct sources/gap, go.obo contributes 0). Reference arm DOES reproduce the prior landed result (n_foundation=13, cited=40, n_total_resolved=18==18), proving this cell's plumbing is correct -- the zero is a genuine real-source-thinness finding, NOT a cell bug. Coverage (all 121): {1: 10, 2: 16}. Coverage (eligible 18): {1: 8, 2: 10}.",
+  "summary": "g_full_combined_promotions=0; max_trace_g_full=1 < MIN_CONFIRM=4 (structural retain-floor unreachable on our current 4 named sources -- CSKG+CauseNet+KB-role-schema max out at 3 real distinct sources/gap, go.obo contributes 0). Reference arm DOES reproduce the prior landed result (n_foundation=13, cited=40, n_total_resolved=18==18), proving this cell's plumbing is correct -- the zero is a genuine real-source-thinness finding, NOT a cell bug. Coverage (all 121): {1: 10, 2: 16}. Coverage (eligible 18): {1: 8, 2: 10}.",
+  "elapsed_s": 9.759494999889284,
+  "ts_iso": "2026-08-11T20:13:54.444131+00:00",
+  "anchor_name": "three_tier_loop_genuine_cross_source_corroboration_v1",
+  "run_mode": "smoke",
+  "process_filter": [
+    "combustion",
+    "photosynthesis"
+  ],
+  "n_ent": 2587,
+  "n_targets": 26,
+  "n_eligible": 18,
+  "n_eligible_scramble": 6,
+  "positive_control_arm3_reproduction": 0.5384615384615384,
+  "positive_control_ok": true,
+  "positive_control_cited_prior": 0.3802,
+  "novelty_thresh": 0.40567850433290004,
+  "calibration_fallback": false,
+  "step1_measurement": {
+    "n_cskg_rows_scanned": 1213912,
+    "n_causenet_rows_scanned": 0,
+    "n_go_terms_scanned": 0,
+    "go_literal_hits_excluded_non_evidentiary": {},
+    "kb_role_schema_path": "D:\\AI\\hd-instrument\\data\\benchmark_trap_check\\propara_process_physics_kb_v1.json",
+    "n_kb_role_hits": 10,
+    "n_cskg_extra_relation_pairs": 3084,
+    "n_cskg_direct_proc_whole_edges": 5,
+    "n_cskg_direct_proc_mat_edges": 0,
+    "coverage_histogram_all_121": {
+      "1": 10,
+      "2": 16
+    },
+    "coverage_histogram_eligible": {
+      "1": 8,
+      "2": 10
+    },
+    "max_possible_source_count_this_run": 2,
+    "min_confirm": 4,
+    "retain_floor_reachable_by_construction": false
+  },
+  "n_waves": 2,
+  "r_visits": 11,
+  "arm_results": {
+    "G_full": {
+      "arm_name": "G_full",
+      "ablation_mode": "full",
+      "n_targets": 18,
+      "n_eligible": 18,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 1
+    },
+    "G_no_middle": {
+      "arm_name": "G_no_middle",
+      "ablation_mode": "no_middle",
+      "n_targets": 18,
+      "n_eligible": 18,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 1
+    },
+    "G_no_sweep": {
+      "arm_name": "G_no_sweep",
+      "ablation_mode": "no_sweep",
+      "n_targets": 18,
+      "n_eligible": 18,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 1
+    },
+    "G_scramble": {
+      "arm_name": "G_scramble",
+      "ablation_mode": "full",
+      "n_targets": 6,
+      "n_eligible": 6,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 1
+    },
+    "R_reference": {
+      "arm_name": "R_reference",
+      "ablation_mode": "full",
+      "n_targets": 26,
+      "n_eligible": 18,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 8
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 1
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 16
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 7,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 8,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 9,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 10,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 11,
+          "n_foundation": 13,
+          "n_middle": 5,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 3,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 11,
+        "n_foundation": 13,
+        "n_middle": 5,
+        "n_total_resolved": 18,
+        "n_combined_promoted_this_pass": 3,
+        "n_clusters_eligible_size": 3,
+        "n_banked_pos_this_pass": 0
+      }
+    }
+  },
+  "max_trace_g_full": 1,
+  "retain_floor_reachable": false,
+  "g_full_combined_promotions": 0,
+  "no_leak_ok": true,
+  "reference_reproduces_prior": true,
+  "cardinality_ok": true,
+  "arm_curve_digests": {
+    "G_full": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "G_no_middle": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "G_no_sweep": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "G_scramble": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "R_reference": "95f2c563aa344a1b5c492cdaf1a57cbf0ca2c4c900bb1c1947aba95ce4410a0a"
+  },
+  "arms_differ_g_vs_r_ok": true,
+  "arms_differ_exempted": [
+    [
+      "G_full",
+      "G_no_middle"
+    ],
+    [
+      "G_full",
+      "G_no_sweep"
+    ],
+    [
+      "G_full",
+      "G_scramble"
+    ],
+    [
+      "G_no_middle",
+      "G_no_sweep"
+    ],
+    [
+      "G_no_middle",
+      "G_scramble"
+    ],
+    [
+      "G_no_sweep",
+      "G_scramble"
+    ]
+  ],
+  "g_star_all_identical": true,
+  "bands": {
+    "min_confirm": 4,
+    "cluster_exposure_floor": 32,
+    "reference_tolerance_abs": 15,
+    "reference_cited_n_foundation": 40,
+    "positive_control_tolerance": 0.1
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "verdict": "HARD_FAIL_thin_cross_source_not_mechanism_failure",
+  "verdict_msg": "g_full_combined_promotions=0; max_trace_g_full=3 < MIN_CONFIRM=4 (structural retain-floor unreachable on our current 4 named sources -- CSKG+CauseNet+KB-role-schema max out at 3 real distinct sources/gap, go.obo contributes 0). Reference arm DOES reproduce the prior landed result (n_foundation=40, cited=40, n_total_resolved=62==62), proving this cell's plumbing is correct -- the zero is a genuine real-source-thinness finding, NOT a cell bug. Coverage (all 121): {1: 67, 2: 46, 3: 8}. Coverage (eligible 62): {1: 26, 2: 28, 3: 8}.",
+  "summary": "g_full_combined_promotions=0; max_trace_g_full=3 < MIN_CONFIRM=4 (structural retain-floor unreachable on our current 4 named sources -- CSKG+CauseNet+KB-role-schema max out at 3 real distinct sources/gap, go.obo contributes 0). Reference arm DOES reproduce the prior landed result (n_foundation=40, cited=40, n_total_resolved=62==62), proving this cell's plumbing is correct -- the zero is a genuine real-source-thinness finding, NOT a cell bug. Coverage (all 121): {1: 67, 2: 46, 3: 8}. Coverage (eligible 62): {1: 26, 2: 28, 3: 8}.",
+  "elapsed_s": 50.383569399942644,
+  "ts_iso": "2026-08-11T20:15:01.394566+00:00",
+  "anchor_name": "three_tier_loop_genuine_cross_source_corroboration_v1",
+  "run_mode": "full",
+  "process_filter": "ALL",
+  "n_ent": 4946,
+  "n_targets": 121,
+  "n_eligible": 62,
+  "n_eligible_scramble": 5,
+  "positive_control_arm3_reproduction": 0.39669421487603307,
+  "positive_control_ok": true,
+  "positive_control_cited_prior": 0.3802,
+  "novelty_thresh": 0.44120909497141836,
+  "calibration_fallback": false,
+  "step1_measurement": {
+    "n_cskg_rows_scanned": 1213912,
+    "n_causenet_rows_scanned": 197806,
+    "n_go_terms_scanned": 48351,
+    "go_literal_hits_excluded_non_evidentiary": {
+      "cellular_response_to_glucose_stimulus": "cellular response to glucose stimulus",
+      "digestion": "digestion",
+      "growth": "growth",
+      "mixed_acid_fermentation": "mixed acid fermentation",
+      "nucleus": "nucleus",
+      "photosynthesis": "photosynthesis",
+      "response_to_glucose": "response to glucose",
+      "response_to_nutrient": "response to nutrient",
+      "response_to_radiation": "response to radiation",
+      "sleep": "sleep",
+      "swimming": "swimming",
+      "transport": "transport",
+      "tuft": "tuft"
+    },
+    "kb_role_schema_path": "D:\\AI\\hd-instrument\\data\\benchmark_trap_check\\propara_process_physics_kb_v1.json",
+    "n_kb_role_hits": 59,
+    "n_cskg_extra_relation_pairs": 8720,
+    "n_cskg_direct_proc_whole_edges": 9,
+    "n_cskg_direct_proc_mat_edges": 1,
+    "coverage_histogram_all_121": {
+      "1": 67,
+      "2": 46,
+      "3": 8
+    },
+    "coverage_histogram_eligible": {
+      "1": 26,
+      "2": 28,
+      "3": 8
+    },
+    "max_possible_source_count_this_run": 3,
+    "min_confirm": 4,
+    "retain_floor_reachable_by_construction": false
+  },
+  "n_waves": 3,
+  "r_visits": 6,
+  "arm_results": {
+    "G_full": {
+      "arm_name": "G_full",
+      "ablation_mode": "full",
+      "n_targets": 62,
+      "n_eligible": 62,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 3
+    },
+    "G_no_middle": {
+      "arm_name": "G_no_middle",
+      "ablation_mode": "no_middle",
+      "n_targets": 62,
+      "n_eligible": 62,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 3
+    },
+    "G_no_sweep": {
+      "arm_name": "G_no_sweep",
+      "ablation_mode": "no_sweep",
+      "n_targets": 62,
+      "n_eligible": 62,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 3
+    },
+    "G_scramble": {
+      "arm_name": "G_scramble",
+      "ablation_mode": "full",
+      "n_targets": 5,
+      "n_eligible": 5,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_banked_pos_this_pass": 0
+      },
+      "max_trace_count_observed": 2
+    },
+    "R_reference": {
+      "arm_name": "R_reference",
+      "ablation_mode": "full",
+      "n_targets": 121,
+      "n_eligible": 62,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 59
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 16,
+          "n_total_resolved": 16,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 1,
+          "n_banked_pos_this_pass": 8
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 23,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 28,
+          "n_middle": 34,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 46
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 40,
+          "n_middle": 22,
+          "n_total_resolved": 62,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 6,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 6,
+        "n_foundation": 40,
+        "n_middle": 22,
+        "n_total_resolved": 62,
+        "n_combined_promoted_this_pass": 10,
+        "n_clusters_eligible_size": 6,
+        "n_banked_pos_this_pass": 0
+      }
+    }
+  },
+  "max_trace_g_full": 3,
+  "retain_floor_reachable": false,
+  "g_full_combined_promotions": 0,
+  "no_leak_ok": true,
+  "reference_reproduces_prior": true,
+  "cardinality_ok": true,
+  "arm_curve_digests": {
+    "G_full": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
+    "G_no_middle": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
+    "G_no_sweep": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
+    "G_scramble": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
+    "R_reference": "ed9a715b1dfa2d654087f64c04d449f3893f4ba1193b7fc99c8ca8832274b76a"
+  },
+  "arms_differ_g_vs_r_ok": true,
+  "arms_differ_exempted": [
+    [
+      "G_full",
+      "G_no_middle"
+    ],
+    [
+      "G_full",
+      "G_no_sweep"
+    ],
+    [
+      "G_full",
+      "G_scramble"
+    ],
+    [
+      "G_no_middle",
+      "G_no_sweep"
+    ],
+    [
+      "G_no_middle",
+      "G_scramble"
+    ],
+    [
+      "G_no_sweep",
+      "G_scramble"
+    ]
+  ],
+  "g_star_all_identical": true,
+  "bands": {
+    "min_confirm": 4,
+    "cluster_exposure_floor": 32,
+    "reference_tolerance_abs": 15,
+    "reference_cited_n_foundation": 40,
+    "positive_control_tolerance": 0.1
+  }
+}
