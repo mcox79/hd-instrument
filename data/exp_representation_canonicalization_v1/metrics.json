@@ -1,0 +1,391 @@
+{
+  "verdict": "HARD_PASS_representation_canonicalization_realizes_same_rep_principle",
+  "verdict_msg": "CANONICALIZATION-AT-ENCODE-TIME realizes the USER's same-representation principle: same_idea_match_rate=1.0000 (148/148) of same-idea pairs (real-data direction-flip + KB-role paraphrase + closed-form synonym collapse) produce IDENTICAL content-only representations; automatic_corroboration_rate=1.0000 (145/145) corroborate via HDFactStore's OWN native CONSISTENT_DUP resolution with NO concept_similarity call anywhere in the store/query path. Anti-collapse holds (wood/coal distinct, PRODUCES/CONSUMES distinct, 72/72 real cross-gap triples zero-collision). Scramble control confirms genuine structure-dependence (1.00 real vs 0.00 scrambled). State-of-mind disambiguation is load-bearing: accuracy_with_context=1.0000 vs accuracy_baseline=0.5000 (delta=0.5000). The prior e3712e8b5 gate-matching fallback remains fully intact (regression self-tests pass unchanged) -- this is an ADDITIVE, stronger mechanism, not a replacement requiring the fallback's removal.",
+  "summary": "CANONICALIZATION-AT-ENCODE-TIME realizes the USER's same-representation principle: same_idea_match_rate=1.0000 (148/148) of same-idea pairs (real-data direction-flip + KB-role paraphrase + closed-form synonym collapse) produce IDENTICAL content-only representations; automatic_corroboration_rate=1.0000 (145/145) corroborate via HDFactStore's OWN native CONSISTENT_DUP resolution with NO concept_similarity call anywhere in the store/query path. Anti-collapse holds (wood/coal distinct, PRODUCES/CONSUMES distinct, 72/72 real cross-gap triples zero-collision). Scramble control confirms genuine structure-dependence (1.00 real vs 0.00 scrambled). State-of-mind disambiguation is load-bearing: accuracy_with_context=1.0000 vs accuracy_baseline=0.5000 (delta=0.5000). The prior e3712e8b5 gate-matching fallback remains fully intact (regression self-tests pass unchanged) -- this is an ADDITIVE, stronger mechanism, not a replacement requiring the fallback's removal.",
+  "elapsed_s": 13.280507799936458,
+  "ts_iso": "2026-08-11T22:30:40.119836+00:00",
+  "anchor_name": "representation_canonicalization_v1",
+  "run_mode": "full",
+  "process_filter": "ALL",
+  "n_targets": 121,
+  "n_gaps": 121,
+  "n_2plus_sources": 50,
+  "n_cskg_rows": 1213912,
+  "kb_path": "D:\\AI\\hd-instrument\\data\\benchmark_trap_check\\propara_process_physics_kb_v1.json",
+  "real_data": {
+    "n_distinct_material_whole_pairs": 72,
+    "n_distinct_canon_triples": 72,
+    "cross_gap_no_collision": true,
+    "real_data_no_leak_ok": true,
+    "part_of_pairs_sample": [
+      {
+        "pk": "carbon_cycle||rock||moon::DESTROY",
+        "material": "rock",
+        "whole": "moon",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "carbon_cycle||rock||pluto::DESTROY",
+        "material": "rock",
+        "whole": "pluto",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "carbon_cycle||sugar||cotton_candy::CREATE",
+        "material": "sugar",
+        "whole": "cotton_candy",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "carbon_cycle||sugar||jelly_beans::CREATE",
+        "material": "sugar",
+        "whole": "jelly_beans",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "carbon_cycle||sugar||pepsi::CREATE",
+        "material": "sugar",
+        "whole": "pepsi",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "combustion||magnesium||carnallite::DESTROY",
+        "material": "magnesium",
+        "whole": "carnallite",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "combustion||magnesium||dolomite::DESTROY",
+        "material": "magnesium",
+        "whole": "dolomite",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "combustion||magnesium||magnesite::DESTROY",
+        "material": "magnesium",
+        "whole": "magnesite",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "combustion||magnesium||magnesium_lithium_alloy::DESTROY",
+        "material": "magnesium",
+        "whole": "magnesium_lithium_alloy",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "combustion||magnesium||olivine::DESTROY",
+        "material": "magnesium",
+        "whole": "olivine",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      }
+    ],
+    "n_partof_pairs": 72,
+    "n_partof_same_rep": 72,
+    "n_partof_consistent_dup": 72,
+    "kb_pairs_sample": [
+      {
+        "pk": "electricity_generation||energy||light::CREATE",
+        "material": "energy",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||energy||light::MOVE",
+        "material": "energy",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||human_body::CREATE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||human_body::MOVE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||ice::CREATE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||ice::MOVE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||lettuce::CREATE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||lettuce::MOVE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||lubrication::CREATE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      },
+      {
+        "pk": "electricity_generation||water||lubrication::MOVE",
+        "material": "water",
+        "process": "electricity_generation",
+        "relation": "MOVES",
+        "same_rep": true,
+        "no_leak_ok": true,
+        "consistent_dup": true
+      }
+    ],
+    "n_kb_pairs": 73,
+    "n_kb_same_rep": 73,
+    "n_kb_consistent_dup": 73,
+    "n_total_pairs": 145,
+    "n_total_same_rep": 145,
+    "n_total_dup": 145,
+    "real_data_same_idea_rate": 1.0,
+    "real_data_corroboration_rate": 1.0
+  },
+  "synonym_collapse": {
+    "results": [
+      {
+        "probe": "timber",
+        "target": "wood",
+        "canon": "wood",
+        "collapsed": true
+      },
+      {
+        "probe": "log",
+        "target": "wood",
+        "canon": "wood",
+        "collapsed": true
+      },
+      {
+        "probe": "kindling",
+        "target": "wood",
+        "canon": "wood",
+        "collapsed": true
+      }
+    ],
+    "n_collapsed": 3,
+    "n_total": 3,
+    "collapse_rate": 1.0
+  },
+  "synonym_collapse_scrambled": {
+    "results": [
+      {
+        "probe": "timber",
+        "target": "wood",
+        "canon": "timber",
+        "collapsed": false
+      },
+      {
+        "probe": "log",
+        "target": "wood",
+        "canon": "log",
+        "collapsed": false
+      },
+      {
+        "probe": "kindling",
+        "target": "wood",
+        "canon": "kindling",
+        "collapsed": false
+      }
+    ],
+    "n_collapsed": 0,
+    "n_total": 3,
+    "collapse_rate": 0.0
+  },
+  "anti_collapse_closed_form": {
+    "no_leak_ok": true,
+    "wood_canon": "wood",
+    "coal_canon": "coal",
+    "wood_coal_distinct_ok": true,
+    "produces_consumes_distinct_ok": true,
+    "anti_collapse_closed_form_ok": true
+  },
+  "state_of_mind": {
+    "trials": [
+      {
+        "term": "bank",
+        "episode": "E1",
+        "true_sense": "finance",
+        "with_context_pred": "finance",
+        "baseline_pred": "finance",
+        "with_context_correct": true,
+        "baseline_correct": true
+      },
+      {
+        "term": "bank",
+        "episode": "E2",
+        "true_sense": "river",
+        "with_context_pred": "river",
+        "baseline_pred": "finance",
+        "with_context_correct": true,
+        "baseline_correct": false
+      },
+      {
+        "term": "bank",
+        "episode": "E3",
+        "true_sense": "finance",
+        "with_context_pred": "finance",
+        "baseline_pred": "finance",
+        "with_context_correct": true,
+        "baseline_correct": true
+      },
+      {
+        "term": "bank",
+        "episode": "E4",
+        "true_sense": "river",
+        "with_context_pred": "river",
+        "baseline_pred": "finance",
+        "with_context_correct": true,
+        "baseline_correct": false
+      },
+      {
+        "term": "cell",
+        "episode": "E1",
+        "true_sense": "biological",
+        "with_context_pred": "biological",
+        "baseline_pred": "biological",
+        "with_context_correct": true,
+        "baseline_correct": true
+      },
+      {
+        "term": "cell",
+        "episode": "E2",
+        "true_sense": "electric",
+        "with_context_pred": "electric",
+        "baseline_pred": "biological",
+        "with_context_correct": true,
+        "baseline_correct": false
+      },
+      {
+        "term": "cell",
+        "episode": "E3",
+        "true_sense": "biological",
+        "with_context_pred": "biological",
+        "baseline_pred": "biological",
+        "with_context_correct": true,
+        "baseline_correct": true
+      },
+      {
+        "term": "cell",
+        "episode": "E4",
+        "true_sense": "electric",
+        "with_context_pred": "electric",
+        "baseline_pred": "biological",
+        "with_context_correct": true,
+        "baseline_correct": false
+      }
+    ],
+    "n_trials": 8,
+    "accuracy_with_context": 1.0,
+    "accuracy_baseline": 0.5,
+    "delta": 0.5,
+    "state_of_mind_load_bearing_ok": true
+  },
+  "same_idea_match_rate": 1.0,
+  "n_combined_same": 148,
+  "n_combined_total": 148,
+  "automatic_corroboration_rate": 1.0,
+  "distinct_idea_distinct_rep_ok": true,
+  "no_leak_ok": true,
+  "scramble_control_ok": true,
+  "core_preserved_ok": true,
+  "controls_ok": true,
+  "state_of_mind_load_bearing_ok": true,
+  "same_idea_ok": true,
+  "corroboration_ok": true,
+  "gal_self_test": {
+    "context_vector_deterministic": true,
+    "schema_metric_discriminant_valid": true,
+    "coherent_score": 1.0,
+    "scrambled_score": 0.108,
+    "intervening_pass_rule_ok": true,
+    "guard_rejects_scrambled_context_ok": true,
+    "real_credit_window_exercised": true,
+    "native_promotion_connector_ok": true,
+    "native_promotion_guard_holds_ok": true
+  },
+  "pt_self_test": {
+    "retain_ok": true,
+    "retain_forever_pending_ok": true,
+    "pull_ok": true,
+    "combined_evidence_promotion_ok": true,
+    "fidelity_guard_ok": true,
+    "hub_exclusion_generalized_ok": true,
+    "cluster_key_fn_load_bearing_ok": true,
+    "coherence_fn_load_bearing_ok": true
+  },
+  "concept_metric": {
+    "CONCEPT_MATCH_THRESHOLD": 0.5,
+    "reused_from": "hdlab.lexical_similarity.SIMILARITY_LINK_THRESHOLD"
+  },
+  "bands": {
+    "same_idea_match_rate_floor": 0.9,
+    "automatic_corroboration_rate_floor": 0.9,
+    "scramble_real_floor": 0.9,
+    "scramble_corrupted_ceiling": 0.2,
+    "state_of_mind_with_context_floor": 0.875,
+    "state_of_mind_baseline_ceiling": 0.625,
+    "state_of_mind_delta_floor": 0.25
+  }
+}

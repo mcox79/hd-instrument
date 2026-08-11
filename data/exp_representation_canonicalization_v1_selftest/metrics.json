@@ -1,0 +1,198 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "direction-handling boundary proves the identical (wood MadeOf cellulose) vs (cellulose composes wood) worked example collapses to an identical content representation and stores CONSISTENT_DUP; anti-collapse holds (distinct material never collapses); synonym collapse 3/3 real vs scrambled degradation; state-of-mind load-bearing; lexical_similarity/hd_fact_store/grounding_acquisition_loop/prelim_tier self-tests all pass unchanged",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.14108059997670352,
+  "ts_iso": "2026-08-11T22:29:57.301146+00:00",
+  "anchor_name": "representation_canonicalization_v1",
+  "run_mode": "self_test",
+  "result": {
+    "lexical_similarity_self_test": {
+      "sim_vessel_ferry": 0.6402,
+      "sim_vessel_dock": 0.2763,
+      "sim_sister_rival": 0.4144,
+      "sim_vessel_ferry_scrambled": 0.0032,
+      "threshold": 0.5,
+      "n_concepts": 359,
+      "n_feature_tags": 168
+    },
+    "hd_fact_store_self_test": {
+      "roles": [
+        "REL",
+        "ARG0",
+        "ARG1",
+        "SOURCE",
+        "TRUST"
+      ],
+      "trust_levels": {
+        "TRUST_HIGH": 1.0,
+        "TRUST_MID": 0.6,
+        "TRUST_LOW": 0.3
+      },
+      "reuse": "EventBundleCodec / RoleSlotSummarizer bipolar primitives",
+      "sublinear_index": "content-hash sr-signature (O(1)); byte-equivalent to O(n)"
+    },
+    "gal_self_test": {
+      "context_vector_deterministic": true,
+      "schema_metric_discriminant_valid": true,
+      "coherent_score": 1.0,
+      "scrambled_score": 0.108,
+      "intervening_pass_rule_ok": true,
+      "guard_rejects_scrambled_context_ok": true,
+      "real_credit_window_exercised": true,
+      "native_promotion_connector_ok": true,
+      "native_promotion_guard_holds_ok": true
+    },
+    "pt_self_test": {
+      "retain_ok": true,
+      "retain_forever_pending_ok": true,
+      "pull_ok": true,
+      "combined_evidence_promotion_ok": true,
+      "fidelity_guard_ok": true,
+      "hub_exclusion_generalized_ok": true,
+      "cluster_key_fn_load_bearing_ok": true,
+      "coherence_fn_load_bearing_ok": true
+    },
+    "direction_handling_ok": true,
+    "anti_collapse_boundary_ok": true,
+    "synonym_collapse": {
+      "results": [
+        {
+          "probe": "timber",
+          "target": "wood",
+          "canon": "wood",
+          "collapsed": true
+        },
+        {
+          "probe": "log",
+          "target": "wood",
+          "canon": "wood",
+          "collapsed": true
+        },
+        {
+          "probe": "kindling",
+          "target": "wood",
+          "canon": "wood",
+          "collapsed": true
+        }
+      ],
+      "n_collapsed": 3,
+      "n_total": 3,
+      "collapse_rate": 1.0
+    },
+    "synonym_collapse_scrambled": {
+      "results": [
+        {
+          "probe": "timber",
+          "target": "wood",
+          "canon": "timber",
+          "collapsed": false
+        },
+        {
+          "probe": "log",
+          "target": "wood",
+          "canon": "log",
+          "collapsed": false
+        },
+        {
+          "probe": "kindling",
+          "target": "wood",
+          "canon": "kindling",
+          "collapsed": false
+        }
+      ],
+      "n_collapsed": 0,
+      "n_total": 3,
+      "collapse_rate": 0.0
+    },
+    "anti_collapse_closed_form": {
+      "no_leak_ok": true,
+      "wood_canon": "wood",
+      "coal_canon": "coal",
+      "wood_coal_distinct_ok": true,
+      "produces_consumes_distinct_ok": true,
+      "anti_collapse_closed_form_ok": true
+    },
+    "state_of_mind": {
+      "trials": [
+        {
+          "term": "bank",
+          "episode": "E1",
+          "true_sense": "finance",
+          "with_context_pred": "finance",
+          "baseline_pred": "finance",
+          "with_context_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "term": "bank",
+          "episode": "E2",
+          "true_sense": "river",
+          "with_context_pred": "river",
+          "baseline_pred": "finance",
+          "with_context_correct": true,
+          "baseline_correct": false
+        },
+        {
+          "term": "bank",
+          "episode": "E3",
+          "true_sense": "finance",
+          "with_context_pred": "finance",
+          "baseline_pred": "finance",
+          "with_context_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "term": "bank",
+          "episode": "E4",
+          "true_sense": "river",
+          "with_context_pred": "river",
+          "baseline_pred": "finance",
+          "with_context_correct": true,
+          "baseline_correct": false
+        },
+        {
+          "term": "cell",
+          "episode": "E1",
+          "true_sense": "biological",
+          "with_context_pred": "biological",
+          "baseline_pred": "biological",
+          "with_context_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "term": "cell",
+          "episode": "E2",
+          "true_sense": "electric",
+          "with_context_pred": "electric",
+          "baseline_pred": "biological",
+          "with_context_correct": true,
+          "baseline_correct": false
+        },
+        {
+          "term": "cell",
+          "episode": "E3",
+          "true_sense": "biological",
+          "with_context_pred": "biological",
+          "baseline_pred": "biological",
+          "with_context_correct": true,
+          "baseline_correct": true
+        },
+        {
+          "term": "cell",
+          "episode": "E4",
+          "true_sense": "electric",
+          "with_context_pred": "electric",
+          "baseline_pred": "biological",
+          "with_context_correct": true,
+          "baseline_correct": false
+        }
+      ],
+      "n_trials": 8,
+      "accuracy_with_context": 1.0,
+      "accuracy_baseline": 0.5,
+      "delta": 0.5,
+      "state_of_mind_load_bearing_ok": true
+    }
+  }
+}
