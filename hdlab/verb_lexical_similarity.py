@@ -364,9 +364,107 @@ GOAL_ASPECTUAL_WORDS: FrozenSet[str] = (
 
 
 # =============================================================================================
+# (3) RELATION_MARKER_FEATURES -- RELATION_TEMPORALITY x MATERIAL_FLOW_DIRECTION x
+#     AFFECTEDNESS_POLARITY x LEXICAL_REGISTER (2026-08-11, task: "earn relation-canonicalization
+#     the same way entity-canonicalization was earned" -- see experiments/
+#     exp_relation_canonicalization_learned_v1.py, the sole consumer). Classifies SURFACE
+#     RELATION-MARKERS (verbs/relation-phrases naming a fact's predicate, e.g. "compose"/
+#     "produce"/"consume"/"move") into one of 4 canonical PART_OF/PRODUCES/CONSUMES/MOVES relation
+#     classes via the SAME shared-feature FHRR bundle-cosine mechanism as (1)/(2) above -- NOT a
+#     hand `marker -> canon` dict lookup; the class is COMPUTED by nearest-seed-pool similarity.
+#
+#     Three axes are INDEPENDENTLY theory-grounded and DISCRIMINATE relation-class (co-vary with
+#     it by construction, same convention as (1)'s RESULT_VALENCE/FORCE_DYNAMIC_PATTERN/
+#     SCALE_DIRECTION triple): RELATION_TEMPORALITY (Pustejovsky 1995 Generative Lexicon qualia
+#     structure -- CONSTITUTIVE role for part-whole/atemporal vs AGENTIVE/TELIC roles for
+#     process-linked/temporal), MATERIAL_FLOW_DIRECTION (Talmy 1985 Source-Path-Goal motion-event
+#     schema, the SAME force-dynamics family already cited in (1) above), AFFECTEDNESS_POLARITY
+#     (Beavers 2011 scalar affectedness, the SAME citation already used for (1)'s SCALE_DIRECTION
+#     tag). A 4th axis, LEXICAL_REGISTER, is deliberately INDEPENDENT of relation-class (any class
+#     can have a formal or colloquial member) -- this is the axis that keeps held-out
+#     generalization GRADED rather than a trivial identical-tag lookup: a held-out word shares the
+#     3 discriminating axes with its true class's seeds but may differ on register, so within-class
+#     similarity is high (not always a trivial 1.0) and the classifier must still clear a real
+#     margin over cross-class similarity, not just match a literal tag-set.
+#
+#     SEEDS = 3 markers/class (12 total), literal words already load-bearing in the parent cell's
+#     (exp_representation_canonicalization_v1, commit e65de60f1) own text templates/ProPara roles.
+#     HELD-OUT = 1 marker/class (4 total): compose/generate/require/transport -- the ACTUAL
+#     production markers that cell's paraphrase templates use, chosen so the held-out
+#     generalization proof and the real-data reproduction proof share the same evidence. Register
+#     tag assigned via a fixed rubric (Latinate/technical-sounding=FORMAL, short/everyday=
+#     COLLOQUIAL, else NEUTRAL) applied BEFORE any classification is run (non-circular, same
+#     discipline as (1)/(2)'s OUTCOME_HELDOUT_*/GOAL_HELDOUT_* dicts above).
+# =============================================================================================
+def _rel_tagset(*tags: str) -> FrozenSet[str]:
+    return frozenset(tags)
+
+
+def _part_of_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("STATIVE_RELATION", "NONE_NO_FLOW", "SCALE_NA", register)
+
+
+def _produces_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("EVENT_RELATION", "GOAL_PRODUCED", "SCALE_UP", register)
+
+
+def _consumes_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("EVENT_RELATION", "SOURCE_CONSUMED", "SCALE_DOWN", register)
+
+
+def _moves_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("EVENT_RELATION", "PATH_TRAVERSED", "SCALE_NEUTRAL", register)
+
+
+# ---- SEEDS (3/class; literal markers the parent cell's own templates/ProPara roles use) --------
+RELATION_SEED_PART_OF: Dict[str, FrozenSet[str]] = {
+    "made_of": _part_of_tags("COLLOQUIAL_TERM"),      # CSKG /r/MadeOf template marker
+    "part_of": _part_of_tags("NEUTRAL_TERM"),          # "is part of" paraphrase template marker
+    "consist_of": _part_of_tags("FORMAL_TERM"),        # scientific-register synonym, not in parent
+}
+RELATION_SEED_PRODUCES: Dict[str, FrozenSet[str]] = {
+    "produce": _produces_tags("NEUTRAL_TERM"),         # ProPara "produces" role literal
+    "yield": _produces_tags("FORMAL_TERM"),
+    "emit": _produces_tags("FORMAL_TERM"),
+}
+RELATION_SEED_CONSUMES: Dict[str, FrozenSet[str]] = {
+    "consume": _consumes_tags("FORMAL_TERM"),          # ProPara "consumes" role literal
+    "use": _consumes_tags("COLLOQUIAL_TERM"),
+    "deplete": _consumes_tags("FORMAL_TERM"),
+}
+RELATION_SEED_MOVES: Dict[str, FrozenSet[str]] = {
+    "move": _moves_tags("COLLOQUIAL_TERM"),            # ProPara "moves" role literal
+    "carry": _moves_tags("COLLOQUIAL_TERM"),
+    "convey": _moves_tags("FORMAL_TERM"),
+}
+
+# ---- HELD-OUT (1/class; the parent cell's ACTUAL kb_paraphrase_*/paraphrase_composes markers) ---
+RELATION_HELDOUT_PART_OF: Dict[str, FrozenSet[str]] = {"compose": _part_of_tags("FORMAL_TERM")}
+RELATION_HELDOUT_PRODUCES: Dict[str, FrozenSet[str]] = {"generate": _produces_tags("FORMAL_TERM")}
+RELATION_HELDOUT_CONSUMES: Dict[str, FrozenSet[str]] = {"require": _consumes_tags("NEUTRAL_TERM")}
+RELATION_HELDOUT_MOVES: Dict[str, FrozenSet[str]] = {"transport": _moves_tags("FORMAL_TERM")}
+
+RELATION_SEED_POOLS: Dict[str, Dict[str, FrozenSet[str]]] = {
+    "PART_OF": RELATION_SEED_PART_OF, "PRODUCES": RELATION_SEED_PRODUCES,
+    "CONSUMES": RELATION_SEED_CONSUMES, "MOVES": RELATION_SEED_MOVES,
+}
+RELATION_HELDOUT_POOLS: Dict[str, Dict[str, FrozenSet[str]]] = {
+    "PART_OF": RELATION_HELDOUT_PART_OF, "PRODUCES": RELATION_HELDOUT_PRODUCES,
+    "CONSUMES": RELATION_HELDOUT_CONSUMES, "MOVES": RELATION_HELDOUT_MOVES,
+}
+RELATION_CANON_CLASSES = ("PART_OF", "PRODUCES", "CONSUMES", "MOVES")
+
+RELATION_MARKER_FEATURES: Dict[str, FrozenSet[str]] = {}
+for _d in (RELATION_SEED_PART_OF, RELATION_SEED_PRODUCES, RELATION_SEED_CONSUMES,
+           RELATION_SEED_MOVES, RELATION_HELDOUT_PART_OF, RELATION_HELDOUT_PRODUCES,
+           RELATION_HELDOUT_CONSUMES, RELATION_HELDOUT_MOVES):
+    RELATION_MARKER_FEATURES.update(_d)
+
+
+# =============================================================================================
 # shared FHRR bundle-cosine mechanism (byte-identical convention to hdlab/lexical_similarity.py)
 # =============================================================================================
-_DOMAINS = {"outcome": OUTCOME_VERB_FEATURES, "goal": GOAL_VERB_FEATURES}
+_DOMAINS = {"outcome": OUTCOME_VERB_FEATURES, "goal": GOAL_VERB_FEATURES, "relation": RELATION_MARKER_FEATURES}
 _feature_vecs_cache: Dict[str, Dict[str, torch.Tensor]] = {}
 _concept_vec_cache: Dict[str, Dict[str, torch.Tensor]] = {}
 
@@ -477,6 +575,27 @@ def classify_2way(word: str, pos_seeds, neg_seeds, domain: str, floor: float, ma
         label = "NEG"
     if best >= floor and (best - second) >= margin:
         return label
+    return None
+
+
+def classify_nway(word: str, pools: Dict[str, object], domain: str, floor: float, margin: float
+                   ) -> Optional[str]:
+    """N-way argmax-with-margin classification across NAMED seed pools (pools: {label: iterable-
+    of-seed-words}), a straightforward generalization of classify_2way to >2 pools. Domain-general
+    (not relation-specific) -- reusable for any future N-way verb-class classification task.
+    Returns the winning label, or None (abstain: OOV, below floor, or margin too thin over the
+    runner-up -- IDENTICAL abstain semantics to classify_2way, never forces a guess)."""
+    sims: Dict[str, float] = {}
+    for label, seeds in pools.items():
+        s = mean_similarity_to_seeds(word, seeds, domain)
+        if s is None:
+            return None
+        sims[label] = s
+    ranked = sorted(sims.items(), key=lambda kv: -kv[1])
+    best_label, best = ranked[0]
+    second = ranked[1][1] if len(ranked) > 1 else -1.0
+    if best >= floor and (best - second) >= margin:
+        return best_label
     return None
 
 

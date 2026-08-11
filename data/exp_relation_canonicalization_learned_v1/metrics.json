@@ -1,0 +1,266 @@
+{
+  "verdict": "HARD_PASS_relation_canonicalization_learned_earned",
+  "verdict_msg": "RELATION-CANONICALIZATION IS EARNED, not supplied: held_out_generalization_rate=1.0000 (4/4) -- every held-out marker (compose/generate/require/transport, never in a seed pool) correctly classifies into its true canonical class via verb-similarity (hdlab.verb_lexical_similarity.classify_nway), with NO marker->canon hand dict anywhere. Real-data reproduction WITHOUT the hand table: same_idea_match_rate=1.0000 (145/145), automatic_corroboration_rate=1.0000 (145/145), matching the parent cell's (e65de60f1) own FULL bands (same_idea_match_rate=1.0, automatic_corroboration_rate=1.0 on the identical population). Anti-collapse holds (T0 leave-one-out 12/12, PRODUCES/CONSUMES never cross). Scramble control confirms genuine structure-dependence (real=1.00 vs scrambled=0.00). Entity-canonicalization (canon_entity/concept_similarity) is untouched -- both halves of the parent cell's canonicalization policy are now LEARNED.",
+  "summary": "RELATION-CANONICALIZATION IS EARNED, not supplied: held_out_generalization_rate=1.0000 (4/4) -- every held-out marker (compose/generate/require/transport, never in a seed pool) correctly classifies into its true canonical class via verb-similarity (hdlab.verb_lexical_similarity.classify_nway), with NO marker->canon hand dict anywhere. Real-data reproduction WITHOUT the hand table: same_idea_match_rate=1.0000 (145/145), automatic_corroboration_rate=1.0000 (145/145), matching the parent cell's (e65de60f1) own FULL bands (same_idea_match_rate=1.0, automatic_corroboration_rate=1.0 on the identical population). Anti-collapse holds (T0 leave-one-out 12/12, PRODUCES/CONSUMES never cross). Scramble control confirms genuine structure-dependence (real=1.00 vs scrambled=0.00). Entity-canonicalization (canon_entity/concept_similarity) is untouched -- both halves of the parent cell's canonicalization policy are now LEARNED.",
+  "elapsed_s": 20.402541699935682,
+  "ts_iso": "2026-08-11T23:08:25.609048+00:00",
+  "anchor_name": "relation_canonicalization_learned_v1",
+  "run_mode": "full",
+  "n_targets": 121,
+  "n_gaps": 121,
+  "n_2plus_sources": 50,
+  "n_cskg_rows": 1213912,
+  "kb_path": "D:\\AI\\hd-instrument\\data\\benchmark_trap_check\\propara_process_physics_kb_v1.json",
+  "anti_collapse": {
+    "per_marker": {
+      "consist_of": {
+        "true_label": "PART_OF",
+        "predicted_label": "PART_OF",
+        "correct": true
+      },
+      "made_of": {
+        "true_label": "PART_OF",
+        "predicted_label": "PART_OF",
+        "correct": true
+      },
+      "part_of": {
+        "true_label": "PART_OF",
+        "predicted_label": "PART_OF",
+        "correct": true
+      },
+      "emit": {
+        "true_label": "PRODUCES",
+        "predicted_label": "PRODUCES",
+        "correct": true
+      },
+      "produce": {
+        "true_label": "PRODUCES",
+        "predicted_label": "PRODUCES",
+        "correct": true
+      },
+      "yield": {
+        "true_label": "PRODUCES",
+        "predicted_label": "PRODUCES",
+        "correct": true
+      },
+      "consume": {
+        "true_label": "CONSUMES",
+        "predicted_label": "CONSUMES",
+        "correct": true
+      },
+      "deplete": {
+        "true_label": "CONSUMES",
+        "predicted_label": "CONSUMES",
+        "correct": true
+      },
+      "use": {
+        "true_label": "CONSUMES",
+        "predicted_label": "CONSUMES",
+        "correct": true
+      },
+      "carry": {
+        "true_label": "MOVES",
+        "predicted_label": "MOVES",
+        "correct": true
+      },
+      "convey": {
+        "true_label": "MOVES",
+        "predicted_label": "MOVES",
+        "correct": true
+      },
+      "move": {
+        "true_label": "MOVES",
+        "predicted_label": "MOVES",
+        "correct": true
+      }
+    },
+    "n_correct": 12,
+    "n_total": 12,
+    "accuracy": 1.0,
+    "produces_never_consumes_ok": true,
+    "consumes_never_produces_ok": true,
+    "anti_collapse_ok": true
+  },
+  "held_out_generalization": {
+    "per_marker": {
+      "compose": {
+        "true_label": "PART_OF",
+        "predicted_label": "PART_OF",
+        "correct": true,
+        "sims": {
+          "PART_OF": 0.7647,
+          "PRODUCES": 0.1384,
+          "CONSUMES": 0.1303,
+          "MOVES": 0.0638
+        },
+        "margin": 0.6263
+      },
+      "generate": {
+        "true_label": "PRODUCES",
+        "predicted_label": "PRODUCES",
+        "correct": true,
+        "sims": {
+          "PART_OF": 0.07,
+          "PRODUCES": 0.8804,
+          "CONSUMES": 0.3467,
+          "MOVES": 0.274
+        },
+        "margin": 0.5336
+      },
+      "require": {
+        "true_label": "CONSUMES",
+        "predicted_label": "CONSUMES",
+        "correct": true,
+        "sims": {
+          "PART_OF": 0.062,
+          "PRODUCES": 0.2701,
+          "CONSUMES": 0.6424,
+          "MOVES": 0.2044
+        },
+        "margin": 0.3723
+      },
+      "transport": {
+        "true_label": "MOVES",
+        "predicted_label": "MOVES",
+        "correct": true,
+        "sims": {
+          "PART_OF": 0.0638,
+          "PRODUCES": 0.3477,
+          "CONSUMES": 0.3456,
+          "MOVES": 0.7588
+        },
+        "margin": 0.4111
+      }
+    },
+    "n_correct": 4,
+    "n_total": 4,
+    "held_out_generalization_rate": 1.0
+  },
+  "held_out_generalization_scrambled": {
+    "per_marker": {
+      "compose": {
+        "true_label": "PART_OF",
+        "predicted_label": null,
+        "correct": false
+      },
+      "generate": {
+        "true_label": "PRODUCES",
+        "predicted_label": null,
+        "correct": false
+      },
+      "require": {
+        "true_label": "CONSUMES",
+        "predicted_label": null,
+        "correct": false
+      },
+      "transport": {
+        "true_label": "MOVES",
+        "predicted_label": null,
+        "correct": false
+      }
+    },
+    "n_correct": 0,
+    "n_total": 4,
+    "scrambled_generalization_rate": 0.0
+  },
+  "real_data": {
+    "n_distinct_material_whole_pairs": 72,
+    "n_distinct_canon_triples": 72,
+    "cross_gap_no_collision": true,
+    "real_data_no_leak_ok": true,
+    "n_partof_pairs": 72,
+    "n_partof_same_rep": 72,
+    "n_partof_consistent_dup": 72,
+    "n_partof_extraction_failed": 0,
+    "n_kb_pairs": 73,
+    "n_kb_same_rep": 73,
+    "n_kb_consistent_dup": 73,
+    "n_kb_extraction_failed": 0,
+    "n_total_pairs": 145,
+    "n_total_same_rep": 145,
+    "n_total_dup": 145,
+    "n_total_extraction_failed": 0,
+    "real_data_same_idea_rate": 1.0,
+    "real_data_corroboration_rate": 1.0
+  },
+  "same_idea_match_rate": 1.0,
+  "automatic_corroboration_rate": 1.0,
+  "held_out_generalization_rate": 1.0,
+  "distinct_idea_distinct_rep_ok": true,
+  "no_leak_ok": true,
+  "scramble_control_ok": true,
+  "core_preserved_ok": true,
+  "controls_ok": true,
+  "same_idea_ok": true,
+  "corroboration_ok": true,
+  "relation_direction_table_reference_only": {
+    "cskg_madeof": "PART_OF",
+    "paraphrase_composes": "PART_OF",
+    "paraphrase_partof": "PART_OF",
+    "kb_produces": "PRODUCES",
+    "kb_consumes": "CONSUMES",
+    "kb_moves": "MOVES",
+    "kb_paraphrase_produces": "PRODUCES",
+    "kb_paraphrase_consumes": "CONSUMES",
+    "kb_paraphrase_moves": "MOVES"
+  },
+  "learned_marker_table": {
+    "cskg_madeof": {
+      "marker": "made_of",
+      "swap": true
+    },
+    "paraphrase_composes": {
+      "marker": "compose",
+      "swap": false
+    },
+    "paraphrase_partof": {
+      "marker": "part_of",
+      "swap": false
+    },
+    "kb_produces": {
+      "marker": "produce",
+      "swap": false
+    },
+    "kb_consumes": {
+      "marker": "consume",
+      "swap": false
+    },
+    "kb_moves": {
+      "marker": "move",
+      "swap": false
+    },
+    "kb_paraphrase_produces": {
+      "marker": "generate",
+      "swap": true
+    },
+    "kb_paraphrase_consumes": {
+      "marker": "require",
+      "swap": true
+    },
+    "kb_paraphrase_moves": {
+      "marker": "transport",
+      "swap": true
+    }
+  },
+  "relation_class_thresholds": {
+    "floor": 0.5,
+    "margin": 0.15
+  },
+  "bands": {
+    "same_idea_match_rate_floor": 0.9,
+    "automatic_corroboration_rate_floor": 0.9,
+    "held_out_generalization_hard_pass": 1.0,
+    "held_out_generalization_middle_band_floor": 0.5,
+    "scramble_real_floor": 0.75,
+    "scramble_corrupted_ceiling": 0.25
+  },
+  "reference_parent_full": {
+    "n_targets": 121,
+    "n_gaps": 121,
+    "n_2plus_sources": 50,
+    "same_idea_match_rate": 1.0,
+    "automatic_corroboration_rate": 1.0,
+    "elapsed_s": 13.28,
+    "source": "MEASURED@d:/AI/hd-instrument/data/exp_representation_canonicalization_v1/metrics.json"
+  }
+}

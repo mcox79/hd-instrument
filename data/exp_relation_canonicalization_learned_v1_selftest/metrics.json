@@ -1,0 +1,124 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "T0 anti-collapse (12/12 leave-one-out) + held-out 'compose'->PART_OF smoke + direction-handling worked example (identical to e65de60f1's own) + PRODUCES/CONSUMES boundary + core-preserved (lexical_similarity/hd_fact_store/verb_lexical_similarity self-tests) all pass",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.21062969998456538,
+  "ts_iso": "2026-08-11T23:07:57.899059+00:00",
+  "anchor_name": "relation_canonicalization_learned_v1",
+  "run_mode": "self_test",
+  "result": {
+    "lexical_similarity_self_test": {
+      "sim_vessel_ferry": 0.6402,
+      "sim_vessel_dock": 0.2763,
+      "sim_sister_rival": 0.4144,
+      "sim_vessel_ferry_scrambled": 0.0032,
+      "threshold": 0.5,
+      "n_concepts": 359,
+      "n_feature_tags": 168
+    },
+    "hd_fact_store_self_test": {
+      "roles": [
+        "REL",
+        "ARG0",
+        "ARG1",
+        "SOURCE",
+        "TRUST"
+      ],
+      "trust_levels": {
+        "TRUST_HIGH": 1.0,
+        "TRUST_MID": 0.6,
+        "TRUST_LOW": 0.3
+      },
+      "reuse": "EventBundleCodec / RoleSlotSummarizer bipolar primitives",
+      "sublinear_index": "content-hash sr-signature (O(1)); byte-equivalent to O(n)"
+    },
+    "verb_lexical_similarity_self_test": {
+      "n_outcome_words": 99,
+      "n_goal_words": 73,
+      "sim_praise_pos": 0.696,
+      "sim_praise_neg": 0.1606,
+      "sim_accept_pos": 0.696,
+      "sim_accept_neg": 0.1606,
+      "sim_crave_desid": 1.0,
+      "sim_crave_asp": 0.0104,
+      "sim_commence_desid": 0.0104,
+      "sim_commence_asp": 1.0,
+      "real_gap_praise": 0.5354,
+      "scrambled_gap_praise": -0.0201
+    },
+    "structural_no_leak_ok": true,
+    "anti_collapse_closed_form": {
+      "per_marker": {
+        "consist_of": {
+          "true_label": "PART_OF",
+          "predicted_label": "PART_OF",
+          "correct": true
+        },
+        "made_of": {
+          "true_label": "PART_OF",
+          "predicted_label": "PART_OF",
+          "correct": true
+        },
+        "part_of": {
+          "true_label": "PART_OF",
+          "predicted_label": "PART_OF",
+          "correct": true
+        },
+        "emit": {
+          "true_label": "PRODUCES",
+          "predicted_label": "PRODUCES",
+          "correct": true
+        },
+        "produce": {
+          "true_label": "PRODUCES",
+          "predicted_label": "PRODUCES",
+          "correct": true
+        },
+        "yield": {
+          "true_label": "PRODUCES",
+          "predicted_label": "PRODUCES",
+          "correct": true
+        },
+        "consume": {
+          "true_label": "CONSUMES",
+          "predicted_label": "CONSUMES",
+          "correct": true
+        },
+        "deplete": {
+          "true_label": "CONSUMES",
+          "predicted_label": "CONSUMES",
+          "correct": true
+        },
+        "use": {
+          "true_label": "CONSUMES",
+          "predicted_label": "CONSUMES",
+          "correct": true
+        },
+        "carry": {
+          "true_label": "MOVES",
+          "predicted_label": "MOVES",
+          "correct": true
+        },
+        "convey": {
+          "true_label": "MOVES",
+          "predicted_label": "MOVES",
+          "correct": true
+        },
+        "move": {
+          "true_label": "MOVES",
+          "predicted_label": "MOVES",
+          "correct": true
+        }
+      },
+      "n_correct": 12,
+      "n_total": 12,
+      "accuracy": 1.0,
+      "produces_never_consumes_ok": true,
+      "consumes_never_produces_ok": true,
+      "anti_collapse_ok": true
+    },
+    "held_out_compose_smoke_ok": true,
+    "direction_handling_ok": true,
+    "produces_consumes_boundary_ok": true
+  }
+}
