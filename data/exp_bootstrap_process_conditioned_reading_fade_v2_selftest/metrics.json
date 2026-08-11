@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "tagger": {
+      "combustion_sent": [
+        "combustion"
+      ],
+      "generic_sent": [],
+      "paragraph_override": [
+        "digestion"
+      ]
+    },
+    "real_pc_reading": {
+      "wood_dom": "DESTROY",
+      "scramble_collapsed": true
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: process tagger + process-keyed reading recall + scramble collapse OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.21,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_process_conditioned_reading_fade_v2"
+}

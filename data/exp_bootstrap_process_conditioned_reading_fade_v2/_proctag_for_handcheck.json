@@ -1,0 +1,965 @@
+{
+  "n_read_facts": 562,
+  "sample": [
+    {
+      "entity": "engine",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "The company used to make internal combustion engine (ICE) vehicles but stopped making them in 2022 because it wanted to make energy vehicles instead.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "motorboat",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "Some motorboats are made with inboard engines built in; others attach an outboard motor containing the internal combustion engine, the gearbox and the propeller in one portable unit.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "gas",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "Most spacecraft are propelled by rocket engines, which combust an explosive liquid fuel with liquid oxidizer (oxygen in a liquid state) to generate hot gas which expands and propels the spacecraft forward.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "storm",
+      "process": "water_cycle",
+      "fate": "MOVED",
+      "sentence": "Since the storm was moving so quickly, it did not drop much rainfall; precipitation usually amounted to below .",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "cliff",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "Natural arches commonly form where inland cliffs, coastal cliffs, fins or stacks are eroded by the sea, rivers or weathering.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "CONSUMED",
+      "sentence": "Selenium dioxide can be made by burning selenium in air.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fat",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Research should be done, and a doctor consulted if necessary, to determine the cause of the inability to digest and absorb fat.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "For example, hydrochloric acid, found in people's stomachs, can dissociate into a chloride anion and a free proton, and the property of the free proton is how it can digest food by corroding it.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "vehicle",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "The company used to make internal combustion engine (ICE) vehicles but stopped making them in 2022 because it wanted to make energy vehicles instead.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "piece",
+      "process": "erosion_weathering",
+      "fate": "MOVED",
+      "sentence": "Wind erosion occurs when wind moves pieces of earth materials.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "site",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "This site was formed over millions of years by the erosion of the land.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Secretions limit, or neutralise, the stomach acidity, and enzymes help to digest the food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "An example of a non-spontaneous process would be the combustion of methane in oxygen to form carbon dioxide and water, as this requires an input of energy.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "digestion",
+      "fate": "PRODUCED",
+      "sentence": "Anaerobic digestion is much used to make biogas from biodegradable waste because valuable fuel can be produced while destroying disease-causing pathogens and reducing the volume of disposed waste products.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Most mullets have very strong stomachs and a special throat to help them digest food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "blade",
+      "process": "photosynthesis",
+      "fate": "MOVED",
+      "sentence": "High wave action may increase nutrient availability and moves the blades of the thallus, allowing more sunlight to reach the organism so that it can photosynthesize.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "energy",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "The body switches to anaerobic respiration and makes energy out of glucose without needing oxygen.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "solution",
+      "process": "water_cycle",
+      "fate": "PRODUCED",
+      "sentence": "First, the solution is made more concentrated, usually by cooling or letting some of the liquid evaporate.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "PRODUCED",
+      "sentence": "A fossil-fuel power station is a power station that makes electricity by burning certain fuels.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "Most is carbon dioxide from burning fossil fuels: coal, oil, and natural gas.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "cove",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "Coves are formed by differential erosion.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "CONSUMED",
+      "sentence": "Instead it is calculated, usually by lookjing at how much oxygen is produced or consumed.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "The swarm puts out extracellular enzymes to digest food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "gas",
+      "process": "decomposition",
+      "fate": "CONSUMED",
+      "sentence": "Hot Wire CVD (HWCVD): Uses heated filaments to decompose source gases catalytically.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "Many metal nitrates with thermal decomposition makes oxygen and metal nitrate.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "product",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "The algae make food products for the coral polyp by photosynthesis.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Laxatives work by helping your intestines digest undigested food, and do not make you lose weight.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "In fish, the difference is about if a baby fish is born with a stomach ready to digest food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "electricity_generation",
+      "fate": "CONSUMED",
+      "sentence": "A fossil-fuel power station is a power station that makes electricity by burning certain fuels.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dryer",
+      "process": "water_cycle",
+      "fate": "MOVED",
+      "sentence": "The two types of ventless dryers are condensation dryers and heat pump dryers.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "respiration",
+      "process": "respiration",
+      "fate": "MOVED",
+      "sentence": "In eukaryotes, respiration is carried out by the mitochondria.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "PRODUCED",
+      "sentence": "It makes food last longer, and be easier to digest.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "sugar",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "Plants use cotyledons to make sugars through photosynthesis.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "energy",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "The third step is cellular respiration which makes the chemical energy that the cells in the body need, and carbon dioxide.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "isotope",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "Photosynthesis emits the same oxygen isotope as that of water.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "saliva",
+      "process": "digestion",
+      "fate": "MOVED",
+      "sentence": "The true bug pumps saliva through this mouth, to partly digest their food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "carbon",
+      "process": "carbon_cycle",
+      "fate": "PRODUCED",
+      "sentence": "The extreme heat makes the carbon react with iron ore, taking off the oxygen from iron oxides, and making carbon dioxide.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "When people burn fossil fuels like coal, oil and natural gas this adds carbon dioxide to the air, since fossil fuels contain lots of carbon and burning means joining most of the atoms in the fuel with oxygen.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "carbon",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "The scrap usually is rusty and contains oxygen, so some of the rust reacts with the pig iron, burning the carbon away and creating heat which melts the scrap.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Instead it is calculated, usually by lookjing at how much oxygen is produced or consumed.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "carbon",
+      "process": "carbon_cycle",
+      "fate": "PRODUCED",
+      "sentence": "Decomposition of litter releases dissolved organic carbon (DOC), which influences water color, pH, and light penetration.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "product",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "The water product can be in the form of gas or liquid depending on the temperature post-combustion.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "engine",
+      "process": "combustion",
+      "fate": "MOVED",
+      "sentence": "Most garbage trucks now move using an internal combustion engine or electric motor.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "energy",
+      "process": "fossilization",
+      "fate": "PRODUCED",
+      "sentence": "\"True zero\" means eliminating fossil fuel use completely and producing all energy from renewable sources.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "PRODUCED",
+      "sentence": "Selenium dioxide can be made by burning selenium in air.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fan",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "The fan was formed by the erosion of the Himalayas and the Tibetan Plateau.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "electricity_generation",
+      "fate": "CONSUMED",
+      "sentence": "fuel cell electric vehicles (FCEVs) and range-extended electric vehicles (REEVs), which consume fuel through a fuel cell or an ICE-driven generator to produce electricity needed for the electric motors.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "polysaccharide",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "ability to digest complex polysaccharides into small chain fatty acids - building blocks of lipids.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "ether",
+      "process": "water_cycle",
+      "fate": "PRODUCED",
+      "sentence": "Ethanol can go through both types of dehydration: intramolecular dehydration makes ethylene, and condensation makes diethyl ether.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "PRODUCED",
+      "sentence": "Microorganisms produce nutrients using chemicals called chemosynthesis and might produce food and energy.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "PRODUCED",
+      "sentence": "It decomposes to make nitrogen dioxide and calcium oxide when heated.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "erosion",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "The job of the BEB was to review reports of investigations made concerning erosion of the shores of coastal and lake waters, and the protection of those shores.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "atp",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "Adenosine diphosphate (or ADP) is the chemical that plants make ATP from, during photosynthesis.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "For example, burning fossil fuels makes VOCs.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "blood",
+      "process": "respiration",
+      "fate": "MOVED",
+      "sentence": "Their job is to pump blood (which carries oxygen) to the lungs or the rest of the body.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "cellulose",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "They use enzymes present in their gut to digest the cellulose and hemicellulose in the wood.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "drug",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "The enterotype affects how well a person can digest food or absorb drugs.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "decomposition",
+      "fate": "CONSUMED",
+      "sentence": "The decomposition of the dead organisms use up most of the remaining dissolved oxygen in the water.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "nutrient",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "Leaf litter decomposition releases essential nutrients including nitrogen and phosphorus back into the water.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "leaf",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "They have a slow metabolic rate that allows them to digest one leaf in up to a month.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "microglia",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "In these neurodegenerative disorders, it is thought that the microglia digest healthy brain cells, causing the degeneration of brain function.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "reaction",
+      "process": "combustion",
+      "fate": "MOVED",
+      "sentence": "Combustion reactions are carried out with oxygen at constant pressure in a calorimeter.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "milk",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "To them it was a great advantage: they could digest milk throughout life.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "They help to absorb digested food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "lactose",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Lactic acid bacteria contain the enzymes needed to digest lactose.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "product",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "During the late 1940s, Woodward synthesized many complex natural products including quinine, cholesterol, cortisone, strychnine, lysergic acid, reserpine, chlorophyll, cephalosporin, and colchicine.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Sindhi will generally eat this after a meal to digest food and in particular after an oily meal).",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "sulfur",
+      "process": "photosynthesis",
+      "fate": "CONSUMED",
+      "sentence": "Plants absorb this sulfur through photosynthesis and make this sulfur organic",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "plant",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Pronghorns have the ability to digest some poisonous plants.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "carbohydrate",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Dogs' ability to digest carbohydrates easily may be a key difference between dogs and wolves.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "However, in recent centuries they have burned much fossil fuel, which has partly been responsible for the present temperature rise.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "water",
+      "process": "electricity_generation",
+      "fate": "PRODUCED",
+      "sentence": "The heat generated converts water to steam.",
+      "src": "propara_train",
+      "tagger": "paragraph"
+    },
+    {
+      "entity": "carbon",
+      "process": "fossilization",
+      "fate": "PRODUCED",
+      "sentence": "Hydrogen can also be separated from renewable biogas, which means the carbon emitted is not of fossil origin and therefore is part of the natural carbon cycle.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "PRODUCED",
+      "sentence": "fuel cell electric vehicles (FCEVs) and range-extended electric vehicles (REEVs), which consume fuel through a fuel cell or an ICE-driven generator to produce electricity needed for the electric motors.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "PRODUCED",
+      "sentence": "The magnets inside the generator spin within wire coils to produce electricity.",
+      "src": "propara_train",
+      "tagger": "paragraph"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "This helps the person digest the food in their stomach.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "This makes it difficult for the body to digest food.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "combustion",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "An example of this is combustion (burning).",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "rock",
+      "process": "erosion_weathering",
+      "fate": "CONSUMED",
+      "sentence": "\"Weathering is a large consumer of the atmospheric carbon dioxide essential for dissolving rocks\".",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "body",
+      "process": "decomposition",
+      "fate": "CONSUMED",
+      "sentence": "Bog bodies dry up and decompose rapidly, when they are taken out of the bog.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "silt",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "With its frequent floods, it often changed course, causing erosion and depositing silt in other places.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "gas",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "This is because, at high temperature, nitro compounds can decompose and release nitrogen gas.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "atp",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Cells performing aerobic respiration (respiration using oxygen) synthesize much more ATP, but not as part of glycolysis.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "monoxide",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "Given that braseros are covered, combustion can occur with small quantities of oxygen, and instead of carbon dioxide, carbon monoxide can be generated.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "product",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "When an unstable atomic nucleus undergoes radioactive decay, it makes a decay product.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fuel",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "External combustion engines, on the other hand, use the energy from burning fossil fuels to expand a gas or liquid and use the expansion to create motion.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "cleaner",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "Natural gas vehicle - a fossil fuel, but burns much cleaner than gasoline, and there is more natural gas available than petroleum",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "fat",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Steatorrhea is caused by the inability to digest and absorb fat in the diet.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "vehicle",
+      "process": "fossilization",
+      "fate": "PRODUCED",
+      "sentence": "He wanted to study fixing materials for batteries to help create electric vehicles and help end the use of fossil fuels.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "nutrient",
+      "process": "digestion",
+      "fate": "PRODUCED",
+      "sentence": "Microorganisms produce nutrients using chemicals called chemosynthesis and might produce food and energy.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "water",
+      "process": "electricity_generation",
+      "fate": "MOVED",
+      "sentence": "The heated water then flows to a steam generator where it transfers heat to a secondary system where steam is generated.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "The cyanobacteria in stromatolites were the first known organisms to photosynthesize and produce free oxygen.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "coal",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "Fluidized bed combustion is a technology that burns crushed coal mixed with limestone to neutralize acidic sulfur compounds produced during combustion.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "smoke",
+      "process": "combustion",
+      "fate": "PRODUCED",
+      "sentence": "They are usually activated by detecting the effects of a fire, such as the increase in temperature associated with fire, or the smoke generated by combustion.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "coal",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "People burn coal for heat or electricity.",
+      "src": "propara_train",
+      "tagger": "paragraph"
+    },
+    {
+      "entity": "gasoline",
+      "process": "combustion",
+      "fate": "CONSUMED",
+      "sentence": "For example, if gasoline is burned in the open air, heat is released by the gasoline.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "energy",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "The energy released by radioactive decay may either be carried away by a gamma ray electromagnetic radiation (a type of light), a beta particle or an alpha particle.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "PRODUCED",
+      "sentence": "When warm, humid air rises due to convection or other cause, water condenses to make clouds, and in some cases precipitation.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "glucose",
+      "process": "carbon_cycle",
+      "fate": "PRODUCED",
+      "sentence": "The plant uses carbon dioxide in the air to produce glucose.",
+      "src": "propara_train",
+      "tagger": "paragraph"
+    },
+    {
+      "entity": "fuel",
+      "process": "fossilization",
+      "fate": "CONSUMED",
+      "sentence": "It comes from soil bacteria, fertilizers, and burning fossil fuels.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "respiration",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Anaerobic respiration is a form of respiration which does not use oxygen.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "photosynthesis",
+      "fate": "PRODUCED",
+      "sentence": "One is photosynthesis, how plants make oxygen from carbon dioxide and water.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "ethylene",
+      "process": "water_cycle",
+      "fate": "PRODUCED",
+      "sentence": "Ethanol can go through both types of dehydration: intramolecular dehydration makes ethylene, and condensation makes diethyl ether.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "atp",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Mitochondria's main role in the cell is to take glucose and use the energy they store in its chemical bonds to make ATP in a process called cellular respiration.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "blood",
+      "process": "respiration",
+      "fate": "MOVED",
+      "sentence": "If the victim is not breathing, or if a heartbeat cannot be felt, artificial respiration and cardiopulmonary resuscitation (CPR) could be needed to keep a person's blood circulating long enough for medics to attempt revival.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Above 15,000 m (49,000 ft), respiration is not possible because the pressure at which the lungs excrete carbon dioxide (approximately 87 mmHg) exceeds outside air pressure.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "PRODUCED",
+      "sentence": "Within small capillaries, the heme release the oxygen.",
+      "src": "propara_train",
+      "tagger": "paragraph"
+    },
+    {
+      "entity": "energy",
+      "process": "photosynthesis",
+      "fate": "CONSUMED",
+      "sentence": "Carotenoids have two key roles in plants and algae: they absorb light energy for use in photosynthesis, and they protect chlorophyll from photodamage.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "water",
+      "process": "water_cycle",
+      "fate": "MOVED",
+      "sentence": "Water is carried against gravity by the negative pressure that builds up through the process of transpiration, which is the evaporation of moisture in leaves.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "flesh",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Chimpanzees are primarily frugivores, but they could and would consume and digest animal flesh, given the opportunity.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "neutron",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "As an example of fission decay, a fermium-256 atom can split into xenon-140 and palladium-112 atoms, releasing four neutrons in the process.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "The enterotype affects how well a person can digest food or absorb drugs.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "liquid",
+      "process": "water_cycle",
+      "fate": "PRODUCED",
+      "sentence": "The vacuum makes the liquid evaporate at a low temperature than normal.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "sunlight",
+      "process": "photosynthesis",
+      "fate": "CONSUMED",
+      "sentence": "This green-colored pigment absorbs sunlight, and allows the plant to make its own food by photosynthesis.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "CONSUMED",
+      "sentence": "It decomposes to make nitrogen dioxide and calcium oxide when heated.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "valley",
+      "process": "erosion_weathering",
+      "fate": "PRODUCED",
+      "sentence": "The valley was formed by water erosion of the weak basaltic lava from the Kohala volcano.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "lactose",
+      "process": "digestion",
+      "fate": "CONSUMED",
+      "sentence": "Up to 75% of people worldwide begin to lose the ability to digest lactose as they grow into adults.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "gas",
+      "process": "combustion",
+      "fate": "MOVED",
+      "sentence": "Most chimneys are vertical, or almost vertical, to make sure that the gases flow easily, drawing air into the combustion in what is known as the stack, or chimney, effect.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "plutonium",
+      "process": "decomposition",
+      "fate": "PRODUCED",
+      "sentence": "Most is found in spent nuclear fuel, where plutonium is more likely to decay than go through fission. is also a byproduct of nuclear weapons production, which needs to separate from to produce weapons-grade plutonium.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "PRODUCED",
+      "sentence": "NASA is 3D printing food to create less waste and to make food that has all the right nutrients for astronauts.",
+      "src": "simplewiki",
+      "tagger": "sentence"
+    }
+  ]
+}

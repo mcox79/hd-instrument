@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "context_separable": {
+      "water@water_cycle": "MOVE",
+      "water@respiration": "DESTROY"
+    },
+    "capacity_25": {
+      "acc": 1.0
+    },
+    "count_weighted_and_scramble": "ok"
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: context-separable superposition + 25-fact capacity + count-weighted dominant + seed/lesion/None + scramble all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.02,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_fhrr_superposition_fade_v3"
+}

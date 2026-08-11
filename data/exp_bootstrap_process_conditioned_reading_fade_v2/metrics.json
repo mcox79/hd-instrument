@@ -1,0 +1,132 @@
+{
+  "verdict": "HARD_FAIL_no_fade_lesion_gap+scramble_no_collapse",
+  "verdict_msg": "HARD_FAIL_no_fade_lesion_gap+scramble_no_collapse: PROCESS-KEYED FADE CURVE reading_only(dom) [0.0323, 0.0968, 0.0968, 0.0968, 0.0968, 0.0968] (rise 0.0323->0.0968 >=+0.05? True); seed_only=0.2097 combined_final=0.2419; LESION gap=0.1451 (fade<= 0.05) fade_ratio=0.4002 -> fades=False; OVERLAP=0.3077 (4/13 seed-covered re-derived); SCRAMBLE recall=0.0645 retained=0.6663 (collapse<= 0.5) -> False; reading held-out precision=0.4; n_read_facts=562 ep_keys=225 skipped_no_proc=3326 leak_guard=13; DESIGN-GATE process-tag accuracy pending hand-check (dump)",
+  "summary": "HARD_FAIL_no_fade_lesion_gap+scramble_no_collapse: PROCESS-KEYED FADE CURVE reading_only(dom) [0.0323, 0.0968, 0.0968, 0.0968, 0.0968, 0.0968] (rise 0.0323->0.0968 >=+0.05? True); seed_only=0.2097 combined_final=0.2419; LESION gap=0.1451 (fade<= 0.05) fade_ratio=0.4002 -> fades=False; OVERLAP=0.3077 (4/13 seed-covered re-derived); SCRAMBLE recall=0.0645 retained=0.6663 (collapse<= 0.5) -> False; reading held-out precision=0.4; n_read_facts=562 ep_keys=225 skipped_no_proc=3326 leak_guard=13; DESIGN-GATE process-tag accuracy pending hand-check (dump)",
+  "elapsed_s": 323.31,
+  "run_mode": "bootstrap_pc",
+  "anchor_name": "bootstrap_process_conditioned_reading_fade_v2",
+  "n_heldout_items": 62,
+  "seed_only_recall": 0.2097,
+  "primary_metric": "process-keyed reading DOMINANT (entity,process)->fate (promiscuity-robust + grain-matched)",
+  "fade_curve": [
+    {
+      "n_read_sentences": 1000,
+      "n_reading_facts": 99,
+      "n_distinct_ep_keys": 54,
+      "reading_only_recall": 0.0323,
+      "combined_recall": 0.2258,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 3000,
+      "n_reading_facts": 233,
+      "n_distinct_ep_keys": 111,
+      "reading_only_recall": 0.0968,
+      "combined_recall": 0.2419,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 6000,
+      "n_reading_facts": 368,
+      "n_distinct_ep_keys": 160,
+      "reading_only_recall": 0.0968,
+      "combined_recall": 0.2419,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 10000,
+      "n_reading_facts": 472,
+      "n_distinct_ep_keys": 196,
+      "reading_only_recall": 0.0968,
+      "combined_recall": 0.2419,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 14000,
+      "n_reading_facts": 551,
+      "n_distinct_ep_keys": 220,
+      "reading_only_recall": 0.0968,
+      "combined_recall": 0.2419,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 14626,
+      "n_reading_facts": 562,
+      "n_distinct_ep_keys": 225,
+      "reading_only_recall": 0.0968,
+      "combined_recall": 0.2419,
+      "seed_only_recall": 0.2097,
+      "final": true
+    }
+  ],
+  "reading_only_final": 0.0968,
+  "combined_final": 0.2419,
+  "lesion": {
+    "reading_only": 0.0968,
+    "combined": 0.2419,
+    "gap": 0.1451,
+    "fade_ratio": 0.4002,
+    "n_seed_covered": 13,
+    "n_seed_covered_rederived_by_reading": 4,
+    "overlap": 0.3077
+  },
+  "scramble": {
+    "scramble_recall": 0.0645,
+    "retained_fraction": 0.6663
+  },
+  "fidelity": {
+    "reading_heldout_dominant_precision": 0.4,
+    "n_items_with_dominant": 15,
+    "n_correct": 6,
+    "v2_handcheck_precision": 0.9
+  },
+  "reading_corpus": {
+    "n_read_sentences": 14626,
+    "n_reading_facts": 562,
+    "n_distinct_ep_keys": 225,
+    "n_skipped_no_process": 3326,
+    "no_leak_dev_guard_fires": 13,
+    "tagger_mix": {
+      "paragraph": 146,
+      "frame_sentence": 30,
+      "keyword": 272
+    }
+  },
+  "design_gate": {
+    "proctag_handcheck_dump": "D:\\AI\\hd-instrument\\data\\exp_bootstrap_process_conditioned_reading_fade_v2\\_proctag_for_handcheck.json",
+    "n_proctag_sample": 120,
+    "PROCTAG_ACC_GATE": 0.7,
+    "note": "process-tag accuracy hand-checked by operator; verdict finalized after"
+  },
+  "bands": {
+    "RISE_MIN_ABS": 0.05,
+    "FADE_GAP_MAX": 0.05,
+    "FADE_RATIO_MIN": 0.85,
+    "SCRAMBLE_MAX_RETAINED": 0.5,
+    "PROCTAG_ACC_GATE": 0.7
+  },
+  "design_gate_result": {
+    "process_tag_accuracy_handchecked": 0.7167,
+    "n_correct": 86,
+    "n": 120,
+    "gate": 0.7,
+    "gate_pass": true,
+    "wrong_by_process": {
+      "combustion": 5,
+      "water_cycle": 5,
+      "carbon_cycle": 4,
+      "photosynthesis": 3,
+      "fossilization": 4,
+      "respiration": 4,
+      "digestion": 5,
+      "electricity_generation": 2,
+      "erosion_weathering": 2
+    },
+    "dominant_error_mode": "keyword-latching: process-NAME words appearing as noun-modifiers or in unrelated senses ('combustion engine', 'fossil fuel', 'radioactive decay', 'chemical condensation', 'carbon dioxide') get tagged as that process even when the entity-fate event is a different (or no) process.",
+    "coverage_collapse_skip_fraction": 0.8555,
+    "n_facts_tagged": 562,
+    "n_facts_skipped_no_process": 3326
+  },
+  "final_verdict": "HARD_FAIL_PARTIAL_BOOTSTRAP_extend_not_fully_fade",
+  "final_verdict_msg": "HARD_FAIL (PARTIAL BOOTSTRAP: reading EXTENDS but the seed must permanently carry process-precision). DESIGN GATE: process-tag accuracy (hand-checked) = 0.7167 (86/120), at/below the 0.7 gate -- reading cannot RELIABLY identify the process (dominant error = keyword-latching on process-name words in unrelated contexts: {'combustion': 5, 'water_cycle': 5, 'digestion': 5, 'carbon_cycle': 4, 'fossilization': 4, 'respiration': 4, 'photosynthesis': 3, 'electricity_generation': 2, 'erosion_weathering': 2}). SEPARATELY + decisively, COVERAGE COLLAPSE: 86% of fate-facts (3326/3888) were SKIPPED because the sentence states the entity-fate but carries NO taggable process signal -> reading yield fell from ~3817 (entity-global v1) to 562 tagged facts. RESULT: process-keyed reading_only recall = 0.0968 (rises from 0.0323 but saturates LOW), seed_only=0.2097, combined=0.2419; LESION gap=0.1451 (>> 0.05, does NOT fade), OVERLAP=0.3077 (4/13); SCRAMBLE retained=0.6663 (small-N noise on a low base). CONCLUSION: matching reading to the seed's PROCESS-KEYED grain does NOT let the crutch fade, because (a) science prose rarely co-states entity-fate AND an unambiguous process, and (b) glass-box process-tagging is only ~0.7167 accurate (keyword-latching). The bootstrap is EXTEND-NOT-FULLY-FADE: reading grows the store (entity-global, validated) but the hand-vetted seed must PERMANENTLY supply process-conditioned precision -- an honest, conclusive limit of no-LLM grow-by-reading on this task."
+}
