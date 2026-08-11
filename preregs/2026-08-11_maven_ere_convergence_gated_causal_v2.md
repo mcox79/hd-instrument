@@ -131,3 +131,22 @@ a go/no-go trajectory question.
 ## Guardrails
 Branch dataprep/mcguffey-graded-corpus, no origin push, targeted commits only (never git add -A).
 self-test PASS -> this measurement -> STOP and report. No auto-scale to the full pair space.
+
+## AMENDMENT-1 (2026-08-11, Director maturation drive): FULL-DEV confirmation
+Scaled the DEV evaluation from the 200-doc slice to the FULL MAVEN-ERE dev set (710 docs,
+613,706 candidate pairs, 13,624 gold positives) with EVERYTHING ELSE IDENTICAL -- same 600-doc
+TRAIN fit, same convergence gate, same GAM readout, same dev-blind ratio selection (=1.0), same
+official positive-only micro-F1, same floor + scramble + ablation controls. The dev slice is now
+parameterized (`--n-dev-docs 710 --anchor ...`); the arc-parse row cache is shared + keyed by
+(split, doc_id) so the 600 train + first-200 dev extractions are reused (resumable per-unit). This
+turns "F1 15.10 on a 200-doc slice" into a defensible FULL-DEV number.
+MEASURED@data/exp_maven_ere_convergence_gated_causal_v2_fulldev/metrics.json (official positive-only
+micro-F1, causal task, full 710-doc dev):
+  order_majority_floor 5.93 (P 3.10 R 69.75) | gate_only 10.31 (+4.38) |
+  gate_plus_entity 10.21 (-0.10, Lever-1 gate cue INERT) |
+  gate_learned_noentity 14.86 (+4.55 learner lift) | full_v2 14.78 (P 11.49 R 20.73) |
+  scramble 3.48 (collapses, <0.5x full_v2, below floor) | best trap baseline 0.73 | SOTA 31.96.
+Verdict HARD-PASS: full_v2 = 2.49x floor, > gate+1, scramble-clean, headroom 17.2 pts.
+The ~15.10 HELD at full scale (14.78, -0.32 from the slice = within noise; floor also dropped
+7.28->5.93 so the ratio-to-floor rose to 2.49x). Learner is the load-bearing lever; the
+entity-continuity lever is INERT at full scale too (-0.10 gate cue / -0.08 learner feature).

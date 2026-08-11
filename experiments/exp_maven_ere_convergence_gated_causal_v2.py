@@ -70,12 +70,17 @@ from hdlab.arc_parser import ArcParser  # noqa: E402
 from hdlab.learner.plugins import gam_plugin  # noqa: E402
 from tools.exp_checkpoint import unit_key, completed_units, record_unit, load_units  # noqa: E402
 
-ANCHOR_NAME = "exp_maven_ere_convergence_gated_causal_v2_smoke"
+DEFAULT_ANCHOR = "exp_maven_ere_convergence_gated_causal_v2_smoke"
+ANCHOR_NAME = DEFAULT_ANCHOR
 DATA_DIR = os.path.join(REPO_ROOT, "data", "benchmark_trap_check", "maven_ere")
 POS_MODEL_PATH = os.path.join(REPO_ROOT, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
 ARC_MODEL_PATH = os.path.join(REPO_ROOT, "data", "frontend_assets", "arc_parser_hashed_ud_ewt.npz")
 OUTPUT_DIR = os.path.join(REPO_ROOT, "data", ANCHOR_NAME)
-CKPT_DIR = os.path.join(OUTPUT_DIR, "_rowcache")
+# Row cache is SHARED + anchor-independent: keyed by (split, doc_id); TRAIN is fixed at N_TRAIN_DOCS
+# so type_rate_table -- and hence every cached cue -- is identical regardless of dev-slice size.
+# Both the 200-doc smoke and the full-dev (710) run reuse it, so the expensive arc-parse extraction
+# is never repeated for a doc already cached (resumable per-unit, per the contract).
+CKPT_DIR = os.path.join(REPO_ROOT, "data", "exp_maven_ere_convergence_gated_causal_v2_smoke", "_rowcache")
 
 N_DEV_DOCS = 200
 N_TRAIN_DOCS = 600
@@ -566,7 +571,8 @@ def run(self_test: bool = False):
         return {k: v_ for k, v_ in ev.items() if k != "all_pred"}
 
     metrics = {
-        "anchor_name": ANCHOR_NAME, "run_mode": "smoke", "verdict": band, "verdict_msg": verdict_msg,
+        "anchor_name": ANCHOR_NAME, "run_mode": ("full_dev" if len(dev_docs) >= 710 else "smoke"),
+        "verdict": band, "verdict_msg": verdict_msg,
         "summary": f"MAVEN-ERE convergence-gate v2 climb-or-plateau: {band}",
         "elapsed_s": time.time() - t0, "ts_iso": datetime.now(timezone.utc).isoformat(), "pid": os.getpid(),
         "n_dev_docs": len(dev_docs), "n_train_docs": len(train_docs),
@@ -607,7 +613,15 @@ def run(self_test: bool = False):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--n-dev-docs", type=int, default=N_DEV_DOCS,
+                    help="dev-slice size (default 200 smoke; 710 = full dev set)")
+    ap.add_argument("--anchor", type=str, default=DEFAULT_ANCHOR,
+                    help="output anchor name (metrics dir); TRAIN + model + controls stay identical")
     args = ap.parse_args()
+    if not args.self_test:
+        N_DEV_DOCS = args.n_dev_docs
+        ANCHOR_NAME = args.anchor
+        OUTPUT_DIR = os.path.join(REPO_ROOT, "data", ANCHOR_NAME)
     try:
         out = run(self_test=args.self_test)
         if args.self_test:

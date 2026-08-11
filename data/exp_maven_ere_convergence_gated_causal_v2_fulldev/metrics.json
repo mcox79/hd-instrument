@@ -1,0 +1,159 @@
+{
+  "anchor_name": "exp_maven_ere_convergence_gated_causal_v2_fulldev",
+  "run_mode": "full_dev",
+  "verdict": "HARD-PASS",
+  "verdict_msg": "floor=5.93 gate=10.31 gate+entity=10.21 learner_noent=14.86 full_v2=14.78 scramble=3.48 best_base=0.73 | climbs=True levers_load_bearing=True scramble_collapses=True headroom=17.2 band=HARD-PASS",
+  "summary": "MAVEN-ERE convergence-gate v2 climb-or-plateau: HARD-PASS",
+  "elapsed_s": 140.28846859931946,
+  "ts_iso": "2026-08-11T09:19:45.540798+00:00",
+  "pid": 28684,
+  "n_dev_docs": 710,
+  "n_train_docs": 600,
+  "n_candidate_pairs": 613706,
+  "n_gold_positives": 13624,
+  "n_full_v2_positive_predictions": 24581,
+  "arms": {
+    "order_majority_floor": {
+      "official_micro_f1_positive_only": {
+        "precision": 3.096922630705908,
+        "recall": 69.75190839694656,
+        "f1": 5.930534796568865
+      },
+      "macro_f1_all_labels": 27.07055224519882,
+      "accuracy_pct": 51.16749714032453
+    },
+    "gate_only": {
+      "official_micro_f1_positive_only": {
+        "precision": 5.896868347754255,
+        "recall": 40.869054609512624,
+        "f1": 10.306625820244895
+      },
+      "macro_f1_all_labels": 37.56191756060407,
+      "accuracy_pct": 84.41599071868289
+    },
+    "gate_plus_entity": {
+      "official_micro_f1_positive_only": {
+        "precision": 5.768624566565094,
+        "recall": 44.32618907809748,
+        "f1": 10.208687273372721
+      },
+      "macro_f1_all_labels": 37.193268437682065,
+      "accuracy_pct": 82.90500663184001
+    },
+    "gate_learned_noentity": {
+      "official_micro_f1_positive_only": {
+        "precision": 11.567545473124872,
+        "recall": 20.772166764533175,
+        "f1": 14.859933314080182
+      },
+      "macro_f1_all_labels": 44.413224923668366,
+      "accuracy_pct": 94.85910191524933
+    },
+    "full_v2": {
+      "official_micro_f1_positive_only": {
+        "precision": 11.488548065579106,
+        "recall": 20.728126834997063,
+        "f1": 14.783405313440648
+      },
+      "macro_f1_all_labels": 44.34690843400278,
+      "accuracy_pct": 94.84134096782498
+    },
+    "scramble": {
+      "official_micro_f1_positive_only": {
+        "precision": 5.2522562509246935,
+        "recall": 2.6056958308866704,
+        "f1": 3.4832949026149245
+      },
+      "macro_f1_all_labels": 34.91409921635904,
+      "accuracy_pct": 96.82942646804821
+    }
+  },
+  "baselines_on_slice": {
+    "majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 32.95918782082758,
+      "accuracy_pct": 97.78004451642968
+    },
+    "adjacent_sentence_heuristic": {
+      "official_micro_f1_positive_only": {
+        "precision": 1.3938007073018515,
+        "recall": 0.49177921315325895,
+        "f1": 0.7270359720036894
+      },
+      "macro_f1_all_labels": 33.392750082587646,
+      "accuracy_pct": 97.05217156097545
+    },
+    "bag_of_event_types": {
+      "official_micro_f1_positive_only": {
+        "precision": 9.109311740890687,
+        "recall": 0.33029947152084554,
+        "f1": 0.6374840628984276
+      },
+      "macro_f1_all_labels": 33.29524609916793,
+      "accuracy_pct": 97.7142149498294
+    }
+  },
+  "learner_config": {
+    "plugin": "hdlab.learner.plugins.gam_plugin (GAM/EBM, glass-box additive log-odds + MDL pairwise interactions)",
+    "subsample_ratio_selected_noentity": 1.0,
+    "trainval_scores_noentity": {
+      "1.0": 24.646845150006726,
+      "1.5": 14.467005076142131,
+      "2.0": 10.522696011004125
+    },
+    "subsample_ratio_selected_full": 1.0,
+    "trainval_scores_full": {
+      "1.0": 24.467652244676522,
+      "1.5": 13.775345992919213,
+      "2.0": 6.896551724137931
+    },
+    "full_gam_metrics": {
+      "n_main_keys": 324,
+      "n_interaction_keys": 40,
+      "n_classes": 3,
+      "model_bits": 576.926,
+      "data_bits": 44468.831
+    },
+    "ratio_candidates": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "ratio_selected_on": "TRAIN 80/20 held-out split (dev-blind)"
+  },
+  "decomposition": {
+    "floor_order_majority_f1": 5.930534796568865,
+    "gate_lift_over_floor": 4.37609102367603,
+    "lever1_gatecue_lift_over_gate": -0.0979385468721734,
+    "lever2_learner_lift_over_gate": 4.5533074938352875,
+    "lever1_in_learner_lift": -0.07652800063953435,
+    "full_v2_lift_over_floor": 8.852870516871782,
+    "full_v2_vs_floor_ratio": 2.49276090952095
+  },
+  "bands_prereg": {
+    "climbs_above_1.8x_floor": true,
+    "levers_load_bearing": true,
+    "scramble_collapses": true,
+    "headroom_survives": true,
+    "no_lift": false,
+    "levers_add_nothing": false,
+    "scramble_no_collapse": false
+  },
+  "cited_published_baselines": {
+    "sota_causal_f1_protoem_2023": 31.96
+  },
+  "arms_differ_digests": {
+    "full_v2": "a78835e1133509c010111ea8522e2fc7db41a1ec5059706ad8dc54c65e3c1407",
+    "gate_learned_noentity": "eb9195b84b1c7e9105eff3a72dbdef54b9294fdaddc873b8329d159383087a38",
+    "scramble": "079cfc065bc0fb36d5d7e6dc11f604682345d7acdbfd5659590bb067b9a42984"
+  },
+  "arms_differ_verified": true,
+  "no_leak_verified": true,
+  "deterministic_seeding": true,
+  "resumable_rowcache": true,
+  "prereg_path": "preregs/2026-08-11_maven_ere_convergence_gated_causal_v2.md"
+}
