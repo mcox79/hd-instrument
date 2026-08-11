@@ -1,0 +1,1547 @@
+{
+  "verdict": "HARD_FAIL",
+  "run_mode": "full",
+  "verdict_msg": "causal enrichment probe recovery full: baseline=0.2 enriched=0.675 shuffle=0.55 random=0.2 gain=0.475 gate=HARD_FAIL (shuffle_ok=False random_ok=True)",
+  "summary": "CAUSAL_ENRICHMENT_PROBE_RECOVERY full HARD_FAIL",
+  "elapsed_s": 195.5,
+  "ts_iso": "2026-08-11T16:51:19.022794+00:00",
+  "anchor_name": "causal_enrichment_probe_recovery_v1",
+  "pid": 11032,
+  "n_probes": 40,
+  "conditions": {
+    "baseline": {
+      "n_edges": 1238686,
+      "recovery_rate": 0.2,
+      "hop1_rate": 0.2,
+      "hop2_rate": 0.0,
+      "per_probe": [
+        {
+          "id": "p01",
+          "domain": "combustion",
+          "gloss": "combustion consumes oxygen",
+          "subject": "combustion",
+          "object": "oxygen",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p02",
+          "domain": "combustion",
+          "gloss": "combustion produces carbon dioxide",
+          "subject": "combustion",
+          "object": "carbon_dioxide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p03",
+          "domain": "combustion",
+          "gloss": "fire produces heat",
+          "subject": "fire",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p04",
+          "domain": "combustion",
+          "gloss": "a burning candle consumes wax",
+          "subject": "candle",
+          "object": "wax",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p05",
+          "domain": "combustion",
+          "gloss": "an explosion produces a shockwave",
+          "subject": "explosion",
+          "object": "shockwave",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p06",
+          "domain": "weather",
+          "gloss": "evaporation produces water vapor",
+          "subject": "evaporation",
+          "object": "water_vapor",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p07",
+          "domain": "weather",
+          "gloss": "condensation produces clouds",
+          "subject": "condensation",
+          "object": "cloud",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p08",
+          "domain": "weather",
+          "gloss": "heavy rain causes flooding",
+          "subject": "rain",
+          "object": "flood",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p09",
+          "domain": "weather",
+          "gloss": "wind causes erosion",
+          "subject": "wind",
+          "object": "erosion",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p10",
+          "domain": "weather",
+          "gloss": "sunlight causes evaporation",
+          "subject": "sunlight",
+          "object": "evaporation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p11",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces glucose",
+          "subject": "photosynthesis",
+          "object": "glucose",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p12",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces oxygen",
+          "subject": "photosynthesis",
+          "object": "oxygen",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p13",
+          "domain": "plant_biology",
+          "gloss": "roots absorb water",
+          "subject": "root",
+          "object": "water",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p14",
+          "domain": "plant_biology",
+          "gloss": "a germinating seed produces a sprout",
+          "subject": "seed",
+          "object": "sprout",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p15",
+          "domain": "plant_biology",
+          "gloss": "pollination leads to fruit",
+          "subject": "pollination",
+          "object": "fruit",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p16",
+          "domain": "physiology",
+          "gloss": "exercise produces sweat",
+          "subject": "exercise",
+          "object": "sweat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p17",
+          "domain": "physiology",
+          "gloss": "exercise builds muscle",
+          "subject": "exercise",
+          "object": "muscle",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p18",
+          "domain": "physiology",
+          "gloss": "digestion produces nutrients",
+          "subject": "digestion",
+          "object": "nutrients",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p19",
+          "domain": "physiology",
+          "gloss": "hunger causes eating",
+          "subject": "hunger",
+          "object": "eating",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p20",
+          "domain": "physiology",
+          "gloss": "dehydration causes thirst",
+          "subject": "dehydration",
+          "object": "thirst",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p21",
+          "domain": "physiology",
+          "gloss": "infection causes fever",
+          "subject": "infection",
+          "object": "fever",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p22",
+          "domain": "physiology",
+          "gloss": "sunburn causes skin peeling",
+          "subject": "sunburn",
+          "object": "skin_peeling",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p23",
+          "domain": "physiology",
+          "gloss": "alcohol causes intoxication",
+          "subject": "alcohol",
+          "object": "intoxication",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p24",
+          "domain": "physics",
+          "gloss": "friction produces heat",
+          "subject": "friction",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p25",
+          "domain": "physics",
+          "gloss": "an engine produces exhaust",
+          "subject": "engine",
+          "object": "exhaust",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p26",
+          "domain": "physics",
+          "gloss": "pressure causes deformation",
+          "subject": "pressure",
+          "object": "deformation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p27",
+          "domain": "physics",
+          "gloss": "a magnet causes attraction",
+          "subject": "magnet",
+          "object": "attraction",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p28",
+          "domain": "physics",
+          "gloss": "a battery produces electric current",
+          "subject": "battery",
+          "object": "electric_current",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p29",
+          "domain": "physics",
+          "gloss": "lightning causes thunder",
+          "subject": "lightning",
+          "object": "thunder",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p30",
+          "domain": "chemistry",
+          "gloss": "yeast fermentation produces carbon dioxide",
+          "subject": "yeast",
+          "object": "carbon_dioxide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p31",
+          "domain": "chemistry",
+          "gloss": "baking soda reacting with vinegar produces bubbles",
+          "subject": "baking_soda",
+          "object": "bubbles",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p32",
+          "domain": "chemistry",
+          "gloss": "oxidation of iron produces rust",
+          "subject": "oxidation",
+          "object": "rust",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p33",
+          "domain": "chemistry",
+          "gloss": "fermentation produces alcohol",
+          "subject": "fermentation",
+          "object": "alcohol",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p34",
+          "domain": "chemistry",
+          "gloss": "freezing produces ice",
+          "subject": "freezing",
+          "object": "ice",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p35",
+          "domain": "chemistry",
+          "gloss": "boiling water produces steam",
+          "subject": "boiling",
+          "object": "steam",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p36",
+          "domain": "geology",
+          "gloss": "an undersea earthquake can cause a tsunami",
+          "subject": "earthquake",
+          "object": "tsunami",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p37",
+          "domain": "geology",
+          "gloss": "a volcanic eruption produces lava",
+          "subject": "volcano",
+          "object": "lava",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p38",
+          "domain": "geology",
+          "gloss": "erosion over time produces canyons",
+          "subject": "erosion",
+          "object": "canyon",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p39",
+          "domain": "geology",
+          "gloss": "gravity causes tides",
+          "subject": "gravity",
+          "object": "tide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p40",
+          "domain": "geology",
+          "gloss": "the sun produces daylight",
+          "subject": "sun",
+          "object": "daylight",
+          "hop": 0,
+          "recovered": false
+        }
+      ]
+    },
+    "enriched": {
+      "n_edges": 1443785,
+      "recovery_rate": 0.675,
+      "hop1_rate": 0.425,
+      "hop2_rate": 0.25,
+      "per_probe": [
+        {
+          "id": "p01",
+          "domain": "combustion",
+          "gloss": "combustion consumes oxygen",
+          "subject": "combustion",
+          "object": "oxygen",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p02",
+          "domain": "combustion",
+          "gloss": "combustion produces carbon dioxide",
+          "subject": "combustion",
+          "object": "carbon_dioxide",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p03",
+          "domain": "combustion",
+          "gloss": "fire produces heat",
+          "subject": "fire",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p04",
+          "domain": "combustion",
+          "gloss": "a burning candle consumes wax",
+          "subject": "candle",
+          "object": "wax",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p05",
+          "domain": "combustion",
+          "gloss": "an explosion produces a shockwave",
+          "subject": "explosion",
+          "object": "shockwave",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p06",
+          "domain": "weather",
+          "gloss": "evaporation produces water vapor",
+          "subject": "evaporation",
+          "object": "water_vapor",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p07",
+          "domain": "weather",
+          "gloss": "condensation produces clouds",
+          "subject": "condensation",
+          "object": "cloud",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p08",
+          "domain": "weather",
+          "gloss": "heavy rain causes flooding",
+          "subject": "rain",
+          "object": "flood",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p09",
+          "domain": "weather",
+          "gloss": "wind causes erosion",
+          "subject": "wind",
+          "object": "erosion",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p10",
+          "domain": "weather",
+          "gloss": "sunlight causes evaporation",
+          "subject": "sunlight",
+          "object": "evaporation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p11",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces glucose",
+          "subject": "photosynthesis",
+          "object": "glucose",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p12",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces oxygen",
+          "subject": "photosynthesis",
+          "object": "oxygen",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p13",
+          "domain": "plant_biology",
+          "gloss": "roots absorb water",
+          "subject": "root",
+          "object": "water",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p14",
+          "domain": "plant_biology",
+          "gloss": "a germinating seed produces a sprout",
+          "subject": "seed",
+          "object": "sprout",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p15",
+          "domain": "plant_biology",
+          "gloss": "pollination leads to fruit",
+          "subject": "pollination",
+          "object": "fruit",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p16",
+          "domain": "physiology",
+          "gloss": "exercise produces sweat",
+          "subject": "exercise",
+          "object": "sweat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p17",
+          "domain": "physiology",
+          "gloss": "exercise builds muscle",
+          "subject": "exercise",
+          "object": "muscle",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p18",
+          "domain": "physiology",
+          "gloss": "digestion produces nutrients",
+          "subject": "digestion",
+          "object": "nutrients",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p19",
+          "domain": "physiology",
+          "gloss": "hunger causes eating",
+          "subject": "hunger",
+          "object": "eating",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p20",
+          "domain": "physiology",
+          "gloss": "dehydration causes thirst",
+          "subject": "dehydration",
+          "object": "thirst",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p21",
+          "domain": "physiology",
+          "gloss": "infection causes fever",
+          "subject": "infection",
+          "object": "fever",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p22",
+          "domain": "physiology",
+          "gloss": "sunburn causes skin peeling",
+          "subject": "sunburn",
+          "object": "skin_peeling",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p23",
+          "domain": "physiology",
+          "gloss": "alcohol causes intoxication",
+          "subject": "alcohol",
+          "object": "intoxication",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p24",
+          "domain": "physics",
+          "gloss": "friction produces heat",
+          "subject": "friction",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p25",
+          "domain": "physics",
+          "gloss": "an engine produces exhaust",
+          "subject": "engine",
+          "object": "exhaust",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p26",
+          "domain": "physics",
+          "gloss": "pressure causes deformation",
+          "subject": "pressure",
+          "object": "deformation",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p27",
+          "domain": "physics",
+          "gloss": "a magnet causes attraction",
+          "subject": "magnet",
+          "object": "attraction",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p28",
+          "domain": "physics",
+          "gloss": "a battery produces electric current",
+          "subject": "battery",
+          "object": "electric_current",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p29",
+          "domain": "physics",
+          "gloss": "lightning causes thunder",
+          "subject": "lightning",
+          "object": "thunder",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p30",
+          "domain": "chemistry",
+          "gloss": "yeast fermentation produces carbon dioxide",
+          "subject": "yeast",
+          "object": "carbon_dioxide",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p31",
+          "domain": "chemistry",
+          "gloss": "baking soda reacting with vinegar produces bubbles",
+          "subject": "baking_soda",
+          "object": "bubbles",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p32",
+          "domain": "chemistry",
+          "gloss": "oxidation of iron produces rust",
+          "subject": "oxidation",
+          "object": "rust",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p33",
+          "domain": "chemistry",
+          "gloss": "fermentation produces alcohol",
+          "subject": "fermentation",
+          "object": "alcohol",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p34",
+          "domain": "chemistry",
+          "gloss": "freezing produces ice",
+          "subject": "freezing",
+          "object": "ice",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p35",
+          "domain": "chemistry",
+          "gloss": "boiling water produces steam",
+          "subject": "boiling",
+          "object": "steam",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p36",
+          "domain": "geology",
+          "gloss": "an undersea earthquake can cause a tsunami",
+          "subject": "earthquake",
+          "object": "tsunami",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p37",
+          "domain": "geology",
+          "gloss": "a volcanic eruption produces lava",
+          "subject": "volcano",
+          "object": "lava",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p38",
+          "domain": "geology",
+          "gloss": "erosion over time produces canyons",
+          "subject": "erosion",
+          "object": "canyon",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p39",
+          "domain": "geology",
+          "gloss": "gravity causes tides",
+          "subject": "gravity",
+          "object": "tide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p40",
+          "domain": "geology",
+          "gloss": "the sun produces daylight",
+          "subject": "sun",
+          "object": "daylight",
+          "hop": 1,
+          "recovered": true
+        }
+      ]
+    },
+    "shuffle": {
+      "n_edges": 1443785,
+      "recovery_rate": 0.55,
+      "hop1_rate": 0.3,
+      "hop2_rate": 0.25,
+      "per_probe": [
+        {
+          "id": "p01",
+          "domain": "combustion",
+          "gloss": "combustion consumes oxygen",
+          "subject": "combustion",
+          "object": "oxygen",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p02",
+          "domain": "combustion",
+          "gloss": "combustion produces carbon dioxide",
+          "subject": "combustion",
+          "object": "carbon_dioxide",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p03",
+          "domain": "combustion",
+          "gloss": "fire produces heat",
+          "subject": "fire",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p04",
+          "domain": "combustion",
+          "gloss": "a burning candle consumes wax",
+          "subject": "candle",
+          "object": "wax",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p05",
+          "domain": "combustion",
+          "gloss": "an explosion produces a shockwave",
+          "subject": "explosion",
+          "object": "shockwave",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p06",
+          "domain": "weather",
+          "gloss": "evaporation produces water vapor",
+          "subject": "evaporation",
+          "object": "water_vapor",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p07",
+          "domain": "weather",
+          "gloss": "condensation produces clouds",
+          "subject": "condensation",
+          "object": "cloud",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p08",
+          "domain": "weather",
+          "gloss": "heavy rain causes flooding",
+          "subject": "rain",
+          "object": "flood",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p09",
+          "domain": "weather",
+          "gloss": "wind causes erosion",
+          "subject": "wind",
+          "object": "erosion",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p10",
+          "domain": "weather",
+          "gloss": "sunlight causes evaporation",
+          "subject": "sunlight",
+          "object": "evaporation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p11",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces glucose",
+          "subject": "photosynthesis",
+          "object": "glucose",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p12",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces oxygen",
+          "subject": "photosynthesis",
+          "object": "oxygen",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p13",
+          "domain": "plant_biology",
+          "gloss": "roots absorb water",
+          "subject": "root",
+          "object": "water",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p14",
+          "domain": "plant_biology",
+          "gloss": "a germinating seed produces a sprout",
+          "subject": "seed",
+          "object": "sprout",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p15",
+          "domain": "plant_biology",
+          "gloss": "pollination leads to fruit",
+          "subject": "pollination",
+          "object": "fruit",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p16",
+          "domain": "physiology",
+          "gloss": "exercise produces sweat",
+          "subject": "exercise",
+          "object": "sweat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p17",
+          "domain": "physiology",
+          "gloss": "exercise builds muscle",
+          "subject": "exercise",
+          "object": "muscle",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p18",
+          "domain": "physiology",
+          "gloss": "digestion produces nutrients",
+          "subject": "digestion",
+          "object": "nutrients",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p19",
+          "domain": "physiology",
+          "gloss": "hunger causes eating",
+          "subject": "hunger",
+          "object": "eating",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p20",
+          "domain": "physiology",
+          "gloss": "dehydration causes thirst",
+          "subject": "dehydration",
+          "object": "thirst",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p21",
+          "domain": "physiology",
+          "gloss": "infection causes fever",
+          "subject": "infection",
+          "object": "fever",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p22",
+          "domain": "physiology",
+          "gloss": "sunburn causes skin peeling",
+          "subject": "sunburn",
+          "object": "skin_peeling",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p23",
+          "domain": "physiology",
+          "gloss": "alcohol causes intoxication",
+          "subject": "alcohol",
+          "object": "intoxication",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p24",
+          "domain": "physics",
+          "gloss": "friction produces heat",
+          "subject": "friction",
+          "object": "heat",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p25",
+          "domain": "physics",
+          "gloss": "an engine produces exhaust",
+          "subject": "engine",
+          "object": "exhaust",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p26",
+          "domain": "physics",
+          "gloss": "pressure causes deformation",
+          "subject": "pressure",
+          "object": "deformation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p27",
+          "domain": "physics",
+          "gloss": "a magnet causes attraction",
+          "subject": "magnet",
+          "object": "attraction",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p28",
+          "domain": "physics",
+          "gloss": "a battery produces electric current",
+          "subject": "battery",
+          "object": "electric_current",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p29",
+          "domain": "physics",
+          "gloss": "lightning causes thunder",
+          "subject": "lightning",
+          "object": "thunder",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p30",
+          "domain": "chemistry",
+          "gloss": "yeast fermentation produces carbon dioxide",
+          "subject": "yeast",
+          "object": "carbon_dioxide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p31",
+          "domain": "chemistry",
+          "gloss": "baking soda reacting with vinegar produces bubbles",
+          "subject": "baking_soda",
+          "object": "bubbles",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p32",
+          "domain": "chemistry",
+          "gloss": "oxidation of iron produces rust",
+          "subject": "oxidation",
+          "object": "rust",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p33",
+          "domain": "chemistry",
+          "gloss": "fermentation produces alcohol",
+          "subject": "fermentation",
+          "object": "alcohol",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p34",
+          "domain": "chemistry",
+          "gloss": "freezing produces ice",
+          "subject": "freezing",
+          "object": "ice",
+          "hop": 2,
+          "recovered": true
+        },
+        {
+          "id": "p35",
+          "domain": "chemistry",
+          "gloss": "boiling water produces steam",
+          "subject": "boiling",
+          "object": "steam",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p36",
+          "domain": "geology",
+          "gloss": "an undersea earthquake can cause a tsunami",
+          "subject": "earthquake",
+          "object": "tsunami",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p37",
+          "domain": "geology",
+          "gloss": "a volcanic eruption produces lava",
+          "subject": "volcano",
+          "object": "lava",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p38",
+          "domain": "geology",
+          "gloss": "erosion over time produces canyons",
+          "subject": "erosion",
+          "object": "canyon",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p39",
+          "domain": "geology",
+          "gloss": "gravity causes tides",
+          "subject": "gravity",
+          "object": "tide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p40",
+          "domain": "geology",
+          "gloss": "the sun produces daylight",
+          "subject": "sun",
+          "object": "daylight",
+          "hop": 1,
+          "recovered": true
+        }
+      ]
+    },
+    "random": {
+      "n_edges": 1443785,
+      "recovery_rate": 0.2,
+      "hop1_rate": 0.2,
+      "hop2_rate": 0.0,
+      "per_probe": [
+        {
+          "id": "p01",
+          "domain": "combustion",
+          "gloss": "combustion consumes oxygen",
+          "subject": "combustion",
+          "object": "oxygen",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p02",
+          "domain": "combustion",
+          "gloss": "combustion produces carbon dioxide",
+          "subject": "combustion",
+          "object": "carbon_dioxide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p03",
+          "domain": "combustion",
+          "gloss": "fire produces heat",
+          "subject": "fire",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p04",
+          "domain": "combustion",
+          "gloss": "a burning candle consumes wax",
+          "subject": "candle",
+          "object": "wax",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p05",
+          "domain": "combustion",
+          "gloss": "an explosion produces a shockwave",
+          "subject": "explosion",
+          "object": "shockwave",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p06",
+          "domain": "weather",
+          "gloss": "evaporation produces water vapor",
+          "subject": "evaporation",
+          "object": "water_vapor",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p07",
+          "domain": "weather",
+          "gloss": "condensation produces clouds",
+          "subject": "condensation",
+          "object": "cloud",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p08",
+          "domain": "weather",
+          "gloss": "heavy rain causes flooding",
+          "subject": "rain",
+          "object": "flood",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p09",
+          "domain": "weather",
+          "gloss": "wind causes erosion",
+          "subject": "wind",
+          "object": "erosion",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p10",
+          "domain": "weather",
+          "gloss": "sunlight causes evaporation",
+          "subject": "sunlight",
+          "object": "evaporation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p11",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces glucose",
+          "subject": "photosynthesis",
+          "object": "glucose",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p12",
+          "domain": "plant_biology",
+          "gloss": "photosynthesis produces oxygen",
+          "subject": "photosynthesis",
+          "object": "oxygen",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p13",
+          "domain": "plant_biology",
+          "gloss": "roots absorb water",
+          "subject": "root",
+          "object": "water",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p14",
+          "domain": "plant_biology",
+          "gloss": "a germinating seed produces a sprout",
+          "subject": "seed",
+          "object": "sprout",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p15",
+          "domain": "plant_biology",
+          "gloss": "pollination leads to fruit",
+          "subject": "pollination",
+          "object": "fruit",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p16",
+          "domain": "physiology",
+          "gloss": "exercise produces sweat",
+          "subject": "exercise",
+          "object": "sweat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p17",
+          "domain": "physiology",
+          "gloss": "exercise builds muscle",
+          "subject": "exercise",
+          "object": "muscle",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p18",
+          "domain": "physiology",
+          "gloss": "digestion produces nutrients",
+          "subject": "digestion",
+          "object": "nutrients",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p19",
+          "domain": "physiology",
+          "gloss": "hunger causes eating",
+          "subject": "hunger",
+          "object": "eating",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p20",
+          "domain": "physiology",
+          "gloss": "dehydration causes thirst",
+          "subject": "dehydration",
+          "object": "thirst",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p21",
+          "domain": "physiology",
+          "gloss": "infection causes fever",
+          "subject": "infection",
+          "object": "fever",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p22",
+          "domain": "physiology",
+          "gloss": "sunburn causes skin peeling",
+          "subject": "sunburn",
+          "object": "skin_peeling",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p23",
+          "domain": "physiology",
+          "gloss": "alcohol causes intoxication",
+          "subject": "alcohol",
+          "object": "intoxication",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p24",
+          "domain": "physics",
+          "gloss": "friction produces heat",
+          "subject": "friction",
+          "object": "heat",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p25",
+          "domain": "physics",
+          "gloss": "an engine produces exhaust",
+          "subject": "engine",
+          "object": "exhaust",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p26",
+          "domain": "physics",
+          "gloss": "pressure causes deformation",
+          "subject": "pressure",
+          "object": "deformation",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p27",
+          "domain": "physics",
+          "gloss": "a magnet causes attraction",
+          "subject": "magnet",
+          "object": "attraction",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p28",
+          "domain": "physics",
+          "gloss": "a battery produces electric current",
+          "subject": "battery",
+          "object": "electric_current",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p29",
+          "domain": "physics",
+          "gloss": "lightning causes thunder",
+          "subject": "lightning",
+          "object": "thunder",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p30",
+          "domain": "chemistry",
+          "gloss": "yeast fermentation produces carbon dioxide",
+          "subject": "yeast",
+          "object": "carbon_dioxide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p31",
+          "domain": "chemistry",
+          "gloss": "baking soda reacting with vinegar produces bubbles",
+          "subject": "baking_soda",
+          "object": "bubbles",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p32",
+          "domain": "chemistry",
+          "gloss": "oxidation of iron produces rust",
+          "subject": "oxidation",
+          "object": "rust",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p33",
+          "domain": "chemistry",
+          "gloss": "fermentation produces alcohol",
+          "subject": "fermentation",
+          "object": "alcohol",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p34",
+          "domain": "chemistry",
+          "gloss": "freezing produces ice",
+          "subject": "freezing",
+          "object": "ice",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p35",
+          "domain": "chemistry",
+          "gloss": "boiling water produces steam",
+          "subject": "boiling",
+          "object": "steam",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p36",
+          "domain": "geology",
+          "gloss": "an undersea earthquake can cause a tsunami",
+          "subject": "earthquake",
+          "object": "tsunami",
+          "hop": 1,
+          "recovered": true
+        },
+        {
+          "id": "p37",
+          "domain": "geology",
+          "gloss": "a volcanic eruption produces lava",
+          "subject": "volcano",
+          "object": "lava",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p38",
+          "domain": "geology",
+          "gloss": "erosion over time produces canyons",
+          "subject": "erosion",
+          "object": "canyon",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p39",
+          "domain": "geology",
+          "gloss": "gravity causes tides",
+          "subject": "gravity",
+          "object": "tide",
+          "hop": 0,
+          "recovered": false
+        },
+        {
+          "id": "p40",
+          "domain": "geology",
+          "gloss": "the sun produces daylight",
+          "subject": "sun",
+          "object": "daylight",
+          "hop": 0,
+          "recovered": false
+        }
+      ]
+    }
+  },
+  "gate": {
+    "verdict": "HARD_FAIL",
+    "gain": 0.475,
+    "shuffle_delta_from_baseline": 0.35,
+    "random_delta_from_baseline": 0.0,
+    "random_delta_from_enriched": 0.475,
+    "shuffle_collapse_ok": false,
+    "random_stays_low_ok": true,
+    "random_matches_enriched": false,
+    "bands": {
+      "hard_pass": "gain>=0.3 AND shuffle_delta<=0.05 AND random_delta<=0.1",
+      "hard_fail": "gain<0.1 OR shuffle_delta>0.05 OR random_matches_enriched(<=  0.05)"
+    }
+  },
+  "arms_differ_verified": true,
+  "arm_edge_hashes": {
+    "baseline": "5aefd6c6ded9fc1af235747c1548cd4b1323f5b71503355ca3ac3409b65fe780",
+    "enriched": "97be02e7db2468bfafe54c1d7deef57316b955f740195646b2d759021443e812",
+    "shuffle": "7b78f4fd2521a13c96d925ddef8248ac8b7285be5b83a65aacca657e5eea7f8d",
+    "random": "0b23abb095ffda51eeae0258c2d961d4c877a815b0e65ad88f01abbf612c3132"
+  },
+  "arm_hash_collisions": [],
+  "causenet_n_lines": 197806,
+  "causenet_n_unique_pairs": 196909,
+  "go_n_regulates_resolved": 8190,
+  "n_new_source_edges": 205099,
+  "generous_bucket_reproduction": {
+    "sum_edges": 184441,
+    "baseline_n_edges": 1238686,
+    "frac": 0.1489,
+    "scout_disk_verified_ref": 0.1483,
+    "reproduction_ok": true
+  },
+  "causal_edge_fraction": {
+    "strict_bucket_rels": [
+      "/r/Causes",
+      "cn:Causes"
+    ],
+    "generous_bucket_rels": [
+      "/r/Causes",
+      "/r/HasFirstSubevent",
+      "/r/HasLastSubevent",
+      "/r/HasSubevent",
+      "NEGATIVELY_REGULATES",
+      "POSITIVELY_REGULATES",
+      "REGULATES",
+      "at:oEffect",
+      "at:xEffect",
+      "cn:Causes"
+    ],
+    "strict_baseline": 0.013922,
+    "strict_enriched": 0.148328,
+    "generous_baseline": 0.148901,
+    "generous_enriched": 0.269805
+  },
+  "prereg": "D:\\AI\\hd-instrument\\preregs\\2026-08-11_causal_enrichment_probe_recovery_v1.md",
+  "sources": {
+    "causenet_precision_bz2": "D:\\AI\\hd-instrument\\data\\bio_kb_cache\\causenet\\causenet-precision.jsonl.bz2",
+    "causenet_license": "CC BY 4.0",
+    "go_obo_full": "D:\\AI\\hd-instrument\\data\\bio_kb_cache\\go\\go.obo",
+    "go_license": "CC BY 4.0"
+  }
+}
