@@ -1,0 +1,49 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "self-test green",
+  "elapsed_s": 2.264,
+  "run_mode": "self_test",
+  "anchor_name": "propara_process_keyed_lookup_v1",
+  "result": {
+    "kb_n_processes": 18,
+    "n_keyed_facts": 315,
+    "n_entity_vocab": 203,
+    "store_live_facts": 393,
+    "water_processes": [
+      "dissolution",
+      "electricity_generation",
+      "phase_change",
+      "photosynthesis",
+      "respiration",
+      "water_cycle"
+    ],
+    "synth_keyed_wood": {
+      "DESTROY": [
+        "CREATE",
+        "DESTROY"
+      ]
+    },
+    "residual_synth": {
+      "counts": {
+        "RECOVERED": 1,
+        "COVERAGE": 1,
+        "GATE": 0,
+        "FORM": 0
+      },
+      "n_oracle_fact_participants": 2,
+      "kb_coverage_fraction": 0.5,
+      "n_covered": 1,
+      "error_fractions": {
+        "COVERAGE": 1.0,
+        "GATE": 0.0,
+        "FORM": 0.0
+      },
+      "recovered_fraction": 0.5,
+      "n_errors": 1
+    },
+    "verdict_logic_unit_checks": {
+      "hard_pass": "HARD_PASS"
+    }
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_KEYED_DOES_NOT_BEAT_PROMISCUOUS_form_not_the_answer: split=dev keyed_f1=0.3273 promisc_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 keyed_prec=0.0677(promisc=0.0787 +0.05) keyed_recall=0.2143 keyed_in_kb_prec=0.0677 beats_promiscuous=False scramble_prec=0.051 scramble_retained=3.4452685206317377 scramble_collapsed=False kb_coverage_frac=0.5323 residual_err_fracs={'COVERAGE': 0.5918, 'GATE': 0.3061, 'FORM': 0.102} coverage_dominated=True floor_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_KEYED_DOES_NOT_BEAT_PROMISCUOUS_form_not_the_answer: split=dev keyed_f1=0.3273 promisc_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 keyed_prec=0.0677(promisc=0.0787 +0.05) keyed_recall=0.2143 keyed_in_kb_prec=0.0677 beats_promiscuous=False scramble_prec=0.051 scramble_retained=3.4452685206317377 scramble_collapsed=False kb_coverage_frac=0.5323 residual_err_fracs={'COVERAGE': 0.5918, 'GATE': 0.3061, 'FORM': 0.102} coverage_dominated=True floor_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 18.237,
+  "run_mode": "smoke",
+  "anchor_name": "propara_process_keyed_lookup_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 18.232,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2",
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_promiscuous_completion": "800014f81e69c632ab2ba2022ea1a4d835968759ef09eeecd70608f49e86fb3f",
+        "with_keyed_lookup": "64e8bf5d5d08a19181127b09e80a94f275d5e2c682786e938b72cdf6b18fc3fb",
+        "with_keyed_lookup_scramble": "d24edaa68297c04ea0ab6fb43ebcc0ef91e2315ee136933a94dea794917789d2"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_oracle": true,
+        "prior_lesion_vs_with_promiscuous_completion": true,
+        "prior_lesion_vs_with_keyed_lookup": true,
+        "prior_lesion_vs_with_keyed_lookup_scramble": true,
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_promiscuous_completion": true,
+        "without_knowledge_vs_with_keyed_lookup": true,
+        "without_knowledge_vs_with_keyed_lookup_scramble": true,
+        "with_oracle_vs_with_promiscuous_completion": true,
+        "with_oracle_vs_with_keyed_lookup": true,
+        "with_oracle_vs_with_keyed_lookup_scramble": true,
+        "with_promiscuous_completion_vs_with_keyed_lookup": true,
+        "with_promiscuous_completion_vs_with_keyed_lookup_scramble": true,
+        "with_keyed_lookup_vs_with_keyed_lookup_scramble": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "promiscuous": 1.0,
+      "keyed": 1.0,
+      "keyed_scramble": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_promiscuous_completion": {
+        "macro_f1": 0.33648273349567515,
+        "accuracy": 0.7766233766233767,
+        "n": 770
+      },
+      "with_keyed_lookup": {
+        "macro_f1": 0.32733316016658204,
+        "accuracy": 0.7740259740259741,
+        "n": 770
+      },
+      "with_keyed_lookup_scramble": {
+        "macro_f1": 0.3350977089687065,
+        "accuracy": 0.7740259740259741,
+        "n": 770
+      }
+    },
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_promiscuous_completion_f1": 0.33648273349567515,
+    "with_keyed_lookup_f1": 0.32733316016658204,
+    "with_keyed_lookup_scramble_f1": 0.3350977089687065,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "promiscuous_lift": 0.01232490918141843,
+    "keyed_lift": 0.0031753358523253228,
+    "keyed_scramble_lift": 0.010939884654449783,
+    "survival_fraction": 0.04225742104398317,
+    "promiscuous_survival_fraction": 0.16402009136345463,
+    "scramble_retained_fraction": 3.4452685206317377,
+    "fact_coverage_keyed_vs_oracle": {
+      "pair_precision": 0.0677,
+      "pair_recall": 0.2143,
+      "pair_f1": 0.1029,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "fact_coverage_promiscuous_vs_oracle": {
+      "pair_precision": 0.0787,
+      "pair_recall": 0.1667,
+      "pair_f1": 0.1069,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "fact_coverage_keyed_scramble_vs_oracle": {
+      "pair_precision": 0.051,
+      "pair_recall": 0.2381,
+      "pair_f1": 0.084,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "heldout_entities": {
+      "n_in_kb": 103,
+      "n_heldout_not_in_kb": 72,
+      "keyed_in_kb": {
+        "pair_precision": 0.0677,
+        "pair_recall": 0.375,
+        "pair_f1": 0.1146,
+        "participant_binding_coverage": 0.65,
+        "n_oracle_participants_with_fact": 20,
+        "n_oracle_participants_covered_by_real": 13
+      },
+      "promiscuous_in_kb": {
+        "pair_precision": 0.0787,
+        "pair_recall": 0.2917,
+        "pair_f1": 0.1239,
+        "participant_binding_coverage": 0.65,
+        "n_oracle_participants_with_fact": 20,
+        "n_oracle_participants_covered_by_real": 13
+      },
+      "keyed_heldout": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 14,
+        "n_oracle_participants_covered_by_real": 0
+      }
+    },
+    "residual_decomposition": {
+      "counts": {
+        "RECOVERED": 13,
+        "COVERAGE": 29,
+        "GATE": 15,
+        "FORM": 5
+      },
+      "n_oracle_fact_participants": 62,
+      "kb_coverage_fraction": 0.5323,
+      "n_covered": 33,
+      "error_fractions": {
+        "COVERAGE": 0.5918,
+        "GATE": 0.3061,
+        "FORM": 0.102
+      },
+      "recovered_fraction": 0.2097,
+      "n_errors": 49
+    },
+    "keyed_stats": {
+      "n_lookups": 372,
+      "n_hits": 264,
+      "n_hits_for_unmentioned_IMPLICIT": 0,
+      "n_participants_with_fact": 65,
+      "store_dict_consistency_checked": 200
+    },
+    "keyed_scramble_stats": {
+      "n_lookups": 372,
+      "n_hits": 244,
+      "n_hits_for_unmentioned_IMPLICIT": 0,
+      "n_participants_with_fact": 65
+    },
+    "promiscuous_stats": {
+      "ablation": false,
+      "scramble_kb": false,
+      "n_paragraphs_matched": 17,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 26,
+      "gate_pass_fraction": 0.3023,
+      "n_completions_attempted": 26,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 24,
+      "trigger_completion_agreement_rate": 0.9231,
+      "n_role_assignments": 88,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      }
+    },
+    "n_keyed_facts": 315,
+    "n_entity_vocab": 203,
+    "store_live_facts": 393,
+    "kb_n_processes": 18,
+    "official": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_promiscuous_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_keyed_lookup": {
+        "precision": 0.7995,
+        "recall": 0.61525,
+        "f1": 0.695
+      },
+      "with_keyed_lookup_scramble": {
+        "precision": 0.8062499999999999,
+        "recall": 0.623,
+        "f1": 0.703
+      }
+    }
+  },
+  "headline": {
+    "with_keyed_lookup_f1": 0.32733316016658204,
+    "with_promiscuous_completion_f1": 0.33648273349567515,
+    "with_keyed_lookup_scramble_f1": 0.3350977089687065,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "keyed_lift": 0.0031753358523253228,
+    "promiscuous_lift": 0.01232490918141843,
+    "oracle_lift": 0.07514267964957705,
+    "survival_fraction": 0.04225742104398317,
+    "keyed_pair_precision": 0.0677,
+    "keyed_pair_recall": 0.2143,
+    "promiscuous_pair_precision": 0.0787,
+    "keyed_scramble_pair_precision": 0.051,
+    "SCRAMBLE_RETAINED_FRACTION": 3.4452685206317377,
+    "HELDOUT_ENTITIES": {
+      "n_in_kb": 103,
+      "n_heldout_not_in_kb": 72,
+      "keyed_in_kb": {
+        "pair_precision": 0.0677,
+        "pair_recall": 0.375,
+        "pair_f1": 0.1146,
+        "participant_binding_coverage": 0.65,
+        "n_oracle_participants_with_fact": 20,
+        "n_oracle_participants_covered_by_real": 13
+      },
+      "promiscuous_in_kb": {
+        "pair_precision": 0.0787,
+        "pair_recall": 0.2917,
+        "pair_f1": 0.1239,
+        "participant_binding_coverage": 0.65,
+        "n_oracle_participants_with_fact": 20,
+        "n_oracle_participants_covered_by_real": 13
+      },
+      "keyed_heldout": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 14,
+        "n_oracle_participants_covered_by_real": 0
+      }
+    },
+    "RESIDUAL_DECOMPOSITION": {
+      "counts": {
+        "RECOVERED": 13,
+        "COVERAGE": 29,
+        "GATE": 15,
+        "FORM": 5
+      },
+      "n_oracle_fact_participants": 62,
+      "kb_coverage_fraction": 0.5323,
+      "n_covered": 33,
+      "error_fractions": {
+        "COVERAGE": 0.5918,
+        "GATE": 0.3061,
+        "FORM": 0.102
+      },
+      "recovered_fraction": 0.2097,
+      "n_errors": 49
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_promiscuous_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_keyed_lookup": {
+        "precision": 0.7995,
+        "recall": 0.61525,
+        "f1": 0.695
+      },
+      "with_keyed_lookup_scramble": {
+        "precision": 0.8062499999999999,
+        "recall": 0.623,
+        "f1": 0.703
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1 over a fixed real corpus (ProPara EMNLP18) + exact dict/HD-store lookup; no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "default_ok_for_this_regime: exact lookup + pre-registered bands, no tuned threshold",
+  "thresholds": {
+    "KEYED_BEATS_PROMISCUOUS_MARGIN": 0.05,
+    "SCRAMBLE_MAX_RETAINED_FRACTION": 0.5,
+    "LEAK_CEILING": 0.95,
+    "LEAK_ORACLE_MARGIN": 0.02,
+    "WITHOUT_COLLAPSE_CEILING": 0.6,
+    "STORE_N_DIM": 8192
+  }
+}
