@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "fate_role_logic": {
+      "lemma": "consum",
+      "fate": "DESTROY"
+    },
+    "richer_feats": {
+      "n_create": 17,
+      "n_destroy": 17,
+      "destroy_sample": [
+        "cnt:CREATE:b0",
+        "cnt:DESTROY:b5",
+        "cnt:MOVE:b2",
+        "cntr:DESTROY:PATIENT:b5",
+        "cntr:MOVE:AGENT:b2",
+        "effE:DESTROY"
+      ]
+    },
+    "real_frontend_cache": {
+      "n_tokens": 6,
+      "n_cands": 2
+    },
+    "real_scan_capped": {
+      "n_parsed": 40,
+      "n_prefilter_hits": 40,
+      "n_cand_hits": 13
+    },
+    "gam_balanced_real": {
+      "ratio_selected": 1.0,
+      "n_train_inst": 126,
+      "n_pred_keys": 25,
+      "ratio_scores": {
+        "0.5": 0.5625,
+        "1.0": 0.6087,
+        "1.5": 0.6087,
+        "2.0": 0.6087,
+        "3.0": 0.6087,
+        "999": 0.6087
+      }
+    },
+    "scramble_deterministic": true
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: fate/role logic + richer effect-conditioned features (differ) + real tiny frontend cache + real capped resumable scan + balanced gam fit/predict + ratio-select + scramble determinism all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.74,
+  "run_mode": "self_test",
+  "anchor_name": "propara_entity_fate_selectional_preference_probe_v2"
+}

@@ -1,0 +1,265 @@
+{
+  "verdict": "HARD_FAIL_NO_INDISTRIBUTION_SIGNAL",
+  "verdict_msg": "HARD_FAIL_NO_INDISTRIBUTION_SIGNAL: PRIMARY real-vs-SCRAMBLE best-case: SEEN(in-dist) delta=0.0078 @ratio=0.5, UNSEEN(generalization) delta=0.2174 @ratio=1.5; dev-blind-selected ratio=0.5: real_seen=0.644/scr_seen=0.6362 real_unseen=0.5968/scr_unseen=0.5968; vs-majority-degenerate seen +0.2372/unseen +0.2029 (n_fill_pred=525/525=all-FILL degenerate); frontend_ok=True | OUTCOME (i) signal genuinely absent even with adequate features: even the BEST-CASE in-distribution (SEEN) real-minus-scramble delta over all ratios is below floor -- the apparent vs-majority lift is a degenerate class-prior predictor (all-FILL/all-SKIP) that the label-scramble reproduces",
+  "summary": "HARD_FAIL_NO_INDISTRIBUTION_SIGNAL: PRIMARY real-vs-SCRAMBLE best-case: SEEN(in-dist) delta=0.0078 @ratio=0.5, UNSEEN(generalization) delta=0.2174 @ratio=1.5; dev-blind-selected ratio=0.5: real_seen=0.644/scr_seen=0.6362 real_unseen=0.5968/scr_unseen=0.5968; vs-majority-degenerate seen +0.2372/unseen +0.2029 (n_fill_pred=525/525=all-FILL degenerate); frontend_ok=True | OUTCOME (i) signal genuinely absent even with adequate features: even the BEST-CASE in-distribution (SEEN) real-minus-scramble delta over all ratios is below floor -- the apparent vs-majority lift is a degenerate class-prior predictor (all-FILL/all-SKIP) that the label-scramble reproduces",
+  "elapsed_s": 184.81,
+  "run_mode": "probe",
+  "anchor_name": "propara_entity_fate_selectional_preference_probe_v2",
+  "outcome_class": "(i) signal genuinely absent even with adequate features: even the BEST-CASE in-distribution (SEEN) real-minus-scramble delta over all ratios is below floor -- the apparent vs-majority lift is a degenerate class-prior predictor (all-FILL/all-SKIP) that the label-scramble reproduces",
+  "n_train_paragraphs": 391,
+  "n_dev_paragraphs": 43,
+  "n_dev_keys": 175,
+  "n_seen_keys": 146,
+  "n_unseen_keys": 29,
+  "frontend_health": {
+    "tag_acc": 0.9467,
+    "uas": 0.7761,
+    "n_test_sents": 1000,
+    "n_test_tokens": 13145,
+    "n_test_arcs": 12290,
+    "frontend_health_ok": true
+  },
+  "vocab_size_train_dev": 1558,
+  "scan_meta": {
+    "n_lines_scanned": 382942,
+    "n_prefilter_hits": 45000,
+    "n_parsed": 45000,
+    "n_cand_hits": 28350,
+    "n_parse_errors": 0,
+    "parse_error_rate": 0.0,
+    "complete": true,
+    "n_vocab_terms_hit": 827
+  },
+  "coverage": {
+    "train": {
+      "n_keys": 1500,
+      "n_ge1_ctx": 1461,
+      "n_ge3_ctx": 1415,
+      "n_ge5_ctx": 1378,
+      "frac_ge1_ctx": 0.974,
+      "frac_ge3_ctx": 0.9433,
+      "frac_ge5_ctx": 0.9187
+    },
+    "dev_all": {
+      "n_keys": 175,
+      "n_ge1_ctx": 171,
+      "n_ge3_ctx": 161,
+      "n_ge5_ctx": 147,
+      "frac_ge1_ctx": 0.9771,
+      "frac_ge3_ctx": 0.92,
+      "frac_ge5_ctx": 0.84
+    },
+    "dev_seen": {
+      "n_keys": 146,
+      "n_ge1_ctx": 146,
+      "n_ge3_ctx": 143,
+      "n_ge5_ctx": 132,
+      "frac_ge1_ctx": 1.0,
+      "frac_ge3_ctx": 0.9795,
+      "frac_ge5_ctx": 0.9041
+    },
+    "dev_unseen": {
+      "n_keys": 29,
+      "n_ge1_ctx": 25,
+      "n_ge3_ctx": 18,
+      "n_ge5_ctx": 15,
+      "frac_ge1_ctx": 0.8621,
+      "frac_ge3_ctx": 0.6207,
+      "frac_ge5_ctx": 0.5172
+    }
+  },
+  "subsample_ratio_selected_devblind": 0.5,
+  "ratio_val_scores_trainblind": {
+    "0.5": 0.6053,
+    "1.0": 0.5119,
+    "1.5": 0.1301,
+    "2.0": 0.1301,
+    "3.0": 0.1301,
+    "999": 0.1301
+  },
+  "primary_discriminator": "real_minus_scramble_pair_f1 (degeneracy-robust)",
+  "best_seen_vs_scramble_delta": 0.0078,
+  "best_seen_vs_scramble_ratio": 0.5,
+  "best_unseen_vs_scramble_delta": 0.2174,
+  "best_unseen_vs_scramble_ratio": 1.5,
+  "selratio_real_seen_f1": 0.644,
+  "selratio_scr_seen_f1": 0.6362,
+  "selratio_real_unseen_f1": 0.5968,
+  "selratio_scr_unseen_f1": 0.5968,
+  "lift_seen_vs_majority_degenerate": 0.2372,
+  "lift_unseen_vs_majority_degenerate": 0.2029,
+  "n_fill_pred_dev_selratio": 525,
+  "n_dev_instances": 525,
+  "ratio_sweep_dev": [
+    {
+      "ratio": 0.5,
+      "real_seen_f1": 0.644,
+      "scr_seen_f1": 0.6362,
+      "delta_seen_vs_scr": 0.0078,
+      "real_unseen_f1": 0.5968,
+      "scr_unseen_f1": 0.5968,
+      "delta_unseen_vs_scr": 0.0,
+      "n_fill_real": 525,
+      "n_fill_scr": 514
+    },
+    {
+      "ratio": 1.0,
+      "real_seen_f1": 0.436,
+      "scr_seen_f1": 0.6012,
+      "delta_seen_vs_scr": -0.1652,
+      "real_unseen_f1": 0.4,
+      "scr_unseen_f1": 0.6304,
+      "delta_unseen_vs_scr": -0.2304,
+      "n_fill_real": 187,
+      "n_fill_scr": 336
+    },
+    {
+      "ratio": 1.5,
+      "real_seen_f1": 0.1853,
+      "scr_seen_f1": 0.2222,
+      "delta_seen_vs_scr": -0.0369,
+      "real_unseen_f1": 0.2174,
+      "scr_unseen_f1": 0.0,
+      "delta_unseen_vs_scr": 0.2174,
+      "n_fill_real": 60,
+      "n_fill_scr": 46
+    },
+    {
+      "ratio": 2.0,
+      "real_seen_f1": 0.1853,
+      "scr_seen_f1": 0.2222,
+      "delta_seen_vs_scr": -0.0369,
+      "real_unseen_f1": 0.2174,
+      "scr_unseen_f1": 0.0,
+      "delta_unseen_vs_scr": 0.2174,
+      "n_fill_real": 60,
+      "n_fill_scr": 46
+    },
+    {
+      "ratio": 3.0,
+      "real_seen_f1": 0.1853,
+      "scr_seen_f1": 0.2222,
+      "delta_seen_vs_scr": -0.0369,
+      "real_unseen_f1": 0.2174,
+      "scr_unseen_f1": 0.0,
+      "delta_unseen_vs_scr": 0.2174,
+      "n_fill_real": 60,
+      "n_fill_scr": 46
+    },
+    {
+      "ratio": 999,
+      "real_seen_f1": 0.1853,
+      "scr_seen_f1": 0.2222,
+      "delta_seen_vs_scr": -0.0369,
+      "real_unseen_f1": 0.2174,
+      "scr_unseen_f1": 0.0,
+      "delta_unseen_vs_scr": 0.2174,
+      "n_fill_real": 60,
+      "n_fill_scr": 46
+    }
+  ],
+  "majority_baseline": {
+    "all": {
+      "pair_precision": 0.4857,
+      "pair_recall": 0.3469,
+      "pair_f1": 0.4048,
+      "tp": 85,
+      "fp": 90,
+      "fn": 160,
+      "n_keys": 175
+    },
+    "seen": {
+      "pair_precision": 0.4932,
+      "pair_recall": 0.3462,
+      "pair_f1": 0.4068,
+      "tp": 72,
+      "fp": 74,
+      "fn": 136,
+      "n_keys": 146
+    },
+    "unseen": {
+      "pair_precision": 0.4483,
+      "pair_recall": 0.3514,
+      "pair_f1": 0.3939,
+      "tp": 13,
+      "fp": 16,
+      "fn": 24,
+      "n_keys": 29
+    }
+  },
+  "results_selratio": {
+    "real": {
+      "all": {
+        "pair_precision": 0.4667,
+        "pair_recall": 1.0,
+        "pair_f1": 0.6364,
+        "tp": 245,
+        "fp": 280,
+        "fn": 0,
+        "n_keys": 175
+      },
+      "seen": {
+        "pair_precision": 0.4749,
+        "pair_recall": 1.0,
+        "pair_f1": 0.644,
+        "tp": 208,
+        "fp": 230,
+        "fn": 0,
+        "n_keys": 146
+      },
+      "unseen": {
+        "pair_precision": 0.4253,
+        "pair_recall": 1.0,
+        "pair_f1": 0.5968,
+        "tp": 37,
+        "fp": 50,
+        "fn": 0,
+        "n_keys": 29
+      }
+    },
+    "scramble": {
+      "all": {
+        "pair_precision": 0.465,
+        "pair_recall": 0.9755,
+        "pair_f1": 0.6298,
+        "tp": 239,
+        "fp": 275,
+        "fn": 6,
+        "n_keys": 175
+      },
+      "seen": {
+        "pair_precision": 0.4731,
+        "pair_recall": 0.9712,
+        "pair_f1": 0.6362,
+        "tp": 202,
+        "fp": 225,
+        "fn": 6,
+        "n_keys": 146
+      },
+      "unseen": {
+        "pair_precision": 0.4253,
+        "pair_recall": 1.0,
+        "pair_f1": 0.5968,
+        "tp": 37,
+        "fp": 50,
+        "fn": 0,
+        "n_keys": 29
+      }
+    }
+  },
+  "arms_hashes": {
+    "majority": "ba9bedeb0eb8ba430343512133a03d931308ef6b2101dce4c39e95fb43fc71c9",
+    "selectional_real_selratio": "2f1fe8f6dc1e662ec2c44824e3fe4e80b84ad97f086d44c26e932426325fe115",
+    "selectional_scramble_selratio": "585fdc2b2a6f3031fa8288916965736337f3940af8f929d6c94226eac15dfcdc"
+  },
+  "arms_differ_verified": true,
+  "fate_verb_lexicon_base_size": 109,
+  "fate_verb_lexicon_expanded_size": 166,
+  "bands": {
+    "LIFT_HARD_PASS": 0.05,
+    "LIFT_HARD_FAIL": 0.02,
+    "SCRAMBLE_CLEAN_MARGIN": 0.05,
+    "FRONTEND_TAG_ACC_FLOOR": 0.7,
+    "FRONTEND_UAS_FLOOR": 0.5
+  }
+}
