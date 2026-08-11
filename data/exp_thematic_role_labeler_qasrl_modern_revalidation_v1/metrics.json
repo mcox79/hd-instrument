@@ -1,0 +1,283 @@
+{
+  "anchor_name": "thematic_role_labeler_qasrl_modern_revalidation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: single-cue ablation (animacy_only) reproduces full model within 0.05 on QA-SRL non-canonical -- disguised single-cue rule on modern prose too. mean_mcg_repro=0.8666(expected=0.8666,tol=0.05,ok=True) mean_qasrl_noncanon=0.7442 positional_baseline_noncanon=0.4768 lift=+0.2674 mean_qasrl_canon=0.8981 n_noncanon=3937 n_canon=9820 n_seeds=5 scramble_drop=0.4517(collapse=True) best_single_cue=animacy_only@0.7127(matches_full=True) category_counts={'canonical_obj': 3178, 'canonical_subj': 6642, 'experiencer': 647, 'passive': 3145, 'agent_by_phrase': 109, 'ditrans_recipient': 27, 'ditrans_recipient_passive': 9} exclude_reason_counts={'other_prep_unmapped': 1903, 'adjunct_wh': 7822, 'ditrans_double_object_ambiguous': 30, 'no_blank_found': 135} by_category_acc={'canonical_obj': 0.8865, 'canonical_subj': 0.9036, 'experiencer': 0.8915, 'passive': 0.7346, 'agent_by_phrase': 0.3541, 'ditrans_recipient': 0.1555, 'ditrans_recipient_passive': 0.0}",
+  "summary": "HARD_FAIL: single-cue ablation (animacy_only) reproduces full model within 0.05 on QA-SRL non-canonical -- disguised single-cue rule on modern prose too. mean_mcg_repro=0.8666(expected=0.8666,tol=0.05,ok=True) mean_qasrl_noncanon=0.7442 positional_baseline_noncanon=0.4768 lift=+0.2674 mean_qasrl_canon=0.8981 n_noncanon=3937 n_canon=9820 n_seeds=5 scramble_drop=0.4517(collapse=True) best_single_cue=animacy_only@0.7127(matches_full=True) category_counts={'canonical_obj': 3178, 'canonical_subj': 6642, 'experiencer': 647, 'passive': 3145, 'agent_by_phrase': 109, 'ditrans_recipient': 27, 'ditrans_recipient_passive': 9} exclude_reason_counts={'other_prep_unmapped': 1903, 'adjunct_wh': 7822, 'ditrans_double_object_ambiguous': 30, 'no_blank_found': 135} by_category_acc={'canonical_obj': 0.8865, 'canonical_subj': 0.9036, 'experiencer': 0.8915, 'passive': 0.7346, 'agent_by_phrase': 0.3541, 'ditrans_recipient': 0.1555, 'ditrans_recipient_passive': 0.0}",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mcg_repro_acc": 0.8571,
+      "qasrl_noncanon_acc": 0.7498,
+      "qasrl_canon_acc": 0.909,
+      "scramble_acc": 0.1372,
+      "scramble_drop": 0.6126,
+      "ablation_accs": {
+        "order_only": 0.4768,
+        "animacy_only": 0.8623,
+        "frame_only": 0.635,
+        "voice_only": 0.5319
+      },
+      "by_category_acc": {
+        "canonical_obj": 0.8977,
+        "canonical_subj": 0.9143,
+        "experiencer": 0.881,
+        "passive": 0.7447,
+        "agent_by_phrase": 0.3303,
+        "ditrans_recipient": 0.1481,
+        "ditrans_recipient_passive": 0.0
+      }
+    },
+    {
+      "seed": 17,
+      "mcg_repro_acc": 0.873,
+      "qasrl_noncanon_acc": 0.7394,
+      "qasrl_canon_acc": 0.9101,
+      "scramble_acc": 0.1824,
+      "scramble_drop": 0.557,
+      "ablation_accs": {
+        "order_only": 0.4768,
+        "animacy_only": 0.8623,
+        "frame_only": 0.635,
+        "voice_only": 0.5319
+      },
+      "by_category_acc": {
+        "canonical_obj": 0.882,
+        "canonical_subj": 0.9235,
+        "experiencer": 0.8918,
+        "passive": 0.7278,
+        "agent_by_phrase": 0.3761,
+        "ditrans_recipient": 0.1481,
+        "ditrans_recipient_passive": 0.0
+      }
+    },
+    {
+      "seed": 23,
+      "mcg_repro_acc": 0.8571,
+      "qasrl_noncanon_acc": 0.7455,
+      "qasrl_canon_acc": 0.8872,
+      "scramble_acc": 0.0307,
+      "scramble_drop": 0.7148,
+      "ablation_accs": {
+        "order_only": 0.4768,
+        "animacy_only": 0.8623,
+        "frame_only": 0.635,
+        "voice_only": 0.5319
+      },
+      "by_category_acc": {
+        "canonical_obj": 0.8965,
+        "canonical_subj": 0.8827,
+        "experiencer": 0.8995,
+        "passive": 0.7342,
+        "agent_by_phrase": 0.367,
+        "ditrans_recipient": 0.1481,
+        "ditrans_recipient_passive": 0.0
+      }
+    },
+    {
+      "seed": 31,
+      "mcg_repro_acc": 0.873,
+      "qasrl_noncanon_acc": 0.7437,
+      "qasrl_canon_acc": 0.9003,
+      "scramble_acc": 0.7579,
+      "scramble_drop": -0.0142,
+      "ablation_accs": {
+        "order_only": 0.4768,
+        "animacy_only": 0.2565,
+        "frame_only": 0.635,
+        "voice_only": 0.5319
+      },
+      "by_category_acc": {
+        "canonical_obj": 0.8704,
+        "canonical_subj": 0.9146,
+        "experiencer": 0.8995,
+        "passive": 0.7329,
+        "agent_by_phrase": 0.3303,
+        "ditrans_recipient": 0.1852,
+        "ditrans_recipient_passive": 0.0
+      }
+    },
+    {
+      "seed": 41,
+      "mcg_repro_acc": 0.873,
+      "qasrl_noncanon_acc": 0.7424,
+      "qasrl_canon_acc": 0.8837,
+      "scramble_acc": 0.3541,
+      "scramble_drop": 0.3884,
+      "ablation_accs": {
+        "order_only": 0.4768,
+        "animacy_only": 0.7203,
+        "frame_only": 0.635,
+        "voice_only": 0.5319
+      },
+      "by_category_acc": {
+        "canonical_obj": 0.8858,
+        "canonical_subj": 0.8827,
+        "experiencer": 0.8856,
+        "passive": 0.7332,
+        "agent_by_phrase": 0.367,
+        "ditrans_recipient": 0.1481,
+        "ditrans_recipient_passive": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 63.67353272438049,
+  "qasrl_stats": {
+    "n_sentences": 12000,
+    "n_verb_entries": 19700,
+    "n_questions": 42237,
+    "n_predicate_resolved": 12521,
+    "n_predicate_unresolved": 7179,
+    "n_answer_resolved": 13757,
+    "n_answer_unresolved": 3990,
+    "n_examples": 13757,
+    "predicate_resolve_rate": 0.6356,
+    "answer_head_resolve_rate": 0.7752,
+    "category_counts": {
+      "canonical_obj": 3178,
+      "canonical_subj": 6642,
+      "experiencer": 647,
+      "passive": 3145,
+      "agent_by_phrase": 109,
+      "ditrans_recipient": 27,
+      "ditrans_recipient_passive": 9
+    },
+    "exclude_reason_counts": {
+      "other_prep_unmapped": 1903,
+      "adjunct_wh": 7822,
+      "ditrans_double_object_ambiguous": 30,
+      "no_blank_found": 135
+    }
+  },
+  "per_split_stats": [
+    {
+      "n_sentences": 4000,
+      "n_verb_entries": 6087,
+      "n_questions": 13168,
+      "n_predicate_resolved": 3941,
+      "n_predicate_unresolved": 2146,
+      "predicate_resolve_rate": 0.6474,
+      "n_answer_resolved": 4410,
+      "n_answer_unresolved": 1125,
+      "answer_head_resolve_rate": 0.7967,
+      "category_counts": {
+        "canonical_obj": 990,
+        "canonical_subj": 2195,
+        "experiencer": 226,
+        "passive": 961,
+        "agent_by_phrase": 34,
+        "ditrans_recipient": 3,
+        "ditrans_recipient_passive": 1
+      },
+      "exclude_reason_counts": {
+        "other_prep_unmapped": 601,
+        "adjunct_wh": 2528,
+        "ditrans_double_object_ambiguous": 8,
+        "no_blank_found": 29
+      },
+      "n_examples": 4410,
+      "split": "train",
+      "elapsed_s": 14.49
+    },
+    {
+      "n_sentences": 4000,
+      "n_verb_entries": 6685,
+      "n_questions": 14181,
+      "n_predicate_resolved": 4121,
+      "n_predicate_unresolved": 2564,
+      "predicate_resolve_rate": 0.6165,
+      "n_answer_resolved": 4384,
+      "n_answer_unresolved": 1341,
+      "answer_head_resolve_rate": 0.7658,
+      "category_counts": {
+        "canonical_subj": 2072,
+        "passive": 1086,
+        "experiencer": 215,
+        "canonical_obj": 971,
+        "ditrans_recipient_passive": 3,
+        "agent_by_phrase": 31,
+        "ditrans_recipient": 6
+      },
+      "exclude_reason_counts": {
+        "adjunct_wh": 2648,
+        "other_prep_unmapped": 626,
+        "no_blank_found": 32,
+        "ditrans_double_object_ambiguous": 2
+      },
+      "n_examples": 4384,
+      "split": "dev",
+      "elapsed_s": 19.26
+    },
+    {
+      "n_sentences": 4000,
+      "n_verb_entries": 6928,
+      "n_questions": 14888,
+      "n_predicate_resolved": 4459,
+      "n_predicate_unresolved": 2469,
+      "predicate_resolve_rate": 0.6436,
+      "n_answer_resolved": 4963,
+      "n_answer_unresolved": 1524,
+      "answer_head_resolve_rate": 0.7651,
+      "category_counts": {
+        "canonical_subj": 2375,
+        "passive": 1098,
+        "canonical_obj": 1217,
+        "experiencer": 206,
+        "agent_by_phrase": 44,
+        "ditrans_recipient": 18,
+        "ditrans_recipient_passive": 5
+      },
+      "exclude_reason_counts": {
+        "no_blank_found": 74,
+        "adjunct_wh": 2646,
+        "other_prep_unmapped": 676,
+        "ditrans_double_object_ambiguous": 20
+      },
+      "n_examples": 4963,
+      "split": "test",
+      "elapsed_s": 19.19
+    }
+  ],
+  "mcg_data_report": {
+    "n_gold_sids": 114,
+    "n_pos_sids": 75,
+    "n_triples_total": 100,
+    "n_triples_resolved": 62,
+    "resolve_rate": 0.62,
+    "auto_stratify_counts_per_triple": {
+      "experiencer": 11,
+      "ditrans": 15,
+      "canonical": 55,
+      "unresolved": 19
+    },
+    "auto_noncanonical_triple_n": 26,
+    "auto_experiencer_triple_n": 11,
+    "auto_experiencer_held_out_test_n": 10,
+    "auto_ditrans_triple_n": 15,
+    "auto_ditrans_held_out_test_n": 12,
+    "auto_passive_triple_n": 0,
+    "auto_passive_note": "ground-truth audit (notes/research_thematic_role_gold_provenance_audit.md) confirmed ZERO genuine passive-voice pos-triples in the McGuffey gold (all ~8 raw passives are silently omitted from gold); passive is supplied ONLY via the hand-authored supplement, never auto-derived here.",
+    "supplement_counts_by_construction": {
+      "passive": 8,
+      "experiencer": 5,
+      "ditrans": 20,
+      "canonical": 3,
+      "held_out_test_n_by_construction": {
+        "passive": 8,
+        "experiencer": 4,
+        "ditrans": 29
+      }
+    },
+    "supplemented": true,
+    "split_protocol": "canonical=100pct-train (spec-literal); experiencer/ditrans/passive = 50/50 split by SENTENCE/RECORD (train-exposure vs held-out-test) -- a disclosed deviation from the spec's zero-exposure protocol, required because a linear perceptron structurally cannot predict a class label it has zero training exposure to (see _split_units docstring).",
+    "n_train_examples": 181,
+    "n_test_examples": 63,
+    "n_train_examples_auto_only": 133,
+    "n_test_examples_auto_only": 22,
+    "n_train_examples_supplement": 48,
+    "n_test_examples_supplement": 41
+  },
+  "arms_differ_verified": true,
+  "calibration_check": "default_ok_for_this_regime"
+}
