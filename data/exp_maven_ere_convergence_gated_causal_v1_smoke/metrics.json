@@ -1,0 +1,113 @@
+{
+  "anchor_name": "exp_maven_ere_convergence_gated_causal_v1_smoke",
+  "run_mode": "smoke",
+  "verdict": "HARD-PASS",
+  "verdict_msg": "real_f1=11.5465 best_base=1.6168 beats_baseline=True scramble_f1=3.4419 scramble_collapses=True ablation_f1=7.4027 ablation_collapses=True headroom_to_sota=20.41 band=HARD-PASS",
+  "summary": "MAVEN-ERE convergence-gated causal relation classification: HARD-PASS",
+  "elapsed_s": 5.37788200378418,
+  "ts_iso": "2026-08-11T05:08:38.211875+00:00",
+  "pid": 26028,
+  "n_dev_docs": 100,
+  "n_train_docs": 400,
+  "n_candidate_pairs": 93308,
+  "n_real_positive_predictions": 14656,
+  "cue_design": {
+    "min_convergent_cues_real": 2,
+    "min_convergent_cues_ablation": 1,
+    "connective_sent_dist": 1,
+    "arg_window": 4,
+    "min_type_support": 3,
+    "type_compat_mult": 1.5,
+    "global_type_positive_rate_train": 0.01819786214226982,
+    "global_majority_label_train": 1,
+    "n_type_pair_keys_with_support": 16823
+  },
+  "arms": {
+    "real": {
+      "official_micro_f1_positive_only": {
+        "precision": 6.775382096069869,
+        "recall": 39.03301886792453,
+        "f1": 11.546511627906977
+      },
+      "macro_f1_all_labels": 38.905359285168856,
+      "accuracy_pct": 83.93492519398123,
+      "n_candidate_pairs": 93308
+    },
+    "ablation": {
+      "official_micro_f1_positive_only": {
+        "precision": 3.9032022977665366,
+        "recall": 71.58018867924528,
+        "f1": 7.402739948778406
+      },
+      "macro_f1_all_labels": 28.981357394939057,
+      "accuracy_pct": 51.5400608736657,
+      "n_candidate_pairs": 93308
+    },
+    "scramble": {
+      "official_micro_f1_positive_only": {
+        "precision": 2.019650655021834,
+        "recall": 11.635220125786164,
+        "f1": 3.441860465116279
+      },
+      "macro_f1_all_labels": 32.316291469266496,
+      "accuracy_pct": 82.3777168088481,
+      "n_candidate_pairs": 93308
+    }
+  },
+  "baselines_on_slice": {
+    "majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 32.87264403784027,
+      "accuracy_pct": 97.27354567668367,
+      "n_candidate_pairs": 93308
+    },
+    "adjacent_sentence_heuristic": {
+      "official_micro_f1_positive_only": {
+        "precision": 3.391959798994975,
+        "recall": 1.0613207547169812,
+        "f1": 1.6167664670658684
+      },
+      "macro_f1_all_labels": 33.89309892025397,
+      "accuracy_pct": 96.51262485531788,
+      "n_candidate_pairs": 93308
+    },
+    "bag_of_event_types": {
+      "official_micro_f1_positive_only": {
+        "precision": 3.076923076923077,
+        "recall": 0.15723270440251574,
+        "f1": 0.2991772625280479
+      },
+      "macro_f1_all_labels": 32.99220506014716,
+      "accuracy_pct": 97.14279590174476,
+      "n_candidate_pairs": 93308
+    }
+  },
+  "cited_published_baselines": {
+    "sota_causal_f1_protoem_2023": 31.96,
+    "note": "CITED from data/benchmark_trap_check/maven_ere_results.json; not re-derived here."
+  },
+  "bands_prereg": {
+    "beats_baseline": true,
+    "scramble_collapses": true,
+    "ablation_collapses": true,
+    "headroom_survives": true,
+    "not_meaningful": false,
+    "scramble_no_collapse": false,
+    "ablation_not_load_bearing": false
+  },
+  "arms_differ_digests": {
+    "real": "94c8aece340fcfa23a15dd6e1d8e2cbc4ffb933fac997d5043dd16f7d6e0d445",
+    "ablation": "a3b2153f1c28d961d26fa26f5208cbf25f37e30560a7fee1cefa71fea3da4c13",
+    "scramble": "0c0f4c35f5c142c270e7b0d737a238531372d73d79afffd44bb217d4da9f02ac"
+  },
+  "arms_differ_verified": true,
+  "no_leak_verified": true,
+  "deterministic_seeding": true,
+  "cardinality_ok": true,
+  "checkpoint_exempt": true,
+  "prereg_path": "preregs/2026-08-11_maven_ere_convergence_gated_causal_v1.md"
+}
