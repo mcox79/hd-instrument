@@ -180,13 +180,22 @@ class Library:
         return True
 
 
-def schema_consistency_split_half(traces: List[Trace]) -> Optional[float]:
+def schema_consistency_split_half(traces: List[Trace], min_half_size: int = 2) -> Optional[float]:
     """Split-half context-coherence (reuses exp_confidence_gated_codebook_consolidation_v1's
     split-by-position reliability SHAPE -- there: two independent PPMI builds over disjoint token
     halves; here: two independent context-vector bundles over disjoint TRACE halves, ordered by
-    accumulation order not shuffled). Returns None (defer, not zero) if fewer than 2 traces exist
-    per half -- an under-evidenced item cannot yet be schema-scored, distinct from a genuinely
-    LOW score.
+    accumulation order not shuffled). Returns None (defer, not zero) if fewer than min_half_size
+    traces exist per half -- an under-evidenced item cannot yet be schema-scored, distinct from a
+    genuinely LOW score.
+
+    min_half_size (2026-08-11, additive; default 2 preserves the exact prior n<4->None behavior
+    byte-for-byte): the minimum traces required PER HALF. A caller whose confirmation gate has
+    been independence-weighted (see consolidation_pass's/prelim_tier's trace_weight_fn, which can
+    legitimately cross MIN_CONFIRM at n=2..3 genuinely-independent-source traces, below the
+    default n>=4 this split-half floor was coincidentally tuned to -- see grounding_acquisition_
+    loop module docstring's own MIN_CONFIRM comment) may pass min_half_size=1 to permit a
+    genuinely-informative (if noisier) 1-vs-1 or 1-vs-2 split at n=2..3. This does not change the
+    split-half MATH, only the minimum n at which it is computed at all.
 
     Uses the RAW (non-sign-cleaned) sum of each half's context vectors, not the bipolar-cleaned
     bundle context_vector() itself returns: sign-cleanup's zero-tie-break-to-+1 convention (matches
@@ -198,7 +207,7 @@ def schema_consistency_split_half(traces: List[Trace]) -> Optional[float]:
     a smooth reliability signal (we are not requesting a clean concept symbol here, just a coherence
     SCORE)."""
     n = len(traces)
-    if n < 4:            # need >=2 traces per half for a non-degenerate split
+    if n < 2 * min_half_size:
         return None
     half = n // 2
     a, b = traces[:half], traces[half:]
@@ -243,7 +252,9 @@ def consolidation_pass(library: Library, pass_idx: int, *,
                         promote_min_exposure: int = PROMOTE_MIN_EXPOSURE,
                         promote_min_consistency: float = PROMOTE_MIN_CONSISTENCY,
                         promote_relation: str = PROMOTE_RELATION,
-                        promote_source: str = "grounding_acquisition_loop") -> dict:
+                        promote_source: str = "grounding_acquisition_loop",
+                        trace_weight_fn: Optional[Callable[[List[Trace]], float]] = None,
+                        schema_min_half_size: int = 2) -> dict:
     """One offline 'sleep' pass over the WHOLE library (Diekelmann & Born: offline, separate from
     the reading/FLAG pass). For each PENDING item with >= min_confirm traces:
       1. mark first_min_confirm_pass on the FIRST pass this threshold is reached (if not yet set).
@@ -283,6 +294,18 @@ def consolidation_pass(library: Library, pass_idx: int, *,
     was supplied (promoted is always False when native_store is None) -- this is what lets a caller
     later correlate native coverage against the two fade predictors without re-deriving them.
 
+    trace_weight_fn (2026-08-11, optional, additive -- default None preserves the exact prior
+    raw-trace-count gate byte-for-byte): when provided, called as trace_weight_fn(item.traces) ->
+    float and used IN PLACE OF len(item.traces) for the min_confirm eligibility check below (the
+    "CONFIRMATION gate" this drill makes independence-weighted -- see notes/2026-08-11 genuine-
+    cross-source-corroboration drill). This lets a caller weight N genuinely-independent-source
+    traces as stronger evidence than N repeats of one correlated source, without this module
+    knowing anything about what a "source" is (that classification lives entirely in the
+    caller-supplied function). schema_min_half_size threads through to schema_consistency_
+    split_half unchanged (see that function's own docstring) -- the schema-coherence guard is a
+    SEPARATE, still-mandatory condition; trace_weight_fn only changes what counts as "enough
+    evidence to be schema-scored at all," never bypasses the schema check itself.
+
     Returns a per-pass report dict; mutates `library` in place."""
     newly_grounded = {"POS": [], "NEG": [], "NEUTRAL": []}
     newly_escalated: List[str] = []
@@ -292,13 +315,14 @@ def consolidation_pass(library: Library, pass_idx: int, *,
         if it.status != "PENDING":
             continue
         n = len(it.traces)
-        if n < min_confirm:
+        confirm_score = float(n) if trace_weight_fn is None else float(trace_weight_fn(it.traces))
+        if confirm_score < min_confirm:
             continue
         if it.first_min_confirm_pass is None:
             it.first_min_confirm_pass = pass_idx
         if pass_idx <= it.first_min_confirm_pass:
             continue  # mandatory intervening-pass wait; not a failure, no patience cost
-        schema_score = schema_consistency_split_half(it.traces)
+        schema_score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size)
         if schema_score is None:
             continue  # insufficient evidence for a split yet (should not occur once n>=MIN_CONFIRM=4,
                        # but defensive: defer, no patience cost -- not-enough-evidence is not a guard

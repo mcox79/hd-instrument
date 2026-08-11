@@ -1,0 +1,54 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "closed-form independence-weighting boundary proofs PASS (2 independent sources cross, N repeats of one source never cross regardless of N, correlated sources never cross, order-independent, unmeasured sources default conservative) + real-pipeline control checks PASS (single-source-repeat and correlated-source facts correctly refuse to retain, genuine 2-independent-source pair retains) -- the mechanism works correctly before touching real data",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.017973699956201017,
+  "ts_iso": "2026-08-11T20:51:31.853476+00:00",
+  "anchor_name": "three_tier_loop_independence_weighted_confirm_v1",
+  "run_mode": "self_test",
+  "result": {
+    "closed_form_boundary_ok": true,
+    "s1": 1.5,
+    "s2": 3.0,
+    "s3": 4.5,
+    "s_rep": 1.8750000000000004,
+    "s_corr": 1.65,
+    "s_corr_rep": 0.18749999999999997,
+    "s_unknown": 0.15,
+    "order_independence_ok": true,
+    "control_checks": {
+      "single_source_repeat_retained": false,
+      "correlated_source_retained": false,
+      "independent_pair_retained": true,
+      "control_check_ok": true,
+      "diag_a": {
+        "newly_retained": 0,
+        "n_hub_excluded": 0,
+        "n_prelim_pending_items": 1,
+        "n_clusters": 0,
+        "n_clusters_eligible_size": 0,
+        "n_combined_promoted_total": 0,
+        "n_combined_promoted_this_pass": 0
+      },
+      "diag_b": {
+        "newly_retained": 0,
+        "n_hub_excluded": 0,
+        "n_prelim_pending_items": 1,
+        "n_clusters": 0,
+        "n_clusters_eligible_size": 0,
+        "n_combined_promoted_total": 0,
+        "n_combined_promoted_this_pass": 0
+      },
+      "diag_c": {
+        "newly_retained": 1,
+        "n_hub_excluded": 0,
+        "n_prelim_pending_items": 1,
+        "n_clusters": 1,
+        "n_clusters_eligible_size": 0,
+        "n_combined_promoted_total": 0,
+        "n_combined_promoted_this_pass": 0
+      }
+    },
+    "schema_min_half_size_override_ok": true
+  }
+}

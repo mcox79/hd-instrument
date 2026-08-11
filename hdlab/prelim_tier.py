@@ -50,13 +50,13 @@ of its own).
 """
 from __future__ import annotations
 
-from typing import Callable, Dict, Optional, Set
+from typing import Callable, Dict, List, Optional, Set
 
 import torch
 
 from hdlab.grounding_acquisition_loop import (
     Library, MIN_CONFIRM, PROMOTE_MIN_EXPOSURE, PROMOTE_MIN_CONSISTENCY,
-    schema_consistency_split_half, _vote_margin,
+    schema_consistency_split_half, _vote_margin, Trace,
 )
 from hdlab.hd_fact_store import HDFactStore
 from hdlab.script_grain_acquisition_loop import ScriptLibrary, build_instance_register
@@ -142,7 +142,9 @@ def update_prelim_and_generalize(state: TierState,
                                  cluster_min_members: int = CLUSTER_MIN_MEMBERS,
                                  cluster_exposure_multiplier: int = CLUSTER_EXPOSURE_MULTIPLIER,
                                  hub_score_fn: Optional[Callable[[str], float]] = None,
-                                 hub_score_thresh: float = float("inf")) -> dict:
+                                 hub_score_thresh: float = float("inf"),
+                                 trace_weight_fn: Optional[Callable[[List[Trace]], float]] = None,
+                                 schema_min_half_size: int = 2) -> dict:
     """One checkpoint's PRELIM-retain + CA3/DG cluster-registration + combined-evidence-promotion
     pass. Reuses schema_consistency_split_half / _vote_margin (grounding_acquisition_loop, byte-
     identical to the single-item BANK gate) and ScriptLibrary.match_or_spawn / build_instance_
@@ -165,6 +167,15 @@ def update_prelim_and_generalize(state: TierState,
         source cell's HUB_DEGREE_THRESH hub-concept exclusion, which hardcoded a node_degree dict
         keyed by `pk.split("::", 1)` halves). Default None disables hub exclusion entirely
         (backward-compatible with callers that have no hub-degree concept).
+    trace_weight_fn(traces) -> float, optional (2026-08-11, additive; default None preserves the
+        exact prior raw-trace-count RETAIN gate byte-for-byte): used IN PLACE OF len(it.traces)
+        for the min_confirm eligibility check below -- the THIS-IS-THE-GATE the independence-
+        weighted-corroboration drill targets (see notes/2026-08-11 genuine-cross-source-
+        corroboration drill; this is "before an item is even retained-into-middle/cluster-
+        registered"). schema_min_half_size threads through to schema_consistency_split_half
+        unchanged (default 2 preserves the prior n<4->None floor; a caller lowering min_confirm
+        below 4 via trace_weight_fn should also consider lowering this, else the schema-coherence
+        guard becomes the new binding floor -- see that function's own docstring).
 
     Returns a per-pass report dict; mutates `state` in place. Field names match the source cell's
     own tier_diag_log entries exactly (newly_retained, n_hub_excluded, n_prelim_pending_items,
@@ -175,12 +186,13 @@ def update_prelim_and_generalize(state: TierState,
     for pk in sorted(state.prelim_lib.items):
         it = state.prelim_lib.items[pk]
         n = len(it.traces)
-        if n < min_confirm:
+        confirm_score = float(n) if trace_weight_fn is None else float(trace_weight_fn(it.traces))
+        if confirm_score < min_confirm:
             continue
         if hub_score_fn is not None and hub_score_fn(pk) > hub_score_thresh:
             n_hub_excluded += 1
             continue
-        score = schema_consistency_split_half(it.traces)
+        score = schema_consistency_split_half(it.traces, min_half_size=schema_min_half_size)
         if score is None or score < schema_thresh:
             continue
         margin, pos, neg = _vote_margin(it.traces)

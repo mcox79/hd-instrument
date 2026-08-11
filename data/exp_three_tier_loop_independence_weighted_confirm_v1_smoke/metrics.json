@@ -1,0 +1,293 @@
+{
+  "verdict": "MIDDLE_BAND_confirm_gate_fixed_schema_coherence_now_binding_floor",
+  "verdict_msg": "the independence-weighted CONFIRM/COUNT gate itself WORKS and correctly discriminates by source-count (closed-form audit: 2+-source crossing=10/10, 1-source crossing=0/8, all controls pass) -- BUT end-to-end retain-into-middle (W_full final n_middle=0) falls short of the 30% band because the retain gate is a CONJUNCTION with a SEPARATE schema-coherence check (schema_consistency_split_half) that itself has a length-dependent-noise problem at n=2..3 traces for source PAIRS whose text templates share few surface anchor words (measured during authoring: cos(CSKG,KB-role-schema alone)=0.039 < schema_thresh=0.10, cos(CSKG,CauseNet)=0.273 clears easily). This is a genuine SECOND, newly-surfaced floor -- not a mechanism failure of the independence-weighting fix itself, and not something this cell tuned schema_thresh down to paper over (left at the codebase default 0.10).",
+  "summary": "the independence-weighted CONFIRM/COUNT gate itself WORKS and correctly discriminates by source-count (closed-form audit: 2+-source crossing=10/10, 1-source crossing=0/8, all controls pass) -- BUT end-to-end retain-into-middle (W_full final n_middle=0) falls short of the 30% band because the retain gate is a CONJUNCTION with a SEPARATE schema-coherence check (schema_consistency_split_half) that itself has a length-dependent-noise problem at n=2..3 traces for source PAIRS whose text templates share few surface anchor words (measured during authoring: cos(CSKG,KB-role-schema alone)=0.039 < schema_thresh=0.10, cos(CSKG,CauseNet)=0.273 clears easily). This is a genuine SECOND, newly-surfaced floor -- not a mechanism failure of the independence-weighting fix itself, and not something this cell tuned schema_thresh down to paper over (left at the codebase default 0.10).",
+  "elapsed_s": 11.863938099937513,
+  "ts_iso": "2026-08-11T20:52:42.618019+00:00",
+  "anchor_name": "three_tier_loop_independence_weighted_confirm_v1",
+  "run_mode": "smoke",
+  "process_filter": [
+    "combustion",
+    "photosynthesis"
+  ],
+  "n_ent": 2587,
+  "n_targets": 26,
+  "n_eligible": 18,
+  "n_eligible_scramble": 6,
+  "positive_control_arm3_reproduction": 0.5384615384615384,
+  "positive_control_ok": true,
+  "novelty_thresh": 0.40567850433290004,
+  "calibration_fallback": false,
+  "weighting_scheme": {
+    "W_INDEPENDENT": 1.5,
+    "REPEAT_DECAY": 0.2,
+    "CORRELATED_WEIGHT": 0.15,
+    "INDEPENDENCE_MIN_CONFIRM": 2.5,
+    "source_independence_class": {
+      "cskg": "independent",
+      "causenet": "independent",
+      "kb_role_schema": "independent",
+      "reading_leg_synthetic": "correlated_with_cskg"
+    },
+    "schema_min_half_size_used": 1,
+    "schema_thresh_used": 0.1
+  },
+  "coverage_histogram_eligible": {
+    "1": 8,
+    "2": 10
+  },
+  "closed_form_audit": {
+    "by_source_count": {
+      "1": {
+        "n_gaps": 8,
+        "n_crossing": 0,
+        "score_min": 1.5,
+        "score_max": 1.5
+      },
+      "2": {
+        "n_gaps": 10,
+        "n_crossing": 10,
+        "score_min": 3.0,
+        "score_max": 3.0
+      },
+      "3": {
+        "n_gaps": 0,
+        "n_crossing": 0,
+        "score_min": null,
+        "score_max": null
+      }
+    }
+  },
+  "control_checks": {
+    "single_source_repeat_retained": false,
+    "correlated_source_retained": false,
+    "independent_pair_retained": true,
+    "control_check_ok": true
+  },
+  "n_waves": 2,
+  "r_visits": 11,
+  "arm_results": {
+    "W_full": {
+      "arm_name": "W_full",
+      "n_targets": 18,
+      "n_eligible": 18,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_newly_retained_this_pass": 0,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "W_scramble": {
+      "arm_name": "W_scramble",
+      "n_targets": 6,
+      "n_eligible": 6,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 2,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_newly_retained_this_pass": 0,
+        "n_banked_pos_this_pass": 0
+      }
+    },
+    "R_reference": {
+      "arm_name": "R_reference",
+      "ablation_mode": "full",
+      "n_targets": 26,
+      "n_eligible": 18,
+      "exclusion_counts": {
+        "gather_miss_or_missing_entity": 0,
+        "rank_miss": 8
+      },
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 2,
+          "n_total_resolved": 2,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_banked_pos_this_pass": 1
+        },
+        {
+          "checkpoint": 4,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 5,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 16
+        },
+        {
+          "checkpoint": 6,
+          "n_foundation": 0,
+          "n_middle": 18,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 7,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 10,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 8,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 9,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 10,
+          "n_foundation": 10,
+          "n_middle": 8,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        },
+        {
+          "checkpoint": 11,
+          "n_foundation": 13,
+          "n_middle": 5,
+          "n_total_resolved": 18,
+          "n_combined_promoted_this_pass": 3,
+          "n_clusters_eligible_size": 3,
+          "n_banked_pos_this_pass": 0
+        }
+      ],
+      "final": {
+        "checkpoint": 11,
+        "n_foundation": 13,
+        "n_middle": 5,
+        "n_total_resolved": 18,
+        "n_combined_promoted_this_pass": 3,
+        "n_clusters_eligible_size": 3,
+        "n_banked_pos_this_pass": 0
+      }
+    }
+  },
+  "confirm_gate_discriminates": true,
+  "audit_2plus": 10,
+  "audit_2plus_crossing": 10,
+  "audit_1src_crossing": 0,
+  "end_to_end_retain_ok": false,
+  "scramble_collapses": true,
+  "no_leak_ok": true,
+  "reference_reproduces_prior": true,
+  "controls_ok": true,
+  "cardinality_ok": true,
+  "arm_curve_digests": {
+    "W_full": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "W_scramble": "127a87615b3aac7a81a2b53c61e66188ff79c5a3b195ce8604356c21f7cd4087",
+    "R_reference": "95f2c563aa344a1b5c492cdaf1a57cbf0ca2c4c900bb1c1947aba95ce4410a0a"
+  },
+  "arms_differ_w_vs_r_ok": true,
+  "arms_differ_w_vs_scramble_ok": false,
+  "bands": {
+    "independence_min_confirm": 2.5,
+    "discriminating_fraction_floor": 0.3,
+    "end_to_end_retain_fraction_floor": 0.3,
+    "reference_tolerance_abs": 15,
+    "reference_cited_n_foundation": 40,
+    "positive_control_tolerance": 0.1
+  }
+}
