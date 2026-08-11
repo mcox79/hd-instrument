@@ -1,27 +1,44 @@
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
-# - arms_differ_verified at smoke gate (META_RULE_AF; 9-arm per-checkpoint prediction hash-differ;
-#   arms_differ_exempted=[["bow","never_crutch"]] declared)
+# - arms_differ_verified at smoke gate (META_RULE_AF; 10-arm per-checkpoint prediction hash-differ;
+#   arms_differ_exempted=[["bow","never_crutch"]] declared; non-exempt collisions are diagnostic,
+#   non-blocking -- see arms_differ_non_exempt_collisions)
 # - final_metrics_atomicity declared (META_RULE_AH; tmp_replace)
 # - except SystemExit: raise BEFORE except Exception (no BaseException, no bare except:)
 # - crlb_n/a declared (symbolic KB-lookup + vote-count pipeline; no capacity/noise-floor
 #   discriminator threshold applies -- 3-way discrete classification accuracy on a real benchmark)
 # - HP_SCOPE: {dev_checkpoint_eval: [tier_fire_drop, tier_comprehension_lift, tier_scramble_control,
-#   tier_consolidation_fidelity, combined_evidence_promotion, ablation_underperformance]} --
-#   ALWAYS/NEVER arms + binary_baseline_verdict are diagnostic/informational, not HP-gated
-# - cardinality_ok: EXPECTED_N_CHECKPOINTS=5, EXPECTED_N_ARMS=9
+#   tier_consolidation_fidelity, combined_evidence_promotion, ablation_underperformance],
+#   with_mdl_gated_promotion: [mdl_gated_combined_evidence_promotion, mdl_tier_fidelity,
+#   mdl_comprehension_lift, mdl_gate_discriminator_fires]} -- ALWAYS/NEVER arms +
+#   binary_baseline_verdict + tier_ungated_verdict are diagnostic/informational, not HP-gated
+# - cardinality_ok: EXPECTED_N_CHECKPOINTS=5, EXPECTED_N_ARMS=10 (v2 ARM-2 adds
+#   with_mdl_gated_promotion)
 # - per-unit failure-class instrumentation (no bare except; degraded_scoring budget 2%)
 # - calibration_check: adaptive_with_discriminator_gate (GATE_THRESH = median BoW-margin; PLUS
 #   novelty_thresh calibrated via calibrate_novelty_threshold on this run's own SEMANTIC-BUCKET
 #   vocabulary (v2 change, see below) -- both computed fresh at run start, logged, not hand-tuned)
 # - all numbers in comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@
 # - self-test constructs the REAL Library / consolidation_pass / HDFactStore / ScriptLibrary /
-#   build_instance_register / match_or_spawn / CharTrigramEncoder objects (real_code_path_exercised);
-#   no synthetic-only branch
+#   build_instance_register / match_or_spawn / CharTrigramEncoder / hdlab.learner.registry.learn
+#   (ruleind) objects (real_code_path_exercised); no synthetic-only branch
 # - progress_logging: print_flush_true
 # See preregs/2026-08-11_crutch_fade_semantic_cluster_key_v2.md for the v2 ONE-VARIABLE pre-reg
 # (extends preregs/2026-08-10_crutch_fade_prelim_tier_staged_consolidation_v1.md, the 3-tier
 # pre-reg this forks from; that in turn extends preregs/2026-08-10_crutch_fade_social_iqa_v1.md,
-# the base binary cell's pre-reg).
+# the base binary cell's pre-reg) AND preregs/2026-08-11_crutch_fade_v2_arm2_mdl_gated_
+# combined_evidence_promotion.md for the v2-ARM-2 ONE-VARIABLE addendum (adds
+# with_mdl_gated_promotion; every other arm/constant/config held byte-identical to v2).
+#
+# v2 ARM-2 (2026-08-11b, added on top of the v2 semantic-cluster-key fork, which itself
+# HARD_FAILED at FULL scale -- data/exp_crutch_fade_social_iqa_v2_semantic_cluster_key/
+# metrics.json, commit 72eb854e3): turns ON the previously-unused mdl_gate_fn conjunctive
+# promotion filter (design audit Gap-fix (ii), notes/director_three_tier_knowledge_architecture_
+# design_audit_2026-08-11.md Gap G5) as a SECOND, AND-only condition on COMBINED-EVIDENCE cluster
+# promotions inside update_prelim_and_generalize -- see that function + mdl_gate_decision() below
+# for the mechanism. Adds exactly ONE arm (with_mdl_gated_promotion) and ONE new TierState
+# (mdl_state, fed the identical real exposure as real_state); the other 9 arms' code paths and
+# every constant (HUB_DEGREE_THRESH, CLUSTER_EXPOSURE_MULTIPLIER, promote thresholds, checkpoints,
+# frozen dev, real 1.15M CSKG) are untouched.
 """exp_crutch_fade_social_iqa_v2_semantic_cluster_key -- ONE-VARIABLE fork of
 exp_crutch_fade_social_iqa_v1.py (2026-08-11). THE ONLY CHANGE: the CA3/DG near-concept SWEEP
 clustering KEY fed into ScriptLibrary.match_or_spawn is swapped from relation_family(idx, pk) (the
@@ -109,7 +126,7 @@ import sys
 import time
 import traceback
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
@@ -120,9 +137,15 @@ import numpy as np  # noqa: E402
 from hdlab.grounding_acquisition_loop import (  # noqa: E402
     Library, context_vector, consolidation_pass,
     PROMOTE_MIN_EXPOSURE, PROMOTE_MIN_CONSISTENCY, MIN_CONFIRM, PROMOTE_RELATION,
-    schema_consistency_split_half, _vote_margin,
+    schema_consistency_split_half, _vote_margin, D as GA_CTX_D,
 )
 from hdlab.hd_fact_store import HDFactStore  # noqa: E402
+from hdlab.learner import registry as mdl_registry  # noqa: E402 -- v2 ARM-2 import: the
+# design-audit-diagnosed, never-exercised mdl_gate_fn conjunctive filter (Gap-fix (ii),
+# notes/director_three_tier_knowledge_architecture_design_audit_2026-08-11.md). See the
+# ARM-2 MDL GATE ADAPTER block below (mirrors experiments/exp_learner_mdl_gate_on_
+# acquisition_traces_v1.py's own adapter, copied+attributed not reimplemented, same
+# discipline as this file's own canon() copy).
 from hdlab.script_grain_acquisition_loop import (  # noqa: E402
     ScriptLibrary, build_instance_register, calibrate_novelty_threshold,
 )
@@ -693,6 +716,114 @@ def tier_candidate_scores(ctx_concepts: List[str], ans_concepts_list: List[List[
     return scores, driving, sources
 
 
+# =====================================================================================
+# v2 ARM-2 (2026-08-11b): MDL two-part-code CONJUNCTIVE gate on COMBINED-EVIDENCE cluster
+# promotions -- design audit Gap-fix (ii) (notes/director_three_tier_knowledge_architecture_
+# design_audit_2026-08-11.md, Gap G5 / "smallest first experiment" step 6): "turn on the
+# already-wired-but-unused mdl_gate_fn hook ... as a SECOND, conjunctive filter on which
+# clusters are even eligible to combined-evidence promote (cheap: the hook exists, just was
+# never passed a real function)". THIS IS THAT HOOK, actually wired for the first time in any
+# real run. ADAPTER copied+attributed (not reimplemented -- wire-don't-island, matching this
+# file's own canon() precedent) from experiments/exp_learner_mdl_gate_on_acquisition_
+# traces_v1.py's mdl_gate_decision() (HARD_PASS verdict on its own guard-invariant +
+# precheck battery, commit history 2026-08-09): SAME feature-space design
+# (N_MDL_PROJECTIONS=8 fixed deterministic hyperplane sign-buckets of the 256-dim bipolar
+# context vector) -- that cell's own "Amendment" section MEASURED that a dense per-raw-
+# dimension encoding starves induce_rules' own MDL rule-cost budget (l_rule_bits ~ 11 bits
+# exceeds achievable entropy savings for realistically-sized evidence), so the coarse
+# 8-projection encoding is reused here VERBATIM, not re-derived. Operates over a raw
+# List[Trace] (each with .pole, .context_vec) -- EXACTLY the shape update_prelim_and_
+# generalize's own `agreeing_traces` pool already produces at the combined-evidence
+# decision point (see the call site inside update_prelim_and_generalize below), so no new
+# adapter shape is needed here (unlike the source cell's own LibraryItem-wrapping, which
+# gates a SINGLE item's own traces rather than a pooled multi-pair cluster's).
+MDL_N_PROJECTIONS = 8   # CITED@experiments/exp_learner_mdl_gate_on_acquisition_traces_v1.py
+                        # (same value, same empirically-forced fix -- see comment above)
+MDL_MIN_COMPRESSION_RATIO = 1.0   # per_cluster_gate's own default (hdlab/learner/core.py); not tuned
+# MDL_PURITY_THRESH -- a SECOND mandatory-precheck-forced fix (2026-08-11b, own "Amendment",
+# same discipline as the source cell's N_MDL_PROJECTIONS fix): MEASURED@this file's own self-test
+# (13b), reusing ruleind_plugin's DEFAULT purity_thresh=0.75 (experiments/exp_parser_
+# ruleinduction_cls_ppattach_v1.py PURITY_THRESH) made the gate VACUOUS (always True) at THIS
+# call site. Root cause: induce_rules' terminal "else predict majority" default clause is
+# ZERO-COST (bits_rule=0.0, bits_exceptions=0.0, see that file's induce_rules() lines ~277-285)
+# whenever the residual's raw majority purity clears purity_thresh -- and this gate is only ever
+# CONSULTED after the existing exposure/consistency cluster-grain gate already passed, which
+# REQUIRES consistency=abs(margin) >= promote_min_consistency (0.75 default), i.e. purity =
+# (1+consistency)/2 >= 0.875 ALREADY, structurally at or above the plugin's own default
+# purity_thresh=0.75 -- so the free default clause fires on EVERY cluster that reaches this gate,
+# giving description_bits<=0 -> compression_ratio=inf -> per_cluster_gate trivially True,
+# REGARDLESS of whether any real feature-conditional structure exists (MEASURED: a
+# hand-constructed cluster with the encoded vector carrying ZERO information about label,
+# consistency=0.833/purity=0.917, still promoted, n_mdl_blocked_this_pass=0). Fix (same
+# "coarse-grain until it discriminates" discipline as N_MDL_PROJECTIONS): raise purity_thresh
+# to a bar STRICTLY ABOVE the schema/consistency floor's own implied purity (0.875), so the free
+# default clause is no longer trivially available to every eligible cluster -- clusters in the
+# [0.875, MDL_PURITY_THRESH) band must now clear via a genuine EXPLICIT compressing conjunction
+# (or be blocked); only near-unanimous clusters (>=0.95 purity) still qualify for the free
+# default. Re-MEASURED@self-test (13b) after this fix: incompressible construction (purity=0.917)
+# correctly BLOCKED (n_mdl_blocked_this_pass>=1); compressible construction (perfectly-separable,
+# precision~1.0) still PROMOTES regardless of the raised bar (an explicit rule, not the default
+# clause, covers it). 0.95 is a considered, disclosed choice (comfortably above the 0.875 floor,
+# not so strict it excludes every real cluster) -- NOT tuned against the real-corpus FULL result
+# (chosen from the self-test's own diagnostic construction, before any real dispatch).
+MDL_PURITY_THRESH = 0.95
+
+
+def _make_mdl_projections(n_proj: int = MDL_N_PROJECTIONS, d: int = GA_CTX_D) -> np.ndarray:
+    """Deterministic (hashlib-seeded, PROT-023/F.5 compliant) fixed random hyperplane matrix --
+    same construction as _semantic_projection_matrix above, independent seed-tag namespace so
+    the two LSH-style projections (semantic clustering KEY vs MDL feature space) never collide."""
+    rows = []
+    for k in range(n_proj):
+        seed = int.from_bytes(
+            hashlib.sha256(f"crutch_fade_v2_mdl_gate_projection_{k}".encode("utf-8")).digest()[:8],
+            "big") % (2 ** 32)
+        rng = np.random.default_rng(seed)
+        rows.append(rng.choice([-1.0, 1.0], size=d))
+    return np.stack(rows, axis=0)
+
+
+_MDL_PROJECTIONS = _make_mdl_projections()
+
+
+def _mdl_episodes_from_traces(traces) -> List[dict]:
+    return [{"gold_class": t.pole, "id": t.episode_id, "vec": t.context_vec} for t in traces]
+
+
+def _mdl_dim_feat_fn(ep: dict) -> List[str]:
+    scores = _MDL_PROJECTIONS @ ep["vec"]
+    return [f"p{k}:{'+' if scores[k] > 0 else '-'}" for k in range(scores.shape[0])]
+
+
+def mdl_gate_decision(traces: list, min_compression_ratio: float = MDL_MIN_COMPRESSION_RATIO
+                      ) -> Tuple[bool, dict]:
+    """Fits hdlab.learner.registry's 'ruleind' plugin over a POOLED evidence set (a cluster's
+    agreeing_traces, or any List[Trace]) and returns whether per_cluster_gate's MDL two-part-
+    code criterion judges the evidence genuinely COMPRESSIBLE past the null (no-model) code
+    (Perfors & Tenenbaum 2009). Returns (gate: bool, debug: dict). CONJUNCTIVE USE ONLY: the
+    caller must AND this with the existing exposure/consistency gate, never OR/replace it --
+    see the call site in update_prelim_and_generalize."""
+    episodes = _mdl_episodes_from_traces(traces)
+    spec = {"candidate_plugins": ["ruleind"], "key_fn": lambda ep: ep["id"],
+            "min_compression_ratio": min_compression_ratio,
+            "purity_thresh": MDL_PURITY_THRESH}   # see MDL_PURITY_THRESH comment: default 0.75
+                                                   # makes the gate vacuous at this call site
+    chosen_name, chosen_result, all_results = mdl_registry.learn(episodes, _mdl_dim_feat_fn, spec)
+    gate = chosen_name == "ruleind"
+    rr = all_results.get("ruleind")
+    debug = {
+        "gate": gate,
+        "chosen": chosen_name,
+        "compression_ratio": (None if rr is None else
+                              ("inf" if rr.compression_ratio == float("inf") else round(rr.compression_ratio, 4))),
+        "null_bits": None if rr is None else round(rr.null_bits, 4),
+        "description_bits": None if rr is None else round(rr.description_bits, 4),
+        "n_rules": None if rr is None else rr.metrics.get("n_rules"),
+        "n_traces": len(traces),
+    }
+    return gate, debug
+
+
 class TierState:
     """Bundles the 3-tier PRELIM/generalization state for ONE side (real or scramble) of the run.
     `prelim_lib` is a Library() instance that is NEVER passed through consolidation_pass -- its
@@ -722,14 +853,26 @@ def update_prelim_and_generalize(state: TierState, idx: Dict[str, List[Tuple[str
                                  promote_min_consistency: float = PROMOTE_MIN_CONSISTENCY,
                                  cluster_min_members: int = CLUSTER_MIN_MEMBERS,
                                  node_degree: Optional[Dict[str, int]] = None,
-                                 hub_degree_thresh: int = HUB_DEGREE_THRESH) -> dict:
+                                 hub_degree_thresh: int = HUB_DEGREE_THRESH,
+                                 mdl_gate_fn: Optional[Callable[[list], bool]] = None) -> dict:
     """One checkpoint's PRELIM-retain + CA3/DG cluster-registration + combined-evidence-promotion
     pass. Reuses schema_consistency_split_half / _vote_margin (grounding_acquisition_loop, byte-
     identical to the single-item BANK gate) and ScriptLibrary.match_or_spawn / build_instance_register
     (script_grain_acquisition_loop, byte-identical to that module's own CA3/DG keying) -- no new
     gate math, only new WIRING between owned organs (design note's "the crux"). node_degree
     (optional; see HUB_DEGREE_THRESH comment) EXCLUDES a hub-template-word-driven pair from RETAIN +
-    cluster registration entirely -- smoke-diagnosed fidelity fix, 2026-08-10."""
+    cluster registration entirely -- smoke-diagnosed fidelity fix, 2026-08-10.
+
+    mdl_gate_fn (v2 ARM-2, optional, CONJUNCTIVE -- AND, never OR, with the existing exposure/
+    consistency cluster-grain gate; default None preserves prior behavior byte-for-byte): called
+    ONLY once a cluster's pooled agreeing_traces ALREADY clears exposure>=cluster_exposure_floor
+    AND consistency>=promote_min_consistency (mirrors consolidation_pass's own mdl_gate_fn
+    contract: 'consulted ONLY on passes where the existing check already holds', so the existing
+    gate remains NECESSARY regardless of what mdl_gate_fn returns -- it can only be made
+    STRICTER, never weaker). Signature: mdl_gate_fn(agreeing_traces: List[Trace]) -> bool. A
+    False verdict is treated identically to failing the existing gate (no promotion this pass;
+    the cluster stays eligible next pass as more evidence accrues, same as the schema-gate
+    'defer, no patience cost' pattern elsewhere in this file's engine)."""
     newly_retained = 0
     n_hub_excluded = 0
     for pk in sorted(state.prelim_lib.items):
@@ -775,6 +918,7 @@ def update_prelim_and_generalize(state: TierState, idx: Dict[str, List[Tuple[str
     # never force-promoted under the majority's label (bounded leakage, not just an aggregate
     # dilution that happens to fail the gate).
     n_combined_promoted_this_pass = 0
+    n_mdl_blocked_this_pass = 0
     for item_id, members in state.cluster_members.items():
         if len(members) < cluster_min_members:
             continue
@@ -803,6 +947,16 @@ def update_prelim_and_generalize(state: TierState, idx: Dict[str, List[Tuple[str
         cluster_exposure_floor = promote_min_exposure * CLUSTER_EXPOSURE_MULTIPLIER
         if exposure < cluster_exposure_floor or consistency < promote_min_consistency or margin == 0.0:
             continue
+        # v2 ARM-2 CONJUNCTIVE MDL GATE (design audit Gap-fix (ii)): consulted ONLY here, after
+        # the existing exposure/consistency gate already passed -- AND semantics, structurally
+        # cannot loosen the existing guard, only add a second, independent "genuinely
+        # compressible" requirement (Ghosh & Gilboa 2014 schema criterion, MDL operationalization
+        # per hdlab/learner's own docstring). mdl_gate_fn is None on every OTHER arm's TierState
+        # (real_state, scr_state) -- this branch only fires for the new with_mdl_gated_promotion
+        # arm's own TierState instance, by construction (see run()).
+        if mdl_gate_fn is not None and not mdl_gate_fn(agreeing_traces):
+            n_mdl_blocked_this_pass += 1
+            continue
         cluster_label = "POS" if margin > 0 else "NEG"
         trust_sym = "TRUST_HIGH" if consistency >= 0.9 else "TRUST_MID"
         for pk in agreeing_members:
@@ -821,6 +975,7 @@ def update_prelim_and_generalize(state: TierState, idx: Dict[str, List[Tuple[str
                                         if len(m) >= cluster_min_members),
         "n_combined_promoted_total": len(state.promoted_cluster),
         "n_combined_promoted_this_pass": n_combined_promoted_this_pass,
+        "n_mdl_blocked_this_pass": n_mdl_blocked_this_pass,
     }
 
 
@@ -930,9 +1085,15 @@ def resolve_item(item: dict, node_set: frozenset, idx: Dict[str, List[Tuple[str,
     #   gap_driven_3tier_no_generalization             -> `store` (real_store, single-item ONLY --
     #                                                      literally the SAME store gap_driven uses)
     #   scramble_crutch_3tier                          -> tier_state.native_store_gen (scramble side)
+    #   with_mdl_gated_promotion (v2 ARM-2, 2026-08-11b) -> tier_state.native_store_gen, but
+    #     `tier_state` here is mdl_state (a THIRD, parallel TierState -- see run()) whose combined-
+    #     evidence promotions are the ONLY thing that differs from gap_driven_3tier: identical
+    #     single-item mirrors, identical exposure/consistency cluster gate, PLUS the conjunctive
+    #     mdl_gate_fn check inside update_prelim_and_generalize. Routing logic here is otherwise
+    #     byte-identical to gap_driven_3tier (falls through the same branches below).
     # PRELIM tier is always tier_state.prelim_store, consulted UNLESS arm == ..._no_pull.
     if arm in ("gap_driven_3tier", "gap_driven_3tier_no_generalization",
-              "gap_driven_3tier_no_pull", "scramble_crutch_3tier"):
+              "gap_driven_3tier_no_pull", "scramble_crutch_3tier", "with_mdl_gated_promotion"):
         lib_store = store if arm == "gap_driven_3tier_no_generalization" else tier_state.native_store_gen
         l_scores, l_driving, l_sources = tier_candidate_scores(ctx_concepts, ans_concepts_list, lib_store)
         if max(l_scores) > 0:
@@ -975,11 +1136,18 @@ def process_exposure_slice(train_slice: List[dict], node_set: frozenset,
                            real_lib: Library, scr_lib: Library,
                            pair_example_context: Dict[str, str],
                            real_prelim_lib: Optional[Library] = None,
-                           scr_prelim_lib: Optional[Library] = None) -> None:
+                           scr_prelim_lib: Optional[Library] = None,
+                           mdl_prelim_lib: Optional[Library] = None) -> None:
     """real_prelim_lib / scr_prelim_lib (2026-08-10, optional -- default None preserves prior
     behavior byte-for-byte): fed the IDENTICAL (pair_key, episode_id, pole, context_vec) calls as
     real_lib/scr_lib, into a SEPARATE, permanently-PENDING Library so exposure keeps accumulating
-    past the point real_lib/scr_lib's own item would terminalize (see TierState docstring)."""
+    past the point real_lib/scr_lib's own item would terminalize (see TierState docstring).
+    mdl_prelim_lib (v2 ARM-2, 2026-08-11b, optional -- default None preserves prior behavior
+    byte-for-byte): fed the SAME REAL (not scrambled) exposure as real_prelim_lib, into the
+    with_mdl_gated_promotion arm's own TierState.prelim_lib -- this is what makes that arm's
+    RETAIN + cluster membership byte-identical to gap_driven_3tier's, so the ONLY difference
+    between the two arms is whether the combined-evidence promotion step's conjunctive
+    mdl_gate_fn blocks a cluster the schema-only gate would have promoted."""
     for i, ex in enumerate(train_slice):
         ctx_text = ex["context"]
         concepts = extract_concepts(ctx_text, node_set)
@@ -993,6 +1161,8 @@ def process_exposure_slice(train_slice: List[dict], node_set: frozenset,
                     real_lib.flag(pk, f"exp{i}_{pk}", "POS", cvec, 0)
                     if real_prelim_lib is not None:
                         real_prelim_lib.flag(pk, f"pexp{i}_{pk}", "POS", cvec, 0)
+                    if mdl_prelim_lib is not None:
+                        mdl_prelim_lib.flag(pk, f"pexp{i}_{pk}", "POS", cvec, 0)
                     if pk not in pair_example_context:
                         pair_example_context[pk] = ctx_text
                     wrong_b = _scramble_partner(f"scr|{a}|{b}", node_list, b)
@@ -1119,6 +1289,24 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     scr_store = HDFactStore(n_dim=2048, seed=seed + 1, use_index=True)
     real_state = TierState(seed_base=seed + 100)
     scr_state = TierState(seed_base=seed + 600)
+    # v2 ARM-2 (2026-08-11b): a THIRD, parallel TierState fed the IDENTICAL real exposure as
+    # real_state (see process_exposure_slice's mdl_prelim_lib= param below) -- its RETAIN +
+    # cluster membership are byte-identical to real_state's; ONLY its combined-evidence
+    # promotion step differs (conjunctive mdl_gate_fn, see update_prelim_and_generalize). Seed
+    # offset seed+300 does not collide with real_state's (+100 -> stores at +200/+300) or
+    # scr_state's (+600 -> stores at +700/+800): mdl_state's own stores land at +400/+500.
+    mdl_state = TierState(seed_base=seed + 300)
+    mdl_gate_debug_log: List[dict] = []
+
+    def _mdl_gate_fn_for_cluster(agreeing_traces: list) -> bool:
+        """Wraps mdl_gate_decision() to match update_prelim_and_generalize's mdl_gate_fn(traces)
+        -> bool contract while also recording the full debug dict (compression_ratio etc) via
+        closure side-effect, for post-hoc transparency (the decisive deeper measurement wants to
+        know WHY a cluster was blocked/passed, not just the boolean)."""
+        gate, debug = mdl_gate_decision(agreeing_traces)
+        mdl_gate_debug_log.append(debug)
+        return gate
+
     pair_example_context: Dict[str, str] = {}
 
     def _mirror_single_promotions(rpt: dict, state: "TierState", source_tag: str) -> None:
@@ -1138,6 +1326,9 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
     pass_counter = 0
     prev_cum = 0
     tier_diag_log = []
+    # v2 ARM-2: last-seen mdl diagnostic (persists across checkpoints where cum==prev_cum, e.g.
+    # ck_i=0 at frac=0.0, which never enters the exposure/consolidation if-block below).
+    last_mdl_diag: dict = {"n_mdl_blocked_this_pass": 0, "n_combined_promoted_this_pass": 0}
 
     # ---- resumable per-unit (tools/exp_checkpoint.py, CLAUDE.md mandate) ----
     # Unit grain = (checkpoint_index, arm) -- the 5x9=45-cell dev-eval GRID inside each checkpoint,
@@ -1166,7 +1357,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             process_exposure_slice(slice_, node_set, idx, node_list, real_lib, scr_lib,
                                    pair_example_context,
                                    real_prelim_lib=real_state.prelim_lib,
-                                   scr_prelim_lib=scr_state.prelim_lib)
+                                   scr_prelim_lib=scr_state.prelim_lib,
+                                   mdl_prelim_lib=mdl_state.prelim_lib)
             for _ in range(N_PASSES_PER_CHECKPOINT):
                 pass_counter += 1
                 rpt_real = consolidation_pass(real_lib, pass_counter, register=False,
@@ -1174,6 +1366,10 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                                               promote_source="cskg_crutch_real",
                                               promote_min_exposure=promote_min_exposure)
                 _mirror_single_promotions(rpt_real, real_state, "cskg_crutch_real_single")
+                # v2 ARM-2: mdl_state's single-item promotions are IDENTICAL to real_state's (SAME
+                # rpt_real report, SAME source tag) -- the mdl_gate_fn conjunctive filter applies
+                # ONLY to combined-evidence cluster promotions below, never to single-item ones.
+                _mirror_single_promotions(rpt_real, mdl_state, "cskg_crutch_real_single")
                 # scramble arm gets the SAME loosened gate (fair control per drill 4 -- if lowering
                 # the exposure floor let scrambled/false pairs promote too, that would falsify the
                 # fix; the false-memory guard is schema_thresh + PROMOTE_MIN_CONSISTENCY, untouched)
@@ -1191,17 +1387,28 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
             tier_diag_scr = update_prelim_and_generalize(scr_state, idx, novelty_thresh,
                                                           promote_min_exposure=promote_min_exposure,
                                                           node_degree=node_degree)
-            tier_diag_log.append({"checkpoint_frac": frac, "real": tier_diag_real, "scr": tier_diag_scr})
+            # v2 ARM-2: the SAME call, but with the conjunctive mdl_gate_fn wired in -- the ONLY
+            # difference vs tier_diag_real's own call above.
+            tier_diag_mdl = update_prelim_and_generalize(mdl_state, idx, novelty_thresh,
+                                                          promote_min_exposure=promote_min_exposure,
+                                                          node_degree=node_degree,
+                                                          mdl_gate_fn=_mdl_gate_fn_for_cluster)
+            last_mdl_diag = tier_diag_mdl
+            tier_diag_log.append({"checkpoint_frac": frac, "real": tier_diag_real, "scr": tier_diag_scr,
+                                  "mdl": tier_diag_mdl})
         prev_cum = cum
         _hb(output_dir, f"checkpoint_{ck_i}_exposure_done", t0,
             {"frac": frac, "n_exposed": cum, "real_lib_items": len(real_lib.items),
              "real_promoted": len(real_store.live_facts()),
              "prelim_pending": len(real_state.prelim_lib.items),
-             "combined_promoted": len(real_state.promoted_cluster)})
+             "combined_promoted": len(real_state.promoted_cluster),
+             "mdl_combined_promoted": len(mdl_state.promoted_cluster),
+             "mdl_blocked_cumulative": last_mdl_diag.get("n_mdl_blocked_this_pass", 0)})
 
         ARM_LIST = ("bow", "never_crutch", "always_crutch", "gap_driven", "scramble_crutch",
                    "gap_driven_3tier", "gap_driven_3tier_no_generalization",
-                   "gap_driven_3tier_no_pull", "scramble_crutch_3tier")
+                   "gap_driven_3tier_no_pull", "scramble_crutch_3tier",
+                   "with_mdl_gated_promotion")
         per_arm_rows: Dict[str, List[dict]] = {}
         for arm in ARM_LIST:
             if arm == "always_crutch" and always_cache is not None:
@@ -1224,6 +1431,8 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                 store, t_state = None, real_state
             elif arm == "scramble_crutch_3tier":
                 store, t_state = None, scr_state
+            elif arm == "with_mdl_gated_promotion":
+                store, t_state = None, mdl_state
             else:
                 store, t_state = None, None
             rows = []
@@ -1268,6 +1477,15 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                   if r.get("promo_source") == src and r["tag"] in ("LIBRARY_RESOLVED", "PRELIM_RESOLVED")]
             promo_source_acc[src] = {"n": len(sub),
                                      "acc": (sum(1 for r in sub if r["correct"]) / len(sub)) if sub else None}
+        # v2 ARM-2: the SAME per-promo_source split, but for with_mdl_gated_promotion -- this is
+        # what the DECISIVE DEEPER MEASUREMENT reads (combined_evidence_cluster acc on the
+        # MDL-GATED subset vs that same arm's own CRUTCH_RESOLVED accuracy).
+        promo_source_acc_mdl = {}
+        for src in ("combined_evidence_cluster", "cskg_crutch_real_single", "prelim_retain"):
+            sub = [r for r in per_arm_rows["with_mdl_gated_promotion"]
+                  if r.get("promo_source") == src and r["tag"] in ("LIBRARY_RESOLVED", "PRELIM_RESOLVED")]
+            promo_source_acc_mdl[src] = {"n": len(sub),
+                                         "acc": (sum(1 for r in sub if r["correct"]) / len(sub)) if sub else None}
 
         crutch_fire_rate = tag_counts["gap_driven"]["CRUTCH_RESOLVED"] / len(dev)
         library_resolved_rate = tag_counts["gap_driven"]["LIBRARY_RESOLVED"] / len(dev)
@@ -1278,16 +1496,22 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         no_pull_fire_rate = tag_counts["gap_driven_3tier_no_pull"]["CRUTCH_RESOLVED"] / len(dev)
         no_gen_fire_rate = tag_counts["gap_driven_3tier_no_generalization"]["CRUTCH_RESOLVED"] / len(dev)
         scramble_tier_fire_rate = tag_counts["scramble_crutch_3tier"]["CRUTCH_RESOLVED"] / len(dev)
+        mdl_fire_rate = tag_counts["with_mdl_gated_promotion"]["CRUTCH_RESOLVED"] / len(dev)
+        mdl_library_rate = tag_counts["with_mdl_gated_promotion"]["LIBRARY_RESOLVED"] / len(dev)
+        mdl_prelim_rate = tag_counts["with_mdl_gated_promotion"]["PRELIM_RESOLVED"] / len(dev)
 
         checkpoint_rows.append({
             "checkpoint_frac": frac, "n_exposed": cum,
             "accuracy": acc, "accuracy_covered": acc_covered,
             "tag_counts": tag_counts, "tag_accuracy": tag_acc, "promo_source_acc": promo_source_acc,
+            "promo_source_acc_mdl": promo_source_acc_mdl,
             "crutch_fire_rate": crutch_fire_rate, "library_resolved_rate": library_resolved_rate,
             "scramble_fire_rate": scramble_fire_rate,
             "tier_fire_rate": tier_fire_rate, "tier_library_rate": tier_library_rate,
             "tier_prelim_rate": tier_prelim_rate, "no_pull_fire_rate": no_pull_fire_rate,
             "no_gen_fire_rate": no_gen_fire_rate, "scramble_tier_fire_rate": scramble_tier_fire_rate,
+            "mdl_fire_rate": mdl_fire_rate, "mdl_library_rate": mdl_library_rate,
+            "mdl_prelim_rate": mdl_prelim_rate,
             "real_lib_pending": len(real_lib.items),
             "real_promoted_n": len(real_store.live_facts()),
             "scr_promoted_n": len(scr_store.live_facts()),
@@ -1298,11 +1522,17 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
                                             if len(m) >= CLUSTER_MIN_MEMBERS),
             "combined_evidence_promoted_n": len(real_state.promoted_cluster),
             "native_gen_promoted_n": len(real_state.native_store_gen.live_facts()),
+            "mdl_combined_evidence_promoted_n": len(mdl_state.promoted_cluster),
+            "mdl_native_gen_promoted_n": len(mdl_state.native_store_gen.live_facts()),
+            "mdl_n_clusters": len(mdl_state.cluster_members),
+            "mdl_n_blocked_this_pass": last_mdl_diag.get("n_mdl_blocked_this_pass", 0),
             "retrieval_use_diagnostic": ru_diag,
             "per_arm_rows": {arm: rows for arm, rows in per_arm_rows.items()},
         })
         print(f"[checkpoint {ck_i} frac={frac}] acc={acc} crutch_fire={crutch_fire_rate:.4f} "
               f"tier_fire={tier_fire_rate:.4f} tier_prelim={tier_prelim_rate:.4f} "
+              f"mdl_fire={mdl_fire_rate:.4f} mdl_combined_promoted={len(mdl_state.promoted_cluster)} "
+              f"mdl_n_clusters={len(mdl_state.cluster_members)} "
               f"combined_promoted={len(real_state.promoted_cluster)} "
               f"n_clusters={len(real_state.cluster_members)} "
               f"lib_resolved={library_resolved_rate:.4f} promoted={len(real_store.live_facts())} "
@@ -1576,9 +1806,155 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         f"vs tier={tier_fire_drop_rel:.4f} (HP7={hp7_ablation_b}) | reasons={tier_hard_fail_reasons}"
     )
 
+    # =====================================================================================
+    # v2 ARM-2 VERDICT (2026-08-11b, THIS run's SECOND headline question): with_mdl_gated_
+    # promotion -- does gating combined-evidence promotions to only genuinely-compressible
+    # clusters (conjunctive MDL two-part-code filter, design audit Gap-fix (ii)) flip HP2
+    # (tier_fidelity_ok) and HP3 (comp_lift_covered) on the SAME real benchmark? Scored
+    # separately from the v2 3-TIER verdict above (that `verdict`/`verdict_msg` pair is left
+    # UNCHANGED, still describing the ungated mechanism exactly as before -- this is an
+    # ADDITIONAL, arm-scoped verdict, not a replacement).
+    mdl_fire0, mdl_fire100 = ck0["mdl_fire_rate"], ck100["mdl_fire_rate"]
+    mdl_fire_drop_rel = (mdl_fire0 - mdl_fire100) / mdl_fire0 if mdl_fire0 > 0 else 0.0
+
+    # HP2_mdl (mirrors HP2 exactly, scoped to with_mdl_gated_promotion's own tag_accuracy)
+    mdl_tier_fidelity_ok = True
+    mdl_tier_fidelity_checks = []
+    for ck in checkpoint_rows:
+        cru_a = ck["tag_accuracy"]["with_mdl_gated_promotion"]["CRUTCH_RESOLVED"]
+        cru_n = ck["tag_counts"]["with_mdl_gated_promotion"]["CRUTCH_RESOLVED"]
+        for tag in ("LIBRARY_RESOLVED", "PRELIM_RESOLVED"):
+            a = ck["tag_accuracy"]["with_mdl_gated_promotion"][tag]
+            n = ck["tag_counts"]["with_mdl_gated_promotion"][tag]
+            if n >= 20 and cru_n >= 20:
+                ok = a >= (cru_a - 0.03)
+                mdl_tier_fidelity_checks.append({"frac": ck["checkpoint_frac"], "tag": tag, "acc": a,
+                                                 "cru_acc": cru_a, "ok": ok})
+                if not ok:
+                    mdl_tier_fidelity_ok = False
+
+    # HP3_mdl: coverage-controlled comprehension lift, mdl-gated arm vs binary baseline
+    mdl_acc_cov100 = ck100["accuracy_covered"]["with_mdl_gated_promotion"]
+    comp_lift_mdl_covered = ((mdl_acc_cov100 - bow_acc_cov100)
+                             if (mdl_acc_cov100 is not None and bow_acc_cov100 is not None) else None)
+    hp3_mdl_covered_no_regression = (comp_lift_mdl_covered is not None and comp_lift_binary_covered is not None
+                                     and comp_lift_mdl_covered >= comp_lift_binary_covered - 0.01)
+
+    # DECISIVE DEEPER MEASUREMENT (task-mandated, reported regardless of verdict): for the
+    # mdl-gated PROMOTED subset, does combined-evidence accuracy EXCEED raw cru_acc? If gating to
+    # compressible clusters STILL yields combined_acc <= cru_acc, that is evidence the
+    # COMBINATION LOGIC itself doesn't add fidelity -- a deeper issue than which clusters get
+    # promoted -- and this decomposition is reported explicitly regardless of verdict.
+    combined_acc_mdl = ck100["promo_source_acc_mdl"]["combined_evidence_cluster"]
+    cru_acc_mdl_100 = ck100["tag_accuracy"]["with_mdl_gated_promotion"]["CRUTCH_RESOLVED"]
+    decisive_combined_exceeds_raw_mdl = (combined_acc_mdl["acc"] is not None and cru_acc_mdl_100 is not None
+                                         and combined_acc_mdl["acc"] > cru_acc_mdl_100)
+    decisive_combined_vs_raw_gap_mdl = (None if (combined_acc_mdl["acc"] is None or cru_acc_mdl_100 is None)
+                                        else round(combined_acc_mdl["acc"] - cru_acc_mdl_100, 4))
+    hp4_mdl_promotion_fidelity = (combined_acc_mdl["n"] < 5 or cru_acc_mdl_100 is None
+                                  or combined_acc_mdl["acc"] >= cru_acc_mdl_100 - 0.05)
+
+    # discriminator-fires gate (META_RULE_K): mdl_gate_fn must have actually BLOCKED at least one
+    # cluster somewhere for a HARD_PASS to be meaningful -- an inert gate that never blocks
+    # anything trivially reproduces the ungated 3-tier arm and cannot legitimately claim credit
+    # for a flip (would just be re-measuring v2's own already-known HARD_FAIL under a new name).
+    mdl_gate_ever_blocked = any(ck.get("mdl_n_blocked_this_pass", 0) > 0 for ck in checkpoint_rows)
+    mdl_gate_ever_consulted = len(mdl_gate_debug_log) > 0
+    combined_promoted_n_mdl = ck100["mdl_combined_evidence_promoted_n"]
+    hp4_mdl_promotion_fires = combined_promoted_n_mdl > 0
+
+    # controls: the mdl_gate_fn is applied ONLY to the real (mdl_state) track (prereg "ONE
+    # variable") -- scramble_crutch_3tier (unchanged, ungated) remains this arm's own scramble
+    # reference, exactly as it is for gap_driven_3tier.
+    hp5_mdl_scramble_controlled = hp5_scramble_controlled  # unchanged input (scramble track untouched)
+    hp5_mdl_scramble_never_beats = all(
+        ck["accuracy"]["scramble_crutch_3tier"] <= ck["accuracy"]["with_mdl_gated_promotion"]
+        for ck in checkpoint_rows)
+    hp5_mdl_no_regression = all(ck["accuracy"]["with_mdl_gated_promotion"] >= ck["accuracy"]["bow"] - 0.02
+                                for ck in checkpoint_rows)
+
+    mdl_hard_fail_reasons = []
+    if not (mdl_tier_fidelity_ok and hp3_mdl_covered_no_regression):
+        mdl_hard_fail_reasons.append(
+            f"HP2_HP3_NOT_BOTH_FLIPPED: hp2_mdl_tier_fidelity_ok={mdl_tier_fidelity_ok} "
+            f"hp3_mdl_covered_no_regression={hp3_mdl_covered_no_regression} "
+            f"comp_lift_mdl_covered={comp_lift_mdl_covered} comp_lift_binary_covered={comp_lift_binary_covered}")
+    if not decisive_combined_exceeds_raw_mdl:
+        mdl_hard_fail_reasons.append(
+            f"COMBINED_STILL_NOT_EXCEEDING_RAW: combined_acc_mdl={combined_acc_mdl} "
+            f"cru_acc_mdl={cru_acc_mdl_100} gap={decisive_combined_vs_raw_gap_mdl}")
+    if not (hp5_mdl_scramble_controlled and hp5_mdl_scramble_never_beats and hp5_mdl_no_regression):
+        mdl_hard_fail_reasons.append("MDL_ARM_CONTROL_BROKEN")
+    if not mdl_gate_ever_blocked:
+        mdl_hard_fail_reasons.append(
+            "MDL_GATE_NEVER_BLOCKED_ANY_CLUSTER: mechanism untested at this scale -- any HP2/HP3 "
+            "flip cannot be attributed to the conjunctive filter")
+
+    mdl_hard_pass_all = (mdl_tier_fidelity_ok and hp3_mdl_covered_no_regression
+                         and decisive_combined_exceeds_raw_mdl and hp4_mdl_promotion_fires
+                         and hp4_mdl_promotion_fidelity and hp5_mdl_scramble_controlled
+                         and hp5_mdl_scramble_never_beats and hp5_mdl_no_regression
+                         and mdl_gate_ever_blocked)
+
+    if mdl_hard_fail_reasons:
+        verdict_mdl = "HARD_FAIL"
+    elif mdl_hard_pass_all:
+        verdict_mdl = "HARD_PASS"
+    else:
+        verdict_mdl = "MIDDLE_BAND"
+
+    verdict_msg_mdl = (
+        f"{verdict_mdl}: [ARM-2 MDL-GATED] mdl_fire_rate[0%->100%]={mdl_fire0:.4f}->{mdl_fire100:.4f} "
+        f"(rel_drop={mdl_fire_drop_rel:.4f}) | mdl_tier_fidelity_ok={mdl_tier_fidelity_ok} (HP2_mdl) | "
+        f"comp_lift_covered mdl={comp_lift_mdl_covered} binary={comp_lift_binary_covered} "
+        f"(HP3_mdl={hp3_mdl_covered_no_regression}) | DECISIVE: combined_acc_mdl={combined_acc_mdl} "
+        f"cru_acc_mdl={cru_acc_mdl_100} gap={decisive_combined_vs_raw_gap_mdl} "
+        f"exceeds_raw={decisive_combined_exceeds_raw_mdl} | combined_promoted_n_mdl={combined_promoted_n_mdl} "
+        f"mdl_gate_ever_blocked={mdl_gate_ever_blocked} n_gate_consultations={len(mdl_gate_debug_log)} | "
+        f"scramble_controlled={hp5_mdl_scramble_controlled} scramble_never_beats={hp5_mdl_scramble_never_beats} "
+        f"no_regression={hp5_mdl_no_regression} | vs_v2_ungated: hp2_v2={tier_fidelity_ok} "
+        f"hp3_v2={hp3_covered_no_regression} | reasons={mdl_hard_fail_reasons}"
+    )
+    print(f"\n[VERDICT ARM-2 MDL-GATED] {verdict_mdl}\n{verdict_msg_mdl}", flush=True)
+
     elapsed = time.perf_counter() - t0
+    # TOP-LEVEL verdict = ARM-2 (mdl-gated), THIS run's own new headline question (per the same
+    # convention v2 itself used relative to v1: v1's binary verdict is retained as a labeled
+    # secondary field, `tier_ungated_verdict` below, while the NEWEST question owns `verdict`).
     metrics = {
-        "verdict": verdict, "verdict_msg": verdict_msg, "summary": f"{verdict}: {verdict_msg[:400]}",
+        "verdict": verdict_mdl, "verdict_msg": verdict_msg_mdl,
+        "summary": f"{verdict_mdl}: {verdict_msg_mdl[:400]}",
+        "bands_mdl": {"hp2_mdl_tier_fidelity_ok": mdl_tier_fidelity_ok,
+                     "hp3_mdl_covered_no_regression": hp3_mdl_covered_no_regression,
+                     "hp4_mdl_promotion_fires": hp4_mdl_promotion_fires,
+                     "hp4_mdl_promotion_fidelity": hp4_mdl_promotion_fidelity,
+                     "hp5_mdl_scramble_controlled": hp5_mdl_scramble_controlled,
+                     "hp5_mdl_scramble_never_beats": hp5_mdl_scramble_never_beats,
+                     "hp5_mdl_no_regression": hp5_mdl_no_regression,
+                     "decisive_combined_exceeds_raw_mdl": decisive_combined_exceeds_raw_mdl,
+                     "mdl_gate_ever_blocked": mdl_gate_ever_blocked,
+                     "mdl_gate_ever_consulted": mdl_gate_ever_consulted},
+        "hard_fail_reasons": mdl_hard_fail_reasons,
+        "decisive_measurement": {
+            "description": "for the mdl-gated promoted subset, does combined-evidence accuracy "
+                           "EXCEED raw cru_acc (task-mandated decomposition, reported regardless "
+                           "of verdict)",
+            "combined_acc_mdl": combined_acc_mdl, "cru_acc_mdl": cru_acc_mdl_100,
+            "gap": decisive_combined_vs_raw_gap_mdl, "exceeds_raw": decisive_combined_exceeds_raw_mdl,
+            "combined_promoted_n_mdl": combined_promoted_n_mdl,
+            "mdl_gate_ever_blocked": mdl_gate_ever_blocked,
+            "n_gate_consultations": len(mdl_gate_debug_log),
+            "n_gate_blocks": sum(1 for d in mdl_gate_debug_log if not d.get("gate", True)),
+        },
+        "mdl_gate_debug_log": mdl_gate_debug_log,
+        "comprehension_mdl": {"covered_mdl_lift_100": comp_lift_mdl_covered,
+                              "covered_binary_lift_100": comp_lift_binary_covered},
+        # ---- historical/secondary: the v2 3-TIER UNGATED (arm 1) verdict, computation UNCHANGED
+        # from the pre-arm-2 file -- byte-identical reproduction check against the already-landed
+        # data/exp_crutch_fade_social_iqa_v2_semantic_cluster_key/metrics.json (verdict=HARD_FAIL)
+        # is part of this run's own self-consistency (arms 1-9 code paths are untouched).
+        "tier_ungated_verdict": verdict, "tier_ungated_verdict_msg": verdict_msg,
+        "tier_ungated_hard_fail_reasons": tier_hard_fail_reasons,
         "elapsed_s": elapsed, "anchor_name": ANCHOR_NAME, "run_mode": run_mode,
         "ts_iso": datetime.now(timezone.utc).isoformat(), "pid": os.getpid(),
         "config": {"checkpoints": CHECKPOINTS, "n_passes_per_checkpoint": N_PASSES_PER_CHECKPOINT,
@@ -1626,15 +2002,16 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         "arms_differ_exempted": [list(p) for p in ARMS_DIFFER_EXEMPTED],
         "arms_differ_non_exempt_collisions": non_exempt_collisions,
         "arm_digests": digests,
-        "cardinality_ok": len(CHECKPOINTS) == 5 and len(final_ck) == 9,
-        "expected_n_units": len(CHECKPOINTS), "expected_n_arms": 9,
+        "cardinality_ok": len(CHECKPOINTS) == 5 and len(final_ck) == 10,
+        "expected_n_units": len(CHECKPOINTS), "expected_n_arms": 10,
         "resumable_per_unit": True,
-        "resumable_unit_grain": "checkpoint_x_arm (45 dev-eval units; exposure/consolidation "
-                                "state-building itself reruns from checkpoint 0 on resume, "
-                                "disclosed scope -- see run() comment)",
+        "resumable_unit_grain": "checkpoint_x_arm (50 dev-eval units, 10 arms x 5 checkpoints; "
+                                "exposure/consolidation state-building itself reruns from "
+                                "checkpoint 0 on resume, disclosed scope -- see run() comment)",
         "resumable_units_recorded": len(_completed_units(output_dir)),
         "sem_key_n_bits": SEM_KEY_N_BITS, "sem_key_encoder_dim": SEM_KEY_ENCODER_DIM,
         "sem_key_encoder": "CharTrigramEncoder", "n_semantic_buckets_sampled": len(fam_sample),
+        "mdl_n_projections": MDL_N_PROJECTIONS, "mdl_min_compression_ratio": MDL_MIN_COMPRESSION_RATIO,
         "final_metrics_atomicity": "tmp_replace",
         "crlb_n/a": "symbolic KB-lookup + vote-count pipeline; no argmax/capacity noise-floor "
                    "discriminator applies",
@@ -1643,12 +2020,16 @@ def run(output_dir: str, run_mode: str, train_cap: Optional[int], dev_cap: Optio
         "calibration_check": "adaptive_with_discriminator_gate",
         "hp_scope": {"dev_checkpoint_eval": ["tier_fire_drop", "tier_comprehension_lift",
                                              "tier_scramble_control", "tier_consolidation_fidelity",
-                                             "combined_evidence_promotion", "ablation_underperformance"]},
+                                             "combined_evidence_promotion", "ablation_underperformance"],
+                    "with_mdl_gated_promotion": ["mdl_gated_combined_evidence_promotion",
+                                                 "mdl_tier_fidelity", "mdl_comprehension_lift",
+                                                 "mdl_gate_discriminator_fires"]},
         "n_cskg_pairs": len(idx), "n_cskg_nodes": len(node_list),
         "n_train_exposed": n_total, "n_dev": len(dev),
     }
     _atomic_write_metrics(output_dir, metrics)
-    print(f"\n[VERDICT] {verdict}\n{verdict_msg}\n[binary_baseline_verdict] {binary_verdict}\n"
+    print(f"\n[VERDICT] {verdict_mdl}\n{verdict_msg_mdl}\n[tier_ungated_verdict] {verdict}\n"
+          f"[binary_baseline_verdict] {binary_verdict}\n"
           f"elapsed={elapsed:.2f}s -> {output_dir}/metrics.json", flush=True)
     return metrics
 
@@ -1971,18 +2352,120 @@ def self_test() -> dict:
     assert state6.prelim_store.query(pk_hub, "OUTCOME_POLARITY") != [], (
         "without node_degree, retain behavior must be unchanged (backward-compatible default)")
 
+    # =====================================================================================
+    # (13) v2 ARM-2 (2026-08-11b): MDL two-part-code conjunctive gate self-test. Two levels:
+    # (13a) UNIT-level: reproduce the source cell's own proven precheck (experiments/
+    # exp_learner_mdl_gate_on_acquisition_traces_v1.py precheck_maximally_compressible) directly
+    # against mdl_gate_decision() -- validates the COPIED adapter plumbing itself, independent of
+    # this cell's cluster-grain call site.
+    pos_vec16 = np.ones(GA_CTX_D, dtype=np.float64)
+    neg_vec16 = -np.ones(GA_CTX_D, dtype=np.float64)
+
+    class _FakeTrace:
+        def __init__(self, episode_id, pole, context_vec):
+            self.episode_id, self.pole, self.context_vec = episode_id, pole, context_vec
+
+    balanced_traces = ([_FakeTrace(f"pc{i}", "POS", pos_vec16.copy()) for i in range(8)]
+                       + [_FakeTrace(f"nc{i}", "NEG", neg_vec16.copy()) for i in range(8)])
+    gate13a, debug13a = mdl_gate_decision(balanced_traces)
+    assert gate13a is True, (
+        f"MANDATORY PRE-CHECK FAILED: mdl_gate_decision did not fire True on a hand-constructed "
+        f"maximally-compressible (perfectly-separable, balanced, non-degenerate-entropy) trace "
+        f"set -- adapter plumbing broken: {debug13a}")
+
+    # (13b) INTEGRATION-level A/B test at the REAL call site (update_prelim_and_generalize's
+    # combined-evidence promotion step): SAME schema/exposure/consistency-ELIGIBLE cluster (3
+    # pairs sharing one semantic bucket, 12 traces/pair, 11 POS + 1 NEG per pair -> pooled
+    # exposure=36 >= cluster_exposure_floor=32, consistency=0.833 >= promote_min_consistency=0.75
+    # -- i.e. this cluster WOULD promote under the existing schema-only gate, per the identical
+    # construction test (9) above already proves), differing ONLY in whether the POOLED evidence
+    # is genuinely MDL-compressible w.r.t. pole:
+    #   COMPRESSIBLE: context_vec = +fixed_pair_pattern for POS, -fixed_pair_pattern for NEG (a
+    #     clean linear separating rule exists) -- gate must fire True, cluster promotes.
+    #   INCOMPRESSIBLE: context_vec = the SAME fixed_pair_pattern regardless of pole (no encoded
+    #     dimension correlates with pole; per-pair coherence -- what RETAIN's OWN schema check
+    #     reads -- stays maximal since each pair's 12 traces are bit-identical vectors) -- gate
+    #     must fire False, cluster does NOT promote, even though schema/exposure/consistency
+    #     already passed. A PARALLEL ungated (mdl_gate_fn=None) run on the IDENTICAL incompressible
+    #     evidence must still promote (AND semantics: the existing gate alone was already going to
+    #     promote this cluster; ONLY the new conjunctive filter blocks it -- proves the gate does
+    #     real, non-vacuous work, not merely a relabeling of the existing decision).
+    def _fixed_pair_pattern(tag: str) -> np.ndarray:
+        seed = int.from_bytes(hashlib.sha256(f"selftest_mdl_pattern_{tag}".encode("utf-8")).digest()[:8],
+                              "big") % (2 ** 32)
+        return np.random.default_rng(seed).choice([-1.0, 1.0], size=GA_CTX_D)
+
+    def _test_mdl_gate_fn(traces) -> bool:
+        gate, _ = mdl_gate_decision(traces)
+        return gate
+
+    mdl_cluster_pairs = [pair_key("gate", "fix"), pair_key("lock", "fix"), pair_key("door", "fix")]
+
+    state_compressible = TierState(seed_base=1000)
+    for pk_c in mdl_cluster_pairs:
+        base = _fixed_pair_pattern(pk_c)
+        for i in range(12):
+            pole = "NEG" if i == 0 else "POS"
+            cvec = base.copy() if pole == "POS" else (-base).copy()
+            state_compressible.prelim_lib.flag(pk_c, f"{pk_c}_comp{i}", pole, cvec, 0)
+    diag_compressible = update_prelim_and_generalize(state_compressible, idx_fam, novelty_thresh=0.15,
+                                                      mdl_gate_fn=_test_mdl_gate_fn)
+    assert diag_compressible["n_combined_promoted_total"] == 3, (
+        f"a genuinely MDL-compressible (label-separable) cluster must promote under the "
+        f"conjunctive gate, got {diag_compressible}")
+    assert diag_compressible.get("n_mdl_blocked_this_pass", 0) == 0, (
+        f"the compressible cluster must NOT be blocked, got {diag_compressible}")
+
+    state_incompressible_gated = TierState(seed_base=1100)
+    state_incompressible_ungated = TierState(seed_base=1200)
+    for pk_c in mdl_cluster_pairs:
+        base = _fixed_pair_pattern(pk_c)
+        for i in range(12):
+            pole = "NEG" if i == 0 else "POS"
+            cvec = base.copy()  # SAME vector regardless of pole -- no label-correlated signal
+            state_incompressible_gated.prelim_lib.flag(pk_c, f"{pk_c}_incg{i}", pole, cvec, 0)
+            state_incompressible_ungated.prelim_lib.flag(pk_c, f"{pk_c}_incu{i}", pole, cvec.copy(), 0)
+    diag_incompressible_gated = update_prelim_and_generalize(
+        state_incompressible_gated, idx_fam, novelty_thresh=0.15, mdl_gate_fn=_test_mdl_gate_fn)
+    assert diag_incompressible_gated["n_combined_promoted_total"] == 0, (
+        f"an incompressible (label-uncorrelated) cluster must be BLOCKED under the conjunctive "
+        f"gate despite passing exposure/consistency, got {diag_incompressible_gated}")
+    assert diag_incompressible_gated.get("n_mdl_blocked_this_pass", 0) >= 1, (
+        f"MDL gate must have actually fired (blocked >=1 cluster) on the incompressible "
+        f"construction -- discriminator-fires check, got {diag_incompressible_gated}")
+
+    diag_incompressible_ungated = update_prelim_and_generalize(
+        state_incompressible_ungated, idx_fam, novelty_thresh=0.15)  # mdl_gate_fn=None (default)
+    assert diag_incompressible_ungated["n_combined_promoted_total"] == 3, (
+        f"AND-SEMANTICS CHECK: the IDENTICAL incompressible evidence, WITHOUT the conjunctive "
+        f"gate, must still promote via the existing schema/exposure/consistency gate alone -- "
+        f"proves mdl_gate_fn is doing real, non-vacuous blocking (not just reproducing a "
+        f"pre-existing block), got {diag_incompressible_ungated}")
+
+    print(f"[self-test] mdl_gate_decision: unit precheck gate={gate13a} "
+          f"compression_ratio={debug13a['compression_ratio']} | integration: compressible "
+          f"promoted={diag_compressible['n_combined_promoted_total']} blocked="
+          f"{diag_compressible.get('n_mdl_blocked_this_pass')} | incompressible_gated "
+          f"promoted={diag_incompressible_gated['n_combined_promoted_total']} blocked="
+          f"{diag_incompressible_gated.get('n_mdl_blocked_this_pass')} | incompressible_ungated "
+          f"promoted={diag_incompressible_ungated['n_combined_promoted_total']}", flush=True)
+
     print("[self-test] PASS: real Library/consolidation_pass/HDFactStore promotion + routing + "
           "scramble-partner determinism + score_mode max_trust fix + retrieval_use_diagnostic + "
           "promote_min_exposure threading + 3-tier PRELIM retain/pull/combined-evidence-promotion/"
           "fidelity-guard/DG-over-merge-tripwire/hub-degree-exclusion + v2 semantic_relation_key "
-          "(determinism/idx-independence/content-sensitivity/no-UNKNOWN-fallback) all exercised",
+          "(determinism/idx-independence/content-sensitivity/no-UNKNOWN-fallback) + v2 ARM-2 "
+          "mdl_gate_decision (unit precheck) + conjunctive cluster-grain gate (compressible-"
+          "promotes / incompressible-blocked / AND-semantics-non-vacuous) all exercised",
           flush=True)
     return {"promote_ok": True, "routing_ok": True, "scramble_deterministic": True,
            "score_mode_fix_ok": True, "retrieval_use_diagnostic_ok": True,
            "promote_min_exposure_threading_ok": True,
            "prelim_retain_ok": True, "prelim_pull_ok": True, "combined_evidence_promotion_ok": True,
            "fidelity_guard_ok": True, "dg_overmerge_tripwire_ok": True, "hub_exclusion_ok": True,
-           "semantic_relation_key_ok": True}
+           "semantic_relation_key_ok": True, "mdl_gate_precheck_ok": True,
+           "mdl_gate_compressible_promotes_ok": True, "mdl_gate_incompressible_blocked_ok": True,
+           "mdl_gate_and_semantics_nonvacuous_ok": True}
 
 
 # =====================================================================================
