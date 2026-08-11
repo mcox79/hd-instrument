@@ -1,0 +1,460 @@
+{
+  "verdict": "STRICT_READY_PENDING_HANDCHECK",
+  "verdict_msg": "STRICT_READY_PENDING_HANDCHECK: curated STRICT design P=1.0/R=1.0, held-out P=1.0/R=0.8, negation_clean=True; corpus raw=4015 -> strict=1414 (survival=0.3522); distinct_entities=416; ProPara dev coverage=129/175 (unseen 5/29); est_full_simplewiki_survivors~3462; hand-check sample dumped (100) -- final precision folded in by operator",
+  "summary": "STRICT_READY_PENDING_HANDCHECK: curated STRICT design P=1.0/R=1.0, held-out P=1.0/R=0.8, negation_clean=True; corpus raw=4015 -> strict=1414 (survival=0.3522); distinct_entities=416; ProPara dev coverage=129/175 (unseen 5/29); est_full_simplewiki_survivors~3462; hand-check sample dumped (100) -- final precision folded in by operator",
+  "elapsed_s": 110.25,
+  "run_mode": "validation",
+  "anchor_name": "stated_entity_fate_reading_extractor_v2_highprecision",
+  "curated_design": {
+    "n_cases": 8,
+    "tp": 8,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "rows": [
+      {
+        "sentence": "Fire consumes the wood.",
+        "gold": [
+          [
+            "wood",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "wood",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Combustion produces carbon dioxide.",
+        "gold": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ]
+      },
+      {
+        "sentence": "The fuel is consumed.",
+        "gold": [
+          [
+            "fuel",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "fuel",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Plants release oxygen.",
+        "gold": [
+          [
+            "oxygen",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "oxygen",
+            "CREATE"
+          ]
+        ]
+      },
+      {
+        "sentence": "The river carries sediment.",
+        "gold": [
+          [
+            "sediment",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "sediment",
+            "MOVE"
+          ]
+        ]
+      },
+      {
+        "sentence": "The engine burns gasoline.",
+        "gold": [
+          [
+            "gasoline",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "gasoline",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Photosynthesis produces glucose.",
+        "gold": [
+          [
+            "glucose",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "glucose",
+            "CREATE"
+          ]
+        ]
+      },
+      {
+        "sentence": "Blood transports oxygen.",
+        "gold": [
+          [
+            "oxygen",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "oxygen",
+            "MOVE"
+          ]
+        ]
+      }
+    ]
+  },
+  "curated_heldout": {
+    "n_cases": 10,
+    "tp": 8,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.8,
+    "rows": [
+      {
+        "sentence": "The stomach digests food.",
+        "gold": [
+          [
+            "food",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "food",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Volcanoes emit ash.",
+        "gold": [
+          [
+            "ash",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "ash",
+            "CREATE"
+          ]
+        ]
+      },
+      {
+        "sentence": "Glaciers transport rocks.",
+        "gold": [
+          [
+            "rock",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "rock",
+            "MOVE"
+          ]
+        ]
+      },
+      {
+        "sentence": "The leaf absorbs sunlight.",
+        "gold": [
+          [
+            "sunlight",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "sunlight",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Bacteria decompose leaves.",
+        "gold": [
+          [
+            "leave",
+            "DESTROY"
+          ]
+        ],
+        "pred": []
+      },
+      {
+        "sentence": "Yeast produces alcohol.",
+        "gold": [
+          [
+            "alcohol",
+            "CREATE"
+          ]
+        ],
+        "pred": []
+      },
+      {
+        "sentence": "The wind carries seeds.",
+        "gold": [
+          [
+            "seed",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "seed",
+            "MOVE"
+          ]
+        ]
+      },
+      {
+        "sentence": "Carbon dioxide is released by the reaction.",
+        "gold": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ]
+      },
+      {
+        "sentence": "The acid dissolves the metal.",
+        "gold": [
+          [
+            "metal",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "metal",
+            "DESTROY"
+          ]
+        ]
+      },
+      {
+        "sentence": "Rivers deposit silt.",
+        "gold": [
+          [
+            "silt",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "silt",
+            "CREATE"
+          ]
+        ]
+      }
+    ]
+  },
+  "curated_negation": {
+    "n_cases": 7,
+    "n_false_positive_emissions": 0,
+    "negation_clean": true,
+    "rows": [
+      {
+        "sentence": "The wood is not consumed.",
+        "emitted": []
+      },
+      {
+        "sentence": "No oxygen is produced.",
+        "emitted": []
+      },
+      {
+        "sentence": "The fuel does not burn.",
+        "emitted": []
+      },
+      {
+        "sentence": "The plant does not release oxygen.",
+        "emitted": []
+      },
+      {
+        "sentence": "Nothing is emitted by the process.",
+        "emitted": []
+      },
+      {
+        "sentence": "The rock is dry and hard.",
+        "emitted": []
+      },
+      {
+        "sentence": "The scientist studies combustion.",
+        "emitted": []
+      }
+    ]
+  },
+  "corpus": {
+    "n_simplewiki_sampled": 4000,
+    "n_simplewiki_qualifying_total": 12148,
+    "n_propara_train_sents": 2639,
+    "n_raw_v1": 4015,
+    "n_strict_v2": 1414,
+    "survival_rate": 0.3522,
+    "n_raw_simplewiki": 3393,
+    "n_strict_simplewiki": 1140,
+    "path_counts": {
+      "parse": 1276,
+      "positional": 138
+    },
+    "fate_counts": {
+      "PRODUCED": 909,
+      "MOVED": 196,
+      "CONSUMED": 309
+    },
+    "n_distinct_entities": 416,
+    "facts_per_science_sentence": 0.285,
+    "est_full_simplewiki_survivors": 3462
+  },
+  "propara_coverage": {
+    "n_dev_participants": 175,
+    "n_dev_covered": 129,
+    "n_dev_unseen": 29,
+    "n_dev_unseen_covered": 5,
+    "dev_coverage_frac": 0.7371,
+    "dev_unseen_coverage_frac": 0.1724
+  },
+  "distinct_entities_sample": [
+    "acid",
+    "adenine",
+    "adenosine",
+    "aerosol",
+    "agent",
+    "air",
+    "album",
+    "alcohol",
+    "alkaloid",
+    "allotrope",
+    "allyl",
+    "aluminium",
+    "aluminum",
+    "ammonia",
+    "anhydride",
+    "anion",
+    "antibiotic",
+    "antibody",
+    "antimony",
+    "antiparticle",
+    "antiseptic",
+    "area",
+    "arm",
+    "arsenate",
+    "arsenic",
+    "artery",
+    "ash",
+    "asteroid",
+    "atom",
+    "atp",
+    "base",
+    "basket",
+    "bead",
+    "bed",
+    "bedrock",
+    "beeswax",
+    "beverage",
+    "bicarbonate",
+    "bile",
+    "biomass",
+    "blade",
+    "block",
+    "blood",
+    "bloodstream",
+    "boat",
+    "body",
+    "bomb",
+    "bond",
+    "bone",
+    "book",
+    "bread",
+    "bridge",
+    "bromide",
+    "building",
+    "bulb",
+    "bus",
+    "calcite",
+    "calcium",
+    "can",
+    "candle",
+    "canyon",
+    "cap",
+    "car",
+    "carbohydrate",
+    "carbon",
+    "carbonate",
+    "card",
+    "cartridge",
+    "castle",
+    "cathedral",
+    "cation",
+    "cave",
+    "cavity",
+    "cell",
+    "cellulose",
+    "chamber",
+    "charcoal",
+    "cheese",
+    "chemical",
+    "chip"
+  ],
+  "handcheck_dump_path": "D:\\AI\\hd-instrument\\data\\exp_stated_entity_fate_reading_extractor_v2_highprecision\\_survivors_for_handcheck.json",
+  "bands": {
+    "HARD_PASS_FILTERED_PRECISION": 0.85
+  },
+  "hand_check": {
+    "n_adjudicated": 100,
+    "n_correct": 90,
+    "filtered_precision": 0.9,
+    "error_category_counts": {
+      "wrong_patient_reactant": 1,
+      "wrong_head_chemical_modifier": 1,
+      "wrong_patient_agent_lightverb": 1,
+      "adjectival_agent_oxidizing": 1,
+      "wrong_patient_coordinated_verb": 1,
+      "object_of_participle_prep": 1,
+      "noun_misparsed_as_verb": 1,
+      "adjectival_agent_absorbing": 1,
+      "figurative_nonphysical": 1,
+      "wrong_patient_locative_diffuse": 1
+    },
+    "adjudication_path": "d:/AI/hd-instrument/data/exp_stated_entity_fate_reading_extractor_v2_highprecision\\_survivors_handcheck_adjudicated.json",
+    "note": "fresh random sample drawn (seed offset +23) AFTER the infinitival+coordination hardening -> independent of the v1 sample the filters were designed from"
+  },
+  "final_verdict": "HARD_PASS_CLEAN_GROW_BY_READING_VIABLE",
+  "final_verdict_msg": "HARD_PASS_CLEAN_GROW_BY_READING_VIABLE: FILTERED hand-checked precision=0.9 (90/100) >= 0.85 target; curated design P=1.0/R=1.0, held-out P=1.0/R=0.8; negation clean=True. Recall cost: raw(v1)=4015 -> strict(v2)=1414 survivors (survival=0.3522); distinct_entities=416; facts/science-sentence=0.285 -> est ~3462 survivors over the full 12148-sentence SimpleWiki science subset (~3115 correct). ProPara dev-entity coverage by reading=129/175 (0.7371), unseen=5/29. v1 raw real-prose P=0.394 -> v2 filtered P=0.9 via 6 glass-box filters (PP-object/by-agent/locative reject incl coordination; intransitive-skip; causative-make guard; propn/title reject; concreteness=object-only; infinitival-purpose guard). Residual ~10% errors = a small well-characterized tail (adjectival-agent participles, noun-misparsed-as-verb, coordinated-verb wrong-patient) -- NOT a frontend-parse wall. CLEAN grow-by-reading works with no LLM: the bootstrap growth engine is viable."
+}

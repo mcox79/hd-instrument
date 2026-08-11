@@ -1,0 +1,1019 @@
+{
+  "n_adjudicated": 100,
+  "n_correct": 90,
+  "hand_checked_precision": 0.9,
+  "error_category_counts": {
+    "wrong_patient_reactant": 1,
+    "wrong_head_chemical_modifier": 1,
+    "wrong_patient_agent_lightverb": 1,
+    "adjectival_agent_oxidizing": 1,
+    "wrong_patient_coordinated_verb": 1,
+    "object_of_participle_prep": 1,
+    "noun_misparsed_as_verb": 1,
+    "adjectival_agent_absorbing": 1,
+    "figurative_nonphysical": 1,
+    "wrong_patient_locative_diffuse": 1
+  },
+  "rows": [
+    {
+      "entity": "erythrocytes",
+      "fate_label": "MOVED",
+      "via_verb": "pump",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "The erythrocytes are pumped through the body by the heart.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "rocks",
+      "fate_label": "CONSUMED",
+      "via_verb": "dissolv",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "\"Weathering is a large consumer of the atmospheric carbon dioxide essential for dissolving rocks\".",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "sugars",
+      "fate_label": "PRODUCED",
+      "via_verb": "produce",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "When acting as an autotroph, the Euglena has chloroplasts which produce sugars by photosynthesis.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water_vapor",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "In hot places inside the molecular cloud like around young stars, hydrogen and oxygen gas could react to form water vapor.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "holes",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The volcanoes made holes through the ice sheets.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "base",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "These reactions are also known as neutralization reactions, because they take an acid and a base and make a neutral salt solution.",
+      "verdict": "W",
+      "error_category": "wrong_patient_reactant"
+    },
+    {
+      "entity": "mixture_forms_sugar",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "This mixture forms sugar (glucose) which is what the plant eats.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "big_molecule",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "This reaction is very powerful because it can form a big molecule from two smaller ones.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "via_verb": "mov",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Once in the lungs, oxygen is moved into the bloodstream and carried through your body.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "salt_plain",
+      "fate_label": "PRODUCED",
+      "via_verb": "creat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Above that level precipitation creates a salt plain.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "sedimentary_rocks",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "The study of how sedimentary rocks are formed is called sedimentology.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "jewish_blocks",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Nine Jewish blocks were burned.N/ADecember 3, 1947127 Jews, 5 Arab attackers killedN/ADecember 7, 194755 Jews killed by Arabs in SalemehN/ADecember 7, 194765 Jews, one Arab killed in attack on Jewish convoy.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "buildings",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "+Great Fire of London[the dark sky, some buildings are burning.|frameless]",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "food",
+      "fate_label": "CONSUMED",
+      "via_verb": "digest",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "They also ate rocks and stones which might have helped them digest food.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "pure_manganese",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Pure manganese is made by reacting the manganese ore with sulfuric acid and electrolyzing it.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "planetary_nebula",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Later in its life, a low-mass star will slowly release its atmosphere through solar wind, forming a planetary nebula.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "satellite",
+      "fate_label": "MOVED",
+      "via_verb": "carry",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "And then you send the rocket carrying the satellite into space.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "same_oxygen_isotope",
+      "fate_label": "PRODUCED",
+      "via_verb": "emit",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Photosynthesis emits the same oxygen isotope as that of water.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "stream",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "The water forms a stream.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "carbonate_rock",
+      "fate_label": "CONSUMED",
+      "via_verb": "dissolv",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Water in these places has dissolved the carbonate rock to form extensive underground river systems.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "blood",
+      "fate_label": "MOVED",
+      "via_verb": "pump",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "For example, physiology explains how your heart pumps blood or how your lungs take in oxygen.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "car",
+      "fate_label": "MOVED",
+      "via_verb": "mov",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "For example, equations in physics can calculate how fast a ball will fall, how much energy a moving car has, or how strong a magnet's pull is.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "food",
+      "fate_label": "MOVED",
+      "via_verb": "mov",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The esophagus moves food from the back of your throat to your stomach.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "cars",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "The cars made by the company were called Stanley Steamers.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "tuxedo",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Burns wants to take their puppies to make a tuxedo out of them.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "tin",
+      "fate_label": "PRODUCED",
+      "via_verb": "produce",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It dissolves in hydrochloric acid to produce tin(II) chloride, leaving the antimony and copper behind in the hydrochloric acid.",
+      "verdict": "W",
+      "error_category": "wrong_head_chemical_modifier"
+    },
+    {
+      "entity": "carbon_dioxide",
+      "fate_label": "PRODUCED",
+      "via_verb": "exhal",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "The carbon dioxide is exhaled out of the body through the nose or mouth.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "electrons",
+      "fate_label": "MOVED",
+      "via_verb": "carry",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The process uses the coenzyme NAD: In metabolism, NAD helps redox reactions, carrying electrons from one reaction to another.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "structure",
+      "fate_label": "PRODUCED",
+      "via_verb": "create",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "However, it would take 50 to 100 times more energy than a standard supernova explosion to create a structure of this size and energy.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water",
+      "fate_label": "MOVED",
+      "via_verb": "pump",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "He made the first practical steam engine for pumping water, the Newcomen steam engine.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "mineralocorticoids",
+      "fate_label": "PRODUCED",
+      "via_verb": "produc",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Mineralocorticoids are produced in the adrenal cortex.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "boiler_produces_steam",
+      "fate_label": "PRODUCED",
+      "via_verb": "produc",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "The boiler produces steam under high pressure.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "fuel",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Human activities such as burning fuel are increasing the amount of greenhouses gases.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "mineral",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "He knew that some of the minerals could scratch others and that if a mineral could make a scratch on another, it must be harder than the mineral that was scratched.",
+      "verdict": "W",
+      "error_category": "wrong_patient_agent_lightverb"
+    },
+    {
+      "entity": "digestive_juices",
+      "fate_label": "PRODUCED",
+      "via_verb": "secrete",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "It is not known whether these glands secrete digestive juices or poisonous venom.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "via_verb": "generat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "If it uses a fuel cell that generates electricity through reaction between hydrogen and oxygen, it does not matter.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "juices",
+      "fate_label": "PRODUCED",
+      "via_verb": "releas",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The pancreas releases the juices into the stomach.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "toxins",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The dividing bacteria begin to make toxins.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "books",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "In 1963, a fire in the school caused all books to be burned.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "blood",
+      "fate_label": "MOVED",
+      "via_verb": "pump",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Their job is to pump blood (which carries oxygen) to the lungs or the rest of the body.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "new_particles",
+      "fate_label": "MOVED",
+      "via_verb": "carry",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The waves carry the new particles with them.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "dead_body",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "During the funeral, or soon after it, the dead body will be buried, cremated (burned) or made to disappear in some other way.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "negative_ion",
+      "fate_label": "PRODUCED",
+      "via_verb": "mak",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The opposite is also true, so if the atom makes a negative ion by getting one electron or more, the ionic radius would be bigger.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "genetic_material",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The molecules which combined to form genetic material are more complex than the \"primordial soup\" of organic (carbon-based) chemicals that existed on Earth four billion years ago.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "intrusive_rocks",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Intrusive rocks are made when the magma slowly cools to form rocks under the surface.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "electrons",
+      "fate_label": "MOVED",
+      "via_verb": "flow",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Electrons flow from one atom to another, a process has been compared to the passing of water buckets from one person to another in a bucket brigade.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "systems",
+      "fate_label": "PRODUCED",
+      "via_verb": "creat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "SELF created three systems that helped increase food security in Benin with the help of Burney.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "food",
+      "fate_label": "CONSUMED",
+      "via_verb": "digest",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The digestive system is not just the gut, but also many other organs which help digest food.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "liver_produces_bile",
+      "fate_label": "PRODUCED",
+      "via_verb": "produc",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "The liver produces bile.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "barium_sulfide",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "So barium sulfate is reduced by carbon to make barium sulfide and carbon dioxide.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "forms_tiny_water",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "Water vapor rises in the atmosphere and there it cools down and forms tiny water droplets through something called condensation.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "ammonia",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Professor Schrock's work is continuing with metathesis as well as projects such as dinitrogen fixation and single molecule catalysts which make ammonia from dinitrogen, similar to nitrogenase enzymes in biology.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "food",
+      "fate_label": "CONSUMED",
+      "via_verb": "digest",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The young, which is born naked and blind, is fed by the adults with partially digested food for about three months.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "body",
+      "fate_label": "CONSUMED",
+      "via_verb": "decompos",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "On November 26, his body was found \"badly decomposed\" in his Tennessee home.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "dioxide_gas",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It is toxic as it can make nitrogen dioxide gas.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "antibodies",
+      "fate_label": "PRODUCED",
+      "via_verb": "creat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The immune system creates antibodies to fight the virus or bacteria.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water",
+      "fate_label": "MOVED",
+      "via_verb": "drain",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "The water is drained again.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "sacred_energy",
+      "fate_label": "CONSUMED",
+      "via_verb": "absorb",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "To help beat Ganondorf, Zelda turns herself into a dragon so the sword can absorb sacred energy over thousands of years.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "selenous_acid",
+      "fate_label": "CONSUMED",
+      "via_verb": "oxidiz",
+      "voice": "passive",
+      "path": "positional",
+      "sentence": "Selenites and selenous acid are moderate oxidizing agents.",
+      "verdict": "W",
+      "error_category": "adjectival_agent_oxidizing"
+    },
+    {
+      "entity": "magma",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Volcanic belts are found above zones of very high temperature (700-1400C) where magma is made by melting of rock in the Earth's crust and upper mantle.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "lake",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "When the glacier retreated, the deepened section became a lake.Three separate glaciers formed the lake.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "via_verb": "absorb",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Plants absorb water through their roots and other parts of themselves.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "acid_rain",
+      "fate_label": "PRODUCED",
+      "via_verb": "produc",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Acid rain is produced by chemicals that reach into the atmosphere.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "lactic_acid",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "An example of this is when exercising: if the body is not able to get enough oxygen to the muscles, they will make lactic acid.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "smoke",
+      "fate_label": "PRODUCED",
+      "via_verb": "generat",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "They are usually activated by detecting the effects of a fire, such as the increase in temperature associated with fire, or the smoke generated by combustion.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "via_verb": "generate",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Solar Power: The Sahara Desert receives abundant amount of sunlight and therefore Algeria is constructing large solar energy plants to generate electricity.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "precipitate",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "When two or more solutions are mixed together and make a product that is not soluble, a precipitate is formed.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "natural_gas",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "When natural gas is burned in a power station it boils water into steam that spins a steam turbine that turns a generator to make electricity.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "mix_ocean_layers",
+      "fate_label": "MOVED",
+      "via_verb": "move",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "These waves cannot be seen from above, but they are very important because they help mix ocean layers and move nutrients around.",
+      "verdict": "W",
+      "error_category": "wrong_patient_coordinated_verb"
+    },
+    {
+      "entity": "electric_current",
+      "fate_label": "PRODUCED",
+      "via_verb": "generat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It allows the energy to pass quickly through the electrons, generating an electric current.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "gases",
+      "fate_label": "PRODUCED",
+      "via_verb": "produc",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Gases are constantly required and produced as a by-product of cellular and metabolic reactions so an efficient system to exchange them is extremely important.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "energy",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "If a person loses a lot of blood, there will not be enough oxygen in the blood that is left to make energy this way.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "via_verb": "absorb",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Water is absorbed by the plant and transported to the leaves.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "plants_release_water_vapor",
+      "fate_label": "PRODUCED",
+      "via_verb": "release",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "Transpiration: Plants release water vapor into the air through their leaves.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "torch",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Before placing the last stone, he drops a burning torch through the gap, but hears only the jester's bells ringing.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "more_liquid",
+      "fate_label": "PRODUCED",
+      "via_verb": "excrete",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "If uric acid levels are high because of under-excretion, uricosuric agents help the kidneys excrete more liquid. despite it no longer being commonly used in most countries due to concerns about hepatotoxicity.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "blood",
+      "fate_label": "MOVED",
+      "via_verb": "carry",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The veins in the dura carry blood from the brain to the heart after the brain has used up the oxygen in the blood.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "arsine_gas",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It reacts with acids to make arsine gas.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "vast_area",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The three-pronged chevauchee aimed to plunder and burn a vast area of Jin territory to deprive them of supplies and popular legitimacy and to secure the mountain passes, which would allow access to the North China Plain.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "liquid",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It uses an explosive charge to put burning liquid onto a target.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "erosion",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The job of the BEB was to review reports of investigations made concerning erosion of the shores of coastal and lake waters, and the protection of those shores.",
+      "verdict": "W",
+      "error_category": "object_of_participle_prep"
+    },
+    {
+      "entity": "platinum_group_metals",
+      "fate_label": "PRODUCED",
+      "via_verb": "secret",
+      "voice": "passive",
+      "path": "positional",
+      "sentence": "Methods for separating platinum group metals are often trade secrets, and rely on specific coordination complexes and salts to precipitate specific metals from solution in sequence.",
+      "verdict": "W",
+      "error_category": "noun_misparsed_as_verb"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "This energy can be changed to make electricity with a generator.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "atoms_emit_radiation",
+      "fate_label": "PRODUCED",
+      "via_verb": "emit",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "Atoms emit radiation when their electrons lose energy and drop down to lower orbitals.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "green_eye_paint",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "They also made green eye paint from malachite and black eyeliner (kohl) from a mineral called galena (lead sulfide).",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "elastic_energy",
+      "fate_label": "PRODUCED",
+      "via_verb": "releas",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The stamens act as catapults, releasing stored elastic energy in just 25 s.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "water",
+      "fate_label": "PRODUCED",
+      "via_verb": "creat",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "A fuel cell makes electricity using the energy released by mixing fuel with air, a reaction which creates water and sometimes also carbon dioxide.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "blood",
+      "fate_label": "MOVED",
+      "via_verb": "carry",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Almost all arteries carry blood with a lot of oxygen in it.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "carbon_monoxide",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "It is carbon monoxide made by burning wood chips in insufficient amount of air.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "free_oxygen",
+      "fate_label": "PRODUCED",
+      "via_verb": "mak",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Oxygenation began with cyanobacteria making free oxygen by photosynthesis.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "molecule",
+      "fate_label": "CONSUMED",
+      "via_verb": "absorb",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "More precisely, the question becomes why the only light absorbing molecule used for power in plants is green and not simply black.",
+      "verdict": "W",
+      "error_category": "adjectival_agent_absorbing"
+    },
+    {
+      "entity": "wax",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Then while gathering of their food, they make wax, which is the building block of their bee hive.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "several_famous_dangerous_gun_cartridges",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "The American gun market made several famous dangerous gun cartridges around this time, such as the .458 Winchester Magnum, .378 Weatherby Magnum and .460 Weatherby Magnum.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "crust",
+      "fate_label": "MOVED",
+      "via_verb": "move",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Some parts of the earth's crust move up high above the ground.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "antimony_trioxide",
+      "fate_label": "PRODUCED",
+      "via_verb": "make",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "It burns very easily in air to make antimony trioxide and water.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "new_world",
+      "fate_label": "MOVED",
+      "via_verb": "rise",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "This has been noted to not fit well with the theme of the last stanza, in which all of the old and bad has been burnt, and a new world with only good will rise of the waters.",
+      "verdict": "W",
+      "error_category": "figurative_nonphysical"
+    },
+    {
+      "entity": "body",
+      "fate_label": "MOVED",
+      "via_verb": "diffus",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Oxygen enters and carbon dioxide leaves the planarian's body by diffusing through the body wall.",
+      "verdict": "W",
+      "error_category": "wrong_patient_locative_diffuse"
+    },
+    {
+      "entity": "buildings",
+      "fate_label": "CONSUMED",
+      "via_verb": "burn",
+      "voice": "passive",
+      "path": "parse",
+      "sentence": "Morgan demanded from $600 to $700 from each mill and shop owner; otherwise their buildings would be burned.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "bonds",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "parse",
+      "sentence": "Noble gases serve as the model for the octet rule, which states that atoms tend to form bonds or create ions so that they can have eight electrons in their outermost shell.",
+      "verdict": "C",
+      "error_category": null
+    },
+    {
+      "entity": "forms_clouds",
+      "fate_label": "PRODUCED",
+      "via_verb": "form",
+      "voice": "active",
+      "path": "positional",
+      "sentence": "There is also water vapor in the air, which forms clouds that cover much of the planet.",
+      "verdict": "C",
+      "error_category": null
+    }
+  ]
+}

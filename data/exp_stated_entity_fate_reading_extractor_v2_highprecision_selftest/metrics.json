@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "clean_kept": [
+      [
+        "dioxide",
+        "CREATE"
+      ],
+      [
+        "fuel",
+        "DESTROY"
+      ],
+      [
+        "oxygen",
+        "CREATE"
+      ],
+      [
+        "sediment",
+        "MOVE"
+      ],
+      [
+        "wood",
+        "DESTROY"
+      ]
+    ],
+    "rejected": {
+      "rise into the sky": [],
+      "burns in <loc>": [],
+      "by-agent": [],
+      "causative make X ADJ": [],
+      "possessor + PROPN": [],
+      "animate + causative": [],
+      "abstract object": []
+    },
+    "negation": "clean"
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: clean facts survive; PP/by-agent/causative/propn/animate/abstract rejected; negation clean",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.34,
+  "run_mode": "self_test",
+  "anchor_name": "stated_entity_fate_reading_extractor_v2_highprecision"
+}
