@@ -1,0 +1,29 @@
+{
+  "checks": {
+    "seed": {
+      "n_keyed": 315,
+      "n_entity": 203
+    },
+    "recall_helpers": "ok",
+    "real_extract_store": [
+      [
+        "ash",
+        "CREATE"
+      ],
+      [
+        "wood",
+        "DESTROY"
+      ]
+    ],
+    "scramble_and_trust": {
+      "scramble_collapsed": true,
+      "seed_protected": true
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: seed re-key + recall helpers + real extraction/store + scramble collapse + functional trust-conflict seed-protection all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.87,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_seed_ignites_reading_learner_fade_v1"
+}

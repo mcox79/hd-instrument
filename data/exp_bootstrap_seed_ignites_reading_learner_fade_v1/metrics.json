@@ -1,0 +1,156 @@
+{
+  "verdict": "HARD_FAIL_crutch_does_not_fade_lesion_drops_recall+scramble_does_not_collapse",
+  "verdict_msg": "HARD_FAIL_crutch_does_not_fade_lesion_drops_recall+scramble_does_not_collapse: FADE CURVE reading_only_recall(dominant) [0.0484, 0.129, 0.2258, 0.2258, 0.2258, 0.2258] (rise 0.0484->0.2258, >=+0.05? True); seed_only=0.2097 combined_final=0.3871; LESION gap=0.1613 (fade if <= 0.05) fade_ratio=0.5833 (or >= 0.85) -> fades=False; seed/reading OVERLAP=0.2308 (3/13 seed-covered re-derived by reading); SCRAMBLE dominant recall=0.1613 retained=0.7143 (collapse if <= 0.5) -> False; reading held-out DOMINANT precision=0.3111 (v2 hand-check=0.9); TRUST-CONFLICT functional: 102/102 seed protected, 0 overwritten (all_protected=True); store_wire_ok=True; reading_only_recall_ANY(promiscuity-inflated)=0.5 scramble_any=0.3065; n_leak_guard_fires=13",
+  "summary": "HARD_FAIL_crutch_does_not_fade_lesion_drops_recall+scramble_does_not_collapse: FADE CURVE reading_only_recall(dominant) [0.0484, 0.129, 0.2258, 0.2258, 0.2258, 0.2258] (rise 0.0484->0.2258, >=+0.05? True); seed_only=0.2097 combined_final=0.3871; LESION gap=0.1613 (fade if <= 0.05) fade_ratio=0.5833 (or >= 0.85) -> fades=False; seed/reading OVERLAP=0.2308 (3/13 seed-covered re-derived by reading); SCRAMBLE dominant recall=0.1613 retained=0.7143 (collapse if <= 0.5) -> False; reading held-out DOMINANT precision=0.3111 (v2 hand-check=0.9); TRUST-CONFLICT functional: 102/102 seed protected, 0 overwritten (all_protected=True); store_wire_ok=True; reading_only_recall_ANY(promiscuity-inflated)=0.5 scramble_any=0.3065; n_leak_guard_fires=13",
+  "elapsed_s": 145.01,
+  "run_mode": "bootstrap",
+  "anchor_name": "bootstrap_seed_ignites_reading_learner_fade_v1",
+  "n_heldout_items": 62,
+  "seed_only_recall": 0.2097,
+  "primary_metric": "reading DOMINANT (argmax-count) fate per entity (promiscuity-robust); recall-ANY reported as secondary (promiscuity-inflated, 3-fate saturation)",
+  "n_seed_keyed_facts": 315,
+  "n_seed_entity_tokens": 203,
+  "n_seed_store_facts": 301,
+  "fade_curve": [
+    {
+      "n_read_sentences": 1000,
+      "n_reading_facts": 98,
+      "n_distinct_read_entities": 46,
+      "reading_only_recall": 0.0484,
+      "reading_only_recall_any": 0.1613,
+      "combined_recall": 0.2258,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 3000,
+      "n_reading_facts": 404,
+      "n_distinct_read_entities": 134,
+      "reading_only_recall": 0.129,
+      "reading_only_recall_any": 0.3548,
+      "combined_recall": 0.3065,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 6000,
+      "n_reading_facts": 1374,
+      "n_distinct_read_entities": 346,
+      "reading_only_recall": 0.2258,
+      "reading_only_recall_any": 0.4516,
+      "combined_recall": 0.4032,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 10000,
+      "n_reading_facts": 2660,
+      "n_distinct_read_entities": 542,
+      "reading_only_recall": 0.2258,
+      "reading_only_recall_any": 0.5,
+      "combined_recall": 0.4032,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 14000,
+      "n_reading_facts": 3620,
+      "n_distinct_read_entities": 676,
+      "reading_only_recall": 0.2258,
+      "reading_only_recall_any": 0.5,
+      "combined_recall": 0.3871,
+      "seed_only_recall": 0.2097
+    },
+    {
+      "n_read_sentences": 14626,
+      "n_reading_facts": 3817,
+      "n_distinct_read_entities": 701,
+      "reading_only_recall": 0.2258,
+      "reading_only_recall_any": 0.5,
+      "combined_recall": 0.3871,
+      "seed_only_recall": 0.2097,
+      "final": true
+    }
+  ],
+  "reading_only_final": 0.2258,
+  "reading_only_any_final": 0.5,
+  "combined_final": 0.3871,
+  "lesion": {
+    "reading_only": 0.2258,
+    "combined": 0.3871,
+    "gap": 0.1613,
+    "fade_ratio": 0.5833,
+    "n_seed_covered": 13,
+    "n_seed_covered_rederived_by_reading": 3,
+    "overlap": 0.2308
+  },
+  "scramble": {
+    "dominant_scramble_recall": 0.1613,
+    "retained_fraction": 0.7143,
+    "recall_any_scramble": 0.3065,
+    "recall_any_final": 0.5
+  },
+  "fidelity": {
+    "reading_heldout_dominant_precision": 0.3111,
+    "n_correct": 14,
+    "n_items_with_dominant": 45,
+    "v2_handcheck_precision": 0.9
+  },
+  "trust_conflict": {
+    "n_functional_conflicts": 102,
+    "n_seed_protected": 102,
+    "n_seed_overwritten": 0,
+    "all_seed_protected": true
+  },
+  "store_wire": {
+    "store_reading_recall": 0.5,
+    "map_reading_recall": 0.2258,
+    "store_wire_ok": true,
+    "n_store_facts_final": 1241
+  },
+  "reading_corpus": {
+    "n_read_sentences": 14626,
+    "n_reading_facts": 3817,
+    "n_distinct_read_entities": 701,
+    "max_simplewiki": 12000,
+    "no_leak_dev_guard_fires": 13
+  },
+  "bands": {
+    "RISE_MIN_ABS": 0.05,
+    "FADE_GAP_MAX": 0.05,
+    "FADE_RATIO_MIN": 0.85,
+    "SCRAMBLE_MAX_RETAINED": 0.5
+  },
+  "diagnosis": {
+    "crutch_fades": false,
+    "reading_only_rises_with_exposure": true,
+    "reading_extends_seed_coverage_by": 0.1774,
+    "entity_specific_dominant_signal_above_scramble": 0.0645,
+    "seed_covered_rederived_by_reading_overlap_dominant": 0.2308,
+    "reading_dominant_precision_on_heldout": 0.3111,
+    "root_cause": "PROCESS-CONDITIONING GAP: the SEED is process-keyed (e.g. water in water-cycle -> MOVE; water in respiration -> CREATE) but the READING extractor is ENTITY-GLOBAL (water -> whichever fate dominates in general prose). The same entity has DIFFERENT fates in different processes, which entity-global reading structurally cannot disambiguate. So reading EXTENDS coverage (combined 0.387 > seed-only 0.210, +0.177 new) and its acquisition RISES with exposure, but it does NOT RE-DERIVE the seed's process-conditioned precision (dominant seed/reading overlap 3/13; lesion gap 0.161) -> the crutch cannot fully fade. The recall-ANY metric (0.50, overlap 0.85) LOOKS like fade but is promiscuity-inflated (3 fate classes, reading asserts ~all fates per popular entity); the promiscuity-robust DOMINANT metric is the honest one.",
+    "scramble_confound": "3-class fate recall has a high modal base rate (~0.16 = fraction of held-out gold containing the corpus-modal fate CREATE), so neither recall-any (retained 0.61) nor dominant (retained 0.71) scramble collapses below the 0.50 gate; the true entity-specific signal above the scramble floor is only ~0.0645.",
+    "answer_to_needs_better_frontend_or_different_mechanism": "DIFFERENT (richer) GROWTH MECHANISM: reading must be PROCESS-CONDITIONED (extract (entity, process, fate), i.e. know which process a sentence describes) to re-derive the seed's process-keyed knowledge. The frontend/extractor precision is fine (v2 hand-check 0.90); the limitation is the entity-global GRAIN of the acquired facts vs the process-keyed grain of the seed/target.",
+    "what_DID_work": "(1) reading is a real no-LLM growth channel: acquisition rises with exposure (dominant 0.048->0.226) and reading+seed combined (0.387) beats seed-only (0.210); (2) hd_fact_store trust-conflict-resolution PROTECTED the seed 102/102 (a wrong low-trust READING fact never overwrote a right high-trust SEED fact under a FUNCTIONAL relation); (3) store wire-witness clean; (4) no-leak guard caught + excluded 13 incidental DEV-sentence overlaps."
+  },
+  "headline_numbers": {
+    "fade_curve_reading_only_dominant": [
+      0.0484,
+      0.129,
+      0.2258,
+      0.2258,
+      0.2258,
+      0.2258
+    ],
+    "fade_curve_reading_only_any_promiscuity_inflated": [
+      0.1613,
+      0.3548,
+      0.4516,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "seed_only": 0.2097,
+    "combined_final": 0.3871,
+    "lesion_gap_dominant": 0.1613,
+    "overlap_dominant": 0.2308,
+    "scramble_retained_dominant": 0.7143,
+    "trust_seed_protected": "102/102"
+  }
+}
