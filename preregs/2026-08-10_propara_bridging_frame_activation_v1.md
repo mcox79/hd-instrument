@@ -233,3 +233,61 @@ specific to this fix. Recorded as context for the strategic FULL/no-FULL call, n
 route around the re-smoke gate -- exp_dev did NOT dispatch FULL given re-smoke does not clear all
 three explicitly-asked gates (scramble well-under-0.5 not met; precision_up not met; frame_lift>0
 met; recall_up met).
+
+## AMENDMENT 2 2026-08-11 -- OPTION-b CONVERGENCE GATE + HARD PRE-COMMITTED EXIT (exp_dev)
+Director decision (rejecting FULL-despite-DEV-shortfall; the reason reframes the problem): the v2
+tiny frame_lift is NOT correct-frame-binding -- the scramble control (0.0 oracle overlap) gave
+scramble_lift=+0.0147 > frame_lift=+0.0061 and scramble_f1 0.3388 > frame_f1 0.3302, i.e. WRONG
+facts beat RIGHT facts (a correctness-ANTI-correlated signal no DEV/TEST scaling can fix). Whole game
+for Option-b: make CORRECT frame binding beat SCRAMBLED binding with a real margin; if not, the
+matcher route is done.
+
+FIX BUILT (brain: coincidence detection): CO-PARTICIPATION-GATED frame selection -- a process may
+donate fates only if the paragraph convergently CONFIRMS it (>= MIN_CONVERGENT_ROLES=2 DISTINCT roles
+each filled by a participant AND >= MIN_CONVERGENT_FILLERS=2 DISTINCT participants doing the filling).
+A hard boolean GATE on which process may donate, NOT an additive score. PRIOR-ART CAUTION honored
+(SIQa iter-1 79c354a6d / iter-2 e7cee79ae): raw convergence-COUNT as an additive scoring feature was
+a net drag and was dropped; iter-2 kept convergence ONLY as a >=2-distinct STRUCTURAL gate -- this
+gate reuses that exact validated pattern. ONE VARIABLE vs v2 = the frame-SELECTION criterion (KB
+content, thresholds, role-mapping, downstream _grids, oracle/without/prior_lesion arms all UNCHANGED).
+
+DISK CONFIRMATION the gate changes selection (director-mandated pre-smoke check, throwaway print):
+on 12 real DEV paragraphs, REAL-KB donors 16 -> 15 (barely touched -- correct processes converge:
+fossilization roles=3/fillers=4, electricity_generation roles=3/fillers=5, combustion roles=2-3),
+SCRAMBLE-KB donors 16 -> 1 (decoupled random role-word lists do NOT convergently co-occur). The
+coincidence detector WORKS as designed -- asymmetric in exactly the intended direction.
+
+RE-SMOKE (DEV, convergence gate, operating point CAND_K=4 / MIN_FILL=2; identical across the full
+CAND_K in {3,4,6} x MIN_FILL in {2,3} sweep -- all 6 configs fail the same way):
+MEASURED@`data/exp_propara_bridging_frame_activation_v1_smoke/metrics.json`:
+- without_f1 (bridge OFF)        = 0.3242
+- scramble_f1 (bridge ON ~empty) = 0.3388   <- HIGHEST non-oracle arm
+- frame_f1   (bridge ON gated)   = 0.3273
+- oracle_f1  (bridge ON gold)    = 0.3993   <- knowledge IS usable, far above all matcher arms
+- frame_lift = +0.0032 (DOWN from v2 +0.0061), scramble_lift = +0.0147 (UNCHANGED)
+- frame precision = 0.0625 (< literal 0.0905), recall = 0.2143
+- gate-pass asymmetry: real 0.30 vs scramble 0.012 (26x) -- structural gate works; scramble sources
+  only 5 role-hits / 1 donor / 2 participants.
+
+VERDICT = HARD_FAIL. BOTH pre-committed EXIT conditions are met: (1) scramble matches/exceeds real
+(scramble_f1 > frame_f1; scramble_lift > frame_lift), AND (2) precision stays below the literal floor
+(0.0625 < 0.0905). Per the director's HARD pre-committed exit, exp_dev did NOT iterate a third
+mechanism variant.
+
+WHY (mechanism-level, airtight): the convergence gate correctly fixed PROCESS SELECTION (scramble
+donors collapse 16->1) but F1 is driven by the per-participant ROLE->EFFECT ASSIGNMENT, which the
+gate does not touch. Even for a correctly-selected, well-evidenced process (combustion in a
+combustion paragraph), deciding WHICH participant gets DESTROY vs CREATE vs MOVE via promiscuous
+role-word lists is ~94% wrong (precision 0.0625), and those wrong bridge facts mislead the placement
+loop worse than sourcing none (frame 0.3273 < near-empty scramble 0.3388). The oracle arm (gold
+per-participant facts) sits at 0.3993 -- the knowledge is usable; the matcher cannot source the
+correct per-participant fate from the prose.
+
+STRATEGIC FINDING (for director/USER, not a thing to keep tuning): the residual is CONTEXT-CONDITIONED
+per-participant frame-role assignment = reading the specific participant's specific fate out of the
+prose = the SITUATION-MODEL / EXTRACTION wall, NOT frame SELECTION (which is now solved by the
+convergence gate) and NOT missing KNOWLEDGE (oracle proves it usable). The associative-matcher route
+to ProPara bridging is DONE; the next lever is reading prose into the right per-entity structure
+(situation-model / extraction), a separate build. Convergence-gate code is retained (CONVERGENCE_GATE
+= True) because the mechanism is correct and brain-faithful and the negative F1 result IS the finding;
+its metrics.json records the exit.

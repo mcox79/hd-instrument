@@ -2,7 +2,7 @@
   "verdict": "HARD_PASS",
   "verdict_msg": "SELFTEST_PASS",
   "summary": "self-test green",
-  "elapsed_s": 1.198,
+  "elapsed_s": 0.945,
   "run_mode": "self_test",
   "anchor_name": "propara_bridging_frame_activation_v1",
   "result": {
@@ -19,22 +19,25 @@
     },
     "sourcing_stats": {
       "n_paragraphs_matched": 1,
-      "n_role_hits": 1,
+      "n_role_hits": 2,
       "n_graded_only_role_hits": 1,
       "n_never_mentioned_participants": 0,
       "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
       "process_match_sample": {
         "s1": [
-          "fossilization",
           "combustion"
         ]
       },
-      "scramble_kb": false
+      "scramble_kb": false,
+      "convergence_gate": true,
+      "n_cand_before_gate": 3,
+      "n_donors_after_gate": 1,
+      "gate_pass_fraction": 0.3333
     },
     "with_frame_timber_labels": [
       "NONE",
-      "NONE",
       "DESTROY",
+      "NONE",
       "CREATE"
     ],
     "lexicon_probe": {

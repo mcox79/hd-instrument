@@ -22,6 +22,18 @@
 #   clearing threshold (parallels literal's count-based ranking; guarantees graded hit-count >=
 #   literal hit-count per process, fixing a top-2-selection hijack that was regressing BOTH
 #   precision and recall below the literal floor). See inline FIX #1/#2 comments at point of use.
+# - 2026-08-11 OPTION-b CONVERGENCE GATE (director-directed, after v2 re-smoke showed scramble>frame
+#   i.e. WRONG facts beat RIGHT facts): CO-PARTICIPATION-GATED frame selection -- a process may
+#   donate fates only if the paragraph convergently CONFIRMS it (>=2 distinct roles filled by >=2
+#   distinct participants; coincidence detection). Hard GATE, not an additive score (SIQa iter-2
+#   prior-art caution honored). RESULT = HARD pre-committed EXIT: the gate WORKS structurally
+#   (scramble donors collapse 16->1 on disk; gate-pass asymmetry real 0.30 vs scramble 0.012) but
+#   does NOT move the F1 wall (frame_f1 0.3273 < scramble_f1 0.3388 < oracle_f1 0.3993; frame_lift
+#   0.0032 < scramble_lift 0.0147; precision 0.0625 < literal 0.0905). The residual is per-participant
+#   ROLE->EFFECT assignment = reading the specific participant's specific fate out of the prose = the
+#   situation-model / extraction wall, NOT frame SELECTION (which the gate fixed). oracle_f1 >> all
+#   matcher arms = the knowledge IS usable; the matcher cannot source it from text. See prereg
+#   AMENDMENT-2 (Option-b exit) + inline CONVERGENCE GATE comment at point of use.
 # See preregs/2026-08-10_propara_bridging_frame_activation_v1.md for the full pre-reg.
 """exp_propara_bridging_frame_activation_v1 -- ASSOCIATIVE FRAME/SCRIPT-ACTIVATION reading, direct
 successor to exp_propara_bridging_distilled_kb_endtoend_v1 (357143e98, HARD_FAIL, SURVIVAL=0.1823).
@@ -200,6 +212,30 @@ MIN_FRAME_SIG_HITS = 1     # >=1 signature word must clear FRAME_SIM_THRESH for 
 SCRAMBLE_SEED_SIG = "propara_frame_activation_kb_scramble_v2_sig"      # hashlib-seeded, not python hash()
 SCRAMBLE_SEED_ROLES = "propara_frame_activation_kb_scramble_v2_roles"  # DIFFERENT seed -- see _scramble_kb_processes
 
+# ------------------------------------------------------------------ CONVERGENCE GATE (2026-08-11 Option-b)
+# Director decision (rejecting FULL-despite-DEV-shortfall): the v2 re-smoke's tiny frame_lift is NOT
+# correct-frame-binding -- the scramble control (0.0 oracle overlap) gave scramble_lift=+0.0148 >
+# frame_lift=+0.0061, i.e. WRONG facts beat RIGHT facts (an anti-correlated signal no DEV/TEST
+# scaling can fix). ROOT CAUSE (localized in v2 completion report): KB role-vocabulary PROMISCUITY --
+# a wrong/scrambled process is reached by ONE promiscuous role-word (heat/water/material) by chance;
+# top-2-signature selection then lets it donate net-harmful fates.
+# FIX (brain: coincidence detection -- a frame is the node where MULTIPLE independent context cues
+# CONVERGE): a process may donate fates ONLY IF the paragraph convergently CONFIRMS it -- >=2 DISTINCT
+# roles of that SAME process are each filled by a participant AND >=2 DISTINCT participants do the
+# filling. This is a HARD GATE (precision lever), NOT an additive score. PRIOR-ART CAUTION honored
+# (SIQa iter-1 79c354a6d / iter-2 e7cee79ae): raw convergence-COUNT as an additive scoring feature
+# was a NET DRAG and was dropped; iter-2 kept convergence ONLY as a >=2-distinct STRUCTURAL GATE
+# (retrieve-VALIDATE MIN_COH_CONVERGENCE). This gate reuses that exact validated pattern. ONE VARIABLE
+# vs v2 = the frame-SELECTION criterion only (KB content, thresholds, role-mapping, downstream _grids,
+# and the oracle/without/prior_lesion arms are all UNCHANGED).
+CONVERGENCE_GATE = True         # master toggle; if False, falls back to v2 signature-top-2 selection
+CAND_K = 4                       # signature-ranked candidate pool considered for the convergence gate
+                                 # (widen past top-2 so a convergent-but-lower-signature process is not
+                                 # pre-excluded; final donors still capped at MAX_DONORS)
+MAX_DONORS = 2                   # cap on donor processes AFTER gating (matches literal cell's k=2)
+MIN_CONVERGENT_ROLES = 2         # >=2 DISTINCT roles of the process must be filled (coincidence det.)
+MIN_CONVERGENT_FILLERS = 2       # ...by >=2 DISTINCT participants (independent cues, not one hub word)
+
 # Bands (pre-registered BEFORE --full; see prereg). TEST-split floor/ceiling per module docstring.
 LITERAL_SURVIVAL_FLOOR_TEST = 0.18226561332964253
 LITERAL_PAIR_RECALL_TEST = 0.2469
@@ -270,6 +306,29 @@ def _literal_role_hit(p_toks: Set[str], role_words: List[str]) -> bool:
     return bool(p_toks & role_toks)
 
 
+def _process_convergent(proc_dict: Dict, participants_toks: List[Set[str]]) -> Tuple[bool, int, int]:
+    """COINCIDENCE-DETECTION GATE (boolean, NOT a score): a process may donate fates only if the
+    paragraph convergently evidences it -- >= MIN_CONVERGENT_ROLES DISTINCT roles of the process are
+    each filled by SOME participant AND >= MIN_CONVERGENT_FILLERS DISTINCT participants do the filling.
+    A wrong/scrambled process is typically reached by ONE promiscuous role-word by chance; a genuine
+    frame is where multiple independent entity->role cues converge. Reuses the validated SIQa iter-2
+    pattern (e7cee79ae): convergence kept ONLY as a >=2-distinct STRUCTURAL gate, never as an additive
+    score (raw convergence-count was a net drag there). Returns (passes, n_distinct_roles_filled,
+    n_distinct_fillers)."""
+    roles_filled = 0
+    fillers: Set[int] = set()
+    for role in ("consumes", "produces", "moves"):
+        role_words = proc_dict.get(role, [])
+        if not role_words:
+            continue
+        hit_idxs = [i for i, pt in enumerate(participants_toks) if _graded_role_hit(pt, role_words)]
+        if hit_idxs:
+            roles_filled += 1
+            fillers.update(hit_idxs)
+    passes = (roles_filled >= MIN_CONVERGENT_ROLES) and (len(fillers) >= MIN_CONVERGENT_FILLERS)
+    return passes, roles_filled, len(fillers)
+
+
 # MECHANISM-BUG FIX #2 (2026-08-11, THE root cause of scramble_retained_fraction=1.0):
 # disk-confirmed via a throwaway diagnostic (removed after use) that the ORIGINAL implementation
 # below -- `{names[i]: procs[names[perm[i]]] for i in range(n)}` -- moves each process's ENTIRE
@@ -332,17 +391,30 @@ def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = Fal
                                    # content) would not have -- the genuine paraphrase-generalization count
     n_never_mentioned_participants = 0
     n_facts_for_never_mentioned = 0
+    n_cand_before_gate = 0        # signature-ranked candidates entering the convergence gate
+    n_donors_after_gate = 0       # donors surviving the convergence gate (CONVERGENCE_GATE precision lever)
     for para in paragraphs:
         pid = str(para["para_id"])
         full_text = " ".join(para["sentence_texts"]).lower()
         text_toks = _toks(" ".join(para["sentence_texts"]))
+        participants_toks = [_norm_toks(p) for p in para["participants"]]
         scored = []
         for name, d in procs.items():
             score, hits = _graded_frame_score(text_toks, d["signature"])
             if score is not None and hits >= MIN_FRAME_SIG_HITS:
                 scored.append((name, score))
         scored.sort(key=lambda kv: -kv[1])
-        matched = [name for name, sc in scored[:2]]  # top-2, matches the literal cell's DEV-chosen k
+        if CONVERGENCE_GATE:
+            # gate the signature-ranked candidate pool by convergence (coincidence detection), then
+            # keep at most MAX_DONORS in signature order among those that PASS -- convergence is a hard
+            # boolean GATE here, never added into a donor score (SIQa prior-art caution).
+            cand = [name for name, sc in scored[:CAND_K]]
+            n_cand_before_gate += len(cand)
+            donors = [nm for nm in cand if _process_convergent(procs[nm], participants_toks)[0]]
+            matched = donors[:MAX_DONORS]
+            n_donors_after_gate += len(matched)
+        else:
+            matched = [name for name, sc in scored[:2]]  # v2 fallback: top-2 by signature (no gate)
         proc_log[pid] = matched
         for participant in para["participants"]:
             p_toks = _norm_toks(participant)
@@ -375,6 +447,11 @@ def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = Fal
         "n_facts_sourced_for_never_mentioned_IMPLICIT": n_facts_for_never_mentioned,
         "process_match_sample": {k: proc_log[k] for k in list(proc_log)[:8]},
         "scramble_kb": scramble_kb,
+        "convergence_gate": CONVERGENCE_GATE,
+        "n_cand_before_gate": n_cand_before_gate,             # convergence-gate diagnostics: how many
+        "n_donors_after_gate": n_donors_after_gate,           # signature candidates survived the gate
+        "gate_pass_fraction": (round(n_donors_after_gate / n_cand_before_gate, 4)
+                               if n_cand_before_gate else None),
     }
     return facts, stats
 
@@ -576,20 +653,35 @@ def self_test() -> Dict:
     literal_score = len(set(kb["processes"]["combustion"]["signature"]) & {"blaze", "timber"})
     assert literal_score == 0, "synth must be UNCATCHABLE by literal matching (both words absent from signature)"
 
-    # synth paragraph: text uses ONLY paraphrases ('blaze' / 'timber'), never literal KB words --
-    # literal matching gets ZERO hits (mechanism absent); graded matching must fire.
+    # synth paragraph: text uses ONLY paraphrases ('blaze' / 'timber') for the graded-only check,
+    # AND supplies TWO DISTINCT participants filling TWO DISTINCT combustion roles (timber->consumes
+    # via graded 'wood'; ash->produces, literal) so the CONVERGENCE GATE fires (coincidence detection
+    # requires >= MIN_CONVERGENT_ROLES roles x >= MIN_CONVERGENT_FILLERS fillers). Literal matching
+    # still gets ZERO signature hits from the paraphrases.
     synth = [
         {"para_id": "s1",
-         "sentence_texts": ["The blaze consumes the timber.", "Ash and smoke rise into the air.",
-                             "Millions of years pass.", "The remains turn to stone."],
-         "participants": ["timber"],
-         "states": [["-", "here", "here", "here", "-"]]},
+         "sentence_texts": ["The blaze consumes the timber.", "Ash and soot form as the fuel burns.",
+                             "The fire spreads through the pile.", "Only embers remain."],
+         "participants": ["timber", "ash"],
+         "states": [["-", "here", "here", "here", "-"], ["-", "-", "here", "here", "here"]]},
     ]
     graded_facts, graded_stats = _build_frame_activation_bridge_facts(synth, kb, scramble_kb=False)
     f = graded_facts[("s1", "timber")]
     assert "DESTROY" in f, (f, graded_stats)
     assert graded_stats["n_role_hits"] >= 1, graded_stats
     assert graded_stats["n_graded_only_role_hits"] >= 1, "mechanism-fires check FAILED: graded matcher found nothing literal wouldn't"
+    assert graded_stats["n_donors_after_gate"] >= 1, ("CONVERGENCE GATE rejected the convergent combustion frame", graded_stats)
+
+    # convergence-gate DISCRIMINATOR: the SAME text with only ONE participant ('timber', a lone
+    # consumes-filler) supplies 1 role x 1 filler -- BELOW the gate -- so combustion MUST be gated
+    # out and NO fate sourced. Proves the gate is a real coincidence detector (a lone promiscuous
+    # role-word match is rejected), not a pass-through. (Any <2-participant paragraph can never reach
+    # >=2 distinct fillers, so this is a guaranteed structural property of the gate.)
+    if CONVERGENCE_GATE:
+        synth_1p = [dict(synth[0], participants=["timber"], states=[synth[0]["states"][0]])]
+        facts_1p, stats_1p = _build_frame_activation_bridge_facts(synth_1p, kb, scramble_kb=False)
+        assert facts_1p[("s1", "timber")] == {}, ("gate should reject single-filler match", facts_1p, stats_1p)
+        assert stats_1p["n_donors_after_gate"] == 0, stats_1p
 
     # scramble-KB-content control: on the SAME synth, a scrambled KB must NOT reproduce the hit
     # (combustion's role words get reassigned to a different process -> 'timber' no longer maps to
@@ -609,7 +701,7 @@ def self_test() -> Dict:
     steps_df = build_step_rows(synth)
     oracle = _oracle_event_multiset(steps_df)
     pre = _paragraph_precompute(synth, oracle, coref, steps_df)
-    pre_g = {"s1": {**pre["s1"], "bridge": {"timber": f}}}
+    pre_g = {"s1": {**pre["s1"], "bridge": {pp: graded_facts[("s1", pp)] for pp in synth[0]["participants"]}}}
     gd, dd = _grids(synth, pre_g, use_bridge=True)
     assert dd["decode_fidelity"] == 1.0
     assert "DESTROY" in gd["s1"]["timber"], gd["s1"]["timber"]
