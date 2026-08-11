@@ -1,14 +1,142 @@
 {
   "verdict": "HARD_FAIL",
-  "verdict_msg": "HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: split=dev FRAME_SURVIVAL=0.04225742104398317 (frame_lift=0.0032 / oracle_lift=0.0751) frame_f1=0.3273 oracle_f1=0.3993 without_f1=0.3242 pair_recall=0.2143(lit=0.2469) pair_precision=0.0625(lit=0.0905) recall_up=False precision_up=False scramble_retained_fraction=4.621851375063333 scramble_collapsed=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
-  "summary": "HARD_FAIL: HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: split=dev FRAME_SURVIVAL=0.04225742104398317 (frame_lift=0.0032 / oracle_lift=0.0751) frame_f1=0.3273 oracle_f1=0.3993 without_f1=0.3242 pair_recall=0.2143(lit=0.2469) pair_precision=0.0625(lit=0.0905) recall_up=False precision_up=False scramble_retained_fraction=4.621851375063333 scramble_collapsed=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
-  "elapsed_s": 14.967,
+  "verdict_msg": "HARD_FAIL_NATIVE_ROLES_residual[precision_not_above_promiscuous_and_literal+does_not_capture_oracle_lift+scramble_kb_does_not_collapse]: split=dev native_f1=0.3388 promiscuous_f1=0.3273 oracle_f1=0.3993 without_f1=0.3242 native_precision=0.0357(promisc=0.0625 lit=0.0905) native_recall=0.0476(lit=0.2469) native_lift=0.0147 native_survival=0.19530751955876383 native_scramble_retained=1.0 prec_beats_promisc_and_lit=False captures_oracle_lift=False scramble_collapses=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True parse_cov=0.9486 native_effect_cov=0.5086 unaccusative_recovered=15",
+  "summary": "HARD_FAIL: HARD_FAIL_NATIVE_ROLES_residual[precision_not_above_promiscuous_and_literal+does_not_capture_oracle_lift+scramble_kb_does_not_collapse]: split=dev native_f1=0.3388 promiscuous_f1=0.3273 oracle_f1=0.3993 without_f1=0.3242 native_precision=0.0357(promisc=0.0625 lit=0.0905) native_recall=0.0476(lit=0.2469) native_lift=0.0147 native_survival=0.19530751955876383 native_scramble_retained=1.0 prec_beats_promisc_and_lit=False captures_oracle_lift=False scramble_collapses=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True parse_cov=0.9486 native_effect_cov=0.5086 unaccusative_recovered=15",
+  "elapsed_s": 34.428,
   "run_mode": "smoke",
   "anchor_name": "propara_bridging_frame_activation_v1",
   "split": "dev",
   "result": {
+    "native_present": true,
+    "native": {
+      "with_frame_activation_native_roles_f1": 0.3388337546896144,
+      "with_frame_activation_native_roles_scramble_kb_f1": 0.3388337546896144,
+      "native_lift": 0.014675930375357693,
+      "native_scramble_lift": 0.014675930375357693,
+      "native_survival_fraction": 0.19530751955876383,
+      "native_scramble_retained_fraction": 1.0,
+      "fact_coverage_native_vs_oracle": {
+        "pair_precision": 0.0357,
+        "pair_recall": 0.0476,
+        "pair_f1": 0.0408,
+        "participant_binding_coverage": 0.1176,
+        "n_oracle_participants_with_fact": 34,
+        "n_oracle_participants_covered_by_real": 4
+      },
+      "fact_coverage_native_scramble_vs_oracle": {
+        "pair_precision": 0.2,
+        "pair_recall": 0.0238,
+        "pair_f1": 0.0426,
+        "participant_binding_coverage": 0.0588,
+        "n_oracle_participants_with_fact": 34,
+        "n_oracle_participants_covered_by_real": 2
+      },
+      "native_effect_diag": {
+        "n_participants": 175,
+        "n_found_as_verb_arg": 166,
+        "parse_coverage": 0.9486,
+        "n_participants_with_native_effect": 89,
+        "native_effect_coverage": 0.5086,
+        "n_undergoer_mentions": 140,
+        "n_unaccusative_recovered": 15,
+        "role_distribution": {
+          "AGENT": 223,
+          "PATIENT": 288,
+          "EXPERIENCER": 1,
+          "RECIPIENT": 1
+        }
+      },
+      "native_sourcing_stats": {
+        "n_paragraphs_matched": 17,
+        "n_role_hits": 82,
+        "n_graded_only_role_hits": 0,
+        "n_never_mentioned_participants": 0,
+        "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+        "process_match_sample": {
+          "4": [
+            "fossilization",
+            "hydrocarbon_formation"
+          ],
+          "5": [
+            "fossilization",
+            "hydrocarbon_formation"
+          ],
+          "272": [
+            "electricity_generation",
+            "combustion"
+          ],
+          "349": [
+            "sound_propagation"
+          ],
+          "375": [
+            "electricity_generation",
+            "combustion"
+          ],
+          "388": [
+            "electricity_generation"
+          ],
+          "390": [
+            "electricity_generation"
+          ],
+          "394": [
+            "electricity_generation",
+            "combustion"
+          ]
+        },
+        "scramble_kb": false,
+        "convergence_gate": true,
+        "n_cand_before_gate": 86,
+        "n_donors_after_gate": 26,
+        "gate_pass_fraction": 0.3023,
+        "sourcing_mode": "native_roles"
+      },
+      "native_scramble_sourcing_stats": {
+        "n_paragraphs_matched": 1,
+        "n_role_hits": 4,
+        "n_graded_only_role_hits": 0,
+        "n_never_mentioned_participants": 0,
+        "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+        "process_match_sample": {
+          "4": [
+            "igneous_rock_cycle"
+          ],
+          "5": [],
+          "272": [],
+          "349": [],
+          "375": [],
+          "388": [],
+          "390": [],
+          "394": []
+        },
+        "scramble_kb": true,
+        "convergence_gate": true,
+        "n_cand_before_gate": 86,
+        "n_donors_after_gate": 1,
+        "gate_pass_fraction": 0.0116,
+        "sourcing_mode": "native_roles"
+      },
+      "native_asset_meta": {
+        "n_train_examples": 181,
+        "roles": [
+          "AGENT",
+          "EXPERIENCER",
+          "PATIENT",
+          "RECIPIENT"
+        ]
+      },
+      "native_decode": 1.0,
+      "native_scramble_decode": 1.0,
+      "native_precision": 0.0357,
+      "promiscuous_precision": 0.0625,
+      "native_beats_promiscuous_precision": false,
+      "native_beats_literal_precision": false,
+      "native_recall": 0.0476,
+      "native_beats_literal_recall": false,
+      "native_captures_oracle_lift": false,
+      "native_scramble_collapses": false
+    },
     "split": "dev",
-    "elapsed_s": 14.965,
+    "elapsed_s": 34.404,
     "n_paragraphs": 43,
     "arms_differ": {
       "sigs": {
@@ -16,19 +144,25 @@
         "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
         "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
         "with_frame_activation": "f393e9e1a4ad7f07bac6f462e2a19ff0a640c57917485a082f2da5f530d972c2",
-        "with_frame_activation_scramble_kb": "48a98399409aedfcdad6f472ab11d367fb919ad2c1a8514a0963e0c4fc7971be"
+        "with_frame_activation_scramble_kb": "48a98399409aedfcdad6f472ab11d367fb919ad2c1a8514a0963e0c4fc7971be",
+        "with_frame_activation_native_roles": "ed02604b4e05cc28aa99e854b7a7b584d2832912c6b1b1c0b5a4f2cb21eb1c98"
       },
       "pairs_differ": {
         "prior_lesion_vs_without_knowledge": true,
         "prior_lesion_vs_with_oracle": true,
         "prior_lesion_vs_with_frame_activation": true,
         "prior_lesion_vs_with_frame_activation_scramble_kb": true,
+        "prior_lesion_vs_with_frame_activation_native_roles": true,
         "without_knowledge_vs_with_oracle": true,
         "without_knowledge_vs_with_frame_activation": true,
         "without_knowledge_vs_with_frame_activation_scramble_kb": true,
+        "without_knowledge_vs_with_frame_activation_native_roles": true,
         "with_oracle_vs_with_frame_activation": true,
         "with_oracle_vs_with_frame_activation_scramble_kb": true,
-        "with_frame_activation_vs_with_frame_activation_scramble_kb": true
+        "with_oracle_vs_with_frame_activation_native_roles": true,
+        "with_frame_activation_vs_with_frame_activation_scramble_kb": true,
+        "with_frame_activation_vs_with_frame_activation_native_roles": true,
+        "with_frame_activation_scramble_kb_vs_with_frame_activation_native_roles": true
       },
       "all_differ": true
     },
@@ -61,6 +195,16 @@
         "n": 770
       },
       "with_frame_activation_scramble_kb": {
+        "macro_f1": 0.3388337546896144,
+        "accuracy": 0.7805194805194805,
+        "n": 770
+      },
+      "with_frame_activation_native_roles": {
+        "macro_f1": 0.3388337546896144,
+        "accuracy": 0.7805194805194805,
+        "n": 770
+      },
+      "with_frame_activation_native_roles_scramble_kb": {
         "macro_f1": 0.3388337546896144,
         "accuracy": 0.7805194805194805,
         "n": 770
@@ -135,7 +279,8 @@
       "convergence_gate": true,
       "n_cand_before_gate": 86,
       "n_donors_after_gate": 26,
-      "gate_pass_fraction": 0.3023
+      "gate_pass_fraction": 0.3023,
+      "sourcing_mode": "promiscuous_wordmatch"
     },
     "scramble_sourcing_stats": {
       "n_paragraphs_matched": 1,
@@ -159,7 +304,8 @@
       "convergence_gate": true,
       "n_cand_before_gate": 86,
       "n_donors_after_gate": 1,
-      "gate_pass_fraction": 0.0116
+      "gate_pass_fraction": 0.0116,
+      "sourcing_mode": "promiscuous_wordmatch"
     },
     "kb_hand_vet": [
       "combustion CONSUMES fuel + oxygen -> PRODUCES CO2 + ash + heat (general chemistry).",
@@ -199,6 +345,16 @@
         "precision": 0.7985000000000001,
         "recall": 0.60875,
         "f1": 0.691
+      },
+      "with_frame_activation_native_roles": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      },
+      "with_frame_activation_native_roles_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
       }
     },
     "literal_reference_TEST": {
@@ -207,7 +363,46 @@
       "pair_precision": 0.0905
     }
   },
+  "promiscuous_baseline_verdict": "HARD_FAIL",
+  "promiscuous_baseline_msg": "HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: split=dev FRAME_SURVIVAL=0.04225742104398317 (frame_lift=0.0032 / oracle_lift=0.0751) frame_f1=0.3273 oracle_f1=0.3993 without_f1=0.3242 pair_recall=0.2143(lit=0.2469) pair_precision=0.0625(lit=0.0905) recall_up=False precision_up=False scramble_retained_fraction=4.621851375063333 scramble_collapsed=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
   "headline": {
+    "NATIVE_PRESENT": true,
+    "with_frame_activation_native_roles_f1": 0.3388337546896144,
+    "with_frame_activation_native_roles_scramble_kb_f1": 0.3388337546896144,
+    "native_lift": 0.014675930375357693,
+    "native_survival_fraction": 0.19530751955876383,
+    "native_scramble_retained_fraction": 1.0,
+    "native_precision": 0.0357,
+    "promiscuous_precision": 0.0625,
+    "native_recall": 0.0476,
+    "native_beats_promiscuous_precision": false,
+    "native_beats_literal_precision": false,
+    "native_captures_oracle_lift": false,
+    "native_scramble_collapses": false,
+    "native_effect_diag": {
+      "n_participants": 175,
+      "n_found_as_verb_arg": 166,
+      "parse_coverage": 0.9486,
+      "n_participants_with_native_effect": 89,
+      "native_effect_coverage": 0.5086,
+      "n_undergoer_mentions": 140,
+      "n_unaccusative_recovered": 15,
+      "role_distribution": {
+        "AGENT": 223,
+        "PATIENT": 288,
+        "EXPERIENCER": 1,
+        "RECIPIENT": 1
+      }
+    },
+    "native_asset_meta": {
+      "n_train_examples": 181,
+      "roles": [
+        "AGENT",
+        "EXPERIENCER",
+        "PATIENT",
+        "RECIPIENT"
+      ]
+    },
     "FRAME_SURVIVAL_FRACTION": 0.04225742104398317,
     "SCRAMBLE_SURVIVAL_FRACTION": 0.19530751955876383,
     "SCRAMBLE_RETAINED_FRACTION": 4.621851375063333,
@@ -267,7 +462,8 @@
       "convergence_gate": true,
       "n_cand_before_gate": 86,
       "n_donors_after_gate": 26,
-      "gate_pass_fraction": 0.3023
+      "gate_pass_fraction": 0.3023,
+      "sourcing_mode": "promiscuous_wordmatch"
     },
     "official_overall": {
       "prior_lesion": {
@@ -291,6 +487,16 @@
         "f1": 0.696
       },
       "with_frame_activation_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      },
+      "with_frame_activation_native_roles": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      },
+      "with_frame_activation_native_roles_scramble_kb": {
         "precision": 0.7985000000000001,
         "recall": 0.60875,
         "f1": 0.691

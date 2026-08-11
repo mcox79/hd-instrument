@@ -2,7 +2,7 @@
   "verdict": "HARD_PASS",
   "verdict_msg": "SELFTEST_PASS",
   "summary": "self-test green",
-  "elapsed_s": 0.945,
+  "elapsed_s": 0.938,
   "run_mode": "self_test",
   "anchor_name": "propara_bridging_frame_activation_v1",
   "result": {
@@ -32,7 +32,8 @@
       "convergence_gate": true,
       "n_cand_before_gate": 3,
       "n_donors_after_gate": 1,
-      "gate_pass_fraction": 0.3333
+      "gate_pass_fraction": 0.3333,
+      "sourcing_mode": "promiscuous_wordmatch"
     },
     "with_frame_timber_labels": [
       "NONE",

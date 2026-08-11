@@ -83,9 +83,15 @@ def _selftest() -> None:
     print("[selftest] PASS: thematic_role_labeler_cue_integration", flush=True)
 
 
-_selftest()
-if _ARGS.self_test:
-    sys.exit(0)
+# 2026-08-11: module-level experiment run guarded under __main__ so build_data() + the training
+# recipe are importable (reused by exp_propara_bridging_frame_activation_v1's native-roles arm)
+# WITHOUT executing the full multi-seed experiment on import. Running as a script is UNCHANGED
+# (the guarded blocks below still fire in order). Behavior-preserving refactor, verified via
+# --self-test parity.
+if __name__ == "__main__":
+    _selftest()
+    if _ARGS.self_test:
+        sys.exit(0)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -501,18 +507,19 @@ def verdict(r: Dict) -> Tuple[str, str]:
                           "right mechanism class, underpowered. " % (r["lift_over_baseline"], MARGIN_HARD_PASS) + s)
 
 
-print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
-out_dir = get_output_dir(ANCHOR_NAME)
-t0 = time.time()
-r = run()
-v, vmsg = verdict(r)
-print("\n[VERDICT] " + vmsg, flush=True)
-metrics = {
-    "anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg,
-    "run_mode": RUN_MODE, "n_seeds": r.get("n_seeds", 1), "per_seed": r.get("per_seed", [r]),
-    "elapsed_s": time.time() - t0, "data_report": r.get("data_report"),
-    "arms_differ_verified": True,
-    "calibration_check": "default_ok_for_this_regime",
-}
-write_metrics(out_dir, metrics, r.get("per_seed", [r]))
-print("[metrics] written to %s" % out_dir, flush=True)
+if __name__ == "__main__":
+    print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
+    out_dir = get_output_dir(ANCHOR_NAME)
+    t0 = time.time()
+    r = run()
+    v, vmsg = verdict(r)
+    print("\n[VERDICT] " + vmsg, flush=True)
+    metrics = {
+        "anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg,
+        "run_mode": RUN_MODE, "n_seeds": r.get("n_seeds", 1), "per_seed": r.get("per_seed", [r]),
+        "elapsed_s": time.time() - t0, "data_report": r.get("data_report"),
+        "arms_differ_verified": True,
+        "calibration_check": "default_ok_for_this_regime",
+    }
+    write_metrics(out_dir, metrics, r.get("per_seed", [r]))
+    print("[metrics] written to %s" % out_dir, flush=True)

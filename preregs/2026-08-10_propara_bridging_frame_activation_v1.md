@@ -291,3 +291,90 @@ to ProPara bridging is DONE; the next lever is reading prose into the right per-
 (situation-model / extraction), a separate build. Convergence-gate code is retained (CONVERGENCE_GATE
 = True) because the mechanism is correct and brain-faithful and the negative F1 result IS the finding;
 its metrics.json records the exit.
+
+## AMENDMENT 3 2026-08-11 -- OPTION-c NATIVE THEMATIC-ROLE ASSIGNER (owned labeler) (exp_dev)
+Director-directed (explicitly NOT a violation of the Option-b pre-committed exit: that exit forbade
+more FRAME-SELECTION tuning; the convergence gate is DONE and correct. This attacks the DIAGNOSED
+residual -- per-participant ROLE->EFFECT assignment -- with the RIGHT owned tool).
+
+THE OWNED ORGAN (reused, not reimplemented): hdlab/thematic_role_labeler.py -- MacWhinney
+Competition-Model cue-integration, an averaged perceptron over surface cues (word-order/animacy/voice)
+weighted by learned cue-validity + verb selectional frames. Parse front-end = owned hdlab/pos_tagger
++ arc_parser (UAS ~0.79) via hdlab/candidate_generator. NO spaCy/SRL/LLM -- 100% glass-box.
+Registry-validated +0.264 over a matched positional baseline on non-canonical held-out. Trained via
+the validated cell's recipe (exp_thematic_role_labeler_cue_integration_v1.build_data; that cell's
+module-level run was guarded under __main__ this build so build_data is importable WITHOUT running its
+experiment -- behavior-preserving, verified via --self-test parity).
+
+ONE VARIABLE vs the promiscuous frame arm: the per-participant role assigner ONLY. Convergence-gated
+frame SELECTION, the KB, thresholds, downstream _grids, and oracle/without/prior_lesion arms are
+UNCHANGED. Promiscuous arm KEPT as the comparison baseline (with_frame_activation), native arm ADDED
+(with_frame_activation_native_roles) + its scramble control.
+
+MECHANISM (_compute_native_effects): per (paragraph, participant), read the set of {CREATE/DESTROY/
+MOVE} effects the participant UNDERGOES directly from text -- a participant undergoes a governing
+verb's effect-class (owned VERB_CLASS_SETS lexicon) iff at some argument-mention it is a thematic
+UNDERGOER: (a) trained pred_fn role in {PATIENT,EXPERIENCER}, OR (b) passive-clause subject, OR (c)
+UNACCUSATIVE -- inanimate subject (owned animacy_lexicon) of an INTRANSITIVE change verb (the
+'water evaporates'/'rock forms' case the narrative-agent-trained perceptron mislabels AGENT). The
+KB is KB-INDEPENDENT here; the KB gates downstream via convergence + slot-license, so the SAME native
+map feeds both the real and scramble native arms (isolating 'does scrambling the KB collapse it?').
+
+DATA GATE (director-mandated, measured BEFORE wiring): (1) parse-coverage of change-step participants
+as verb args = 0.952 (157/165) -- the owned parser finds them. (2) verb-frame coverage: 8/34 ProPara
+scientific verbs in VERB_FRAMES, 26/34 hit DEFAULT_FRAME (still subj->AGENT/obj->PATIENT, workable).
+(3) 5-sentence + full labeler smoke: trained pred_fn correctly assigns PATIENT to PASSIVE subjects
+('fuel is consumed', 'remains are buried', 'CO2 is released', 'sediment is deposited' all -> PATIENT
+-- the labeler's real value over positional). The ONE systematic gap = active-intransitive
+unaccusatives ('water evaporates' -> AGENT), which the owned animacy+intransitivity rule (c) recovers.
+
+CAVEATS stated in metrics (director-required): pred_fn is McGuffey-canonical-trained (USER standing
+rule = MODERN sources only) -- if the arm shows promise a follow-up retrains on modern process text;
+arc_parser UAS ~0.79 injects parse error (measured as coverage).
+
+DECISIVE MEASURES (all pre-registered; native_roles_verdict): HARD_PASS requires ALL of --
+(a) native pair-precision > promiscuous pair-precision AND > literal floor 0.0905;
+(b) native captures >= 30% of the oracle per-participant lift (native_survival >= 0.30);
+(c) scramble-KB COLLAPSES the native arm (native_scramble_retained_fraction <= 0.50);
+plus infra (arms differ + decode >= 0.99) + ablation-collapse + no-leak. Any miss -> HARD_FAIL naming
+the failed gate (director: report WHY -- coverage / mapping / parse-error -- do not paper over).
+
+RE-SMOKE (DEV; MEASURED@`data/exp_propara_bridging_frame_activation_v1_smoke/metrics.json`):
+- native_f1 = 0.3388, native_scramble_f1 = 0.3388 (BIT-IDENTICAL), promiscuous_f1 = 0.3273,
+  oracle_f1 = 0.3993, without_f1 = 0.3242.
+- native_precision = 0.0357 (< promiscuous 0.0625 < literal 0.0905) -- gate (a) FAILS.
+- native_recall = 0.0476 (<< literal 0.2469). native_lift = +0.0147, native_survival = 0.195 (<0.30)
+  -- gate (b) FAILS. native_scramble_retained = 1.0 -- gate (c) FAILS.
+- VERDICT = HARD_FAIL[precision_not_above_promiscuous_and_literal + does_not_capture_oracle_lift +
+  scramble_kb_does_not_collapse].
+The owned labeler READS well (not a parse failure): parse-coverage 0.9486; role_distribution PATIENT
+288 > AGENT 223 (trained perceptron correctly flips passives); 15 unaccusatives recovered.
+
+PRECISE WHY (director-mandated; probed over the 62 dev oracle-fact participants) -- DUAL cause:
+1. COVERAGE (dominant): native effect PRESENT for only 24/62 = 0.387 of oracle-fact participants.
+   61% get NO native effect -- their fate is NOT locally predicated as an undergoer relation (they are
+   the UNMENTIONED-fate participants: sediment/fuel/heat -> DESTROY, material/oil -> CREATE, mechanical
+   energy/water/truck -> MOVE all native=[]). A text-reading role labeler structurally cannot source a
+   fate the text does not state.
+2. MAPPING: of the 24 present, native effect OVERLAPS oracle only 10/24 (~42%); the governing-verb
+   effect-class disagrees with the gold per-participant effect >half the time (bacteria buried ->
+   native MOVE but gold DESTROY; trash -> native CREATE but gold MOVE). Effect-distribution mismatch:
+   oracle MOVE=36 (dominant) but native MOVE=7; native over-produces CREATE (16 vs oracle 12) from
+   passive 'deposited/formed' predications.
+3. gate (c) bit-identical-under-scramble: native effects are text-derived (KB-INDEPENDENT), so
+   scrambling the KB cannot perturb them -- itself proof the native arm does LOCAL READING, not
+   KB-frame binding, and local reading cannot reach the unmentioned fates.
+
+STRATEGIC FINDING (triangulated, 3rd independent angle): the residual is UNMENTIONED per-participant
+fate INFERENCE, NOT local role-reading. The owned thematic-role labeler reads LOCAL roles well
+(passives, unaccusatives), but 61% of the target fates are not in the text to read. This CONVERGES
+with + SHARPENS the Option-b situation-model/extraction-wall finding: the wall is specifically
+INFERRING fates for participants whose change is never textually predicated -- an inference-over-
+knowledge problem the oracle (gold unmentioned facts, 0.3993) solves but neither the KB word-matcher,
+the convergence gate, NOR the owned role labeler can source. Per the do-not-keep-tuning discipline,
+exp_dev did NOT build a 4th mechanism variant; this is the strategic finding for director/USER.
+
+Owned organs REUSED (not reimplemented): thematic_role_labeler, pos_tagger, arc_parser,
+candidate_generator, animacy_lexicon, VERB_CLASS_SETS; the validating cell's build_data recipe made
+importable via a behavior-preserving __main__ guard (verified via --self-test parity). Native arm
+retained (NATIVE_ROLES_ARM=True); its metrics.json records the finding.

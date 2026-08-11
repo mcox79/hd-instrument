@@ -34,6 +34,17 @@
 #   situation-model / extraction wall, NOT frame SELECTION (which the gate fixed). oracle_f1 >> all
 #   matcher arms = the knowledge IS usable; the matcher cannot source it from text. See prereg
 #   AMENDMENT-2 (Option-b exit) + inline CONVERGENCE GATE comment at point of use.
+# - 2026-08-11 OPTION-c NATIVE THEMATIC-ROLE ARM (director-directed; attacks the DIAGNOSED residual,
+#   NOT more frame-selection tuning): NEW arm with_frame_activation_native_roles swaps ONLY the
+#   per-participant role assigner -- promiscuous role-word match -> OWNED thematic_role_labeler
+#   (MacWhinney perceptron + owned pos_tagger/arc_parser/candidate_generator/animacy_lexicon +
+#   VERB_CLASS_SETS; NO spaCy/SRL/LLM). Promiscuous arm KEPT as baseline. RESULT = HARD_FAIL on all 3
+#   decisive gates (native_precision 0.0357 < promiscuous 0.0625 < literal 0.0905; native_survival
+#   0.195 < 0.30; native_scramble_retained 1.0 bit-identical). PRECISE WHY (probed): 61% of oracle-
+#   fact participants get NO native effect (their fate is UNMENTIONED / not locally predicated -- a
+#   text reader cannot source it) + of the 39% present, effect overlaps oracle only ~42% (verb-class
+#   vs gold-fate mapping). Triangulates the residual as UNMENTIONED-fate INFERENCE = situation-model
+#   wall (converges with Option-b). No 4th variant per do-not-keep-tuning. See prereg AMENDMENT-3.
 # See preregs/2026-08-10_propara_bridging_frame_activation_v1.md for the full pre-reg.
 """exp_propara_bridging_frame_activation_v1 -- ASSOCIATIVE FRAME/SCRIPT-ACTIVATION reading, direct
 successor to exp_propara_bridging_distilled_kb_endtoend_v1 (357143e98, HARD_FAIL, SURVIVAL=0.1823).
@@ -181,6 +192,23 @@ from experiments.exp_propara_bridging_distilled_kb_endtoend_v1 import (  # noqa:
 )
 from propara_trap_check import build_step_rows, build_paragraph_set_rows, fit_step_bow  # noqa: E402
 
+# OWNED thematic-role labeler organs (reused, not reimplemented) for the native-roles arm.
+from hdlab.thematic_role_labeler import (  # noqa: E402
+    is_passive_clause, role_feats, lemma_verb,
+)
+from hdlab.animacy_lexicon import lookup_animacy  # noqa: E402
+
+_VERB_CLASS_SETS_CACHE = None
+
+
+def _verb_class_sets():
+    """Lazy handle to the owned {CREATE/DESTROY/MOVE} verb-lexicon (reused verbatim)."""
+    global _VERB_CLASS_SETS_CACHE
+    if _VERB_CLASS_SETS_CACHE is None:
+        from experiments.exp_propara_decisive_inference_arm1_v3_stateful_verb_v1 import VERB_CLASS_SETS
+        _VERB_CLASS_SETS_CACHE = VERB_CLASS_SETS
+    return _VERB_CLASS_SETS_CACHE
+
 # ============================================================================ pre-registered thresholds
 # DEV-pinned on the lexicon's OWN self-test evidence (hdlab/lexical_similarity.py self_test(), this
 # build): true within-role paraphrases score 1.0 (identical tag sets, e.g. log~wood, blaze~fire,
@@ -235,6 +263,22 @@ CAND_K = 4                       # signature-ranked candidate pool considered fo
 MAX_DONORS = 2                   # cap on donor processes AFTER gating (matches literal cell's k=2)
 MIN_CONVERGENT_ROLES = 2         # >=2 DISTINCT roles of the process must be filled (coincidence det.)
 MIN_CONVERGENT_FILLERS = 2       # ...by >=2 DISTINCT participants (independent cues, not one hub word)
+
+# ------------------------------------------------------------------ NATIVE THEMATIC-ROLE ARM (2026-08-11)
+# Director-directed: attack the DIAGNOSED residual (per-participant ROLE->EFFECT assignment, ~94%
+# wrong via promiscuous role-word matching) with the OWNED, learned, glass-box thematic-role labeler
+# (hdlab/thematic_role_labeler.py, MacWhinney cue-integration averaged perceptron; parse front-end =
+# owned hdlab/pos_tagger + arc_parser via candidate_generator; NO spaCy/SRL/LLM). ONE VARIABLE vs the
+# promiscuous arm = the per-participant role assigner. Convergence-gated frame SELECTION, the KB, and
+# oracle/without/prior_lesion arms are UNCHANGED. The promiscuous arm is KEPT as the comparison
+# baseline (not deleted). CAVEAT (stated in metrics): pred_fn is McGuffey-canonical-trained (USER
+# standing rule = MODERN sources only) -- a follow-up retrains on modern process text if this shows
+# promise. arc_parser UAS ~0.79 injects parse error (measured as coverage).
+NATIVE_ROLES_ARM = True
+NATIVE_PREDFN_SEED = 7
+NATIVE_PREDFN_EPOCHS = 25
+NATIVE_UNDERGOER_ROLES = ("PATIENT", "EXPERIENCER")   # thematic roles that make a participant an undergoer
+NATIVE_ORACLE_LIFT_CAPTURE_MIN = 0.30   # native arm must capture >= 30% of the oracle per-participant lift (gate b)
 
 # Bands (pre-registered BEFORE --full; see prereg). TEST-split floor/ceiling per module docstring.
 LITERAL_SURVIVAL_FLOOR_TEST = 0.18226561332964253
@@ -377,10 +421,18 @@ def _scramble_kb_processes(procs: Dict) -> Dict:
 
 
 # ============================================================================ frame-activation sourcing (no gold)
-def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = False) -> Tuple[Dict[Tuple, Dict[str, Set[str]]], Dict]:
+def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = False,
+                                         native_effects=None) -> Tuple[Dict[Tuple, Dict[str, Set[str]]], Dict]:
     """Per (para_id, participant): {effect_label: set(trigger_verb_classes)}, sourced via GRADED
     associative frame-activation (concept_similarity) instead of literal set-intersection. Bit-
-    identical output SHAPE to _build_distilled_bridge_facts -- pure sourcing-mechanism ablation."""
+    identical output SHAPE to _build_distilled_bridge_facts -- pure sourcing-mechanism ablation.
+
+    native_effects (2026-08-11 Option-c): if provided (dict {(pid, participant): set(effects)} from
+    the OWNED thematic-role labeler, see _compute_native_effects), the per-participant WHICH-slot
+    decision swaps from the promiscuous role-word match (_graded_role_hit) to the participant's
+    native thematic-undergoer effect -- the ONE VARIABLE. Convergence-gated process SELECTION and the
+    process LICENSE (slot non-empty) are IDENTICAL either way, so scrambling the KB perturbs both arms
+    the same way (via convergence)."""
     procs = kb["processes"]
     if scramble_kb:
         procs = _scramble_kb_processes(procs)
@@ -423,18 +475,22 @@ def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = Fal
                 n_never_mentioned_participants += 1
             fdict: Dict[str, Set[str]] = {}
             got_any = False
+            p_native = native_effects.get((pid, participant), set()) if native_effects is not None else None
             for pname in matched:
                 d = procs[pname]
                 for role, effect, trigs in _ROLE_EFFECT:
                     role_words = d.get(role, [])
                     if not role_words:
                         continue
-                    graded = _graded_role_hit(p_toks, role_words)
-                    if graded:
+                    if native_effects is None:
+                        hit = _graded_role_hit(p_toks, role_words)   # promiscuous word-match (baseline)
+                    else:
+                        hit = effect in p_native                     # NATIVE thematic-undergoer effect (the swap)
+                    if hit:
                         fdict.setdefault(effect, set()).update(trigs)
                         n_role_hits += 1
                         got_any = True
-                        if not _literal_role_hit(p_toks, role_words):
+                        if native_effects is None and not _literal_role_hit(p_toks, role_words):
                             n_graded_only_role_hits += 1
             if got_any and not mentioned_in_text:
                 n_facts_for_never_mentioned += 1
@@ -452,8 +508,125 @@ def _build_frame_activation_bridge_facts(paragraphs, kb, scramble_kb: bool = Fal
         "n_donors_after_gate": n_donors_after_gate,           # signature candidates survived the gate
         "gate_pass_fraction": (round(n_donors_after_gate / n_cand_before_gate, 4)
                                if n_cand_before_gate else None),
+        "sourcing_mode": "native_roles" if native_effects is not None else "promiscuous_wordmatch",
     }
     return facts, stats
+
+
+# ============================================================================ NATIVE thematic-role sourcing
+def _verb_effect_class(verb_surface: str) -> Set[str]:
+    """OWNED {CREATE/DESTROY/MOVE} class(es) of a single governing-verb token (surface OR lemma hit
+    against the owned VERB_CLASS_SETS lexicon). Empty set = not a tracked change verb."""
+    vcs = _verb_class_sets()
+    vs = verb_surface.lower().strip(".,\"'();:")
+    lem = lemma_verb(vs)
+    return {cls for cls, vset in vcs.items() if vs in vset or lem in vset}
+
+
+def _compute_native_effects(paragraphs, gen, pred_fn) -> Tuple[Dict[Tuple, Set[str]], Dict]:
+    """Per (para_id, participant): the set of {CREATE/DESTROY/MOVE} effects the participant UNDERGOES,
+    read from TEXT via the OWNED thematic-role labeler (glass-box, no KB). A participant undergoes a
+    verb's effect-class iff, at some argument-mention, it is a thematic UNDERGOER of that verb:
+      (a) trained pred_fn role in {PATIENT, EXPERIENCER}, OR
+      (b) passive-clause subject (order:pre under passive voice -> semantic patient), OR
+      (c) UNACCUSATIVE: inanimate subject (order:pre) of an INTRANSITIVE change verb (no post-verbal
+          object) -- 'water evaporates' / 'rock forms' where the tracked entity is the theme, not an
+          agent (the trained perceptron, narrative-agent-trained, mislabels these AGENT; this owned
+          animacy+intransitivity rule recovers them). NOT applied to transitive subjects (there the
+          subject IS the agent, e.g. 'acid dissolves metal').
+    KB-INDEPENDENT (pure text); the KB only gates via convergence + slot-license downstream, so this
+    same map feeds BOTH the real and scramble native arms (isolating 'does scrambling the KB collapse
+    the native arm?')."""
+    effects_map: Dict[Tuple, Set[str]] = {}
+    n_participants = 0
+    n_with_effect = 0
+    n_found_as_arg = 0
+    n_undergoer_mentions = 0
+    n_unaccusative_recovered = 0
+    role_counter: Dict[str, int] = {}
+    for para in paragraphs:
+        pid = str(para["para_id"])
+        parses = [gen.generate(s) for s in para["sentence_texts"]]
+        for participant in para["participants"]:
+            n_participants += 1
+            ptoks = {t for t in _norm_toks(participant) if len(t) > 2}
+            eff: Set[str] = set()
+            found_arg = False
+            for res in parses:
+                toks, pos = res.tokens, res.pos
+                if not toks:
+                    continue
+                passive = is_passive_clause(toks, pos)
+                verbs_with_obj = {v for (v, a) in res.candidates if a > v}
+                for (v, a) in res.candidates:
+                    argtok = toks[a - 1].lower().strip(".,\"'();:")
+                    if argtok not in ptoks:
+                        continue
+                    found_arg = True
+                    order = "pre" if a < v else "post"
+                    rule = res.cand_rules.get((v, a), "core_dep")
+                    role = pred_fn(role_feats(toks, pos, v, a, rule, passive))
+                    role_counter[role] = role_counter.get(role, 0) + 1
+                    vc = _verb_effect_class(toks[v - 1])
+                    if not vc:
+                        continue
+                    is_patient = role in NATIVE_UNDERGOER_ROLES
+                    is_passive_subj = passive and order == "pre"
+                    apos = pos[a - 1] if a - 1 < len(pos) else None
+                    anim = lookup_animacy(argtok, apos)
+                    inanimate = anim is not None and anim.get("animacy") == "inanimate"
+                    is_unaccusative = order == "pre" and inanimate and (v not in verbs_with_obj)
+                    undergoer = is_patient or is_passive_subj or is_unaccusative
+                    if undergoer:
+                        n_undergoer_mentions += 1
+                        if is_unaccusative and not (is_patient or is_passive_subj):
+                            n_unaccusative_recovered += 1
+                        eff |= vc
+            if found_arg:
+                n_found_as_arg += 1
+            effects_map[(pid, participant)] = eff
+            if eff:
+                n_with_effect += 1
+    diag = {
+        "n_participants": n_participants,
+        "n_found_as_verb_arg": n_found_as_arg,
+        "parse_coverage": round(n_found_as_arg / n_participants, 4) if n_participants else None,
+        "n_participants_with_native_effect": n_with_effect,
+        "native_effect_coverage": round(n_with_effect / n_participants, 4) if n_participants else None,
+        "n_undergoer_mentions": n_undergoer_mentions,
+        "n_unaccusative_recovered": n_unaccusative_recovered,
+        "role_distribution": role_counter,
+    }
+    return effects_map, diag
+
+
+_NATIVE_ASSETS_CACHE = "unset"
+
+
+def _get_native_role_assets():
+    """Build (gen, pred_fn, meta) ONCE: load the owned parser front-end + train the owned thematic-
+    role perceptron via the validated cell's recipe (exp_thematic_role_labeler_cue_integration_v1.
+    build_data, McGuffey-canonical + supplement). Returns None (loud, recorded) on any failure so the
+    native arm is honestly reported absent rather than phantom-passing."""
+    global _NATIVE_ASSETS_CACHE
+    if _NATIVE_ASSETS_CACHE != "unset":
+        return _NATIVE_ASSETS_CACHE
+    try:
+        from hdlab.candidate_generator import CandidateGenerator
+        from hdlab.thematic_role_labeler import train_perceptron
+        import experiments.exp_thematic_role_labeler_cue_integration_v1 as V
+        pos_path = os.path.join(REPO_ROOT, "data", "frontend_assets", "pos_tagger_ud_ewt_upos.json")
+        arc_path = os.path.join(REPO_ROOT, "data", "frontend_assets", "arc_parser_hashed_ud_ewt.npz")
+        gen = CandidateGenerator.load(pos_path, arc_path)
+        train_ex, _test_ex, _dr = V.build_data(gen)
+        pred_fn, _avg, roles = train_perceptron(train_ex, seed=NATIVE_PREDFN_SEED, epochs=NATIVE_PREDFN_EPOCHS)
+        _NATIVE_ASSETS_CACHE = (gen, pred_fn, {"n_train_examples": len(train_ex), "roles": list(roles)})
+    except Exception as e:  # noqa: BLE001 -- optional arm; loud + recorded, never silent/phantom
+        import traceback
+        print("[native_roles] ASSET BUILD FAILED: %s: %s\n%s" % (
+            type(e).__name__, e, traceback.format_exc()[-800:]), flush=True)
+        _NATIVE_ASSETS_CACHE = None
+    return _NATIVE_ASSETS_CACHE
 
 
 # ============================================================================ decomposition
@@ -493,12 +666,41 @@ def run_decomposition(split: str, train_paragraphs: List[Dict]) -> Dict:
     pre_frame = _pre_with_bridge(frame_facts)
     pre_scramble = _pre_with_bridge(scramble_facts)
 
+    # -------- NATIVE thematic-role arm (owned labeler swaps the per-participant role assigner) -------
+    native_present = False
+    native_effect_diag = None
+    native_asset_meta = None
+    native_facts = native_scr_facts = None
+    native_stats = native_scr_stats = None
+    cov_native = cov_native_scr = None
+    if NATIVE_ROLES_ARM:
+        assets = _get_native_role_assets()
+        if assets is not None:
+            gen_n, pred_fn_n, native_asset_meta = assets
+            print("[native_roles] computing per-participant thematic-undergoer effects (owned labeler)...", flush=True)
+            native_effects, native_effect_diag = _compute_native_effects(paragraphs, gen_n, pred_fn_n)
+            native_facts, native_stats = _build_frame_activation_bridge_facts(
+                paragraphs, kb, scramble_kb=False, native_effects=native_effects)
+            native_scr_facts, native_scr_stats = _build_frame_activation_bridge_facts(
+                paragraphs, kb, scramble_kb=True, native_effects=native_effects)
+            cov_native = _fact_coverage(native_facts, oracle_facts)
+            cov_native_scr = _fact_coverage(native_scr_facts, oracle_facts)
+            native_present = True
+        else:
+            print("[native_roles] assets unavailable -- native arm ABSENT (reported, not phantom)", flush=True)
+
     grids: Dict[str, Dict] = {}
     grids["prior_lesion"], lesion_diag = _prior_lesion_grids(paragraphs, pre_oracle)
     grids["without_knowledge"], without_diag = _grids(paragraphs, pre_oracle, use_bridge=False)
     grids["with_oracle"], oracle_diag = _grids(paragraphs, pre_oracle, use_bridge=True)
     grids["with_frame_activation"], frame_diag = _grids(paragraphs, pre_frame, use_bridge=True)
     grids["with_frame_activation_scramble_kb"], scramble_diag = _grids(paragraphs, pre_scramble, use_bridge=True)
+    native_diag = native_scr_diag = None
+    if native_present:
+        grids["with_frame_activation_native_roles"], native_diag = _grids(
+            paragraphs, _pre_with_bridge(native_facts), use_bridge=True)
+        grids["with_frame_activation_native_roles_scramble_kb"], native_scr_diag = _grids(
+            paragraphs, _pre_with_bridge(native_scr_facts), use_bridge=True)
 
     proxy = {arm: _proxy_scores(steps_df, g) for arm, g in grids.items()}
     official = {arm: _official_corpus_scores(paragraphs, g) for arm, g in grids.items()}
@@ -518,14 +720,58 @@ def run_decomposition(split: str, train_paragraphs: List[Dict]) -> Dict:
     scramble_retained_fraction = (scramble_lift / frame_lift) if abs(frame_lift) > 1e-9 else (
         0.0 if abs(scramble_lift) < 1e-9 else float("inf"))
 
-    diff = _arms_must_differ({
+    diff_arms = {
         "prior_lesion": grids["prior_lesion"], "without_knowledge": grids["without_knowledge"],
         "with_oracle": grids["with_oracle"], "with_frame_activation": grids["with_frame_activation"],
         "with_frame_activation_scramble_kb": grids["with_frame_activation_scramble_kb"],
-    })
+    }
+    if native_present:
+        diff_arms["with_frame_activation_native_roles"] = grids["with_frame_activation_native_roles"]
+        # NOTE: native_roles_scramble_kb may legitimately coincide with native_roles if scrambling the
+        # KB happens not to change the (already sparse) sourced facts -- excluded from the strict
+        # arms-must-differ set (its collapse is measured separately via native_scramble_retained).
+    diff = _arms_must_differ(diff_arms)
+
+    # -------- native-arm decisive measures (director's 3 gates) --------
+    native_block = None
+    if native_present:
+        native_f1 = unm["with_frame_activation_native_roles"]["macro_f1"]
+        native_scr_f1 = unm["with_frame_activation_native_roles_scramble_kb"]["macro_f1"]
+        native_lift = native_f1 - without_f1
+        native_scr_lift = native_scr_f1 - without_f1
+        native_survival = (native_lift / oracle_lift) if abs(oracle_lift) > 1e-9 else None
+        native_scr_retained = (native_scr_lift / native_lift) if abs(native_lift) > 1e-9 else (
+            0.0 if abs(native_scr_lift) < 1e-9 else float("inf"))
+        native_block = {
+            "with_frame_activation_native_roles_f1": native_f1,
+            "with_frame_activation_native_roles_scramble_kb_f1": native_scr_f1,
+            "native_lift": native_lift, "native_scramble_lift": native_scr_lift,
+            "native_survival_fraction": native_survival,
+            "native_scramble_retained_fraction": native_scr_retained,
+            "fact_coverage_native_vs_oracle": cov_native,
+            "fact_coverage_native_scramble_vs_oracle": cov_native_scr,
+            "native_effect_diag": native_effect_diag,
+            "native_sourcing_stats": native_stats,
+            "native_scramble_sourcing_stats": native_scr_stats,
+            "native_asset_meta": native_asset_meta,
+            "native_decode": native_diag["decode_fidelity"],
+            "native_scramble_decode": native_scr_diag["decode_fidelity"],
+            # director gate (a): native precision beats promiscuous frame arm AND the literal floor
+            "native_precision": cov_native["pair_precision"],
+            "promiscuous_precision": cov["pair_precision"],
+            "native_beats_promiscuous_precision": cov_native["pair_precision"] > cov["pair_precision"],
+            "native_beats_literal_precision": cov_native["pair_precision"] > LITERAL_PAIR_PRECISION_TEST,
+            "native_recall": cov_native["pair_recall"],
+            "native_beats_literal_recall": cov_native["pair_recall"] > LITERAL_PAIR_RECALL_TEST,
+            # director gate (b): captures a real fraction of oracle per-participant lift
+            "native_captures_oracle_lift": (native_survival is not None and native_survival >= NATIVE_ORACLE_LIFT_CAPTURE_MIN),
+            # director gate (c): scramble-KB collapses the native arm
+            "native_scramble_collapses": (native_scr_retained is not None and native_scr_retained <= SCRAMBLE_MAX_RETAINED_FRACTION),
+        }
 
     elapsed = time.time() - t0
     return {
+        "native_present": native_present, "native": native_block,
         "split": split, "elapsed_s": round(elapsed, 3), "n_paragraphs": len(paragraphs),
         "arms_differ": diff,
         "decode": {"lesion": lesion_diag["decode_fidelity"], "without": without_diag["decode_fidelity"],
@@ -601,6 +847,59 @@ def decomposition_verdict(result: Dict) -> Tuple[str, str]:
     if residual_no_go:
         return "HARD_FAIL", f"HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: {msg}"
     return "MIDDLE_BAND", f"MIDDLE_BAND_PARTIAL_{'recall_only' if recall_up and not precision_up else 'precision_only' if precision_up and not recall_up else 'mixed'}: {msg}"
+
+
+def native_roles_verdict(result: Dict) -> Tuple[str, str]:
+    """Director's decisive test for the OWNED thematic-role labeler swapping the per-participant role
+    assigner. HARD_PASS requires ALL: (a) native precision beats BOTH the promiscuous frame arm AND
+    the literal floor; (b) native captures >= NATIVE_ORACLE_LIFT_CAPTURE_MIN of the oracle per-
+    participant lift; (c) scramble-KB collapses the native arm (retained <= SCRAMBLE_MAX_RETAINED);
+    plus infra (arms differ, decode) + ablation-collapse + no-leak. Any miss -> report which."""
+    nb = result.get("native")
+    if not result.get("native_present") or nb is None:
+        return "HARD_FAIL", "HARD_FAIL_NATIVE_ARM_ABSENT: owned thematic-role labeler assets did not build (see log)"
+    without_f1 = result["without_f1"]
+    oracle_f1 = result["with_oracle_f1"]
+    native_f1 = nb["with_frame_activation_native_roles_f1"]
+    arms_ok = result["arms_differ"]["all_differ"]
+    decode_ok = all(v >= 0.99 for v in result["decode"].values()) and nb["native_decode"] >= 0.99
+    infra_fail = (not arms_ok) or (not decode_ok)
+    ablation_collapsed = without_f1 < WITHOUT_COLLAPSE_CEILING
+    leak = (native_f1 > LEAK_CEILING) or (native_f1 >= oracle_f1 - LEAK_ORACLE_MARGIN)
+
+    prec_ok = nb["native_beats_promiscuous_precision"] and nb["native_beats_literal_precision"]
+    capture_ok = nb["native_captures_oracle_lift"]
+    scr_ok = nb["native_scramble_collapses"]
+
+    msg = (f"split={result['split']} native_f1={native_f1:.4f} promiscuous_f1={result['with_frame_activation_f1']:.4f} "
+           f"oracle_f1={oracle_f1:.4f} without_f1={without_f1:.4f} "
+           f"native_precision={nb['native_precision']}(promisc={nb['promiscuous_precision']} lit={LITERAL_PAIR_PRECISION_TEST}) "
+           f"native_recall={nb['native_recall']}(lit={LITERAL_PAIR_RECALL_TEST}) "
+           f"native_lift={nb['native_lift']:.4f} native_survival={nb['native_survival_fraction']} "
+           f"native_scramble_retained={nb['native_scramble_retained_fraction']} "
+           f"prec_beats_promisc_and_lit={prec_ok} captures_oracle_lift={capture_ok} scramble_collapses={scr_ok} "
+           f"ablation_collapsed={ablation_collapsed} leak={leak} arms_ok={arms_ok} decode_ok={decode_ok} "
+           f"parse_cov={nb['native_effect_diag']['parse_coverage']} "
+           f"native_effect_cov={nb['native_effect_diag']['native_effect_coverage']} "
+           f"unaccusative_recovered={nb['native_effect_diag']['n_unaccusative_recovered']}")
+
+    if infra_fail:
+        return "HARD_FAIL", f"HARD_FAIL_INFRA_native: {msg}"
+    if not ablation_collapsed:
+        return "HARD_FAIL", f"HARD_FAIL_ABLATION_DID_NOT_COLLAPSE_void_native: {msg}"
+    if leak:
+        return "HARD_FAIL", f"HARD_FAIL_LEAKED_ANSWERS_reject_native: {msg}"
+    if prec_ok and capture_ok and scr_ok:
+        return "HARD_PASS", f"HARD_PASS_NATIVE_ROLES_CLOSE_RESIDUAL_glassbox_reading: {msg}"
+    # precise which-gate-failed reporting (director: report WHY, do not paper over)
+    fails = []
+    if not prec_ok:
+        fails.append("precision_not_above_promiscuous_and_literal")
+    if not capture_ok:
+        fails.append("does_not_capture_oracle_lift")
+    if not scr_ok:
+        fails.append("scramble_kb_does_not_collapse")
+    return "HARD_FAIL", f"HARD_FAIL_NATIVE_ROLES_residual[{'+'.join(fails)}]: {msg}"
 
 
 # ============================================================================ output plumbing
@@ -706,6 +1005,44 @@ def self_test() -> Dict:
     assert dd["decode_fidelity"] == 1.0
     assert "DESTROY" in gd["s1"]["timber"], gd["s1"]["timber"]
 
+    # -------- NATIVE thematic-role arm unit checks (fast; no parser/pred_fn assets required) --------
+    # (i) owned verb -> effect-class lexicon wired correctly.
+    assert _verb_effect_class("consumes") == {"DESTROY"}, _verb_effect_class("consumes")
+    assert _verb_effect_class("forms") == {"CREATE"}, _verb_effect_class("forms")
+    assert _verb_effect_class("buried") == {"MOVE"}, _verb_effect_class("buried")
+    assert _verb_effect_class("qwertyx") == set(), "non-verb must yield no class"
+    # (ii) native sourcing SWAP: a hand-built native_effects map replaces the word-match. timber has
+    # a DESTROY undergoer-effect -> combustion's consumes slot LICENSES DESTROY -> sourced; ash has
+    # NO native effect -> nothing sourced (even though the promiscuous matcher WOULD have hit ash in
+    # combustion's produces list). This isolates the one-variable swap.
+    native_eff = {("s1", "timber"): {"DESTROY"}, ("s1", "ash"): set()}
+    nfacts, nstats = _build_frame_activation_bridge_facts(synth, kb, scramble_kb=False, native_effects=native_eff)
+    assert "DESTROY" in nfacts[("s1", "timber")], (nfacts, nstats)
+    assert nfacts[("s1", "ash")] == {}, ("ash has no native undergoer-effect -> must source nothing", nfacts)
+    assert nstats["sourcing_mode"] == "native_roles", nstats
+
+    # (iii) native verdict logic: all-3-gates pass -> HARD_PASS; each single miss -> HARD_FAIL with reason.
+    nbase = {"split": "x", "without_f1": 0.35, "with_oracle_f1": 0.46, "with_frame_activation_f1": 0.40,
+             "arms_differ": {"all_differ": True}, "decode": {"a": 1.0}, "native_present": True,
+             "native": {"with_frame_activation_native_roles_f1": 0.42, "native_decode": 1.0,
+                        "native_precision": 0.20, "promiscuous_precision": 0.06, "native_recall": 0.30,
+                        "native_lift": 0.07, "native_survival_fraction": 0.5,
+                        "native_scramble_retained_fraction": 0.10,
+                        "native_beats_promiscuous_precision": True, "native_beats_literal_precision": True,
+                        "native_captures_oracle_lift": True, "native_scramble_collapses": True,
+                        "native_effect_diag": {"parse_coverage": 0.95, "native_effect_coverage": 0.6,
+                                                "n_unaccusative_recovered": 5}}}
+    nv_hp, _ = native_roles_verdict(nbase)
+    assert nv_hp == "HARD_PASS", nv_hp
+    for gate_key in ("native_beats_literal_precision", "native_captures_oracle_lift", "native_scramble_collapses"):
+        bad = json.loads(json.dumps(nbase)); bad["native"][gate_key] = False
+        if gate_key == "native_beats_literal_precision":
+            bad["native"]["native_precision"] = 0.05  # keep consistency with the flag
+        nv_f, _ = native_roles_verdict(bad)
+        assert nv_f == "HARD_FAIL", (gate_key, nv_f)
+    absent, _ = native_roles_verdict({"native_present": False, "native": None})
+    assert absent == "HARD_FAIL", absent
+
     # verdict-logic unit checks
     base = {"split": "x", "survival_fraction": 0.5, "frame_lift": 0.09, "oracle_lift": 0.11,
             "without_f1": 0.35, "with_frame_activation_f1": 0.42, "with_oracle_f1": 0.46,
@@ -769,14 +1106,36 @@ def main():
     train_paragraphs = _load_split("train")
     print(f"[{run_mode}] split={split} FRAME-ACTIVATION (graded concept-similarity) bridging test...", flush=True)
     result = run_decomposition(split, train_paragraphs)
-    verdict, msg = decomposition_verdict(result)
-    print(f"[{run_mode}] {verdict}: {msg}", flush=True)
+    promiscuous_verdict, promiscuous_msg = decomposition_verdict(result)
+    if result.get("native_present"):
+        # native-roles arm is the decisive test this cycle -> PRIMARY verdict; promiscuous kept as baseline.
+        verdict, msg = native_roles_verdict(result)
+        print(f"[{run_mode}] NATIVE {verdict}: {msg}", flush=True)
+        print(f"[{run_mode}] (baseline promiscuous {promiscuous_verdict}: {promiscuous_msg})", flush=True)
+    else:
+        verdict, msg = promiscuous_verdict, promiscuous_msg
+        print(f"[{run_mode}] {verdict}: {msg}", flush=True)
 
+    nb = result.get("native") or {}
     metrics = {
         "verdict": verdict, "verdict_msg": msg, "summary": f"{verdict}: {msg}",
         "elapsed_s": round(time.time() - t0, 3), "run_mode": run_mode, "anchor_name": ANCHOR_NAME, "split": split,
         "result": result,
+        "promiscuous_baseline_verdict": promiscuous_verdict, "promiscuous_baseline_msg": promiscuous_msg,
         "headline": {
+            "NATIVE_PRESENT": result.get("native_present", False),
+            "with_frame_activation_native_roles_f1": nb.get("with_frame_activation_native_roles_f1"),
+            "with_frame_activation_native_roles_scramble_kb_f1": nb.get("with_frame_activation_native_roles_scramble_kb_f1"),
+            "native_lift": nb.get("native_lift"), "native_survival_fraction": nb.get("native_survival_fraction"),
+            "native_scramble_retained_fraction": nb.get("native_scramble_retained_fraction"),
+            "native_precision": nb.get("native_precision"), "promiscuous_precision": nb.get("promiscuous_precision"),
+            "native_recall": nb.get("native_recall"),
+            "native_beats_promiscuous_precision": nb.get("native_beats_promiscuous_precision"),
+            "native_beats_literal_precision": nb.get("native_beats_literal_precision"),
+            "native_captures_oracle_lift": nb.get("native_captures_oracle_lift"),
+            "native_scramble_collapses": nb.get("native_scramble_collapses"),
+            "native_effect_diag": nb.get("native_effect_diag"),
+            "native_asset_meta": nb.get("native_asset_meta"),
             "FRAME_SURVIVAL_FRACTION": result["survival_fraction"],
             "SCRAMBLE_SURVIVAL_FRACTION": result["scramble_survival_fraction"],
             "SCRAMBLE_RETAINED_FRACTION": result["scramble_retained_fraction"],
