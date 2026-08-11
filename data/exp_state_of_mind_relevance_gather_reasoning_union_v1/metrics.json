@@ -1,0 +1,119 @@
+{
+  "verdict": "HARD_PASS_state_of_mind_gather_load_bearing",
+  "verdict_msg": "arm3@5=0.3802 vs arm1@5=0.0413 (delta=0.3388 >= 0.20); scramble collapses to 0.0496 (<=0.10); ablation delta 0.3388 >= 0.15",
+  "summary": "arm3@5=0.3802 vs arm1@5=0.0413 (delta=0.3388 >= 0.20); scramble collapses to 0.0496 (<=0.10); ablation delta 0.3388 >= 0.15",
+  "elapsed_s": 123.79076210001949,
+  "ts_iso": "2026-08-11T17:53:32.433360+00:00",
+  "anchor_name": "state_of_mind_relevance_gather_reasoning_union_v1",
+  "run_mode": "full",
+  "process_filter": "ALL",
+  "n_ent": 4946,
+  "n_targets": 121,
+  "reading_audit": {
+    "n_processes": 15,
+    "n_process_entity_pairs": 95,
+    "vocab_size": 70
+  },
+  "cskg_audit": {
+    "narrow_materials": 13,
+    "narrow_edges": 73,
+    "wide_materials": 64,
+    "wide_edges": 10403
+  },
+  "gap_set_audit": {
+    "raw_n": 124,
+    "survive_n": 121,
+    "unique_n": 121,
+    "hub_material_counts": {
+      "water": 44,
+      "steel": 38,
+      "rock": 8,
+      "magnesium": 7,
+      "sugar": 6,
+      "energy": 6,
+      "lava": 3,
+      "mineral": 2,
+      "material": 2,
+      "oxygen": 2
+    }
+  },
+  "ca3_gather_audit": {
+    "precision_mean": 0.9197924297924298,
+    "recall_mean": 0.9841269841269842
+  },
+  "recovery": {
+    "arm0_at1": 0.0,
+    "arm0_at5": 0.0,
+    "arm1_at1": 0.024793388429752067,
+    "arm1_at5": 0.04132231404958678,
+    "arm2_at1": 0.0,
+    "arm2_at5": 0.024793388429752067,
+    "arm3_at1": 0.10743801652892562,
+    "arm3_at5": 0.38016528925619836
+  },
+  "ablation_delta_arm3_minus_arm1_at5": 0.33884297520661155,
+  "scramble_control": {
+    "arm3_scrambled_at1": 0.04132231404958678,
+    "arm3_scrambled_at5": 0.049586776859504134
+  },
+  "causenet_leak_audit": {
+    "n_scanned": 197806,
+    "n_vocab_hits": 657,
+    "n_literal_leaks": 0,
+    "literal_leaks": []
+  },
+  "per_process_recovery": {
+    "carbon_cycle": {
+      "n": 5,
+      "arm1_at5": 0.0,
+      "arm3_at5": 1.0
+    },
+    "combustion": {
+      "n": 7,
+      "arm1_at5": 0.0,
+      "arm3_at5": 0.7142857142857143
+    },
+    "electricity_generation": {
+      "n": 24,
+      "arm1_at5": 0.08333333333333333,
+      "arm3_at5": 0.4166666666666667
+    },
+    "erosion_weathering": {
+      "n": 16,
+      "arm1_at5": 0.0625,
+      "arm3_at5": 0.25
+    },
+    "hydrocarbon_formation": {
+      "n": 41,
+      "arm1_at5": 0.0,
+      "arm3_at5": 0.07317073170731707
+    },
+    "igneous_rock_cycle": {
+      "n": 6,
+      "arm1_at5": 0.0,
+      "arm3_at5": 1.0
+    },
+    "photosynthesis": {
+      "n": 19,
+      "arm1_at5": 0.10526315789473684,
+      "arm3_at5": 0.5263157894736842
+    },
+    "respiration": {
+      "n": 1,
+      "arm1_at5": 0.0,
+      "arm3_at5": 1.0
+    },
+    "sedimentation": {
+      "n": 2,
+      "arm1_at5": 0.0,
+      "arm3_at5": 1.0
+    }
+  },
+  "arms_differ_verified": true,
+  "bands": {
+    "hard_pass_delta_min": 0.2,
+    "hard_pass_floor_min": 0.2,
+    "hard_pass_scramble_max": 0.1,
+    "hard_pass_ablation_delta_min": 0.15
+  }
+}
