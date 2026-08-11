@@ -1,0 +1,330 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: split=dev FRAME_SURVIVAL=0.08079181859104281 (frame_lift=0.0061 / oracle_lift=0.0751) frame_f1=0.3302 oracle_f1=0.3993 without_f1=0.3242 pair_recall=0.2619(lit=0.2469) pair_precision=0.0655(lit=0.0905) recall_up=True precision_up=False scramble_retained_fraction=2.417417047478333 scramble_collapsed=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "summary": "HARD_FAIL: HARD_FAIL_FRAME_ACTIVATION_DOES_NOT_BEAT_LITERAL_FLOOR_residual: split=dev FRAME_SURVIVAL=0.08079181859104281 (frame_lift=0.0061 / oracle_lift=0.0751) frame_f1=0.3302 oracle_f1=0.3993 without_f1=0.3242 pair_recall=0.2619(lit=0.2469) pair_precision=0.0655(lit=0.0905) recall_up=True precision_up=False scramble_retained_fraction=2.417417047478333 scramble_collapsed=False ablation_collapsed=True leak=False arms_ok=True decode_ok=True",
+  "elapsed_s": 17.499,
+  "run_mode": "smoke",
+  "anchor_name": "propara_bridging_frame_activation_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 17.495,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2",
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_frame_activation": "ad17f1f02ed9782bfa496613612f2bb8f98ea2c95adb9f90fac687e52c49dd78",
+        "with_frame_activation_scramble_kb": "3c9c4358e53c356f5352d6f730c9739ad140146cc0983c022e9eb3d30ef95b50"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_oracle": true,
+        "prior_lesion_vs_with_frame_activation": true,
+        "prior_lesion_vs_with_frame_activation_scramble_kb": true,
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_frame_activation": true,
+        "without_knowledge_vs_with_frame_activation_scramble_kb": true,
+        "with_oracle_vs_with_frame_activation": true,
+        "with_oracle_vs_with_frame_activation_scramble_kb": true,
+        "with_frame_activation_vs_with_frame_activation_scramble_kb": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "frame_activation": 1.0,
+      "frame_activation_scramble_kb": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_frame_activation": {
+        "macro_f1": 0.3302287380569502,
+        "accuracy": 0.7740259740259741,
+        "n": 770
+      },
+      "with_frame_activation_scramble_kb": {
+        "macro_f1": 0.3388337546896144,
+        "accuracy": 0.7805194805194805,
+        "n": 770
+      }
+    },
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_frame_activation_f1": 0.3302287380569502,
+    "with_frame_activation_scramble_kb_f1": 0.3388337546896144,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "frame_lift": 0.006070913742693473,
+    "scramble_lift": 0.014675930375357693,
+    "survival_fraction": 0.08079181859104281,
+    "scramble_survival_fraction": 0.19530751955876383,
+    "scramble_retained_fraction": 2.417417047478333,
+    "frame_minus_prior_lesion": -0.007245804218709684,
+    "fact_coverage_frame_vs_oracle": {
+      "pair_precision": 0.0655,
+      "pair_recall": 0.2619,
+      "pair_f1": 0.1048,
+      "participant_binding_coverage": 0.4412,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 15
+    },
+    "fact_coverage_scramble_vs_oracle": {
+      "pair_precision": 0.0,
+      "pair_recall": 0.0,
+      "pair_f1": 0.0,
+      "participant_binding_coverage": 0.0294,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 1
+    },
+    "frame_sourcing_stats": {
+      "n_paragraphs_matched": 34,
+      "n_role_hits": 151,
+      "n_graded_only_role_hits": 12,
+      "n_never_mentioned_participants": 0,
+      "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation",
+          "sedimentation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      },
+      "scramble_kb": false
+    },
+    "scramble_sourcing_stats": {
+      "n_paragraphs_matched": 34,
+      "n_role_hits": 12,
+      "n_graded_only_role_hits": 0,
+      "n_never_mentioned_participants": 0,
+      "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+      "process_match_sample": {
+        "4": [
+          "photosynthesis",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "photosynthesis",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "water_cycle",
+          "neural_signaling"
+        ],
+        "349": [
+          "combustion"
+        ],
+        "375": [
+          "water_cycle",
+          "digestion"
+        ],
+        "388": [
+          "water_cycle",
+          "igneous_rock_cycle"
+        ],
+        "390": [
+          "water_cycle"
+        ],
+        "394": [
+          "water_cycle",
+          "neural_signaling"
+        ]
+      },
+      "scramble_kb": true
+    },
+    "kb_hand_vet": [
+      "combustion CONSUMES fuel + oxygen -> PRODUCES CO2 + ash + heat (general chemistry).",
+      "photosynthesis CONSUMES CO2 + water -> PRODUCES glucose + oxygen (general biology).",
+      "respiration CONSUMES oxygen + glucose -> PRODUCES CO2 + energy + water (general biology).",
+      "water cycle MOVES water; evaporation/condensation PRODUCES vapor/cloud/rain (general earth science).",
+      "erosion/weathering CONSUMES rock -> PRODUCES + MOVES sediment/soil/silt (general geology).",
+      "fossilization CONSUMES buried organisms (plants/plankton) -> PRODUCES fossils/oil/minerals (general geology).",
+      "igneous rock cycle: magma/rock melts + cools -> PRODUCES rock/crystal; MOVES magma/lava (general geology).",
+      "digestion CONSUMES food -> PRODUCES nutrients + waste; MOVES food/nutrients (general biology).",
+      "electricity generation MOVES electrons/magnet -> PRODUCES current/electricity (general physics).",
+      "sound propagation MOVES waves -> PRODUCES echoes (general physics)."
+    ],
+    "kb_n_processes": 18,
+    "official": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_frame_activation": {
+        "precision": 0.80075,
+        "recall": 0.6164999999999999,
+        "f1": 0.697
+      },
+      "with_frame_activation_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      }
+    },
+    "literal_reference_TEST": {
+      "survival": 0.18226561332964253,
+      "pair_recall": 0.2469,
+      "pair_precision": 0.0905
+    }
+  },
+  "headline": {
+    "FRAME_SURVIVAL_FRACTION": 0.08079181859104281,
+    "SCRAMBLE_SURVIVAL_FRACTION": 0.19530751955876383,
+    "SCRAMBLE_RETAINED_FRACTION": 2.417417047478333,
+    "with_frame_activation_f1": 0.3302287380569502,
+    "with_frame_activation_scramble_kb_f1": 0.3388337546896144,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "prior_lesion_f1": 0.3374745422756599,
+    "frame_lift": 0.006070913742693473,
+    "oracle_lift": 0.07514267964957705,
+    "frame_minus_prior_lesion": -0.007245804218709684,
+    "frame_pair_recall": 0.2619,
+    "frame_pair_precision": 0.0655,
+    "literal_reference_TEST": {
+      "survival": 0.18226561332964253,
+      "pair_recall": 0.2469,
+      "pair_precision": 0.0905
+    },
+    "frame_sourcing_stats": {
+      "n_paragraphs_matched": 34,
+      "n_role_hits": 151,
+      "n_graded_only_role_hits": 12,
+      "n_never_mentioned_participants": 0,
+      "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation",
+          "sedimentation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      },
+      "scramble_kb": false
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_frame_activation": {
+        "precision": 0.80075,
+        "recall": 0.6164999999999999,
+        "f1": 0.697
+      },
+      "with_frame_activation_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1-comparison over a fixed real corpus (ProPara EMNLP18); no noise-floor threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: FRAME_SIM_THRESH/ROLE_SIM_THRESH DEV-pinned on lexicon self-test evidence; discriminator-fires re-verified in self_test()",
+  "thresholds": {
+    "FRAME_SURVIVAL_HARD_PASS": 0.36453122665928506,
+    "FRAME_SURVIVAL_HARD_FAIL": 0.2004921746626068,
+    "SCRAMBLE_MAX_RETAINED_FRACTION": 0.5,
+    "FRAME_SIM_THRESH": 0.45,
+    "ROLE_SIM_THRESH": 0.7,
+    "LEAK_CEILING": 0.95,
+    "LEAK_ORACLE_MARGIN": 0.02,
+    "WITHOUT_COLLAPSE_CEILING": 0.6
+  }
+}

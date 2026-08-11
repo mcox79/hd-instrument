@@ -1,0 +1,54 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "self-test green",
+  "elapsed_s": 1.198,
+  "run_mode": "self_test",
+  "anchor_name": "propara_bridging_frame_activation_v1",
+  "result": {
+    "official_eval_fixtures": 3,
+    "kb_n_processes": 18,
+    "frame_score_synth": 8.0,
+    "hits_synth": 8,
+    "literal_score_synth": 0,
+    "graded_facts_timber": {
+      "DESTROY": [
+        "CREATE",
+        "DESTROY"
+      ]
+    },
+    "sourcing_stats": {
+      "n_paragraphs_matched": 1,
+      "n_role_hits": 1,
+      "n_graded_only_role_hits": 1,
+      "n_never_mentioned_participants": 0,
+      "n_facts_sourced_for_never_mentioned_IMPLICIT": 0,
+      "process_match_sample": {
+        "s1": [
+          "fossilization",
+          "combustion"
+        ]
+      },
+      "scramble_kb": false
+    },
+    "with_frame_timber_labels": [
+      "NONE",
+      "NONE",
+      "DESTROY",
+      "CREATE"
+    ],
+    "lexicon_probe": {
+      "blaze_fire": 1.0,
+      "timber_wood": 1.0,
+      "wood_ash_overlink_guard": 0.4076681137084961
+    },
+    "verdict_logic_unit_checks": {
+      "hard_pass": "HARD_PASS",
+      "leak": "HARD_FAIL",
+      "scramble_not_collapsed": "HARD_FAIL",
+      "no_go": "HARD_FAIL",
+      "void": "HARD_FAIL",
+      "middle_band": "MIDDLE_BAND"
+    }
+  }
+}
