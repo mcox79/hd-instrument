@@ -1,0 +1,113 @@
+{
+  "dataset": "MAVEN-ERE (Wang et al., EMNLP 2022, arXiv:2211.07342)",
+  "source": "https://github.com/THU-KEG/MAVEN-ERE",
+  "obtained_via": "Tsinghua Cloud mirror linked from the repo README (data/download_maven.sh URL), fetched 2026-08-10",
+  "train_docs": 2913,
+  "dev_docs": 710,
+  "eval_split_used": "valid.jsonl (dev; test.jsonl gold is hidden per the repo README, CodaLab-only)",
+  "causal": {
+    "majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 32.95918782082758,
+      "accuracy_pct": 97.78004451642968,
+      "n_candidate_pairs": 613706,
+      "gold_label_dist": {
+        "0": 600082,
+        "1": 10347,
+        "2": 3277
+      },
+      "gold_label_frac": {
+        "0": 0.9778004451642969,
+        "1": 0.016859864495377266,
+        "2": 0.005339690340325824
+      }
+    },
+    "adjacent_sentence_heuristic": {
+      "official_micro_f1_positive_only": {
+        "precision": 1.3938007073018515,
+        "recall": 0.49177921315325895,
+        "f1": 0.7270359720036894
+      },
+      "macro_f1_all_labels": 33.392750082587646,
+      "accuracy_pct": 97.05217156097545,
+      "n_candidate_pairs": 613706,
+      "gold_label_dist": {
+        "0": 600082,
+        "1": 10347,
+        "2": 3277
+      },
+      "gold_label_frac": {
+        "0": 0.9778004451642969,
+        "1": 0.016859864495377266,
+        "2": 0.005339690340325824
+      }
+    },
+    "bag_of_event_types": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 32.95710490590994,
+      "accuracy_pct": 97.76782368104597,
+      "n_candidate_pairs": 613706,
+      "gold_label_dist": {
+        "0": 600082,
+        "1": 10347,
+        "2": 3277
+      },
+      "gold_label_frac": {
+        "0": 0.9778004451642969,
+        "1": 0.016859864495377266,
+        "2": 0.005339690340325824
+      }
+    }
+  },
+  "subevent": {
+    "majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 49.75030970766708,
+      "accuracy_pct": 99.00620166659606,
+      "n_candidate_pairs": 613706,
+      "gold_label_dist": {
+        "0": 607607,
+        "1": 6099
+      },
+      "gold_label_frac": {
+        "0": 0.9900620166659606,
+        "1": 0.009937983334039426
+      }
+    }
+  },
+  "cited_published_baselines_for_corroboration": {
+    "source_2022_paper": "Wang et al. 2022 EMNLP (MAVEN-ERE paper), RoBERTa-based joint model",
+    "causal_f1_2022": 31.5,
+    "subevent_f1_2022": 27.5,
+    "source_2023_protoem": "ProtoEM, arXiv:2309.12892 (2023)",
+    "causal_f1_2023_protoem": 31.96,
+    "causal_f1_2023_protoem_std": 0.24,
+    "subevent_f1_2023_protoem": 29.73,
+    "subevent_f1_2023_protoem_std": 0.26,
+    "human_agreement_causal_kappa": 0.695,
+    "human_agreement_subevent_kappa": 0.751,
+    "note": "CITED from notes/research_next_benchmark_after_propara_trap_check_2026-08-10.md (Lane C lit-scan sources: MAVEN-ERE paper + ProtoEM arXiv:2309.12892); not re-derived here."
+  },
+  "verdict": {
+    "band": "HARD-PASS",
+    "majority_f1": 0.0,
+    "adjacent_sentence_heuristic_f1": 0.7270359720036894,
+    "bag_of_event_types_f1": 0.0,
+    "published_sota_f1": 31.96,
+    "best_baseline_f1": 0.7270359720036894,
+    "headroom_vs_sota": 31.23296402799631,
+    "within_5pts_of_sota": []
+  }
+}
