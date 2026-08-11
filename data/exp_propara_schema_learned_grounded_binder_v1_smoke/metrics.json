@@ -1,0 +1,359 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_LEARNED_BINDER_DOES_NOT_BEAT_PROMISCUOUS: split=dev learned_f1=0.3374 promisc_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 survival=0.17664481906947355 learned_lift=0.0133 promisc_lift=0.0123 learned_prec=0.0385(promisc=0.0787) learned_recall=0.0714 beats_promiscuous=False scramble_retained=1.1056509926959721 scramble_collapsed=False UNSEEN[n=29 learned_prec=0.0 promisc_prec=0.0 learned_f1=0.0 seen_f1=0.0545 memo_ratio=0.0] unseen_beats_promisc=False not_memorized=False generalizes=False floor_collapsed=True leak=False arms_ok=True decode_ok=True gam[{'n_train_instances': 2382, 'n_fill_train': 1089, 'compression_ratio': 0.7961, 'n_main_keys': 263, 'n_interaction_keys': 40, 'is_episodic': False}]",
+  "summary": "HARD_FAIL: HARD_FAIL_LEARNED_BINDER_DOES_NOT_BEAT_PROMISCUOUS: split=dev learned_f1=0.3374 promisc_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 survival=0.17664481906947355 learned_lift=0.0133 promisc_lift=0.0123 learned_prec=0.0385(promisc=0.0787) learned_recall=0.0714 beats_promiscuous=False scramble_retained=1.1056509926959721 scramble_collapsed=False UNSEEN[n=29 learned_prec=0.0 promisc_prec=0.0 learned_f1=0.0 seen_f1=0.0545 memo_ratio=0.0] unseen_beats_promisc=False not_memorized=False generalizes=False floor_collapsed=True leak=False arms_ok=True decode_ok=True gam[{'n_train_instances': 2382, 'n_fill_train': 1089, 'compression_ratio': 0.7961, 'n_main_keys': 263, 'n_interaction_keys': 40, 'is_episodic': False}]",
+  "elapsed_s": 66.858,
+  "run_mode": "smoke",
+  "anchor_name": "propara_schema_learned_grounded_binder_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 66.858,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2",
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_promiscuous_completion": "800014f81e69c632ab2ba2022ea1a4d835968759ef09eeecd70608f49e86fb3f",
+        "with_learned_binder": "98474be43fa0d86dfc17e258a21109322c18b907f0e8389bed428c3a28135ab5",
+        "with_learned_binder_scramble_kb": "3c9c4358e53c356f5352d6f730c9739ad140146cc0983c022e9eb3d30ef95b50"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_oracle": true,
+        "prior_lesion_vs_with_promiscuous_completion": true,
+        "prior_lesion_vs_with_learned_binder": true,
+        "prior_lesion_vs_with_learned_binder_scramble_kb": true,
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_promiscuous_completion": true,
+        "without_knowledge_vs_with_learned_binder": true,
+        "without_knowledge_vs_with_learned_binder_scramble_kb": true,
+        "with_oracle_vs_with_promiscuous_completion": true,
+        "with_oracle_vs_with_learned_binder": true,
+        "with_oracle_vs_with_learned_binder_scramble_kb": true,
+        "with_promiscuous_completion_vs_with_learned_binder": true,
+        "with_promiscuous_completion_vs_with_learned_binder_scramble_kb": true,
+        "with_learned_binder_vs_with_learned_binder_scramble_kb": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "promiscuous": 1.0,
+      "learned": 1.0,
+      "learned_scramble_kb": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_promiscuous_completion": {
+        "macro_f1": 0.33648273349567515,
+        "accuracy": 0.7766233766233767,
+        "n": 770
+      },
+      "with_learned_binder": {
+        "macro_f1": 0.33743138936535166,
+        "accuracy": 0.7779220779220779,
+        "n": 770
+      },
+      "with_learned_binder_scramble_kb": {
+        "macro_f1": 0.3388337546896144,
+        "accuracy": 0.7805194805194805,
+        "n": 770
+      }
+    },
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_promiscuous_completion_f1": 0.33648273349567515,
+    "with_learned_binder_f1": 0.33743138936535166,
+    "with_learned_binder_scramble_kb_f1": 0.3388337546896144,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "promiscuous_lift": 0.01232490918141843,
+    "learned_lift": 0.013273565051094949,
+    "learned_scramble_lift": 0.014675930375357693,
+    "survival_fraction": 0.17664481906947355,
+    "promiscuous_survival_fraction": 0.16402009136345463,
+    "scramble_retained_fraction": 1.1056509926959721,
+    "learned_minus_prior_lesion": -4.315291030820845e-05,
+    "fact_coverage_learned_vs_oracle": {
+      "pair_precision": 0.0385,
+      "pair_recall": 0.0714,
+      "pair_f1": 0.05,
+      "participant_binding_coverage": 0.2647,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 9
+    },
+    "fact_coverage_promiscuous_vs_oracle": {
+      "pair_precision": 0.0787,
+      "pair_recall": 0.1667,
+      "pair_f1": 0.1069,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "fact_coverage_learned_scramble_vs_oracle": {
+      "pair_precision": 0.0,
+      "pair_recall": 0.0,
+      "pair_f1": 0.0,
+      "participant_binding_coverage": 0.0,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 0
+    },
+    "heldout_surface": {
+      "n_unseen_participants": 29,
+      "n_seen_participants": 146,
+      "learned_unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 6,
+        "n_oracle_participants_covered_by_real": 0
+      },
+      "learned_seen": {
+        "pair_precision": 0.04,
+        "pair_recall": 0.0857,
+        "pair_f1": 0.0545,
+        "participant_binding_coverage": 0.3214,
+        "n_oracle_participants_with_fact": 28,
+        "n_oracle_participants_covered_by_real": 9
+      },
+      "promiscuous_unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 6,
+        "n_oracle_participants_covered_by_real": 0
+      },
+      "memorization_ratio_unseenf1_over_seenf1": 0.0,
+      "n_oracle_unseen_with_fact": 6
+    },
+    "binder_meta": {
+      "n_train_instances": 2382,
+      "n_fill_train": 1089,
+      "compression_ratio": 0.7961,
+      "n_main_keys": 263,
+      "n_interaction_keys": 40,
+      "is_episodic": false
+    },
+    "train_instance_stats": {
+      "n_instances": 2382,
+      "n_matched_paras": 149,
+      "n_completions": 204,
+      "n_completions_no_query": 0,
+      "scramble_kb": false
+    },
+    "eval_instance_stats": {
+      "n_instances": 373,
+      "n_matched_paras": 17,
+      "n_completions": 26,
+      "n_completions_no_query": 0,
+      "scramble_kb": false
+    },
+    "learned_apply_stats": {
+      "n_fill": 90,
+      "n_fill_for_unmentioned_IMPLICIT": 0
+    },
+    "promiscuous_stats": {
+      "ablation": false,
+      "scramble_kb": false,
+      "n_paragraphs_matched": 17,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 26,
+      "gate_pass_fraction": 0.3023,
+      "n_completions_attempted": 26,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 24,
+      "trigger_completion_agreement_rate": 0.9231,
+      "n_role_assignments": 88,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      }
+    },
+    "kb_n_processes": 18,
+    "official": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_promiscuous_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_learned_binder": {
+        "precision": 0.7955000000000001,
+        "recall": 0.6127500000000001,
+        "f1": 0.692
+      },
+      "with_learned_binder_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      }
+    }
+  },
+  "headline": {
+    "SURVIVAL_FRACTION": 0.17664481906947355,
+    "PROMISCUOUS_SURVIVAL_FRACTION": 0.16402009136345463,
+    "SCRAMBLE_RETAINED_FRACTION": 1.1056509926959721,
+    "with_learned_binder_f1": 0.33743138936535166,
+    "with_promiscuous_completion_f1": 0.33648273349567515,
+    "with_learned_binder_scramble_kb_f1": 0.3388337546896144,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "learned_lift": 0.013273565051094949,
+    "promiscuous_lift": 0.01232490918141843,
+    "oracle_lift": 0.07514267964957705,
+    "learned_pair_precision": 0.0385,
+    "learned_pair_recall": 0.0714,
+    "promiscuous_pair_precision": 0.0787,
+    "HELDOUT_SURFACE": {
+      "n_unseen_participants": 29,
+      "n_seen_participants": 146,
+      "learned_unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 6,
+        "n_oracle_participants_covered_by_real": 0
+      },
+      "learned_seen": {
+        "pair_precision": 0.04,
+        "pair_recall": 0.0857,
+        "pair_f1": 0.0545,
+        "participant_binding_coverage": 0.3214,
+        "n_oracle_participants_with_fact": 28,
+        "n_oracle_participants_covered_by_real": 9
+      },
+      "promiscuous_unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "participant_binding_coverage": 0.0,
+        "n_oracle_participants_with_fact": 6,
+        "n_oracle_participants_covered_by_real": 0
+      },
+      "memorization_ratio_unseenf1_over_seenf1": 0.0,
+      "n_oracle_unseen_with_fact": 6
+    },
+    "binder_meta": {
+      "n_train_instances": 2382,
+      "n_fill_train": 1089,
+      "compression_ratio": 0.7961,
+      "n_main_keys": 263,
+      "n_interaction_keys": 40,
+      "is_episodic": false
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_promiscuous_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_learned_binder": {
+        "precision": 0.7955000000000001,
+        "recall": 0.6127500000000001,
+        "f1": 0.692
+      },
+      "with_learned_binder_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "F1 over a fixed real corpus (ProPara EMNLP18) + counting/log-odds glass-box learner; no noise-floor threshold. gam MDL compression_ratio reported.",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: gam min_coverage=3/max_interactions=40 pre-set; discriminator-fires = learned binder must beat promiscuous on the held-out surface subset",
+  "thresholds": {
+    "SCRAMBLE_MAX_RETAINED_FRACTION": 0.5,
+    "MEMORIZATION_MIN_RATIO": 0.34,
+    "LEAK_CEILING": 0.95,
+    "LEAK_ORACLE_MARGIN": 0.02,
+    "WITHOUT_COLLAPSE_CEILING": 0.6,
+    "SCHEMA_D": 1024
+  }
+}

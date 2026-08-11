@@ -1,0 +1,47 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "self-test green",
+  "elapsed_s": 2.341,
+  "run_mode": "self_test",
+  "anchor_name": "propara_schema_learned_grounded_binder_v1",
+  "result": {
+    "kb_n_processes": 18,
+    "wn_lexname_probe": {
+      "wood": "noun.substance",
+      "oxygen": "noun.substance",
+      "ash": "noun.substance",
+      "electricity": "noun.phenomenon"
+    },
+    "synth_learner_meta": {
+      "n_train_instances": 120,
+      "n_fill_train": 60,
+      "compression_ratio": 10.1565,
+      "n_main_keys": 9,
+      "n_interaction_keys": 0,
+      "is_episodic": false
+    },
+    "real_binder_meta": {
+      "n_train_instances": 9,
+      "n_fill_train": 3,
+      "compression_ratio": 0.3123,
+      "n_main_keys": 16,
+      "n_interaction_keys": 0,
+      "is_episodic": false
+    },
+    "n_real_instances": 9,
+    "feature_kinds_present": [
+      "cat",
+      "cs",
+      "gm",
+      "lex",
+      "schema",
+      "schemaslot",
+      "slot",
+      "surf"
+    ],
+    "verdict_logic_unit_checks": {
+      "hard_pass": "HARD_PASS"
+    }
+  }
+}
