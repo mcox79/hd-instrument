@@ -1,0 +1,978 @@
+{
+  "n": 120,
+  "n_correct": 87,
+  "passage_tag_accuracy": 0.725,
+  "wrong_by_tagged_process": {
+    "carbon_cycle": 9,
+    "respiration": 6,
+    "water_cycle": 5,
+    "fossilization": 4,
+    "hydrocarbon_formation": 3,
+    "digestion": 2,
+    "nitrogen_cycle": 2,
+    "combustion": 1,
+    "phase_change": 1
+  },
+  "rows": [
+    {
+      "entity": "rock",
+      "process": "igneous_rock_cycle",
+      "fate": "CREATE",
+      "sentence": "The lava forms new rock.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "particle",
+      "process": "erosion_weathering",
+      "fate": "MOVE",
+      "sentence": "The waves carry the new particles with them.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "Water vapor condenses into millions of tiny droplets that form clouds.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "The water forms clouds in the sky.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "magma",
+      "process": "igneous_rock_cycle",
+      "fate": "CREATE",
+      "sentence": "The magma is sometimes released from the volcano as lava.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "rock",
+      "process": "igneous_rock_cycle",
+      "fate": "CREATE",
+      "sentence": "Igneous rock is formed.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "The water forms clouds in the sky.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "gas",
+      "process": "combustion",
+      "fate": "DESTROY",
+      "sentence": "OFW uses a flame from burning fuel gas and oxygen to heat up the metal.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "mineral",
+      "process": "igneous_rock_cycle",
+      "fate": "CREATE",
+      "sentence": "The solidified magma forms minerals.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "crystal",
+      "process": "phase_change",
+      "fate": "CREATE",
+      "sentence": "The water forms tiny ice crystals.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "stream",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "The water creates a stream.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "rock",
+      "process": "erosion_weathering",
+      "fate": "CREATE",
+      "sentence": "The wind or water deposits tiny rocks.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "bond",
+      "process": "carbon_cycle",
+      "fate": "CREATE",
+      "sentence": "For example, in the gas acetylene carbon forms a triple bond with another carbon atom.",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "sediment",
+      "process": "erosion_weathering",
+      "fate": "CREATE",
+      "sentence": "Sediment is deposited on the same spot many times.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Water is absorbed by the plant and transported to the leaves.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "fuel",
+      "process": "combustion",
+      "fate": "DESTROY",
+      "sentence": "Glow fuel can be burned by very simple two-stroke engines or by four-stroke engines.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "cellulose",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "The sugars can be used by the plant to make cellulose.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "The roots absorb water and minerals from the soil.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "sugar",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "This mixture forms sugar (glucose) which is what the plant eats.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "blood",
+      "process": "respiration",
+      "fate": "MOVE",
+      "sentence": "Oxygen-rich blood is carried to the heart.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "DESTROY",
+      "sentence": "The true bug pumps saliva through this mouth, to partly digest their food.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "Cells take in the oxygen rich blood and release carbon dioxide rich blood.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "oxygen",
+      "process": "carbon_cycle",
+      "fate": "MOVE",
+      "sentence": "The oxygen is moved into the bloodstream.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "MOVE",
+      "sentence": "The bloodstream carries the carbon dioxide back to the lungs.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "Water vapor forms clouds as it mixes with dust and impurities.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "The dam will occasionally open its gates again to gradually release more water.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "Carbon dioxide is exhaled.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "CREATE",
+      "sentence": "The glucose and oxygen create carbon dioxide.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "energy",
+      "process": "carbon_cycle",
+      "fate": "CREATE",
+      "sentence": "The cells release energy.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "CREATE",
+      "sentence": "Carbon dioxide is produced by the glucose breakdown.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "CREATE",
+      "sentence": "Another example: In the Sun (or any star), nuclear fusion changes mass into heat and light (electromagnetic radiation), which travels to Earth and is used by plants to create food (chemical energy) by photosynthesis, which can be eaten by animals allowing them to move (kinetic energy).",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "rock",
+      "process": "fossilization",
+      "fate": "DESTROY",
+      "sentence": "The plant acids dissolve the rock.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "dioxide",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Plants absorb carbon dioxide through their stoma.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "carbon_cycle",
+      "fate": "DESTROY",
+      "sentence": "The selenium dioxide is dissolved in acidic water to make selenous acid, which is reacted with sulfur dioxide to make selenium as an element.",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "mineral",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Plants absorb minerals through their roots.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "Oxygen and water are also produced.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "oxygen",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "Excess water and oxygen are released through stoma and other parts of the plant.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "The plants roots absorb the water from the soil.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "food",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "The plant creates food, called glucose, for itself.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "They absorb the water.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "DESTROY",
+      "sentence": "The lungs absorb the oxygen from the air.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "MOVE",
+      "sentence": "The oxygen is transported by hemoglobin.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "blood",
+      "process": "respiration",
+      "fate": "MOVE",
+      "sentence": "The heart moves the blood throughout the body.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "coal",
+      "process": "electricity_generation",
+      "fate": "DESTROY",
+      "sentence": "The coal is burned at high temperatures inside a boiler.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The heat generated converts water to steam.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The rotating coils produce electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "electricity_generation",
+      "fate": "MOVE",
+      "sentence": "Water pumped through pipes inside the boiler is turned into steam by the heat.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The magnets inside the generator spin within wire coils to produce electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The generator produces the electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "coal",
+      "process": "electricity_generation",
+      "fate": "MOVE",
+      "sentence": "The coal is transported either by train or truck to power station.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "coal",
+      "process": "electricity_generation",
+      "fate": "DESTROY",
+      "sentence": "The coal is burned in a furnace.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The generator makes electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "oil",
+      "process": "hydrocarbon_formation",
+      "fate": "MOVE",
+      "sentence": "Crude oil is pumped from the ground.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "oil",
+      "process": "hydrocarbon_formation",
+      "fate": "MOVE",
+      "sentence": "Oil is transported to a refinery.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "gas",
+      "process": "hydrocarbon_formation",
+      "fate": "CREATE",
+      "sentence": "The gas made from the refining is loaded onto tank trucks.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "particle",
+      "process": "fossilization",
+      "fate": "MOVE",
+      "sentence": "Eroded rock particles are carried away by wind or by rain, streams, rivers, and oceans.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "layer",
+      "process": "fossilization",
+      "fate": "CREATE",
+      "sentence": "Rock particles sink to the bottom of rivers and oceans creating a layer of sediment.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "rock",
+      "process": "fossilization",
+      "fate": "CREATE",
+      "sentence": "Lava cools and forms igneous rock.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "rain",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "This creates a more acidic rain.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "bone",
+      "process": "fossilization",
+      "fate": "MOVE",
+      "sentence": "Scavengers tear the body apart and move the bones elsewhere.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "substance",
+      "process": "fossilization",
+      "fate": "CREATE",
+      "sentence": "This creates a rock-like substance called a fossil.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "fuel",
+      "process": "combustion",
+      "fate": "DESTROY",
+      "sentence": "Human beings burn fossil fuels (oil, gas, etc.).",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "fuel",
+      "process": "combustion",
+      "fate": "DESTROY",
+      "sentence": "Human activities such as burning fuel are increasing the amount of greenhouses gases.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "ris",
+      "process": "combustion",
+      "fate": "MOVE",
+      "sentence": "The Earth's temperature rises.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "glucose",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "The plant forms glucose.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The carbon dioxide is exhaled out of the body.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "mineral",
+      "process": "erosion_weathering",
+      "fate": "MOVE",
+      "sentence": "Weathering occurs in one place with little or no movement, and should not be confused with erosion which is when rocks and minerals are moved to another place by ice, water, wind or gravity.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "enzyme",
+      "process": "digestion",
+      "fate": "CREATE",
+      "sentence": "The pancreas releases enzymes to aid digestion.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "hormone",
+      "process": "digestion",
+      "fate": "CREATE",
+      "sentence": "The pancreas releases one hormone to lower the blood sugar (glucose) level.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "heat",
+      "process": "carbon_cycle",
+      "fate": "DESTROY",
+      "sentence": "Carbon absorbs heat from the Sun.",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "glucagon",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The pancreas releases glucagon to change the blood sugar to a better level.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "oxygen",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "Within small capillaries, the heme release the oxygen.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "erythrocyte",
+      "process": "respiration",
+      "fate": "MOVE",
+      "sentence": "The erythrocytes are pumped through the body by the heart.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Water is absorbed through roots.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "lava",
+      "process": "igneous_rock_cycle",
+      "fate": "MOVE",
+      "sentence": "The present area of directly observable lava flows is estimated to be around .",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "glucose",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "Hydrogen and carbon dioxide used to create glucose.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Water is absorbed by the roots and passes through vessels in the stem on its way to the leaves.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "sun",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Chlorophyll absorbs the sun's energy.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "glucose",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "Hydrogen and carbon dioxide are used to form glucose or food for plants.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "water_cycle",
+      "fate": "MOVE",
+      "sentence": "Water is transported to the leaves in the xylem.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "sugar",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "Carbon dioxide and energy from ATP are used to create sugar.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "water",
+      "process": "electricity_generation",
+      "fate": "MOVE",
+      "sentence": "Highly purified water is pumped through pipes in the boiler.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Electricity is produced.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "DESTROY",
+      "sentence": "Laxatives work by helping your intestines digest undigested food, and do not make you lose weight.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "oxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "Sulfur in the coal combines with oxygen to form sulfur oxides.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "oxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The sulfur oxides are released into the atmosphere.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "trioxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The sulfides combine with oxygen in the atmosphere to form sulfur trioxide.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "acid",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The sulfur trioxide reacts with water in the atmosphere to form sulfuric acid, a very strong acid.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "dioxide",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "Engines produce carbon dioxide.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "waste",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "Living things produce waste.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "electricity",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "Oxygen is not just used to breathe; on the Apollo spacecraft it was used in a device called a Fuel cell to generate electricity.",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "The warm air keeps rising and forms clouds.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "bile",
+      "process": "nitrogen_cycle",
+      "fate": "CREATE",
+      "sentence": "The liver produces bile.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "protein",
+      "process": "nitrogen_cycle",
+      "fate": "CREATE",
+      "sentence": "The liver produces proteins for blood plasma.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "insulin",
+      "process": "digestion",
+      "fate": "CREATE",
+      "sentence": "The pancreas receives a signal to release insulin.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "sugar",
+      "process": "digestion",
+      "fate": "DESTROY",
+      "sentence": "Insulin signals cells to absorb sugar.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "sugar",
+      "process": "digestion",
+      "fate": "DESTROY",
+      "sentence": "The cells absorb sugar from the bloodstream.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "food",
+      "process": "digestion",
+      "fate": "DESTROY",
+      "sentence": "Your stomach digests the food.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "heat",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "A fuel source must produce heat.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "steam",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Heat is used to create steam.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Turbines will work together with magnets to generate electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electron",
+      "process": "electricity_generation",
+      "fate": "MOVE",
+      "sentence": "Electricity or moving electrons will then flow through wires.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electron",
+      "process": "electricity_generation",
+      "fate": "MOVE",
+      "sentence": "The wires will carry electrons to homes and businesses remotely.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "energy",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Uranium-235 splits, releasing energy and neutrons.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The generator creates electricity.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "gas",
+      "process": "phase_change",
+      "fate": "CREATE",
+      "sentence": "Greenhouse gases are released into the air by human activities.",
+      "src": "paragraph",
+      "process_correct": false
+    },
+    {
+      "entity": "cloud",
+      "process": "water_cycle",
+      "fate": "CREATE",
+      "sentence": "As enough water condenses, clouds are formed.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "plate",
+      "process": "igneous_rock_cycle",
+      "fate": "CREATE",
+      "sentence": "If it is magma, when it has cooled it then creates a new plate which then creates new land.",
+      "src": "passage",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "MOVE",
+      "sentence": "The carbon dioxide is carried back to the lungs via the bloodstream.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "dioxide",
+      "process": "respiration",
+      "fate": "CREATE",
+      "sentence": "The carbon dioxide is exhaled.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "water",
+      "process": "photosynthesis",
+      "fate": "DESTROY",
+      "sentence": "Plants absorb water from the ground through their root systems.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "enzyme",
+      "process": "digestion",
+      "fate": "CREATE",
+      "sentence": "Average people produce an enzyme called phenylalanine hydroxylase in their bodies.",
+      "src": "passage",
+      "process_correct": false
+    },
+    {
+      "entity": "intermediate",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "Combines the hydrogen with carbon dioxide to create an intermediate.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "glucose",
+      "process": "photosynthesis",
+      "fate": "CREATE",
+      "sentence": "The intermediate is used to produce glucose which is the plant's food.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "energy",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The energy is released from the battery as electrical current.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "needle",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "The motor makes the needle of the sewing machine go up and down.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Electricity is produced.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "electricity",
+      "process": "electricity_generation",
+      "fate": "CREATE",
+      "sentence": "Electricity is produced.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "steam",
+      "process": "phase_change",
+      "fate": "CREATE",
+      "sentence": "A the water boils steam is created.",
+      "src": "paragraph",
+      "process_correct": true
+    },
+    {
+      "entity": "waste",
+      "process": "carbon_cycle",
+      "fate": "CREATE",
+      "sentence": "The liver releases waste in the form of urea.",
+      "src": "paragraph",
+      "process_correct": false
+    }
+  ]
+}

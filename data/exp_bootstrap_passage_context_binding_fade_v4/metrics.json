@@ -1,0 +1,138 @@
+{
+  "verdict": "PENDING_PASSAGE_TAG_HANDCHECK",
+  "verdict_msg": "[FAIR passage-context binding, N_heldout=165] discontinuity resets=248; PASSAGE arm: skip=0.6378 (vs SENTENCE arm 0.3672, v2 0.8555); tagged=735; reading_only=0.2788 (SENTENCE arm 0.2788); seed_only=0.3152 combined=0.3515; LESION gap=0.0727 fade_ratio=0.7932 -> fades=False; OVERLAP=0.75 (39/52); SCRAMBLE retained=0.826 signal_above_scr=0.0485 -> collapses=False; process_passages=17/18; PASSAGE-tag accuracy pending hand-check (vs v2 0.7167)",
+  "summary": "[FAIR passage-context binding, N_heldout=165] discontinuity resets=248; PASSAGE arm: skip=0.6378 (vs SENTENCE arm 0.3672, v2 0.8555); tagged=735; reading_only=0.2788 (SENTENCE arm 0.2788); seed_only=0.3152 combined=0.3515; LESION gap=0.0727 fade_ratio=0.7932 -> fades=False; OVERLAP=0.75 (39/52); SCRAMBLE retained=0.826 signal_above_scr=0.0485 -> collapses=False; process_passages=17/18; PASSAGE-tag accuracy pending hand-check (vs v2 0.7167)",
+  "elapsed_s": 136.1,
+  "run_mode": "bootstrap_passage",
+  "anchor_name": "bootstrap_passage_context_binding_fade_v4",
+  "fairness_guards": {
+    "no_leak_dev_never_read": true,
+    "n_leak_guard_fires": 13,
+    "non_circular_tagging": "both arms tag process from TEXT signature words only; extractor + taggers never use the seed consumes/produces/moves fate lists or gold",
+    "honest_metric": "dominant-fate (FHRR unbind+cleanup), not recall-any",
+    "meaningful_scramble": "signal_above_scramble reported; held-out expanded for power",
+    "fair_corpus": "contiguous blocked SimpleWiki (900001 lines) + ProPara TRAIN; 17/18 processes covered by reading",
+    "power": "held-out EXPANDED to 165 items (was 62); still ProPara-DEV-bounded, caveat N",
+    "one_variable": "passage-scope vs sentence-scope context; extractor/store/seed/harness/corpus/held-out identical"
+  },
+  "n_heldout_items": 165,
+  "arms": {
+    "passage": {
+      "seed_only": 0.3152,
+      "reading_only": 0.2788,
+      "combined": 0.3515,
+      "lesion_gap": 0.0727,
+      "fade_ratio": 0.7932,
+      "overlap": 0.75,
+      "n_seed_covered": 52,
+      "n_seed_rederived": 39,
+      "scramble_recall": 0.2303,
+      "scramble_retained": 0.826,
+      "signal_above_scramble": 0.0485
+    },
+    "sentence": {
+      "seed_only": 0.3152,
+      "reading_only": 0.2788,
+      "combined": 0.3515,
+      "lesion_gap": 0.0727,
+      "fade_ratio": 0.7932,
+      "overlap": 0.7692,
+      "n_seed_covered": 52,
+      "n_seed_rederived": 40,
+      "scramble_recall": 0.2545,
+      "scramble_retained": 0.9128,
+      "signal_above_scramble": 0.0243
+    }
+  },
+  "coverage": {
+    "passage_tagged": 735,
+    "passage_skip_rate": 0.6378,
+    "sentence_tagged": 1284,
+    "sentence_skip_rate": 0.3672,
+    "skip_rate_v2": 0.8555,
+    "n_discontinuity_resets": 248,
+    "n_process_passages_covered": 17,
+    "n_simplewiki_lines": 900001,
+    "facts_per_process": {
+      "carbon_cycle": 129,
+      "electricity_generation": 90,
+      "hydrocarbon_formation": 86,
+      "combustion": 79,
+      "digestion": 67,
+      "respiration": 52,
+      "photosynthesis": 51,
+      "water_cycle": 36,
+      "igneous_rock_cycle": 33,
+      "erosion_weathering": 22,
+      "fossilization": 22,
+      "nitrogen_cycle": 22,
+      "phase_change": 20,
+      "dissolution": 11,
+      "decomposition": 8,
+      "sedimentation": 6,
+      "neural_signaling": 1
+    }
+  },
+  "fade_curve": [
+    {
+      "n_units": 1000,
+      "reading_only_passage": 0.2606,
+      "reading_only_sentence": 0.2242
+    },
+    {
+      "n_units": 3000,
+      "reading_only_passage": 0.2727,
+      "reading_only_sentence": 0.2606
+    },
+    {
+      "n_units": 6000,
+      "reading_only_passage": 0.2788,
+      "reading_only_sentence": 0.2788
+    },
+    {
+      "n_units": 6317,
+      "reading_only_passage": 0.2788,
+      "reading_only_sentence": 0.2788,
+      "final": true
+    }
+  ],
+  "design_gate": {
+    "passage_proctag_dump": "D:\\AI\\hd-instrument\\data\\exp_bootstrap_passage_context_binding_fade_v4\\_passage_proctag_for_handcheck.json",
+    "discontinuity_gate_dump": "D:\\AI\\hd-instrument\\data\\exp_bootstrap_passage_context_binding_fade_v4\\_discontinuity_gate_firings.json",
+    "n_proctag_sample": 120,
+    "proctag_accuracy_v2": 0.7167,
+    "PROCTAG_ACC_GATE": 0.7,
+    "PASSAGE_TAG_TARGET": 0.85,
+    "note": "passage-tag accuracy hand-checked by operator; verdict finalized after"
+  },
+  "bands": {
+    "RISE_MIN_ABS": 0.05,
+    "FADE_GAP_MAX": 0.05,
+    "FADE_RATIO_MIN": 0.85,
+    "SCRAMBLE_MAX_RETAINED": 0.5,
+    "PROCTAG_ACC_GATE": 0.7
+  },
+  "design_gate_result": {
+    "passage_tag_accuracy_handchecked": 0.725,
+    "n": 120,
+    "n_correct": 87,
+    "target": 0.85,
+    "gate": 0.7,
+    "v2_sentence_tag_accuracy": 0.7167,
+    "materially_improved_over_v2": false,
+    "wrong_by_process": {
+      "carbon_cycle": 9,
+      "respiration": 6,
+      "water_cycle": 5,
+      "fossilization": 4,
+      "hydrocarbon_formation": 3,
+      "digestion": 2,
+      "nitrogen_cycle": 2,
+      "combustion": 1,
+      "phase_change": 1
+    },
+    "dominant_error_mode": "PROCESS-VOCABULARY OVERLAP, not sentence-isolation: carbon_cycle/respiration/photosynthesis share carbon/oxygen/dioxide/glucose; fossilization vs erosion/sedimentation/igneous share rock/sediment/particle. Longer/persisted context cannot disambiguate processes whose SIGNATURE VOCAB overlaps -- so passage-binding does not raise tag accuracy (0.725 ~= v2 0.7167)."
+  },
+  "final_verdict": "HARD_FAIL_PARTIAL_passage_binding_no_tag_gain_process_vocab_overlap_dominant",
+  "final_verdict_msg": "HARD_FAIL_PARTIAL_passage_binding_no_tag_gain_process_vocab_overlap_dominant: [FAIR TEST -- no-leak (guard fires=13), non-circular (signatures only, no seed fate-lists), dominant-fate metric, expanded N=165, blocked corpus 17/18 processes]. PASSAGE-TAG accuracy (hand-checked) = 0.725 (87/120) ~= v2 sentence-tag 0.7167 -> drill HARD-PASS prediction #1 (>=0.85) FALSIFIED; dominant error is PROCESS-VOCABULARY OVERLAP not sentence-isolation. ONE-VARIABLE: passage arm reading_only=0.2788 == sentence arm 0.2788 -> passage-vs-sentence context scope makes NO difference to recall (the vs-v3 improvement is from the expanded held-out + blocked corpus, not the passage mechanism). FADE (fair): reading_only=0.2788 seed_only=0.3152 combined=0.3515; LESION gap=0.0727 fade_ratio=0.7932 OVERLAP=0.75 (39/52) -> much closer than v3 (overlap 0.31->0.75) but does NOT cleanly fade (gap 0.0727>0.05, ratio 0.7932<0.85). SCRAMBLE retained=0.826 signal_above_scramble=0.0485 -> does not collapse (3-class base-rate floor; genuine entity-specific signal only ~0.0485). discontinuity gate fires 248x but ~every 3 facts -> SimpleWiki lacks long coherent process-passages (Section 5d scattered-not-blocked ceiling). CONCLUSION: PARTIAL / EXTEND-NOT-FULLY-FADE holds under a fair test. Per the drill's own HARD-FAIL#1 + MIDDLE_BAND: sentence-isolation was NOT the dominant tagging error (falsified), and the corpus-density ceiling holds -- next levers are a genuinely process-coherent BLOCKED corpus + process-DISAMBIGUATION (overlapping signatures), not longer context; the discourse-persistence neuroscience remains well-supported independent of this substrate-specific null."
+}

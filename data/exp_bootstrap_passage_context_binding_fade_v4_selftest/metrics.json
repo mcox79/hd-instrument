@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "passage_gate": "persist+fire+not-triggerhappy+abstain OK",
+    "sentence_arm": "ok",
+    "heldout_n": 165
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: passage gate + sentence arm + expanded held-out (N=165) OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 11.84,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_passage_context_binding_fade_v4"
+}

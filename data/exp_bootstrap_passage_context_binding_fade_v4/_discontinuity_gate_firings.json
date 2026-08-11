@@ -1,0 +1,725 @@
+{
+  "n_reset": 248,
+  "sample": [
+    {
+      "sentence": "Plants need the carbon dioxide in the air to live.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "They give off the oxygen that we breathe.",
+      "old": "carbon_cycle",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "The phlogiston theory seemed to explain many observations about fire and burning, so it became very popular in European chemistry for many years.",
+      "old": "respiration",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "Even though their ideas about phlogiston were wrong, these discoveries of oxygen, hydrogen, and carbon dioxide changed chemistry forever.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Ammonia is a key ingredient in nitrogen fertilizers.",
+      "old": "hydrocarbon_formation",
+      "new": "nitrogen_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "In the field of energy, chemists made big progress in creating new ways to produce cleaner and better power, so people would not have to rely so much on fossil ",
+      "old": "digestion",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Cooking is a process to make food ready to eat by heating it.",
+      "old": "fossilization",
+      "new": "digestion",
+      "hits": 2
+    },
+    {
+      "sentence": "Scientists look at how greenhouse gases, like carbon dioxide, and aerosols in the atmosphere are causing global warming and melting polar ice.",
+      "old": "erosion_weathering",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "Another branch, called paleoclimatology, uses clues from ice cores, tree rings, and sediment layers to learn about climates from thousands of years ago.",
+      "old": "carbon_cycle",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "Water vapor, which can range from 0 to 4% of the atmosphere, is also very important because it forms clouds, causes rain, and plays a big role in the greenhouse",
+      "old": "carbon_cycle",
+      "new": "water_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Burning these fuels creates more carbon dioxide which causes more warming.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "As a result, 59 nuclear power plants generate most of the electricity produced in the country (78% in 2006, up from only 8% in 1973, 24% in 1980, and 75% in 199",
+      "old": "carbon_cycle",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "At normal temperature and pressure, hydrogen gas (H2) has no color, smell, or taste.",
+      "old": "combustion",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "This is why scientists focus on other methods of storage, such as gas, liquid, or solid storage.",
+      "old": "dissolution",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "A fuel cell joins hydrogen with an oxygen molecule, releasing an electron as electricity.",
+      "old": "respiration",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "With sunlight, water, and carbon dioxide, the plastids make sugars, the basic molecules needed by the plant.",
+      "old": "digestion",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Rhizobia bacteria in root nodules help some plants get nitrogen.",
+      "old": "decomposition",
+      "new": "nitrogen_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Once gravity became stronger than the pressure trying to push the gas outward, the center of the cloud started to collapse inward.",
+      "old": "water_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Scientists believe this clearing happened within about 10 million years after the Solar System began.",
+      "old": "hydrocarbon_formation",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "These hidden oceans could have geysers or even cryovolcanoes (volcanoes that erupt ice instead of lava).",
+      "old": "hydrocarbon_formation",
+      "new": "igneous_rock_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "As they get closer to the Sun, the heat causes their ice to melt, creating bright tails of gas and dust.",
+      "old": "water_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "They need oxygen as well as carbon dioxide to live.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "One idea suggests how hydrogen gas from the atmosphere could react with molten rock (magma) on the early Earth.",
+      "old": "carbon_cycle",
+      "new": "igneous_rock_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "If that's true, Earth may have been similar to today, instead of being hot and covered in carbon dioxide.",
+      "old": "fossilization",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Water is also the only common material on Earth that can naturally exist as a solid, liquid, and gas.",
+      "old": "dissolution",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "At normal air pressure (1 atmosphere), water freezes into ice at 0 C (32 F) and boils into steam at 100 C (212 F).",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "But water is different because ice is less dense than liquid water.",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "In chemical weathering, water mixes with carbon dioxide from the air or soil.",
+      "old": "erosion_weathering",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Major extruded materials include gas, liquid and solid.",
+      "old": "igneous_rock_cycle",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "Gas - sulphur, hydrogen, carbon dioxide and hot steam (geysers).",
+      "old": "phase_change",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "One is Lake Vostok, which has been covered by ice for at least 15 million years.",
+      "old": "phase_change",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "Nitrogen compounds have many uses, such as anesthetics (nitrous oxide), explosives (dynamite), cleaners (ammonia), and meat (protein), and planes (fuel).",
+      "old": "phase_change",
+      "new": "nitrogen_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Oil companies use high pressure nitrogen to help force crude oil to the surface.",
+      "old": "nitrogen_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Oxygen is part of the air we breathe.",
+      "old": "hydrocarbon_formation",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "It often forms oxides, like iron oxide (rust) or carbon dioxide (CO2).",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Photosynthesis takes hydrogen from water using energy from sunlight.",
+      "old": "respiration",
+      "new": "photosynthesis",
+      "hits": 2
+    },
+    {
+      "sentence": "Low-pressure O2 is used in space suits, surrounding the body with the gas.",
+      "old": "respiration",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "They are given off as sulfur oxide and carbon dioxide.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Cells also make carbon dioxide as a waste.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "If the conditions are right, a gas can even turn directly into a solid without becoming a liquid first.",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "This process is called sublimation (like dry ice turning into carbon dioxide gas).",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Normally a gas must first condense to a liquid, and then freeze to become a solid, but if the temperature is very low it can skip the liquid stage and instantly",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 3
+    },
+    {
+      "sentence": "There are four common states of matter (or phases) in the universe: solid, liquid, gas, and plasma.",
+      "old": "electricity_generation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "When a solid becomes a liquid, it is called melting.",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "Photosynthesis is the process by which plant cells containing chlorophyll produce food substances (glucose and starch) from carbon dioxide and water, and oxygen",
+      "old": "digestion",
+      "new": "photosynthesis",
+      "hits": 2
+    },
+    {
+      "sentence": "This is about six times larger than the current power used by human civilization.",
+      "old": "photosynthesis",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "Water freezing in rock cracks can expand enough to split hard rocks apart; this is an important geological weathering process that can wear down mountains and m",
+      "old": "phase_change",
+      "new": "erosion_weathering",
+      "hits": 2
+    },
+    {
+      "sentence": "There is also 'dry ice'; it is frozen carbon dioxide.",
+      "old": "phase_change",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Any more water vapor condenses into very small water drops.",
+      "old": "carbon_cycle",
+      "new": "water_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "In this state, the water molecules are no longer stuck together by hydrogen bonds like they are in liquid or ice.",
+      "old": "water_cycle",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "Water vapor has pressure, takes up space (volume), and has a temperature, just like any other gas.",
+      "old": "water_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Because all fossil fuels are made out of carbon, burning them makes carbon monoxide and carbon dioxide.",
+      "old": "fossilization",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Fossil fuels are also non-renewable, or renew extremely slowly (thousands to hundreds of millions of years).",
+      "old": "carbon_cycle",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "Peat, and therefore coal, is formed from the remains of plants which lived millions of years ago in tropical wetlands (coal swamps), such as those of the late C",
+      "old": "hydrocarbon_formation",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "About two-thirds of the coal mined today is burned in power stations to make electricity.",
+      "old": "hydrocarbon_formation",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "Like oil, when coal is burned its carbon joins with oxygen in the air and makes a lot of carbon dioxide, which causes climate change.",
+      "old": "electricity_generation",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Almost half of the carbon dioxide from people is because of burning coal so it is the biggest single cause of global warming.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Coal-fired power stations produce 37% of the world's electricity.",
+      "old": "hydrocarbon_formation",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "Burning petroleum or other fossil fuel adds the carbon in the oil to the oxygen in the air to create carbon dioxide, which is an air pollutant.",
+      "old": "hydrocarbon_formation",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "The carbon can be removed from the carbon dioxide by plants.",
+      "old": "combustion",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "It burns with a blue flame.",
+      "old": "hydrocarbon_formation",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "When natural gas is burned in a power station it boils water into steam that spins a steam turbine that turns a generator to make electricity.",
+      "old": "hydrocarbon_formation",
+      "new": "electricity_generation",
+      "hits": 4
+    },
+    {
+      "sentence": "Most organisms today need oxygen for their respiration: only a few anaerobic organisms can grow without oxygen.",
+      "old": "carbon_cycle",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "This happened because tiny microbes called cyanobacteria started to use sunlight to make energy in a process called photosynthesis.",
+      "old": "respiration",
+      "new": "photosynthesis",
+      "hits": 2
+    },
+    {
+      "sentence": "Even though it makes up less than 1% of the atmosphere, it is still more common than other gases like carbon dioxide and methane.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "In fact, water vapor is the most abundant greenhouse gas, and it works together with carbon dioxide and others to regulate Earth's temperature.",
+      "old": "water_cycle",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "It is released into the atmosphere when people and animals breathe out, when plants and animals decay, and when things burn, like wood, coal, oil, or gas.",
+      "old": "carbon_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 3
+    },
+    {
+      "sentence": "It is a very strong greenhouse gas, even stronger than carbon dioxide, though it does not last as long in the atmosphere.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "It was formed about 145 million years ago when massive lava flows erupted from the centre of the volcano to form a broad, shield-like feature.",
+      "old": "igneous_rock_cycle",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "\"The bottom line is that we think that Tamu Massif was built in a short (geologically speaking) time of one to several million years and it has been extinct sin",
+      "old": "igneous_rock_cycle",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "When the two plates are connected to a current meter with a wire, electric current will pass; this is because oxidation and reduction processes take place in th",
+      "old": "dissolution",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "It does not dissolve in most acids, but nitric acid dissolves it to make silver nitrate.",
+      "old": "electricity_generation",
+      "new": "dissolution",
+      "hits": 2
+    },
+    {
+      "sentence": "When there is more greenhouse gas in the air, the air holds more heat.",
+      "old": "carbon_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "About 10,000 years ago, before people started burning large amounts of fossil fuels, there were 260 to 280 parts per million (ppm) of carbon dioxide (CO2) in th",
+      "old": "carbon_cycle",
+      "new": "fossilization",
+      "hits": 3
+    },
+    {
+      "sentence": "The oxygen is absorbed into the animal's blood, causing carbon dioxide to move out of the animal's blood and into the water through the gills.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "In the 1960s, geologists found large areas of oil and natural gas under the North Sea.",
+      "old": "phase_change",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Sometimes a natural flow, such as wind power or water power, can be used directly to turn a generator so no heat is needed.",
+      "old": "hydrocarbon_formation",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "When people cut down many trees (deforestation), this means less carbon dioxide is taken out of the atmosphere by those plants.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "Although methane remains in the atmosphere for a shorter time than CO2-roughly 12 years compared to centuries-it has a much stronger heat-trapping ability, maki",
+      "old": "carbon_cycle",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "The most important one is carbon dioxide (CO2).",
+      "old": "fossilization",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "CO2 comes from power plants which burn coal and natural gas to make electricity.",
+      "old": "carbon_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "About three-quarters of the CO2 that people have put in the air during the past 20 years is from burning fossil fuel like coal or oil.",
+      "old": "carbon_cycle",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "Energy conservation is used to burn less fossil fuel, for example people in cold countries can put insulation on their houses to keep them warm so they don't ha",
+      "old": "carbon_cycle",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "Some factories might be able to prevent carbon dioxide from getting out into the atmosphere, for example from making cement.",
+      "old": "combustion",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "However, water vapour and gases such as methane and carbon dioxide absorb radiated heat and re-radiate that heat into the atmosphere.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "Today, the typical modern ammonia-producing plant first converts natural gas (i.e., methane) or liquefied petroleum gas (such gases are propane and butane) or p",
+      "old": "nitrogen_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "To produce ammonia, the hydrogen then reacts with nitrogen (derived from process air) using a magnetite catalyst under high pressure to form anhydrous liquid am",
+      "old": "carbon_cycle",
+      "new": "nitrogen_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "The gas may have been stored under pressure or be a chemical fuel that burns to make a very hot gas.",
+      "old": "hydrocarbon_formation",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "Fuels can be wood, tinder, coal, oil, or any other substance that will easily oxidize.",
+      "old": "combustion",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Once a fire is burning, it creates its own heat.",
+      "old": "hydrocarbon_formation",
+      "new": "combustion",
+      "hits": 2
+    },
+    {
+      "sentence": "Fires cannot burn in a vacuum or if they are covered in carbon dioxide.",
+      "old": "combustion",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "This includes most animals, many fungi and some bacteria.",
+      "old": "carbon_cycle",
+      "new": "decomposition",
+      "hits": 2
+    },
+    {
+      "sentence": "In higher animals, the carbon dioxide travels in the blood from the body's tissues to the lungs where it is breathed out.",
+      "old": "decomposition",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "People use dry ice to make things cold, and to make drinks fizzy, kill gophers, and freeze warts.",
+      "old": "carbon_cycle",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "Dry ice exposed to normal air gives off carbon dioxide gas that has no color.",
+      "old": "phase_change",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "There are fungi fossils and ancient fungi found trapped in amber but compared to material like bone fungi fossils are rare due to their rapid decay",
+      "old": "decomposition",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "Fallen branches, needles, and dead animals do not decay as fast as in warmer regions.",
+      "old": "erosion_weathering",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "A very famous palaeontologist is Mary Anning she is from the United Kingdom and found fossil remains on the Jurassic Coast.",
+      "old": "hydrocarbon_formation",
+      "new": "fossilization",
+      "hits": 2
+    },
+    {
+      "sentence": "Each taste bud contains taste receptor cells that send signals to the brain when they sense a taste.",
+      "old": "digestion",
+      "new": "neural_signaling",
+      "hits": 2
+    },
+    {
+      "sentence": "Even though the liquid is cooling, its temperature stays the same while it is turning into ice until all of it has frozen.",
+      "old": "hydrocarbon_formation",
+      "new": "phase_change",
+      "hits": 2
+    },
+    {
+      "sentence": "Get carbon dioxide (CO2) out of the body.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "When oxygen goes into the bloodstream, extra carbon dioxide comes out and goes into the lungs.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Also, carbon dioxide is now in the lungs, where it can be breathed out.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "If there is not enough oxygen in the blood, the medulla will tell the body to breathe faster, to take in more oxygen.",
+      "old": "carbon_cycle",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "It also produces carbon dioxide as a waste product, which then enters the circulatory system.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "It reacts with sodium nitrate to make lead(II) oxide and sodium nitrite.",
+      "old": "dissolution",
+      "new": "nitrogen_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "Soil erosion is the washing or blowing away (by water or wind) of the top layer of soil (dirt).",
+      "old": "digestion",
+      "new": "erosion_weathering",
+      "hits": 2
+    },
+    {
+      "sentence": "They regulate carbon dioxide, oxygen, and water vapour exchange with the atmosphere.",
+      "old": "photosynthesis",
+      "new": "carbon_cycle",
+      "hits": 3
+    },
+    {
+      "sentence": "The heat of the electric arc melts the mixture of materials, and phosphorus gas is given off.",
+      "old": "carbon_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "The alveoli are moist to allow oxygen to move from the lung through the alveoli into blood vessels and red blood cells.",
+      "old": "hydrocarbon_formation",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "Carbon dioxide passes from the blood into the alveoli.",
+      "old": "respiration",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "The oxygen-filled blood goes back to the heart and the carbon dioxide in the alveoli is pushed out of the lungs and into the air we breathe out.",
+      "old": "carbon_cycle",
+      "new": "respiration",
+      "hits": 2
+    },
+    {
+      "sentence": "Iodine does not dissolve in water, but it does dissolve in a solution of an iodide in water.",
+      "old": "water_cycle",
+      "new": "dissolution",
+      "hits": 2
+    },
+    {
+      "sentence": "Crude oil (petroleum) can be separated to make various fuels such as LPG, gasoline, kerosene, jet fuel, and diesel fuel.",
+      "old": "electricity_generation",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Instead it became coal and related substances such as peat.",
+      "old": "fossilization",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "Countries are also increasing the use of wind power, tidal energy, and solar energy to generate electricity.",
+      "old": "hydrocarbon_formation",
+      "new": "electricity_generation",
+      "hits": 2
+    },
+    {
+      "sentence": "It is a gas at 25 degrees Celsius at standard atmosphere (a specific pressure).",
+      "old": "carbon_cycle",
+      "new": "hydrocarbon_formation",
+      "hits": 2
+    },
+    {
+      "sentence": "The gases that are usually used are argon, helium, and a mixture that is 3 parts argon and one part carbon dioxide.",
+      "old": "hydrocarbon_formation",
+      "new": "carbon_cycle",
+      "hits": 2
+    },
+    {
+      "sentence": "OFW uses a flame from burning fuel gas and oxygen to heat up the metal.",
+      "old": "electricity_generation",
+      "new": "combustion",
+      "hits": 3
+    },
+    {
+      "sentence": "It is caused when gaseous compounds of ammonium, carbon, nitrogen, and sulphur are released into the atmosphere.",
+      "old": "water_cycle",
+      "new": "carbon_cycle",
+      "hits": 2
+    }
+  ]
+}
