@@ -1,0 +1,148 @@
+{
+  "anchor_name": "exp_maven_ere_convergence_gated_subevent_v1_fulldev",
+  "run_mode": "full_dev",
+  "task": "subevent",
+  "verdict": "HARD-PASS",
+  "verdict_msg": "floor=2.86 gate=5.19 learner_noarg=12.63 full_v2=13.63 scramble=2.78 bag_types_maj=0.03 | climbs=True learner_load_bearing=True scramble_collapses=True headroom=16.1 band=HARD-PASS transferred=True",
+  "summary": "MAVEN-ERE subevent convergence-gate transfer: HARD-PASS",
+  "elapsed_s": 34.812835693359375,
+  "ts_iso": "2026-08-11T10:06:27.443960+00:00",
+  "pid": 31904,
+  "n_dev_docs": 710,
+  "n_train_docs": 600,
+  "n_candidate_pairs": 613706,
+  "n_subevent_positives": 6099,
+  "n_full_v2_positive_predictions": 29641,
+  "cue_design": {
+    "gate": "order AND (type_compat OR arg_overlap OR proximity<=2)",
+    "type_compat_mult": 1.5,
+    "proximity_dist": 2,
+    "global_rate_train": 0.006352013547759455
+  },
+  "arms": {
+    "order_only_floor": {
+      "official_micro_f1_positive_only": {
+        "precision": 1.4580271335134412,
+        "recall": 73.35628791605181,
+        "f1": 2.859224417802091
+      },
+      "macro_f1_all_labels": 34.80756203721502,
+      "accuracy_pct": 50.4642288001095
+    },
+    "gate_only": {
+      "official_micro_f1_positive_only": {
+        "precision": 2.70901447921532,
+        "recall": 62.76438760452533,
+        "f1": 5.193853668464435
+      },
+      "macro_f1_all_labels": 46.12710765713429,
+      "accuracy_pct": 77.22867301281069
+    },
+    "gate_learned_noarg": {
+      "official_micro_f1_positive_only": {
+        "precision": 8.681494224625215,
+        "recall": 23.167732415150024,
+        "f1": 12.630167597765363
+      },
+      "macro_f1_all_labels": 55.5039468794354,
+      "accuracy_pct": 96.81459852111597
+    },
+    "full_v2": {
+      "official_micro_f1_positive_only": {
+        "precision": 8.21834620964205,
+        "recall": 39.94097393015249,
+        "f1": 13.631785114717404
+      },
+      "macro_f1_all_labels": 55.52073751469596,
+      "accuracy_pct": 94.97023004500527
+    },
+    "scramble": {
+      "official_micro_f1_positive_only": {
+        "precision": 1.6733578489254746,
+        "recall": 8.132480734546647,
+        "f1": 2.7756015668718526
+      },
+      "macro_f1_all_labels": 49.92984926657558,
+      "accuracy_pct": 94.33800549448759
+    }
+  },
+  "baselines_on_slice": {
+    "majority_all_none": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "bag_of_event_types_majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 10.0,
+        "recall": 0.016396130513198885,
+        "f1": 0.03273858241938124
+      },
+      "macro_f1_all_labels": 49.766349435367204,
+      "accuracy_pct": 99.0048981108218
+    }
+  },
+  "learner_config": {
+    "plugin": "hdlab.learner.plugins.gam_plugin (GAM/EBM binary)",
+    "ratio_selected_noarg": 3.0,
+    "trainval_scores_noarg": {
+      "1.0": 11.041073607157381,
+      "2.0": 13.109839193240665,
+      "3.0": 13.64226938068428
+    },
+    "ratio_selected_full": 2.0,
+    "trainval_scores_full": {
+      "1.0": 11.199340002062494,
+      "2.0": 13.156805957798925,
+      "3.0": 12.580167735569809
+    },
+    "full_gam_metrics": {
+      "n_main_keys": 301,
+      "n_interaction_keys": 40,
+      "n_classes": 2,
+      "model_bits": 341.0,
+      "data_bits": 12220.037
+    },
+    "ratio_candidates": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "ratio_selected_on": "TRAIN 80/20 held-out split (dev-blind)"
+  },
+  "decomposition": {
+    "floor_order_only_f1": 2.859224417802091,
+    "gate_lift_over_floor": 2.334629250662344,
+    "learner_lift_over_gate": 7.436313929300928,
+    "arg_in_learner_lift": 1.0016175169520416,
+    "full_v2_lift_over_floor": 10.772560696915313,
+    "full_v2_vs_floor_ratio": 4.767651335740994,
+    "bag_of_event_types_majority_f1": 0.03273858241938124
+  },
+  "transferred": true,
+  "bands_prereg": {
+    "climbs_above_1.8x_floor": true,
+    "learner_load_bearing": true,
+    "scramble_collapses": true,
+    "headroom_survives": true,
+    "no_lift": false,
+    "levers_add_nothing": false,
+    "scramble_no_collapse": false
+  },
+  "cited_published_baselines": {
+    "sota_subevent_f1_protoem_2023": 29.73
+  },
+  "arms_differ_digests": {
+    "full_v2": "c39a90b7a38ec4ce34b745fda59b2529ddeafaf572ef2637266c3497c91402c7",
+    "gate_learned_noarg": "532baa83a1413edeb1b3386480eae9c367b754477058ac56b860c85e679d9a5c",
+    "scramble": "d23ecb1c9771294bc5f809fabbeda96be7523c2002d0f236ad0a856122941914",
+    "floor": "0471b1f962e68c2077f7c328a2b89378ef35e772ec736ab2020e1429d738ff0a"
+  },
+  "arms_differ_verified": true,
+  "no_leak_verified": true,
+  "deterministic_seeding": true,
+  "reused_shared_arcparse_cache": true,
+  "prereg_path": "preregs/2026-08-11_maven_ere_convergence_gated_subevent_v1.md"
+}
