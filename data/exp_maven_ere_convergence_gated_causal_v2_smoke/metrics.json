@@ -1,0 +1,159 @@
+{
+  "anchor_name": "exp_maven_ere_convergence_gated_causal_v2_smoke",
+  "run_mode": "smoke",
+  "verdict": "HARD-PASS",
+  "verdict_msg": "floor=7.28 gate=11.26 gate+entity=11.15 learner_noent=15.08 full_v2=15.10 scramble=2.72 best_base=1.09 | climbs=True levers_load_bearing=True scramble_collapses=True headroom=16.9 band=HARD-PASS",
+  "summary": "MAVEN-ERE convergence-gate v2 climb-or-plateau: HARD-PASS",
+  "elapsed_s": 196.5104513168335,
+  "ts_iso": "2026-08-11T05:36:27.135205+00:00",
+  "pid": 26092,
+  "n_dev_docs": 200,
+  "n_train_docs": 600,
+  "n_candidate_pairs": 159594,
+  "n_gold_positives": 4330,
+  "n_full_v2_positive_predictions": 6508,
+  "arms": {
+    "order_majority_floor": {
+      "official_micro_f1_positive_only": {
+        "precision": 3.8384901688033386,
+        "recall": 70.73903002309468,
+        "f1": 7.281847682670249
+      },
+      "macro_f1_all_labels": 28.17935488824059,
+      "accuracy_pct": 51.501309573041596
+    },
+    "gate_only": {
+      "official_micro_f1_positive_only": {
+        "precision": 6.590212866232031,
+        "recall": 38.75288683602771,
+        "f1": 11.264769065520944
+      },
+      "macro_f1_all_labels": 38.28082571097497,
+      "accuracy_pct": 83.69988846698497
+    },
+    "gate_plus_entity": {
+      "official_micro_f1_positive_only": {
+        "precision": 6.425929187951383,
+        "recall": 42.12471131639723,
+        "f1": 11.150848234754699
+      },
+      "macro_f1_all_labels": 37.88239708134893,
+      "accuracy_pct": 82.06135569006354
+    },
+    "gate_learned_noentity": {
+      "official_micro_f1_positive_only": {
+        "precision": 12.594770230543093,
+        "recall": 18.79907621247113,
+        "f1": 15.083850643935884
+      },
+      "macro_f1_all_labels": 45.636991088638965,
+      "accuracy_pct": 94.45029261751695
+    },
+    "full_v2": {
+      "official_micro_f1_positive_only": {
+        "precision": 12.569145666871542,
+        "recall": 18.89145496535797,
+        "f1": 15.095035984498987
+      },
+      "macro_f1_all_labels": 45.62902315953017,
+      "accuracy_pct": 94.42961514843915
+    },
+    "scramble": {
+      "official_micro_f1_positive_only": {
+        "precision": 4.673423423423424,
+        "recall": 1.9168591224018476,
+        "f1": 2.718637405830331
+      },
+      "macro_f1_all_labels": 34.23243374543159,
+      "accuracy_pct": 96.31126483451759
+    }
+  },
+  "baselines_on_slice": {
+    "majority": {
+      "official_micro_f1_positive_only": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "macro_f1_all_labels": 32.874925627849166,
+      "accuracy_pct": 97.2868654210058
+    },
+    "adjacent_sentence_heuristic": {
+      "official_micro_f1_positive_only": {
+        "precision": 2.3419203747072603,
+        "recall": 0.6928406466512702,
+        "f1": 1.0693281055070396
+      },
+      "macro_f1_all_labels": 33.5947385401,
+      "accuracy_pct": 96.56190082333922
+    },
+    "bag_of_event_types": {
+      "official_micro_f1_positive_only": {
+        "precision": 10.460251046025103,
+        "recall": 0.5773672055427251,
+        "f1": 1.094331363536879
+      },
+      "macro_f1_all_labels": 33.33975453770005,
+      "accuracy_pct": 97.16843991628757
+    }
+  },
+  "learner_config": {
+    "plugin": "hdlab.learner.plugins.gam_plugin (GAM/EBM, glass-box additive log-odds + MDL pairwise interactions)",
+    "subsample_ratio_selected_noentity": 1.0,
+    "trainval_scores_noentity": {
+      "1.0": 24.646845150006726,
+      "1.5": 14.467005076142131,
+      "2.0": 10.522696011004125
+    },
+    "subsample_ratio_selected_full": 1.0,
+    "trainval_scores_full": {
+      "1.0": 24.467652244676522,
+      "1.5": 13.775345992919213,
+      "2.0": 6.896551724137931
+    },
+    "full_gam_metrics": {
+      "n_main_keys": 324,
+      "n_interaction_keys": 40,
+      "n_classes": 3,
+      "model_bits": 576.926,
+      "data_bits": 44468.831
+    },
+    "ratio_candidates": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "ratio_selected_on": "TRAIN 80/20 held-out split (dev-blind)"
+  },
+  "decomposition": {
+    "floor_order_majority_f1": 7.281847682670249,
+    "gate_lift_over_floor": 3.9829213828506953,
+    "lever1_gatecue_lift_over_gate": -0.11392083076624537,
+    "lever2_learner_lift_over_gate": 3.8190815784149397,
+    "lever1_in_learner_lift": 0.011185340563102386,
+    "full_v2_lift_over_floor": 7.813188301828737,
+    "full_v2_vs_floor_ratio": 2.0729678293632814
+  },
+  "bands_prereg": {
+    "climbs_above_1.8x_floor": true,
+    "levers_load_bearing": true,
+    "scramble_collapses": true,
+    "headroom_survives": true,
+    "no_lift": false,
+    "levers_add_nothing": false,
+    "scramble_no_collapse": false
+  },
+  "cited_published_baselines": {
+    "sota_causal_f1_protoem_2023": 31.96
+  },
+  "arms_differ_digests": {
+    "full_v2": "73365cf2d218ade10c0802e2942e2ccb0cf4c07c34cc70bf9a332b5bc399861b",
+    "gate_learned_noentity": "96f0ea1ad37c3f3943ed10b05d57e7da47a8940da3851286b4b78c39a655cb5a",
+    "scramble": "c8231a0b52d96ca8542bac45a77f809f0ef523bdcbcddc59430e3ec3fbaedded"
+  },
+  "arms_differ_verified": true,
+  "no_leak_verified": true,
+  "deterministic_seeding": true,
+  "resumable_rowcache": true,
+  "prereg_path": "preregs/2026-08-11_maven_ere_convergence_gated_causal_v2.md"
+}
