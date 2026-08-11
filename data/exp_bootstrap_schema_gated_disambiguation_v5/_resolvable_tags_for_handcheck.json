@@ -1,0 +1,845 @@
+{
+  "n_resolvable": 505,
+  "sample": [
+    {
+      "entity": "particle",
+      "fate_label": "MOVED",
+      "schema_gated_process": "erosion_weathering",
+      "sentence": "The waves carry the new particles with them.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Water vapor condenses into millions of tiny droplets that form clouds.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "The water forms clouds in the sky.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "The water forms clouds in the sky.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Water is absorbed by the plant and transported to the leaves.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "sugar",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Carbon dioxide, water, and ATP form sugars via the Calvin cycle.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "gas",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "It reacts with sodium bicarbonate to make carbon dioxide gas.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "sugar",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "This mixture forms sugar (glucose) which is what the plant eats.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "schema_gated_process": "respiration",
+      "sentence": "The oxygen is moved into the bloodstream.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Bread absorbs water from the air.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Water vapor forms clouds as it mixes with dust and impurities.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Plants absorb water through their roots and other parts of themselves.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "In electrification of waste heat, organic matter can be used as a working medium to produce electricity on much lower temperatures compared to the water steam cycle.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The plants roots absorb the water from the soil.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The plant creates food, called glucose, for itself.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "They absorb the water.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "schema_gated_process": "respiration",
+      "sentence": "The oxygen is transported by hemoglobin.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "coal",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "combustion",
+      "sentence": "The coal is burned at high temperatures inside a boiler.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The rotating coils produce electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The magnets inside the generator spin within wire coils to produce electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The generator produces the electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The spinning of the rotor in the core generates electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "coal",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "combustion",
+      "sentence": "The coal is burned in a furnace.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The generator makes electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Crude oil is pumped from the ground.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Oil is transported to a refinery.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "gas",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "The gas made from the refining is loaded onto tank trucks.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "particle",
+      "fate_label": "MOVED",
+      "schema_gated_process": "erosion_weathering",
+      "sentence": "Eroded rock particles are carried away by wind or by rain, streams, rivers, and oceans.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "layer",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "sedimentation",
+      "sentence": "Rock particles sink to the bottom of rivers and oceans creating a layer of sediment.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "rain",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "This creates a more acidic rain.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The plant forms glucose.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "The boiler produces steam under high pressure.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "rain",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Acid rain is produced by chemicals that reach into the atmosphere.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "mineral",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "dissolution",
+      "sentence": "Acid rain dissolves minerals and nutrients in soil.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "solution",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "dissolution",
+      "sentence": "A weak carbonic acid solution is formed.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Water is absorbed through roots.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Hydrogen and carbon dioxide used to create glucose.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Water is absorbed by the roots and passes through vessels in the stem on its way to the leaves.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Hydrogen and carbon dioxide are used to form glucose or food for plants.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "rain",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Acid rain is created when gasses such as sulfur dioxide get high into the atmosphere.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "energy",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The batteries can also be charged from the gas engine or from the regenerative brakes, which turn the energy of the moving car into electricity.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Electricity is produced.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "coal",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "combustion",
+      "sentence": "People burn coal for heat or electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "waste",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "digestion",
+      "sentence": "Living things produce waste.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "The oil is transported to stores.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "The warm air keeps rising and forms clouds.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electron",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The electron is released.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "protein",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "nitrogen_cycle",
+      "sentence": "The liver produces proteins for blood plasma.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "heat",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "combustion",
+      "sentence": "A fuel source must produce heat.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "Heat is used to create steam.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Turbines will work together with magnets to generate electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The generator creates electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "gas",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Greenhouse gases are released into the air by human activities.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "As enough water condenses, clouds are formed.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Plants absorb water from the ground through their root systems.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The intermediate is used to produce glucose which is the plant's food.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Electricity is produced.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electron",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Electrons release this energy as photons, and at higher intensities, this photon can be seen as visible light.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "A the water boils steam is created.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "current",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "An electrical source, like a battery, produces an electrical current.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "waste",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "digestion",
+      "sentence": "The liver releases waste in the form of urea.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "The burning coal heats water in a boiler, creating steam.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "coal",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "combustion",
+      "sentence": "Steam released from the boiler powers an engine called a turbine, transforming heat energy from burning coal into mechanical energy that spins the turbine engine.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "A condenser cools the steam moving through the turbine. As the steam is condensed, it turns back into water.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Oil is pumped out.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Crude oil is transported to a refinery.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oil",
+      "fate_label": "MOVED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "The oil needs to be pumped from the ground.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "The condensed water and dust forms a cloud.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "respiration",
+      "sentence": "Insulin causes the body to absorb glucose from the blood.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "schema_gated_process": "respiration",
+      "sentence": "The second step is gas exchange in the lungs where oxygen is diffused into the blood and the carbon dioxide diffuses out of the blood.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "MOVED",
+      "schema_gated_process": "digestion",
+      "sentence": "The esophagus moves food from the back of your throat to your stomach.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "food",
+      "fate_label": "MOVED",
+      "schema_gated_process": "digestion",
+      "sentence": "Your stomach moves the food into the intestines to complete digestion.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "particle",
+      "fate_label": "MOVED",
+      "schema_gated_process": "erosion_weathering",
+      "sentence": "And the force of gravity acts to move the particles along the sloping surface on which they are resting.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "schema_gated_process": "respiration",
+      "sentence": "The blood carries the oxygen to the heart.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "oxygen",
+      "fate_label": "MOVED",
+      "schema_gated_process": "respiration",
+      "sentence": "Once in the lungs, oxygen is moved into the bloodstream and carried through your body.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "glucose",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The plant uses carbon dioxide in the air to produce glucose.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Water is absorbed by the roots.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The mechanism generates electricity.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "steam",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "Steam is produced under pressure.",
+      "src": "propara_train"
+    },
+    {
+      "entity": "particle",
+      "fate_label": "MOVED",
+      "schema_gated_process": "erosion_weathering",
+      "sentence": "In 1905 Albert Einstein used mathematics to prove that the pollen particles were being moved by the motion, or heat, of individual water molecules.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Energy from the sun enters the ecosystem when plants use photosynthesis to make food.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "energy",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Animals eat plants and other animals, which moves energy and matter through the system.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "They include plants and algae that use energy and nonliving materials to make food.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Fuel cells make electricity by combining hydrogen and oxygen, and the only thing they give off is water, so they do not pollute the air.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "wood",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "combustion",
+      "sentence": "It can be from an open fire that burns wood or charcoal.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "That too electricity will be produced by renewable sources like Solar.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "energy",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Waves crash onto beaches, shape coastlines, and can even carry energy across entire oceans.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "These areas are powered not by sunlight, but by chemosynthesis, where bacteria use chemicals like hydrogen sulfide or methane to make food.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Water vapor, which can range from 0 to 4% of the atmosphere, is also very important because it forms clouds, causes rain, and plays a big role in the greenhouse effect.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "gas",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Since the Industrial Revolution, people have burned more fossil fuels (like coal, oil, and gas), cut down forests, and used farming methods that release gases like carbon dioxide, methane, and nitrous oxide.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "There is also water vapor in the air, which forms clouds that cover much of the planet.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "gas",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "When volcanoes erupted, they released gases trapped inside the planet.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "nutrient",
+      "fate_label": "MOVED",
+      "schema_gated_process": "digestion",
+      "sentence": "The oceans are always moving, with currents, tides, and waves that help control climate and move nutrients that living things need.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Air over warm water evaporates but, because cold air is not able to take in as much water, it starts to make clouds and rain as it gets colder.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Plants need CO2 for photosynthesis, which makes food and releases oxygen.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "layer",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "sedimentation",
+      "sentence": "The conventional concept is that the banded iron layers were formed in sea water as the result of oxygen released by photosynthetic cyanobacteria.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "It can power fuel cells, which produce electricity without pollution.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "hydrocarbon",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "Hydrogen also forms massive arrays with carbon atoms, forming hydrocarbons.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "hydrocarbon",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "hydrocarbon_formation",
+      "sentence": "In addition, hydrogen atoms can join with carbon atoms to form hydrocarbons.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electron",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "A fuel cell joins hydrogen with an oxygen molecule, releasing an electron as electricity.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "heat",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "combustion",
+      "sentence": "Hydrogen can also be burned to make heat for steam turbines or internal combustion engines.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "electricity",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "The non-renewable resource can be used directly (for example, burning oil to cook), or we can find a renewable resource to use (for example, using wind energy to make electricity to cook).",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "The root part absorbs water and some nutrients the plant needs to live and grow.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "A plant needs sunlight, carbon dioxide, minerals from the soil and water to make food by photosynthesis.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "A green substance in plants called chlorophyll traps the energy from the Sun needed to make food.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "sugar",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "With sunlight, water, and carbon dioxide, the plastids make sugars, the basic molecules needed by the plant.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "water",
+      "fate_label": "CONSUMED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Second, they absorb water and various nutrients dissolved in water from the soil.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "food",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Raw food can sometimes make people sick because of bacteria which would otherwise be killed by cooking.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "energy",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Chemists study atoms and molecules to understand how they bond together, break apart, and move energy during chemical changes.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "current",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "Since metals are good conductors of electricity, they are valuable in electrical tools and for carrying an electric current over long distances with little energy loss.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "nutrient",
+      "fate_label": "MOVED",
+      "schema_gated_process": "digestion",
+      "sentence": "The roots carry nutrients and water from the ground through the trunk and branches to the leaves of the tree.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "sugar",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "photosynthesis",
+      "sentence": "Trees and shrubs take in water and carbon dioxide and give out oxygen with sunlight to form sugars.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "vapor",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Transpiration (plants release water vapor),",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "cloud",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Condensation (vapor forms clouds),",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "nutrient",
+      "fate_label": "MOVED",
+      "schema_gated_process": "digestion",
+      "sentence": "Water helps move nutrients, gases, and waste inside the body.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "ice",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "phase_change",
+      "sentence": "On dust grains, hydrogen and oxygen atoms stuck to the surface can react to form water ice.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "vapor",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "In hot places inside the molecular cloud like around young stars, hydrogen and oxygen gas could react to form water vapor.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "particle",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "erosion_weathering",
+      "sentence": "This means that two water molecules can react with each other to make two new particles: a hydronium ion (H3O+) and a hydroxide ion (OH).",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "current",
+      "fate_label": "MOVED",
+      "schema_gated_process": "electricity_generation",
+      "sentence": "But regular water, with minerals or salts in it, can carry electric current.",
+      "src": "simplewiki"
+    },
+    {
+      "entity": "vapor",
+      "fate_label": "PRODUCED",
+      "schema_gated_process": "water_cycle",
+      "sentence": "Transpiration: Plants release water vapor into the air through their leaves.",
+      "src": "simplewiki"
+    }
+  ]
+}

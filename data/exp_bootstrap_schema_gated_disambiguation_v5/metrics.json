@@ -1,0 +1,71 @@
+{
+  "verdict": "PENDING_HANDCHECK",
+  "verdict_msg": "[SCHEMA-GATED disambiguation, NO LLM, no-leak DEV-never-read] schema resolvable-frac(keys)=0.761; READ facts n=2829: RESOLVABLE_DIRECT=0.1785 SHARED_AMBIGUOUS=0.2185 NEW_ENTITY=0.5253; genuinely-new facts gated by anchor=10; schema-gated tag accuracy on resolvable cases PENDING hand-check (vs schema-blind 0.72, target >0.85); new-entity extension correctness PENDING hand-check",
+  "summary": "[SCHEMA-GATED disambiguation, NO LLM, no-leak DEV-never-read] schema resolvable-frac(keys)=0.761; READ facts n=2829: RESOLVABLE_DIRECT=0.1785 SHARED_AMBIGUOUS=0.2185 NEW_ENTITY=0.5253; genuinely-new facts gated by anchor=10; schema-gated tag accuracy on resolvable cases PENDING hand-check (vs schema-blind 0.72, target >0.85); new-entity extension correctness PENDING hand-check",
+  "elapsed_s": 83.75,
+  "run_mode": "schema_gated",
+  "anchor_name": "bootstrap_schema_gated_disambiguation_v5",
+  "mechanism": "schema-GATED directional disambiguation (entity,direction -> unique process via the hand-KB consumes/produces/moves structure) + anchor-gated NEW-entity extension; NOT a fade test",
+  "fairness": {
+    "no_leak_dev_never_read": true,
+    "schema_is_blind_authored_seed": true,
+    "can_fail": "HARD_FAIL if resolvable-case accuracy <= schema-blind 0.72, or resolvable fraction tiny, or extension wrong",
+    "extension_must_be_new_entities": true
+  },
+  "schema": {
+    "n_entity_tokens": 203,
+    "n_entity_dir_keys": 301,
+    "n_unique_to_one_process": 229,
+    "n_shared": 72,
+    "schema_key_resolvable_frac": 0.7608
+  },
+  "read_classification": {
+    "n_facts": 2829,
+    "n_resolvable_direct": 505,
+    "resolvable_fraction": 0.1785,
+    "n_shared_ambiguous": 618,
+    "shared_fraction": 0.2185,
+    "n_new_entity": 1486,
+    "new_fraction": 0.5253,
+    "n_in_schema_other_dir": 220
+  },
+  "extension": {
+    "n_genuinely_new_facts_gated": 10
+  },
+  "design_gate": {
+    "resolvable_handcheck_dump": "D:\\AI\\hd-instrument\\data\\exp_bootstrap_schema_gated_disambiguation_v5\\_resolvable_tags_for_handcheck.json",
+    "extension_handcheck_dump": "D:\\AI\\hd-instrument\\data\\exp_bootstrap_schema_gated_disambiguation_v5\\_extension_new_entities_for_handcheck.json",
+    "schema_blind_baseline": 0.72,
+    "target": 0.85,
+    "note": "resolvable-case tag accuracy + extension correctness hand-checked by operator"
+  },
+  "bands": {
+    "SCHEMA_BLIND_BASELINE": 0.72,
+    "SCHEMA_GATED_TARGET": 0.85
+  },
+  "design_gate_result": {
+    "schema_gated_tag_accuracy_resolvable": 0.7833,
+    "schema_blind_baseline": 0.72,
+    "target": 0.85,
+    "beats_schema_blind_baseline": true,
+    "reaches_0.85_target": false,
+    "resolvable_fraction": 0.1785,
+    "shared_ambiguous_fraction": 0.2185,
+    "new_entity_fraction": 0.5253,
+    "extension_n": 10,
+    "extension_accuracy": 0.2,
+    "wrong_resolvable_by_process": {
+      "hydrocarbon_formation": 11,
+      "electricity_generation": 5,
+      "photosynthesis": 3,
+      "digestion": 3,
+      "erosion_weathering": 2,
+      "nitrogen_cycle": 1,
+      "water_cycle": 1
+    },
+    "dominant_resolvable_error": "distinctive schema entity appearing in a NON-process context: oil PUMPED/transported (logistics != hydrocarbon FORMATION); 'gas' from chemistry/greenhouse/volcanic/fuel (!= natural-gas formation); 'energy MOVED' in ecosystems/ocean-waves/chemistry (!= electricity generation); 'nutrient MOVED' in plants/oceans (!= digestion); food from chemosynthesis/cooking (!= photosynthesis). The schema assigns the process by the entity's schema-ROLE, but the entity recurs in OTHER real-world contexts.",
+    "extension_failure_mode": "co-occurrence over-binding: the anchor gates EVERY new entity in the sentence to the anchor's process, but most co-occurring new entities (ocean/atom/world/engine/panel/lactose/molecule/product) are UNRELATED to the anchor's process -> 8/10 wrong."
+  },
+  "final_verdict": "HARD_FAIL_schema_gated_extension_fundamentally_limited",
+  "final_verdict_msg": "HARD_FAIL_schema_gated_extension_fundamentally_limited [NO LLM, no-leak DEV-never-read, schema=blind-authored seed, can-fail]. SCHEMA-GATED directional disambiguation MODESTLY beats the schema-blind baseline on RESOLVABLE cases: accuracy=0.7833 (94/120) > 0.72 baseline, but BELOW the 0.85 target. HOWEVER the architecture's reading-extension is FUNDAMENTALLY LIMITED: only 18% of reads are schema-resolvable-direct (unique entity-direction); 22% are SHARED-AMBIGUOUS (schema can't disambiguate CO2/oxygen/water even WITH direction) and 53% are entirely NEW entities not in the schema. New-entity EXTENSION gated only 10 facts and is WRONG (0.2=2/10 correct) -- co-occurrence over-binding (ocean/atom/world/engine bound to an unrelated anchor process). CONCLUSION: schema-gated DISAMBIGUATION is a valid, modestly-better-than-blind mechanism on the ~18% of reads whose distinctive entity-direction is schema-unique AND in-context, but it is NOT a viable reading-EXTENSION engine: it cannot disambiguate the 75% shared/new majority, and its new-entity extension over-binds. The schema-gated conclusion is PARTLY confirmed (accurate disambiguation on distinctive entities) and PARTLY WRONG (reading-extension is fundamentally limited by entity-direction sharing + co-occurrence over-binding). The seed must permanently carry the shared/new majority; reading extends only the narrow schema-unique-in-context slice."
+}

@@ -1,0 +1,105 @@
+{
+  "n_extension": 10,
+  "sample": [
+    {
+      "new_entity": "ocean",
+      "fate_label": "MOVED",
+      "gated_to_process": "digestion",
+      "anchor_entities": [
+        "nutrient"
+      ],
+      "sentence": "The oceans are always moving, with currents, tides, and waves that help control climate and move nutrients that living things need.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "atom",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "electricity_generation",
+      "anchor_entities": [
+        "electron"
+      ],
+      "sentence": "This attraction makes electrons near a nucleus form an atom.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "flame",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "combustion",
+      "anchor_entities": [
+        "oil"
+      ],
+      "sentence": "Usually, it produces a flame by burning olive oil, or another vegetable oil, or whale oil during the 1700s and 1800s.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "world",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "erosion_weathering",
+      "anchor_entities": [
+        "particle"
+      ],
+      "sentence": "In 1919, Rutherford made the world's first artificial nuclear reaction, where he put alpha particles with nitrogen gas and created particles of oxygen isotopes and protons.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "engine",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "phase_change",
+      "anchor_entities": [
+        "steam"
+      ],
+      "sentence": "The steam to power a steam engine is made in a boiler that heats water to make steam.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "panel",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "electricity_generation",
+      "anchor_entities": [
+        "voltage"
+      ],
+      "sentence": "Like batteries, multiple solar panels can be connected together to produce higher voltages, for example, two 48 volt panels connected together would produce 96 volts.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "lactose",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "photosynthesis",
+      "anchor_entities": [
+        "sugar"
+      ],
+      "sentence": "For example, milk sugar (lactose) is made from glucose and galactose whereas cane sugar (sucrose) is made from glucose and fructose.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "molecule",
+      "fate_label": "MOVED",
+      "gated_to_process": "respiration",
+      "anchor_entities": [
+        "air"
+      ],
+      "sentence": "Airplane wings are designed in such a way that, the air molecules prefer moving under the wing rather than above it, so as a result there is more air flowing underneath the wing compared to above it.",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "shale",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "sedimentation",
+      "anchor_entities": [
+        "layer"
+      ],
+      "sentence": "These precipitated out, forming a thin layer on the substrate, which may have been anoxic mud (forming shale and chert).",
+      "src": "simplewiki"
+    },
+    {
+      "new_entity": "product",
+      "fate_label": "PRODUCED",
+      "gated_to_process": "phase_change",
+      "anchor_entities": [
+        "steam"
+      ],
+      "sentence": "Many factories also need very clean water to make steam or to make high quality products.",
+      "src": "simplewiki"
+    }
+  ]
+}

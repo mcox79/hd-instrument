@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "resolve": {
+      "glucose_CREATE": [
+        "photosynthesis"
+      ],
+      "dioxide_shared": true,
+      "new_entity_absent": true
+    },
+    "real_gate": {
+      "glucose": [
+        "photosynthesis"
+      ]
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: directional disambiguation (unique/shared/new) + real extractor gate OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.34,
+  "run_mode": "self_test",
+  "anchor_name": "bootstrap_schema_gated_disambiguation_v5"
+}
