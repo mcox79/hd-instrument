@@ -1,0 +1,621 @@
+{
+  "verdict": "CURATED_PASS_PENDING_HANDCHECK",
+  "verdict_msg": "CURATED_PASS_PENDING_HANDCHECK: curated design P=1.0/R=1.0, HELD-OUT P=1.0/R=1.0, negation_clean=True (fp_emissions=0); corpus extracted=4015 stored=4015 paths={'parse': 3053, 'positional': 962}; hand-check sample dumped (100) -- final precision folded in by operator",
+  "summary": "CURATED_PASS_PENDING_HANDCHECK: curated design P=1.0/R=1.0, HELD-OUT P=1.0/R=1.0, negation_clean=True (fp_emissions=0); corpus extracted=4015 stored=4015 paths={'parse': 3053, 'positional': 962}; hand-check sample dumped (100) -- final precision folded in by operator",
+  "elapsed_s": 150.71,
+  "run_mode": "validation",
+  "anchor_name": "stated_entity_fate_reading_extractor_v1",
+  "fate_verb_lexicon_base_size": 41,
+  "fate_verb_lexicon_expanded_size": 66,
+  "curated_design": {
+    "n_cases": 8,
+    "tp": 8,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "rows": [
+      {
+        "sentence": "Fire consumes the wood.",
+        "gold": [
+          [
+            "wood",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "wood",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "wood",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Combustion produces carbon dioxide.",
+        "gold": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The fuel is consumed.",
+        "gold": [
+          [
+            "fuel",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "fuel",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "fuel",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Plants release oxygen.",
+        "gold": [
+          [
+            "oxygen",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "oxygen",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "oxygen",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The river carries sediment.",
+        "gold": [
+          [
+            "sediment",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "sediment",
+            "MOVE"
+          ]
+        ],
+        "correct": [
+          [
+            "sediment",
+            "MOVE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The engine burns gasoline.",
+        "gold": [
+          [
+            "gasoline",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "gasoline",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "gasoline",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Photosynthesis produces glucose.",
+        "gold": [
+          [
+            "glucose",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "glucose",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "glucose",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Blood transports oxygen.",
+        "gold": [
+          [
+            "oxygen",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "oxygen",
+            "MOVE"
+          ]
+        ],
+        "correct": [
+          [
+            "oxygen",
+            "MOVE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      }
+    ]
+  },
+  "curated_heldout": {
+    "n_cases": 10,
+    "tp": 10,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "rows": [
+      {
+        "sentence": "The stomach digests food.",
+        "gold": [
+          [
+            "food",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "food",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "food",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Volcanoes emit ash.",
+        "gold": [
+          [
+            "ash",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "ash",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "ash",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Glaciers transport rocks.",
+        "gold": [
+          [
+            "rock",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "rock",
+            "MOVE"
+          ]
+        ],
+        "correct": [
+          [
+            "rock",
+            "MOVE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The leaf absorbs sunlight.",
+        "gold": [
+          [
+            "sunlight",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "sunlight",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "sunlight",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Bacteria decompose leaves.",
+        "gold": [
+          [
+            "leave",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "leave",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "leave",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Yeast produces alcohol.",
+        "gold": [
+          [
+            "alcohol",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "alcohol",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "alcohol",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The wind carries seeds.",
+        "gold": [
+          [
+            "seed",
+            "MOVE"
+          ]
+        ],
+        "pred": [
+          [
+            "seed",
+            "MOVE"
+          ]
+        ],
+        "correct": [
+          [
+            "seed",
+            "MOVE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Carbon dioxide is released by the reaction.",
+        "gold": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "dioxide",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "The acid dissolves the metal.",
+        "gold": [
+          [
+            "metal",
+            "DESTROY"
+          ]
+        ],
+        "pred": [
+          [
+            "metal",
+            "DESTROY"
+          ]
+        ],
+        "correct": [
+          [
+            "metal",
+            "DESTROY"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      },
+      {
+        "sentence": "Rivers deposit silt.",
+        "gold": [
+          [
+            "silt",
+            "CREATE"
+          ]
+        ],
+        "pred": [
+          [
+            "silt",
+            "CREATE"
+          ]
+        ],
+        "correct": [
+          [
+            "silt",
+            "CREATE"
+          ]
+        ],
+        "wrong": [],
+        "missed": []
+      }
+    ]
+  },
+  "curated_negation": {
+    "n_cases": 7,
+    "n_false_positive_emissions": 0,
+    "negation_clean": true,
+    "rows": [
+      {
+        "sentence": "The wood is not consumed.",
+        "emitted": []
+      },
+      {
+        "sentence": "No oxygen is produced.",
+        "emitted": []
+      },
+      {
+        "sentence": "The fuel does not burn.",
+        "emitted": []
+      },
+      {
+        "sentence": "The plant does not release oxygen.",
+        "emitted": []
+      },
+      {
+        "sentence": "Nothing is emitted by the process.",
+        "emitted": []
+      },
+      {
+        "sentence": "The rock is dry and hard.",
+        "emitted": []
+      },
+      {
+        "sentence": "The scientist studies combustion.",
+        "emitted": []
+      }
+    ]
+  },
+  "verdict_inputs": {
+    "curated_design_precision": 1.0,
+    "curated_design_recall": 1.0,
+    "curated_heldout_precision": 1.0,
+    "curated_heldout_recall": 1.0,
+    "curated_combined_precision": 1.0,
+    "negation_clean": true,
+    "negation_false_positive_emissions": 0,
+    "n_corpus_extracted": 4015,
+    "n_stored": 4015
+  },
+  "corpus": {
+    "n_simplewiki_sampled": 4000,
+    "n_propara_train_sents": 2639,
+    "n_extracted": 4015,
+    "n_stored": 4015,
+    "path_counts": {
+      "parse": 3053,
+      "positional": 962
+    },
+    "fate_counts": {
+      "CONSUMED": 1121,
+      "PRODUCED": 2114,
+      "MOVED": 780
+    },
+    "voice_counts": {
+      "active": 2760,
+      "passive": 1255
+    },
+    "store_resolution_counts": {
+      "CLEAN_STORE": 3339,
+      "CONSISTENT_DUP": 676
+    }
+  },
+  "store_recovery_witness": [
+    {
+      "stored_subject": "grass",
+      "stored_relation": "fate_via_burn",
+      "stored_obj": "CONSUMED",
+      "recovered_subject": "grass",
+      "recovered_relation": "fate_via_burn",
+      "recovered_object": "CONSUMED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "fermi_condensate",
+      "stored_relation": "fate_via_creat",
+      "stored_obj": "PRODUCED",
+      "recovered_subject": "fermi_condensate",
+      "recovered_relation": "fate_via_creat",
+      "recovered_object": "PRODUCED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "starch",
+      "stored_relation": "fate_via_digest",
+      "stored_obj": "CONSUMED",
+      "recovered_subject": "starch",
+      "recovered_relation": "fate_via_digest",
+      "recovered_object": "CONSUMED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "power",
+      "stored_relation": "fate_via_consum",
+      "stored_obj": "CONSUMED",
+      "recovered_subject": "power",
+      "recovered_relation": "fate_via_consum",
+      "recovered_object": "CONSUMED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "chemical_energy",
+      "stored_relation": "fate_via_mak",
+      "stored_obj": "PRODUCED",
+      "recovered_subject": "chemical_energy",
+      "recovered_relation": "fate_via_mak",
+      "recovered_object": "PRODUCED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "atoms",
+      "stored_relation": "fate_via_make",
+      "stored_obj": "PRODUCED",
+      "recovered_subject": "atoms",
+      "recovered_relation": "fate_via_make",
+      "recovered_object": "PRODUCED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "active_molecule_sulfanilamide",
+      "stored_relation": "fate_via_synthesiz",
+      "stored_obj": "PRODUCED",
+      "recovered_subject": "active_molecule_sulfanilamide",
+      "recovered_relation": "fate_via_synthesiz",
+      "recovered_object": "PRODUCED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    },
+    {
+      "stored_subject": "black_holes",
+      "stored_relation": "fate_via_make",
+      "stored_obj": "PRODUCED",
+      "recovered_subject": "black_holes",
+      "recovered_relation": "fate_via_make",
+      "recovered_object": "PRODUCED",
+      "recovered_source": "reading",
+      "recovered_trust": "TRUST_LOW"
+    }
+  ],
+  "handcheck_dump_path": "D:\\AI\\hd-instrument\\data\\exp_stated_entity_fate_reading_extractor_v1\\_extractions_for_handcheck.json",
+  "all_extractions_path": "D:\\AI\\hd-instrument\\data\\exp_stated_entity_fate_reading_extractor_v1\\_extractions_all.json",
+  "bands": {
+    "HARD_PASS_PRECISION": 0.6
+  },
+  "hand_check": {
+    "n_adjudicated": 99,
+    "n_correct": 39,
+    "precision": 0.3939,
+    "error_family_counts": {
+      "wrong_patient": 17,
+      "intransitive_subject_is_theme": 13,
+      "causative_light_verb": 12,
+      "proper_noun_title": 6,
+      "adjectival_or_noun_misparse": 4,
+      "verb_sense": 3,
+      "passive_by_agent": 3,
+      "negation_false_positive": 1,
+      "product_vs_reactant": 1
+    },
+    "adjudication_path": "d:/AI/hd-instrument/data/exp_stated_entity_fate_reading_extractor_v1\\_handcheck_adjudicated.json"
+  },
+  "final_verdict": "HARD_FAIL_REAL_PROSE_PRECISION",
+  "final_verdict_msg": "HARD_FAIL_REAL_PROSE_PRECISION: curated design P=1.0/R=1.0, HELD-OUT P=1.0/R=1.0, REAL-PROSE hand-checked P=0.3939 (39/99) << 0.6 target; curated negation clean=True BUT real-prose negation leaks (1 false-positive in sample: 'do not readily form'); n_corpus_extracted=4015 stored=4015 (TRUST_LOW). Dominant real-prose failures: {'wrong_patient': 17, 'intransitive_subject_is_theme': 13, 'causative_light_verb': 12, 'proper_noun_title': 6}. Extraction of STATED facts works PERFECTLY on clean SVO sentences (curated P=R=1.0) but collapses on real science prose to ~0.39 precision -- failure is ROLE/ARGUMENT-STRUCTURE + VERB-SENSE (not arc-parse): positional PATIENT grabs agents/locatives/goals/possessors, causative/light-verb 'make', passive by-agents, and verb-sense (burn-CD/release-album) dominate. Grow-by-reading NOT yet viable at usable precision without a precision-hardening pass (arg-structure roles + verb-sense + intransitive-theme handling)."
+}

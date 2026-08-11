@@ -1,0 +1,62 @@
+{
+  "checks": {
+    "lexicon": {
+      "base": 41,
+      "expanded": 66
+    },
+    "extract": {
+      "e1": [
+        {
+          "entity": "wood",
+          "entity_head": "wood",
+          "fate": "DESTROY",
+          "fate_label": "CONSUMED",
+          "via_verb": "consum",
+          "voice": "active",
+          "path": "parse",
+          "subject": "fire",
+          "sentence": "Fire consumes the wood."
+        }
+      ],
+      "e2": [
+        {
+          "entity": "fuel",
+          "entity_head": "fuel",
+          "fate": "DESTROY",
+          "fate_label": "CONSUMED",
+          "via_verb": "consum",
+          "voice": "passive",
+          "path": "parse",
+          "subject": null,
+          "sentence": "The fuel is consumed."
+        }
+      ],
+      "e3": [
+        {
+          "entity": "combustion_produces_carbon_dioxide",
+          "entity_head": "dioxide",
+          "fate": "CREATE",
+          "fate_label": "PRODUCED",
+          "via_verb": "produc",
+          "voice": "active",
+          "path": "positional",
+          "subject": "combustion",
+          "sentence": "Combustion produces carbon dioxide."
+        }
+      ]
+    },
+    "negation": "clean",
+    "store_roundtrip": {
+      "stored": "wood/fate_via_consume/CONSUMED",
+      "recovered_subject": "wood",
+      "recovered_object": "CONSUMED",
+      "recovered_trust": "TRUST_LOW"
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: lexicon + real frontend extractor (active/passive/compound) + negation guard + hd_fact_store store/recover round-trip all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.16,
+  "run_mode": "self_test",
+  "anchor_name": "stated_entity_fate_reading_extractor_v1"
+}
