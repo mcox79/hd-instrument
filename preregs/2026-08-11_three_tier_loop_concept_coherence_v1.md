@@ -218,3 +218,53 @@ blocked gaps' specific materials happen to be lexicon-covered to clear the 30% f
 `MIDDLE_BAND` and is reported as a lexicon-coverage/grounding-wall finding pointing at source
 expansion (more ProPara-style domain vocabulary, or a broader concept feature lexicon) as the next
 lever -- not folded into a PASS.
+
+## ADDENDUM (2026-08-11): control fix -- concept-content scramble + mechanism-isolation
+
+Landed as `HARD_FAIL_controls_broken` (commit 7dc5b0588): `scramble_collapses=False` --
+`W_scramble` retained 2/5 eligible entries, one (`igneous_rock_cycle||lava||lava_lake`) a genuine
+real fact leaking through. Root cause: `W_scramble` only permuted cross-source KG BRIDGE LINKS
+(recomputing eligibility), leaving every gap's real wave TEXT -- what `concept_coherence_score`
+actually reads -- fully intact, so a gap surviving the link-scramble by chance still carried its
+own genuine, unscrambled evidence.
+
+**Fix**: new `scramble_wave_content(waves_by_pk, seed)` corrupts the raw TEXT content per
+`(wave_idx, source_tag)` slot via a content-GROUP derangement (cyclic rotation over DISTINCT text
+values, not raw pk positions -- pk-position derangement was tried first and leaked 8/21 in the
+mechanism-isolation arm below via content-identical siblings, e.g. `kb_role_schema` text depends
+only on `(process, material)` so `photosynthesis||sugar||cotton_candy` and
+`photosynthesis||sugar||jelly_beans` share byte-identical text; group-level derangement closed
+this). Structural wiring (which slots exist, source_tag identity, independence-class tagging) is
+completely untouched -- only the text content changes.
+
+**Pre-registered bands for the two new isolations (declared BEFORE the decisive run below):**
+- `scramble_collapses` (ISOLATION 1): `W_scramble` final `n_foundation + n_middle == 0` (strict;
+  replaces the old `n_eligible<=1 OR n_middle==0` OR-clause, no longer needed once content is also
+  corrupted).
+- `mechanism_isolation_collapse_ok` (ISOLATION 2, the decisive control): new arm
+  `W_mechanism_isolation` -- REAL (unscrambled) eligibility, restricted to exactly the pks in
+  `newly_retained_pks` (the real 21/21 recovery), concept content ONLY scrambled. Recovered
+  fraction must be `<= MECH_ISO_COLLAPSE_BAND = 0.15`. HYPOTHESIZED, not measured: the domain's
+  concept vocabulary is small and recycled across gaps (energy/light/water/rain/rock/moon repeat
+  across many unrelated triples), so pure-chance cross-wiring could occasionally reproduce an
+  accidental shared-word match; 15% (~3/21) tolerates plausible base-rate noise while still
+  requiring a decisive supermajority collapse to pass. Not tuned post-hoc against the measured
+  result (see next paragraph for why that would have mattered: the first real measurement came in
+  at 38.1%, well above this band, and was NOT waved through).
+
+**Measured (MEASURED@data/exp_three_tier_loop_concept_coherence_v1/metrics.json):**
+- First cut of `scramble_wave_content` (pk-position derangement): ISOLATION 1 collapsed cleanly
+  (`W_scramble` final 0/0). ISOLATION 2 did NOT collapse -- 8/21 (38.1%) recovered, `verdict =
+  HARD_FAIL_mechanism_isolation_recovery_survives_scrambled_concepts`. Diagnosed as the duplicate-
+  content-siblings leak described above (all 8 survivors were siblings sharing `(process,
+  material)` with a 2-3-way `whole` family: photosynthesis/sugar x3, photosynthesis/oxygen x2,
+  photosynthesis/water x2, sedimentation/rock/pluto), not a mechanism artifact.
+- After the content-group-derangement fix: `content_scramble_diag.n_entries_changed = 183/183`
+  (100%, zero residual duplicate-content escapes, `n_content_groups_total=85`). ISOLATION 1:
+  `W_scramble` final 0/0 (collapses). ISOLATION 2 (decisive): `W_mechanism_isolation` recovered
+  **0/21 (0.0%)** -- the 21/21 recovery COMPLETELY COLLAPSES when only concept content is
+  scrambled and eligibility is left real. `verdict =
+  HARD_PASS_concept_coherence_unblocks_cross_source_paraphrase`. All original controls hold
+  (`control_check_ok`/`no_leak_ok`/`reference_reproduces_prior`/`positive_control_ok`/
+  `n_regressed=0`/`baseline_reproduces_parent` all True); `pytest verification/` = 256 passed / 3
+  skipped, unchanged from the commit 7dc5b0588 baseline.

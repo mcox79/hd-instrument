@@ -2,8 +2,8 @@
   "verdict": "SELF_TEST_PASS",
   "verdict_msg": "regression: grounding_acquisition_loop.self_test() and prelim_tier.self_test() both pass unchanged after the additive coherence_fn edits; closed-form concept-coherence boundary proofs pass (real paraphrase pair coheres, cross-domain/wrong-material distinct-fact pairs rejected, OOV-both-sides -> 0.0); real-pipeline control checks pass (paraphrase pair retains WITH concept coherence and does NOT retain WITHOUT it; distinct-fact pair never retains) -- the mechanism works correctly before touching real data",
   "summary": "SELF_TEST_PASS",
-  "elapsed_s": 0.22805320005863905,
-  "ts_iso": "2026-08-11T21:23:00.883790+00:00",
+  "elapsed_s": 0.1199748000362888,
+  "ts_iso": "2026-08-11T21:52:41.307401+00:00",
   "anchor_name": "three_tier_loop_concept_coherence_v1",
   "run_mode": "self_test",
   "result": {
@@ -24,6 +24,11 @@
       "real_pipeline_neg_retained": false,
       "control_check_ok": true
     },
+    "scramble_wave_content_derangement_ok": true,
+    "scramble_wave_content_deterministic_ok": true,
+    "scramble_wave_content_seed_sensitive_ok": true,
+    "scramble_wave_content_n1_category_handled_ok": true,
+    "scramble_wave_content_duplicate_content_siblings_ok": true,
     "gal_self_test": {
       "context_vector_deterministic": true,
       "schema_metric_discriminant_valid": true,

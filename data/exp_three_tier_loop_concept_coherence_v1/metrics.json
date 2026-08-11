@@ -1,9 +1,9 @@
 {
-  "verdict": "HARD_FAIL_controls_broken",
-  "verdict_msg": "one or more mandatory can-fail controls FAILED: control_check_ok=True no_leak_ok=True reference_reproduces_prior=True scramble_collapses=False positive_control_ok=True n_regressed=0 baseline_reproduces_parent=True -- the concept-coherence fix cannot be trusted until every control passes",
-  "summary": "one or more mandatory can-fail controls FAILED: control_check_ok=True no_leak_ok=True reference_reproduces_prior=True scramble_collapses=False positive_control_ok=True n_regressed=0 baseline_reproduces_parent=True -- the concept-coherence fix cannot be trusted until every control passes",
-  "elapsed_s": 55.95328460005112,
-  "ts_iso": "2026-08-11T21:25:47.476162+00:00",
+  "verdict": "HARD_PASS_concept_coherence_unblocks_cross_source_paraphrase",
+  "verdict_msg": "OWNED graded concept_similarity aligns genuinely-same facts worded differently across sources: 21/21 (100.0%) of the previously-blocked real 2+-source gaps NOW retain end-to-end (W_concept final n_middle=36 vs W_baseline 15), zero regressions (0), all controls pass (real paraphrase pair coheres and retains WITH the concept metric / does NOT with the old metric; cross-domain and wrong-material distinct-fact pairs correctly REJECTED both closed-form and real-pipeline; FIXED scramble collapses to 0 under corrupted content; R_reference reproduces cited n_foundation=40 vs cited 40; no_leak_ok=True) AND the DECISIVE mechanism-isolation control confirms it is real: with ONLY concept content scrambled (eligibility left real), the recovery collapses to 0/21 (0.0%, band<=15%) -- the win depends on genuine concept-meaning alignment, not pipeline artifact.",
+  "summary": "OWNED graded concept_similarity aligns genuinely-same facts worded differently across sources: 21/21 (100.0%) of the previously-blocked real 2+-source gaps NOW retain end-to-end (W_concept final n_middle=36 vs W_baseline 15), zero regressions (0), all controls pass (real paraphrase pair coheres and retains WITH the concept metric / does NOT with the old metric; cross-domain and wrong-material distinct-fact pairs correctly REJECTED both closed-form and real-pipeline; FIXED scramble collapses to 0 under corrupted content; R_reference reproduces cited n_foundation=40 vs cited 40; no_leak_ok=True) AND the DECISIVE mechanism-isolation control confirms it is real: with ONLY concept content scrambled (eligibility left real), the recovery collapses to 0/21 (0.0%, band<=15%) -- the win depends on genuine concept-meaning alignment, not pipeline artifact.",
+  "elapsed_s": 48.784657799988054,
+  "ts_iso": "2026-08-11T21:54:16.995198+00:00",
   "anchor_name": "three_tier_loop_concept_coherence_v1",
   "run_mode": "full",
   "process_filter": "ALL",
@@ -125,6 +125,19 @@
     "real_pipeline_pos_retained_with_old": false,
     "real_pipeline_neg_retained": false,
     "control_check_ok": true
+  },
+  "content_scramble_diag": {
+    "n_categories_deranged": 3,
+    "n_categories_too_small": 0,
+    "n_content_groups_total": 85,
+    "rotation_offsets": {
+      "0:cskg": 19,
+      "1:causenet": 2,
+      "2:kb_role_schema": 4
+    },
+    "n_entries_total": 183,
+    "n_entries_changed": 183,
+    "n_entries_unchanged": 0
   },
   "n_waves": 3,
   "r_visits": 6,
@@ -396,31 +409,78 @@
         {
           "checkpoint": 3,
           "n_foundation": 0,
-          "n_middle": 2,
-          "n_total_resolved": 2,
+          "n_middle": 0,
+          "n_total_resolved": 0,
           "n_combined_promoted_this_pass": 0,
           "n_clusters_eligible_size": 0,
-          "n_newly_retained_this_pass": 2,
+          "n_newly_retained_this_pass": 0,
           "n_banked_pos_this_pass": 0,
-          "resolved_pks": [
-            "igneous_rock_cycle||lava||lava_lake::CREATE",
-            "igneous_rock_cycle||lava||lava_lake::MOVE"
-          ]
+          "resolved_pks": []
         }
       ],
       "final": {
         "checkpoint": 3,
         "n_foundation": 0,
-        "n_middle": 2,
-        "n_total_resolved": 2,
+        "n_middle": 0,
+        "n_total_resolved": 0,
         "n_combined_promoted_this_pass": 0,
         "n_clusters_eligible_size": 0,
-        "n_newly_retained_this_pass": 2,
+        "n_newly_retained_this_pass": 0,
         "n_banked_pos_this_pass": 0,
-        "resolved_pks": [
-          "igneous_rock_cycle||lava||lava_lake::CREATE",
-          "igneous_rock_cycle||lava||lava_lake::MOVE"
-        ]
+        "resolved_pks": []
+      },
+      "use_concept_coherence": true
+    },
+    "W_mechanism_isolation": {
+      "arm_name": "W_mechanism_isolation",
+      "n_targets": 21,
+      "n_eligible": 21,
+      "no_leak_ok": true,
+      "checkpoints": [
+        {
+          "checkpoint": 1,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 2,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        },
+        {
+          "checkpoint": 3,
+          "n_foundation": 0,
+          "n_middle": 0,
+          "n_total_resolved": 0,
+          "n_combined_promoted_this_pass": 0,
+          "n_clusters_eligible_size": 0,
+          "n_newly_retained_this_pass": 0,
+          "n_banked_pos_this_pass": 0,
+          "resolved_pks": []
+        }
+      ],
+      "final": {
+        "checkpoint": 3,
+        "n_foundation": 0,
+        "n_middle": 0,
+        "n_total_resolved": 0,
+        "n_combined_promoted_this_pass": 0,
+        "n_clusters_eligible_size": 0,
+        "n_newly_retained_this_pass": 0,
+        "n_banked_pos_this_pass": 0,
+        "resolved_pks": []
       },
       "use_concept_coherence": true
     },
@@ -508,21 +568,27 @@
   "regressed_count": 0,
   "newly_retained_fraction": 1.0,
   "end_to_end_retain_ok": true,
-  "scramble_collapses": false,
+  "scramble_collapses": true,
+  "mechanism_isolation_population_n": 21,
+  "mechanism_isolation_recovered_count": 0,
+  "mechanism_isolation_fraction": 0.0,
+  "mechanism_isolation_collapse_ok": true,
   "no_leak_ok": true,
   "reference_reproduces_prior": true,
   "baseline_reproduces_parent": true,
-  "controls_ok": false,
+  "controls_ok": true,
   "cardinality_ok": true,
   "arm_curve_digests": {
     "W_baseline": "2bee3e780f2409d69dfae125a4c24765d2c32f955e0cf041142bf98693bf10dd",
     "W_concept": "05d8e0bc4d79b4c8c33e825361fe8cf27649b5211c3e9792893dd91d7bfecc8a",
-    "W_scramble": "7b6b0031a4e652049f5952fa4291a3286a1e01895f3adedb1ee99577632d51d6",
+    "W_scramble": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
+    "W_mechanism_isolation": "e4f70b95f2b77fa3a226d3c43f087ea24a8989908660eb8777e9b959d065a50d",
     "R_reference": "ed9a715b1dfa2d654087f64c04d449f3893f4ba1193b7fc99c8ca8832274b76a"
   },
   "arms_differ_baseline_vs_concept_ok": true,
   "arms_differ_concept_vs_reference_ok": true,
   "arms_differ_concept_vs_scramble_ok": true,
+  "arms_differ_concept_vs_mechanism_isolation_ok": true,
   "bands": {
     "schema_thresh": 0.1,
     "concept_match_threshold": 0.5,
@@ -530,6 +596,7 @@
     "reference_tolerance_abs": 15,
     "reference_cited_n_foundation": 40,
     "positive_control_tolerance": 0.1,
-    "baseline_cited_n_middle": 15
+    "baseline_cited_n_middle": 15,
+    "mechanism_isolation_collapse_band": 0.15
   }
 }

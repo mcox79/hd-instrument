@@ -1,7 +1,12 @@
 # CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
+# - 2026-08-11 CONTROL FIX: W_scramble now ALSO corrupts CONCEPT CONTENT (scramble_wave_content),
+#   not just cross-source KG links (root cause of the disclosed scramble_collapses=False leak);
+#   NEW arm W_mechanism_isolation isolates concept-content-only corruption on exactly the pks that
+#   recovered under W_concept -- the decisive "is the win real" control. See module docstring ARMS.
 # - arms_differ_verified: W_baseline vs W_concept asserted; W_concept vs R_reference asserted;
 #   W_concept vs W_scramble asserted or exempted-by-construction if scrambled population collapses
-#   to the same size class
+#   to the same size class; W_concept vs W_mechanism_isolation asserted or exempted-by-construction
+#   if the mechanism-isolation population collapses to the same size class
 # - final_metrics_atomicity = tmp_replace (single-shot)
 # - except SystemExit / KeyboardInterrupt re-raised BEFORE except Exception (no BaseException)
 # - crlb_n/a: discrete matched/unmatched in-lexicon-word-fraction gate, not a Gaussian noise-floor
@@ -15,8 +20,8 @@
 # - HP_SCOPE: HARD_PASS/HARD_FAIL gates apply to the concept-coherence metric's own discrimination
 #   property (paraphrase-vs-distinct-fact) + the end-to-end W_concept retain rate on the real
 #   blocked-gap population; R_reference carries its own single reproduces_prior gate
-# - cardinality_ok: EXPECTED checkpoints = n_waves for W_baseline/W_concept/W_scramble,
-#   VISITS_PER_GAP(6, or VISITS_PER_GAP_SMOKE at smoke) for R_reference
+# - cardinality_ok: EXPECTED checkpoints = n_waves for W_baseline/W_concept/W_scramble/
+#   W_mechanism_isolation, VISITS_PER_GAP(6, or VISITS_PER_GAP_SMOKE at smoke) for R_reference
 # - per-unit failure-class instrumentation: N/A (single deterministic pass per arm, 4 arms + 2
 #   closed-form audits + 1 control-check block)
 # - calibration_check: default_ok_for_this_regime (CONCEPT_MATCH_THRESHOLD reused verbatim from
@@ -107,10 +112,15 @@ WIRED gate).
 
 ARMS: W_baseline (independence-weighted gate, OLD raw-cosine coherence -- reproduces the parent
 cell's own W_full inside this cell for an exact per-gap diff) / W_concept (same gate, NEW
-concept-similarity coherence -- the headline arm) / W_scramble (W_concept wiring, scrambled hop2,
-eligibility recomputed) / R_reference (POSITIVE CONTROL: byte-identical reproduction of the landed
-A_full arm via VISITS_PER_GAP=6 templated repeats and the UNWEIGHTED default gate, imported
-verbatim -- proves this cell's own plumbing is correct and the count-gate fix is untouched).
+concept-similarity coherence -- the headline arm) / W_scramble (2026-08-11 FIXED: W_concept wiring,
+scrambled hop2 eligibility AND scrambled CONCEPT CONTENT via scramble_wave_content -- ISOLATION 1,
+must collapse to ~0 retention) / W_mechanism_isolation (2026-08-11 NEW, the decisive control: REAL
+unscrambled eligibility, restricted to exactly the pks that recovered under W_concept, concept
+content ONLY scrambled -- ISOLATION 2, the 21/21 recovery must COLLAPSE if the win is genuine
+concept-meaning alignment and not pipeline artifact) / R_reference (POSITIVE CONTROL: byte-identical
+reproduction of the landed A_full arm via VISITS_PER_GAP=6 templated repeats and the UNWEIGHTED
+default gate, imported verbatim -- proves this cell's own plumbing is correct and the count-gate fix
+is untouched).
 
 Modes: --self-test (source cells' own fixtures + new concept-coherence-boundary fixtures, <10s) /
 --smoke (real pipeline, 2-process subset, CauseNet scan skipped -> 2-wave ceiling) / (no flag,
@@ -185,6 +195,23 @@ from experiments.exp_three_tier_loop_independence_weighted_confirm_v1 import (  
 CONCEPT_MATCH_THRESHOLD = SIMILARITY_LINK_THRESHOLD  # = 0.50, REUSED VERBATIM (not re-tuned here)
 SCHEMA_THRESH = 0.10  # codebase default (grounding_acquisition_loop / prelim_tier), unchanged
 
+# ---- 2026-08-11 CONTROL FIX: the disclosed HARD_FAIL_controls_broken (scramble_collapses=False,
+# 2 entries leaked, igneous_rock_cycle||lava||lava_lake being one GENUINE fact) traced to the fact
+# that the ORIGINAL W_scramble only permutes cross-source KG BRIDGE LINKS (used to recompute
+# eligibility -- fanout_two_hop over hop2_scrambled), leaving every gap's real wave TEXT (the thing
+# concept_coherence_score actually reads) fully intact. A gap that remains eligible by chance under
+# scrambled links still carries its own genuine, unscrambled evidence -- so it can legitimately
+# cohere and retain, which is not a leak of the MECHANISM under test, just an incomplete control.
+# MECH_ISO_COLLAPSE_BAND: pre-registered BEFORE running the fixed cells below. The domain's
+# concept vocabulary is small and recycled across gaps (energy/light/water/rain/rock/moon appear
+# in MANY unrelated (process,material,whole) triples), so pure-chance cross-wiring under
+# scramble_wave_content could occasionally reproduce an accidental shared-word match even between
+# two truly-unrelated gaps. HYPOTHESIZED (not measured): allow up to ~3/21 (14%) survivors as
+# chance-collision noise before calling the recovery genuinely "not collapsed" -- chosen to require
+# a decisive supermajority collapse while not being falsely triggered by ordinary base-rate noise;
+# NOT tuned post-hoc against the actual measured result.
+MECH_ISO_COLLAPSE_BAND = 0.15
+
 
 def _in_lexicon_words(text: str) -> List[str]:
     """Content words of `text` that are IN hdlab.lexical_similarity.CONCEPT_FEATURES, sorted +
@@ -228,6 +255,104 @@ def concept_coherence_score(traces_a: List["Trace"], traces_b: List["Trace"],
     matches = [1.0 if _has_concept_match(w, words_b) else 0.0 for w in words_a]
     matches += [1.0 if _has_concept_match(w, words_a) else 0.0 for w in words_b]
     return sum(matches) / len(matches)
+
+
+def scramble_wave_content(waves_by_pk: Dict[str, List[Tuple[int, str, str]]], seed: int
+                          ) -> Tuple[Dict[str, List[Tuple[int, str, str]]], Dict]:
+    """THE FIX (2026-08-11): corrupts the CONCEPT CONTENT (raw text) that concept_coherence_score
+    actually reads, while leaving the structural WIRING -- which (wave_idx, source_tag) slots each
+    gap has, hence eligibility/cardinality/independence-class tagging via source_tag (see
+    exp_three_tier_loop_independence_weighted_confirm_v1._source_tag_of, which parses source_tag
+    from episode_id, itself built from source_tag not text) -- completely UNTOUCHED.
+
+    Groups every (pk, text) pair by its (wave_idx, source_tag) category [0=cskg, 1=causenet,
+    2=kb_role_schema -- these are grammatically-identical sibling texts across gaps, differing only
+    in which entities they name]. WITHIN each category, further groups pks by their DISTINCT TEXT
+    CONTENT (not raw pk identity) -- MANDATORY, not cosmetic: several real source templates name
+    fewer than all of (process, material, whole), so multiple DIFFERENT pks legitimately produce
+    BYTE-IDENTICAL text (e.g. kb_role_schema's "ProPara ... lists {m} ... for process {p}." never
+    mentions `whole`, so every gap sharing (process, material) -- e.g.
+    photosynthesis||sugar||cotton_candy and photosynthesis||sugar||jelly_beans -- has identical
+    kb_role_schema text; causenet's process_material hits have the same property). A derangement
+    over raw PK POSITIONS can accidentally reassign a pk to a content-identical sibling: nominally
+    a "different pk" but ZERO actual concept-content corruption for that entry. MEASURED (2026-08-11,
+    first cut of this function): this exact residual let 8/21 real mechanism-isolation-population
+    gaps survive scrambling by riding on a sibling's byte-identical text -- not a leak in the
+    concept-coherence mechanism, a leak in this control. FIX: derange the SORTED LIST OF DISTINCT
+    TEXTS (not pks) via a cyclic rotation by a nonzero offset drawn from a seeded
+    np.random.default_rng, then broadcast each rotated text to every pk that shared the
+    corresponding original group -- guarantees EVERY pk (whichever content-group it started in)
+    ends up with text from a DIFFERENT content-group, with zero possibility of an accidental
+    same-content self-match, however many pks share a template. A cyclic rotation by k in [1, n-1]
+    over n >= 2 DISTINCT texts is a derangement (zero fixed points) by construction. Categories with
+    < 2 distinct texts (nothing content-different to derange against) are left uncorrupted and
+    counted in the returned diagnostic so the caller can audit true coverage -- never silently
+    assumed corrupted."""
+    by_category: Dict[Tuple[int, str], List[str]] = {}
+    orig_text: Dict[Tuple[str, int, str], str] = {}
+    for pk, gw in waves_by_pk.items():
+        for (w, tag, text) in gw:
+            by_category.setdefault((w, tag), []).append(pk)
+            orig_text[(pk, w, tag)] = text
+    for key in by_category:
+        by_category[key] = sorted(set(by_category[key]))
+
+    rng = np.random.default_rng(seed)
+    rotation_offsets: Dict[str, int] = {}
+    scrambled_text: Dict[Tuple[str, int, str], str] = {}
+    n_categories_deranged = 0
+    n_categories_too_small = 0
+    n_content_groups_total = 0
+    for key in sorted(by_category.keys()):
+        pks_sorted = by_category[key]
+        w, tag = key
+        content_groups: Dict[str, List[str]] = {}
+        for pk in pks_sorted:
+            content_groups.setdefault(orig_text[(pk, w, tag)], []).append(pk)
+        distinct_texts = sorted(content_groups.keys())
+        n_content_groups_total += len(distinct_texts)
+        n = len(distinct_texts)
+        if n < 2:
+            n_categories_too_small += 1
+            for pk in pks_sorted:
+                scrambled_text[(pk, w, tag)] = orig_text[(pk, w, tag)]  # nothing content-different to derange against
+            continue
+        offset = int(rng.integers(1, n))  # in [1, n-1] -- rotation by nonzero offset = derangement
+        rotation_offsets[f"{w}:{tag}"] = offset
+        n_categories_deranged += 1
+        rotated_texts = distinct_texts[offset:] + distinct_texts[:offset]
+        for group_text, new_text in zip(distinct_texts, rotated_texts):
+            for pk in content_groups[group_text]:
+                scrambled_text[(pk, w, tag)] = new_text
+
+    deranged_categories = set(rotation_offsets.keys())
+    out: Dict[str, List[Tuple[int, str, str]]] = {}
+    n_entries_changed = 0
+    n_entries_total = 0
+    for pk, gw in waves_by_pk.items():
+        new_gw = []
+        for (w, tag, text) in gw:
+            new_text = scrambled_text[(pk, w, tag)]
+            n_entries_total += 1
+            if new_text != text:
+                n_entries_changed += 1
+            elif f"{w}:{tag}" in deranged_categories:
+                # a category we DID derange must never leave any entry byte-identical -- the
+                # content-group derangement guarantees this; a violation here is a real bug in
+                # the grouping/rotation logic above, not tolerable chance-collision (raise loud,
+                # never silently continue, per the no-silent-except / fail-loud discipline).
+                raise AssertionError(
+                    f"scramble_wave_content BUG: category {w}:{tag} was deranged but pk={pk!r} "
+                    f"kept byte-identical text after content-group rotation -- grouping invariant "
+                    f"violated")
+            new_gw.append((w, tag, new_text))
+        out[pk] = new_gw
+    diag = {"n_categories_deranged": n_categories_deranged, "n_categories_too_small": n_categories_too_small,
+           "n_content_groups_total": n_content_groups_total,
+           "rotation_offsets": rotation_offsets, "n_entries_total": n_entries_total,
+           "n_entries_changed": n_entries_changed,
+           "n_entries_unchanged": n_entries_total - n_entries_changed}
+    return out, diag
 
 
 def repo_path(rel: str) -> str:
@@ -494,12 +619,75 @@ def run_self_test() -> Dict:
     ctrl = run_concept_control_checks()
     assert ctrl["control_check_ok"], f"SELF_TEST FAIL: concept-coherence control checks failed: {ctrl}"
 
+    # scramble_wave_content boundary (2026-08-11 fix): tiny synthetic 4-pk x 2-category fixture,
+    # every category has n=4 >= 2 (fully derangeable). Assert (a) EVERY entry's text actually
+    # changed (zero fixed points -- the derangement guarantee), (b) structure (wave_idx, source_tag,
+    # cardinality per pk) is byte-identical to the input, (c) re-running with the SAME seed
+    # reproduces the identical output (determinism), (d) a DIFFERENT seed produces a different
+    # rotation (the seed is actually consulted, not ignored).
+    synth_waves = {
+        "gap_a": [(0, "cskg", "text_a_cskg"), (2, "kb_role_schema", "text_a_kb")],
+        "gap_b": [(0, "cskg", "text_b_cskg"), (2, "kb_role_schema", "text_b_kb")],
+        "gap_c": [(0, "cskg", "text_c_cskg"), (2, "kb_role_schema", "text_c_kb")],
+        "gap_d": [(0, "cskg", "text_d_cskg"), (2, "kb_role_schema", "text_d_kb")],
+    }
+    scr1, diag1 = scramble_wave_content(synth_waves, seed=777)
+    assert diag1["n_categories_too_small"] == 0, f"SELF_TEST FAIL: expected all synth categories derangeable, got {diag1}"
+    for pk, gw in synth_waves.items():
+        assert len(scr1[pk]) == len(gw), "SELF_TEST FAIL: scramble changed cardinality"
+        for (w, tag, text), (w2, tag2, text2) in zip(gw, scr1[pk]):
+            assert (w, tag) == (w2, tag2), "SELF_TEST FAIL: scramble changed wiring (wave_idx/source_tag)"
+            assert text2 != text, f"SELF_TEST FAIL: scramble left a fixed point for {pk} {tag}: {text2!r}"
+    scr1_repeat, _ = scramble_wave_content(synth_waves, seed=777)
+    assert scr1_repeat == scr1, "SELF_TEST FAIL: scramble_wave_content not deterministic under fixed seed"
+    scr2, _ = scramble_wave_content(synth_waves, seed=778)
+    assert scr2 != scr1, "SELF_TEST FAIL: scramble_wave_content ignores its seed (different seed -> identical output)"
+    # n=1 category must be left uncorrupted and flagged, never silently dropped or crashed on.
+    synth_small = {"gap_e": [(0, "cskg", "only_text")]}
+    scr_small, diag_small = scramble_wave_content(synth_small, seed=999)
+    assert diag_small["n_categories_too_small"] == 1 and scr_small["gap_e"][0][2] == "only_text", (
+        f"SELF_TEST FAIL: n=1 category must be left as-is and counted, got {diag_small} / {scr_small}")
+
+    # DUPLICATE-CONTENT-SIBLINGS regression (2026-08-11): reproduces the exact real-data pattern
+    # that let 8/21 mechanism-isolation gaps survive the FIRST cut of this function -- multiple
+    # pks sharing a template that omits `whole` (e.g. kb_role_schema only names process+material)
+    # produce BYTE-IDENTICAL text. gap_p/gap_q/gap_r all share "shared_text" (3-way tie); gap_s is
+    # the lone odd-one-out. A pk-position-only derangement could swap gap_p<->gap_q (both
+    # "shared_text") and leave BOTH looking "changed" by donor-identity but byte-IDENTICAL in
+    # content -- exactly the leak. The content-group fix must guarantee every one of gap_p/q/r ends
+    # up holding gap_s's "distinct_text", and gap_s ends up holding "shared_text" -- i.e. NONE of
+    # the 4 pks may retain a text content-equal to what they started with.
+    synth_dup = {
+        "gap_p": [(2, "kb_role_schema", "shared_text")],
+        "gap_q": [(2, "kb_role_schema", "shared_text")],
+        "gap_r": [(2, "kb_role_schema", "shared_text")],
+        "gap_s": [(2, "kb_role_schema", "distinct_text")],
+    }
+    scr_dup, diag_dup = scramble_wave_content(synth_dup, seed=42)
+    assert diag_dup["n_content_groups_total"] == 2, f"SELF_TEST FAIL: expected 2 content groups, got {diag_dup}"
+    for pk, gw in synth_dup.items():
+        orig = gw[0][2]
+        new = scr_dup[pk][0][2]
+        assert new != orig, (
+            f"SELF_TEST FAIL: DUPLICATE-CONTENT-SIBLINGS regression -- {pk} kept content-equal "
+            f"text ({new!r} vs original {orig!r}) after scramble; this is the exact leak class "
+            f"that let 8/21 real mechanism-isolation gaps survive on the first cut of this fn")
+    assert scr_dup["gap_p"][0][2] == scr_dup["gap_q"][0][2] == scr_dup["gap_r"][0][2] == "distinct_text", (
+        f"SELF_TEST FAIL: all 3 members of the 'shared_text' content-group must be reassigned the "
+        f"SAME foreign text (group-level derangement), got {scr_dup}")
+    assert scr_dup["gap_s"][0][2] == "shared_text", f"SELF_TEST FAIL: gap_s must swap to the other group's text, got {scr_dup}"
+
     return {
         "grounding_acquisition_loop_regression_ok": True,
         "prelim_tier_regression_ok": True,
         "leaf_oxygen_paraphrase_ok": True, "leaf_oxygen_score": round(ox_new, 4),
         "oov_both_sides_zero_ok": True,
         "control_checks": ctrl,
+        "scramble_wave_content_derangement_ok": True,
+        "scramble_wave_content_deterministic_ok": True,
+        "scramble_wave_content_seed_sensitive_ok": True,
+        "scramble_wave_content_n1_category_handled_ok": True,
+        "scramble_wave_content_duplicate_content_siblings_ok": True,
         "gal_self_test": gal_result, "pt_self_test": pt_result,
     }
 
@@ -549,6 +737,9 @@ SEED_FOUND_WSCR = 20260815205
 SEED_TIER_WSCR = 20260815206
 SEED_FOUND_R = 20260815207
 SEED_TIER_R = 20260815208
+SEED_CONTENT_SCRAMBLE = 20260811301   # scramble_wave_content derangement rotation offsets
+SEED_FOUND_WMECH = 20260815209        # W_mechanism_isolation (2026-08-11 control fix)
+SEED_TIER_WMECH = 20260815210
 
 
 def run_pipeline(process_filter, run_mode: str) -> Dict:
@@ -671,18 +862,9 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
     print(f"[arm W_concept] {w_concept['final']['n_foundation']}/{w_concept['final']['n_middle']} "
           f"(foundation/middle)", flush=True)
 
-    print(f"[stage] running W_scramble (n_waves={n_waves})", flush=True)
-    w_scramble = run_concept_arm("W_scramble", eligible_scr, waves_by_pk, n_waves, novelty_thresh,
-                                 SEED_FOUND_WSCR, SEED_TIER_WSCR, use_concept_coherence=True)
-    print(f"[arm W_scramble] {w_scramble['final']['n_foundation']}/{w_scramble['final']['n_middle']}", flush=True)
-
-    r_visits = VISITS_PER_GAP if run_mode == "full" else VISITS_PER_GAP_SMOKE
-    r_reference = run_arm("R_reference", "full", targets, hop1, hop2_real, ent_idx, rel_idx,
-                          bridge_idx, gathered_per_proc, n_ent, r_visits, novelty_thresh,
-                          found_seed=SEED_FOUND_R, tier_seed=SEED_TIER_R)
-    print(f"[arm R_reference] {r_reference['final']} n_eligible={r_reference['n_eligible']}", flush=True)
-
-    # ---- the headline diff: blocked-under-baseline gaps that now retain under concept coherence ----
+    # ---- the headline diff: blocked-under-baseline gaps that now retain under concept coherence
+    # (moved BEFORE W_scramble/W_mechanism_isolation -- newly_retained_pks is the population the
+    # 2026-08-11 mechanism-isolation control needs) ----
     eligible_2plus_pks = {r["pk"] for r in schema_audit["rows"]}
     baseline_resolved = set(w_baseline["final"]["resolved_pks"])
     concept_resolved = set(w_concept["final"]["resolved_pks"])
@@ -695,9 +877,54 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
           f"newly_retained={len(newly_retained_pks)} regressed={len(regressed_pks)} "
           f"fraction={newly_retained_fraction:.4f}", flush=True)
 
+    # ---- 2026-08-11 CONTROL FIX: corrupt the CONCEPT CONTENT the coherence metric reads (see
+    # scramble_wave_content docstring for the full derivation) ----
+    print("[stage] scrambling wave CONCEPT CONTENT (control fix)", flush=True)
+    waves_by_pk_content_scrambled, content_scramble_diag = scramble_wave_content(waves_by_pk, SEED_CONTENT_SCRAMBLE)
+    print(f"[content-scramble] categories_deranged={content_scramble_diag['n_categories_deranged']} "
+          f"categories_too_small={content_scramble_diag['n_categories_too_small']} "
+          f"entries_changed={content_scramble_diag['n_entries_changed']}/{content_scramble_diag['n_entries_total']}", flush=True)
+
+    # ---- ISOLATION 1 (SCRAMBLE-RETENTION): W_scramble FIXED -- scrambled cross-source KG LINKS
+    # (recomputed eligibility, as before) AND NOW ALSO scrambled CONCEPT CONTENT, so a gap that
+    # survives the link-scramble by chance can no longer ride on its own real, unscrambled
+    # evidence. Must collapse to ~0 retention. ----
+    print(f"[stage] running W_scramble (FIXED: link-scrambled + content-scrambled, n_waves={n_waves})", flush=True)
+    w_scramble = run_concept_arm("W_scramble", eligible_scr, waves_by_pk_content_scrambled, n_waves, novelty_thresh,
+                                 SEED_FOUND_WSCR, SEED_TIER_WSCR, use_concept_coherence=True)
+    print(f"[arm W_scramble] {w_scramble['final']['n_foundation']}/{w_scramble['final']['n_middle']}", flush=True)
+
+    # ---- ISOLATION 2 (MECHANISM-ISOLATION, the decisive one): REAL (unscrambled) eligibility,
+    # restricted to EXACTLY the pks that recovered under W_concept (newly_retained_pks), run again
+    # with ONLY the concept content scrambled. If the win is genuine concept-alignment, none of
+    # these should retain a second time once their content no longer matches; if the recovery
+    # SURVIVES, it was never about concept meaning. ----
+    mech_iso_targets = [t for t in eligible_real if pk_of_genuine(t) in newly_retained_pks]
+    print(f"[stage] running W_mechanism_isolation (population={len(mech_iso_targets)} of the "
+          f"{len(newly_retained_pks)} newly-retained gaps, content-scrambled ONLY, n_waves={n_waves})", flush=True)
+    w_mechanism_isolation = run_concept_arm("W_mechanism_isolation", mech_iso_targets,
+                                            waves_by_pk_content_scrambled, n_waves, novelty_thresh,
+                                            SEED_FOUND_WMECH, SEED_TIER_WMECH, use_concept_coherence=True)
+    mech_iso_recovered_pks = set(w_mechanism_isolation["final"]["resolved_pks"]) & newly_retained_pks
+    mech_iso_population_n = len(mech_iso_targets)
+    mech_iso_recovered_count = len(mech_iso_recovered_pks)
+    mech_iso_fraction = (mech_iso_recovered_count / mech_iso_population_n) if mech_iso_population_n > 0 else 0.0
+    mechanism_isolation_collapse_ok = (mech_iso_population_n == 0) or (mech_iso_fraction <= MECH_ISO_COLLAPSE_BAND)
+    print(f"[arm W_mechanism_isolation] recovered={mech_iso_recovered_count}/{mech_iso_population_n} "
+          f"fraction={mech_iso_fraction:.4f} collapse_ok={mechanism_isolation_collapse_ok} "
+          f"(band<={MECH_ISO_COLLAPSE_BAND})", flush=True)
+
+    r_visits = VISITS_PER_GAP if run_mode == "full" else VISITS_PER_GAP_SMOKE
+    r_reference = run_arm("R_reference", "full", targets, hop1, hop2_real, ent_idx, rel_idx,
+                          bridge_idx, gathered_per_proc, n_ent, r_visits, novelty_thresh,
+                          found_seed=SEED_FOUND_R, tier_seed=SEED_TIER_R)
+    print(f"[arm R_reference] {r_reference['final']} n_eligible={r_reference['n_eligible']}", flush=True)
+
     # ---- cardinality ----
     cardinality_ok = (len(w_baseline["checkpoints"]) == n_waves and len(w_concept["checkpoints"]) == n_waves
-                      and len(w_scramble["checkpoints"]) == n_waves and len(r_reference["checkpoints"]) == r_visits)
+                      and len(w_scramble["checkpoints"]) == n_waves
+                      and len(w_mechanism_isolation["checkpoints"]) == n_waves
+                      and len(r_reference["checkpoints"]) == r_visits)
 
     # ---- arms-must-differ (META_RULE_AF) ----
     def _curve_digest(checkpoints):
@@ -705,13 +932,17 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
         return hashlib.sha256(json.dumps(c).encode("utf-8")).hexdigest()
 
     digests = {"W_baseline": _curve_digest(w_baseline["checkpoints"]), "W_concept": _curve_digest(w_concept["checkpoints"]),
-              "W_scramble": _curve_digest(w_scramble["checkpoints"]), "R_reference": _curve_digest(r_reference["checkpoints"])}
+              "W_scramble": _curve_digest(w_scramble["checkpoints"]),
+              "W_mechanism_isolation": _curve_digest(w_mechanism_isolation["checkpoints"]),
+              "R_reference": _curve_digest(r_reference["checkpoints"])}
     arms_differ_baseline_vs_concept_ok = digests["W_baseline"] != digests["W_concept"]
     arms_differ_concept_vs_reference_ok = digests["W_concept"] != digests["R_reference"]
     arms_differ_concept_vs_scramble_ok = digests["W_concept"] != digests["W_scramble"] or w_concept["n_eligible"] == w_scramble["n_eligible"]
+    arms_differ_concept_vs_mechanism_isolation_ok = (digests["W_concept"] != digests["W_mechanism_isolation"]
+                                                      or w_concept["n_eligible"] == w_mechanism_isolation["n_eligible"])
 
     # ---- verdict quantities ----
-    no_leak_ok = all(arm["no_leak_ok"] for arm in (w_baseline, w_concept, w_scramble, r_reference))
+    no_leak_ok = all(arm["no_leak_ok"] for arm in (w_baseline, w_concept, w_scramble, w_mechanism_isolation, r_reference))
     if run_mode == "full":
         reference_reproduces_prior = (abs(r_reference["final"]["n_foundation"] - 40) <= 15 and
                                       r_reference["final"]["n_total_resolved"] == r_reference["n_eligible"])
@@ -721,13 +952,17 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
         reference_reproduces_prior = (r_reference["final"]["n_total_resolved"] == r_reference["n_eligible"])
         baseline_reproduces_parent = True
 
-    scramble_collapses = w_scramble["n_eligible"] <= 1 or w_scramble["final"]["n_middle"] == 0
+    # scramble_collapses (FIXED, strict): with concept content now ALSO corrupted, no residual
+    # channel remains for a genuinely-coherent gap to survive by carrying its own real evidence --
+    # require an exact 0, not just "n_eligible<=1" (the old, weaker OR-clause this replaces).
+    scramble_collapses = (w_scramble["final"]["n_foundation"] + w_scramble["final"]["n_middle"]) == 0
 
     concept_gate_discriminates = ctrl["closed_form_ok"]
     control_check_ok = ctrl["control_check_ok"]
 
     controls_ok = (control_check_ok and no_leak_ok and reference_reproduces_prior and scramble_collapses
-                  and positive_control_ok and len(regressed_pks) == 0 and baseline_reproduces_parent)
+                  and positive_control_ok and len(regressed_pks) == 0 and baseline_reproduces_parent
+                  and mechanism_isolation_collapse_ok)
 
     end_to_end_retain_ok = (len(blocked_pks) > 0 and newly_retained_fraction >= 0.30)
 
@@ -743,14 +978,25 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
                         f"A similarity gate that cannot separate same-fact-paraphrase from "
                         f"genuinely-different-fact is exactly the 'merges everything' failure mode "
                         f"this drill was designed to catch -- needs metric redesign, not a threshold nudge.")
+    elif not mechanism_isolation_collapse_ok:
+        verdict = "HARD_FAIL_mechanism_isolation_recovery_survives_scrambled_concepts"
+        verdict_msg = (f"THE DECISIVE ISOLATION: {mech_iso_recovered_count}/{mech_iso_population_n} "
+                        f"({mech_iso_fraction:.1%}) of the previously-recovered gaps STILL retained "
+                        f"after ONLY their concept content was scrambled (links/eligibility left "
+                        f"real) -- above the pre-registered {MECH_ISO_COLLAPSE_BAND:.0%} chance-"
+                        f"collision band. The 21/21 recovery does NOT survive isolation of its "
+                        f"claimed mechanism -- this means the win is (at least partly) an artifact "
+                        f"of the pipeline/gate plumbing, not genuine concept-meaning alignment, and "
+                        f"cannot be trusted as-is regardless of how clean the other controls look.")
     elif not controls_ok:
         verdict = "HARD_FAIL_controls_broken"
         verdict_msg = (f"one or more mandatory can-fail controls FAILED: control_check_ok="
                         f"{control_check_ok} no_leak_ok={no_leak_ok} reference_reproduces_prior="
                         f"{reference_reproduces_prior} scramble_collapses={scramble_collapses} "
                         f"positive_control_ok={positive_control_ok} n_regressed={len(regressed_pks)} "
-                        f"baseline_reproduces_parent={baseline_reproduces_parent} -- the concept-"
-                        f"coherence fix cannot be trusted until every control passes")
+                        f"baseline_reproduces_parent={baseline_reproduces_parent} "
+                        f"mechanism_isolation_collapse_ok={mechanism_isolation_collapse_ok} -- the "
+                        f"concept-coherence fix cannot be trusted until every control passes")
     elif end_to_end_retain_ok:
         verdict = "HARD_PASS_concept_coherence_unblocks_cross_source_paraphrase"
         verdict_msg = (f"OWNED graded concept_similarity aligns genuinely-same facts worded "
@@ -762,15 +1008,21 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
                         f"({len(regressed_pks)}), all controls pass (real paraphrase pair coheres "
                         f"and retains WITH the concept metric / does NOT with the old metric; "
                         f"cross-domain and wrong-material distinct-fact pairs correctly REJECTED "
-                        f"both closed-form and real-pipeline; scramble collapses; R_reference "
-                        f"reproduces cited n_foundation={r_reference['final']['n_foundation']} vs "
-                        f"cited 40; no_leak_ok=True).")
+                        f"both closed-form and real-pipeline; FIXED scramble collapses to "
+                        f"{w_scramble['final']['n_foundation'] + w_scramble['final']['n_middle']} "
+                        f"under corrupted content; R_reference reproduces cited n_foundation="
+                        f"{r_reference['final']['n_foundation']} vs cited 40; no_leak_ok=True) AND "
+                        f"the DECISIVE mechanism-isolation control confirms it is real: with ONLY "
+                        f"concept content scrambled (eligibility left real), the recovery collapses "
+                        f"to {mech_iso_recovered_count}/{mech_iso_population_n} "
+                        f"({mech_iso_fraction:.1%}, band<={MECH_ISO_COLLAPSE_BAND:.0%}) -- the win "
+                        f"depends on genuine concept-meaning alignment, not pipeline artifact.")
     else:
         verdict = "MIDDLE_BAND_concept_coherence_correct_but_insufficient_lexicon_coverage"
         verdict_msg = (f"the concept-coherence metric itself correctly discriminates paraphrase "
-                        f"from distinct-fact (every control passes: real paraphrase pair coheres "
-                        f"under the new metric and does not under the old one; cross-domain and "
-                        f"wrong-material pairs both correctly rejected; zero regressions) -- BUT "
+                        f"from distinct-fact (every control passes, INCLUDING the decisive "
+                        f"mechanism-isolation: recovery collapses to {mech_iso_recovered_count}/"
+                        f"{mech_iso_population_n} under scrambled concept content) -- BUT "
                         f"end-to-end only {len(newly_retained_pks)}/{len(blocked_pks)} "
                         f"({newly_retained_fraction:.1%}) of the real blocked gaps cross the 30% "
                         f"floor. This means too small a fraction of the blocked gaps' specific "
@@ -795,14 +1047,19 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
         "closed_form_schema_audit": {k: v for k, v in schema_audit.items() if k != "rows"},
         "closed_form_schema_audit_rows_sample": schema_audit["rows"][:10],
         "control_checks": ctrl,
+        "content_scramble_diag": content_scramble_diag,
         "n_waves": n_waves, "r_visits": r_visits,
         "arm_results": {"W_baseline": w_baseline, "W_concept": w_concept, "W_scramble": w_scramble,
-                       "R_reference": r_reference},
+                       "W_mechanism_isolation": w_mechanism_isolation, "R_reference": r_reference},
         "concept_gate_discriminates": concept_gate_discriminates,
         "eligible_2plus_count": len(eligible_2plus_pks),
         "blocked_count": len(blocked_pks), "newly_retained_count": len(newly_retained_pks),
         "regressed_count": len(regressed_pks), "newly_retained_fraction": newly_retained_fraction,
         "end_to_end_retain_ok": end_to_end_retain_ok, "scramble_collapses": scramble_collapses,
+        "mechanism_isolation_population_n": mech_iso_population_n,
+        "mechanism_isolation_recovered_count": mech_iso_recovered_count,
+        "mechanism_isolation_fraction": mech_iso_fraction,
+        "mechanism_isolation_collapse_ok": mechanism_isolation_collapse_ok,
         "no_leak_ok": no_leak_ok, "reference_reproduces_prior": reference_reproduces_prior,
         "baseline_reproduces_parent": baseline_reproduces_parent,
         "controls_ok": controls_ok, "cardinality_ok": cardinality_ok,
@@ -810,10 +1067,11 @@ def run_pipeline(process_filter, run_mode: str) -> Dict:
         "arms_differ_baseline_vs_concept_ok": arms_differ_baseline_vs_concept_ok,
         "arms_differ_concept_vs_reference_ok": arms_differ_concept_vs_reference_ok,
         "arms_differ_concept_vs_scramble_ok": arms_differ_concept_vs_scramble_ok,
+        "arms_differ_concept_vs_mechanism_isolation_ok": arms_differ_concept_vs_mechanism_isolation_ok,
         "bands": {"schema_thresh": SCHEMA_THRESH, "concept_match_threshold": CONCEPT_MATCH_THRESHOLD,
                   "end_to_end_retain_fraction_floor": 0.30, "reference_tolerance_abs": 15,
                   "reference_cited_n_foundation": 40, "positive_control_tolerance": 0.10,
-                  "baseline_cited_n_middle": 15},
+                  "baseline_cited_n_middle": 15, "mechanism_isolation_collapse_band": MECH_ISO_COLLAPSE_BAND},
     }
     return metrics
 
@@ -860,17 +1118,21 @@ def main() -> None:
         output_dir = repo_path(f"data/exp_{ANCHOR_NAME}")
         process_filter = None
 
-    _write_start_marker(output_dir, run_mode, expected_n_units=4)
+    _write_start_marker(output_dir, run_mode, expected_n_units=5)
     metrics = run_pipeline(process_filter, run_mode)
 
     if run_mode == "smoke":
-        discriminator_ok = metrics["concept_gate_discriminates"] and metrics["control_checks"]["control_check_ok"]
+        discriminator_ok = (metrics["concept_gate_discriminates"] and metrics["control_checks"]["control_check_ok"]
+                            and metrics["scramble_collapses"] and metrics["mechanism_isolation_collapse_ok"])
         if not discriminator_ok:
             metrics["verdict"] = "SMOKE_GATE_FAIL_discriminator_not_firing"
             metrics["verdict_msg"] = (f"smoke discriminator check: concept_gate_discriminates="
                                       f"{metrics['concept_gate_discriminates']} control_check_ok="
-                                      f"{metrics['control_checks']['control_check_ok']} -- the "
-                                      f"concept-coherence gate's own can-fail signal must fire "
+                                      f"{metrics['control_checks']['control_check_ok']} "
+                                      f"scramble_collapses={metrics['scramble_collapses']} "
+                                      f"mechanism_isolation_collapse_ok="
+                                      f"{metrics['mechanism_isolation_collapse_ok']} -- the "
+                                      f"concept-coherence gate's own can-fail signals must fire "
                                       f"cleanly at smoke scale before FULL dispatch")
 
     _atomic_write(output_dir, metrics)
