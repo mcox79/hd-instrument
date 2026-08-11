@@ -1,0 +1,69 @@
+{
+  "checks": {
+    "fate_role_logic": {
+      "pair": [
+        3,
+        5
+      ],
+      "lemma": "consum",
+      "fate": "DESTROY",
+      "role": "PATIENT"
+    },
+    "real_frontend": {
+      "n_train_sents": 60,
+      "n_tokens": 6,
+      "n_candidates": 2
+    },
+    "health_tiny": {
+      "tag_acc": 0.7387,
+      "uas": 0.6419,
+      "n_test_sents": 20,
+      "n_test_tokens": 310,
+      "n_test_arcs": 310,
+      "frontend_health_ok": true
+    },
+    "sel_scan_capped": {
+      "n_lines_scanned": 7279,
+      "n_prefilter_hits": 51,
+      "n_parsed": 50,
+      "n_parse_errors": 0,
+      "parse_error_rate": 0.0,
+      "n_cand_hits": 8,
+      "n_vocab_terms_hit": 2,
+      "elapsed_s": 0.46
+    },
+    "gam_real_code_path": {
+      "n_train_inst": 87,
+      "n_dev_inst": 48,
+      "fit_meta": {
+        "n_train_instances": 87,
+        "n_fill_train": 48,
+        "compression_ratio": 0.9193,
+        "n_main_keys": 6,
+        "n_interaction_keys": 3,
+        "is_episodic": false
+      },
+      "n_pred_keys": 16
+    },
+    "coverage_tiny": {
+      "n_keys": 16,
+      "n_ge1_ctx": 0,
+      "n_ge3_ctx": 0,
+      "n_ge5_ctx": 0,
+      "frac_ge1_ctx": 0.0,
+      "frac_ge3_ctx": 0.0,
+      "frac_ge5_ctx": 0.0
+    },
+    "scramble_deterministic": true,
+    "arms_hashes_present": {
+      "majority": "0e41713c70a4c89fe9c898a6cf161077aaec70c5f3431f30e478c48b465721fd",
+      "selectional": "4fb843710a5bdbb7208524a68d44373f1a0ba0e9663f0896be476b43ac03d2f2"
+    }
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: fate/role logic + real tiny frontend train/compose + tiny health check + capped real SimpleWiki scan + real tiny gam fit/predict + coverage-stats + scramble-determinism all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.57,
+  "run_mode": "self_test",
+  "anchor_name": "propara_entity_fate_selectional_preference_probe_v1"
+}

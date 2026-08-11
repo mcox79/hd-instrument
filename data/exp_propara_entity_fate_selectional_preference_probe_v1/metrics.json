@@ -1,0 +1,225 @@
+{
+  "verdict": "HARD_FAIL_NO_GENERALIZATION",
+  "verdict_msg": "HARD_FAIL_NO_GENERALIZATION: lift_unseen=-0.3939 < 0.02 -- selectional-preference signal does NOT generalize to unseen-surface entities above majority; pure-glass-box distributional acquisition of entity-fate is closed at this corpus/regime",
+  "summary": "HARD_FAIL_NO_GENERALIZATION: lift_unseen=-0.3939 < 0.02 -- selectional-preference signal does NOT generalize to unseen-surface entities above majority; pure-glass-box distributional acquisition of entity-fate is closed at this corpus/regime",
+  "elapsed_s": 442.81,
+  "run_mode": "probe",
+  "anchor_name": "propara_entity_fate_selectional_preference_probe_v1",
+  "n_train_paragraphs": 391,
+  "n_dev_paragraphs": 43,
+  "n_dev_keys": 175,
+  "n_unseen_keys": 29,
+  "n_seen_keys": 146,
+  "n_frontend_train_sents": 12544,
+  "frontend_health": {
+    "tag_acc": 0.9467,
+    "uas": 0.7761,
+    "n_test_sents": 1000,
+    "n_test_tokens": 13145,
+    "n_test_arcs": 12290,
+    "frontend_health_ok": true
+  },
+  "vocab_size_train_dev": 1558,
+  "scan_meta": {
+    "n_lines_scanned": 385257,
+    "n_prefilter_hits": 15001,
+    "n_parsed": 15000,
+    "n_parse_errors": 0,
+    "parse_error_rate": 0.0,
+    "n_cand_hits": 9381,
+    "n_vocab_terms_hit": 673,
+    "elapsed_s": 251.58
+  },
+  "coverage": {
+    "train": {
+      "n_keys": 1500,
+      "n_ge1_ctx": 1405,
+      "n_ge3_ctx": 1308,
+      "n_ge5_ctx": 1217,
+      "frac_ge1_ctx": 0.9367,
+      "frac_ge3_ctx": 0.872,
+      "frac_ge5_ctx": 0.8113
+    },
+    "dev_all": {
+      "n_keys": 175,
+      "n_ge1_ctx": 163,
+      "n_ge3_ctx": 144,
+      "n_ge5_ctx": 120,
+      "frac_ge1_ctx": 0.9314,
+      "frac_ge3_ctx": 0.8229,
+      "frac_ge5_ctx": 0.6857
+    },
+    "dev_seen": {
+      "n_keys": 146,
+      "n_ge1_ctx": 143,
+      "n_ge3_ctx": 131,
+      "n_ge5_ctx": 112,
+      "frac_ge1_ctx": 0.9795,
+      "frac_ge3_ctx": 0.8973,
+      "frac_ge5_ctx": 0.7671
+    },
+    "dev_unseen": {
+      "n_keys": 29,
+      "n_ge1_ctx": 20,
+      "n_ge3_ctx": 13,
+      "n_ge5_ctx": 8,
+      "frac_ge1_ctx": 0.6897,
+      "frac_ge3_ctx": 0.4483,
+      "frac_ge5_ctx": 0.2759
+    }
+  },
+  "majority_baseline": {
+    "all": {
+      "pair_precision": 0.4857,
+      "pair_recall": 0.3469,
+      "pair_f1": 0.4048,
+      "tp": 85,
+      "fp": 90,
+      "fn": 160,
+      "n_keys": 175
+    },
+    "seen": {
+      "pair_precision": 0.4932,
+      "pair_recall": 0.3462,
+      "pair_f1": 0.4068,
+      "tp": 72,
+      "fp": 74,
+      "fn": 136,
+      "n_keys": 146
+    },
+    "unseen": {
+      "pair_precision": 0.4483,
+      "pair_recall": 0.3514,
+      "pair_f1": 0.3939,
+      "tp": 13,
+      "fp": 16,
+      "fn": 24,
+      "n_keys": 29
+    }
+  },
+  "fit_meta_real": {
+    "n_train_instances": 4512,
+    "n_fill_train": 1939,
+    "compression_ratio": 0.823,
+    "n_main_keys": 9,
+    "n_interaction_keys": 22,
+    "is_episodic": false
+  },
+  "fit_meta_scramble": {
+    "n_train_instances": 4512,
+    "n_fill_train": 1936,
+    "compression_ratio": 0.8002,
+    "n_main_keys": 9,
+    "n_interaction_keys": 16,
+    "is_episodic": false
+  },
+  "results": {
+    "real": {
+      "all": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 245,
+        "n_keys": 175
+      },
+      "seen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 208,
+        "n_keys": 146
+      },
+      "unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 37,
+        "n_keys": 29
+      }
+    },
+    "scramble": {
+      "all": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 245,
+        "n_keys": 175
+      },
+      "seen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 208,
+        "n_keys": 146
+      },
+      "unseen": {
+        "pair_precision": 0.0,
+        "pair_recall": 0.0,
+        "pair_f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 37,
+        "n_keys": 29
+      }
+    }
+  },
+  "lift_unseen_vs_majority": -0.3939,
+  "scramble_clean": true,
+  "arms_hashes": {
+    "majority": "ba9bedeb0eb8ba430343512133a03d931308ef6b2101dce4c39e95fb43fc71c9",
+    "selectional_real": "101c4002b2506cac6a3dc6736ee8671a3ecfbb5b3dc039017a1a5d74cd09211c",
+    "selectional_scramble": "101c4002b2506cac6a3dc6736ee8671a3ecfbb5b3dc039017a1a5d74cd09211c"
+  },
+  "arms_differ_verified": true,
+  "fate_verb_lexicon": {
+    "consume": "DESTROY",
+    "consum": "DESTROY",
+    "burn": "DESTROY",
+    "oxidize": "DESTROY",
+    "oxidiz": "DESTROY",
+    "oxidise": "DESTROY",
+    "oxidis": "DESTROY",
+    "absorb": "DESTROY",
+    "dissolve": "DESTROY",
+    "dissolv": "DESTROY",
+    "decay": "DESTROY",
+    "evaporate": "DESTROY",
+    "evaporat": "DESTROY",
+    "digest": "DESTROY",
+    "produce": "CREATE",
+    "produc": "CREATE",
+    "release": "CREATE",
+    "releas": "CREATE",
+    "emit": "CREATE",
+    "form": "CREATE",
+    "create": "CREATE",
+    "creat": "CREATE",
+    "generate": "CREATE",
+    "generat": "CREATE",
+    "emerge": "CREATE",
+    "emerg": "CREATE",
+    "move": "MOVE",
+    "mov": "MOVE",
+    "carry": "MOVE",
+    "carri": "MOVE",
+    "flow": "MOVE",
+    "transport": "MOVE"
+  },
+  "bands": {
+    "LIFT_HARD_PASS": 0.05,
+    "LIFT_HARD_FAIL": 0.02,
+    "SCRAMBLE_CLEAN_MARGIN": 0.05,
+    "FRONTEND_TAG_ACC_FLOOR": 0.7,
+    "FRONTEND_UAS_FLOOR": 0.5
+  }
+}
