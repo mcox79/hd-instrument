@@ -1,0 +1,390 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SCRAMBLE_SCHEMA_DID_NOT_COLLAPSE_threshold_artifact_not_schema_content: split=dev SCHEMA_SURVIVAL=0.16402009136345463 (schema_lift=0.0123 / oracle_lift=0.0751) schema_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 ablation_f1=0.3273 ablation_lift=0.0032(margin=0.02) scramble_retained_fraction=1.1907536322850771 scramble_collapsed=False ablation_no_completion_collapsed=True floor_collapsed=True leak=False arms_ok=True decode_ok=True trigger_completion_agreement=0.9231",
+  "summary": "HARD_FAIL: HARD_FAIL_SCRAMBLE_SCHEMA_DID_NOT_COLLAPSE_threshold_artifact_not_schema_content: split=dev SCHEMA_SURVIVAL=0.16402009136345463 (schema_lift=0.0123 / oracle_lift=0.0751) schema_f1=0.3365 oracle_f1=0.3993 without_f1=0.3242 ablation_f1=0.3273 ablation_lift=0.0032(margin=0.02) scramble_retained_fraction=1.1907536322850771 scramble_collapsed=False ablation_no_completion_collapsed=True floor_collapsed=True leak=False arms_ok=True decode_ok=True trigger_completion_agreement=0.9231",
+  "elapsed_s": 16.787,
+  "run_mode": "smoke",
+  "anchor_name": "propara_schema_pattern_completion_v1",
+  "split": "dev",
+  "result": {
+    "split": "dev",
+    "elapsed_s": 16.787,
+    "n_paragraphs": 43,
+    "arms_differ": {
+      "sigs": {
+        "prior_lesion": "87ad031f31c1a66ebd34388a6b48eed8927534ee59fd36b003d3cfea0a2d4ab2",
+        "without_knowledge": "584a82c91ef6ea699bafd4797da79bac9056a3dd4ab1f3c18a500d920cc35347",
+        "with_oracle": "febbf85348c87fc86c220034100d6a5aef4c98ca17d18694cef3cd2a1fbce92e",
+        "with_schema_completion": "800014f81e69c632ab2ba2022ea1a4d835968759ef09eeecd70608f49e86fb3f",
+        "with_schema_completion_scramble_kb": "48a98399409aedfcdad6f472ab11d367fb919ad2c1a8514a0963e0c4fc7971be",
+        "with_schema_completion_ablation": "f393e9e1a4ad7f07bac6f462e2a19ff0a640c57917485a082f2da5f530d972c2"
+      },
+      "pairs_differ": {
+        "prior_lesion_vs_without_knowledge": true,
+        "prior_lesion_vs_with_oracle": true,
+        "prior_lesion_vs_with_schema_completion": true,
+        "prior_lesion_vs_with_schema_completion_scramble_kb": true,
+        "prior_lesion_vs_with_schema_completion_ablation": true,
+        "without_knowledge_vs_with_oracle": true,
+        "without_knowledge_vs_with_schema_completion": true,
+        "without_knowledge_vs_with_schema_completion_scramble_kb": true,
+        "without_knowledge_vs_with_schema_completion_ablation": true,
+        "with_oracle_vs_with_schema_completion": true,
+        "with_oracle_vs_with_schema_completion_scramble_kb": true,
+        "with_oracle_vs_with_schema_completion_ablation": true,
+        "with_schema_completion_vs_with_schema_completion_scramble_kb": true,
+        "with_schema_completion_vs_with_schema_completion_ablation": true,
+        "with_schema_completion_scramble_kb_vs_with_schema_completion_ablation": true
+      },
+      "all_differ": true
+    },
+    "decode": {
+      "lesion": 1.0,
+      "without": 1.0,
+      "oracle": 1.0,
+      "schema_completion": 1.0,
+      "schema_completion_scramble_kb": 1.0,
+      "schema_completion_ablation": 1.0
+    },
+    "unmentioned_subset": {
+      "prior_lesion": {
+        "macro_f1": 0.3374745422756599,
+        "accuracy": 0.7350649350649351,
+        "n": 770
+      },
+      "without_knowledge": {
+        "macro_f1": 0.3241578243142567,
+        "accuracy": 0.7974025974025974,
+        "n": 770
+      },
+      "with_oracle": {
+        "macro_f1": 0.39930050396383376,
+        "accuracy": 0.8,
+        "n": 770
+      },
+      "with_schema_completion": {
+        "macro_f1": 0.33648273349567515,
+        "accuracy": 0.7766233766233767,
+        "n": 770
+      },
+      "with_schema_completion_scramble_kb": {
+        "macro_f1": 0.3388337546896144,
+        "accuracy": 0.7805194805194805,
+        "n": 770
+      },
+      "with_schema_completion_ablation": {
+        "macro_f1": 0.32733316016658204,
+        "accuracy": 0.7740259740259741,
+        "n": 770
+      }
+    },
+    "mentioned_bucket_delta_schema_minus_without": -0.0236,
+    "without_f1": 0.3241578243142567,
+    "with_oracle_f1": 0.39930050396383376,
+    "with_schema_completion_f1": 0.33648273349567515,
+    "with_schema_completion_scramble_kb_f1": 0.3388337546896144,
+    "with_schema_completion_ablation_f1": 0.32733316016658204,
+    "prior_lesion_f1": 0.3374745422756599,
+    "oracle_lift": 0.07514267964957705,
+    "schema_lift": 0.01232490918141843,
+    "scramble_lift": 0.014675930375357693,
+    "ablation_lift": 0.0031753358523253228,
+    "survival_fraction": 0.16402009136345463,
+    "scramble_retained_fraction": 1.1907536322850771,
+    "schema_minus_prior_lesion": -0.0009918087799847264,
+    "fact_coverage_schema_vs_oracle": {
+      "pair_precision": 0.0787,
+      "pair_recall": 0.1667,
+      "pair_f1": 0.1069,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "fact_coverage_scramble_vs_oracle": {
+      "pair_precision": 0.3333,
+      "pair_recall": 0.0476,
+      "pair_f1": 0.0833,
+      "participant_binding_coverage": 0.0588,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 2
+    },
+    "fact_coverage_ablation_vs_oracle": {
+      "pair_precision": 0.0625,
+      "pair_recall": 0.2143,
+      "pair_f1": 0.0968,
+      "participant_binding_coverage": 0.3824,
+      "n_oracle_participants_with_fact": 34,
+      "n_oracle_participants_covered_by_real": 13
+    },
+    "schema_sourcing_stats": {
+      "ablation": false,
+      "scramble_kb": false,
+      "n_paragraphs_matched": 17,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 26,
+      "gate_pass_fraction": 0.3023,
+      "n_completions_attempted": 26,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 24,
+      "trigger_completion_agreement_rate": 0.9231,
+      "n_role_assignments": 88,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      }
+    },
+    "scramble_sourcing_stats": {
+      "ablation": false,
+      "scramble_kb": true,
+      "n_paragraphs_matched": 1,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 1,
+      "gate_pass_fraction": 0.0116,
+      "n_completions_attempted": 1,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 1,
+      "trigger_completion_agreement_rate": 1.0,
+      "n_role_assignments": 4,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "igneous_rock_cycle"
+        ],
+        "5": [],
+        "272": [],
+        "349": [],
+        "375": [],
+        "388": [],
+        "390": [],
+        "394": []
+      }
+    },
+    "ablation_sourcing_stats": {
+      "ablation": true,
+      "scramble_kb": false,
+      "n_paragraphs_matched": 17,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 26,
+      "gate_pass_fraction": 0.3023,
+      "n_completions_attempted": 0,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 0,
+      "trigger_completion_agreement_rate": null,
+      "n_role_assignments": 136,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      }
+    },
+    "kb_n_processes": 18,
+    "official": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_schema_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_schema_completion_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      },
+      "with_schema_completion_ablation": {
+        "precision": 0.8005,
+        "recall": 0.61625,
+        "f1": 0.696
+      }
+    }
+  },
+  "headline": {
+    "SCHEMA_SURVIVAL_FRACTION": 0.16402009136345463,
+    "SCRAMBLE_RETAINED_FRACTION": 1.1907536322850771,
+    "with_schema_completion_f1": 0.33648273349567515,
+    "with_schema_completion_scramble_kb_f1": 0.3388337546896144,
+    "with_schema_completion_ablation_f1": 0.32733316016658204,
+    "with_oracle_f1": 0.39930050396383376,
+    "without_f1": 0.3241578243142567,
+    "prior_lesion_f1": 0.3374745422756599,
+    "schema_lift": 0.01232490918141843,
+    "oracle_lift": 0.07514267964957705,
+    "ablation_lift": 0.0031753358523253228,
+    "schema_minus_prior_lesion": -0.0009918087799847264,
+    "schema_pair_recall": 0.1667,
+    "schema_pair_precision": 0.0787,
+    "trigger_completion_agreement_rate": 0.9231,
+    "mentioned_bucket_delta_schema_minus_without": -0.0236,
+    "schema_sourcing_stats": {
+      "ablation": false,
+      "scramble_kb": false,
+      "n_paragraphs_matched": 17,
+      "n_cand_before_gate": 86,
+      "n_donors_after_gate": 26,
+      "gate_pass_fraction": 0.3023,
+      "n_completions_attempted": 26,
+      "n_completions_no_partial_query": 0,
+      "n_trigger_completion_agree": 24,
+      "trigger_completion_agreement_rate": 0.9231,
+      "n_role_assignments": 88,
+      "n_role_assignments_for_unmentioned_IMPLICIT": 0,
+      "n_never_mentioned_participants": 0,
+      "process_match_sample": {
+        "4": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "5": [
+          "fossilization",
+          "hydrocarbon_formation"
+        ],
+        "272": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "349": [
+          "sound_propagation"
+        ],
+        "375": [
+          "electricity_generation",
+          "combustion"
+        ],
+        "388": [
+          "electricity_generation"
+        ],
+        "390": [
+          "electricity_generation"
+        ],
+        "394": [
+          "electricity_generation",
+          "combustion"
+        ]
+      }
+    },
+    "official_overall": {
+      "prior_lesion": {
+        "precision": 0.80775,
+        "recall": 0.6565,
+        "f1": 0.724
+      },
+      "without_knowledge": {
+        "precision": 0.8135,
+        "recall": 0.6235,
+        "f1": 0.706
+      },
+      "with_oracle": {
+        "precision": 0.8017500000000001,
+        "recall": 0.62,
+        "f1": 0.699
+      },
+      "with_schema_completion": {
+        "precision": 0.8045,
+        "recall": 0.613,
+        "f1": 0.696
+      },
+      "with_schema_completion_scramble_kb": {
+        "precision": 0.7985000000000001,
+        "recall": 0.60875,
+        "f1": 0.691
+      },
+      "with_schema_completion_ablation": {
+        "precision": 0.8005,
+        "recall": 0.61625,
+        "f1": 0.696
+      }
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "18-item fixed codebook at N=1024; HRR unbind SNR empirically self-test-measured, not a noise-floor sweep threshold",
+  "deterministic_seeding": true,
+  "calibration_check": "adaptive_with_discriminator_gate: COMPLETION_THRESH self-test-measured between TRUE (schema,role,filler) unbind score and wrong-role/wrong-schema negative controls; re-verified in self_test() before every run",
+  "thresholds": {
+    "SCHEMA_SURVIVAL_HARD_PASS": 0.15,
+    "SCHEMA_SURVIVAL_HARD_FAIL": 0.05,
+    "SCRAMBLE_MAX_RETAINED_FRACTION": 0.5,
+    "ABLATION_COLLAPSE_MARGIN": 0.02,
+    "COMPLETION_THRESH": 0.075,
+    "ROLE_SIM_THRESH": 0.7,
+    "LEAK_CEILING": 0.95,
+    "LEAK_ORACLE_MARGIN": 0.02,
+    "WITHOUT_COLLAPSE_CEILING": 0.6,
+    "SCHEMA_D": 1024
+  }
+}

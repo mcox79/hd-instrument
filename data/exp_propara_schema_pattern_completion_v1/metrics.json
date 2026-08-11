@@ -1,0 +1,67 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS",
+  "summary": "self-test green",
+  "elapsed_s": 0.522,
+  "run_mode": "self_test",
+  "anchor_name": "propara_schema_pattern_completion_v1",
+  "result": {
+    "official_eval_fixtures": 3,
+    "kb_n_processes": 18,
+    "calibration": {
+      "true_score": 0.19001659859205672,
+      "wrong_role_score": -0.028721891740345486,
+      "wrong_schema_score": -0.05311644030347049,
+      "COMPLETION_THRESH": 0.075
+    },
+    "mechanism_fires_synth": {
+      "oxygen_score": 0.17018402421642356,
+      "hit_words": [
+        [
+          "consumes",
+          "wood"
+        ],
+        [
+          "consumes",
+          "gasoline"
+        ],
+        [
+          "consumes",
+          "paper"
+        ],
+        [
+          "produces",
+          "ash"
+        ],
+        [
+          "produces",
+          "smoke"
+        ],
+        [
+          "produces",
+          "soot"
+        ],
+        [
+          "moves",
+          "smoke"
+        ]
+      ],
+      "completion_argmax": "combustion"
+    },
+    "real_facts_oxygen": {
+      "DESTROY": [
+        "CREATE",
+        "DESTROY"
+      ]
+    },
+    "verdict_logic_unit_checks": {
+      "hard_pass": "HARD_PASS",
+      "leak": "HARD_FAIL",
+      "scramble_not_collapsed": "HARD_FAIL",
+      "no_go": "HARD_FAIL",
+      "void": "HARD_FAIL",
+      "ablation_not_collapsed": "HARD_FAIL",
+      "middle_band": "MIDDLE_BAND"
+    }
+  }
+}
