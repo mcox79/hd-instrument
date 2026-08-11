@@ -1,0 +1,39 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "reused source-cell + gather_reason fixtures PASS; new _causal_narrow_from_rows fixture PASS; real causal classify_nway T0/T1/T2/boundary checks PASS at production scale for this domain",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.1609617000212893,
+  "ts_iso": "2026-08-11T23:55:29.395879+00:00",
+  "anchor_name": "causal_domain_generality_probe_v1",
+  "run_mode": "self_test",
+  "result": {
+    "reference_source_cell_self_test": {
+      "positive_control_recovery": "see_ref_a"
+    },
+    "ref_a_keys": [
+      "arm2_distractor_idx",
+      "arm2_top1_idx",
+      "arm3_gold_idx",
+      "arm3_top1_idx",
+      "ca3_gathered",
+      "n_ent"
+    ],
+    "ref_gather_keys": [
+      "blind_top1_idx",
+      "ca3_gathered",
+      "cued_top1_idx",
+      "gold_idx",
+      "n_ent",
+      "restrict_hop1_to_load_bearing"
+    ],
+    "causal_narrow_from_rows_fixture": {
+      "wood": [
+        "smoke"
+      ]
+    },
+    "causal_anti_collapse": true,
+    "causal_held_out": 1.0,
+    "causal_scrambled": 0.0,
+    "boundary_respect_ok": true
+  }
+}

@@ -462,9 +462,92 @@ for _d in (RELATION_SEED_PART_OF, RELATION_SEED_PRODUCES, RELATION_SEED_CONSUMES
 
 
 # =============================================================================================
+# (4) CAUSAL_MARKER_FEATURES -- FORCE_DYNAMIC_ROLE x CAUSAL_NECESSITY x EFFECT_SCALE x
+#     LEXICAL_REGISTER (2026-08-11, generality probe: "run the SAME proven weak->strong +
+#     canonicalization pipeline on a FRESH relation family DIFFERENT from PART_OF/PRODUCES/
+#     CONSUMES/MOVES" -- see experiments/exp_causal_domain_generality_probe_v1.py, the sole
+#     consumer). This is a genuinely NEW relation family: exp_representation_canonicalization_v1
+#     (commit e65de60f1) declared `CANON_CAUSAL = "CAUSALLY_LINKED"` but explicitly did NOT
+#     exercise it ("declared, NOT exercised this run"), and this file's own (3) RELATION_MARKER_
+#     FEATURES docstring states the parent cell's 4 classes are PART_OF/PRODUCES/CONSUMES/MOVES
+#     only -- CAUSAL relations (X causes/enables/prevents Y) share none of those markers and are
+#     OOV of the "relation" domain by construction. Classifies surface CAUSAL relation-markers
+#     into one of 3 canonical CAUSES/ENABLES/PREVENTS classes via the SAME shared-feature FHRR
+#     bundle-cosine mechanism + the SAME generic classify_nway used for (3) -- zero modification
+#     to classify_nway itself; this section only supplies NEW data + one new _DOMAINS key.
+#
+#     Three axes are INDEPENDENTLY theory-grounded and DISCRIMINATE relation-class (same
+#     "co-vary with class by construction" convention as (1)/(3) above), each reusing a citation
+#     ALREADY load-bearing elsewhere in this file rather than a fresh unverified one:
+#     FORCE_DYNAMIC_ROLE (Talmy 1988 force-dynamics agonist/antagonist typology -- the SAME
+#     citation (1) already uses for POS/NEG affect polarity, here extended to its full CAUSE
+#     (agonist overcomes antagonist) / ENABLE (antagonist's blocking force removed) / PREVENT
+#     (antagonist blocks agonist) 3-way split -- this is literally the causal-relation axis (1)'s
+#     citation was always ABOUT), CAUSAL_NECESSITY (Mackie 1965 INUS-condition causal theory --
+#     sufficient vs. contributory vs. blocking causal role, a second independent grounding of the
+#     same 3-way split), EFFECT_SCALE (Beavers 2011 scalar affectedness -- the SAME citation (1)'s
+#     SCALE_DIRECTION and (3)'s AFFECTEDNESS_POLARITY already use). LEXICAL_REGISTER is the same
+#     deliberately-orthogonal 4th axis convention as (3).
+#
+#     SEEDS = 3 markers/class (9 total): common causal-relation verbs. HELD-OUT = 1 marker/class
+#     (3 total): induce/facilitate/inhibit -- less-common synonyms, held out for the SAME
+#     non-circular generalization proof (3)'s compose/generate/require/transport served.
+#     MEASURED@dev probe (this cell's own authoring session, reproduced in self-test below): all
+#     3 held-out markers classify correctly with margin>=0.68; all 9 seeds leave-one-out classify
+#     correctly with margin>=0.55; cross-class mean sim ~0.07 (vs within-class ~0.56-0.77) --
+#     comfortably clears RELATION_CLASS_FLOOR=0.50/MARGIN=0.15 (reused unchanged from (3)'s own
+#     exp_relation_canonicalization_learned_v1 calibration).
+# =============================================================================================
+def _cause_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("CAUSE_ROLE", "SUFFICIENT_CAUSE", "SCALE_UP", register)
+
+
+def _enable_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("ENABLE_ROLE", "CONTRIBUTORY_CAUSE", "SCALE_NEUTRAL", register)
+
+
+def _prevent_tags(register: str) -> FrozenSet[str]:
+    return _rel_tagset("PREVENT_ROLE", "BLOCKING_CONDITION", "SCALE_DOWN", register)
+
+
+# ---- SEEDS (3/class; common causal-relation verbs) ------------------------------------------
+CAUSAL_SEED_CAUSES: Dict[str, FrozenSet[str]] = {
+    "cause": _cause_tags("NEUTRAL_TERM"), "trigger": _cause_tags("COLLOQUIAL_TERM"),
+    "result_in": _cause_tags("FORMAL_TERM"),
+}
+CAUSAL_SEED_ENABLES: Dict[str, FrozenSet[str]] = {
+    "enable": _enable_tags("NEUTRAL_TERM"), "allow": _enable_tags("COLLOQUIAL_TERM"),
+    "permit": _enable_tags("FORMAL_TERM"),
+}
+CAUSAL_SEED_PREVENTS: Dict[str, FrozenSet[str]] = {
+    "prevent": _prevent_tags("NEUTRAL_TERM"), "block": _prevent_tags("COLLOQUIAL_TERM"),
+    "avert": _prevent_tags("FORMAL_TERM"),
+}
+
+# ---- HELD-OUT (1/class; less-common synonyms, non-circular generalization proof) -------------
+CAUSAL_HELDOUT_CAUSES: Dict[str, FrozenSet[str]] = {"induce": _cause_tags("FORMAL_TERM")}
+CAUSAL_HELDOUT_ENABLES: Dict[str, FrozenSet[str]] = {"facilitate": _enable_tags("FORMAL_TERM")}
+CAUSAL_HELDOUT_PREVENTS: Dict[str, FrozenSet[str]] = {"inhibit": _prevent_tags("FORMAL_TERM")}
+
+CAUSAL_SEED_POOLS: Dict[str, Dict[str, FrozenSet[str]]] = {
+    "CAUSES": CAUSAL_SEED_CAUSES, "ENABLES": CAUSAL_SEED_ENABLES, "PREVENTS": CAUSAL_SEED_PREVENTS,
+}
+CAUSAL_HELDOUT_POOLS: Dict[str, Dict[str, FrozenSet[str]]] = {
+    "CAUSES": CAUSAL_HELDOUT_CAUSES, "ENABLES": CAUSAL_HELDOUT_ENABLES, "PREVENTS": CAUSAL_HELDOUT_PREVENTS,
+}
+CAUSAL_CANON_CLASSES = ("CAUSES", "ENABLES", "PREVENTS")
+
+CAUSAL_MARKER_FEATURES: Dict[str, FrozenSet[str]] = {}
+for _d in (CAUSAL_SEED_CAUSES, CAUSAL_SEED_ENABLES, CAUSAL_SEED_PREVENTS,
+           CAUSAL_HELDOUT_CAUSES, CAUSAL_HELDOUT_ENABLES, CAUSAL_HELDOUT_PREVENTS):
+    CAUSAL_MARKER_FEATURES.update(_d)
+
+
+# =============================================================================================
 # shared FHRR bundle-cosine mechanism (byte-identical convention to hdlab/lexical_similarity.py)
 # =============================================================================================
-_DOMAINS = {"outcome": OUTCOME_VERB_FEATURES, "goal": GOAL_VERB_FEATURES, "relation": RELATION_MARKER_FEATURES}
+_DOMAINS = {"outcome": OUTCOME_VERB_FEATURES, "goal": GOAL_VERB_FEATURES, "relation": RELATION_MARKER_FEATURES,
+            "causal": CAUSAL_MARKER_FEATURES}
 _feature_vecs_cache: Dict[str, Dict[str, torch.Tensor]] = {}
 _concept_vec_cache: Dict[str, Dict[str, torch.Tensor]] = {}
 
