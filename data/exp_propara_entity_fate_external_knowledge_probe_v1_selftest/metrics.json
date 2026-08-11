@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "wordnet_real": {
+      "n_feats_wood": 21,
+      "n_feats_metal": 9,
+      "differ": true
+    },
+    "conceptnet_real": {
+      "capped_lines": 800001,
+      "n_terms_with_edges": 4
+    },
+    "embedding_mock": {
+      "n_feats": 3,
+      "sample": [
+        "emb:CREATE:neg",
+        "emb:MOVE:hi",
+        "emb:DESTROY:lo"
+      ]
+    },
+    "gam_real_code_path": {
+      "n_train_inst": 87,
+      "n_dev_inst": 48,
+      "fit_meta": {
+        "n_train_instances": 87,
+        "n_fill_train": 48,
+        "compression_ratio": 0.2859,
+        "n_main_keys": 102,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "n_pred_keys": 16
+    },
+    "arms_differ": {
+      "majority_hash": "0e41713c70a4c89fe9c898a6cf161077aaec70c5f3431f30e478c48b465721fd",
+      "wordnet_hash": "5a1a6995b9d72db1d6b862c83f51b31afae1e6edc43c1975a96adb8027da9ce6",
+      "differ": true
+    },
+    "scramble_deterministic": true
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS: wordnet real-differ + conceptnet real-capped-scan + embedding mock-KV + gam real tiny-scale fit/predict + arms-differ + scramble-determinism all OK",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.1,
+  "run_mode": "self_test",
+  "anchor_name": "propara_entity_fate_external_knowledge_probe_v1"
+}

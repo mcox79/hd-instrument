@@ -1,0 +1,302 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no external source generalizes to unseen-surface entities -- entity-level process-role knowledge is NOT in these accessible structured sources (corpus-scale distributional learning or LLM-scale needed) | per_source_verdict={\"wordnet\": \"HARD_FAIL_NO_GENERALIZATION\", \"conceptnet\": \"HARD_FAIL_NO_GENERALIZATION\", \"embedding\": \"HARD_FAIL_NO_GENERALIZATION\"} | lift_unseen={\"wordnet\": -0.2476, \"conceptnet\": -0.2439, \"embedding\": -0.3439} | scramble_clean={\"wordnet\": true, \"conceptnet\": true, \"embedding\": true} | majority_unseen_f1=0.3939",
+  "summary": "HARD_FAIL: no external source generalizes to unseen-surface entities -- entity-level process-role knowledge is NOT in these accessible structured sources (corpus-scale distributional learning or LLM-scale needed)",
+  "elapsed_s": 186.3,
+  "run_mode": "probe",
+  "anchor_name": "propara_entity_fate_external_knowledge_probe_v1",
+  "n_train_paragraphs": 391,
+  "n_dev_paragraphs": 43,
+  "n_dev_keys": 175,
+  "n_unseen_keys": 29,
+  "n_seen_keys": 146,
+  "results": {
+    "majority_baseline": {
+      "all": {
+        "pair_precision": 0.4857,
+        "pair_recall": 0.3469,
+        "pair_f1": 0.4048,
+        "tp": 85,
+        "fp": 90,
+        "fn": 160,
+        "n_keys": 175
+      },
+      "seen": {
+        "pair_precision": 0.4932,
+        "pair_recall": 0.3462,
+        "pair_f1": 0.4068,
+        "tp": 72,
+        "fp": 74,
+        "fn": 136,
+        "n_keys": 146
+      },
+      "unseen": {
+        "pair_precision": 0.4483,
+        "pair_recall": 0.3514,
+        "pair_f1": 0.3939,
+        "tp": 13,
+        "fp": 16,
+        "fn": 24,
+        "n_keys": 29
+      }
+    },
+    "wordnet": {
+      "coverage_dev": 0.9829,
+      "fit_meta_real": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1939,
+        "compression_ratio": 0.4744,
+        "n_main_keys": 1352,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "fit_meta_scramble": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1936,
+        "compression_ratio": 0.4165,
+        "n_main_keys": 1352,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "real": {
+        "all": {
+          "pair_precision": 0.6774,
+          "pair_recall": 0.2571,
+          "pair_f1": 0.3728,
+          "tp": 63,
+          "fp": 30,
+          "fn": 182,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.6742,
+          "pair_recall": 0.2885,
+          "pair_f1": 0.404,
+          "tp": 60,
+          "fp": 29,
+          "fn": 148,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 0.75,
+          "pair_recall": 0.0811,
+          "pair_f1": 0.1463,
+          "tp": 3,
+          "fp": 1,
+          "fn": 34,
+          "n_keys": 29
+        }
+      },
+      "scramble": {
+        "all": {
+          "pair_precision": 0.6,
+          "pair_recall": 0.0122,
+          "pair_f1": 0.024,
+          "tp": 3,
+          "fp": 2,
+          "fn": 242,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.6,
+          "pair_recall": 0.0144,
+          "pair_f1": 0.0282,
+          "tp": 3,
+          "fp": 2,
+          "fn": 205,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 0.0,
+          "pair_recall": 0.0,
+          "pair_f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 37,
+          "n_keys": 29
+        }
+      },
+      "lift_unseen_vs_majority": -0.2476,
+      "scramble_clean": true,
+      "verdict": "HARD_FAIL_NO_GENERALIZATION",
+      "elapsed_s": 3.86
+    },
+    "conceptnet": {
+      "coverage_dev": 0.9943,
+      "fit_meta_real": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1939,
+        "compression_ratio": 0.2555,
+        "n_main_keys": 5534,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "fit_meta_scramble": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1936,
+        "compression_ratio": 0.2536,
+        "n_main_keys": 5534,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "real": {
+        "all": {
+          "pair_precision": 0.5648,
+          "pair_recall": 0.249,
+          "pair_f1": 0.3456,
+          "tp": 61,
+          "fp": 47,
+          "fn": 184,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.5524,
+          "pair_recall": 0.2788,
+          "pair_f1": 0.3706,
+          "tp": 58,
+          "fp": 47,
+          "fn": 150,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 1.0,
+          "pair_recall": 0.0811,
+          "pair_f1": 0.15,
+          "tp": 3,
+          "fp": 0,
+          "fn": 34,
+          "n_keys": 29
+        }
+      },
+      "scramble": {
+        "all": {
+          "pair_precision": 0.5676,
+          "pair_recall": 0.1714,
+          "pair_f1": 0.2633,
+          "tp": 42,
+          "fp": 32,
+          "fn": 203,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.5692,
+          "pair_recall": 0.1779,
+          "pair_f1": 0.2711,
+          "tp": 37,
+          "fp": 28,
+          "fn": 171,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 0.5556,
+          "pair_recall": 0.1351,
+          "pair_f1": 0.2174,
+          "tp": 5,
+          "fp": 4,
+          "fn": 32,
+          "n_keys": 29
+        }
+      },
+      "lift_unseen_vs_majority": -0.2439,
+      "scramble_clean": true,
+      "verdict": "HARD_FAIL_NO_GENERALIZATION",
+      "elapsed_s": 0.85
+    },
+    "embedding": {
+      "coverage_dev": 0.9886,
+      "fit_meta_real": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1939,
+        "compression_ratio": 0.9346,
+        "n_main_keys": 15,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "fit_meta_scramble": {
+        "n_train_instances": 4512,
+        "n_fill_train": 1936,
+        "compression_ratio": 0.8924,
+        "n_main_keys": 15,
+        "n_interaction_keys": 40,
+        "is_episodic": false
+      },
+      "real": {
+        "all": {
+          "pair_precision": 0.5385,
+          "pair_recall": 0.0286,
+          "pair_f1": 0.0543,
+          "tp": 7,
+          "fp": 6,
+          "fn": 238,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.6,
+          "pair_recall": 0.0288,
+          "pair_f1": 0.055,
+          "tp": 6,
+          "fp": 4,
+          "fn": 202,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 0.3333,
+          "pair_recall": 0.027,
+          "pair_f1": 0.05,
+          "tp": 1,
+          "fp": 2,
+          "fn": 36,
+          "n_keys": 29
+        }
+      },
+      "scramble": {
+        "all": {
+          "pair_precision": 0.0,
+          "pair_recall": 0.0,
+          "pair_f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 245,
+          "n_keys": 175
+        },
+        "seen": {
+          "pair_precision": 0.0,
+          "pair_recall": 0.0,
+          "pair_f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 208,
+          "n_keys": 146
+        },
+        "unseen": {
+          "pair_precision": 0.0,
+          "pair_recall": 0.0,
+          "pair_f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 37,
+          "n_keys": 29
+        }
+      },
+      "lift_unseen_vs_majority": -0.3439,
+      "scramble_clean": true,
+      "verdict": "HARD_FAIL_NO_GENERALIZATION",
+      "elapsed_s": 0.41
+    }
+  },
+  "arms_hashes": {
+    "majority": "ba9bedeb0eb8ba430343512133a03d931308ef6b2101dce4c39e95fb43fc71c9",
+    "wordnet_real": "335b6bf7c307f6add056d428aa0e129fbca2501b248aabf4b8e4701d6854a98a",
+    "wordnet_scramble": "e025c7cd0486350597d4428ad6ad305dca2b6cb9f3e203951101a4917a02e8fb",
+    "conceptnet_real": "57d58f1fd9b7870b0075d239c48abbd0985269e48d5c49f09213d8de658302ee",
+    "conceptnet_scramble": "32d0bfe460fe1bd24dc6efc66883e20b73b8e7bad3b0272c7cf3bf23b9efe5d1",
+    "embedding_real": "e9ed9a26292ee49118993c1529912d88e41c65da15ec4ba64aad75bae1bda0ab",
+    "embedding_scramble": "101c4002b2506cac6a3dc6736ee8671a3ecfbb5b3dc039017a1a5d74cd09211c"
+  },
+  "arms_differ_verified": true,
+  "per_source_verdict": {
+    "wordnet": "HARD_FAIL_NO_GENERALIZATION",
+    "conceptnet": "HARD_FAIL_NO_GENERALIZATION",
+    "embedding": "HARD_FAIL_NO_GENERALIZATION"
+  }
+}
