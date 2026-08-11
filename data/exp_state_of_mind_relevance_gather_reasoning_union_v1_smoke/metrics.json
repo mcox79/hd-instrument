@@ -1,0 +1,78 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "arm3@5=0.5385 vs arm1@5=0.0769 (delta=0.4615); partial evidence, does not clear strict HARD_PASS margin",
+  "summary": "arm3@5=0.5385 vs arm1@5=0.0769 (delta=0.4615); partial evidence, does not clear strict HARD_PASS margin",
+  "elapsed_s": 49.66677560005337,
+  "ts_iso": "2026-08-11T17:44:52.939068+00:00",
+  "anchor_name": "state_of_mind_relevance_gather_reasoning_union_v1",
+  "run_mode": "smoke",
+  "process_filter": [
+    "combustion",
+    "photosynthesis"
+  ],
+  "n_ent": 2587,
+  "n_targets": 26,
+  "reading_audit": {
+    "n_processes": 2,
+    "n_process_entity_pairs": 15,
+    "vocab_size": 14
+  },
+  "cskg_audit": {
+    "narrow_materials": 6,
+    "narrow_edges": 25,
+    "wide_materials": 13,
+    "wide_edges": 3735
+  },
+  "gap_set_audit": {
+    "raw_n": 27,
+    "survive_n": 26,
+    "unique_n": 26,
+    "hub_material_counts": {
+      "water": 11,
+      "magnesium": 7,
+      "sugar": 3,
+      "oxygen": 2,
+      "energy": 2,
+      "chlorophyll": 1
+    }
+  },
+  "ca3_gather_audit": {
+    "precision_mean": 1.0,
+    "recall_mean": 1.0
+  },
+  "recovery": {
+    "arm0_at1": 0.0,
+    "arm0_at5": 0.0,
+    "arm1_at1": 0.0,
+    "arm1_at5": 0.07692307692307693,
+    "arm2_at1": 0.0,
+    "arm2_at5": 0.038461538461538464,
+    "arm3_at1": 0.11538461538461539,
+    "arm3_at5": 0.5384615384615384
+  },
+  "ablation_delta_arm3_minus_arm1_at5": 0.4615384615384615,
+  "scramble_control": {
+    "arm3_scrambled_at1": 0.038461538461538464,
+    "arm3_scrambled_at5": 0.15384615384615385
+  },
+  "causenet_leak_audit": null,
+  "per_process_recovery": {
+    "combustion": {
+      "n": 7,
+      "arm1_at5": 0.0,
+      "arm3_at5": 0.5714285714285714
+    },
+    "photosynthesis": {
+      "n": 19,
+      "arm1_at5": 0.10526315789473684,
+      "arm3_at5": 0.5263157894736842
+    }
+  },
+  "arms_differ_verified": true,
+  "bands": {
+    "hard_pass_delta_min": 0.2,
+    "hard_pass_floor_min": 0.2,
+    "hard_pass_scramble_max": 0.1,
+    "hard_pass_ablation_delta_min": 0.15
+  }
+}

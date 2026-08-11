@@ -1,0 +1,19 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "real RelationRegister+iterative_attractor+KGStore fixture: arm3 recovers planted chain at top-1, arm0 structurally absent, arm2 voting misled by frequency (fate-blind)",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.35973430005833507,
+  "ts_iso": "2026-08-11T17:43:42.650019+00:00",
+  "anchor_name": "state_of_mind_relevance_gather_reasoning_union_v1",
+  "run_mode": "self_test",
+  "result": {
+    "n_ent": 7,
+    "ca3_gathered": [
+      "material0"
+    ],
+    "arm3_top1_idx": 5,
+    "arm3_gold_idx": 5,
+    "arm2_top1_idx": 4,
+    "arm2_distractor_idx": 4
+  }
+}
