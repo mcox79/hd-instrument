@@ -30,6 +30,17 @@ COMPOSED_ENTRY_CANDIDATES = ("reasoner.py", "substrate.py", "pipeline.py")
 RE_FROM_EXP = re.compile(r"^\s*from\s+experiments\s+import\s+(.+)", re.M)
 RE_FROM_EXP_SUB = re.compile(r"^\s*from\s+experiments\.([A-Za-z0-9_]+)\s+import", re.M)
 RE_IMPORT_EXP_SUB = re.compile(r"^\s*import\s+experiments\.([A-Za-z0-9_]+)", re.M)
+# BARE cell-to-cell imports (2026-08-12 fix). The DOMINANT idiom in experiments/ is
+# `sys.path.insert(0, EXP_DIR)` followed by `import exp_other_cell as v1` / `from exp_other_cell
+# import helper` -- NO `experiments.` prefix, so the three patterns above never matched it and
+# every such consumer edge was invisible. That produced FALSE `ISLAND` verdicts in
+# capability_registry_audit.compute_integration_status for exp-cell rows whose only consumers are
+# other cells (proven case: exp_maven_ere_convergence_gated_subevent_v1 imports
+# exp_maven_ere_convergence_gated_causal_v1/_v2, yet both causal rows read ISLAND/used_by=[]).
+# Names are filtered against the real experiments/ basename set, so stdlib/3rd-party imports
+# cannot produce spurious edges.
+RE_IMPORT_BARE = re.compile(r"^\s*import\s+([A-Za-z_][A-Za-z0-9_,\s]*?)\s*(?:#.*)?$", re.M)
+RE_FROM_BARE = re.compile(r"^\s*from\s+([A-Za-z_][A-Za-z0-9_]*)\s+import", re.M)
 RE_FROM_HDLAB = re.compile(r"^\s*from\s+hdlab\.([A-Za-z0-9_]+)\s+import", re.M)
 RE_FROM_HDLAB_BARE = re.compile(r"^\s*from\s+hdlab\s+import\s+(.+)", re.M)
 RE_HDLAB_ATTR = re.compile(r"\bhdlab\.([A-Za-z0-9_]+)")
@@ -73,6 +84,7 @@ def compute_import_graph(exp_dir=EXP_DIR, hdlab_dir=HDLAB_DIR):
     exp_files = _pyfiles(exp_dir)
     hdlab_files = _pyfiles(hdlab_dir)
     hdlab_mods = {os.path.basename(f)[:-3] for f in hdlab_files} - {"__init__"}
+    exp_mods = {os.path.basename(f)[:-3] for f in exp_files} - {"__init__"}
 
     exp_module_consumers = defaultdict(set)   # exp_module -> set of files importing it as a module
     hdlab_consumers = defaultdict(set)        # hdlab_module -> set of consumer files
@@ -86,7 +98,9 @@ def compute_import_graph(exp_dir=EXP_DIR, hdlab_dir=HDLAB_DIR):
         got_exp = False
         for m in RE_FROM_EXP.finditer(src):
             for n in _names(m.group(1)):
-                if n != base:
+                # exp_mods filter (2026-08-12): `from experiments import (  # noqa: E402,F401`
+                # previously yielded a phantom consumer edge for the module name "F401".
+                if n in exp_mods and n != base:
                     exp_module_consumers[n].add(p)
                     got_exp = True
         for rex in (RE_FROM_EXP_SUB, RE_IMPORT_EXP_SUB):
@@ -95,6 +109,17 @@ def compute_import_graph(exp_dir=EXP_DIR, hdlab_dir=HDLAB_DIR):
                 if n != base:
                     exp_module_consumers[n].add(p)
                     got_exp = True
+        # bare `import exp_other` / `from exp_other import x` (sys.path-inserted cell-to-cell)
+        for m in RE_IMPORT_BARE.finditer(src):
+            for n in _names(m.group(1)):
+                if n in exp_mods and n != base:
+                    exp_module_consumers[n].add(p)
+                    got_exp = True
+        for m in RE_FROM_BARE.finditer(src):
+            n = m.group(1)
+            if n in exp_mods and n != base:
+                exp_module_consumers[n].add(p)
+                got_exp = True
         if got_exp:
             bypass_cells.add(p)
         # hdlab consumers (absolute)
