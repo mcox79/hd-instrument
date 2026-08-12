@@ -99,3 +99,70 @@ text = quantity-only gain, diversify sourcing rather than adding more OpenStax v
 subject-word overlap in `subject_head_lemma` across segments (already dominated by biology terms;
 a swelling single-domain vocabulary would show the same failure mode as the tautology-heavy count
 before it).
+
+## 5. Acquisition results (2026-08-12, director's diversity-first ordering)
+
+Director overrode the volume-first ranking above: subject diversity BEFORE more biology volume.
+Revised order executed: (1) Psychology 2e [non-biology generalization test], (2) Chemistry 2e
+[license re-confirmed first], (3) Anatomy & Physiology 2e + Microbiology [biology-adjacent
+diversity], (4) Biology 2e [same-domain, lowest-value, done last]. Acquisition + cleaning only --
+nothing ingested into `hdlab/`, `experiments/`, or `data/foundation/`.
+
+### Cheap listing pass (GitHub Trees API, no clone, before any download)
+All six candidate repos' raw CNXML module byte totals (the actual download size, not the
+`.git`-history-inflated GitHub repo size) came back far under the 500MB pause threshold:
+Psychology 3.21MB/105 mod, Chemistry 7.55MB/149 mod (bundle also has an `atoms-first` alt
+collection, not fetched), Anatomy&Physiology 5.34MB/198 mod, Microbiology 5.28MB/159 mod,
+Biology 2e 6.11MB/259 mod (same repo as Concepts of Biology, different/larger collection). No
+title required pausing.
+
+### License verification (per-title, not inherited from the sibling)
+All five confirmed **CC BY-NC-SA 4.0** directly from `<md:license url=".../by-nc-sa/4.0/">` in
+each collection's own XML metadata (Chemistry was the one flagged uncertain in section 3 --
+resolved BEFORE download, same license as the rest, not a stricter one).
+
+### Pipeline generalization
+New generic fetcher `data/corpora/openstax_common/fetch_openstax.py` (stdlib-only, no clone,
+mirrors the biology fetch approach) + the existing `textbook_concepts_biology/clean_cnxml.py`,
+minimally parameterized (`--struct --mod-dir --out-txt --out-stats`, defaults unchanged, biology
+output verified bit-identical before and after the edit). **0 parse errors across all 765 new
+modules** (149+198+159+259 non-biology, plus Biology 2e's own module set) -- the cleaner
+generalizes cleanly beyond the book it was built on.
+
+### Sentence counts + definitional-pattern density (proxy measurement, caveated)
+Measured with new `data/corpora/openstax_common/measure_density.py`, read-only reuse of
+`hdlab.definitional_extraction.sentence_has_definitional_pattern` (same detector as the M3
+segment-density check in `tools/measure_definitional_pattern_association_v1.py`) over the same
+sentence-split recipe the bio_new loader already uses. This is a same-methodology PROXY, not the
+same number as the 304.7-facts/1000 v5 pipeline figure (that number is post-canonicalization
+GROUNDED_MEANING facts from the full reading-grounding loop; this acquisition pass does not run
+that pipeline). Recalibrated on the full (not 4500-sentence-subset) Concepts of Biology corpus
+for a fair same-method baseline:
+
+| title | n_sentences | definitional-pattern density /1000 |
+|---|---|---|
+| Concepts of Biology (recalibrated, full corpus) | 11332 | 100.0 |
+| **Anatomy & Physiology 2e** | 22542 | **105.8** |
+| Biology 2e | 27219 | 86.9 |
+| Microbiology | 23605 | 62.6 |
+| Chemistry 2e | 15887 | 58.6 |
+| **Psychology 2e** | 28389 | **30.8** |
+
+### Honest finding: the productivity gap is about SUBJECT, not "textbooks in general"
+Psychology 2e -- a real, dense, modern OpenStax textbook, cleaned by the identical pipeline --
+lands at less than a third of the biology figure, and close to OneStop news-prose territory
+(22.5-28.6/1000 in the original pipeline metric) rather than the biology cluster. Chemistry sits
+in between (58.6). The four life-science titles (Concepts of Biology, Biology 2e, A&P,
+Microbiology) cluster tightly at 62.6-105.8/1000. **This says the earlier "textbooks are dense"
+framing was too broad: natural/life-science textbooks define terms constantly because their
+subject matter is enumerable nameable structures (organelles, bones, reactions, microbes); a
+behavioral/social-science textbook explains through narrative and research description far more
+than through terse operational definition.** "Read more textbooks" is NOT worth the same yield
+per title -- it depends heavily on subject. A&P in particular is the standout: HIGHER density
+than biology itself, i.e. real added vocabulary (anatomical/medical terminology) at no density
+cost -- the best of the diversity-vs-yield tradeoff among the five.
+
+### What was NOT done (explicitly out of scope per director's brief)
+No ingestion, no `hdlab/`/`experiments/`/`data/foundation/` writes, no foundation-size claim, no
+decision about which corpus (if any) should be added to the reading curriculum -- that remains a
+separate, paused decision.

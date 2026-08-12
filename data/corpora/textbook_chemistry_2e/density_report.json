@@ -1,0 +1,8 @@
+{
+  "label": "chemistry_2e",
+  "clean_txt": "D:/AI/hd-instrument/data/corpora/textbook_chemistry_2e/cleaned/chemistry_2e.clean.txt",
+  "n_sentences": 15887,
+  "n_definitional_pattern_sentences": 931,
+  "definitional_pattern_density_per_1000_sentences": 58.6,
+  "caveat": "proxy measure (sentence-level pattern hit rate), not the full GROUNDED_MEANING-facts-extracted pipeline rate; see module docstring"
+}
