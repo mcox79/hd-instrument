@@ -1,0 +1,532 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: real_grounded=40 scramble_ctx_grounded=18 scramble_ratio=0.45 n_chunks_with_growth=5 no_leak_ok=True monotone_ok=True curriculum_link_delta=0.2255 hand_lexicon_baseline=359",
+  "summary": "HARD_PASS_foundation_grows_from_reading_scramble_discriminates",
+  "elapsed_s": 67.8,
+  "ts_iso": "2026-08-12T04:52:22.915734+00:00",
+  "pid": 28788,
+  "anchor_name": "reading_grounding_loop_cycle1_v1",
+  "run_mode": "smoke",
+  "hand_lexicon_baseline": 359,
+  "foundation_size_before": 0,
+  "foundation_size_after_reading_grounded": 40,
+  "gap_floor": 0.625,
+  "sense_match_thresh": 0.45,
+  "schema_thresh_used": 0.25,
+  "calibration_check": "adaptive_with_discriminator_gate (see module SCHEMA_THRESH_FULL comment + pre-reg Calibration amendment)",
+  "results_by_condition": {
+    "curriculum_real": {
+      "condition": "curriculum_real",
+      "n_sentences": 900,
+      "n_chunks": 6,
+      "n_grounded": 40,
+      "n_escalated": 123,
+      "n_pending": 1539,
+      "n_distinct_candidates": 1702,
+      "n_self_grounded": 20,
+      "n_linked_grounded": 20,
+      "link_rate": 0.5,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 5,
+      "elapsed_s": 22.4
+    },
+    "scrambled_order_real": {
+      "condition": "scrambled_order_real",
+      "n_sentences": 900,
+      "n_chunks": 6,
+      "n_grounded": 51,
+      "n_escalated": 84,
+      "n_pending": 1567,
+      "n_distinct_candidates": 1702,
+      "n_self_grounded": 37,
+      "n_linked_grounded": 14,
+      "link_rate": 0.2745,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 5,
+      "elapsed_s": 21.51
+    },
+    "curriculum_scramble_context": {
+      "condition": "curriculum_scramble_context",
+      "n_sentences": 900,
+      "n_chunks": 6,
+      "n_grounded": 18,
+      "n_escalated": 136,
+      "n_pending": 1551,
+      "n_distinct_candidates": 1705,
+      "n_self_grounded": 11,
+      "n_linked_grounded": 7,
+      "link_rate": 0.3889,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 5,
+      "elapsed_s": 21.54
+    }
+  },
+  "growth_curve_curriculum_real": [
+    {
+      "pass_idx": 0,
+      "n_occurrences_seen": 150,
+      "newly_grounded": 0,
+      "newly_escalated": 0,
+      "cumulative_grounded": 0,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 447,
+      "n_self_grounded_this_pass": 0,
+      "n_linked_this_pass": 0,
+      "canon_log": [],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 1,
+      "n_occurrences_seen": 300,
+      "newly_grounded": 8,
+      "newly_escalated": 0,
+      "cumulative_grounded": 8,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 794,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 6,
+      "canon_log": [
+        {
+          "lemma": "artwork",
+          "canonical_obj": "himself",
+          "best_cos": 0.4766,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2833
+        },
+        {
+          "lemma": "auction",
+          "canonical_obj": "house",
+          "best_cos": 0.469,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2879
+        },
+        {
+          "lemma": "billionair",
+          "canonical_obj": "end",
+          "best_cos": 0.4685,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3016
+        },
+        {
+          "lemma": "domain",
+          "canonical_obj": "top",
+          "best_cos": 0.556,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3331
+        },
+        {
+          "lemma": "inequality",
+          "canonical_obj": "inequality",
+          "best_cos": 0.3914,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2983
+        },
+        {
+          "lemma": "owner",
+          "canonical_obj": "house",
+          "best_cos": 0.4688,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.315
+        },
+        {
+          "lemma": "sale",
+          "canonical_obj": "owner",
+          "best_cos": 0.5156,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2629
+        },
+        {
+          "lemma": "villag",
+          "canonical_obj": "villag",
+          "best_cos": 0.4297,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2903
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 2,
+      "n_occurrences_seen": 450,
+      "newly_grounded": 16,
+      "newly_escalated": 0,
+      "cumulative_grounded": 24,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 1055,
+      "n_self_grounded_this_pass": 8,
+      "n_linked_this_pass": 8,
+      "canon_log": [
+        {
+          "lemma": "ban",
+          "canonical_obj": "ban",
+          "best_cos": 0.3187,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.25
+        },
+        {
+          "lemma": "bbm",
+          "canonical_obj": "help",
+          "best_cos": 0.4979,
+          "self_grounded": false,
+          "n_exposures": 14,
+          "bank_schema_score": 0.3508
+        },
+        {
+          "lemma": "bolivia",
+          "canonical_obj": "leav",
+          "best_cos": 0.462,
+          "self_grounded": false,
+          "n_exposures": 18,
+          "bank_schema_score": 0.3735
+        },
+        {
+          "lemma": "chew",
+          "canonical_obj": "under",
+          "best_cos": 0.5392,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3953
+        },
+        {
+          "lemma": "cigarett",
+          "canonical_obj": "cigarett",
+          "best_cos": 0.3672,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2641
+        },
+        {
+          "lemma": "cigarette",
+          "canonical_obj": "cigarette",
+          "best_cos": 0.4121,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3198
+        },
+        {
+          "lemma": "clos",
+          "canonical_obj": "full",
+          "best_cos": 0.4554,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3117
+        },
+        {
+          "lemma": "coca",
+          "canonical_obj": "chew",
+          "best_cos": 0.5099,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3011
+        },
+        {
+          "lemma": "convention",
+          "canonical_obj": "convention",
+          "best_cos": 0.4172,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3732
+        },
+        {
+          "lemma": "countri",
+          "canonical_obj": "countri",
+          "best_cos": 0.4005,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3437
+        },
+        {
+          "lemma": "exemption",
+          "canonical_obj": "bolivia",
+          "best_cos": 0.4709,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2968
+        },
+        {
+          "lemma": "gap",
+          "canonical_obj": "pay",
+          "best_cos": 0.5234,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2693
+        },
+        {
+          "lemma": "health",
+          "canonical_obj": "health",
+          "best_cos": 0.4293,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2664
+        },
+        {
+          "lemma": "indigenou",
+          "canonical_obj": "coca",
+          "best_cos": 0.5601,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3496
+        },
+        {
+          "lemma": "product",
+          "canonical_obj": "product",
+          "best_cos": 0.4012,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3259
+        },
+        {
+          "lemma": "warning",
+          "canonical_obj": "warning",
+          "best_cos": 0.4293,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2656
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 3,
+      "n_occurrences_seen": 600,
+      "newly_grounded": 4,
+      "newly_escalated": 32,
+      "cumulative_grounded": 28,
+      "cumulative_escalated": 32,
+      "cumulative_pending": 1213,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "crowdfund",
+          "canonical_obj": "crowdfund",
+          "best_cos": 0.376,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2626
+        },
+        {
+          "lemma": "everest",
+          "canonical_obj": "everest",
+          "best_cos": 0.3281,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.3497
+        },
+        {
+          "lemma": "facebook",
+          "canonical_obj": "facebook",
+          "best_cos": 0.418,
+          "self_grounded": true,
+          "n_exposures": 20,
+          "bank_schema_score": 0.313
+        },
+        {
+          "lemma": "poverty",
+          "canonical_obj": "billionair",
+          "best_cos": 0.5922,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4403
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 4,
+      "n_occurrences_seen": 750,
+      "newly_grounded": 9,
+      "newly_escalated": 47,
+      "cumulative_grounded": 37,
+      "cumulative_escalated": 79,
+      "cumulative_pending": 1351,
+      "n_self_grounded_this_pass": 5,
+      "n_linked_this_pass": 4,
+      "canon_log": [
+        {
+          "lemma": "complex",
+          "canonical_obj": "complex",
+          "best_cos": 0.4385,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3134
+        },
+        {
+          "lemma": "experiment",
+          "canonical_obj": "brain",
+          "best_cos": 0.4808,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3106
+        },
+        {
+          "lemma": "false",
+          "canonical_obj": "brain",
+          "best_cos": 0.495,
+          "self_grounded": false,
+          "n_exposures": 12,
+          "bank_schema_score": 0.4272
+        },
+        {
+          "lemma": "manchester",
+          "canonical_obj": "manchester",
+          "best_cos": 0.4375,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3161
+        },
+        {
+          "lemma": "memori",
+          "canonical_obj": "memori",
+          "best_cos": 0.4297,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.4434
+        },
+        {
+          "lemma": "mice",
+          "canonical_obj": "experiment",
+          "best_cos": 0.4678,
+          "self_grounded": false,
+          "n_exposures": 10,
+          "bank_schema_score": 0.4768
+        },
+        {
+          "lemma": "network",
+          "canonical_obj": "network",
+          "best_cos": 0.4171,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.352
+        },
+        {
+          "lemma": "unit",
+          "canonical_obj": "unit",
+          "best_cos": 0.4141,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3434
+        },
+        {
+          "lemma": "visitor",
+          "canonical_obj": "lose",
+          "best_cos": 0.5621,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4336
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 5,
+      "n_occurrences_seen": 900,
+      "newly_grounded": 3,
+      "newly_escalated": 44,
+      "cumulative_grounded": 40,
+      "cumulative_escalated": 123,
+      "cumulative_pending": 1539,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "allen",
+          "canonical_obj": "allen",
+          "best_cos": 0.4423,
+          "self_grounded": true,
+          "n_exposures": 13,
+          "bank_schema_score": 0.2711
+        },
+        {
+          "lemma": "often",
+          "canonical_obj": "understand",
+          "best_cos": 0.4554,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2516
+        },
+        {
+          "lemma": "prison",
+          "canonical_obj": "prison",
+          "best_cos": 0.4375,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2548
+        }
+      ],
+      "condition": "curriculum_real"
+    }
+  ],
+  "grounded_lemmas_curriculum_real": [
+    "allen",
+    "artwork",
+    "auction",
+    "ban",
+    "bbm",
+    "billionair",
+    "bolivia",
+    "chew",
+    "cigarett",
+    "cigarette",
+    "clos",
+    "coca",
+    "complex",
+    "convention",
+    "countri",
+    "crowdfund",
+    "domain",
+    "everest",
+    "exemption",
+    "experiment",
+    "facebook",
+    "false",
+    "gap",
+    "health",
+    "indigenou",
+    "inequality",
+    "manchester",
+    "memori",
+    "mice",
+    "network",
+    "often",
+    "owner",
+    "poverty",
+    "prison",
+    "product",
+    "sale",
+    "unit",
+    "villag",
+    "visitor",
+    "warning"
+  ],
+  "controls": {
+    "no_leak_ok": true,
+    "reading_more_grows_more_ok": true,
+    "monotone_growth_ok": true,
+    "curriculum_order_link_rate_real": 0.5,
+    "curriculum_order_link_rate_scrambled": 0.2745,
+    "curriculum_order_link_delta": 0.2255,
+    "scramble_context_grounded_real": 40,
+    "scramble_context_grounded_scrambled": 18,
+    "scramble_context_ratio": 0.45,
+    "scramble_control_ok": true
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "curriculum_real": "bd52e596dc3047566371b086d1dc7b6aa160b0a8b8ce923d9ab4ed79fa649fa7",
+    "scrambled_order_real": "abb109a5b3066465827566d1a30845ef3649c90887495b12292a02d8b57a262b",
+    "curriculum_scramble_context": "8df43d88b8e38be300b9e458a13742941b171a139f54cf5b4be5baad70948405"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 18,
+  "measured_n_units": 18
+}

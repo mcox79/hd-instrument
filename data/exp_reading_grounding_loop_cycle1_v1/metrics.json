@@ -1,0 +1,2187 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: real_grounded=185 scramble_ctx_grounded=53 scramble_ratio=0.2864864864864865 n_chunks_with_growth=30 no_leak_ok=True monotone_ok=True curriculum_link_delta=0.025 hand_lexicon_baseline=359",
+  "summary": "HARD_PASS_foundation_grows_from_reading_scramble_discriminates",
+  "elapsed_s": 330.95,
+  "ts_iso": "2026-08-12T05:07:26.207434+00:00",
+  "pid": 30620,
+  "anchor_name": "reading_grounding_loop_cycle1_v1",
+  "run_mode": "full",
+  "hand_lexicon_baseline": 359,
+  "foundation_size_before": 0,
+  "foundation_size_after_reading_grounded": 185,
+  "gap_floor": 0.625,
+  "sense_match_thresh": 0.45,
+  "schema_thresh_used": 0.25,
+  "calibration_check": "adaptive_with_discriminator_gate (see module SCHEMA_THRESH_FULL comment + pre-reg Calibration amendment)",
+  "results_by_condition": {
+    "curriculum_real": {
+      "condition": "curriculum_real",
+      "n_sentences": 4640,
+      "n_chunks": 31,
+      "n_grounded": 185,
+      "n_escalated": 1404,
+      "n_pending": 4571,
+      "n_distinct_candidates": 6160,
+      "n_self_grounded": 124,
+      "n_linked_grounded": 61,
+      "link_rate": 0.3297,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 30,
+      "elapsed_s": 110.82
+    },
+    "scrambled_order_real": {
+      "condition": "scrambled_order_real",
+      "n_sentences": 4640,
+      "n_chunks": 31,
+      "n_grounded": 128,
+      "n_escalated": 1416,
+      "n_pending": 4616,
+      "n_distinct_candidates": 6160,
+      "n_self_grounded": 89,
+      "n_linked_grounded": 39,
+      "link_rate": 0.3047,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 28,
+      "elapsed_s": 111.75
+    },
+    "curriculum_scramble_context": {
+      "condition": "curriculum_scramble_context",
+      "n_sentences": 4640,
+      "n_chunks": 31,
+      "n_grounded": 53,
+      "n_escalated": 1515,
+      "n_pending": 4576,
+      "n_distinct_candidates": 6144,
+      "n_self_grounded": 14,
+      "n_linked_grounded": 39,
+      "link_rate": 0.7358,
+      "no_leak_violations": [],
+      "n_chunks_with_new_grounding": 27,
+      "elapsed_s": 107.81
+    }
+  },
+  "growth_curve_curriculum_real": [
+    {
+      "pass_idx": 0,
+      "n_occurrences_seen": 150,
+      "newly_grounded": 0,
+      "newly_escalated": 0,
+      "cumulative_grounded": 0,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 447,
+      "n_self_grounded_this_pass": 0,
+      "n_linked_this_pass": 0,
+      "canon_log": [],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 1,
+      "n_occurrences_seen": 300,
+      "newly_grounded": 8,
+      "newly_escalated": 0,
+      "cumulative_grounded": 8,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 794,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 6,
+      "canon_log": [
+        {
+          "lemma": "artwork",
+          "canonical_obj": "himself",
+          "best_cos": 0.4766,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2833
+        },
+        {
+          "lemma": "auction",
+          "canonical_obj": "house",
+          "best_cos": 0.469,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2879
+        },
+        {
+          "lemma": "billionair",
+          "canonical_obj": "end",
+          "best_cos": 0.4685,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3016
+        },
+        {
+          "lemma": "domain",
+          "canonical_obj": "top",
+          "best_cos": 0.556,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3331
+        },
+        {
+          "lemma": "inequality",
+          "canonical_obj": "inequality",
+          "best_cos": 0.3914,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2983
+        },
+        {
+          "lemma": "owner",
+          "canonical_obj": "house",
+          "best_cos": 0.4688,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.315
+        },
+        {
+          "lemma": "sale",
+          "canonical_obj": "owner",
+          "best_cos": 0.5156,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2629
+        },
+        {
+          "lemma": "villag",
+          "canonical_obj": "villag",
+          "best_cos": 0.4297,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2903
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 2,
+      "n_occurrences_seen": 450,
+      "newly_grounded": 16,
+      "newly_escalated": 0,
+      "cumulative_grounded": 24,
+      "cumulative_escalated": 0,
+      "cumulative_pending": 1055,
+      "n_self_grounded_this_pass": 8,
+      "n_linked_this_pass": 8,
+      "canon_log": [
+        {
+          "lemma": "ban",
+          "canonical_obj": "ban",
+          "best_cos": 0.3187,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.25
+        },
+        {
+          "lemma": "bbm",
+          "canonical_obj": "help",
+          "best_cos": 0.4979,
+          "self_grounded": false,
+          "n_exposures": 14,
+          "bank_schema_score": 0.3508
+        },
+        {
+          "lemma": "bolivia",
+          "canonical_obj": "leav",
+          "best_cos": 0.462,
+          "self_grounded": false,
+          "n_exposures": 18,
+          "bank_schema_score": 0.3735
+        },
+        {
+          "lemma": "chew",
+          "canonical_obj": "under",
+          "best_cos": 0.5392,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3953
+        },
+        {
+          "lemma": "cigarett",
+          "canonical_obj": "cigarett",
+          "best_cos": 0.3672,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2641
+        },
+        {
+          "lemma": "cigarette",
+          "canonical_obj": "cigarette",
+          "best_cos": 0.4121,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3198
+        },
+        {
+          "lemma": "clos",
+          "canonical_obj": "full",
+          "best_cos": 0.4554,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3117
+        },
+        {
+          "lemma": "coca",
+          "canonical_obj": "chew",
+          "best_cos": 0.5099,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3011
+        },
+        {
+          "lemma": "convention",
+          "canonical_obj": "convention",
+          "best_cos": 0.4172,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3732
+        },
+        {
+          "lemma": "countri",
+          "canonical_obj": "countri",
+          "best_cos": 0.4005,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3437
+        },
+        {
+          "lemma": "exemption",
+          "canonical_obj": "bolivia",
+          "best_cos": 0.4709,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2968
+        },
+        {
+          "lemma": "gap",
+          "canonical_obj": "pay",
+          "best_cos": 0.5234,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2693
+        },
+        {
+          "lemma": "health",
+          "canonical_obj": "health",
+          "best_cos": 0.4293,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2664
+        },
+        {
+          "lemma": "indigenou",
+          "canonical_obj": "coca",
+          "best_cos": 0.5601,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3496
+        },
+        {
+          "lemma": "product",
+          "canonical_obj": "product",
+          "best_cos": 0.4012,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3259
+        },
+        {
+          "lemma": "warning",
+          "canonical_obj": "warning",
+          "best_cos": 0.4293,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2656
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 3,
+      "n_occurrences_seen": 600,
+      "newly_grounded": 4,
+      "newly_escalated": 32,
+      "cumulative_grounded": 28,
+      "cumulative_escalated": 32,
+      "cumulative_pending": 1213,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "crowdfund",
+          "canonical_obj": "crowdfund",
+          "best_cos": 0.376,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2626
+        },
+        {
+          "lemma": "everest",
+          "canonical_obj": "everest",
+          "best_cos": 0.3281,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.3497
+        },
+        {
+          "lemma": "facebook",
+          "canonical_obj": "facebook",
+          "best_cos": 0.418,
+          "self_grounded": true,
+          "n_exposures": 20,
+          "bank_schema_score": 0.313
+        },
+        {
+          "lemma": "poverty",
+          "canonical_obj": "billionair",
+          "best_cos": 0.5922,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4403
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 4,
+      "n_occurrences_seen": 750,
+      "newly_grounded": 9,
+      "newly_escalated": 47,
+      "cumulative_grounded": 37,
+      "cumulative_escalated": 79,
+      "cumulative_pending": 1351,
+      "n_self_grounded_this_pass": 5,
+      "n_linked_this_pass": 4,
+      "canon_log": [
+        {
+          "lemma": "complex",
+          "canonical_obj": "complex",
+          "best_cos": 0.4385,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3134
+        },
+        {
+          "lemma": "experiment",
+          "canonical_obj": "brain",
+          "best_cos": 0.4808,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3106
+        },
+        {
+          "lemma": "false",
+          "canonical_obj": "brain",
+          "best_cos": 0.495,
+          "self_grounded": false,
+          "n_exposures": 12,
+          "bank_schema_score": 0.4272
+        },
+        {
+          "lemma": "manchester",
+          "canonical_obj": "manchester",
+          "best_cos": 0.4375,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3161
+        },
+        {
+          "lemma": "memori",
+          "canonical_obj": "memori",
+          "best_cos": 0.4297,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.4434
+        },
+        {
+          "lemma": "mice",
+          "canonical_obj": "experiment",
+          "best_cos": 0.4678,
+          "self_grounded": false,
+          "n_exposures": 10,
+          "bank_schema_score": 0.4768
+        },
+        {
+          "lemma": "network",
+          "canonical_obj": "network",
+          "best_cos": 0.4171,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.352
+        },
+        {
+          "lemma": "unit",
+          "canonical_obj": "unit",
+          "best_cos": 0.4141,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3434
+        },
+        {
+          "lemma": "visitor",
+          "canonical_obj": "lose",
+          "best_cos": 0.5621,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4336
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 5,
+      "n_occurrences_seen": 900,
+      "newly_grounded": 3,
+      "newly_escalated": 44,
+      "cumulative_grounded": 40,
+      "cumulative_escalated": 123,
+      "cumulative_pending": 1539,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "allen",
+          "canonical_obj": "allen",
+          "best_cos": 0.4423,
+          "self_grounded": true,
+          "n_exposures": 13,
+          "bank_schema_score": 0.2711
+        },
+        {
+          "lemma": "often",
+          "canonical_obj": "understand",
+          "best_cos": 0.4554,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2516
+        },
+        {
+          "lemma": "prison",
+          "canonical_obj": "prison",
+          "best_cos": 0.4375,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2548
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 6,
+      "n_occurrences_seen": 1050,
+      "newly_grounded": 3,
+      "newly_escalated": 45,
+      "cumulative_grounded": 43,
+      "cumulative_escalated": 168,
+      "cumulative_pending": 1678,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "crisi",
+          "canonical_obj": "crisi",
+          "best_cos": 0.3665,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2887
+        },
+        {
+          "lemma": "farm",
+          "canonical_obj": "absolutely",
+          "best_cos": 0.4531,
+          "self_grounded": false,
+          "n_exposures": 17,
+          "bank_schema_score": 0.3379
+        },
+        {
+          "lemma": "waste",
+          "canonical_obj": "waste",
+          "best_cos": 0.3595,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2605
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 7,
+      "n_occurrences_seen": 1200,
+      "newly_grounded": 7,
+      "newly_escalated": 40,
+      "cumulative_grounded": 50,
+      "cumulative_escalated": 208,
+      "cumulative_pending": 1818,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 4,
+      "canon_log": [
+        {
+          "lemma": "community",
+          "canonical_obj": "farm",
+          "best_cos": 0.5165,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.276
+        },
+        {
+          "lemma": "kenyan",
+          "canonical_obj": "lawyer",
+          "best_cos": 0.5675,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.389
+        },
+        {
+          "lemma": "method",
+          "canonical_obj": "method",
+          "best_cos": 0.4153,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3317
+        },
+        {
+          "lemma": "panel",
+          "canonical_obj": "panel",
+          "best_cos": 0.3537,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2794
+        },
+        {
+          "lemma": "positive",
+          "canonical_obj": "positive",
+          "best_cos": 0.3481,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3969
+        },
+        {
+          "lemma": "sue",
+          "canonical_obj": "kenyan",
+          "best_cos": 0.4776,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.4094
+        },
+        {
+          "lemma": "tortur",
+          "canonical_obj": "kenyan",
+          "best_cos": 0.6444,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3496
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 8,
+      "n_occurrences_seen": 1350,
+      "newly_grounded": 5,
+      "newly_escalated": 54,
+      "cumulative_grounded": 55,
+      "cumulative_escalated": 262,
+      "cumulative_pending": 1953,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "colony",
+          "canonical_obj": "colony",
+          "best_cos": 0.365,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2606
+        },
+        {
+          "lemma": "education",
+          "canonical_obj": "listen",
+          "best_cos": 0.4544,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3675
+        },
+        {
+          "lemma": "minister",
+          "canonical_obj": "minister",
+          "best_cos": 0.3281,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.3385
+        },
+        {
+          "lemma": "prime",
+          "canonical_obj": "minister",
+          "best_cos": 0.4688,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3292
+        },
+        {
+          "lemma": "winner",
+          "canonical_obj": "winner",
+          "best_cos": 0.3984,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.2604
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 9,
+      "n_occurrences_seen": 1500,
+      "newly_grounded": 5,
+      "newly_escalated": 44,
+      "cumulative_grounded": 60,
+      "cumulative_escalated": 306,
+      "cumulative_pending": 2087,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 3,
+      "canon_log": [
+        {
+          "lemma": "chimpanze",
+          "canonical_obj": "also",
+          "best_cos": 0.5041,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3715
+        },
+        {
+          "lemma": "collection",
+          "canonical_obj": "american",
+          "best_cos": 0.468,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3844
+        },
+        {
+          "lemma": "midlife",
+          "canonical_obj": "midlife",
+          "best_cos": 0.2418,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.4163
+        },
+        {
+          "lemma": "orangutan",
+          "canonical_obj": "chimpanze",
+          "best_cos": 0.7332,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2785
+        },
+        {
+          "lemma": "program",
+          "canonical_obj": "program",
+          "best_cos": 0.2681,
+          "self_grounded": true,
+          "n_exposures": 10,
+          "bank_schema_score": 0.2929
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 10,
+      "n_occurrences_seen": 1650,
+      "newly_grounded": 4,
+      "newly_escalated": 42,
+      "cumulative_grounded": 64,
+      "cumulative_escalated": 348,
+      "cumulative_pending": 2274,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "older",
+          "canonical_obj": "care",
+          "best_cos": 0.5041,
+          "self_grounded": false,
+          "n_exposures": 12,
+          "bank_schema_score": 0.4406
+        },
+        {
+          "lemma": "organ",
+          "canonical_obj": "organ",
+          "best_cos": 0.4107,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.4119
+        },
+        {
+          "lemma": "survey",
+          "canonical_obj": "survey",
+          "best_cos": 0.4091,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2651
+        },
+        {
+          "lemma": "tiger",
+          "canonical_obj": "tiger",
+          "best_cos": 0.4009,
+          "self_grounded": true,
+          "n_exposures": 20,
+          "bank_schema_score": 0.3182
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 11,
+      "n_occurrences_seen": 1800,
+      "newly_grounded": 5,
+      "newly_escalated": 51,
+      "cumulative_grounded": 69,
+      "cumulative_escalated": 399,
+      "cumulative_pending": 2526,
+      "n_self_grounded_this_pass": 4,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "barba",
+          "canonical_obj": "barba",
+          "best_cos": 0.3411,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3813
+        },
+        {
+          "lemma": "prince",
+          "canonical_obj": "prince",
+          "best_cos": 0.4118,
+          "self_grounded": true,
+          "n_exposures": 16,
+          "bank_schema_score": 0.2801
+        },
+        {
+          "lemma": "rat",
+          "canonical_obj": "rat",
+          "best_cos": 0.4203,
+          "self_grounded": true,
+          "n_exposures": 14,
+          "bank_schema_score": 0.2666
+        },
+        {
+          "lemma": "register",
+          "canonical_obj": "register",
+          "best_cos": 0.4164,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3368
+        },
+        {
+          "lemma": "sanch",
+          "canonical_obj": "barba",
+          "best_cos": 0.6045,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3659
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 12,
+      "n_occurrences_seen": 1950,
+      "newly_grounded": 9,
+      "newly_escalated": 49,
+      "cumulative_grounded": 78,
+      "cumulative_escalated": 448,
+      "cumulative_pending": 2691,
+      "n_self_grounded_this_pass": 7,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "altitude",
+          "canonical_obj": "altitude",
+          "best_cos": 0.4355,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2673
+        },
+        {
+          "lemma": "balloon",
+          "canonical_obj": "balloon",
+          "best_cos": 0.4204,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3265
+        },
+        {
+          "lemma": "baumgartner",
+          "canonical_obj": "baumgartner",
+          "best_cos": 0.4498,
+          "self_grounded": true,
+          "n_exposures": 16,
+          "bank_schema_score": 0.2648
+        },
+        {
+          "lemma": "cambridge",
+          "canonical_obj": "cambridge",
+          "best_cos": 0.3879,
+          "self_grounded": true,
+          "n_exposures": 10,
+          "bank_schema_score": 0.4453
+        },
+        {
+          "lemma": "duke",
+          "canonical_obj": "cambridge",
+          "best_cos": 0.5048,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.4492
+        },
+        {
+          "lemma": "flight",
+          "canonical_obj": "balloon",
+          "best_cos": 0.5191,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4515
+        },
+        {
+          "lemma": "impact",
+          "canonical_obj": "impact",
+          "best_cos": 0.4062,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2633
+        },
+        {
+          "lemma": "mission",
+          "canonical_obj": "mission",
+          "best_cos": 0.4431,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2656
+        },
+        {
+          "lemma": "sweden",
+          "canonical_obj": "sweden",
+          "best_cos": 0.3984,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.325
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 13,
+      "n_occurrences_seen": 2100,
+      "newly_grounded": 5,
+      "newly_escalated": 51,
+      "cumulative_grounded": 83,
+      "cumulative_escalated": 499,
+      "cumulative_pending": 2840,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 3,
+      "canon_log": [
+        {
+          "lemma": "crop",
+          "canonical_obj": "crop",
+          "best_cos": 0.3281,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2533
+        },
+        {
+          "lemma": "dont",
+          "canonical_obj": "say",
+          "best_cos": 0.4982,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2836
+        },
+        {
+          "lemma": "resistant",
+          "canonical_obj": "people",
+          "best_cos": 0.5285,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3822
+        },
+        {
+          "lemma": "risk",
+          "canonical_obj": "say",
+          "best_cos": 0.5078,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2966
+        },
+        {
+          "lemma": "teff",
+          "canonical_obj": "teff",
+          "best_cos": 0.3825,
+          "self_grounded": true,
+          "n_exposures": 15,
+          "bank_schema_score": 0.268
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 14,
+      "n_occurrences_seen": 2250,
+      "newly_grounded": 3,
+      "newly_escalated": 72,
+      "cumulative_grounded": 86,
+      "cumulative_escalated": 571,
+      "cumulative_pending": 2961,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "bottle",
+          "canonical_obj": "bottle",
+          "best_cos": 0.445,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.3711
+        },
+        {
+          "lemma": "sexual",
+          "canonical_obj": "sexual",
+          "best_cos": 0.4311,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.5071
+        },
+        {
+          "lemma": "survive",
+          "canonical_obj": "also",
+          "best_cos": 0.5106,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2719
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 15,
+      "n_occurrences_seen": 2400,
+      "newly_grounded": 3,
+      "newly_escalated": 58,
+      "cumulative_grounded": 89,
+      "cumulative_escalated": 629,
+      "cumulative_pending": 3102,
+      "n_self_grounded_this_pass": 1,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "brand",
+          "canonical_obj": "place",
+          "best_cos": 0.4605,
+          "self_grounded": false,
+          "n_exposures": 24,
+          "bank_schema_score": 0.2669
+        },
+        {
+          "lemma": "huffington",
+          "canonical_obj": "say",
+          "best_cos": 0.5243,
+          "self_grounded": false,
+          "n_exposures": 10,
+          "bank_schema_score": 0.2878
+        },
+        {
+          "lemma": "mooc",
+          "canonical_obj": "mooc",
+          "best_cos": 0.3969,
+          "self_grounded": true,
+          "n_exposures": 22,
+          "bank_schema_score": 0.3303
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 16,
+      "n_occurrences_seen": 2550,
+      "newly_grounded": 5,
+      "newly_escalated": 64,
+      "cumulative_grounded": 94,
+      "cumulative_escalated": 693,
+      "cumulative_pending": 3236,
+      "n_self_grounded_this_pass": 5,
+      "n_linked_this_pass": 0,
+      "canon_log": [
+        {
+          "lemma": "centr",
+          "canonical_obj": "centr",
+          "best_cos": 0.3071,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.26
+        },
+        {
+          "lemma": "confidential",
+          "canonical_obj": "confidential",
+          "best_cos": 0.376,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.385
+        },
+        {
+          "lemma": "factory",
+          "canonical_obj": "factory",
+          "best_cos": 0.3219,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.2599
+        },
+        {
+          "lemma": "guardian",
+          "canonical_obj": "guardian",
+          "best_cos": 0.3731,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2556
+        },
+        {
+          "lemma": "hazardou",
+          "canonical_obj": "hazardou",
+          "best_cos": 0.3952,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.4105
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 17,
+      "n_occurrences_seen": 2700,
+      "newly_grounded": 4,
+      "newly_escalated": 61,
+      "cumulative_grounded": 98,
+      "cumulative_escalated": 754,
+      "cumulative_pending": 3358,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "belief",
+          "canonical_obj": "belief",
+          "best_cos": 0.2702,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2632
+        },
+        {
+          "lemma": "northumberland",
+          "canonical_obj": "dark",
+          "best_cos": 0.4967,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2559
+        },
+        {
+          "lemma": "statu",
+          "canonical_obj": "dark",
+          "best_cos": 0.6134,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.305
+        },
+        {
+          "lemma": "tesco",
+          "canonical_obj": "tesco",
+          "best_cos": 0.4421,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3592
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 18,
+      "n_occurrences_seen": 2850,
+      "newly_grounded": 3,
+      "newly_escalated": 69,
+      "cumulative_grounded": 101,
+      "cumulative_escalated": 823,
+      "cumulative_pending": 3495,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "condition",
+          "canonical_obj": "work",
+          "best_cos": 0.4971,
+          "self_grounded": false,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3934
+        },
+        {
+          "lemma": "gallagher",
+          "canonical_obj": "gallagher",
+          "best_cos": 0.3338,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.284
+        },
+        {
+          "lemma": "importantly",
+          "canonical_obj": "importantly",
+          "best_cos": 0.4259,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2539
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 19,
+      "n_occurrences_seen": 3000,
+      "newly_grounded": 2,
+      "newly_escalated": 56,
+      "cumulative_grounded": 103,
+      "cumulative_escalated": 879,
+      "cumulative_pending": 3653,
+      "n_self_grounded_this_pass": 2,
+      "n_linked_this_pass": 0,
+      "canon_log": [
+        {
+          "lemma": "marshall",
+          "canonical_obj": "marshall",
+          "best_cos": 0.3978,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2514
+        },
+        {
+          "lemma": "yoga",
+          "canonical_obj": "yoga",
+          "best_cos": 0.4161,
+          "self_grounded": true,
+          "n_exposures": 17,
+          "bank_schema_score": 0.3042
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 20,
+      "n_occurrences_seen": 3150,
+      "newly_grounded": 4,
+      "newly_escalated": 68,
+      "cumulative_grounded": 107,
+      "cumulative_escalated": 947,
+      "cumulative_pending": 3798,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "album",
+          "canonical_obj": "album",
+          "best_cos": 0.4335,
+          "self_grounded": true,
+          "n_exposures": 17,
+          "bank_schema_score": 0.4062
+        },
+        {
+          "lemma": "cuban",
+          "canonical_obj": "cuban",
+          "best_cos": 0.4432,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2698
+        },
+        {
+          "lemma": "library",
+          "canonical_obj": "library",
+          "best_cos": 0.3642,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3457
+        },
+        {
+          "lemma": "rubbish",
+          "canonical_obj": "like",
+          "best_cos": 0.5307,
+          "self_grounded": false,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2854
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 21,
+      "n_occurrences_seen": 3300,
+      "newly_grounded": 3,
+      "newly_escalated": 44,
+      "cumulative_grounded": 110,
+      "cumulative_escalated": 991,
+      "cumulative_pending": 3939,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 0,
+      "canon_log": [
+        {
+          "lemma": "commission",
+          "canonical_obj": "commission",
+          "best_cos": 0.1953,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2895
+        },
+        {
+          "lemma": "govern",
+          "canonical_obj": "govern",
+          "best_cos": 0.2111,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2971
+        },
+        {
+          "lemma": "regulation",
+          "canonical_obj": "regulation",
+          "best_cos": 0.3822,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.301
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 22,
+      "n_occurrences_seen": 3450,
+      "newly_grounded": 3,
+      "newly_escalated": 59,
+      "cumulative_grounded": 113,
+      "cumulative_escalated": 1050,
+      "cumulative_pending": 4060,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 0,
+      "canon_log": [
+        {
+          "lemma": "ladder",
+          "canonical_obj": "ladder",
+          "best_cos": 0.3543,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2764
+        },
+        {
+          "lemma": "rent",
+          "canonical_obj": "rent",
+          "best_cos": 0.4303,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.3449
+        },
+        {
+          "lemma": "surface",
+          "canonical_obj": "surface",
+          "best_cos": 0.2274,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2986
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 23,
+      "n_occurrences_seen": 3600,
+      "newly_grounded": 8,
+      "newly_escalated": 67,
+      "cumulative_grounded": 121,
+      "cumulative_escalated": 1117,
+      "cumulative_pending": 4153,
+      "n_self_grounded_this_pass": 7,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "cycle",
+          "canonical_obj": "cycle",
+          "best_cos": 0.3244,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.3542
+        },
+        {
+          "lemma": "dioxide",
+          "canonical_obj": "dioxide",
+          "best_cos": 0.3843,
+          "self_grounded": true,
+          "n_exposures": 11,
+          "bank_schema_score": 0.3881
+        },
+        {
+          "lemma": "element",
+          "canonical_obj": "element",
+          "best_cos": 0.3986,
+          "self_grounded": true,
+          "n_exposures": 22,
+          "bank_schema_score": 0.395
+        },
+        {
+          "lemma": "fuel",
+          "canonical_obj": "also",
+          "best_cos": 0.4603,
+          "self_grounded": false,
+          "n_exposures": 20,
+          "bank_schema_score": 0.256
+        },
+        {
+          "lemma": "mowat",
+          "canonical_obj": "mowat",
+          "best_cos": 0.3531,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2609
+        },
+        {
+          "lemma": "reusable",
+          "canonical_obj": "reusable",
+          "best_cos": 0.3374,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3619
+        },
+        {
+          "lemma": "salary",
+          "canonical_obj": "salary",
+          "best_cos": 0.2488,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2507
+        },
+        {
+          "lemma": "typical",
+          "canonical_obj": "typical",
+          "best_cos": 0.4147,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3233
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 24,
+      "n_occurrences_seen": 3750,
+      "newly_grounded": 4,
+      "newly_escalated": 51,
+      "cumulative_grounded": 125,
+      "cumulative_escalated": 1168,
+      "cumulative_pending": 4220,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "fir",
+          "canonical_obj": "also",
+          "best_cos": 0.6133,
+          "self_grounded": false,
+          "n_exposures": 16,
+          "bank_schema_score": 0.2583
+        },
+        {
+          "lemma": "intestine",
+          "canonical_obj": "intestine",
+          "best_cos": 0.2947,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2603
+        },
+        {
+          "lemma": "material",
+          "canonical_obj": "material",
+          "best_cos": 0.3858,
+          "self_grounded": true,
+          "n_exposures": 17,
+          "bank_schema_score": 0.2788
+        },
+        {
+          "lemma": "oxygen",
+          "canonical_obj": "oxygen",
+          "best_cos": 0.3759,
+          "self_grounded": true,
+          "n_exposures": 13,
+          "bank_schema_score": 0.3703
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 25,
+      "n_occurrences_seen": 3900,
+      "newly_grounded": 17,
+      "newly_escalated": 57,
+      "cumulative_grounded": 142,
+      "cumulative_escalated": 1225,
+      "cumulative_pending": 4256,
+      "n_self_grounded_this_pass": 13,
+      "n_linked_this_pass": 4,
+      "canon_log": [
+        {
+          "lemma": "circuit",
+          "canonical_obj": "circuit",
+          "best_cos": 0.2276,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.343
+        },
+        {
+          "lemma": "devic",
+          "canonical_obj": "devic",
+          "best_cos": 0.3664,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2939
+        },
+        {
+          "lemma": "direction",
+          "canonical_obj": "direction",
+          "best_cos": 0.3683,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2906
+        },
+        {
+          "lemma": "dissolv",
+          "canonical_obj": "people",
+          "best_cos": 0.4766,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.4366
+        },
+        {
+          "lemma": "electrical",
+          "canonical_obj": "electrical",
+          "best_cos": 0.3525,
+          "self_grounded": true,
+          "n_exposures": 37,
+          "bank_schema_score": 0.4777
+        },
+        {
+          "lemma": "electrically",
+          "canonical_obj": "electrically",
+          "best_cos": 0.315,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3446
+        },
+        {
+          "lemma": "electricity",
+          "canonical_obj": "more",
+          "best_cos": 0.5147,
+          "self_grounded": false,
+          "n_exposures": 47,
+          "bank_schema_score": 0.3235
+        },
+        {
+          "lemma": "flow",
+          "canonical_obj": "flow",
+          "best_cos": 0.3828,
+          "self_grounded": true,
+          "n_exposures": 21,
+          "bank_schema_score": 0.3519
+        },
+        {
+          "lemma": "gastrointestinal",
+          "canonical_obj": "gastrointestinal",
+          "best_cos": 0.3594,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.41
+        },
+        {
+          "lemma": "gut",
+          "canonical_obj": "gut",
+          "best_cos": 0.3577,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.4271
+        },
+        {
+          "lemma": "molecul",
+          "canonical_obj": "molecul",
+          "best_cos": 0.3397,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.2602
+        },
+        {
+          "lemma": "neutral",
+          "canonical_obj": "electrically",
+          "best_cos": 0.5467,
+          "self_grounded": false,
+          "n_exposures": 5,
+          "bank_schema_score": 0.3783
+        },
+        {
+          "lemma": "proton",
+          "canonical_obj": "proton",
+          "best_cos": 0.4141,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2619
+        },
+        {
+          "lemma": "solute",
+          "canonical_obj": "solute",
+          "best_cos": 0.3516,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2931
+        },
+        {
+          "lemma": "solvent",
+          "canonical_obj": "dissolv",
+          "best_cos": 0.5596,
+          "self_grounded": false,
+          "n_exposures": 10,
+          "bank_schema_score": 0.431
+        },
+        {
+          "lemma": "substance",
+          "canonical_obj": "substance",
+          "best_cos": 0.4365,
+          "self_grounded": true,
+          "n_exposures": 10,
+          "bank_schema_score": 0.3269
+        },
+        {
+          "lemma": "wir",
+          "canonical_obj": "wir",
+          "best_cos": 0.2737,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.268
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 26,
+      "n_occurrences_seen": 4050,
+      "newly_grounded": 6,
+      "newly_escalated": 36,
+      "cumulative_grounded": 148,
+      "cumulative_escalated": 1261,
+      "cumulative_pending": 4363,
+      "n_self_grounded_this_pass": 3,
+      "n_linked_this_pass": 3,
+      "canon_log": [
+        {
+          "lemma": "dissolve",
+          "canonical_obj": "say",
+          "best_cos": 0.4893,
+          "self_grounded": false,
+          "n_exposures": 6,
+          "bank_schema_score": 0.269
+        },
+        {
+          "lemma": "erosion",
+          "canonical_obj": "rock",
+          "best_cos": 0.4766,
+          "self_grounded": false,
+          "n_exposures": 21,
+          "bank_schema_score": 0.3083
+        },
+        {
+          "lemma": "generator",
+          "canonical_obj": "us",
+          "best_cos": 0.5391,
+          "self_grounded": false,
+          "n_exposures": 15,
+          "bank_schema_score": 0.2919
+        },
+        {
+          "lemma": "greenhouse",
+          "canonical_obj": "greenhouse",
+          "best_cos": 0.3883,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2645
+        },
+        {
+          "lemma": "steam",
+          "canonical_obj": "steam",
+          "best_cos": 0.3828,
+          "self_grounded": true,
+          "n_exposures": 11,
+          "bank_schema_score": 0.4967
+        },
+        {
+          "lemma": "turbine",
+          "canonical_obj": "turbine",
+          "best_cos": 0.3747,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3468
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 27,
+      "n_occurrences_seen": 4200,
+      "newly_grounded": 6,
+      "newly_escalated": 36,
+      "cumulative_grounded": 154,
+      "cumulative_escalated": 1297,
+      "cumulative_pending": 4436,
+      "n_self_grounded_this_pass": 5,
+      "n_linked_this_pass": 1,
+      "canon_log": [
+        {
+          "lemma": "boil",
+          "canonical_obj": "boil",
+          "best_cos": 0.4188,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.2829
+        },
+        {
+          "lemma": "dilute",
+          "canonical_obj": "people",
+          "best_cos": 0.4897,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3456
+        },
+        {
+          "lemma": "renewable",
+          "canonical_obj": "renewable",
+          "best_cos": 0.3586,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3534
+        },
+        {
+          "lemma": "sedimentary",
+          "canonical_obj": "sedimentary",
+          "best_cos": 0.281,
+          "self_grounded": true,
+          "n_exposures": 8,
+          "bank_schema_score": 0.3797
+        },
+        {
+          "lemma": "spin",
+          "canonical_obj": "spin",
+          "best_cos": 0.4196,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3509
+        },
+        {
+          "lemma": "world'",
+          "canonical_obj": "world'",
+          "best_cos": 0.3397,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2678
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 28,
+      "n_occurrences_seen": 4350,
+      "newly_grounded": 10,
+      "newly_escalated": 42,
+      "cumulative_grounded": 164,
+      "cumulative_escalated": 1339,
+      "cumulative_pending": 4510,
+      "n_self_grounded_this_pass": 7,
+      "n_linked_this_pass": 3,
+      "canon_log": [
+        {
+          "lemma": "congo",
+          "canonical_obj": "congo",
+          "best_cos": 0.2736,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2857
+        },
+        {
+          "lemma": "crude",
+          "canonical_obj": "crude",
+          "best_cos": 0.3733,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3041
+        },
+        {
+          "lemma": "crust",
+          "canonical_obj": "crust",
+          "best_cos": 0.2487,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2765
+        },
+        {
+          "lemma": "igneou",
+          "canonical_obj": "sedimentary",
+          "best_cos": 0.5347,
+          "self_grounded": false,
+          "n_exposures": 22,
+          "bank_schema_score": 0.5902
+        },
+        {
+          "lemma": "lava",
+          "canonical_obj": "lava",
+          "best_cos": 0.3808,
+          "self_grounded": true,
+          "n_exposures": 29,
+          "bank_schema_score": 0.372
+        },
+        {
+          "lemma": "magma",
+          "canonical_obj": "magma",
+          "best_cos": 0.3972,
+          "self_grounded": true,
+          "n_exposures": 35,
+          "bank_schema_score": 0.5004
+        },
+        {
+          "lemma": "melt",
+          "canonical_obj": "melt",
+          "best_cos": 0.3355,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.2552
+        },
+        {
+          "lemma": "metamorphic",
+          "canonical_obj": "sedimentary",
+          "best_cos": 0.5771,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2978
+        },
+        {
+          "lemma": "peak",
+          "canonical_obj": "peak",
+          "best_cos": 0.3669,
+          "self_grounded": true,
+          "n_exposures": 10,
+          "bank_schema_score": 0.2778
+        },
+        {
+          "lemma": "tectonic",
+          "canonical_obj": "world",
+          "best_cos": 0.4844,
+          "self_grounded": false,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2509
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 29,
+      "n_occurrences_seen": 4500,
+      "newly_grounded": 13,
+      "newly_escalated": 36,
+      "cumulative_grounded": 177,
+      "cumulative_escalated": 1375,
+      "cumulative_pending": 4541,
+      "n_self_grounded_this_pass": 11,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "cord",
+          "canonical_obj": "cord",
+          "best_cos": 0.2969,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.4631
+        },
+        {
+          "lemma": "eruption",
+          "canonical_obj": "eruption",
+          "best_cos": 0.3949,
+          "self_grounded": true,
+          "n_exposures": 12,
+          "bank_schema_score": 0.3039
+        },
+        {
+          "lemma": "felsic",
+          "canonical_obj": "felsic",
+          "best_cos": 0.4297,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.4006
+        },
+        {
+          "lemma": "loa",
+          "canonical_obj": "loa",
+          "best_cos": 0.274,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.3434
+        },
+        {
+          "lemma": "mafic",
+          "canonical_obj": "mafic",
+          "best_cos": 0.3984,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2625
+        },
+        {
+          "lemma": "mauna",
+          "canonical_obj": "mauna",
+          "best_cos": 0.3801,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.2935
+        },
+        {
+          "lemma": "nerv",
+          "canonical_obj": "nerv",
+          "best_cos": 0.4062,
+          "self_grounded": true,
+          "n_exposures": 13,
+          "bank_schema_score": 0.2756
+        },
+        {
+          "lemma": "nerve",
+          "canonical_obj": "nerve",
+          "best_cos": 0.4228,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.2501
+        },
+        {
+          "lemma": "nervou",
+          "canonical_obj": "nervou",
+          "best_cos": 0.3516,
+          "self_grounded": true,
+          "n_exposures": 13,
+          "bank_schema_score": 0.5029
+        },
+        {
+          "lemma": "neuron",
+          "canonical_obj": "also",
+          "best_cos": 0.4903,
+          "self_grounded": false,
+          "n_exposures": 22,
+          "bank_schema_score": 0.4888
+        },
+        {
+          "lemma": "plat",
+          "canonical_obj": "other",
+          "best_cos": 0.5377,
+          "self_grounded": false,
+          "n_exposures": 4,
+          "bank_schema_score": 0.3106
+        },
+        {
+          "lemma": "plate",
+          "canonical_obj": "plate",
+          "best_cos": 0.3519,
+          "self_grounded": true,
+          "n_exposures": 4,
+          "bank_schema_score": 0.252
+        },
+        {
+          "lemma": "spinal",
+          "canonical_obj": "spinal",
+          "best_cos": 0.3972,
+          "self_grounded": true,
+          "n_exposures": 6,
+          "bank_schema_score": 0.4536
+        }
+      ],
+      "condition": "curriculum_real"
+    },
+    {
+      "pass_idx": 30,
+      "n_occurrences_seen": 4640,
+      "newly_grounded": 8,
+      "newly_escalated": 29,
+      "cumulative_grounded": 185,
+      "cumulative_escalated": 1404,
+      "cumulative_pending": 4571,
+      "n_self_grounded_this_pass": 6,
+      "n_linked_this_pass": 2,
+      "canon_log": [
+        {
+          "lemma": "bubbl",
+          "canonical_obj": "inside",
+          "best_cos": 0.4545,
+          "self_grounded": false,
+          "n_exposures": 11,
+          "bank_schema_score": 0.3941
+        },
+        {
+          "lemma": "dependent",
+          "canonical_obj": "dependent",
+          "best_cos": 0.1894,
+          "self_grounded": true,
+          "n_exposures": 5,
+          "bank_schema_score": 0.594
+        },
+        {
+          "lemma": "evaporation",
+          "canonical_obj": "turn",
+          "best_cos": 0.4669,
+          "self_grounded": false,
+          "n_exposures": 15,
+          "bank_schema_score": 0.3851
+        },
+        {
+          "lemma": "glucose",
+          "canonical_obj": "glucose",
+          "best_cos": 0.3543,
+          "self_grounded": true,
+          "n_exposures": 17,
+          "bank_schema_score": 0.3709
+        },
+        {
+          "lemma": "nadph",
+          "canonical_obj": "nadph",
+          "best_cos": 0.3672,
+          "self_grounded": true,
+          "n_exposures": 7,
+          "bank_schema_score": 0.3968
+        },
+        {
+          "lemma": "photosynthesi",
+          "canonical_obj": "photosynthesi",
+          "best_cos": 0.4343,
+          "self_grounded": true,
+          "n_exposures": 22,
+          "bank_schema_score": 0.2957
+        },
+        {
+          "lemma": "respiration",
+          "canonical_obj": "respiration",
+          "best_cos": 0.4432,
+          "self_grounded": true,
+          "n_exposures": 24,
+          "bank_schema_score": 0.5011
+        },
+        {
+          "lemma": "vapor",
+          "canonical_obj": "vapor",
+          "best_cos": 0.4375,
+          "self_grounded": true,
+          "n_exposures": 9,
+          "bank_schema_score": 0.2953
+        }
+      ],
+      "condition": "curriculum_real"
+    }
+  ],
+  "grounded_lemmas_curriculum_real": [
+    "album",
+    "allen",
+    "altitude",
+    "artwork",
+    "auction",
+    "balloon",
+    "ban",
+    "barba",
+    "baumgartner",
+    "bbm",
+    "belief",
+    "billionair",
+    "boil",
+    "bolivia",
+    "bottle",
+    "brand",
+    "bubbl",
+    "cambridge",
+    "centr",
+    "chew",
+    "chimpanze",
+    "cigarett",
+    "cigarette",
+    "circuit",
+    "clos",
+    "coca",
+    "collection",
+    "colony",
+    "commission",
+    "community",
+    "complex",
+    "condition",
+    "confidential",
+    "congo",
+    "convention",
+    "cord",
+    "countri",
+    "crisi",
+    "crop",
+    "crowdfund",
+    "crude",
+    "crust",
+    "cuban",
+    "cycle",
+    "dependent",
+    "devic",
+    "dilute",
+    "dioxide",
+    "direction",
+    "dissolv",
+    "dissolve",
+    "domain",
+    "dont",
+    "duke",
+    "education",
+    "electrical",
+    "electrically",
+    "electricity",
+    "element",
+    "erosion",
+    "eruption",
+    "evaporation",
+    "everest",
+    "exemption",
+    "experiment",
+    "facebook",
+    "factory",
+    "false",
+    "farm",
+    "felsic",
+    "fir",
+    "flight",
+    "flow",
+    "fuel",
+    "gallagher",
+    "gap",
+    "gastrointestinal",
+    "generator",
+    "glucose",
+    "govern",
+    "greenhouse",
+    "guardian",
+    "gut",
+    "hazardou",
+    "health",
+    "huffington",
+    "igneou",
+    "impact",
+    "importantly",
+    "indigenou",
+    "inequality",
+    "intestine",
+    "kenyan",
+    "ladder",
+    "lava",
+    "library",
+    "loa",
+    "mafic",
+    "magma",
+    "manchester",
+    "marshall",
+    "material",
+    "mauna",
+    "melt",
+    "memori",
+    "metamorphic",
+    "method",
+    "mice",
+    "midlife",
+    "minister",
+    "mission",
+    "molecul",
+    "mooc",
+    "mowat",
+    "nadph",
+    "nerv",
+    "nerve",
+    "nervou",
+    "network",
+    "neuron",
+    "neutral",
+    "northumberland",
+    "often",
+    "older",
+    "orangutan",
+    "organ",
+    "owner",
+    "oxygen",
+    "panel",
+    "peak",
+    "photosynthesi",
+    "plat",
+    "plate",
+    "positive",
+    "poverty",
+    "prime",
+    "prince",
+    "prison",
+    "product",
+    "program",
+    "proton",
+    "rat",
+    "register",
+    "regulation",
+    "renewable",
+    "rent",
+    "resistant",
+    "respiration",
+    "reusable",
+    "risk",
+    "rubbish",
+    "salary",
+    "sale",
+    "sanch",
+    "sedimentary",
+    "sexual",
+    "solute",
+    "solvent",
+    "spin",
+    "spinal",
+    "statu",
+    "steam",
+    "substance",
+    "sue",
+    "surface",
+    "survey",
+    "survive",
+    "sweden",
+    "tectonic",
+    "teff",
+    "tesco",
+    "tiger",
+    "tortur",
+    "turbine",
+    "typical",
+    "unit",
+    "vapor",
+    "villag",
+    "visitor",
+    "warning",
+    "waste",
+    "winner",
+    "wir",
+    "world'",
+    "yoga"
+  ],
+  "controls": {
+    "no_leak_ok": true,
+    "reading_more_grows_more_ok": true,
+    "monotone_growth_ok": true,
+    "curriculum_order_link_rate_real": 0.3297,
+    "curriculum_order_link_rate_scrambled": 0.3047,
+    "curriculum_order_link_delta": 0.025,
+    "scramble_context_grounded_real": 185,
+    "scramble_context_grounded_scrambled": 53,
+    "scramble_context_ratio": 0.2864864864864865,
+    "scramble_control_ok": true
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "curriculum_real": "cb14e7e823d9c2ff5efa087656a3cefff2a077580a47a475839a52e8089d671a",
+    "scrambled_order_real": "c0d8afedb2ba1108049c00bc263c7c554c93b993ab2b1b3fa8403e6173566473",
+    "curriculum_scramble_context": "fcbcca69c5b14054b9ccca34180632fc2ff2f5e5fece63d36228a54cf2cc1565"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 93,
+  "measured_n_units": 93
+}
