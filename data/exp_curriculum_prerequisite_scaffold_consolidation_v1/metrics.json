@@ -1,0 +1,1534 @@
+{
+  "verdict": "HARD_PASS_curriculum_prerequisite_scaffold_consolidation",
+  "verdict_msg": "correct=1.0000 reversed=0.0000 partial=0.0000 seen_not_consolidated=0.0000 anti_artifact_scramble=0.0000 delta_reversed=1.0000 (>=0.5); controls_clean=True; schema-scaffolding consolidation mechanism validated in-substrate: the order effect REQUIRES the prerequisite to be CONSOLIDATED (not merely seen) and REQUIRES its genuine content (not an order/pass-index artifact)",
+  "summary": "correct=1.0000 reversed=0.0000 partial=0.0000 seen_not_consolidated=0.0000 anti_artifact_scramble=0.0000 delta_reversed=1.0000 (>=0.5); controls_clean=True; schema-scaffolding consolidation mechanism validated in-substrate: the order effect REQUIRES the prerequisite to be CONSOLIDATED (not merely seen) and REQUIRES its genuine content (not an order/pass-index artifact)",
+  "elapsed_s": 0.34410580003168434,
+  "ts_iso": "2026-08-12T00:36:41.166263+00:00",
+  "anchor_name": "curriculum_prerequisite_scaffold_consolidation_v1",
+  "run_mode": "full",
+  "chain": [
+    {
+      "name": "energy",
+      "prereq": null
+    },
+    {
+      "name": "work",
+      "prereq": "energy"
+    },
+    {
+      "name": "power",
+      "prereq": "work"
+    }
+  ],
+  "distractor_of": {
+    "work": "gravity",
+    "power": "friction"
+  },
+  "n_visits": 12,
+  "min_confirm_gate": 8,
+  "dependent_property_keys": [
+    "work_definition||DEPENDS_ON||energy",
+    "work_unit_relation||DEPENDS_ON||energy",
+    "work_formula_role||DEPENDS_ON||energy",
+    "power_definition||DEPENDS_ON||work",
+    "power_unit_relation||DEPENDS_ON||work",
+    "power_formula_role||DEPENDS_ON||work"
+  ],
+  "property_frac_by_arm": {
+    "CORRECT": 1.0,
+    "REVERSED": 0.0,
+    "PARTIAL": 0.0,
+    "SEEN_NOT_CONSOLIDATED": 0.0,
+    "ANTI_ARTIFACT_SCRAMBLE": 0.0
+  },
+  "delta_reversed": 1.0,
+  "no_leak_ok": true,
+  "n_combined_promoted_ok": true,
+  "arms_differ_ok": true,
+  "controls_clean": true,
+  "cardinality_ok": true,
+  "arm_digests": {
+    "CORRECT": "70d308c423e9e7de06089d42979714a0597e2fb5738f0ec889cc604afbdaa5f9",
+    "REVERSED": "37ce6e5c4f84d8fc2df2294dcec75471f946702f9445e407536e031c65312f09",
+    "PARTIAL": "37ce6e5c4f84d8fc2df2294dcec75471f946702f9445e407536e031c65312f09",
+    "SEEN_NOT_CONSOLIDATED": "09b72afe8299c995e531fc108acd3636827741e6ae0aa272ced977eee2b3831f",
+    "ANTI_ARTIFACT_SCRAMBLE": "09b72afe8299c995e531fc108acd3636827741e6ae0aa272ced977eee2b3831f"
+  },
+  "arm_results": {
+    "CORRECT": {
+      "arm_name": "CORRECT",
+      "order": [
+        "energy",
+        "work",
+        "power"
+      ],
+      "no_leak_ok": true,
+      "concept_status": {
+        "energy": true,
+        "work": true,
+        "power": true
+      },
+      "concept_tier": {
+        "energy": "FOUNDATION_RESOLVED",
+        "work": "FOUNDATION_RESOLVED",
+        "power": "FOUNDATION_RESOLVED"
+      },
+      "property_status": {
+        "work_definition||DEPENDS_ON||energy": true,
+        "work_unit_relation||DEPENDS_ON||energy": true,
+        "work_formula_role||DEPENDS_ON||energy": true,
+        "power_definition||DEPENDS_ON||work": true,
+        "power_unit_relation||DEPENDS_ON||work": true,
+        "power_formula_role||DEPENDS_ON||work": true
+      },
+      "property_frac": 1.0,
+      "n_combined_promoted_total": 0,
+      "n_ticks": 36,
+      "tick_diags": [
+        {
+          "tick": 1,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 2,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 3,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 4,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 5,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 6,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 7,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 8,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 9,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 10,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 11,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 12,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 13,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 14,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 15,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 16,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 17,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 18,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 19,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 20,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 21,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 22,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 23,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 24,
+          "concept": "work",
+          "resolved": true,
+          "restrict_hop1_to": [
+            0
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 25,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 26,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 27,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 28,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 29,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 30,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 31,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 32,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 33,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 34,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 35,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 36,
+          "concept": "power",
+          "resolved": true,
+          "restrict_hop1_to": [
+            4
+          ],
+          "n_combined_promoted_this_pass": 0
+        }
+      ]
+    },
+    "REVERSED": {
+      "arm_name": "REVERSED",
+      "order": [
+        "power",
+        "work",
+        "energy"
+      ],
+      "no_leak_ok": true,
+      "concept_status": {
+        "energy": true,
+        "work": false,
+        "power": false
+      },
+      "concept_tier": {
+        "energy": "FOUNDATION_RESOLVED",
+        "work": "MIDDLE_RESOLVED",
+        "power": "MIDDLE_RESOLVED"
+      },
+      "property_status": {
+        "work_definition||DEPENDS_ON||energy": false,
+        "work_unit_relation||DEPENDS_ON||energy": false,
+        "work_formula_role||DEPENDS_ON||energy": false,
+        "power_definition||DEPENDS_ON||work": false,
+        "power_unit_relation||DEPENDS_ON||work": false,
+        "power_formula_role||DEPENDS_ON||work": false
+      },
+      "property_frac": 0.0,
+      "n_combined_promoted_total": 0,
+      "n_ticks": 36,
+      "tick_diags": [
+        {
+          "tick": 1,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 2,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 3,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 4,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 5,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 6,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 7,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 8,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 9,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 10,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 11,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 12,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 13,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 14,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 15,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 16,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 17,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 18,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 19,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 20,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 21,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 22,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 23,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 24,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 25,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 26,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 27,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 28,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 29,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 30,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 31,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 32,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 33,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 34,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 35,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 36,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        }
+      ]
+    },
+    "PARTIAL": {
+      "arm_name": "PARTIAL",
+      "order": [
+        "work",
+        "energy",
+        "power"
+      ],
+      "no_leak_ok": true,
+      "concept_status": {
+        "energy": true,
+        "work": false,
+        "power": false
+      },
+      "concept_tier": {
+        "energy": "FOUNDATION_RESOLVED",
+        "work": "MIDDLE_RESOLVED",
+        "power": "MIDDLE_RESOLVED"
+      },
+      "property_status": {
+        "work_definition||DEPENDS_ON||energy": false,
+        "work_unit_relation||DEPENDS_ON||energy": false,
+        "work_formula_role||DEPENDS_ON||energy": false,
+        "power_definition||DEPENDS_ON||work": false,
+        "power_unit_relation||DEPENDS_ON||work": false,
+        "power_formula_role||DEPENDS_ON||work": false
+      },
+      "property_frac": 0.0,
+      "n_combined_promoted_total": 0,
+      "n_ticks": 36,
+      "tick_diags": [
+        {
+          "tick": 1,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 2,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 3,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 4,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 5,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 6,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 7,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 8,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 9,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 10,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 11,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 12,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 13,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 14,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 15,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 16,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 17,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 18,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 19,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 20,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 21,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 22,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 23,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 24,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 25,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 26,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 27,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 28,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 29,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 30,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 31,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 32,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 33,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 34,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 35,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 36,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        }
+      ]
+    },
+    "SEEN_NOT_CONSOLIDATED": {
+      "arm_name": "SEEN_NOT_CONSOLIDATED",
+      "order": [
+        "energy",
+        "work",
+        "power"
+      ],
+      "no_leak_ok": true,
+      "concept_status": {
+        "energy": false,
+        "work": false,
+        "power": false
+      },
+      "concept_tier": {
+        "energy": "MIDDLE_RESOLVED",
+        "work": "MIDDLE_RESOLVED",
+        "power": "MIDDLE_RESOLVED"
+      },
+      "property_status": {
+        "work_definition||DEPENDS_ON||energy": false,
+        "work_unit_relation||DEPENDS_ON||energy": false,
+        "work_formula_role||DEPENDS_ON||energy": false,
+        "power_definition||DEPENDS_ON||work": false,
+        "power_unit_relation||DEPENDS_ON||work": false,
+        "power_formula_role||DEPENDS_ON||work": false
+      },
+      "property_frac": 0.0,
+      "n_combined_promoted_total": 0,
+      "n_ticks": 36,
+      "tick_diags": [
+        {
+          "tick": 1,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 2,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 3,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 4,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 5,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 6,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 7,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 8,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 9,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 10,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 11,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 12,
+          "concept": "energy",
+          "resolved": false,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 13,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 14,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 15,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 16,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 17,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 18,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 19,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 20,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 21,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 22,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 23,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 24,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 25,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 26,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 27,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 28,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 29,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 30,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 31,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 32,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 33,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 34,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 35,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 36,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        }
+      ]
+    },
+    "ANTI_ARTIFACT_SCRAMBLE": {
+      "arm_name": "ANTI_ARTIFACT_SCRAMBLE",
+      "order": [
+        "energy",
+        "work",
+        "power"
+      ],
+      "no_leak_ok": true,
+      "concept_status": {
+        "energy": false,
+        "work": false,
+        "power": false
+      },
+      "concept_tier": {
+        "energy": "UNRESOLVED",
+        "work": "MIDDLE_RESOLVED",
+        "power": "MIDDLE_RESOLVED"
+      },
+      "property_status": {
+        "work_definition||DEPENDS_ON||energy": false,
+        "work_unit_relation||DEPENDS_ON||energy": false,
+        "work_formula_role||DEPENDS_ON||energy": false,
+        "power_definition||DEPENDS_ON||work": false,
+        "power_unit_relation||DEPENDS_ON||work": false,
+        "power_formula_role||DEPENDS_ON||work": false
+      },
+      "property_frac": 0.0,
+      "n_combined_promoted_total": 0,
+      "n_ticks": 36,
+      "tick_diags": [
+        {
+          "tick": 1,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 2,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 3,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 4,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 5,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 6,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 7,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 8,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 9,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 10,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 11,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 12,
+          "concept": "energy",
+          "resolved": true,
+          "restrict_hop1_to": null,
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 13,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 14,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 15,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 16,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 17,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 18,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 19,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 20,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 21,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 22,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 23,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 24,
+          "concept": "work",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 25,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 26,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 27,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 28,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 29,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 30,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 31,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 32,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 33,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 34,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 35,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        },
+        {
+          "tick": 36,
+          "concept": "power",
+          "resolved": false,
+          "restrict_hop1_to": [],
+          "n_combined_promoted_this_pass": 0
+        }
+      ]
+    }
+  },
+  "bands": {
+    "hard_pass_correct_min": 0.83,
+    "hard_pass_other_arms_max": 0.17,
+    "hard_pass_delta_reversed_min": 0.5,
+    "hard_fail_delta_reversed_floor": 0.2,
+    "hard_fail_seen_or_scramble_ceiling": 0.5
+  }
+}
