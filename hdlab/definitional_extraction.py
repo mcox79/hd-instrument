@@ -275,6 +275,38 @@ def _is_nominal_or_unknown(lemma: str) -> bool:
     return True                             # out-of-WordNet -> allow
 
 
+# v4 F2: verbs that introduce an ENUMERATION OF PARTS. "the urinary system, which is comprised
+# of the paired kidneys, the ureter, urinary bladder and urethra" is a LIST; its commas are
+# item separators, not appositive brackets.
+_ENUM_TRIGGER = re.compile(
+    r"\b(?:consists?\s+of|consisted\s+of|comprised\s+of|comprises|composed\s+of|"
+    r"made\s+up\s+of|made\s+of|divided\s+into|consisting\s+of|including|includes?|"
+    r"such\s+as|contains?|containing)\b", re.IGNORECASE)
+
+_CLAUSE_SUBJ_PRONOUN = {"it", "they", "he", "she", "we", "this", "that", "there", "these"}
+_FINITE_VERB_TAIL = {"is", "are", "was", "were", "has", "have", "had", "does", "do", "did",
+                     "can", "will", "would", "means", "becomes", "become"}
+
+
+def _tail_is_further_list_items(sentence: str, end_idx: int) -> bool:
+    """After the appositive's closing comma: do MORE bare NPs follow, joined by and/or?
+    "..., the ureter, urinary bladder and urethra" -> yes (LIST).
+    "..., taking oxygenated blood to the organs and muscles" -> no (participial adjunct).
+    "..., and Indonesia is the biggest exporter" -> no (coordinated CLAUSE)."""
+    low = [t.lower() for t in _tokens(sentence[end_idx:])]
+    if "and" not in low and "or" not in low:
+        return False
+    cut = min([low.index(c) for c in ("and", "or") if c in low])
+    pre, post = low[:cut], low[cut + 1: cut + 6]
+    if cut > 4:
+        return False
+    if any(t in _FINITE_VERB_TAIL or t.endswith("ing") or t == "to" for t in pre):
+        return False
+    if any(t in _FINITE_VERB_TAIL for t in post) or (post and post[0] in _CLAUSE_SUBJ_PRONOUN):
+        return False
+    return True
+
+
 def _appos_ok(sentence: str, m: "re.Match") -> bool:
     """Guards for the appositive pattern. Returns False (with the reason implicit in which test
     fires) for coordinate lists and fronted prepositional phrases."""
@@ -290,6 +322,17 @@ def _appos_ok(sentence: str, m: "re.Match") -> bool:
     #     PP's closing comma ("In addition, the wide range ...").
     lead = _tokens(sentence[:m.start("dfd")])
     if lead and lead[0].lower() in _FRONTING_PREP and len(lead) <= 4:
+        return False
+    # (4) v4 F2a: an ENUMERATION VERB before the definiendum + a BARE-NP "definiens" is a list
+    #     item, not a definition ("comprised of the paired kidneys, the ureter, urinary bladder
+    #     and urethra" gave `kidney -> ureter`). Both conditions are required: a descriptive
+    #     definiens after an enumeration verb ("consists of the aorta, the major artery of the
+    #     body, which ...") is still a real appositive.
+    dfs_content = [t for t in _tokens(m.group("dfs")) if not is_closed_class(lemma_verb(t))]
+    if len(dfs_content) <= 2 and _ENUM_TRIGGER.search(sentence[:m.start("dfd")]):
+        return False
+    # (5) v4 F2b: more bare NPs follow the closing comma, joined by and/or
+    if len(dfs_content) <= 3 and _tail_is_further_list_items(sentence, m.end()):
         return False
     return True
 
@@ -341,11 +384,81 @@ def _mk(dfd: str, dfs: str, pattern: str, sentence: str) -> Optional[Definition]
                       sentence=sentence)
 
 
+# v4 F6: OpenStax glossary blocks arrive as ONE "sentence" holding many `term: definition`
+# entries with no sentence boundary, so a definiens runs into the NEXT entry
+# ("bottleneck effect: the magnification of genetic drift ... catastrophes FOUNDER EFFECT: a
+# magnification ..."). Split on entry starts before extracting.
+_GLOSSARY_ENTRY = re.compile(
+    r"(?:(?<=^)|(?<=\s))(?P<term>[a-z][a-z'\-]*(?:\s+[a-z][a-z'\-]*){0,3})\s*:\s")
+
+
+def split_glossary_entries(text: str) -> List[str]:
+    """Split a run-on glossary block into one string per `term: definition` entry. Returns
+    [text] unchanged unless at least TWO entry markers are present (a single mid-sentence colon
+    is not a glossary)."""
+    starts = [m.start("term") for m in _GLOSSARY_ENTRY.finditer(text)]
+    if len(starts) < 2:
+        return [text]
+    starts = [s for s in starts if s > 0] if starts[0] != 0 else starts
+    bounds = sorted(set([0] + starts + [len(text)]))
+    segs = [text[a:b].strip() for a, b in zip(bounds, bounds[1:])]
+    return [s for s in segs if len(s) >= 6]
+
+
+_LEADING_COORD = {"and", "or", "then", "but", "also"}
+
+
+def _strip_leading_coordinator(sentence: str, dfs: str, dfs_start: int) -> Optional[str]:
+    """A CALLED definiens that starts with a coordinator is one of two things:
+      (a) the LAST ITEM of a comma list -- "for gas exchange, nutrient circulation, AND
+          locomotion called the water vascular system" -> `system -> locomotion`, a FAULT; or
+      (b) a clause continuation whose leading conjunction is just noise -- "diverge into minor
+          arteries, AND THEN smaller vessels called arterioles" -> `arteriole -> vessel`, a GOOD
+          fact that must NOT be dropped.
+    Distinguish by what precedes: two or more comma-separated segments ending in a BARE NP is a
+    list (return None = refuse); otherwise strip the conjunction and keep the definiens."""
+    toks = _tokens(dfs)
+    if not toks or toks[0].lower() not in _LEADING_COORD:
+        return dfs
+    segs = [s.strip() for s in sentence[:dfs_start].split(",")]
+    segs = [s for s in segs if s]
+    if len(segs) >= 2:
+        last = segs[-1]
+        last_toks = [t.lower() for t in _tokens(last)]
+        if last_toks and len(last_toks) <= 5 and not any(
+                t in _FINITE_VERB_TAIL or t.endswith("ing") for t in last_toks):
+            return None                      # list item, not a definiens
+    kept = list(toks)
+    while kept and kept[0].lower() in _LEADING_COORD:
+        kept.pop(0)
+    if not kept:
+        return None
+    idx = dfs.lower().find(kept[0].lower())
+    return dfs[idx:] if idx >= 0 else " ".join(kept)
+
+
 def extract_definitions(sentence: str) -> List[Definition]:
     """All definitional statements in ONE sentence. Order: GLOSSARY_COLON, APPOSITIVE, COPULA,
     CALLED, REFERS_TO. Duplicates on (definiendum_lemma, head) are collapsed, first-pattern-wins."""
     if not sentence or len(sentence) < 6:
         return []
+    segs = split_glossary_entries(sentence)
+    if len(segs) > 1:
+        out_all: List[Definition] = []
+        seen_g = set()
+        for seg in segs:
+            for d in _extract_one(seg):
+                key = (d.definiendum_lemma, d.head)
+                if key in seen_g:
+                    continue
+                seen_g.add(key)
+                d.sentence = sentence          # provenance stays the ORIGINAL block
+                out_all.append(d)
+        return out_all
+    return _extract_one(sentence)
+
+
+def _extract_one(sentence: str) -> List[Definition]:
     out: List[Definition] = []
     for rx, pat in ((_RE_COLON, "GLOSSARY_COLON"),
                     (_RE_APPOS, "APPOSITIVE"),
@@ -359,7 +472,12 @@ def extract_definitions(sentence: str) -> List[Definition]:
                     continue
             if pat == "APPOSITIVE" and not _appos_ok(sentence, m):
                 continue
-            d = _mk(m.group("dfd"), m.group("dfs"), pat, sentence)
+            dfs_text = m.group("dfs")
+            if pat == "CALLED":
+                dfs_text = _strip_leading_coordinator(sentence, dfs_text, m.start("dfs"))
+                if dfs_text is None:
+                    continue
+            d = _mk(m.group("dfd"), dfs_text, pat, sentence)
             if d is not None:
                 out.append(d)
     seen = set()
@@ -542,6 +660,35 @@ def _self_test() -> None:
     s = "These unused structures without function are called vestigial structures"
     assert _heads_for(s, "structure") == set(), extract_definitions(s)
     assert definiens_head("These unused structures without function") == "structure"
+
+    # F2a: enumeration verb + bare-NP "definiens" = list item. v3 gave `kidney -> ureter`.
+    s = ("Here we focus on the urinary system, which is comprised of the paired kidneys, the "
+         "ureter, urinary bladder and urethra")
+    assert _heads_for(s, "kidney") == set(), extract_definitions(s)
+    # ...and the guard must not cost the known-good rows: this is the REAL corpus sentence
+    # behind `aorta -> artery`, which the loose F2 detector wrongly suspected.
+    s = ("The aorta is the major artery of the body, taking oxygenated blood to the organs and "
+         "muscles of the body")
+    assert "artery" in _heads_for(s, "aorta"), extract_definitions(s)
+
+    # F2c: CALLED definiens that is the last item of a comma list. v3 gave `system -> locomotion`.
+    s = ("Echinoderms have a unique system for gas exchange, nutrient circulation, and "
+         "locomotion called the water vascular system")
+    assert _heads_for(s, "system") == set(), extract_definitions(s)
+    # ...but a leading conjunction that is mere noise must be STRIPPED, not used to drop a good
+    # fact: v3's `arteriole -> vessel` is correct and must survive.
+    s = ("The major arteries diverge into minor arteries, and then smaller vessels called "
+         "arterioles, to reach more deeply into the muscles")
+    assert _heads_for(s, "arteriole") == {"vessel"}, extract_definitions(s)
+
+    # F6: glossary run-on -- one "sentence" holding many `term: definition` entries. v3 let a
+    # definiens run into the NEXT entry (`effect -> magnification` from bottleneck+founder).
+    block = ("bottleneck effect: the magnification of genetic drift as a result of natural "
+             "events or catastrophes founder effect: a magnification of genetic drift in a "
+             "small population")
+    assert len(split_glossary_entries(block)) >= 2, split_glossary_entries(block)
+    assert split_glossary_entries("A nephron is the functional unit of the kidney") == [
+        "A nephron is the functional unit of the kidney"]
 
     print("[definitional_extraction] self-test PASS")
 
