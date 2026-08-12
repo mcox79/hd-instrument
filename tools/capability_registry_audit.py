@@ -67,6 +67,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -81,6 +82,11 @@ PROMOTE_MIN_CONSUMERS = 3  # matches integration_health.py's threshold
 
 sys.path.insert(0, str(ROOT / "tools"))
 import integration_health as ih  # noqa: E402
+import safe_queue as sq  # noqa: E402 -- reuse the cross-platform (portalocker/msvcrt/
+# fcntl auto-selected) file-lock backend already built for queue.json concurrency
+# rather than inventing a second locking primitive for this file (house style).
+
+REGISTRY_LOCK_PATH = REGISTRY.with_suffix(".jsonl.lock")
 
 # Composed-entry files whose source TEXT we grep for a capability's basename/id --
 # a capability mentioned here is reachable from the substrate's designated entry
@@ -563,6 +569,123 @@ def write_registry(rows: list[dict]) -> None:
     os.replace(tmp, REGISTRY)
 
 
+# ---------------------------------------------------------------------------
+# CONCURRENCY SAFETY (2026-08-12, reported by an agent this session): write_registry()
+# above is only atomic for the FINAL install step (tmp + os.replace never leaves a
+# torn/partial file on disk). It does NOT protect the READ-MODIFY-WRITE span around
+# it -- every registration script in this repo so far (archive/_tmp_register_6_
+# modules.py, tools/_tmp_skunkworks_register_batch_2026-08-12.py, and every prior
+# skunkworks atomize script) hand-rolls `rows = load_registry(); ...; write_registry
+# (rows)` with nothing holding the file between those two calls. Two callers whose
+# load...write spans overlap (measured today at ~1s) both read the same starting
+# rows, both compute a different addition, and the SECOND os.replace silently
+# clobbers the first writer's row -- a lost update, not a crash, so nothing flags
+# it. The registry is the WIRE-or-SHELVE durability gate (CLAUDE.md "Capability
+# tracking"); a lost row silently un-registers a real capability.
+#
+# Fix: RegistryLock (below) reuses tools/safe_queue.py's already-proven cross-
+# platform lock backend (portalocker / msvcrt / fcntl, auto-selected -- see that
+# module's docstring for why each is needed per platform) rather than a second
+# hand-rolled primitive. registry_transaction() holds that lock across the ENTIRE
+# load+mutate+write span, closing the actual race (RegistryLock alone would only
+# help if every caller remembered to acquire it before calling load_registry(),
+# which is exactly the kind of manual discipline that has already failed once).
+# The lock is tied to the OS file handle/lock, not a sidecar mtime-based sentinel,
+# so a crashed holder releases automatically when its process exits -- no stale-
+# lock cleanup logic needed.
+#
+# append_rows() is the new canonical safe entry point for "add N rows" scripts;
+# it replaces the reinvented load+refuse-duplicate+tmp+replace+verify pattern each
+# prior one-off script wrote for itself.
+# ---------------------------------------------------------------------------
+
+class RegistryLock:
+    """Cross-process mutual exclusion for capability_registry.jsonl read-modify-
+    write sequences. `with RegistryLock():` around a load_registry()...
+    write_registry() span makes that whole span one critical section (compare
+    write_registry() alone, which only protects the final install). Prefer
+    registry_transaction() below for the common case; use this directly only if
+    you need custom control over what happens between load and write."""
+
+    def __init__(self, max_wait_s: float = 30.0):
+        self.max_wait_s = max_wait_s
+        self._fd: int | None = None
+
+    def __enter__(self) -> "RegistryLock":
+        REGISTRY_LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+        self._fd = os.open(str(REGISTRY_LOCK_PATH), os.O_RDWR | os.O_CREAT, 0o644)
+        ok = sq._acquire(self._fd, blocking=True, max_wait_s=self.max_wait_s)
+        if not ok:
+            os.close(self._fd)
+            self._fd = None
+            raise TimeoutError(
+                f"could not acquire capability_registry lock within {self.max_wait_s}s "
+                f"(backend={sq.lock_backend_name()}); another writer is likely stuck")
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> bool:
+        if self._fd is not None:
+            sq._release(self._fd)
+            os.close(self._fd)
+            self._fd = None
+        return False
+
+
+class registry_transaction:
+    """`with registry_transaction() as txn: txn.rows.append(new_row)` -- holds the
+    lock across load+mutate+write as ONE critical section, so two concurrent
+    transactions serialize (both land, in some order) instead of racing (second
+    write clobbers first). On a clean exit the mutated txn.rows is written back
+    atomically; on an exception inside the `with` block, nothing is written (the
+    lock is still released). This is the required pattern for any script that
+    adds or edits capability_registry.jsonl rows -- see append_rows() for the
+    common "append new rows" case, which is built on this."""
+
+    def __init__(self, max_wait_s: float = 30.0):
+        self._lock = RegistryLock(max_wait_s=max_wait_s)
+        self.rows: list[dict] = []
+
+    def __enter__(self) -> "registry_transaction":
+        self._lock.__enter__()
+        self.rows = load_registry()
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> bool:
+        try:
+            if exc_type is None:
+                write_registry(self.rows)
+        finally:
+            self._lock.__exit__(exc_type, exc, tb)
+        return False
+
+
+def append_rows(new_rows: list[dict], max_wait_s: float = 30.0) -> int:
+    """Safely append new_rows to capability_registry.jsonl as one locked
+    transaction. Refuses (raises ValueError, writes nothing) if any new row's id
+    already exists in the registry OR collides with another row in new_rows --
+    mirrors the duplicate-guard every prior one-off registration script hand-
+    rolled for itself. Returns the new total row count. This is the canonical
+    replacement for the load_registry()+tmp+os.replace+verify pattern scripts
+    like tools/_tmp_skunkworks_register_batch_2026-08-12.py wrote inline."""
+    if not new_rows:
+        return len(load_registry())
+    seen_new: set[str] = set()
+    for r in new_rows:
+        rid = r.get("id")
+        if not rid:
+            raise ValueError(f"REFUSING: new row missing 'id': {r}")
+        if rid in seen_new:
+            raise ValueError(f"REFUSING: duplicate id within new_rows itself: {rid}")
+        seen_new.add(rid)
+    with registry_transaction(max_wait_s=max_wait_s) as txn:
+        existing_ids = {r.get("id") for r in txn.rows}
+        for r in new_rows:
+            if r.get("id") in existing_ids:
+                raise ValueError(f"REFUSING: id already present, would duplicate: {r.get('id')}")
+        txn.rows.extend(new_rows)
+        return len(txn.rows)
+
+
 def _composed_entry_sources() -> dict[str, str]:
     out = {}
     for p in COMPOSED_ENTRY_PATHS:
@@ -708,59 +831,68 @@ def check_stale_decisions(rows: list[dict], stale_days: int, now: datetime) -> l
 
 def run_audit(stale_days: int, dry_run: bool, skip_hard_pass_scan: bool = False) -> dict:
     now = datetime.now(timezone.utc)
-    rows = load_registry()
     graph = ih.compute_import_graph()
     composed_sources = _composed_entry_sources()
     pipeline_reachable = compute_pipeline_reachable_modules()
     pipeline_reachable_hdlab = sorted(p for p in pipeline_reachable if p.startswith("hdlab/"))
 
-    n_wired = n_trapped = n_island = n_na = n_unknown = 0
-    n_pipeline_used = n_wired_not_pipeline = 0
-    path_missing_flags = []
-    for r in rows:
-        status, used_by = compute_integration_status(r, graph, composed_sources)
-        r["integration_status"] = status
-        r["used_by"] = used_by
-        r["last_audit_utc"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    # Hold the registry lock across load -> mutate -> write as one critical section.
+    # The audit rewrites integration_status/used_by/last_audit_utc/pipeline_status on
+    # every row, i.e. it is itself a read-modify-write writer of this file (run at
+    # SESSION START and on the meta_audit cadence, per CLAUDE.md) -- the same class of
+    # race that caused the reported lost-update bug for one-off registration scripts.
+    # The expensive read-only scans above (import graph, pipeline closure) deliberately
+    # stay OUTSIDE the lock so this doesn't hold other writers up any longer than needed.
+    with RegistryLock():
+        rows = load_registry()
 
-        # THIRD STATE: only meaningful for hdlab-module rows the old check already
-        # calls WIRED -- refines "some consumer exists" into "reachable from what
-        # actually runs" vs "importable but not on the active pipeline's path."
-        if status == "WIRED" and r.get("kind") == "hdlab-module":
-            paths = r.get("path") or []
-            if any(p in pipeline_reachable_hdlab for p in paths):
-                r["pipeline_status"] = "WIRED_AND_PIPELINE_USED"
-                n_pipeline_used += 1
+        n_wired = n_trapped = n_island = n_na = n_unknown = 0
+        n_pipeline_used = n_wired_not_pipeline = 0
+        path_missing_flags = []
+        for r in rows:
+            status, used_by = compute_integration_status(r, graph, composed_sources)
+            r["integration_status"] = status
+            r["used_by"] = used_by
+            r["last_audit_utc"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+            # THIRD STATE: only meaningful for hdlab-module rows the old check already
+            # calls WIRED -- refines "some consumer exists" into "reachable from what
+            # actually runs" vs "importable but not on the active pipeline's path."
+            if status == "WIRED" and r.get("kind") == "hdlab-module":
+                paths = r.get("path") or []
+                if any(p in pipeline_reachable_hdlab for p in paths):
+                    r["pipeline_status"] = "WIRED_AND_PIPELINE_USED"
+                    n_pipeline_used += 1
+                else:
+                    r["pipeline_status"] = "WIRED_BUT_NOT_PIPELINE_REACHABLE"
+                    n_wired_not_pipeline += 1
             else:
-                r["pipeline_status"] = "WIRED_BUT_NOT_PIPELINE_REACHABLE"
-                n_wired_not_pipeline += 1
+                r["pipeline_status"] = "N_A"
+
+            if status == "WIRED":
+                n_wired += 1
+            elif status == "TRAPPED_SHARED":
+                n_trapped += 1
+            elif status == "ISLAND":
+                n_island += 1
+            elif status == "N_A_SHELVED":
+                n_na += 1
+            else:
+                n_unknown += 1
+            for p in (r.get("path") or []):
+                if not (ROOT / p).exists():
+                    path_missing_flags.append({"id": r.get("id"), "missing_path": p})
+
+        undecided = check_undecided_validated(rows)
+        stale = check_stale_decisions(rows, stale_days, now)
+        unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
+        if skip_hard_pass_scan:
+            island_scan = {"candidates_high": [], "skipped": True}
         else:
-            r["pipeline_status"] = "N_A"
+            island_scan = scan_unregistered_hard_pass_anchors(rows)
 
-        if status == "WIRED":
-            n_wired += 1
-        elif status == "TRAPPED_SHARED":
-            n_trapped += 1
-        elif status == "ISLAND":
-            n_island += 1
-        elif status == "N_A_SHELVED":
-            n_na += 1
-        else:
-            n_unknown += 1
-        for p in (r.get("path") or []):
-            if not (ROOT / p).exists():
-                path_missing_flags.append({"id": r.get("id"), "missing_path": p})
-
-    undecided = check_undecided_validated(rows)
-    stale = check_stale_decisions(rows, stale_days, now)
-    unregistered_hdlab = scan_unregistered_hdlab_modules(rows)
-    if skip_hard_pass_scan:
-        island_scan = {"candidates_high": [], "skipped": True}
-    else:
-        island_scan = scan_unregistered_hard_pass_anchors(rows)
-
-    if not dry_run:
-        write_registry(rows)
+        if not dry_run:
+            write_registry(rows)
 
     summary = {
         "audit_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -946,9 +1078,63 @@ def self_test() -> int:
             print(f"[selftest] high_signal_markers({core!r}) -> {got}, expected {expected} "
                   f"(markers={high_signal_markers(core, map_fixture)})")
 
-    ok_all = ok and ok2 and ok3 and ok4
+    # Concurrency-safety self-test (the one exception to "no writes" above): exercises
+    # RegistryLock / registry_transaction / append_rows against a THROWAWAY temp file
+    # only -- never data/capability_registry.jsonl. Monkeypatches the module globals
+    # for the duration and restores them in a finally regardless of outcome.
+    global REGISTRY, REGISTRY_LOCK_PATH
+    _orig_registry, _orig_lock = REGISTRY, REGISTRY_LOCK_PATH
+    ok5 = True
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            REGISTRY = Path(td) / "capability_registry.jsonl"
+            REGISTRY_LOCK_PATH = REGISTRY.with_suffix(".jsonl.lock")
+            write_registry([{"id": "seed", "name": "seed", "kind": "exp-cell", "path": []}])
+
+            n = append_rows([
+                {"id": "a", "name": "a", "kind": "exp-cell", "path": []},
+                {"id": "b", "name": "b", "kind": "exp-cell", "path": []},
+            ])
+            ids_after = {r["id"] for r in load_registry()}
+            if n != 3 or ids_after != {"seed", "a", "b"}:
+                ok5 = False
+                print(f"[selftest] append_rows FAIL: n={n} ids={ids_after}")
+
+            # duplicate-id refusal must raise ValueError and must NOT alter the file
+            try:
+                append_rows([{"id": "a", "name": "dup", "kind": "exp-cell", "path": []}])
+                ok5 = False
+                print("[selftest] append_rows FAIL: duplicate id was not refused")
+            except ValueError:
+                pass
+            ids_after_dup = {r["id"] for r in load_registry()}
+            if ids_after_dup != {"seed", "a", "b"}:
+                ok5 = False
+                print(f"[selftest] append_rows FAIL: refused duplicate still mutated file: {ids_after_dup}")
+
+            # exclusivity: a second lock acquire while the first is held must NOT
+            # succeed -- proves this is a real mutex, not a no-op wrapper.
+            outer = RegistryLock(max_wait_s=30.0)
+            outer.__enter__()
+            try:
+                inner = RegistryLock(max_wait_s=0.3)
+                try:
+                    inner.__enter__()
+                    ok5 = False
+                    print("[selftest] RegistryLock FAIL: nested acquire succeeded (should have blocked)")
+                    inner.__exit__(None, None, None)
+                except TimeoutError:
+                    pass  # expected: second acquire blocks until timeout
+            finally:
+                outer.__exit__(None, None, None)
+    finally:
+        REGISTRY, REGISTRY_LOCK_PATH = _orig_registry, _orig_lock
+
+    ok_all = ok and ok2 and ok3 and ok4 and ok5
     print(f"[selftest] invisible-island classify+match logic: {'OK' if ok2 and ok3 else 'FAIL'}")
     print(f"[selftest] high-signal precision-tier logic: {'OK' if ok4 else 'FAIL'}")
+    print(f"[selftest] registry concurrency (RegistryLock/registry_transaction/append_rows): "
+          f"{'OK' if ok5 else 'FAIL'}")
     return 0 if ok_all else 1
 
 
@@ -961,9 +1147,34 @@ def main() -> int:
     ap.add_argument("--skip-hard-pass-scan", action="store_true",
                      help="skip the invisible-island (data/exp_*/metrics.json) scan; "
                           "keeps the rest of the audit on its fast path")
+    ap.add_argument("--append-json", type=Path,
+                     help="path to a JSON file holding a list of new registry rows; "
+                          "appends them via the locked append_rows() transaction "
+                          "(concurrency-safe) and exits, instead of running the audit. "
+                          "Use this instead of hand-rolling a load+tmp+os.replace script.")
     args = ap.parse_args()
     if args.self_test:
         return self_test()
+
+    if args.append_json:
+        try:
+            new_rows = json.loads(args.append_json.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"error reading {args.append_json}: {e}", file=sys.stderr)
+            return 1
+        if not isinstance(new_rows, list):
+            print("error: --append-json file must contain a JSON list of row objects", file=sys.stderr)
+            return 1
+        try:
+            n_total = append_rows(new_rows)
+        except ValueError as e:
+            print(f"append refused: {e}", file=sys.stderr)
+            return 1
+        except TimeoutError as e:
+            print(f"append failed: {e}", file=sys.stderr)
+            return 1
+        print(f"appended {len(new_rows)} row(s); registry now has {n_total} rows")
+        return 0
 
     summary = run_audit(stale_days=args.stale_days, dry_run=args.dry_run,
                          skip_hard_pass_scan=args.skip_hard_pass_scan)
