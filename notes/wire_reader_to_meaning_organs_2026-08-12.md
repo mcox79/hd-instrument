@@ -167,8 +167,9 @@ context-conditioned, which a single-pair rubric cannot see). The right can-fail 
 - Held-out sentence containing word W, whose true sense is object O_i out of W's k stored senses.
 - Query the store WITH the sentence's context vector as the key; does it return O_i?
 - Baseline the flat store CANNOT beat: it has no context input, so its best possible strategy
-  is a fixed choice per word -> expected accuracy 1/k (~0.46 at the observed mean k=2.16 for
-  multi-sense words), and it is provably incapable of varying its answer with context.
+  is a fixed choice per word -> expected accuracy mean(1/k) = **0.4316** MEASURED over the 288
+  multi-sense subjects (mean k = 2.5104; k distribution 2:187, 3:77, 4:12, 5:7, 6:3, 7:1, 10:1),
+  and it is provably incapable of varying its answer with context.
 - This is can-fail: superposition + unbind + cleanup can easily land AT or BELOW 1/k if the
   context vectors for a word's two senses are not actually separable.
 - Powered on 288 words / 723 facts -- enough for a real effect size.
