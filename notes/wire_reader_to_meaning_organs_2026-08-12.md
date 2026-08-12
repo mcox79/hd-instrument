@@ -177,4 +177,92 @@ context-conditioned, which a single-pair rubric cannot see). The right can-fail 
 The honest framing: this measures a capability the flat store cannot have AT ALL, rather than
 re-running a precision metric that storage cannot influence.
 
-## (c) -- organ location (delegated search in flight)
+**This test needs NO re-run of the extractor.** Every v3 fact already carries its own context
+on disk. MEASURED fact-row schema from
+`data/foundation/reading_grounding_v3_definitional/definitional_facts.jsonl`:
+`['definiendum_surface','definiens_surface','fid','n_attestations','object','pattern',
+'patterns_seen','pmi','relation','segment','source_sentences','subject']`
+
+and the two `apple` senses come from genuinely DIFFERENT source sentences:
+- fid 65 `apple->company` (APPOSITIVE, pmi 3.4167): "The brand value of Apple, the world's
+  biggest company, has increased by 21% in 12 months..."
+- fid 66 `apple->valuable` (COPULA, pmi 5.114): "The brand and logo of Apple are the most
+  valuable in the world"
+
+So `source_sentences` supplies a ready-made context key per sense, and the 288-word / 723-fact
+multi-sense set is a ready-made held-out evaluation set. The test is cheap.
+
+## Why the 50-pair audit is the WRONG instrument here -- measured, not argued
+
+18 of the 50 sampled audit rows (36%) have a multi-sense subject. But each sampled row is a
+SINGLE (subject, object) pair, and the rubric scores THAT pair:
+
+```
+afghanistan -> catch    (k=2, senses: catch, worst)
+apple       -> company  (k=2, senses: company, valuable)
+bowie       -> act      (k=4, senses: act, performer, songwriter, trailblazer)
+bryophyte   -> collectively (k=2, senses: collectively, grouping)
+```
+
+Re-banking these in superposition leaves every one of those pairs character-for-character
+identical, so every hand-score is identical. The audit rate is INVARIANT to storage
+representation. Any movement observed would be sampling noise, and reporting it as a
+mechanism effect would be a false positive. This is why I did not build the comparison
+sample: running it would have manufactured a rigged null.
+
+(Note `bowie->act` is the sampled pair while `performer`/`songwriter`/`trailblazer` sit
+unsampled in the same word -- suggestive that better SENSE SELECTION could raise precision.
+But selection happens at emission, in the extractor, not in the store.)
+
+## (c) "the project has ALREADY BUILT AND VALIDATED the opposite" -- HALF TRUE
+
+**(c)(i) canonicalization organs -- CONFIRMED, real and HARD_PASS validated.**
+- `hdlab/lexical_similarity.py:599 concept_similarity(word_a, word_b, use_grounded_fallback=True)`
+  (+ `concept_vector:549`, `SIMILARITY_LINK_THRESHOLD=0.50` at :624). Validated
+  HARD_PASS @`data/exp_n11c_shared_feature_lexical_similarity_v1/metrics.json`
+  (ordered_frac 0.966 shared-feature vs 0.379 window / 0.103 hash / 0.310 scramble); grounded
+  fallback HARD_PASS @`data/exp_grounded_meaning_wire_lexical_fallback_v1/metrics.json`.
+- `hdlab/verb_lexical_similarity.py:616 word_similarity(word_a, word_b, domain)` (NOT
+  `concept_similarity` -- that name belongs to the noun organ). HARD_PASS
+  @`data/exp_verb_class_openvocab_similarity_v1/metrics.json` (held_out_acc 1.0/1.0,
+  scramble 0.5188/0.5). Registered only inside a SHELVED entry
+  (`capability_registry.jsonl` line 69, `gate_decision: SHELVE`).
+
+**(c)(ii) the FHRR superposition store -- MATERIALLY OVERSTATED.**
+- It is **NOT an hdlab organ**. It exists only as an experiment-local class:
+  `experiments/exp_bootstrap_fhrr_superposition_fade_v3.py:80 class FHRRProcessStore`
+  (`__init__:88`, `add_read:105`, `add_seed:109`, `_cleanup:113`, `retrieve:116`). Zero hits
+  in `hdlab/`. The repo already knows: `notes/director_three_tier_knowledge_architecture_design_audit_2026-08-11.md:81`
+  calls it "exp-cell (not yet promoted to hdlab)" and :128-129 files the promotion action.
+- **Its cell HARD_FAILED.** `data/exp_bootstrap_fhrr_superposition_fade_v3/metrics.json`
+  `final_verdict = "HARD_FAIL_PARTIAL_BOOTSTRAP_but_superposition_separates_rules_out_averaging"`.
+  The 0.9556 (`capacity.retrieval_self_consistency`, n_keys=225, 215 correct) is the ONE
+  sub-metric that passed; rise / fade-lesion / scramble bands all failed.
+- **water@water_cycle vs water@respiration is a SELFTEST fixture, not a corpus result.** It
+  lives in `data/exp_bootstrap_fhrr_superposition_fade_v3_selftest/metrics.json`
+  (`checks.context_separable`), produced by hand-constructed asserts at
+  `exp_bootstrap_fhrr_superposition_fade_v3.py:343-347`. The main run only asserts it in prose.
+- **Not in `data/capability_registry.jsonl`; no `verification/` test.** Fails WIRE-or-SHELVE.
+
+=> The instruction "reuse the existing organs; do not reimplement them" is **not executable
+as written** for the superposition store: there is no organ to reuse, and what exists is a
+HARD_FAILed cell whose separability number comes from a 3-way fate codebook (MOVE/CREATE/
+DESTROY) over 225 keys -- a far easier retrieval problem than open-vocabulary word senses.
+Carrying 0.9556 across to this domain would be exactly the regime-mismatch that
+`.claude/agents/exp_dev.md` Gate D (§15-D) exists to refuse.
+
+---
+
+# BOTTOM LINE
+
+I did not build. Three of the hypothesis's load-bearing premises do not survive contact with
+the code: the store already holds multiple senses (all 1751 live), the "unreachable" claim is
+wrong (FLAGGED is in ACTIVE_STATUSES), and the superposition "organ" is an unpromoted class
+from a HARD_FAILed cell. The one real gap -- no context KEY for sense selection -- is worth
+building, but it is a different, smaller build, and it must NOT be measured by the 50-pair
+audit, which is provably invariant to storage representation.
+
+Recommended next step, if the director wants it: promote `FHRRProcessStore` to `hdlab/`
+(the already-filed action), then run the context-conditioned sense-selection test above
+against the MEASURED 0.4316 random-pick floor on the 288 multi-sense words, using each fact's
+own `source_sentences` as the context key. Pre-register that before running.
