@@ -411,3 +411,38 @@ was built to remove and did. Net: the sense-selection experiment now supports ne
 director's claim nor my B.3 rebuttal; it establishes only that the stored bare object word
 carries no context-matchable signal. The practical cost is in G.4 -- E1's "payoff already
 measured" justification is gone.
+
+## G.3 -- CHARTER RULING ON THE HAND-WRITTEN 5-PATTERN PARSER
+
+**Ruling, plainly: NOT a charter violation in FUNCTION. It IS a violation in WIRING, and
+separately in FORM.** I disagree with the director's framing, and I also correct my own
+Section C on one point.
+
+**Function: legitimate, and now positively brain-supported.** Medina's census -- ~90% of natural
+exposures uninformative, ~7% highly informative -- means PBV cannot work at all unless the
+learner has a way of telling which encounters are worth committing on. Informative-encounter
+selection is not a workaround bolted beside the mechanism; it is a REQUIRED upstream component
+of the mechanism. Selecting explicit definitional sentences is one concrete realization of it.
+The charter line "no bolt-on reader/parser AS the comprehension organ" is not crossed by a
+selector, and Section C's positional argument (right arm of the CLS pair) stands.
+
+**Wiring: violating, and this is the part Section C got wrong.** Section C ruled the parser
+"supplies knowledge, not the comprehension mechanism". That is true only if its output is a
+PROPOSAL that some verify step then confirms or rejects. It is not. The DEF arm banks 1751
+facts (A.4) straight out of the pattern match; nothing downstream can disconfirm a pattern hit.
+A selector whose output IS the banked meaning, unverified, is being used as the comprehension
+organ -- which is exactly the charter's line, reached by a route neither the director nor
+Section C named. The fix is not deletion: it is demoting the parser's output from FACT to
+HYPOTHESIS and routing it into the verify step G.4.1 builds.
+
+**Form: violating, unchanged from Section C.** Five hand-written constructions, hand-tuned
+twice against a hand-score, is `glass-box != hand-rules` and is fitting the evaluator. The
+Gillette/Gleitman asymmetry sharpens this rather than excusing it: 51.7% from syntax alone
+versus 15% from scene alone says the syntactic/constructional route carries the DOMINANT signal
+for verbs, so the component doing that work is the last one that should be a frozen hand-list,
+and the owned induction organ (`frame_induction`, lemma-never-a-feature, config-only over
+`learner`) is the right place to earn it. Credit where due -- that organ exists and is
+registered; the extractor simply does not import it (A.1).
+
+Summary of the ruling: KEEP the definitional path, DEMOTE its output to a proposal, INDUCE its
+constructions. Neither "the parser is fine" nor "delete the parser".
