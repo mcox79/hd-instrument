@@ -358,3 +358,56 @@ Two consequences that change the read from Section D:
 - Row 7 remains the one faithful component, and it now looks worse, not better: a well-shaped
   re-exposure requirement is accumulating exposures for a decision procedure that never holds a
   hypothesis to re-expose.
+
+## G.2 -- THE ARGMAX VERDICT (supersedes B.2.1 and B.3)
+
+**Yes. `canonicalize()`'s argmax is CLOSER to PBV than the director's proposed intersection.**
+Argmax returns exactly one winner and gives zero credit to the runner-up
+(`reading_grounding_loop.py:204-218`: a single `best_anchor`, no candidate set, no score
+retained for any alternative). "Commit to one, no partial credit to alternatives" is PBV's
+defining shape. An intersection scorer maintains a SET of surviving candidates across
+situations -- which is precisely the mechanism Siskind 1996 formalized and which has essentially
+no human behavioural support. **B.2.1 was therefore backwards, and E3 is retracted:** building
+per-situation candidate sets would move the substrate AWAY from the supported mechanism. The
+absence of candidate sets is fidelity, not a gap.
+
+What the argmax still lacks -- three named absences, each verified on disk:
+
+1. **No persistent hypothesis across encounters.** `canonicalize` runs ONCE, at gate time, over
+   the whole of `space.anchors()` (`:205`), called from a single site in the consolidation gate
+   (`:367`). Between encounters nothing holds a chosen referent: `LibraryItem`
+   (`grounding_acquisition_loop.py:162-169`) stores traces, status, a pass index and a patience
+   counter -- no hypothesis field. Stevens' persisting strength has no carrier.
+2. **No explicit verification event.** There is no operation of the form "does THIS encounter
+   confirm the standing hypothesis?". The nearest thing, `schema_consistency_split_half`
+   (`:193-241`), tests whether an item's own traces cohere with EACH OTHER -- an internal
+   reliability statistic, not a confirmation of a hypothesis by an encounter. Coherence among
+   traces is exactly what a wrong-but-topically-consistent hypothesis also produces.
+3. **No abandon-and-re-propose.** `ESCALATED` (`:400-402`) is terminal and `Library.flag`
+   refuses further traces on a terminal item (`:186-190`). PBV's abandonment is not an exit; it
+   is immediately followed by a new proposal at the same encounter. Nothing in the path
+   re-proposes.
+
+**Does that gap PREDICT the measured sense-selection failure? No.** I am using the v2 primary
+arm: `subject` index, S2_PERC **0.4809** against floor **0.4634**, and decisively the **C1 swap
+drop of 0.0100** against the pre-registered 0.05 requirement (C2 lesion 0.4564). The C1 number
+is the one that adjudicates this. A missing-PBV gap predicts that the substrate commits to the
+WRONG referent -- but a wrong-yet-real referent would still make the stored fact respond
+differently to a right context than to a swapped one. C1 says it does not: right context and
+wrong context yield near-identical accuracy. That is context-INSENSITIVITY, and the mechanism
+that predicts context-insensitivity is the storage shape (the fact banks a bare object word;
+`gate` at `:380-382` carries `canonical_obj` forward and the source sentences are not part of
+the stored fact), not the hypothesis machinery.
+
+So the PBV gap is real (G.1 rows 1-3) but the sense-selection cell is not its evidence. Its
+evidence is the on-disk 8% MEANINGFUL / 26% RELATED hand-score (A.4, B.2.2), which is a
+measurement of the mapping decision itself.
+
+**And B.3's counter-claim is withdrawn with the same stroke.** B.3 argued the sense-selection
+null exonerated the retrieval path because C3 worked. Under topic control it does not: C3-SEG
+on the primary index is **0.5714, n=49, CI [0.4327, 0.6998]**, whose lower bound is BELOW the
+0.4634 floor. Raw C3 remains swap-separated but is topic-confounded, which is the confound v2
+was built to remove and did. Net: the sense-selection experiment now supports neither the
+director's claim nor my B.3 rebuttal; it establishes only that the stored bare object word
+carries no context-matchable signal. The practical cost is in G.4 -- E1's "payoff already
+measured" justification is gone.
