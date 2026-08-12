@@ -1,0 +1,481 @@
+{
+  "n_provenance_rows": 634,
+  "M1_base_rates": {
+    "n_facts": 634,
+    "n_with_any_definitional_sentence": 371,
+    "rate_any_definitional_sentence": 0.5852,
+    "n_pair_linked_by_definition": 14,
+    "rate_pair_linked_by_definition": 0.0221,
+    "n_pair_linked_at_HEAD": 3,
+    "per_segment": {
+      "adv_new": {
+        "n": 114,
+        "rate_any_def_sentence": 0.3246,
+        "rate_pair_linked": 0.0088
+      },
+      "bio_new": {
+        "n": 263,
+        "rate_any_def_sentence": 0.8479,
+        "rate_pair_linked": 0.0266
+      },
+      "bootstrap": {
+        "n": 62,
+        "rate_any_def_sentence": 0.5323,
+        "rate_pair_linked": 0.0645
+      },
+      "ele_cont": {
+        "n": 126,
+        "rate_any_def_sentence": 0.4365,
+        "rate_pair_linked": 0.0079
+      },
+      "int_cont": {
+        "n": 69,
+        "rate_any_def_sentence": 0.3333,
+        "rate_pair_linked": 0.0145
+      }
+    },
+    "linked_examples": [
+      {
+        "subject": "solvent",
+        "object": "dissolv",
+        "segment": "bootstrap",
+        "link": "CALLED:HEAD"
+      },
+      {
+        "subject": "solute",
+        "object": "solvent",
+        "segment": "bootstrap",
+        "link": "COPULA:SPAN"
+      },
+      {
+        "subject": "neuron",
+        "object": "system",
+        "segment": "bootstrap",
+        "link": "COPULA:SPAN"
+      },
+      {
+        "subject": "evaporation",
+        "object": "turn",
+        "segment": "bootstrap",
+        "link": "REFERS_TO:SPAN"
+      },
+      {
+        "subject": "belt",
+        "object": "solar",
+        "segment": "ele_cont",
+        "link": "COPULA:SPAN"
+      },
+      {
+        "subject": "thut",
+        "object": "owner",
+        "segment": "int_cont",
+        "link": "APPOSITIVE:HEAD"
+      },
+      {
+        "subject": "airport",
+        "object": "gateway",
+        "segment": "adv_new",
+        "link": "APPOSITIVE:HEAD"
+      },
+      {
+        "subject": "atom",
+        "object": "organism",
+        "segment": "bio_new",
+        "link": "GLOSSARY_COLON:SPAN"
+      },
+      {
+        "subject": "anaphase",
+        "object": "sister",
+        "segment": "bio_new",
+        "link": "GLOSSARY_COLON:SPAN"
+      },
+      {
+        "subject": "cytokinesi",
+        "object": "daughter",
+        "segment": "bio_new",
+        "link": "APPOSITIVE:SPAN"
+      },
+      {
+        "subject": "meiosi",
+        "object": "daughter",
+        "segment": "bio_new",
+        "link": "COPULA:SPAN"
+      },
+      {
+        "subject": "ligase",
+        "object": "polymerase",
+        "segment": "bio_new",
+        "link": "GLOSSARY_COLON:SPAN"
+      },
+      {
+        "subject": "moss",
+        "object": "fern",
+        "segment": "bio_new",
+        "link": "GLOSSARY_COLON:SPAN"
+      },
+      {
+        "subject": "kidney",
+        "object": "system",
+        "segment": "bio_new",
+        "link": "COPULA:SPAN"
+      }
+    ]
+  },
+  "M2_labelled_association": {
+    "n_labelled_pairs": 32,
+    "n_with_sentences_available": 8,
+    "n_present_in_v2_store": 4,
+    "per_label": {
+      "MEANINGFUL": {
+        "n": 9,
+        "n_sentences_available": 2,
+        "n_pair_linked_by_definition": 0,
+        "n_any_def_sentence": 2
+      },
+      "NOISE": {
+        "n": 15,
+        "n_sentences_available": 5,
+        "n_pair_linked_by_definition": 0,
+        "n_any_def_sentence": 2
+      },
+      "RELATED": {
+        "n": 8,
+        "n_sentences_available": 1,
+        "n_pair_linked_by_definition": 0,
+        "n_any_def_sentence": 0
+      }
+    },
+    "rows": [
+      {
+        "subject": "austria",
+        "object": "girlfriend",
+        "label": "NOISE",
+        "in_v2": true,
+        "n_sentences_available": 4,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "choic",
+        "object": "lanka",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "recruit",
+        "object": "promote",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "tree",
+        "object": "phylogenetic",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "litter",
+        "object": "cop",
+        "label": "NOISE",
+        "in_v2": true,
+        "n_sentences_available": 4,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "governor",
+        "object": "jail",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "experimentation",
+        "object": "als",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "organelle",
+        "object": "cytoplasm",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 9,
+        "any_def_sentence": true,
+        "pair_linked": null
+      },
+      {
+        "subject": "huffington",
+        "object": "say",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 10,
+        "any_def_sentence": true,
+        "pair_linked": null
+      },
+      {
+        "subject": "pinch",
+        "object": "invaginat",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "shed",
+        "object": "quirky",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "primer",
+        "object": "polymerase",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "scholar",
+        "object": "observe",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "alternation",
+        "object": "haploid",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "variant",
+        "object": "gene",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "compel",
+        "object": "like",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 5,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "physicist",
+        "object": "massachusett",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "nam",
+        "object": "metadata",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "represent",
+        "object": "meaning",
+        "label": "MEANINGFUL",
+        "in_v2": true,
+        "n_sentences_available": 7,
+        "any_def_sentence": true,
+        "pair_linked": null
+      },
+      {
+        "subject": "monthly",
+        "object": "follower",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "mindfulness",
+        "object": "fourth",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "vice",
+        "object": "digitiz",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "inductive",
+        "object": "deductive",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "retailer",
+        "object": "alliance",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "nuclei",
+        "object": "decay",
+        "label": "MEANINGFUL",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "corridor",
+        "object": "survey",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "chick",
+        "object": "nest",
+        "label": "RELATED",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "mechanism",
+        "object": "identical",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "november",
+        "object": "oberg",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "sulphur",
+        "object": "soot",
+        "label": "RELATED",
+        "in_v2": true,
+        "n_sentences_available": 4,
+        "any_def_sentence": false,
+        "pair_linked": null
+      },
+      {
+        "subject": "translat",
+        "object": "also",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 10,
+        "any_def_sentence": true,
+        "pair_linked": null
+      },
+      {
+        "subject": "mainland",
+        "object": "carnivore",
+        "label": "NOISE",
+        "in_v2": false,
+        "n_sentences_available": 0,
+        "any_def_sentence": false,
+        "pair_linked": null
+      }
+    ]
+  },
+  "M3_segment_definitional_density": {
+    "adv_new": {
+      "n_unique_sentences": 424,
+      "n_sampled": 424,
+      "n_with_definition": 49,
+      "rate": 0.1156
+    },
+    "bio_new": {
+      "n_unique_sentences": 2339,
+      "n_sampled": 1500,
+      "n_with_definition": 266,
+      "rate": 0.1773
+    },
+    "bootstrap": {
+      "n_unique_sentences": 523,
+      "n_sampled": 523,
+      "n_with_definition": 65,
+      "rate": 0.1243
+    },
+    "ele_cont": {
+      "n_unique_sentences": 742,
+      "n_sampled": 742,
+      "n_with_definition": 62,
+      "rate": 0.0836
+    },
+    "int_cont": {
+      "n_unique_sentences": 333,
+      "n_sampled": 333,
+      "n_with_definition": 32,
+      "rate": 0.0961
+    }
+  },
+  "M3_pattern_mix_over_all_unique_sentences": {
+    "n_unique_sentences": 4225,
+    "pattern_counts": {
+      "APPOSITIVE": 224,
+      "CALLED": 146,
+      "COPULA": 211,
+      "GLOSSARY_COLON": 47,
+      "REFERS_TO": 2
+    }
+  }
+}
