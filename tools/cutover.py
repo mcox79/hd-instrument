@@ -36,9 +36,11 @@ sys.path.insert(0, str(REPO / "tools"))
 
 def run_ps(cmd: str) -> str:
     """Run a PowerShell command and return stdout (stripped)."""
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     result = subprocess.run(
         ["powershell", "-NoProfile", "-Command", cmd],
         capture_output=True, text=True, timeout=30,
+        creationflags=_no_window,
     )
     return result.stdout.strip()
 
@@ -84,7 +86,8 @@ def stop_pid(pid: int, dry_run: bool) -> bool:
         return True
     print(f"  Stopping PID {pid}...")
     cmd = f"Stop-Process -Id {pid} -Force -ErrorAction SilentlyContinue"
-    subprocess.run(["powershell", "-NoProfile", "-Command", cmd], timeout=10)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+    subprocess.run(["powershell", "-NoProfile", "-Command", cmd], timeout=10, creationflags=_no_window)
     time.sleep(1)
     alive_cmd = f"if (Get-Process -Id {pid} -ErrorAction SilentlyContinue) {{ 'alive' }} else {{ 'dead' }}"
     state = run_ps(alive_cmd)

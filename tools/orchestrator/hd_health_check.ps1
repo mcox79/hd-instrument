@@ -1,6 +1,13 @@
 # hd-instrument cross-session health check (orchestrator owns).
 # Runs every 15 minutes via scheduled task \hd_health_check.
 # Auto-corrects drift; appends status lines to data/events/orchestrator.log only when action taken.
+#
+# Usage: hd_health_check.ps1 [-WhatIf]
+#   -WhatIf : dry-run; log what WOULD be killed but do not actually Stop-Process.
+
+param(
+    [switch]$WhatIf
+)
 
 $ErrorActionPreference = 'Continue'
 Set-StrictMode -Off
@@ -77,6 +84,106 @@ if ($producerLog) {
     if ($ageMin -gt 2.5) {
         $actions += "$now HEALTH: orchestrator.log stale (${ageMin}min); producer may be hung"
     }
+}
+
+# 6. Orphan pythonw.exe sweeper (elevated / cmdline-invisible runaway processes)
+# Root cause: scheduled tasks (hd_landing_notifier, hd_director_kb_continuous_ingest,
+# hd_durability_cron) spawn python subprocesses that outlive their parent when the
+# invocation stalls (e.g., sync-hang bug 2026-07-01). User can't Task Manager-kill
+# easily since they're elevated. This sweeper finds + terminates them.
+#
+# Heuristic: pythonw.exe with EMPTY/null CommandLine (elevated invisibility) AND
+# working-set > 100 MB AND age > 30 min AND ExecutablePath not in allowlist.
+$allowlistPath = "$root/data/health_check_python_allowlist.json"
+$sweepLog = "$root/data/orphan_python_sweep.log"
+$allowedPaths = @()
+$allowedPids = @()
+if (Test-Path $allowlistPath) {
+    try {
+        $allowlist = Get-Content $allowlistPath -Raw | ConvertFrom-Json
+        if ($allowlist.executable_paths) { $allowedPaths = @($allowlist.executable_paths) }
+        if ($allowlist.pids) { $allowedPids = @($allowlist.pids) }
+    } catch {
+        $actions += "$now HEALTH: allowlist parse failed ($($_.Exception.Message)); skipping orphan sweep"
+    }
+}
+
+$sweepFindings = @()
+$orphanCandidates = Get-CimInstance Win32_Process -Filter "Name='pythonw.exe'" -ErrorAction SilentlyContinue
+foreach ($proc in $orphanCandidates) {
+    # Skip if we CAN see the cmdline -- that's legitimate active work
+    if ($proc.CommandLine -and $proc.CommandLine.Trim().Length -gt 0) { continue }
+    # Skip if allowlisted by ExecutablePath (case-insensitive, normalize slashes)
+    $exe = $proc.ExecutablePath
+    if ($exe) {
+        $exeNorm = $exe.ToLower().Replace('/', '\')
+        $isAllowed = $false
+        foreach ($ap in $allowedPaths) {
+            if ($ap.ToLower().Replace('/', '\') -eq $exeNorm) { $isAllowed = $true; break }
+        }
+        if ($isAllowed) { continue }
+    }
+    # Skip if allowlisted by PID
+    if ($allowedPids -contains $proc.ProcessId) { continue }
+    # Working set check (>100 MB)
+    $wsMB = [Math]::Round($proc.WorkingSetSize / 1MB, 1)
+    if ($wsMB -le 100) { continue }
+    # Age check (>30 min)
+    $created = $null
+    try { $created = [Management.ManagementDateTimeConverter]::ToDateTime($proc.CreationDate) } catch {}
+    if (-not $created) { continue }
+    $ageMin = [Math]::Round(((Get-Date) - $created).TotalMinutes, 1)
+    if ($ageMin -le 30) { continue }
+
+    # Match: orphan candidate
+    $exeShort = if ($exe) { $exe } else { '(no exe path)' }
+    $sweepFindings += [PSCustomObject]@{
+        Pid = $proc.ProcessId
+        Ppid = $proc.ParentProcessId
+        WSMB = $wsMB
+        AgeMin = $ageMin
+        Exe = $exeShort
+    }
+}
+
+if ($sweepFindings.Count -gt 0) {
+    $tsIso = (Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')
+    $sweepLines = @()
+    $killedPids = @()
+    $failedPids = @()
+    foreach ($f in $sweepFindings) {
+        $mode = if ($WhatIf) { 'WOULD_KILL' } else { 'KILL_ATTEMPT' }
+        $line = "$tsIso $mode pid=$($f.Pid) ppid=$($f.Ppid) ws=$($f.WSMB)MB age=$($f.AgeMin)min exe=$($f.Exe)"
+        if (-not $WhatIf) {
+            try {
+                Stop-Process -Id $f.Pid -Force -ErrorAction Stop
+                $killedPids += $f.Pid
+                $line += ' result=killed'
+            } catch {
+                $failedPids += $f.Pid
+                $line += " result=failed_needs_manual_kill err=$($_.Exception.Message)"
+            }
+        }
+        $sweepLines += $line
+    }
+    Add-Content -Path $sweepLog -Value ($sweepLines -join "`n") -ErrorAction SilentlyContinue
+
+    # Trim sweep log to last ~100 sweeps (~ generous cap of 2000 lines; each sweep <=~20 orphans max)
+    try {
+        $existing = Get-Content $sweepLog -ErrorAction SilentlyContinue
+        if ($existing -and $existing.Count -gt 2000) {
+            $trimmed = $existing | Select-Object -Last 2000
+            Set-Content -Path $sweepLog -Value $trimmed -ErrorAction SilentlyContinue
+        }
+    } catch {}
+
+    $summary = "$now HEALTH: orphan-sweep found $($sweepFindings.Count) pythonw candidate(s)"
+    if ($WhatIf) { $summary += ' [WhatIf: no kills]' }
+    else {
+        if ($killedPids.Count -gt 0) { $summary += "; killed PIDs: $($killedPids -join ',')" }
+        if ($failedPids.Count -gt 0) { $summary += "; MANUAL KILL NEEDED for PIDs: $($failedPids -join ',')" }
+    }
+    $actions += $summary
 }
 
 # Append all actions in one batch

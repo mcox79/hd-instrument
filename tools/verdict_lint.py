@@ -191,11 +191,14 @@ def lint_file(metrics_path: Path) -> tuple[bool, list[str], list[str]]:
 def lint_staged_metrics() -> list[tuple[Path, bool, list[str], list[str]]]:
     """Find git-staged metrics.json files and lint them."""
     import subprocess
+    import sys as _sys
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if _sys.platform == "win32" else 0
     results = []
     try:
         out = subprocess.check_output(
             ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
             text=True,
+            creationflags=_no_window,
         )
         for line in out.splitlines():
             line = line.strip()

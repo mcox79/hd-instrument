@@ -47,6 +47,7 @@ def run_subprocess(cmd: list, label: str) -> tuple:
     print(f"  cmd: {' '.join(str(c) for c in cmd)}")
     t0 = time.time()
     try:
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
         result = subprocess.run(
             cmd,
             cwd=str(REPO_ROOT),
@@ -54,6 +55,7 @@ def run_subprocess(cmd: list, label: str) -> tuple:
             text=True,
             check=False,
             timeout=21600,  # 6h cap
+            creationflags=_no_window,
         )
         elapsed = time.time() - t0
         print(f"  exit={result.returncode}  elapsed={elapsed:.1f}s")

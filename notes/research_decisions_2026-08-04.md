@@ -1,0 +1,3 @@
+2026-08-04T18:52:13Z | discourse_scale_grounded_integration_brain_drill -> notes/research_discourse_scale_grounded_integration_brain_drill_2026-08-04.md | CRUX adjudicated: representation gap (c) primary (role_vocab=[agent,mentioned] has no GOAL/CAUSATION slot), wiring (a) downstream/insufficient alone, hierarchical-temporal (b) secondary/next-wall not current-wall.
+
+- [research] coherence-based binding/selector build spec: SELECT organ (self_improving_loop.decide_keep_or_revert) unifies all 3 instances (coref/causal/goal-outcome); SCORE does NOT (accumulate-margin works for coref+goal-outcome, causal needs new M_backward training, Gap 1 still open) -> notes/research_coherence_based_binding_selector_build_spec_2026-08-04.md

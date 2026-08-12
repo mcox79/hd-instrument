@@ -1,0 +1,655 @@
+{
+  "n_corpus_sentences": 32955,
+  "n_definitional_extractions_raw": 2784,
+  "n_distinct_subject_object_pairs": 2228,
+  "n_distinct_definienda": 1510,
+  "per_segment_raw": {
+    "bootstrap": 382,
+    "ele_cont": 214,
+    "int_cont": 325,
+    "adv_new": 521,
+    "bio_new": 1342
+  },
+  "per_pattern_raw": {
+    "COPULA": 1126,
+    "APPOSITIVE": 991,
+    "CALLED": 567,
+    "GLOSSARY_COLON": 87,
+    "REFERS_TO": 13
+  },
+  "top_20_definienda_by_count": [
+    {
+      "subject": "cell",
+      "n": 20,
+      "objects": [
+        "ancestor",
+        "antigen-specific",
+        "block",
+        "cristae",
+        "degrad",
+        "depolariz",
+        "gradient",
+        "hiv",
+        "includ",
+        "lysosome",
+        "molecul",
+        "process",
+        "response",
+        "simple",
+        "starch",
+        "unit"
+      ]
+    },
+    {
+      "subject": "cycle",
+      "n": 15,
+      "objects": [
+        "flow",
+        "gametophyte",
+        "important",
+        "loop",
+        "molecul",
+        "phase",
+        "process",
+        "reaction",
+        "recycl",
+        "sequence",
+        "stor",
+        "unwound",
+        "way"
+      ]
+    },
+    {
+      "subject": "system",
+      "n": 15,
+      "objects": [
+        "array",
+        "body",
+        "connect",
+        "finding",
+        "level",
+        "locomotion",
+        "network",
+        "opposite",
+        "origin",
+        "part",
+        "portion",
+        "relevant",
+        "structure",
+        "unable"
+      ]
+    },
+    {
+      "subject": "evolution",
+      "n": 12,
+      "objects": [
+        "change",
+        "concept",
+        "convergence",
+        "diverse",
+        "phenomenon",
+        "presence",
+        "process",
+        "source",
+        "speci",
+        "theory"
+      ]
+    },
+    {
+      "subject": "plant",
+      "n": 11,
+      "objects": [
+        "autotroph",
+        "commonly",
+        "dominant",
+        "foundation",
+        "large",
+        "lycophyt",
+        "pterophyt",
+        "source",
+        "speci",
+        "wrinkl"
+      ]
+    },
+    {
+      "subject": "water",
+      "n": 10,
+      "objects": [
+        "begin",
+        "challenge",
+        "float",
+        "form",
+        "know",
+        "medium",
+        "solvent",
+        "system",
+        "way",
+        "wont"
+      ]
+    },
+    {
+      "subject": "result",
+      "n": 10,
+      "objects": [
+        "boyfriend",
+        "computer",
+        "exchange",
+        "gamete",
+        "incidenc",
+        "production",
+        "step",
+        "video"
+      ]
+    },
+    {
+      "subject": "speci",
+      "n": 10,
+      "objects": [
+        "ball",
+        "biloba",
+        "carp",
+        "ecosystem",
+        "estimat",
+        "function",
+        "organism",
+        "source",
+        "tetra"
+      ]
+    },
+    {
+      "subject": "bowie",
+      "n": 9,
+      "objects": [
+        "act",
+        "performer",
+        "songwriter",
+        "trailblazer"
+      ]
+    },
+    {
+      "subject": "solution",
+      "n": 9,
+      "objects": [
+        "machine",
+        "measure",
+        "mix",
+        "mixture",
+        "problem",
+        "solvent"
+      ]
+    },
+    {
+      "subject": "fertilization",
+      "n": 9,
+      "objects": [
+        "fusion",
+        "join",
+        "male",
+        "process",
+        "start",
+        "unique"
+      ]
+    },
+    {
+      "subject": "fire",
+      "n": 8,
+      "objects": [
+        "burn",
+        "deriv",
+        "natural",
+        "problem",
+        "reaction",
+        "source",
+        "threat"
+      ]
+    },
+    {
+      "subject": "example",
+      "n": 8,
+      "objects": [
+        "apart",
+        "frequency",
+        "grown",
+        "section",
+        "shap",
+        "spacewalk",
+        "test"
+      ]
+    },
+    {
+      "subject": "biology",
+      "n": 8,
+      "objects": [
+        "aspect",
+        "science",
+        "study"
+      ]
+    },
+    {
+      "subject": "allen",
+      "n": 7,
+      "objects": [
+        "dancer",
+        "oldest",
+        "volunteer"
+      ]
+    },
+    {
+      "subject": "book",
+      "n": 7,
+      "objects": [
+        "declaration",
+        "diari",
+        "rylance"
+      ]
+    },
+    {
+      "subject": "energy",
+      "n": 7,
+      "objects": [
+        "ability",
+        "associat",
+        "law",
+        "proce",
+        "small",
+        "type"
+      ]
+    },
+    {
+      "subject": "respiration",
+      "n": 7,
+      "objects": [
+        "broken",
+        "efficient",
+        "formation",
+        "molecule",
+        "process",
+        "use"
+      ]
+    },
+    {
+      "subject": "reproduction",
+      "n": 7,
+      "objects": [
+        "appearance",
+        "combination",
+        "example",
+        "mean",
+        "mechanism",
+        "pair",
+        "production"
+      ]
+    },
+    {
+      "subject": "china",
+      "n": 6,
+      "objects": [
+        "bag",
+        "creditor",
+        "importer"
+      ]
+    }
+  ],
+  "raw_sample_40": [
+    {
+      "segment": "bio_new",
+      "subject": "crossover",
+      "object": "product",
+      "pattern": "APPOSITIVE",
+      "definiendum": "crossovers",
+      "definiens": "the two products of each meiosis II division would be identical as in mitosis; instead",
+      "sentence": "If it were not for the fact that there had been crossovers, the two products of each meiosis II division would be identical as in mitosis; instead, they are different because there has always been at least one crossover per chromosome"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "arteriol",
+      "object": "vessel",
+      "pattern": "CALLED",
+      "definiendum": "arterioles",
+      "definiens": "and then smaller vessels",
+      "sentence": "The major arteries diverge into minor arteries, and then smaller vessels called arterioles, to reach more deeply into the muscles and organs of the body"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "lactose",
+      "object": "disaccharide",
+      "pattern": "COPULA",
+      "definiendum": "Lactose",
+      "definiens": "a disaccharide consisting of the monomers glucose and galactose",
+      "sentence": "Lactose is a disaccharide consisting of the monomers glucose and galactose"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "hypersensitivity",
+      "object": "response",
+      "pattern": "COPULA",
+      "definiendum": "Delayed hypersensitivity",
+      "definiens": "a cell-mediated immune response that takes approximately one to two days after secondary exposure for a maximal reaction",
+      "sentence": "Delayed hypersensitivity is a cell-mediated immune response that takes approximately one to two days after secondary exposure for a maximal reaction"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "glucose",
+      "object": "source",
+      "pattern": "COPULA",
+      "definiendum": "glucose",
+      "definiens": "an important source of energy",
+      "sentence": "In most living species, glucose is an important source of energy"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "dominant",
+      "object": "generation",
+      "pattern": "CALLED",
+      "definiendum": "dominant",
+      "definiens": "generation",
+      "sentence": "The traits that were visible in the F1 generation are referred to as dominant, and traits that disappear in the F1 generation are described as recessive"
+    },
+    {
+      "segment": "ele_cont",
+      "subject": "connect",
+      "object": "helpline",
+      "pattern": "COPULA",
+      "definiendum": "Get Connected",
+      "definiens": "a free helpline for young people",
+      "sentence": "Get Connected is a free helpline for young people, where they can get help with emotional and mental health problems caused by loneliness"
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "circuit",
+      "object": "loop",
+      "pattern": "CALLED",
+      "definiendum": "electrical circuit",
+      "definiens": "the loop that was made",
+      "sentence": "If both ends of a piece of wire are connected to the two ends of a battery (called the electrodes), the loop that was made is called an electrical circuit."
+    },
+    {
+      "segment": "int_cont",
+      "subject": "rmer",
+      "object": "co-creator",
+      "pattern": "APPOSITIVE",
+      "definiendum": "Rmer",
+      "definiens": "the co-creator of Big Brother",
+      "sentence": "Another ambassador to the project is Paul Rmer, the co-creator of Big Brother, one of the first, and most successful, reality TV shows"
+    },
+    {
+      "segment": "adv_new",
+      "subject": "average",
+      "object": "dq",
+      "pattern": "COPULA",
+      "definiendum": "when the average",
+      "definiens": "a DQ of 113",
+      "sentence": "Digital understanding peaks between 14 and 15 years of age, when the average is a DQ of 113, and then drops gradually throughout adulthood, before falling rapidly in old age"
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "audi",
+      "object": "car",
+      "pattern": "COPULA",
+      "definiendum": "Audis",
+      "definiens": "the favourite cars of 16% of winners",
+      "sentence": "Audis were the favourite cars of 16% of winners, with Range Rovers and BMWs also popular (11% each), as well as Mercedes (10%) and Land Rovers (5%)"
+    },
+    {
+      "segment": "int_cont",
+      "subject": "cocaine",
+      "object": "drug",
+      "pattern": "CALLED",
+      "definiendum": "cocaine",
+      "definiens": "the drug now",
+      "sentence": "Intermediate \nNobody knows which came first: the economic crisis in Greece or shisha, the drug now known as the cocaine of the poor"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "genome",
+      "object": "complement",
+      "pattern": "CALLED",
+      "definiendum": "its genome",
+      "definiens": "s complete complement of DNA",
+      "sentence": "A cell\u2019s complete complement of DNA is called its genome"
+    },
+    {
+      "segment": "adv_new",
+      "subject": "hamblin",
+      "object": "man",
+      "pattern": "APPOSITIVE",
+      "definiendum": "Hamblin",
+      "definiens": "a relatively sane- looking man",
+      "sentence": "As part of his series, \u2019If Our Bodies Could Talk\u2019, Hamblin, a relatively sane- looking man, took on a no-showering challenge to examine the effect of over-cleansing the body"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "trench",
+      "object": "ocean",
+      "pattern": "APPOSITIVE",
+      "definiendum": "trench",
+      "definiens": "the ocean is",
+      "sentence": "To give some perspective on the depth of this trench, the ocean is, on average, 4267 m or 14,000 ft deep"
+    },
+    {
+      "segment": "adv_new",
+      "subject": "atla",
+      "object": "activity",
+      "pattern": "APPOSITIVE",
+      "definiendum": "atlas",
+      "definiens": "the scientists recorded people\u2019s brain activity while they listened to stories read out on The Moth Radio Hour",
+      "sentence": "To create the atlas, the scientists recorded people\u2019s brain activity while they listened to stories read out on The Moth Radio Hour, a US radio show"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "forest",
+      "object": "biome",
+      "pattern": "COPULA",
+      "definiendum": "Temperate forests",
+      "definiens": "the most common biome in eastern North America",
+      "sentence": "Temperate forests are the most common biome in eastern North America, Western Europe, Eastern Asia, Chile, and New Zealand"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "ribosom",
+      "object": "structur",
+      "pattern": "COPULA",
+      "definiendum": "Ribosomes",
+      "definiens": "the cellular structures responsible for protein synthesis",
+      "sentence": "Ribosomes are the cellular structures responsible for protein synthesis"
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "gift",
+      "object": "increasingly",
+      "pattern": "CALLED",
+      "definiendum": "Ethiopias second gift",
+      "definiens": "which is increasingly being",
+      "sentence": "The growing appetite for traditional crops and the booming health-food and gluten-free markets are breathing new life into the grain, which is increasingly being called Ethiopias second gift to the world, after coffee"
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "solution",
+      "object": "mixture",
+      "pattern": "COPULA",
+      "definiendum": "solution",
+      "definiens": "a homogeneous mixture of two or more substances",
+      "sentence": "In chemistry, a solution is a homogeneous mixture of two or more substances."
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "law",
+      "object": "ohm",
+      "pattern": "CALLED",
+      "definiendum": "Ohm's law",
+      "definiens": "ohm - this",
+      "sentence": "If an electric voltage of 1 volt maintains a current of 1 ampere through a wire, the resistance of the wire is 1 ohm - this is called Ohm's law."
+    },
+    {
+      "segment": "ele_cont",
+      "subject": "air",
+      "object": "clos",
+      "pattern": "APPOSITIVE",
+      "definiendum": "air",
+      "definiens": "the vent closes and",
+      "sentence": "When it has finished taking in air, the vent closes and, when the person dives, air is fed back through the mouthpiece"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "envelope",
+      "object": "capsid",
+      "pattern": "CALLED",
+      "definiendum": "viral envelope",
+      "definiens": "The outer structure surrounding the capsid of some viruses",
+      "sentence": "The outer structure surrounding the capsid of some viruses is called the viral envelope"
+    },
+    {
+      "segment": "int_cont",
+      "subject": "robert",
+      "object": "target",
+      "pattern": "COPULA",
+      "definiendum": "Marine scientist Professor Callum Roberts",
+      "definiens": "one of the scientists who helped set the 20-30% target in 2003",
+      "sentence": "Marine scientist Professor Callum Roberts was one of the scientists who helped set the 20-30% target in 2003"
+    },
+    {
+      "segment": "int_cont",
+      "subject": "number",
+      "object": "catch",
+      "pattern": "CALLED",
+      "definiendum": "unprecedented number",
+      "definiens": "The catching and killing of sharks longer than three metres began after what the state government",
+      "sentence": "The catching and killing of sharks longer than three metres began after what the state government called an unprecedented number of shark attacks on Western Australias coast"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "law",
+      "object": "description",
+      "pattern": "COPULA",
+      "definiendum": "scientific law",
+      "definiens": "a description",
+      "sentence": "A scientific law is a description, often in the form of a mathematical formula, of the behavior of an aspect of nature under certain circumstances"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "endocrinologist",
+      "object": "doctor",
+      "pattern": "COPULA",
+      "definiendum": "endocrinologist",
+      "definiens": "a medical doctor who specializes in treating endocrine disorders",
+      "sentence": "An endocrinologist is a medical doctor who specializes in treating endocrine disorders"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "gen",
+      "object": "reason",
+      "pattern": "COPULA",
+      "definiendum": "These genes",
+      "definiens": "the reason that the offspring will belong to the same species and will have characteristics similar to the parent",
+      "sentence": "These genes are the reason that the offspring will belong to the same species and will have characteristics similar to the parent, such as fur color and blood type"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "north",
+      "object": "cooler",
+      "pattern": "APPOSITIVE",
+      "definiendum": "north",
+      "definiens": "the climate is cooler than in the south; the other types of organisms in each ecosystem differ",
+      "sentence": "Consider the two owls; in the north, the climate is cooler than in the south; the other types of organisms in each ecosystem differ, as do their behaviors and habits; also, the hunting habits and prey choices of the owls in the south vary from the northern ones"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "conjugation",
+      "object": "reproduction",
+      "pattern": "CALLED",
+      "definiendum": "conjugation",
+      "definiens": "while most pili are used to exchange genetic material during a type of reproduction",
+      "sentence": "Flagella are used for locomotion, while most pili are used to exchange genetic material during a type of reproduction called conjugation"
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "coal",
+      "object": "important",
+      "pattern": "COPULA",
+      "definiendum": "Coal",
+      "definiens": "an important part of rail freight in the UK in the 20th century",
+      "sentence": "Coal was an important part of rail freight in the UK in the 20th century, forming the greater part of several companies' freight volume."
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "pollution",
+      "object": "century",
+      "pattern": "COPULA",
+      "definiendum": "Opposition to coal pollution",
+      "definiens": "one of the main reasons the modern environmental movement started in the 19th century",
+      "sentence": "Opposition to coal pollution was one of the main reasons the modern environmental movement started in the 19th century."
+    },
+    {
+      "segment": "bootstrap",
+      "subject": "combustion",
+      "object": "reaction",
+      "pattern": "COPULA",
+      "definiendum": "Combustion",
+      "definiens": "a reaction of a fuel with an oxidant to give out heat",
+      "sentence": "Combustion is a reaction of a fuel with an oxidant to give out heat."
+    },
+    {
+      "segment": "bio_new",
+      "subject": "pathogen",
+      "object": "organism",
+      "pattern": "COPULA",
+      "definiendum": "pathogen",
+      "definiens": "an organism that causes a disease",
+      "sentence": "A pathogen is an organism that causes a disease"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "oil",
+      "object": "liquid",
+      "pattern": "CALLED",
+      "definiendum": "oils",
+      "definiens": "Most unsaturated fats are liquid at room temperature and",
+      "sentence": "Most unsaturated fats are liquid at room temperature and are called oils"
+    },
+    {
+      "segment": "adv_new",
+      "subject": "italy",
+      "object": "think",
+      "pattern": "APPOSITIVE",
+      "definiendum": "Italy",
+      "definiens": "one mayor thinks he has found an answer to his town\u2019s chronic lack of work \u2013 although",
+      "sentence": "Now, in a struggling corner of Italy, one mayor thinks he has found an answer to his town\u2019s chronic lack of work \u2013 although, rather than a solution, it appears to some to be more of an admission of defeat"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "biology",
+      "object": "study",
+      "pattern": "COPULA",
+      "definiendum": "biology",
+      "definiens": "the study of life",
+      "sentence": "Specifically, biology is the study of life"
+    },
+    {
+      "segment": "ele_cont",
+      "subject": "square",
+      "object": "safest",
+      "pattern": "COPULA",
+      "definiendum": "Sabaa Bahrat Square",
+      "definiens": "the safest part of Damascus",
+      "sentence": "Sabaa Bahrat Square was the safest part of Damascus, but recently a car bomb exploded there and damaged the Syrian Central Bank"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "wolv",
+      "object": "speci",
+      "pattern": "COPULA",
+      "definiendum": "Dogs and wolves",
+      "definiens": "the same species because they can breed and produce viable offspring",
+      "sentence": "Dogs and wolves are the same species because they can breed and produce viable offspring, but they are different enough to be classified as different subspecies"
+    },
+    {
+      "segment": "bio_new",
+      "subject": "determination",
+      "object": "mechanism",
+      "pattern": "APPOSITIVE",
+      "definiendum": "determination",
+      "definiens": "the mechanism that determines which sex an individual develops into",
+      "sentence": "Sex determination, the mechanism that determines which sex an individual develops into, also can vary"
+    }
+  ]
+}

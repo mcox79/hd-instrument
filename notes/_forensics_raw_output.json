@@ -1,0 +1,428 @@
+{
+  "raw_line_count_in_window": 83069,
+  "deduped_line_count_in_window": 46542,
+  "parse_errors": 0,
+  "first_ts_seen": "2026-07-29T01:14:39.915Z",
+  "last_ts_seen": "2026-08-12T14:39:50.056Z",
+  "total_agent_calls": 671,
+  "by_subagent_type": [
+    [
+      "hdi_exp_dev",
+      356
+    ],
+    [
+      "research",
+      117
+    ],
+    [
+      "general-purpose",
+      89
+    ],
+    [
+      "hdi_skunkworks",
+      64
+    ],
+    [
+      "hdi_research",
+      28
+    ],
+    [
+      "hdi_testbed",
+      9
+    ],
+    [
+      "hdi_orchestrator",
+      7
+    ],
+    [
+      "Explore",
+      1
+    ]
+  ],
+  "model_specified_count": 590,
+  "model_unspecified_count": 81,
+  "model_value_counts": [
+    [
+      "sonnet",
+      555
+    ],
+    [
+      "opus",
+      35
+    ]
+  ],
+  "run_in_background": {
+    "true": 670,
+    "false": 1,
+    "unset": 0
+  },
+  "prompt_len": {
+    "min": 1798,
+    "max": 7537,
+    "median": 4093,
+    "p25": 3428,
+    "p75": 4680,
+    "mean": 4080.0
+  },
+  "prompt_len_by_subtype": {
+    "hdi_exp_dev": {
+      "n": 356,
+      "median": 4217,
+      "min": 2055,
+      "max": 7537
+    },
+    "hdi_research": {
+      "n": 28,
+      "median": 3616,
+      "min": 1964,
+      "max": 4748
+    },
+    "hdi_orchestrator": {
+      "n": 7,
+      "median": 2864,
+      "min": 2051,
+      "max": 4254
+    },
+    "research": {
+      "n": 117,
+      "median": 3779,
+      "min": 2160,
+      "max": 6857
+    },
+    "hdi_skunkworks": {
+      "n": 64,
+      "median": 3240,
+      "min": 1798,
+      "max": 5623
+    },
+    "hdi_testbed": {
+      "n": 9,
+      "median": 3299,
+      "min": 2748,
+      "max": 4579
+    },
+    "general-purpose": {
+      "n": 89,
+      "median": 4536,
+      "min": 2771,
+      "max": 6199
+    },
+    "Explore": {
+      "n": 1,
+      "median": 2543,
+      "min": 2543,
+      "max": 2543
+    }
+  },
+  "main_tool_counts": [
+    [
+      "Bash",
+      2673
+    ],
+    [
+      "TodoWrite",
+      879
+    ],
+    [
+      "Edit",
+      781
+    ],
+    [
+      "Agent",
+      671
+    ],
+    [
+      "Read",
+      370
+    ],
+    [
+      "SendMessage",
+      195
+    ],
+    [
+      "Write",
+      180
+    ],
+    [
+      "PowerShell",
+      88
+    ],
+    [
+      "Grep",
+      51
+    ],
+    [
+      "ToolSearch",
+      47
+    ],
+    [
+      "Glob",
+      30
+    ],
+    [
+      "TaskOutput",
+      22
+    ],
+    [
+      "TaskStop",
+      5
+    ],
+    [
+      "WebSearch",
+      5
+    ],
+    [
+      "WebFetch",
+      5
+    ],
+    [
+      "CronList",
+      2
+    ],
+    [
+      "CronCreate",
+      2
+    ],
+    [
+      "AskUserQuestion",
+      2
+    ]
+  ],
+  "total_main_tool_calls": 6008,
+  "total_agent_dispatch_calls": 671,
+  "non_agent_main_tool_calls": 5337,
+  "kb_keyword_counts": [
+    [
+      "foundation",
+      141
+    ],
+    [
+      "director_kb_query.py",
+      11
+    ],
+    [
+      "fact_store",
+      7
+    ],
+    [
+      "reading_grounding",
+      5
+    ],
+    [
+      "gap_driven_reader",
+      3
+    ],
+    [
+      "substrate_query.sh",
+      2
+    ]
+  ],
+  "director_kb_query_count": 11,
+  "substrate_query_count": 2,
+  "kb_command_samples": [
+    [
+      "2026-07-29T15:11:20.501Z",
+      "Bash",
+      "cd /d/AI/hd-instrument\npython tools/director_kb_query.py \"slot attention working memory entity slots situation model maintenance recurrent state update gate\" --k 6 2>&1 | grep -iE \"rank|cosine|entity=|\\.md|slot|working.mem|situation|maintenance|recurr\" | head -20\ndate -u +\"%Y-%m-%dT%H:%M:%SZ\" > data/heartbeats/research.timestamp && echo \"hb $(date -u +%H:%MZ)\""
+    ],
+    [
+      "2026-07-29T17:21:28.664Z",
+      "Bash",
+      "cd d:/AI/hd-instrument && python tools/director_kb_query.py --query \"brain fidelity audit stateful core slot attention working memory forward predictive coding PBWM gate role binding\" --source-class=notes 2>/dev/null | head -25"
+    ],
+    [
+      "2026-07-29T17:21:35.371Z",
+      "Bash",
+      "cd d:/AI/hd-instrument && python tools/director_kb_query.py --query \"brain fidelity stateful core slot attention forward predictive coding\" 2>&1 | head -25; echo \"EXIT:$?\""
+    ],
+    [
+      "2026-07-29T17:21:43.190Z",
+      "Bash",
+      "cd d:/AI/hd-instrument && python tools/director_kb_query.py \"brain fidelity stateful core slot attention working memory forward predictive coding PBWM role binding\" --k 6 2>&1 | head -30; echo \"EXIT:$?\""
+    ],
+    [
+      "2026-07-29T17:46:56.508Z",
+      "Bash",
+      "cd d:/AI/hd-instrument && python tools/director_kb_query.py \"forward predictive coding objective predict next clause latent from working memory state JEPA latent prediction coupled stateful core\" --k 6 2>&1 | grep -iE \"cosine|entity=|sources:\" | head -24"
+    ],
+    [
+      "2026-07-29T22:57:04.756Z",
+      "Bash",
+      "cd /d/AI/hd-instrument && timeout 60 python tools/director_kb_query.py \"structured event memory latent cause segmentation prediction error situation model comprehension whole architecture brain confirmation SEM event segmentation theory\" --k 6 2>&1 | grep -iE \"cosine|entity=|sources:\" | head -18"
+    ],
+    [
+      "2026-07-29T22:59:05.332Z",
+      "Bash",
+      "date -u +\"%Y-%m-%dT%H:%M:%SZ\" > /d/AI/hd-instrument/data/heartbeats/research.timestamp && echo \"hb $(cat /d/AI/hd-instrument/data/heartbeats/research.timestamp) \u2014 parallel: fit-stability sweep (bj5beqvkg ~1h) + brain-foundational CONFIRMATION drill (a720d268, whole-arch vs SEM/EST/Zwaan/Hasson). Confirms whether we're on the right hill before more optimization grind.\""
+    ],
+    [
+      "2026-07-29T23:29:31.617Z",
+      "Bash",
+      "cd /d/AI/hd-instrument && git add notes/WHERE_WE_ARE_NOW.md && git commit -q -m \"docs: brain-foundational confirmation (PARTIAL, right hill, SEM pre-validates) + bistable PE-threshold segmentation write built (3a457d414, descends-not-STUCK_FLAT); gap C+D closed; awaiting sweep recipe\n\nCo-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>\" && echo \"committed $(git rev-parse --short H"
+    ],
+    [
+      "2026-07-30T00:33:50.211Z",
+      "Bash",
+      "cd /d/AI/hd-instrument && timeout 60 python tools/director_kb_query.py \"highest leverage encoder representation improvement latent predictive coding JEPA temporal contiguity sparsity recurrence from-scratch no borrowed embeddings brain faithful\" --k 6 2>&1 | grep -iE \"cosine|entity=|sources:\" | head -16"
+    ],
+    [
+      "2026-07-30T00:34:59.096Z",
+      "Bash",
+      "timeout 90 python tools/director_kb_query.py \"encoder representation improvement latent predictive coding temporal contiguity sparsity from-scratch brain faithful\" --k 5 2>&1 | grep -iE \"cosine=|sources:\" | head -12; echo \"EXIT ok\""
+    ],
+    [
+      "2026-07-30T00:48:43.939Z",
+      "Bash",
+      "cd /d/AI/hd-instrument && git add notes/WHERE_WE_ARE_NOW.md notes/encoder_representation_lever_ranking_2026-07-29.md 2>/dev/null; git commit -q -m \"docs: all-night full-auto cadence + two-track structure + encoder-track verdict (soft floor, grounding-expansion is the ceiling-lever, latent-PC #1); latent-PC build dispatched\n\nCo-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>\" && e"
+    ],
+    [
+      "2026-07-30T01:15:58.837Z",
+      "Bash",
+      "date -u +\"%Y-%m-%dT%H:%M:%SZ\" > /d/AI/hd-instrument/data/heartbeats/research.timestamp && echo \"hb $(cat /d/AI/hd-instrument/data/heartbeats/research.timestamp) \u2014 Track B latent-PC BUILT (b7b3d62e1, self-test PASS, cuda-safe, brain-foundational check PASS). HELD push-free behind Track A. Track A fit-check in flight (a53222d). GPU night: A fit->A gate->B latent-PC(4-6h). Origin-push NOT used (push-"
+    ],
+    [
+      "2026-07-30T02:07:32.459Z",
+      "Bash",
+      "date -u +\"%Y-%m-%dT%H:%M:%SZ\" > /d/AI/hd-instrument/data/heartbeats/research.timestamp && echo \"hb $(cat /d/AI/hd-instrument/data/heartbeats/research.timestamp) \u2014 PROGRESS CHECKPOINT: brain-foundational CONFIRMED (SEM/EST right-hill); all found gaps shored (per-slot PBWM, role-query, bistable segmentation, KB-protect, hardened gate, cuda-class). CRUX OPEN = WM trainability-at-scale (STUCK_FLAT@256"
+    ],
+    [
+      "2026-07-30T11:52:32.189Z",
+      "Bash",
+      "cd /d/AI/hd-instrument && timeout 90 python tools/director_kb_query.py \"disentangled role-separable representations encoder objective forward-predictive binding factored sparse codes reduce cross-leak\" --k 8 2>&1 | grep -iE \"cosine=|sources:|entity=\" | head -30; echo \"EXIT ok\""
+    ],
+    [
+      "2026-07-30T21:22:15.460Z",
+      "Bash",
+      "cd d:/AI/hd-instrument; date -u +\"%Y-%m-%dT%H:%M:%SZ\" > data/heartbeats/research.timestamp; git add notes/WHERE_WE_ARE_NOW.md && git commit -q -m \"BRAIN-FIDELITY AUDIT (a3b18a72): NOT full brain-foundational -- FHRR-binding rests on CONTESTED synchrony hypothesis (mixed-selectivity rival better-credentialed, P0.35), oracle role-keys indefensible, WM-maintenance gap. + encoding-conversion fix NO_LI"
+    ]
+  ],
+  "edit_write_experiments_from_main": [],
+  "real_smoke_runs_from_main": [
+    [
+      "2026-07-30T15:50:03.423Z",
+      "cd d:/AI/hd-instrument && git rev-parse --short HEAD && OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 .venv/Scripts/python.exe experiments/exp_encoder_latent_pc_arc_v1.py --smoke 2>&1 | tee \"C:/Users/marsh"
+    ],
+    [
+      "2026-08-02T00:24:15.309Z",
+      "cd d:/AI/hd-instrument && powershell -NoProfile -Command \"Stop-Process -Id 9520 -Force -ErrorAction SilentlyContinue; Stop-Process -Id 30868 -Force -ErrorAction SilentlyContinue; Write-Output 'killed "
+    ],
+    [
+      "2026-08-05T06:04:30.882Z",
+      "cd /d/AI/hd-instrument && echo \"=== real-name smoke: does the self-test actually pass 4/4? ===\"; timeout 120 .venv/Scripts/python.exe experiments/exp_component5_gold_role_isolated_v1.py --self-test 2>"
+    ]
+  ],
+  "top_gaps": [
+    [
+      29841.495,
+      "2026-07-29T11:05:58.732Z"
+    ],
+    [
+      26395.554,
+      "2026-08-12T13:04:24.371Z"
+    ],
+    [
+      20351.835,
+      "2026-08-04T10:59:33.775Z"
+    ],
+    [
+      11199.81,
+      "2026-07-30T06:39:30.257Z"
+    ],
+    [
+      11199.408,
+      "2026-07-30T06:39:30.364Z"
+    ],
+    [
+      10304.401,
+      "2026-08-07T18:41:08.636Z"
+    ],
+    [
+      10303.704,
+      "2026-08-07T18:41:09.089Z"
+    ],
+    [
+      7965.761,
+      "2026-07-30T09:21:11.335Z"
+    ],
+    [
+      5792.679,
+      "2026-08-07T20:17:41.768Z"
+    ],
+    [
+      5727.284,
+      "2026-08-04T15:43:32.580Z"
+    ],
+    [
+      5726.628,
+      "2026-08-04T15:43:32.590Z"
+    ],
+    [
+      5721.049,
+      "2026-07-29T22:16:02.486Z"
+    ]
+  ],
+  "top_tool_results": [
+    [
+      85486,
+      "2026-08-04T04:04:40.058Z",
+      "toolu_01MK1ZcnmkkBTgL8s9EXL1e5"
+    ],
+    [
+      56652,
+      "2026-08-01T13:40:29.203Z",
+      "toolu_01QhsJPGDeg2kTBXDBr5PStE"
+    ],
+    [
+      55608,
+      "2026-08-05T11:11:28.005Z",
+      "toolu_01CcAU2orCW2oGcHxBVNiqdA"
+    ],
+    [
+      54476,
+      "2026-08-02T05:04:58.828Z",
+      "toolu_012UmzL9zo1ip8kAVn5vZpQY"
+    ],
+    [
+      53895,
+      "2026-08-06T12:46:37.671Z",
+      "toolu_01HQdeX3Qx54qcyL67GeeVRw"
+    ],
+    [
+      53573,
+      "2026-08-12T13:43:10.953Z",
+      "toolu_01LBLKk9aHTkwEzZW8X4X1tc"
+    ],
+    [
+      50692,
+      "2026-08-10T13:38:51.832Z",
+      "toolu_015wyApdhpjiK8dztwH8itho"
+    ],
+    [
+      50579,
+      "2026-08-07T14:20:02.510Z",
+      "toolu_01P9xq7YSYZUUWdDTAcXydMr"
+    ],
+    [
+      49178,
+      "2026-08-11T03:49:12.087Z",
+      "toolu_01AXTP3WHm2fS5qxkX4WC8uf"
+    ],
+    [
+      46764,
+      "2026-08-03T20:01:54.128Z",
+      "toolu_01WsGujCfrYjeDP86tqThKjQ"
+    ],
+    [
+      43044,
+      "2026-08-09T16:15:57.734Z",
+      "toolu_01T9DSf9X5e1dvwrajqVF9ms"
+    ],
+    [
+      41611,
+      "2026-08-04T11:26:29.469Z",
+      "toolu_0174RHrF4PTmWsbD8SxDwFrg"
+    ]
+  ],
+  "tool_result_count_raw": 6007,
+  "tool_result_count_dedup": 6007
+}

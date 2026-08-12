@@ -86,7 +86,7 @@ def main() -> int:
                     help="Confidence floor (refuse below). Default 0.2 calibrated for "
                          "char_trigram_v1 encoder cosine distribution at v1 corpus size "
                          "(strong matches typically 0.22-0.35; 0.5 would over-refuse).")
-    ap.add_argument("--schema-version", default="v1")
+    ap.add_argument("--schema-version", default="v2")  # KB is schema v2 since 2026-06-27; v1 default caused startup-ritual query to refuse with schema_version_mismatch
     ap.add_argument("--encoder", default="default")
     ap.add_argument("--debug-include-superseded", action="store_true")
     ap.add_argument("--source-class", default=None,

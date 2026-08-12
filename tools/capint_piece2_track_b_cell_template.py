@@ -176,8 +176,10 @@ def record_provenance():
     Run BEFORE the experiment so the corpus is git-pinned at run-time.
     """
     import subprocess
+    import sys as _sys
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if _sys.platform == "win32" else 0
     cell_commit = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"]).decode().strip()
+        ["git", "rev-parse", "HEAD"], creationflags=_no_window).decode().strip()
     # substrate_id_hash: hash of the bge_atom_set used; cell-specific
     substrate_id_hash = "<compute per cell; cache-content-hash>"
     return {"cell_commit": cell_commit,

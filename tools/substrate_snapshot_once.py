@@ -31,6 +31,9 @@ CHECKS = {
     "invariant": REPO / "tools" / "skunkworks_substrate_invariant_check_v1.py",
     "capint": REPO / "tools" / "skunkworks_capint_integration_check_v1.py",
 }
+# Windows: prevent console popup when called via pythonw or dashboard endpoint
+# (USER 2026-06-28 audit: every subprocess child must use CREATE_NO_WINDOW)
+_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
 CAPTION = "POLLED-ON-DEMAND snapshot (button-triggered; NOT live). Authoritative gate = on-demand invariant-check."
 
 
@@ -40,7 +43,7 @@ def run_check_json(name, path, timeout=120):
         return "missing_tool", {"error": "tool not found: %s" % path.name}
     try:
         proc = subprocess.run([PY, str(path), "--json"], cwd=str(REPO), capture_output=True,
-                              text=True, timeout=timeout)
+                              text=True, timeout=timeout, creationflags=_NO_WINDOW)
     except subprocess.TimeoutExpired:
         return "timeout", {"error": "check timed out after %ds" % timeout}
     out = (proc.stdout or "").strip()

@@ -39,12 +39,22 @@ class KGStore:
     Single-hop retrieval: scores = E @ (W @ key).
     """
 
-    def __init__(self, n_ent: int, n_rel: int, n_dim: int, generator: torch.Generator) -> None:
+    def __init__(self, n_ent: int, n_rel: int, n_dim: int, generator: torch.Generator,
+                 init_entities: bool = True) -> None:
         self.n_ent = n_ent
         self.n_rel = n_rel
         self.n_dim = n_dim
         self.sq = math.sqrt(n_dim)
-        self.E = self._bipolar(n_ent, n_dim, generator)
+        # init_entities=False: allocate E uninitialized (no random fill, no int8
+        # transients). ONLY safe when the caller overwrites every E row before use
+        # (director_kb.run_ingest does: it writes encoder codebook vectors into
+        # every entity index). Saves ~4.6 GB of transient int8 buffers + the
+        # randint pass at KB scale (1.1M x 2048), which was OOM-killing the
+        # continuous-ingest build on a busy 32 GB box (testbed 2026-07-08).
+        if init_entities:
+            self.E = self._bipolar(n_ent, n_dim, generator)
+        else:
+            self.E = torch.empty(n_ent, n_dim, dtype=torch.float32)
         self.R = self._bipolar(n_rel, n_dim, generator)
         self.W = torch.zeros(n_dim, n_dim, dtype=torch.float32)
         self._n_triples_ingested = 0
@@ -170,3 +180,49 @@ class KGStore:
         """Zero W and triple counter; keep codebooks E, R."""
         self.W.zero_()
         self._n_triples_ingested = 0
+
+
+def load_from_fb15k237_dump(
+    path: str,
+    n_dim: int = 1024,
+    generator: torch.Generator | None = None,
+    limit: int | None = None,
+) -> tuple["KGStore", dict[str, int], dict[str, int]]:
+    """Load FB15k-237 JSONL dump + return ingested KGStore + (entity, relation) index maps.
+
+    Dump format: one JSON per line with fields {"subject": "/m/<mid>", "predicate": "/<path>", "object": "/m/<mid>"}.
+    Returns (store, entity_to_idx, relation_to_idx). Entity/relation IDs are dense ints
+    assigned in first-seen order. Store ingested via Hebbian outer-product writes.
+
+    Used by M3 cortex router (substrate_router.api.SubstrateRouterAPI) for KG lookups.
+    """
+    import json
+
+    if generator is None:
+        generator = torch.Generator()
+        generator.manual_seed(11)
+
+    entity_to_idx: dict[str, int] = {}
+    relation_to_idx: dict[str, int] = {}
+    triples_raw: list[tuple[int, int, int]] = []
+
+    with open(path, encoding="utf-8") as f:
+        for n_seen, line in enumerate(f):
+            if limit is not None and n_seen >= limit:
+                break
+            row = json.loads(line)
+            s, p, o = row["subject"], row["predicate"], row["object"]
+            if s not in entity_to_idx:
+                entity_to_idx[s] = len(entity_to_idx)
+            if o not in entity_to_idx:
+                entity_to_idx[o] = len(entity_to_idx)
+            if p not in relation_to_idx:
+                relation_to_idx[p] = len(relation_to_idx)
+            triples_raw.append((entity_to_idx[s], relation_to_idx[p], entity_to_idx[o]))
+
+    n_ent = len(entity_to_idx)
+    n_rel = len(relation_to_idx)
+    store = KGStore(n_ent=n_ent, n_rel=n_rel, n_dim=n_dim, generator=generator)
+    triples = torch.tensor(triples_raw, dtype=torch.long)
+    store.ingest_triples(triples)
+    return store, entity_to_idx, relation_to_idx

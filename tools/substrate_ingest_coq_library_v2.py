@@ -258,8 +258,9 @@ def clone_repo(url: str, target: Path) -> bool:
         return True
     target.parent.mkdir(parents=True, exist_ok=True)
     try:
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
         subprocess.run(["git", "clone", "--depth=1", url, str(target)],
-                       check=True, timeout=3600)
+                       check=True, timeout=3600, creationflags=_no_window)
         return True
     except Exception as e:
         print(f"  FAILED clone: {e}")

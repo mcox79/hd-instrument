@@ -96,7 +96,8 @@ def call_cutover(queue_kind: str) -> int:
     flag = "--gpu-only" if queue_kind == "gpu" else "--cpu-only"
     cmd = [PYTHON, str(REPO / "tools" / "cutover.py"), flag]
     print(f"  Running cutover: {' '.join(cmd)}")
-    return subprocess.call(cmd)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+    return subprocess.call(cmd, creationflags=_no_window)
 
 
 def print_status(targets: list[str]) -> None:

@@ -90,6 +90,7 @@ def run_smoke(script_rel: str, name: str) -> float:
     env = {**os.environ, "HDLAB_EXP_NAME": name, "HDLAB_RUN_MODE": "smoke"}
     start = time.time()
     try:
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
         result = subprocess.run(
             [sys.executable, "-u", str(REPO / script_rel), "--smoke"],
             cwd=str(REPO),
@@ -97,6 +98,7 @@ def run_smoke(script_rel: str, name: str) -> float:
             capture_output=True,
             text=True,
             timeout=300,
+            creationflags=_no_window,
         )
     except subprocess.TimeoutExpired:
         fail(f"smoke timed out after 300s for {script_rel}")
@@ -138,9 +140,11 @@ def call_queue_add(
         fail(f"queue_add.sh missing: {QUEUE_ADD_SH}")
     print(f"[ship] invoking queue_add.sh queue={queue} name={name} timeout={timeout_s}")
     # Use bash to invoke (queue_add.sh is a bash script)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     result = subprocess.run(
         ["bash", str(QUEUE_ADD_SH), queue, name, script_rel, prereg_rel, str(timeout_s)],
         cwd=str(REPO),
+        creationflags=_no_window,
     )
     if result.returncode != 0:
         fail(f"queue_add.sh exit {result.returncode}", exit_code=result.returncode)

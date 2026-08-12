@@ -161,9 +161,11 @@ def acquire(csv_path: Path) -> Path:
     # wget -c resumes a partial download; if wget is absent, fall back to curl -C -.
     cmd_wget = ['wget', '-c', '-O', str(DEFAULT_GZ), CONCEPTNET_URL]
     cmd_curl = ['curl', '-L', '-C', '-', '-o', str(DEFAULT_GZ), CONCEPTNET_URL]
+    import sys as _sys
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if _sys.platform == "win32" else 0
     for cmd in (cmd_wget, cmd_curl):
         try:
-            rc = subprocess.call(cmd)
+            rc = subprocess.call(cmd, creationflags=_no_window)
             if rc == 0 and DEFAULT_GZ.exists() and DEFAULT_GZ.stat().st_size > 1_000_000:
                 print(f'  acquired {DEFAULT_GZ} ({DEFAULT_GZ.stat().st_size} bytes)', flush=True)
                 return DEFAULT_GZ
@@ -176,8 +178,11 @@ def acquire(csv_path: Path) -> Path:
 def cell_commit() -> str:
     """Run-time git HEAD (corpus-provenance pin; the A2 v6 lesson). 'UNKNOWN' if git unavailable."""
     import subprocess
+    import sys as _sys
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if _sys.platform == "win32" else 0
     try:
-        out = subprocess.check_output(['git', 'rev-parse', 'HEAD'], stderr=subprocess.DEVNULL)
+        out = subprocess.check_output(['git', 'rev-parse', 'HEAD'], stderr=subprocess.DEVNULL,
+                                       creationflags=_no_window)
         return out.decode().strip()[:12]
     except Exception:
         return 'UNKNOWN'

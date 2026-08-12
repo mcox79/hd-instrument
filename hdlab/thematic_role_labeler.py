@@ -43,6 +43,7 @@ from __future__ import annotations
 import random
 import re
 from collections import defaultdict
+from functools import lru_cache
 from typing import Callable, Dict, List, Optional, Sequence, Tuple
 
 from hdlab.animacy_lexicon import lookup_animacy
@@ -175,8 +176,136 @@ _IRREGULAR_LEMMA = {
 }
 
 
+# =============================================================================================
+# lemma_word -- NEVER-EMIT-A-NON-WORD normalizer (2026-08-12)
+# =============================================================================================
+# `lemma_verb` below is a SUFFIX STRIPPER, not a lemmatizer: it strips characters whether or not
+# the result is an English word. Measured failures (all real, all off the live corpus):
+#     arteries -> arteri     trees   -> tre       calories -> calori     species -> speci
+#     added    -> ad         dressed -> dres      status   -> statu      loses   -> los
+#     analyses -> analys     skies   -> ski       exclusives -> exclusiv
+# This was diagnosed on 2026-08-08 (notes/tonight_plan_three_ways_over_the_grounding_wall_
+# 2026-08-08.md line 88: "LEMMATIZER MIS-STEMMING: revive->reviv, dwindle->dwindl, corrode->
+# corrod truncate past the [stem]") and named the #1 next fix; it was never done. It matters far
+# more than it looks, because the reading-grounding loop uses the lemma AS THE CONCEPT IDENTITY:
+# `artery` and `arteries` become TWO DIFFERENT CONCEPTS, and one of them (`arteri`) is not a
+# word, so `artery -> arteri` is emitted as a "grounding" -- the same word dressed as its own
+# meaning, slipping past the tautology gate because the two strings differ.
+#
+# THE INVARIANT (this is the whole fix): a normalizer may only shorten a word if the result is
+# ITSELF A KNOWN WORD. If truncation does not land on a real word, keep the surface form.
+# Implemented by delegating to WordNet's `morphy` (an EXISTING, already-vendored, already-used
+# resource in this repo -- see hdlab/animacy_lexicon.py; nothing new is downloaded or trained)
+# and using the suffix rules ONLY as a guarded fallback for out-of-WordNet terms.
+#
+# SCOPE NOTE (deliberate, not an oversight): `lemma_verb` is called from 14 hdlab modules
+# (105 call sites, `goal_typing` alone has 30). Rewriting it in place would silently change the
+# behaviour of landed, VET-ed organs whose results were measured under the old stems. So this
+# adds `lemma_word` as the canonical normalizer and migrates ONLY the reading-grounding path.
+# Migrating the other 13 modules is a separate, testable change -- flagged, not smuggled in.
+
+_WN = None
+_WN_FAILED = False
+
+
+def _wordnet():
+    global _WN, _WN_FAILED
+    if _WN is None and not _WN_FAILED:
+        try:
+            from nltk.corpus import wordnet as wn
+            wn.morphy("test")          # force the lazy corpus load NOW, not mid-run
+            _WN = wn
+        except Exception:              # noqa: BLE001 - absence of WordNet is a degraded mode,
+            _WN_FAILED = True          # not a crash; the guarded fallback still applies.
+            _WN = None
+    return _WN
+
+
+@lru_cache(maxsize=200000)
+def is_known_word(w: str) -> bool:
+    """Is `w` an English word (WordNet lemma, any POS)? Used to enforce the never-emit-a-non-word
+    invariant. Returns False for `arteri`, `dres`, `statu`, `tre`, `cal`."""
+    wn = _wordnet()
+    if wn is None:
+        return True                    # cannot verify -> do not block (degraded mode)
+    return wn.morphy(w) is not None
+
+
+@lru_cache(maxsize=200000)
+def lemma_word(word: str) -> str:
+    """Surface form -> lemma, POS-generic, GUARANTEED to return either a known English word or
+    the (lowercased, punctuation-stripped) surface form unchanged. Never a truncation artifact.
+
+    Order: irregular table -> WordNet morphy (noun, verb, adj, adv) -> guarded suffix rules.
+    """
+    w = word.lower().strip(".,\"'();:!?[]{}")
+    if not w:
+        return w
+    if w in _IRREGULAR_LEMMA:
+        return _IRREGULAR_LEMMA[w]
+
+    wn = _wordnet()
+    if wn is not None:
+        # morphy() with no POS tries every POS and returns the first hit; ask explicitly in
+        # noun-first order because the reading loop's vocabulary is noun-dominated.
+        for pos in ("n", "v", "a", "r"):
+            m = wn.morphy(w, pos)
+            if m:
+                return m
+        m = wn.morphy(w)
+        if m:
+            return m
+
+    # --- guarded fallback: out-of-WordNet terms (proper nouns, technical coinages) ------------
+    # Each rule fires ONLY if its output is a known word; otherwise the surface form is kept.
+    def _accept(cand: str) -> Optional[str]:
+        if len(cand) >= 3 and is_known_word(cand):
+            return cand
+        return None
+
+    if w.endswith("ies") and len(w) > 4:
+        for cand in (w[:-3] + "y", w[:-1]):
+            got = _accept(cand)
+            if got:
+                return got
+    if w.endswith("sses") or w.endswith("shes") or w.endswith("ches") or w.endswith("xes"):
+        got = _accept(w[:-2])
+        if got:
+            return got
+    if w.endswith("es") and len(w) > 3:
+        for cand in (w[:-1], w[:-2]):
+            got = _accept(cand)
+            if got:
+                return got
+    if w.endswith("s") and len(w) > 3 and not w.endswith(("ss", "us", "is")):
+        got = _accept(w[:-1])
+        if got:
+            return got
+    if w.endswith("ing") and len(w) > 5:
+        base = w[:-3]
+        for cand in (base, base + "e", base[:-1] if len(base) > 2 and base[-1] == base[-2] else ""):
+            if cand:
+                got = _accept(cand)
+                if got:
+                    return got
+    if w.endswith("ed") and len(w) > 3:
+        base = w[:-2]
+        for cand in (base, w[:-1], base[:-1] if len(base) > 2 and base[-1] == base[-2] else ""):
+            if cand:
+                got = _accept(cand)
+                if got:
+                    return got
+    return w
+
+
 def lemma_verb(word: str) -> str:
-    """Glass-box surface-form -> lemma for verb lookup (irregular table + suffix strip)."""
+    """Glass-box surface-form -> lemma for verb lookup (irregular table + suffix strip).
+
+    WARNING (2026-08-12): this is a SUFFIX STRIPPER and CAN RETURN NON-WORDS
+    (`arteries`->`arteri`, `added`->`ad`). Do NOT use it where the output becomes a concept
+    IDENTITY -- use `lemma_word` above for that. Kept unchanged because 14 modules / 105 call
+    sites were measured under this behaviour; see the scope note above `lemma_word`.
+    """
     w = word.lower().strip(".,\"'();:")
     if w in _IRREGULAR_LEMMA:
         return _IRREGULAR_LEMMA[w]

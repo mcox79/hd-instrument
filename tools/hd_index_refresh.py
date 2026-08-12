@@ -98,7 +98,9 @@ def _should_run(n_now: int, prior: dict) -> tuple[bool, str]:
 def _run_cell() -> dict:
     """Delegate the heavy encode to the Action-A cell (CUDA-asserted, cache-only, coverage-gated). Returns its metrics."""
     env = dict(os.environ, HDLAB_RUN_MODE="full", HDLAB_EXP_NAME="bge_index_refresh_full_corpus_v1")
-    proc = subprocess.run([sys.executable, str(CELL)], cwd=str(REPO), env=env, capture_output=True, text=True)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+    proc = subprocess.run([sys.executable, str(CELL)], cwd=str(REPO), env=env, capture_output=True, text=True,
+                          creationflags=_no_window)
     out = REPO / "data" / "exp_bge_index_refresh_full_corpus_v1" / "metrics.json"
     metrics = {}
     if out.exists():

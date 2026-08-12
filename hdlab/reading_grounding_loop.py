@@ -94,7 +94,7 @@ from hdlab.grounding_acquisition_loop import (
 )
 from hdlab.hd_fact_store import HDFactStore
 from hdlab.gap_detector import GapDetector
-from hdlab.thematic_role_labeler import lemma_verb
+from hdlab.thematic_role_labeler import lemma_word
 from hdlab.closed_class_lexicon import is_closed_class, is_eligible_meaning
 
 KNOWN_RELATION = "KNOWN_WORD"
@@ -107,9 +107,15 @@ SENSE_MATCH_THRESH = 0.45  # HYPOTHESIZED (exploratory canonicalization link; se
 
 
 def normalize_lemma(surface: str) -> str:
-    """Glass-box surface->lemma via the reused generic suffix-stripper (thematic_role_labeler.
-    lemma_verb; POS-generic despite its name -- see that function's own docstring)."""
-    return lemma_verb(surface)
+    """Glass-box surface->lemma via the reused normalizer thematic_role_labeler.lemma_word.
+
+    CHANGED 2026-08-12 (was `lemma_verb`): `lemma_verb` is a suffix STRIPPER that can return
+    NON-WORDS, and in this loop the lemma IS the concept identity, so `arteries`->`arteri`
+    minted a second concept for `artery` and then "grounded" one as the other -- a tautology
+    wearing a disguise, invisible to the tautology gate because the strings differ. `lemma_word`
+    guarantees its output is a real English word or the untouched surface form. Measured
+    before/after: notes/definitional_grounding_v3_2026-08-12.md."""
+    return lemma_word(surface)
 
 
 def content_lemmas(sentence: str) -> List[str]:

@@ -110,17 +110,34 @@ def _run_bounded(cmd: list[str], timeout_s: int = 45) -> tuple[int, str, str]:
         return 127, "", f"[executable not found: {e}]"
 
 
-def _remote_file_exists(anchor: str, filename: str) -> bool:
-    """Probe remote for file existence via ssh Test-Path (bounded)."""
-    remote = _remote_path(anchor, filename)
-    # Use PowerShell Test-Path so we get a reliable True/False sentinel.
-    ps = f"if (Test-Path '{remote}') {{ 'YES' }} else {{ 'NO' }}"
+def _remote_probe(remote_path: str) -> str:
+    """Tri-state probe of a remote path via ssh Test-Path (bounded).
+
+    Returns 'YES' (exists), 'NO' (definitively absent), or 'UNKNOWN' (the ssh
+    probe itself failed -- timeout / transient outage / non-zero rc). The
+    distinction is load-bearing: a probe FAILURE must NOT be read as absence.
+    That false-negative is the root cause of scp_recover reporting
+    "remote missing" while the artifact existed (the Test-Path ssh call errored
+    and the old code returned False == missing). On UNKNOWN the caller attempts
+    the scp anyway -- scp is the authoritative existence test.
+    """
+    ps = f"if (Test-Path '{remote_path}') {{ 'YES' }} else {{ 'NO' }}"
     cmd = ["ssh", *SSH_OPTS, REMOTE_HOST,
            f"powershell -NoProfile -Command \"{ps}\""]
     rc, out, _ = _run_bounded(cmd, timeout_s=30)
     if rc != 0:
-        return False
-    return "YES" in (out or "").upper()
+        return "UNKNOWN"
+    up = (out or "").upper()
+    if "YES" in up:
+        return "YES"
+    if "NO" in up:
+        return "NO"
+    return "UNKNOWN"
+
+
+def _remote_file_exists(anchor: str, filename: str) -> bool:
+    """Back-compat boolean probe (True only on a definitive YES)."""
+    return _remote_probe(_remote_path(anchor, filename)) == "YES"
 
 
 def _scp_one(anchor: str, filename: str, dry_run: bool = False) -> tuple[bool, str]:
@@ -133,35 +150,43 @@ def _scp_one(anchor: str, filename: str, dry_run: bool = False) -> tuple[bool, s
     (data/exp_exp_<anchor>/). Recovery pulls to canonical local dir either way
     so downstream verify_landing.py hits the SH-4-normalized target.
     """
-    remote_source = _remote_path(anchor, filename)
-    if not _remote_file_exists(anchor, filename):
-        # Try SH-4 double-prefix on remote.
-        remote_source_sh4 = _remote_path_sh4(anchor, filename)
-        ps = f"if (Test-Path '{remote_source_sh4}') {{ 'YES' }} else {{ 'NO' }}"
-        cmd = ["ssh", *SSH_OPTS, REMOTE_HOST,
-               f"powershell -NoProfile -Command \"{ps}\""]
-        rc, out, _ = _run_bounded(cmd, timeout_s=30)
-        if rc != 0 or "YES" not in (out or "").upper():
-            return True, f"remote missing (skip): {filename}"
-        remote_source = remote_source_sh4
+    # Build the candidate remote sources in priority order, each with its probe
+    # state. Attempt scp on any candidate whose probe is NOT a definitive NO
+    # (YES or UNKNOWN) -- scp is the authoritative existence test, so a probe
+    # that timed out / errored must not cause a false "remote missing" skip.
+    canonical = _remote_path(anchor, filename)
+    sh4 = _remote_path_sh4(anchor, filename)
+    candidates = [(canonical, _remote_probe(canonical))]
+    if candidates[0][1] != "YES":
+        candidates.append((sh4, _remote_probe(sh4)))
 
     local_dir = _resolve_local_dir(anchor)
     if not dry_run:
         local_dir.mkdir(parents=True, exist_ok=True)
     local_path = local_dir / filename
-    remote_spec = f"{REMOTE_HOST}:{remote_source}"
+
+    attempted = [(src, st) for (src, st) in candidates if st in ("YES", "UNKNOWN")]
+    if not attempted:
+        # Every candidate probe returned a definitive NO -> genuinely absent.
+        return True, f"remote missing (skip): {filename}"
 
     if dry_run:
-        return True, f"DRY: scp {remote_spec} {local_path}"
+        specs = ", ".join(f"{REMOTE_HOST}:{src} (probe={st})" for src, st in attempted)
+        return True, f"DRY: scp [{specs}] -> {local_path}"
 
-    cmd = ["scp", *SSH_OPTS, remote_spec, str(local_path)]
-    rc, out, err = _run_bounded(cmd, timeout_s=60)
-    if rc == 0 and local_path.exists():
-        sh4_tag = " [SH-4]" if "/exp_exp_" in remote_source else ""
-        return True, f"copied{sh4_tag}: {filename} ({local_path.stat().st_size} bytes)"
-    reason = (err or out or "").strip().splitlines()
-    reason_s = reason[-1] if reason else f"rc={rc}"
-    return False, f"scp fail {filename}: {reason_s}"
+    last_reason = "no attempt"
+    for remote_source, probe_state in attempted:
+        remote_spec = f"{REMOTE_HOST}:{remote_source}"
+        cmd = ["scp", *SSH_OPTS, remote_spec, str(local_path)]
+        rc, out, err = _run_bounded(cmd, timeout_s=60)
+        if rc == 0 and local_path.exists():
+            sh4_tag = " [SH-4]" if "/exp_exp_" in remote_source else ""
+            unk_tag = " [probe=UNKNOWN,scp-confirmed]" if probe_state == "UNKNOWN" else ""
+            return True, (f"copied{sh4_tag}{unk_tag}: {filename} "
+                          f"({local_path.stat().st_size} bytes)")
+        reason = (err or out or "").strip().splitlines()
+        last_reason = reason[-1] if reason else f"rc={rc}"
+    return False, f"scp fail {filename}: {last_reason}"
 
 
 def recover_anchor(anchor: str, files: list[str], dry_run: bool = False) -> dict:

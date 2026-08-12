@@ -86,8 +86,10 @@ def _parse(stdout: str) -> dict:
 def _dry_run() -> int:
     """Skunkworks pre-APPLY VET sample: run the atomizer in DRY mode (no mutation; writes the VET-able sample JSONL)."""
     env = dict(os.environ); env.pop("HDLAB_ATOMIZE_APPLY", None)              # absent/0 = DRY-RUN (atomizer default)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     proc = subprocess.run([sys.executable, str(REPO / "tools" / "atomize_experiment_records.py")],
-                          cwd=str(REPO), env=env, capture_output=True, text=True)
+                          cwd=str(REPO), env=env, capture_output=True, text=True,
+                          creationflags=_no_window)
     m = re.search(r"DRY-RUN sample \((\d+) atoms\)", proc.stdout)
     n = int(m.group(1)) if m else 0
     print(f"[hd_metrics_atomize] DRY-RUN: {n} atoms WOULD be added; NO mutation. exit={proc.returncode}", flush=True)
@@ -113,8 +115,10 @@ def main() -> int:
         except Exception:
             prior = {}
         env = dict(os.environ, HDLAB_ATOMIZE_APPLY="1", HDLAB_ATOMIZE_LIMIT="1000000")
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
         proc = subprocess.run([sys.executable, str(REPO / "tools" / "atomize_experiment_records.py")],
-                              cwd=str(REPO), env=env, capture_output=True, text=True)
+                              cwd=str(REPO), env=env, capture_output=True, text=True,
+                              creationflags=_no_window)
         info = _parse(proc.stdout)
         # gate_ok: EXIT CODE is the SOLE authoritative real-gate signal (Skunkworks durable-fix RE-VET: the atomizer HALTs
         # exit 1 on any real per-batch gate-fail). cap_pres is a positive confirmation when atoms were added. The stdout

@@ -247,8 +247,9 @@ def clone_mathlib(target_dir: Path) -> bool:
     target_dir.parent.mkdir(parents=True, exist_ok=True)
     try:
         print(f"  cloning {MATHLIB_GIT_URL} -> {target_dir} (depth=1; large ~500MB)")
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
         subprocess.run(["git", "clone", "--depth=1", MATHLIB_GIT_URL, str(target_dir)],
-                       check=True, timeout=3600)
+                       check=True, timeout=3600, creationflags=_no_window)
         return True
     except Exception as e:
         print(f"ERROR: git clone failed: {e}")
