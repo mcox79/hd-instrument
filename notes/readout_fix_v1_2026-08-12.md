@@ -31,7 +31,11 @@ lemmas, 898 eligible anchors, d=256) with that cell's own flip-count, cluster-bo
 | no-leak / cardinality (24/24 units) / F1-gate-never-moved-an-argmax | clean | -- | pass |
 
 `pytest verification/` **269 passed / 3 skipped** before AND after the substrate patch. Existing
-foundation snapshot loads (`reading_grounding_v5_termboundary`, 341-row jsonl read back); 200/200
+foundation snapshot loads (`reading_grounding_v5_termboundary`, 2092-row jsonl read back --
+CORRECTED 2026-08-12 post-hoc: this note first said 341, which matched neither
+`metrics.backward_compat.foundation_snapshot_rows` = 2092 nor `wc -l` on
+`data/foundation/reading_grounding_v5_termboundary/definitional_facts_v5.jsonl` = 2092; the
+narrative figure was wrong, the gate itself passed); 200/200
 `readout=None` calls byte-identical to the pre-existing path.
 
 ## 2. THE ABLATION TABLE -- FIXED regime (directly comparable to flip 0.782962)
