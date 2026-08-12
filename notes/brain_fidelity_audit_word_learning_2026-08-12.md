@@ -446,3 +446,90 @@ registered; the extractor simply does not import it (A.1).
 
 Summary of the ruling: KEEP the definitional path, DEMOTE its output to a proposal, INDUCE its
 constructions. Neither "the parser is fine" nor "delete the parser".
+
+## G.4 -- BUILD ORDER (supersedes Section E)
+
+Ranked by brain-foundational correctness. Cost is not an input. All four are PROPOSALS; no WIRE
+promotion is recommended here.
+
+**G.4.1 -- GIVE THE PATH A HYPOTHESIS: propose, carry, verify, abandon-and-re-propose.**
+Brain mechanism: single-hypothesis PBV (Medina 2011; Trueswell 2013; Woodard 2016) with a
+persisting strength (Stevens 2017 Hybrid Pursuit).
+Organ reused: `grounding_acquisition_loop` -- `LibraryItem` gains a held hypothesis + strength;
+the verification event goes at the EXISTING trace-append site `Library.flag` (`:178-190`), which
+is already the "an encounter happened" point, so no new organ. `canonicalize` is reused verbatim
+as the PROPOSER (it already returns one winner, G.2) instead of being called once as the decider.
+Can-fail test, two conditions, both required: (a) MEANINGFUL on the same hand-score rubric must
+exceed the on-disk 8% (A.4) against the current sum-then-argmax on the SAME stream; (b) the
+per-lemma hypothesis trajectory, logged, must show ABRUPT switches -- PBV's signature -- rather
+than smooth cosine drift.
+Falsified if: MEANINGFUL is flat AND no abrupt-switch signature appears. That would be honest
+evidence that a carried single hypothesis buys nothing at this corpus size, and would send the
+next probe to the informativeness of the encounters rather than to the mapping rule.
+Why first: G.1 rows 1-3 are one absence, it is the mechanism the literature actually supports,
+and both G.4.2 and G.4.3 are defined relative to it (one supplies its proposals, the other
+stores its output).
+
+**G.4.2 -- INDUCE THE DEFINITIONAL CONSTRUCTIONS, AND DEMOTE THEIR OUTPUT TO A PROPOSAL.**
+Brain mechanism: syntactic bootstrapping (Gillette/Gleitman 1999 -- 51.7% syntax-only vs 15%
+scene-only) as an informative-encounter selector (Medina's ~7%).
+Organ reused: `frame_induction`'s config-only pattern over `hdlab/learner` -- new code is a
+cue-encoder only, zero edits to learner core, definiendum lemma never a feature; output routed
+into G.4.1's verify step rather than banked.
+Can-fail test: hold out one of the five construction types entirely from the induction set; the
+induced hypothesis must recover it at or above the hand-written pattern's own precision on that
+type, held-out only.
+Falsified if: induced precision falls below the hand-written baseline on held-out constructions
+-- which would be honest evidence that at this corpus size constructions are not inducible and
+the hand-list is the defensible interim (the FORM violation would then stand, unfixed, on the
+record rather than be papered over).
+Blocked on: the DEF-arm 38% hand-score is NOT ON DISK (A.4). This step cannot be scored until it
+is persisted. **UNVERIFIED.**
+Why second: it is the FORM+WIRING violation ruled in G.3, and it feeds G.4.1 the informative
+encounters PBV needs to be worth having.
+
+**G.4.3 -- BANK THE SOURCE CONTEXT INTO THE FACT (was E1; DEMOTED from first).**
+Brain mechanism: episodic encoding retains the encoding context; the ATL hub abstracts across
+retained episodes rather than replacing them.
+Organ reused: `hd_fact_store`, the `grounding_provenance` rows that already carry the sentences
+(median 6 per fact, A.3), `random_indexing` as the context encoder.
+Can-fail test: rerun context-conditioned sense selection with the sense side built from the
+BANKED context. PASS requires BOTH the v2 pre-registered bands: accuracy CI lower bound above
+the recomputed floor 0.4634 on the primary `subject` index, AND a C1 swap drop of at least 0.05.
+Falsified if: the CI lower bound stays below the floor, as C3-SEG's already does (0.5714, n=49,
+CI [0.4327, 0.6998]).
+Why demoted: E1 was ranked first on the strength of a measured 0.4296->0.6914 payoff. G.2
+withdraws that justification -- the topic-controlled re-run does not clear the floor and the
+uncontrolled number is confounded. The step is still brain-correct and still addresses the one
+thing C1's 0.0100 swap drop actually indicts, but it now carries NO measured payoff, which is
+exactly why it must not sit above two steps that fix a named mechanism absence.
+
+**G.4.4 -- WIRE THE PERCEPTUAL + ATL ORGANS, SCOPED TO CONCRETE VOCABULARY.**
+Brain mechanism: hub-and-spoke -- the amodal hub is constituted by convergence from modal
+spokes; grounding is load-bearing mainly for CONCRETE vocabulary, and the ATL hub is graded and
+category-general.
+Organ reused: `grounded_similarity` (Lancaster + Brysbaert), `lexical_similarity.concept_similarity`.
+Can-fail test: split targets by Brysbaert concreteness. A lift must appear on the CONCRETE
+subset and must NOT appear on the abstract subset -- a uniform lift across both would indicate a
+topical/frequency artifact, not grounding, and must be read as a FAIL of the claimed mechanism
+even though the headline number rose.
+Falsified if: no concrete-subset lift, or if `GROUNDED_CAP = 0.45` saturation (16.4% of scored
+pairs) destroys ranking at acquisition time as it already does at evaluation time.
+Why last: it re-ranks candidates the earlier steps produce, so its ceiling is set by them, and
+the concreteness restriction bounds its reach further than E4 assumed.
+
+**RETRACTED from Section E: E3 (per-situation candidate set / intersection scoring).** Grounds
+in G.2 -- intersection is Siskind 1996, which has essentially no human behavioural support, and
+`canonicalize`'s single-winner argmax is already the more faithful shape. Building E3 would move
+the substrate away from the supported mechanism. B.2.1, which motivated it, is withdrawn.
+
+**Still NOT proposed:** promoting `FHRRProcessStore` (unchanged from Section E; its source cell
+carries `HARD_FAIL_PARTIAL` and its 0.9556 is a closed 3-way codebook number).
+
+## G.5 -- UNVERIFIED IN SECTION G
+- DEF-arm 38% hand-score: still not on disk. G.4.2 is unscoreable until persisted.
+- Whether `frame_induction`'s cue vocabulary can express definitional constructions at all: not
+  tested, not inspected this pass. G.4.2 assumes it; that assumption is UNVERIFIED.
+- Raw C3's 0.6606 / 0.6792: swap-separated but topic-confounded. Not usable as a target band.
+- Literature citations in G are SUPPLIED, not independently checked against sources this pass.
+- No WIRE promotions are proposed anywhere in Section G.
