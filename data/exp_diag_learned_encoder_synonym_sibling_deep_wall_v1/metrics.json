@@ -1,0 +1,475 @@
+{
+  "verdict": "MIDDLE_BAND_INTERFACE_SEPARATES_BUT_NOT_LEARNING",
+  "verdict_msg": "encoder_AUC=0.7064 (d'=0.752) clears >= 0.65 and BEATS grounding_AUC_matched=0.3186 with scramble collapsing to 0.5042 -- BUT the untrained same-arch RANDOM-INIT encoder using the SAME corpus-mention-pooling interface separates synonym from sibling EQUALLY OR BETTER (randinit_AUC=0.7452 >= trained). So the separation is a property of the distributional-context POOLING INTERFACE (an owned, glass-box, no-external-LLM asset the encoder architecture provides), NOT of the encoder's LEARNED representation. The deep same-idea wall is crossed by the INTERFACE, not by learning; a 'learned encoder crosses the wall' claim is NOT supported. Concreteness-confound gap(sib-syn)=1.6022158963360675 also cautions the synonym/sibling axis may be partly abstract-vs-concrete.",
+  "summary": "encoder_AUC=0.7064 (d'=0.752) clears >= 0.65 and BEATS grounding_AUC_matched=0.3186 with scramble collapsing to 0.5042 -- BUT the untrained same-arch RANDOM-INIT encoder using the SAME corpus-mention-pooling interface separates synonym from sibling EQUALLY OR BETTER (randinit_AUC=0.7452 >= trained). So the separation is a property of the distributional-context POOLING INTERFACE (an owned, glass-box, no-external-LLM asset the encoder architecture provides), NOT of the encoder's LEARNED representation. The deep same-idea wall is crossed by the INTERFACE, not by learning; a 'learned encoder crosses the wall' claim is NOT supported. Concreteness-confound gap(sib-syn)=1.6022158963360675 also cautions the synonym/sibling axis may be partly abstract-vs-concrete.",
+  "anchor_name": "diag_learned_encoder_synonym_sibling_deep_wall_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-12T03:10:56.759210+00:00",
+  "pid": 12396,
+  "elapsed_s": 294.6906324001029,
+  "device": "cpu",
+  "cuda": false,
+  "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+  "ckpt_seed": 7,
+  "ckpt_selected_arm": "ARM_FUSE_WTUNED",
+  "model_cfg": {
+    "vocab": 16000,
+    "max_len": 128,
+    "d_model": 512,
+    "n_layers": 6,
+    "n_heads": 8,
+    "ffn_mult": 4,
+    "pad_id": 0
+  },
+  "positive_control": {
+    "ok": true,
+    "pairs": [
+      {
+        "a": "apple",
+        "b": "orange",
+        "cited": 0.952,
+        "measured": 0.9521749019622803,
+        "ok": true
+      },
+      {
+        "a": "happy",
+        "b": "joyful",
+        "cited": 0.962,
+        "measured": 0.9616310000419617,
+        "ok": true
+      }
+    ]
+  },
+  "n_read_lines": 14621856,
+  "scan_elapsed_s": 97.14009530004114,
+  "sibling_pairs_target": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ],
+    [
+      "craft",
+      "projectile",
+      "vehicle.n.01"
+    ],
+    [
+      "rocket",
+      "sled",
+      "vehicle.n.01"
+    ],
+    [
+      "bookcase",
+      "buffet",
+      "furniture.n.01"
+    ],
+    [
+      "bureau",
+      "cabinet",
+      "furniture.n.01"
+    ],
+    [
+      "aluminum",
+      "am",
+      "metal.n.01"
+    ],
+    [
+      "be",
+      "cadmium",
+      "metal.n.01"
+    ],
+    [
+      "butane",
+      "charcoal",
+      "fuel.n.01"
+    ],
+    [
+      "coke",
+      "combustible",
+      "fuel.n.01"
+    ],
+    [
+      "awl",
+      "bevel",
+      "hand_tool.n.01"
+    ],
+    [
+      "crank",
+      "file",
+      "hand_tool.n.01"
+    ],
+    [
+      "cock",
+      "hen",
+      "bird.n.01"
+    ],
+    [
+      "parrot",
+      "raptor",
+      "bird.n.01"
+    ],
+    [
+      "alcohol",
+      "chocolate",
+      "beverage.n.01"
+    ],
+    [
+      "cider",
+      "cocoa",
+      "beverage.n.01"
+    ],
+    [
+      "artichoke",
+      "asparagus",
+      "vegetable.n.01"
+    ],
+    [
+      "celery",
+      "cucumber",
+      "vegetable.n.01"
+    ],
+    [
+      "produce",
+      "consume",
+      "task_named_example"
+    ]
+  ],
+  "sibling_pairs_final": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ],
+    [
+      "craft",
+      "projectile",
+      "vehicle.n.01"
+    ],
+    [
+      "rocket",
+      "sled",
+      "vehicle.n.01"
+    ],
+    [
+      "bookcase",
+      "buffet",
+      "furniture.n.01"
+    ],
+    [
+      "bureau",
+      "cabinet",
+      "furniture.n.01"
+    ],
+    [
+      "aluminum",
+      "am",
+      "metal.n.01"
+    ],
+    [
+      "be",
+      "cadmium",
+      "metal.n.01"
+    ],
+    [
+      "butane",
+      "charcoal",
+      "fuel.n.01"
+    ],
+    [
+      "coke",
+      "combustible",
+      "fuel.n.01"
+    ],
+    [
+      "awl",
+      "bevel",
+      "hand_tool.n.01"
+    ],
+    [
+      "crank",
+      "file",
+      "hand_tool.n.01"
+    ],
+    [
+      "cock",
+      "hen",
+      "bird.n.01"
+    ],
+    [
+      "parrot",
+      "raptor",
+      "bird.n.01"
+    ],
+    [
+      "alcohol",
+      "chocolate",
+      "beverage.n.01"
+    ],
+    [
+      "cider",
+      "cocoa",
+      "beverage.n.01"
+    ],
+    [
+      "artichoke",
+      "asparagus",
+      "vegetable.n.01"
+    ],
+    [
+      "celery",
+      "cucumber",
+      "vegetable.n.01"
+    ],
+    [
+      "produce",
+      "consume",
+      "task_named_example"
+    ]
+  ],
+  "synonym_candidates_n": 60,
+  "synonym_pairs_final": [
+    [
+      "unit",
+      "whole"
+    ],
+    [
+      "individual",
+      "mortal"
+    ],
+    [
+      "beast",
+      "brute"
+    ],
+    [
+      "cognition",
+      "knowledge"
+    ],
+    [
+      "motivation",
+      "motive"
+    ],
+    [
+      "infinite",
+      "space"
+    ],
+    [
+      "act",
+      "deed"
+    ],
+    [
+      "group",
+      "grouping"
+    ],
+    [
+      "amount",
+      "measure"
+    ],
+    [
+      "accomplishment",
+      "achievement"
+    ],
+    [
+      "effort",
+      "exploit"
+    ],
+    [
+      "interchange",
+      "reciprocation"
+    ],
+    [
+      "play",
+      "swordplay"
+    ],
+    [
+      "causation",
+      "causing"
+    ],
+    [
+      "departure",
+      "going"
+    ],
+    [
+      "discovery",
+      "find"
+    ],
+    [
+      "disposal",
+      "disposition"
+    ],
+    [
+      "equalization",
+      "leveling"
+    ],
+    [
+      "recovery",
+      "retrieval"
+    ]
+  ],
+  "train_overlap": {
+    "scan_scope": "bounded single pass over data/corpora/arc/.../ARC_Corpus.txt (all lines scanned of 14,621,856 total); a SUBSET of the FULL run's own MLM training pass (max_lines up to 10,000,000 at FULL_CFG in the training cell), so these mention counts likely UNDERSTATE true training exposure, never overstate it.",
+    "n_read": 14621856,
+    "sibling_word_mention_counts": {
+      "acorn": 24,
+      "alcohol": 24,
+      "aluminum": 24,
+      "am": 24,
+      "artichoke": 24,
+      "asparagus": 24,
+      "awl": 24,
+      "be": 24,
+      "berry": 24,
+      "bevel": 24,
+      "bookcase": 24,
+      "buffet": 24,
+      "bureau": 24,
+      "butane": 24,
+      "cabinet": 24,
+      "cadmium": 24,
+      "celery": 24,
+      "charcoal": 24,
+      "chocolate": 24,
+      "cider": 24,
+      "cock": 24,
+      "cocoa": 24,
+      "coke": 24,
+      "combustible": 24,
+      "consume": 24,
+      "craft": 24,
+      "crank": 24,
+      "cucumber": 24,
+      "file": 24,
+      "gourd": 24,
+      "hen": 24,
+      "hip": 24,
+      "parrot": 24,
+      "produce": 24,
+      "projectile": 24,
+      "raptor": 24,
+      "rocket": 24,
+      "sled": 24
+    },
+    "synonym_word_mention_counts": {
+      "accomplishment": 24,
+      "achievement": 24,
+      "act": 24,
+      "amount": 24,
+      "beast": 24,
+      "brute": 24,
+      "causation": 24,
+      "causing": 24,
+      "cognition": 24,
+      "deed": 24,
+      "departure": 24,
+      "discovery": 24,
+      "disposal": 24,
+      "disposition": 24,
+      "effort": 24,
+      "equalization": 24,
+      "exploit": 24,
+      "find": 24,
+      "going": 24,
+      "group": 24,
+      "grouping": 24,
+      "individual": 24,
+      "infinite": 24,
+      "interchange": 24,
+      "knowledge": 24,
+      "leveling": 24,
+      "measure": 24,
+      "mortal": 24,
+      "motivation": 24,
+      "motive": 24,
+      "play": 24,
+      "reciprocation": 24,
+      "recovery": 24,
+      "retrieval": 24,
+      "space": 24,
+      "swordplay": 20,
+      "unit": 24,
+      "whole": 24
+    },
+    "n_sibling_words_zero_mentions": 0,
+    "n_synonym_words_zero_mentions": 0,
+    "held_out_split_membership_checked": false,
+    "held_out_split_membership_note": "This diagnostic does NOT reproduce the FULL run's official ~800-concept held-out split (that requires a second full corpus pass for frequency-stratified bucketing, out of scope for a standalone diagnostic). All probe words here have real mentions in this scan (see counts above) -- they were very likely part of MLM training exposure (the scrub only excludes the official held-out surfaces + light inflections, a small fraction of the vocabulary a 237.7M-token corpus covers). Scope the claim accordingly: this measures whether the encoder's LEARNED REPRESENTATION separates synonym from sibling for words it was very likely EXPOSED to during training, not strict inductive-held-out generalization the way the origin cell's own relational/semantic eval does."
+  },
+  "encoder": {
+    "auc": 0.7063711911357341,
+    "d_prime": 0.7524669679426275,
+    "mean_syn": 0.9247459267315111,
+    "mean_sib": 0.8849989395392569,
+    "std_syn": 0.04024816629727401,
+    "std_sib": 0.06293220305662559,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "grounding": {
+    "auc": 0.3185595567867036,
+    "d_prime": -0.5289897623921483,
+    "mean_syn": 0.19869659958701386,
+    "mean_sib": 0.46493347381290634,
+    "std_syn": 0.4816251121125371,
+    "std_sib": 0.5240658854289898,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "scramble_control": {
+    "auc": 0.5041551246537396,
+    "d_prime": 0.08535246727184924,
+    "mean_syn": 0.8702750613814906,
+    "mean_sib": 0.8638609083075273,
+    "std_syn": 0.0681892377286296,
+    "std_sib": 0.08151671030817059,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "randinit_control": {
+    "auc": 0.7451523545706371,
+    "d_prime": 0.9331735169772583,
+    "mean_syn": 0.9507414228037784,
+    "mean_sib": 0.9357727075877943,
+    "std_syn": 0.013090207396052303,
+    "std_sib": 0.018527054522358682,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "concreteness_confound": {
+    "mean_conc_z_synonym": -0.22311693001048347,
+    "mean_conc_z_sibling": 1.3790989663255842,
+    "conc_z_gap_sibling_minus_synonym": 1.6022158963360675,
+    "note": "Brysbaert-concreteness z (last grounded dim), averaged per pair-set. A large positive sibling-minus-synonym gap means the sibling probes are systematically MORE concrete than the synonym probes -- a confound: the encoder/interface AUC could reflect an abstract-vs-concrete distributional-context axis rather than same-idea-vs-same-category semantics. Reported for honest scoping, not gated on."
+  },
+  "gate_learning_isolated": false,
+  "arm_digests": {
+    "trained": "6db0db63bdc98ea83712708e6adbb936945809a3dda8d9db80e1cde3d467e7e1",
+    "scrambled": "45377ceee2bbfb0d39e66779538ef277ae81a98dc16c5beef4dee029ac6d47b6",
+    "random_init": "b74a4e5354b44f77b5da1121c22f015fe08dde848ab3162d71d6fc3e4e81ed88"
+  },
+  "power_floor_n": 12,
+  "power_ok": true,
+  "bands": {
+    "hp_auc_min": 0.65,
+    "hf_auc_max": 0.56,
+    "near_chance_band": [
+      0.4,
+      0.6
+    ],
+    "hp_margin_over_grounding": 0.15,
+    "hp_margin_learning_over_randinit": 0.05
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace"
+}

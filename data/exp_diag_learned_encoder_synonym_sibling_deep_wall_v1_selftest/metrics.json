@@ -1,0 +1,169 @@
+{
+  "verdict": "MIDDLE_BAND_UNDERPOWERED",
+  "verdict_msg": "underpowered: n_syn_used=2 n_sib_used=2 (need >=12 each)",
+  "summary": "underpowered: n_syn_used=2 n_sib_used=2 (need >=12 each)",
+  "anchor_name": "diag_learned_encoder_synonym_sibling_deep_wall_v1",
+  "run_mode": "self_test",
+  "ts_iso": "2026-08-12T03:05:30.616696+00:00",
+  "pid": 31112,
+  "elapsed_s": 13.836420300067402,
+  "device": "cpu",
+  "cuda": false,
+  "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+  "ckpt_seed": 7,
+  "ckpt_selected_arm": "ARM_FUSE_WTUNED",
+  "model_cfg": {
+    "vocab": 16000,
+    "max_len": 128,
+    "d_model": 512,
+    "n_layers": 6,
+    "n_heads": 8,
+    "ffn_mult": 4,
+    "pad_id": 0
+  },
+  "positive_control": {
+    "ok": true,
+    "pairs": [
+      {
+        "a": "apple",
+        "b": "orange",
+        "cited": 0.952,
+        "measured": 0.9521749019622803,
+        "ok": true
+      },
+      {
+        "a": "happy",
+        "b": "joyful",
+        "cited": 0.962,
+        "measured": 0.9616310000419617,
+        "ok": true
+      }
+    ]
+  },
+  "n_read_lines": 1000000,
+  "scan_elapsed_s": 6.136701599927619,
+  "sibling_pairs_target": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ]
+  ],
+  "sibling_pairs_final": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ]
+  ],
+  "synonym_candidates_n": 6,
+  "synonym_pairs_final": [
+    [
+      "unit",
+      "whole"
+    ],
+    [
+      "individual",
+      "mortal"
+    ]
+  ],
+  "train_overlap": {
+    "scan_scope": "bounded single pass over data/corpora/arc/.../ARC_Corpus.txt (1000000 lines scanned of 14,621,856 total); a SUBSET of the FULL run's own MLM training pass (max_lines up to 10,000,000 at FULL_CFG in the training cell), so these mention counts likely UNDERSTATE true training exposure, never overstate it.",
+    "n_read": 1000000,
+    "sibling_word_mention_counts": {
+      "acorn": 4,
+      "berry": 4,
+      "gourd": 4,
+      "hip": 4
+    },
+    "synonym_word_mention_counts": {
+      "individual": 4,
+      "mortal": 4,
+      "unit": 4,
+      "whole": 4
+    },
+    "n_sibling_words_zero_mentions": 0,
+    "n_synonym_words_zero_mentions": 0,
+    "held_out_split_membership_checked": false,
+    "held_out_split_membership_note": "This diagnostic does NOT reproduce the FULL run's official ~800-concept held-out split (that requires a second full corpus pass for frequency-stratified bucketing, out of scope for a standalone diagnostic). All probe words here have real mentions in this scan (see counts above) -- they were very likely part of MLM training exposure (the scrub only excludes the official held-out surfaces + light inflections, a small fraction of the vocabulary a 237.7M-token corpus covers). Scope the claim accordingly: this measures whether the encoder's LEARNED REPRESENTATION separates synonym from sibling for words it was very likely EXPOSED to during training, not strict inductive-held-out generalization the way the origin cell's own relational/semantic eval does."
+  },
+  "encoder": {
+    "auc": 0.5,
+    "d_prime": 0.20136822013043718,
+    "mean_syn": 0.672071099281311,
+    "mean_sib": 0.6358987390995026,
+    "std_syn": 0.23757318709881345,
+    "std_sib": 0.08997193118741827,
+    "n_syn": 2,
+    "n_sib": 2
+  },
+  "grounding": {
+    "auc": 0.0,
+    "d_prime": -1.7974397242519744,
+    "mean_syn": -0.41820771992206573,
+    "mean_sib": 0.3369174376130104,
+    "std_syn": 0.14741465073961318,
+    "std_sib": 0.575548712624112,
+    "n_syn": 2,
+    "n_sib": 2
+  },
+  "scramble_control": {
+    "auc": 0.75,
+    "d_prime": 0.7877387620023786,
+    "mean_syn": 0.7753909826278687,
+    "mean_sib": 0.5341789424419403,
+    "std_syn": 0.09145680680730557,
+    "std_sib": 0.42327595270733,
+    "n_syn": 2,
+    "n_sib": 2
+  },
+  "randinit_control": {
+    "auc": 1.0,
+    "d_prime": 2.6057216044633504,
+    "mean_syn": 0.858990490436554,
+    "mean_sib": 0.8113185167312622,
+    "std_syn": 0.0010188579159023524,
+    "std_sib": 0.025853129757673465,
+    "n_syn": 2,
+    "n_sib": 2
+  },
+  "concreteness_confound": {
+    "mean_conc_z_synonym": 0.1544092297554016,
+    "mean_conc_z_sibling": 1.7467653453350067,
+    "conc_z_gap_sibling_minus_synonym": 1.592356115579605,
+    "note": "Brysbaert-concreteness z (last grounded dim), averaged per pair-set. A large positive sibling-minus-synonym gap means the sibling probes are systematically MORE concrete than the synonym probes -- a confound: the encoder/interface AUC could reflect an abstract-vs-concrete distributional-context axis rather than same-idea-vs-same-category semantics. Reported for honest scoping, not gated on."
+  },
+  "gate_learning_isolated": false,
+  "arm_digests": {
+    "trained": "2f99814976ec09126ac2bcd4db8acaf24613af1ce64fd51e6db54d8571d0f580",
+    "scrambled": "2293d47a05fde0b2e6805e20823e13f05d3c3e814aa09d3150cb305d878bf0c2",
+    "random_init": "d49b63ac25bd7dfb7b1ecca632b8990387d1211aee9bd48e5def0e9191f57b32"
+  },
+  "power_floor_n": 12,
+  "power_ok": false,
+  "bands": {
+    "hp_auc_min": 0.65,
+    "hf_auc_max": 0.56,
+    "near_chance_band": [
+      0.4,
+      0.6
+    ],
+    "hp_margin_over_grounding": 0.15,
+    "hp_margin_learning_over_randinit": 0.05
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace"
+}

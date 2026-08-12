@@ -1,0 +1,467 @@
+{
+  "verdict": "HARD_PASS_ENCODER_CROSSES_DEEP_WALL",
+  "verdict_msg": "encoder_AUC=0.7175 (d'=0.819) clears >= 0.65 with grounding_AUC_matched=0.3407 (near-chance-or-decisively-beaten) and scramble_AUC=0.5623 collapsing to near-chance -- the deep same-idea wall IS crossable glass-box via the owned learned encoder, via its proper corpus-mention interface",
+  "summary": "encoder_AUC=0.7175 (d'=0.819) clears >= 0.65 with grounding_AUC_matched=0.3407 (near-chance-or-decisively-beaten) and scramble_AUC=0.5623 collapsing to near-chance -- the deep same-idea wall IS crossable glass-box via the owned learned encoder, via its proper corpus-mention interface",
+  "anchor_name": "diag_learned_encoder_synonym_sibling_deep_wall_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-08-12T02:53:01.364376+00:00",
+  "pid": 1320,
+  "elapsed_s": 289.80091620003805,
+  "device": "cpu",
+  "cuda": false,
+  "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v3_relobj\\ckpt_seed_7.pt",
+  "ckpt_seed": 7,
+  "ckpt_selected_arm": "ARM_FUSE_WTUNED",
+  "model_cfg": {
+    "vocab": 16000,
+    "max_len": 128,
+    "d_model": 512,
+    "n_layers": 6,
+    "n_heads": 8,
+    "ffn_mult": 4,
+    "pad_id": 0
+  },
+  "positive_control": {
+    "ok": true,
+    "pairs": [
+      {
+        "a": "apple",
+        "b": "orange",
+        "cited": 0.952,
+        "measured": 0.9521749019622803,
+        "ok": true
+      },
+      {
+        "a": "happy",
+        "b": "joyful",
+        "cited": 0.962,
+        "measured": 0.9616310000419617,
+        "ok": true
+      }
+    ]
+  },
+  "n_read_lines": 3000000,
+  "scan_elapsed_s": 19.73724189994391,
+  "sibling_pairs_target": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ],
+    [
+      "craft",
+      "projectile",
+      "vehicle.n.01"
+    ],
+    [
+      "rocket",
+      "sled",
+      "vehicle.n.01"
+    ],
+    [
+      "bookcase",
+      "buffet",
+      "furniture.n.01"
+    ],
+    [
+      "bureau",
+      "cabinet",
+      "furniture.n.01"
+    ],
+    [
+      "aluminum",
+      "am",
+      "metal.n.01"
+    ],
+    [
+      "be",
+      "cadmium",
+      "metal.n.01"
+    ],
+    [
+      "butane",
+      "charcoal",
+      "fuel.n.01"
+    ],
+    [
+      "coke",
+      "combustible",
+      "fuel.n.01"
+    ],
+    [
+      "awl",
+      "bevel",
+      "hand_tool.n.01"
+    ],
+    [
+      "crank",
+      "file",
+      "hand_tool.n.01"
+    ],
+    [
+      "cock",
+      "hen",
+      "bird.n.01"
+    ],
+    [
+      "parrot",
+      "raptor",
+      "bird.n.01"
+    ],
+    [
+      "alcohol",
+      "chocolate",
+      "beverage.n.01"
+    ],
+    [
+      "cider",
+      "cocoa",
+      "beverage.n.01"
+    ],
+    [
+      "artichoke",
+      "asparagus",
+      "vegetable.n.01"
+    ],
+    [
+      "celery",
+      "cucumber",
+      "vegetable.n.01"
+    ],
+    [
+      "produce",
+      "consume",
+      "task_named_example"
+    ]
+  ],
+  "sibling_pairs_final": [
+    [
+      "acorn",
+      "berry",
+      "fruit.n.01"
+    ],
+    [
+      "gourd",
+      "hip",
+      "fruit.n.01"
+    ],
+    [
+      "craft",
+      "projectile",
+      "vehicle.n.01"
+    ],
+    [
+      "rocket",
+      "sled",
+      "vehicle.n.01"
+    ],
+    [
+      "bookcase",
+      "buffet",
+      "furniture.n.01"
+    ],
+    [
+      "bureau",
+      "cabinet",
+      "furniture.n.01"
+    ],
+    [
+      "aluminum",
+      "am",
+      "metal.n.01"
+    ],
+    [
+      "be",
+      "cadmium",
+      "metal.n.01"
+    ],
+    [
+      "butane",
+      "charcoal",
+      "fuel.n.01"
+    ],
+    [
+      "coke",
+      "combustible",
+      "fuel.n.01"
+    ],
+    [
+      "awl",
+      "bevel",
+      "hand_tool.n.01"
+    ],
+    [
+      "crank",
+      "file",
+      "hand_tool.n.01"
+    ],
+    [
+      "cock",
+      "hen",
+      "bird.n.01"
+    ],
+    [
+      "parrot",
+      "raptor",
+      "bird.n.01"
+    ],
+    [
+      "alcohol",
+      "chocolate",
+      "beverage.n.01"
+    ],
+    [
+      "cider",
+      "cocoa",
+      "beverage.n.01"
+    ],
+    [
+      "artichoke",
+      "asparagus",
+      "vegetable.n.01"
+    ],
+    [
+      "celery",
+      "cucumber",
+      "vegetable.n.01"
+    ],
+    [
+      "produce",
+      "consume",
+      "task_named_example"
+    ]
+  ],
+  "synonym_candidates_n": 40,
+  "synonym_pairs_final": [
+    [
+      "unit",
+      "whole"
+    ],
+    [
+      "individual",
+      "mortal"
+    ],
+    [
+      "beast",
+      "brute"
+    ],
+    [
+      "cognition",
+      "knowledge"
+    ],
+    [
+      "motivation",
+      "motive"
+    ],
+    [
+      "infinite",
+      "space"
+    ],
+    [
+      "act",
+      "deed"
+    ],
+    [
+      "group",
+      "grouping"
+    ],
+    [
+      "amount",
+      "measure"
+    ],
+    [
+      "accomplishment",
+      "achievement"
+    ],
+    [
+      "effort",
+      "exploit"
+    ],
+    [
+      "interchange",
+      "reciprocation"
+    ],
+    [
+      "causation",
+      "causing"
+    ],
+    [
+      "departure",
+      "going"
+    ],
+    [
+      "discovery",
+      "find"
+    ],
+    [
+      "disposal",
+      "disposition"
+    ],
+    [
+      "equalization",
+      "leveling"
+    ],
+    [
+      "recovery",
+      "retrieval"
+    ],
+    [
+      "touch",
+      "touching"
+    ]
+  ],
+  "train_overlap": {
+    "scan_scope": "bounded single pass over data/corpora/arc/.../ARC_Corpus.txt (3000000 lines scanned of 14,621,856 total); a SUBSET of the FULL run's own MLM training pass (max_lines up to 10,000,000 at FULL_CFG in the training cell), so these mention counts likely UNDERSTATE true training exposure, never overstate it.",
+    "n_read": 3000000,
+    "sibling_word_mention_counts": {
+      "acorn": 12,
+      "alcohol": 12,
+      "aluminum": 12,
+      "am": 12,
+      "artichoke": 12,
+      "asparagus": 12,
+      "awl": 12,
+      "be": 12,
+      "berry": 12,
+      "bevel": 12,
+      "bookcase": 12,
+      "buffet": 12,
+      "bureau": 12,
+      "butane": 12,
+      "cabinet": 12,
+      "cadmium": 12,
+      "celery": 12,
+      "charcoal": 12,
+      "chocolate": 12,
+      "cider": 12,
+      "cock": 12,
+      "cocoa": 12,
+      "coke": 12,
+      "combustible": 12,
+      "consume": 12,
+      "craft": 12,
+      "crank": 12,
+      "cucumber": 12,
+      "file": 12,
+      "gourd": 12,
+      "hen": 12,
+      "hip": 12,
+      "parrot": 12,
+      "produce": 12,
+      "projectile": 12,
+      "raptor": 12,
+      "rocket": 12,
+      "sled": 12
+    },
+    "synonym_word_mention_counts": {
+      "accomplishment": 12,
+      "achievement": 12,
+      "act": 12,
+      "amount": 12,
+      "beast": 12,
+      "brute": 12,
+      "causation": 12,
+      "causing": 12,
+      "cognition": 12,
+      "deed": 12,
+      "departure": 12,
+      "discovery": 12,
+      "disposal": 12,
+      "disposition": 12,
+      "effort": 12,
+      "equalization": 12,
+      "exploit": 12,
+      "find": 12,
+      "going": 12,
+      "group": 12,
+      "grouping": 12,
+      "individual": 12,
+      "infinite": 12,
+      "interchange": 12,
+      "knowledge": 12,
+      "leveling": 12,
+      "measure": 12,
+      "mortal": 12,
+      "motivation": 12,
+      "motive": 12,
+      "reciprocation": 8,
+      "recovery": 12,
+      "retrieval": 12,
+      "space": 12,
+      "touch": 12,
+      "touching": 12,
+      "unit": 12,
+      "whole": 12
+    },
+    "n_sibling_words_zero_mentions": 0,
+    "n_synonym_words_zero_mentions": 0,
+    "held_out_split_membership_checked": false,
+    "held_out_split_membership_note": "This diagnostic does NOT reproduce the FULL run's official ~800-concept held-out split (that requires a second full corpus pass for frequency-stratified bucketing, out of scope for a standalone diagnostic). All probe words here have real mentions in this scan (see counts above) -- they were very likely part of MLM training exposure (the scrub only excludes the official held-out surfaces + light inflections, a small fraction of the vocabulary a 237.7M-token corpus covers). Scope the claim accordingly: this measures whether the encoder's LEARNED REPRESENTATION separates synonym from sibling for words it was very likely EXPOSED to during training, not strict inductive-held-out generalization the way the origin cell's own relational/semantic eval does."
+  },
+  "encoder": {
+    "auc": 0.7174515235457064,
+    "d_prime": 0.8185897526048759,
+    "mean_syn": 0.8986174087775382,
+    "mean_sib": 0.8450596928596497,
+    "std_syn": 0.05483242139164662,
+    "std_sib": 0.07453013084633404,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "grounding": {
+    "auc": 0.3407202216066482,
+    "d_prime": -0.47903687142669077,
+    "mean_syn": 0.21841630692544736,
+    "mean_sib": 0.46493347381290634,
+    "std_syn": 0.504977091160804,
+    "std_sib": 0.5240658854289898,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "scramble_control": {
+    "auc": 0.5623268698060941,
+    "d_prime": 0.3034365606800224,
+    "mean_syn": 0.8414100283070615,
+    "mean_sib": 0.8100067690799111,
+    "std_syn": 0.08985750730704084,
+    "std_sib": 0.11552843882534182,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "randinit_control": {
+    "auc": 0.7977839335180056,
+    "d_prime": 1.1539026553324598,
+    "mean_syn": 0.931789617789419,
+    "mean_sib": 0.9104830214851781,
+    "std_syn": 0.015709600690457962,
+    "std_sib": 0.020859219923221973,
+    "n_syn": 19,
+    "n_sib": 19
+  },
+  "arm_digests": {
+    "trained": "34a603e15f10f1899ad4f1228784fa3bf76752364f28ce9613d5c91a818d14b5",
+    "scrambled": "7ebffdd9157b9679944e5f533021db150a904c0d7c5ce11daf7b0d867d65921e",
+    "random_init": "b56f7bd4f73f4e59035114f85d9068911cd7b5a4c3fa0361ad1d02aa29c2937f"
+  },
+  "power_floor_n": 12,
+  "power_ok": true,
+  "bands": {
+    "hp_auc_min": 0.65,
+    "hf_auc_max": 0.56,
+    "near_chance_band": [
+      0.4,
+      0.6
+    ],
+    "hp_margin_over_grounding": 0.15
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace"
+}
