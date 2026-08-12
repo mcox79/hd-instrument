@@ -124,3 +124,9 @@ tools/dashboard/supervisor.pid
 # large foundation data artifact (258MB) — keep local, out of git
 data/cskg_foundation_v1/
 data/exp_cskg_foundation_v1/
+
+# Retired 2026-08-12: hd_session_watchdog pinged a dead multi-session fleet and emitted
+# 27k files into notes/, polluting the director_kb index. Source disabled in
+# tools/hd_session_watchdog.py; this guards against regeneration if the task is revived.
+notes/watchdog_ping_*
+archive/watchdog_pings/

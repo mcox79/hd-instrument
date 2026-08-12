@@ -123,3 +123,62 @@ resumed run computes the same remaining units a fresh run would have.
 3. Implement the feature in `hdlab/`.
 4. Run `pytest verification/` and confirm green.
 5. Update `PROGRESS.md`.
+
+## Superpowers plugin: what we use, what we do NOT (2026-08-12)
+
+The `superpowers` plugin is installed user-scope. It is a SOFTWARE-FEATURE-DELIVERY
+discipline pack (TDD -> review -> branch -> merge). This is a RESEARCH program, so it is
+adopted SELECTIVELY. Precedence is: this file and USER instructions OVERRIDE skills
+(superpowers states this itself). A skill never outranks a project rule.
+
+### ON -- use these
+- `verification-before-completion` -- fuses with our VET discipline. Its rule ("if you
+  haven't run the command in this message you cannot claim it passes"; "agent reports
+  success -> check the diff yourself") IS our disk-verify rule, stated as a gate.
+- `systematic-debugging` -- for cell failures and infra bugs: root-cause before fix.
+- `writing-skills` -- when authoring or revising our own `hdi_*` roles and project skills.
+- `brainstorming` -- STRATEGIC FORKS ONLY, and in PROSE. Never the AskUserQuestion widget
+  (USER, emphatic). Not for routine turns.
+
+### ON but ADAPTED -- three mechanics, mapped onto our roles
+1. **LEDGER.** Any multi-step agent arc keeps `notes/ledger_<arc-slug>.md`, first line
+   naming the arc. One line per step: `Step <N>: complete (commit <sha7>, VET clean)`.
+   After compaction, TRUST THE LEDGER + `git log` over recollection. Our 3-doc system
+   protects the DIRECTOR's state; this protects the ARC's state. Re-dispatching completed
+   work is the single most expensive controller failure.
+2. **BOUNDED FIX-LOOP.** When a cell/VET comes back with findings: max 5 rounds. Rounds
+   1-3 resume the same subagent; rounds 4-5 use a FRESH subagent on a stronger model.
+   At the cap, STOP and adjudicate each open finding explicitly -- fix, PARK WITH A WRITTEN
+   RULING, or declare BLOCKED. Silent discards are forbidden. (We had "drill negatives 2x/5x"
+   with no termination rule; this is the missing brake.)
+3. **NAME THE MODEL ON EVERY DISPATCH.** An omitted model silently inherits the session's
+   (most expensive) model. Default map: `hdi_exp_dev`/`research` = Sonnet;
+   `hdi_skunkworks`/director-grade judgment = Opus; mechanical single-file edits = Haiku.
+
+### OFF -- do NOT use (hazard, not preference)
+- `using-git-worktrees` and `finishing-a-development-branch`. Reason: the canonical store
+  and `data/foundation/` are large and partly uncommitted; a second session may be live;
+  our rules forbid `git add -A` on the store, checkout over an uncommitted store, and
+  origin push without in-session USER auth. Superpowers' worktree flow additionally
+  mentions `git clean -fdx`, which would destroy untracked foundation data. Do not enable.
+- `test-driven-development`'s red/green ceremony as a SUBSTITUTE for our verification
+  discipline. Ours is stricter and already witness-first (see "When implementing a new
+  feature" above). Use ours.
+
+### What superpowers does NOT provide -- these stay ours, and they outrank it
+Pre-registration with can-fail bands; the control battery (scramble / ablation / no-leak /
+prior-lesion); brain-fidelity element audit; the capability-registry WIRE-or-SHELVE gate;
+audit-only role separation (`hdi_skunkworks` never authors what it verifies).
+Superpowers reviews CODE QUALITY. It cannot tell you a result is an artifact.
+
+## SessionStart hook (enforcement, not advice)
+
+`tools/session_start_hook.py` runs on every session start/clear/compact (wired in
+`D:/AI/.claude/settings.json`) and injects: the 6 non-negotiables, the last
+capability-registry audit + its age, and a LIVE director_kb freshness check.
+
+**Why a hook and not a read or a cron.** Both prior mechanisms failed silently: 11 `hd_*`
+scheduled tasks disabled ~12 days unnoticed; the director_kb ingest disabled 6 days
+unnoticed. A session-start READ depends on the agent choosing to do it. The hook depends on
+neither. Keep it FAST (<10s): it reports STATUS and reads persisted audit results -- it must
+never run the 3-minute registry audit inline.

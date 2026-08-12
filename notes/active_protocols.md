@@ -1,9 +1,28 @@
-# Active protocols — read this every cycle
+# RETIRED 2026-08-12 — historical only. DO NOT FOLLOW.
 
-**READ THIS FILE EVERY CYCLE.** The charter's bootstrap protocol fires only
-at cold start; this file must be re-read at the start of every work cycle
-to detect newly-added protocols. If your per-cycle protocol does not list
-this file, add it implicitly under your existing "files I check each cycle."
+> **🛑 THIS DOCUMENT IS RETIRED. Do not act on anything below it.**
+>
+> Every protocol here is addressed to the **multi-session fleet** (Strategy, Visibility,
+> Queue Health, Research, Experiment Dev, META, Product). **That model is DEAD.** The
+> current operating model is a SINGLE session (Research = director) that spawns `hdi_*`
+> subagents — see `CLAUDE.md` → "SESSION STARTUP RITUAL / agent-spawn is the operating
+> model". Sub-agents communicate in-conversation, not via `notes/` files.
+>
+> It was retired because it still instructed every session to "READ THIS FILE EVERY CYCLE"
+> and then described an architecture that no longer exists — a rotted doc that actively
+> misleads, which the charter forbids. Kept for lineage only.
+>
+> **Current rules live in:** `CLAUDE.md`, `notes/SUBSTRATE_CHARTER_read_first.md`,
+> and the SessionStart hook (`tools/session_start_hook.py`).
+
+---
+
+## HISTORICAL CONTENT BELOW (4-session/7-session era, 2026-05 → 2026-06)
+
+**[RETIRED — the "read every cycle" instruction below no longer applies.]** The charter's
+bootstrap protocol fires only at cold start; this file must be re-read at the start of every
+work cycle to detect newly-added protocols. If your per-cycle protocol does not list this
+file, add it implicitly under your existing "files I check each cycle."
 
 **Owner**: META session (single writer). All other sessions read this file
 every cycle, after MEMORY.md.

@@ -71,6 +71,7 @@ INBOX_DEPRECATED_PATTERNS = (
 PER_SESSION_STALE_THRESHOLD_SEC = {
     'skunkworks': 3600,  # 60 min (Skunkworks request 2026-06-21; reactive cert-owner)
     'testbed':    3600,  # 60 min (audit role; always Monitor-armed; was burning self-pings)
+    'research':   3600,  # 60 min (director; waits multi-hour on cell-lands, always Monitor-armed + Stop-hook alive; 20min default mis-fired every idle-wait -- same rationale as skunkworks/testbed; 2026-07-13)
 }
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -202,12 +203,22 @@ def _recent_inbox_for(session: str, max_items: int = 5,
 
 
 def write_ping_note(session: str, dry_run: bool = False) -> Optional[Path]:
-    """Write a high-visibility ping note that the session's monitor will pick up.
+    """DISABLED 2026-08-12: log staleness only; do NOT write ping notes into notes/.
 
-    Filename includes session name + to_all + watchdog tag so the v5 filter matches it.
-    Body includes the concrete recent-inbox snapshot so the session, on wake, has specific
-    work to act on instead of just running the heartbeat-touch.
+    The multi-session fleet this pinged is dead (single-session agent-spawn model; see
+    CLAUDE.md "Notes directory"). The ping mechanism had emitted 27,070 files into notes/
+    (76% of the directory), which polluted the director_kb index that prior-work search
+    depends on. Staleness signal is preserved via data/watchdog/state.json + watchdog.log,
+    which the dashboard reads; only the notes/ write is removed.
+
+    To restore: revert this function body (git history) and re-enable notes/ output.
     """
+    log(f"STALE (ping-notes disabled): session '{session}' has no recent activity signal")
+    return None
+
+
+def _legacy_write_ping_note_DISABLED(session: str, dry_run: bool = False) -> Optional[Path]:
+    """Original notes/-writing implementation, retained for reference. Not called."""
     import os as _os  # local import for scandir
     NOTES_DIR.mkdir(parents=True, exist_ok=True)
     ts = time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
