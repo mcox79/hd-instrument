@@ -427,6 +427,29 @@ def main() -> None:
     print("[run] C3 strict LOO...", flush=True)
     c3 = run_c3(multi, s1, mask_cache)
     print("  C3 %s" % json.dumps(c3), flush=True)
+    # C3's own decisive controls -- without these C3 is an uncontrolled positive
+    c3_swap_runs = [run_c3(multi, s1, mask_cache, mode="swap", swap_seed=i)
+                    for i in range(1 if args.smoke else N_SWAP_SEEDS)]
+    c3_swap = {"acc": round(float(np.mean([r["acc"] for r in c3_swap_runs])), 4),
+               "acc_sd": round(float(np.std([r["acc"] for r in c3_swap_runs])), 4),
+               "subject_weighted_acc": round(float(np.mean(
+                   [r["subject_weighted_acc"] for r in c3_swap_runs])), 4),
+               "n_seeds": len(c3_swap_runs), "n_trials": c3_swap_runs[0]["n_trials"]}
+    c3_cm = run_c3(multi, s1, mask_cache, count_match=True)
+    c3_seg = run_c3(multi, s1, mask_cache, same_segment_only=True)
+    c3_seg_swap = run_c3(multi, s1, mask_cache, same_segment_only=True, mode="swap", swap_seed=1)
+    print("  C3-SWAP %s" % json.dumps(c3_swap), flush=True)
+    print("  C3-COUNTMATCH acc=%s n=%s" % (c3_cm["acc"], c3_cm["n_trials"]), flush=True)
+    print("  C3-SAMESEGMENT acc=%s n=%s ci=%s | its swap acc=%s" %
+          (c3_seg["acc"], c3_seg["n_trials"], c3_seg["ci95"], c3_seg_swap["acc"]), flush=True)
+
+    # primary restricted to trials that actually HAVE a context (masking empties 25% of them)
+    rich = [tr for tr in trials if len(ctx_primary(tr)) >= 3]
+    primary_rich = {k: summarize(v) for k, v in
+                    evaluate(rich, multi, selectors, ctx_primary).items()}
+    print("[run] primary on %d trials with >=3 context tokens: S1=%s S2=%s" %
+          (len(rich), primary_rich["S1_DIST"]["subject_weighted_acc"],
+           primary_rich["S2_PERC"]["subject_weighted_acc"]), flush=True)
 
     # ---- inseparable tail -------------------------------------------------------------------
     tail = analyse_tail(trials, multi, selectors, ctx_primary, s1, s2)
@@ -472,9 +495,18 @@ def main() -> None:
             "S2_asset_is_sentence_independent": True,
         },
         "primary": primary,
+        "primary_context_rich_only": {"n_trials": len(rich), **primary_rich},
         "C1_cross_item_context_swap": c1,
         "C2_context_lesion": c2,
         "C3_strict_leave_one_sentence_out": c3,
+        "C3_control_query_swap": c3_swap,
+        "C3_control_count_matched": c3_cm,
+        "C3_control_same_segment_only": c3_seg,
+        "C3_control_same_segment_only_query_swap": c3_seg_swap,
+        "C3_verdict": (
+            "ARTIFACT (target-side token-count/hub advantage, not sense matching)"
+            if (c3_swap["acc"] or 0) >= (c3["acc"] or 0) - 0.05 else
+            "GENUINE (query-driven: swapping the query collapses it)"),
         "removed_control_cannot_fail": (
             "WORD-ORDER SCRAMBLE of the context: both selectors are bag-of-words aggregates, so "
             "permuting token order leaves every score bit-identical -- it cannot fail by "
@@ -497,38 +529,68 @@ def main() -> None:
     print("wrote %s" % out, flush=True)
 
 
-def run_c3(multi: Dict[str, List[dict]], s1: DistSelector,
-           mask_cache: Dict[str, FrozenSet[str]]) -> dict:
+def run_c3(multi: Dict[str, List[dict]], s1: DistSelector, mask_cache: Dict[str, FrozenSet[str]],
+           *, mode: str = "primary", count_match: bool = False, swap_seed: int = 0,
+           same_segment_only: bool = False) -> dict:
     """C3 -- the ONE arm whose sense-side representation is genuinely CONTEXT-derived.
 
     For each fact with >=2 source sentences: hold out one sentence H; represent EVERY candidate
     sense of that word by the mean RI vector of the content tokens of its OTHER sentences
     (H excluded from all of them); pick the nearest. Leakage-proof by construction: H never
-    contributes to any sense representation. Underpowered by design."""
+    contributes to any sense representation.
+
+    mode="swap"    -- THE decisive control for this arm. The query comes from a sentence of a
+                     DIFFERENT word while the candidate side is untouched. C3's target sense is
+                     the one that KEPT more sentences after hold-out, so it has more tokens and a
+                     smoother (more hub-like) mean vector; that alone could win regardless of the
+                     query. If swap stays high, C3's number is that artifact, not sense matching.
+    count_match=True -- every candidate is capped at ONE sentence, removing the token-count
+                     advantage entirely. Complements swap.
+    """
+    rng = np.random.default_rng(7000 + swap_seed)
+    all_other = sorted({(w, s) for w in multi for f in multi[w] for s in f["source_sentences"]})
     n_ok = n_tot = 0
     n_unscorable = 0
     per_word: Dict[str, List[int]] = collections.defaultdict(list)
+    tgt_tok, cmp_tok = [], []
     for w in sorted(multi):
         facts = multi[w]
+        # same_segment_only: every candidate sense sits in ONE segment, so "which segment does
+        # this sentence come from" carries ZERO information about which sense is correct. This
+        # excludes topic/document matching as the explanation for the C3 lift.
+        if same_segment_only and len({g["segment"] for g in facts}) > 1:
+            continue
         for f in facts:
             if len(f["source_sentences"]) < 2:
                 continue
             for held in f["source_sentences"]:
                 cand_vecs: Dict[str, Optional[np.ndarray]] = {}
+                cand_ntok: Dict[str, int] = {}
                 for g in facts:
                     sents = [s for s in g["source_sentences"] if s != held]
+                    if count_match:
+                        sents = sents[:1]
                     vecs = []
                     for s in sents:
                         for t in masked_context_tokens(s, mask_cache[w]):
                             v = s1.vec(t)
                             if v is not None:
                                 vecs.append(v)
+                    cand_ntok[g["object"]] = len(vecs)
                     cand_vecs[g["object"]] = (np.mean(np.stack(vecs), axis=0) if vecs else None)
                 usable = sorted([o for o, v in cand_vecs.items() if v is not None])
                 if len(usable) < 2:
                     n_unscorable += 1
                     continue
-                q = [s1.vec(t) for t in masked_context_tokens(held, mask_cache[w])]
+                if mode == "swap":
+                    for _try in range(50):
+                        w2, s2_ = all_other[int(rng.integers(len(all_other)))]
+                        if w2 != w:
+                            break
+                    q_sent, q_mask = s2_, mask_cache[w]
+                else:
+                    q_sent, q_mask = held, mask_cache[w]
+                q = [s1.vec(t) for t in masked_context_tokens(q_sent, q_mask)]
                 q = [v for v in q if v is not None]
                 if not q:
                     n_unscorable += 1
@@ -541,11 +603,16 @@ def run_c3(multi: Dict[str, List[dict]], s1: DistSelector,
                 hit = 1 if pick == f["object"] else 0
                 n_ok += hit
                 per_word[w].append(hit)
+                if f["object"] in cand_ntok:
+                    tgt_tok.append(cand_ntok[f["object"]])
+                    cmp_tok.extend([cand_ntok[o] for o in usable if o != f["object"]])
     subj_w = (sum(sum(v) / len(v) for v in per_word.values()) / len(per_word)) if per_word else None
     return {"acc": round(n_ok / n_tot, 4) if n_tot else None,
             "subject_weighted_acc": round(subj_w, 4) if subj_w is not None else None,
             "n_trials": n_tot, "n_words": len(per_word), "n_unscorable": n_unscorable,
-            "ci95": wilson(n_ok, n_tot),
+            "ci95": wilson(n_ok, n_tot), "mode": mode, "count_match": count_match,
+            "mean_target_ctx_tokens": round(float(np.mean(tgt_tok)), 2) if tgt_tok else None,
+            "mean_competitor_ctx_tokens": round(float(np.mean(cmp_tok)), 2) if cmp_tok else None,
             "note": "sense side built ONLY from the sense's other sentences; held-out sentence "
                     "excluded from every candidate. Underpowered: facts with >=2 source sentences."}
 
@@ -575,8 +642,21 @@ def analyse_tail(trials, multi, selectors, ctx_fn, s1: DistSelector, s2: PercSel
     for w in dead:
         facts = multi[w]
         objs = sorted({f["object"] for f in facts})
-        surfaces = [f.get("definiendum_surface") or "" for f in facts]
-        proper = any(s[:1].isupper() for s in surfaces if s)
+        # PROPER NOUN must be capitalised MID-sentence -- sentence-initial capitalisation is
+        # not evidence of an entity and the first version of this classifier wrongly counted it
+        # (it labelled coal/oxygen/fish "proper nouns"). Fixed.
+        proper = False
+        for f in facts:
+            surf = (f.get("definiendum_surface") or "").strip()
+            if not surf or not surf[:1].isupper():
+                continue
+            for s in f["source_sentences"]:
+                pos = s.find(surf)
+                if pos > 0:
+                    proper = True
+                    break
+            if proper:
+                break
         # near-duplicate senses: any object pair with high perceptual profile cosine
         sims = []
         for i in range(len(objs)):
@@ -640,7 +720,11 @@ def run_self_tests() -> None:
     t = ["alpha", "beta", "gamma", "delta"]
     a = sel.scores(t, ["one", "two"])
     b = sel.scores(list(reversed(t)), ["one", "two"])
-    assert a == b, "word-order scramble is NOT invariant -- the removal rationale is wrong"
+    # equal to within float summation order only (np.mean reassociates); that residual is ~1e-16
+    # and can never change an argmax, so the control is still incapable of failing.
+    assert max(abs(x - y) for x, y in zip(a, b)) < 1e-9, \
+        "word-order scramble is NOT invariant -- the removal rationale is wrong: %r vs %r" % (a, b)
+    assert argmax_deterministic(a, ["one", "two"]) == argmax_deterministic(b, ["one", "two"])
 
     # (6) rank helper
     assert rank_of([0.1, 0.9, 0.5]) == [2, 0, 1]

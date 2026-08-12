@@ -1,0 +1,354 @@
+{
+  "cell": "exp_context_conditioned_sense_selection_v1",
+  "prereg": "preregs/2026-08-12_context_conditioned_sense_selection_v1.md",
+  "census": {
+    "n_facts_total": 1751,
+    "n_distinct_subjects": 1316,
+    "n_multisense_subjects": 288,
+    "multisense_subject_frac": 0.2188,
+    "n_facts_in_multisense": 723,
+    "mean_k": 2.5104,
+    "k_distribution": {
+      "2": 187,
+      "3": 77,
+      "4": 12,
+      "5": 7,
+      "6": 3,
+      "7": 1,
+      "10": 1
+    },
+    "analytic_floor_subject_weighted": 0.4316,
+    "analytic_floor_micro_per_fact": 0.3983,
+    "n_trials": 841,
+    "n_trials_excluded_label_ambiguous": 8,
+    "n_words_with_ambiguous_sentence": 4,
+    "src_sentence_count_distribution": {
+      "1": 621,
+      "2": 78,
+      "3": 24
+    }
+  },
+  "floor": {
+    "analytic_subject_weighted": 0.4316,
+    "empirical_subject_weighted": 0.4321,
+    "analytic_micro_per_fact": 0.3983
+  },
+  "ri_encoder": {
+    "N": 8192,
+    "sparsity": 10,
+    "window": 5,
+    "min_count": 3,
+    "seed": 0,
+    "vocab_size": 13342,
+    "n_tokens_seen": 598709
+  },
+  "leakage_control": {
+    "L1_eval_sentences_removed_from_fit_corpus": 850,
+    "L1_asserted_disjoint": true,
+    "L2_answer_tokens_masked_asserted": true,
+    "L2_mean_context_tokens": 7.09,
+    "L2_empty_context_trials": 210,
+    "L3_no_extractor_metadata_in_scorer": true,
+    "S2_asset_is_sentence_independent": true
+  },
+  "primary": {
+    "S1_DIST": {
+      "subject_weighted_acc": 0.4296,
+      "micro_acc": 0.3965,
+      "micro_ci95": [
+        0.3618,
+        0.4322
+      ],
+      "n_words": 249,
+      "n_trials": 739,
+      "unscorable_trials": 102,
+      "n_words_zero_correct": 30
+    },
+    "S2_PERC": {
+      "subject_weighted_acc": 0.4268,
+      "micro_acc": 0.3933,
+      "micro_ci95": [
+        0.3582,
+        0.4295
+      ],
+      "n_words": 240,
+      "n_trials": 717,
+      "unscorable_trials": 124,
+      "n_words_zero_correct": 35
+    },
+    "S3_COMBO": {
+      "subject_weighted_acc": 0.4162,
+      "micro_acc": 0.3785,
+      "micro_ci95": [
+        0.342,
+        0.4164
+      ],
+      "n_words": 215,
+      "n_trials": 650,
+      "unscorable_trials": 191,
+      "n_words_zero_correct": 25
+    }
+  },
+  "primary_context_rich_only": {
+    "n_trials": 469,
+    "S1_DIST": {
+      "subject_weighted_acc": 0.3807,
+      "micro_acc": 0.3788,
+      "micro_ci95": [
+        0.3324,
+        0.4275
+      ],
+      "n_words": 190,
+      "n_trials": 396,
+      "unscorable_trials": 73,
+      "n_words_zero_correct": 68
+    },
+    "S2_PERC": {
+      "subject_weighted_acc": 0.4066,
+      "micro_acc": 0.387,
+      "micro_ci95": [
+        0.3397,
+        0.4366
+      ],
+      "n_words": 187,
+      "n_trials": 385,
+      "unscorable_trials": 84,
+      "n_words_zero_correct": 72
+    },
+    "S3_COMBO": {
+      "subject_weighted_acc": 0.3998,
+      "micro_acc": 0.3757,
+      "micro_ci95": [
+        0.3258,
+        0.4285
+      ],
+      "n_words": 163,
+      "n_trials": 338,
+      "unscorable_trials": 131,
+      "n_words_zero_correct": 63
+    }
+  },
+  "C1_cross_item_context_swap": {
+    "S1_DIST": {
+      "subject_weighted_acc": 0.4249,
+      "subject_weighted_sd": 0.0044,
+      "micro_acc": 0.3975,
+      "n_seeds": 5
+    },
+    "S2_PERC": {
+      "subject_weighted_acc": 0.428,
+      "subject_weighted_sd": 0.012,
+      "micro_acc": 0.395,
+      "n_seeds": 5
+    },
+    "S3_COMBO": {
+      "subject_weighted_acc": 0.4134,
+      "subject_weighted_sd": 0.0146,
+      "micro_acc": 0.384,
+      "n_seeds": 5
+    }
+  },
+  "C2_context_lesion": {
+    "S1_DIST": {
+      "subject_weighted_acc": 0.4221,
+      "micro_acc": 0.3884,
+      "micro_ci95": [
+        0.3539,
+        0.424
+      ],
+      "n_words": 249,
+      "n_trials": 739,
+      "unscorable_trials": 102,
+      "n_words_zero_correct": 2
+    },
+    "S2_PERC": {
+      "subject_weighted_acc": 0.4282,
+      "micro_acc": 0.3891,
+      "micro_ci95": [
+        0.3541,
+        0.4253
+      ],
+      "n_words": 240,
+      "n_trials": 717,
+      "unscorable_trials": 124,
+      "n_words_zero_correct": 0
+    },
+    "S3_COMBO": {
+      "subject_weighted_acc": 0.4243,
+      "micro_acc": 0.3862,
+      "micro_ci95": [
+        0.3495,
+        0.4241
+      ],
+      "n_words": 215,
+      "n_trials": 650,
+      "unscorable_trials": 191,
+      "n_words_zero_correct": 0
+    }
+  },
+  "C3_strict_leave_one_sentence_out": {
+    "acc": 0.6914,
+    "subject_weighted_acc": 0.6481,
+    "n_trials": 162,
+    "n_words": 62,
+    "n_unscorable": 66,
+    "ci95": [
+      0.6165,
+      0.7574
+    ],
+    "mode": "primary",
+    "count_match": false,
+    "mean_target_ctx_tokens": 13.6,
+    "mean_competitor_ctx_tokens": 12.99,
+    "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+  },
+  "C3_control_query_swap": {
+    "acc": 0.4272,
+    "acc_sd": 0.0245,
+    "subject_weighted_acc": 0.4345,
+    "n_seeds": 5,
+    "n_trials": 184
+  },
+  "C3_control_count_matched": {
+    "acc": 0.6835,
+    "subject_weighted_acc": 0.6378,
+    "n_trials": 158,
+    "n_words": 60,
+    "n_unscorable": 70,
+    "ci95": [
+      0.6074,
+      0.751
+    ],
+    "mode": "primary",
+    "count_match": true,
+    "mean_target_ctx_tokens": 9.8,
+    "mean_competitor_ctx_tokens": 11.67,
+    "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+  },
+  "C3_control_same_segment_only": {
+    "acc": 0.5778,
+    "subject_weighted_acc": 0.5539,
+    "n_trials": 45,
+    "n_words": 17,
+    "n_unscorable": 28,
+    "ci95": [
+      0.433,
+      0.7103
+    ],
+    "mode": "primary",
+    "count_match": false,
+    "mean_target_ctx_tokens": 24.24,
+    "mean_competitor_ctx_tokens": 22.44,
+    "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+  },
+  "C3_control_same_segment_only_query_swap": {
+    "acc": 0.3519,
+    "subject_weighted_acc": 0.386,
+    "n_trials": 54,
+    "n_words": 19,
+    "n_unscorable": 19,
+    "ci95": [
+      0.2382,
+      0.4852
+    ],
+    "mode": "swap",
+    "count_match": false,
+    "mean_target_ctx_tokens": 20.63,
+    "mean_competitor_ctx_tokens": 19.94,
+    "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+  },
+  "C3_verdict": "GENUINE (query-driven: swapping the query collapses it)",
+  "removed_control_cannot_fail": "WORD-ORDER SCRAMBLE of the context: both selectors are bag-of-words aggregates, so permuting token order leaves every score bit-identical -- it cannot fail by construction and was removed. C1 cross-item swap replaces it.",
+  "best_selector": "S1_DIST",
+  "best_subject_weighted_acc": 0.4296,
+  "C1_drop": 0.0047,
+  "inseparable_tail": {
+    "n_words_scored": 274,
+    "n_words_never_correct": 13,
+    "frac_words_never_correct": 0.0474,
+    "pattern_counts": {
+      "distinct_senses_no_context_support": 12,
+      "proper_noun_entity_collision": 1
+    },
+    "examples": {
+      "distinct_senses_no_context_support": [
+        {
+          "word": "chromosome",
+          "senses": [
+            "bound",
+            "copy",
+            "determinant",
+            "length",
+            "male",
+            "pair"
+          ]
+        },
+        {
+          "word": "coal",
+          "senses": [
+            "contributor",
+            "fuel"
+          ]
+        },
+        {
+          "word": "envelope",
+          "senses": [
+            "capsid",
+            "reticulum",
+            "structure"
+          ]
+        },
+        {
+          "word": "factor",
+          "senses": [
+            "allele",
+            "mendel",
+            "receptor"
+          ]
+        },
+        {
+          "word": "fermentation",
+          "senses": [
+            "collectively",
+            "enzyme"
+          ]
+        },
+        {
+          "word": "fish",
+          "senses": [
+            "earliest",
+            "ostracoderm",
+            "vertebrate"
+          ]
+        },
+        {
+          "word": "fission",
+          "senses": [
+            "grow",
+            "process"
+          ]
+        },
+        {
+          "word": "fungi",
+          "senses": [
+            "chytridiomycota",
+            "chytrids",
+            "source"
+          ]
+        }
+      ],
+      "proper_noun_entity_collision": [
+        {
+          "word": "airport",
+          "senses": [
+            "entrance",
+            "gateway"
+          ]
+        }
+      ]
+    }
+  },
+  "final_verdict": "HARD_FAIL_context_conditioned_sense_selection_DOES_NOT_WORK",
+  "runtime_s": 22.9,
+  "smoke": false
+}

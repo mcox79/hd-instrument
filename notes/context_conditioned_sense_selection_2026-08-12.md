@@ -93,4 +93,91 @@ HONEST CAP: 623K tokens is SMALL for distributional semantics (text8 = 17M). The
 distributional selector is representation-limited by corpus size, and a null from it is a
 null about THIS corpus at THIS size, not about distributional sense selection in general.
 
-(continued below as the run proceeds)
+## STEP 3 -- RESULTS (full run, `data/exp_context_conditioned_sense_selection_v1/metrics.json`)
+
+841 trials / 288 words (8 trials excluded as label-ambiguous, 4 words). Floor 0.4316 analytic,
+0.4321 empirical over 1000 seeds. RI: 598,709 fit tokens, vocab 13,342, 850 eval sentences
+removed from the fit corpus (L1 asserted disjoint). Runtime 15.5s.
+
+### MAIN ARM -- sense represented by the STORED OBJECT WORD: DECISIVE NULL
+
+| arm | S1_DIST | S2_PERC | S3_COMBO |
+|---|---|---|---|
+| PRIMARY (subject-weighted) | **0.4296** | 0.4268 | 0.4162 |
+| C1 cross-item context swap | 0.4249 (sd 0.0044) | 0.4280 (sd 0.012) | 0.4134 |
+| C2 context lesion | 0.4221 | 0.4282 | 0.4243 |
+| FLOOR | 0.4316 | 0.4316 | 0.4316 |
+
+Every number is inside +/-0.016 of the floor. **The right context, a wrong context, and no
+context at all all produce the same accuracy.** Restricting to the 469 trials with >=3 context
+tokens makes it WORSE (S1 0.3807, S2 0.4066), so the null is not an artifact of the 210
+trials the masking emptied. Micro CI for S1 [0.3618, 0.4322] straddles its own micro floor
+0.3983.
+
+Verdict **HARD_FAIL** -- and all three pre-registered failure conditions fired independently
+(both selectors within 0.03 of floor; C1 drop 0.005 << 0.05; C2 within 0.03 of primary).
+
+### C3 -- sense represented by ITS OWN OTHER SOURCE SENTENCES: GENUINE POSITIVE
+
+| arm | acc | n | 95% CI |
+|---|---|---|---|
+| C3 strict leave-one-sentence-out | **0.6914** (subj-w 0.6481) | 162 | [0.6165, 0.7574] |
+| C3 query-swap control | 0.4272 (sd 0.0245, 5 seeds) | 184 | -- |
+| C3 count-matched (1 sentence per sense) | 0.6835 | 158 | -- |
+| C3 same-segment-only | 0.5778 | 45 | [0.4330, 0.7103] |
+| C3 same-segment-only, query-swapped | 0.3519 | 45 | -- |
+
+Both confounds I could think of were tested and cleared:
+- **Query-driven, not candidate-side.** Swapping in a query sentence from a DIFFERENT word
+  collapses 0.6914 -> 0.4272 (lift 0.264). The lift is caused by the query.
+- **Not a token-count / hubness artifact.** C3's target sense keeps more sentences after
+  hold-out, so it could have won on a smoother mean vector alone. Capping every candidate at
+  one sentence leaves it at 0.6835. (Measured token counts were near-identical anyway:
+  target 13.6 vs competitor 12.99.)
+- **Partly, but not wholly, topic/segment matching.** Restricting to words whose senses all
+  sit in ONE segment (so segment identity carries zero information) drops it to 0.5778 --
+  so roughly 0.11 of the headline lift WAS topic matching. The residual is still 0.226 above
+  its own swap (0.3519), but n=45 and the CI lower bound (0.4330) sits essentially ON the
+  floor. **The segment-free residual is suggestive, NOT established.** Do not quote 0.6914
+  as a clean sense-selection number.
+
+### THE DISSOCIATION -- what this actually shows
+
+Same substrate, same retrieval operation, same 288 words, same floor. The ONLY thing that
+changes between the null and the positive is **what the sense side is made of**:
+- sense = the bare object word the store actually holds -> **0.4296 = floor, dead**
+- sense = the sentences that sense came from          -> **0.6914, swap-controlled**
+
+So the missing capability is NOT the collapse/retrieval mechanism, and NOT superposition
+storage. It is that the landed foundation **banks the object word and throws the source
+context away**, leaving nothing for a context key to match against. `source_sentences` survives
+in the JSONL provenance but never enters the HD fact. That is the precise, small build target.
+
+### HONEST TAIL -- and one claim I could NOT substantiate
+
+13 of 274 scorable words (4.7%) are never selected correctly by either selector. That count is
+weak evidence on its own: at mean 2.9 trials/word and floor-level accuracy, being 0-for-2 is
+an ordinary coin-flip outcome, so this list is not a reliable "inseparable" set.
+Fixed a real bug in the classifier mid-run: it counted sentence-initial capitalisation as a
+proper noun and so mislabelled coal/oxygen/fish as entity collisions. After the fix: 12
+"distinct senses, no context support", 1 genuine proper-noun collision (`airport ->
+{entrance, gateway}`).
+
+**Qualitative read, EXPLICITLY NOT MEASURED:** looking at the dead words, many "senses" do not
+look like senses -- `chromosome -> {bound, copy, determinant, length, male, pair}`,
+`fungi -> {chytridiomycota, chytrids, source}`, `fish -> {earliest, ostracoderm, vertebrate}`
+read as fragments of definitional phrases, not as distinct meanings. If true this caps
+achievable accuracy on the main arm.
+**I tried to quantify it and FAILED to confirm it.** Machine proxies over all 288 words:
+morphological near-duplicate object pair = 1 word (0.3%); any object failing the content-word
+gate = 0 words (0%); 287/288 pass both. So my cheap proxies do NOT support the impression.
+It stands as a hypothesis requiring a labelled check, not a finding. Reporting it as measured
+would be exactly the over-claim this project's discipline forbids.
+Separately measured and solid: 168/288 (58.3%) of multi-sense words have all senses inside one
+segment -- the population the same-segment control runs on.
+
+### PROMOTION: none. FHRRProcessStore was NOT promoted and was not needed.
+The question was answered with the retrieval path that already exists plus two owned organs.
+A superposition store implements the collapse; the measurement shows the collapse is not what
+is broken, so promoting it would not have moved this result. Its HARD_FAIL_PARTIAL cell's
+0.9556 (3-way fate codebook, 225 keys) never entered this cell in any form.
