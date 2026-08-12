@@ -225,3 +225,73 @@ get grounded without making WHICH anchor wins any less arbitrary. Sensitivity, r
 required: 0.48 keeps 382/634 (60%), 0.50 keeps 287 (45%), 0.55 keeps 143 (23%), 0.60 keeps 57
 (9%). **THRESHOLD LEFT AT 0.45.** There is no independent justification to move it, and moving
 it to make the audit look better would be fitting to the test.
+
+## 4. STEP 3 -- DEFINITIONAL EXTRACTION BUILT AND RUN (result pending HUMAN B3)
+
+Pre-reg (committed BEFORE the run, `7d937bf6b`): `preregs/2026-08-12_definitional_grounding_v3.md`
+Cell: `experiments/exp_definitional_grounding_v3.py`  (self-test PASS, smoke PASS, FULL 35.7s)
+Metrics: `data/exp_definitional_grounding_v3/metrics.json`, verdict `STRUCTURAL_PASS_PENDING_B3`
+
+### Reused vs built (query-before-build, per the documented reinvention failure mode)
+
+`python tools/capability_registry_query.py --serves "definitional sentence extraction copula
+appositive parse"` -> **0 / 107 rows match**. Manual scan of all 107 registry rows for
+parse/coref/frame/thematic organs found: `typed_rule_parser`, `coreference_resolver`,
+`frame_induction`, `parse_goal_extraction`, `thematic_role_labeler`, `animacy_lexicon`. None
+exposes a bare NP-head or definitional-construction API.
+
+| REUSED (imported, unmodified) | BUILT NEW |
+|---|---|
+| `thematic_role_labeler.lemma_word` (extended by me, then reused) | `hdlab/definitional_extraction.py` -- 5 surface patterns + NP-head + guards |
+| `closed_class_lexicon.is_closed_class` | `hdlab/low_information_filter.py` -- PMI gate calibrated off the closed-class lexicon |
+| `hd_fact_store.HDFactStore` (real store, n_dim=2048, sharded) | the 3-arm harness |
+| WordNet (already vendored; used by `animacy_lexicon`) | -- |
+| the cycle-1/cycle-2 corpus loaders, verbatim | -- |
+
+The ~20-line NP-head heuristic is the one place I wrote shallow syntax rather than reusing a
+parser, because no owned organ exposes that API; it is documented as deliberately shallow.
+
+### Arm sizes (MEASURED@data/exp_definitional_grounding_v3/metrics.json)
+
+| arm | facts | note |
+|---|---|---|
+| DIST_ASIS | 634 | hand-scored 8% / 26% / 66% |
+| DIST_LOWINFO (CONTROL) | 290 | refusals: 296 NEVER_CO_OCCURS, 48 LOW_INFORMATION_OBJECT |
+| **DEF** | **1751** | **1749 of them NOT produced by the distributional path** |
+
+DEF pattern mix: COPULA 722, APPOSITIVE 583, CALLED 458, GLOSSARY_COLON 57, REFERS_TO 9.
+DEF segment mix: bio_new 1022, bootstrap 315, adv_new 182, int_cont 173, ele_cont 137.
+DEF attestations: 1452 facts seen once, 248 twice, 125 three times.
+DEF refusals: 434 LOW_INFORMATION_OBJECT, 9 CLOSED_CLASS_OBJECT, 1 NEVER_CO_OCCURS.
+
+**COVERAGE IS NOT THE BLOCKER, contrary to what I expected in section 2c.** Definitional
+constructions are NOT rare in this corpus: DEF banks 2.8x more facts than the distributional path
+(1751 vs 634) at 35 seconds of CPU. The honesty caveat I pre-registered therefore lands the OTHER
+way from the way it was framed: this is a high count, so the risk is not "high rate on 40 facts",
+it is that a low rate on 1751 facts still beats 8% on 634 in ABSOLUTE terms. Arithmetic, stated
+now so it cannot be spun later: DIST_ASIS yields ~51 meaningful facts (0.08 x 634). DEF needs
+only **2.9%** MEANINGFUL to match that absolute count. **So the absolute-count comparison is
+nearly uninformative here and the RATE band is the one that matters.** Read the pre-reg bands on
+the rate; treat any absolute-count win as expected rather than as evidence.
+
+### Two extractor faults fixed BEFORE any scoring (disclosed so the sequence is auditable)
+
+Eyeballing the first generated sample (NOT scoring it) showed two systematic false-positive
+classes, both fixed and regression-tested before the final run: (i) sentence-initial ADVERBIALS
+and SUBORDINATE CLAUSES read as appositives (`Additionally, the gradual melting ...` ->
+`additionally -> melting`; `While this might sound like an exaggeration, ...`); (ii) non-nominal
+definienda (`disappoint -> prequels`). Fix: a definiendum must be a WordNet NOUN or absent from
+WordNet entirely (technical terms and proper nouns must pass -- `arthropoda`, `rubisco` are
+exactly the words a reader needs defined). Effect: 1829 -> 1751 facts. This happened BEFORE any
+MEANINGFUL/RELATED/NOISE judgement was made, so it is bug-fixing, not fitting to the test; had I
+scored first and then fixed, it would have been the latter.
+
+### NOT SCORED HERE
+
+`data/exp_definitional_grounding_v3/b3_audit_sample_DEF.json` (50 rows, seed=42, sampling
+bit-identical to the v2 B3 procedure and asserted so in the cell's self-test) and
+`..._DIST_LOWINFO.json` are written for the DIRECTOR to hand-score. The cell assigns no buckets
+and claims no band. Residual noise IS visible in the DEF sample by eye
+(`afghanistan -> catch`, `annelid -> indicate`) alongside clean hits (`anion -> ion`,
+`anus -> opening`, `cadmium -> metal`, `antigen -> molecule`, `anther -> structure`); I am
+deliberately not converting that impression into a number.
