@@ -57,6 +57,12 @@ from typing import Dict, FrozenSet, Optional
 import torch
 
 from hdlab.bundling import bundle
+from hdlab.grounded_similarity import (
+    GROUNDED_CAP as _GROUNDED_CAP,
+    grounded_similarity as _grounded_similarity,
+    in_grounded_lexicon as _in_grounded_lexicon,
+    self_test as _grounded_similarity_self_test,
+)
 from hdlab.situation_model_accumulate import unit_phase_vec
 
 # Matches exp_n11c's CONFIG_VERSION (N_DIM=8192, SEED=7) so this module's cosine geometry
@@ -291,15 +297,54 @@ def in_lexicon(word: str) -> bool:
     return word in CONCEPT_FEATURES
 
 
-def concept_similarity(word_a: str, word_b: str) -> Optional[float]:
-    """Shared-feature cosine similarity, or None if either word is OOV of CONCEPT_FEATURES --
-    callers MUST treat None as "cannot judge" (fall through to their own existing behavior), never
+def in_lexicon_or_grounded(word: str) -> bool:
+    """True if `word` is judgeable by concept_similarity's default (fallback-enabled) path --
+    either the hand lexicon (CONCEPT_FEATURES) or the grounded (Lancaster sensorimotor +
+    Brysbaert concreteness) fallback covers it. ADDITIVE helper for callers that currently
+    pre-gate on in_lexicon(word) before calling concept_similarity (e.g.
+    hdlab.goal_typing._referent_links Tier-2) -- swapping that gate to this function is how a
+    caller opts INTO the OOV-coverage extension; existing callers that keep using in_lexicon()
+    are unaffected (this function does not change in_lexicon's own behavior)."""
+    return in_lexicon(word) or _in_grounded_lexicon(word)
+
+
+# GROUNDED FALLBACK (2026-08-11, architecture-audit TIER-1 shore-up, see
+# notes/architecture_audit_2026-08-11.md and hdlab/grounded_similarity.py's module docstring for
+# the full rationale + the MEASURED anti-over-merge calibration). CONCEPT_FEATURES covers ~230
+# hand-typed concepts; every OTHER word previously made concept_similarity return None
+# unconditionally ("cannot judge"), even though a 39,707-word grounding-norms asset (Lancaster
+# sensorimotor + Brysbaert concreteness, data/grounding_testbed/*.csv) sat on disk with zero live
+# inference paths. concept_similarity now falls back to that asset when either word is OOV of
+# CONCEPT_FEATURES, instead of returning None -- ADDITIVE, layered UNDERNEATH the hand lexicon:
+#   - both words IN CONCEPT_FEATURES -> hand-lexicon FHRR-bundle cosine (UNCHANGED, byte-identical
+#     to the pre-2026-08-11 behavior -- this is the "no regression on covered vocab" guarantee).
+#   - either word OOV of CONCEPT_FEATURES -> BOTH words are scored via the grounded profile
+#     (never a mixed hand-lexicon-cosine-vs-grounded-cosine comparison -- those are different
+#     vector spaces and not comparable), capped at GROUNDED_CAP (0.45), STRUCTURALLY below
+#     SIMILARITY_LINK_THRESHOLD (0.50) so the fallback can never itself trigger a same-idea/merge
+#     decision at the project's standard link threshold (see grounded_similarity.py docstring
+#     "SAFE-BY-CONSTRUCTION RESPONSE" for the measured reason: raw sensorimotor+concreteness
+#     cosine cannot separate a true synonym from a perceptually-similar-but-identity-distinct
+#     sibling, e.g. apple/orange raw_cos=0.952 vs happy/joyful raw_cos=0.962 -- statistically
+#     inseparable above the cap, so nothing this path returns is trusted at "same idea" strength).
+#   - neither source covers the pair, or use_grounded_fallback=False -> None (unchanged contract).
+def concept_similarity(word_a: str, word_b: str, use_grounded_fallback: bool = True) -> Optional[float]:
+    """Shared-feature cosine similarity when both words are in CONCEPT_FEATURES (hand lexicon,
+    UNCHANGED path/values). If either word is OOV of CONCEPT_FEATURES and use_grounded_fallback
+    is True (default), falls back to the grounded (Lancaster sensorimotor + Brysbaert
+    concreteness) similarity (hdlab.grounded_similarity), capped at GROUNDED_CAP so it can never
+    cross SIMILARITY_LINK_THRESHOLD -- see the module-level "GROUNDED FALLBACK" comment above.
+    Returns None only if neither source covers the pair, or use_grounded_fallback=False (in which
+    case behavior is byte-identical to the pre-2026-08-11 hand-lexicon-only function). Callers
+    MUST still treat None as "cannot judge" (fall through to their own existing behavior), never
     crash, never treat OOV as either a link or a non-link by default."""
     va = concept_vector(word_a)
     vb = concept_vector(word_b)
-    if va is None or vb is None:
+    if va is not None and vb is not None:
+        return _cos_complex(va, vb)
+    if not use_grounded_fallback:
         return None
-    return _cos_complex(va, vb)
+    return _grounded_similarity(word_a, word_b)
 
 
 # Pre-registered (see preregs/2026-08-06_wire_shared_feature_similarity_outcome_valence_v1.md):
@@ -363,6 +408,60 @@ def self_test() -> dict:
         "vessel/ferry gain (got real=%.4f scrambled=%.4f, delta=%.4f < 0.30)"
         % (sim_vessel_ferry, sim_scrambled, sim_vessel_ferry - sim_scrambled))
 
+    # (6) GROUNDED FALLBACK checks (2026-08-11 addition; see the "GROUNDED FALLBACK" module
+    # comment above concept_similarity). "sofa"/"couch"/"apple"/"orange" are OOV of
+    # CONCEPT_FEATURES (verified: not in the hand lexicon, hand-typed or ProPara-extension) so
+    # they exercise the grounded path end-to-end through the public concept_similarity API, not
+    # just hdlab.grounded_similarity directly.
+    for w in ("sofa", "couch", "apple", "orange"):
+        assert w not in CONCEPT_FEATURES, (
+            "SELF-TEST PRECONDITION BROKEN: %r was added to CONCEPT_FEATURES; pick a different "
+            "OOV probe word for the grounded-fallback checks below" % w)
+
+    # (6a) no-regression / byte-identical-when-off: with use_grounded_fallback=False, an OOV pair
+    # returns None exactly as the pre-2026-08-11 function did (the toggle this promotion's
+    # "additive default must preserve prior behavior byte-identical when the grounded fallback is
+    # off" contract requires).
+    assert concept_similarity("sofa", "couch", use_grounded_fallback=False) is None, (
+        "NO-REGRESSION FAILURE: use_grounded_fallback=False must reproduce the pre-2026-08-11 "
+        "None-on-OOV behavior byte-identically")
+
+    # (6b) coverage extension: with the default (fallback ON), the same OOV pair now returns a
+    # real graded similarity instead of None.
+    sim_sofa_couch = concept_similarity("sofa", "couch")
+    assert sim_sofa_couch is not None, "COVERAGE-EXTENSION FAILURE: grounded fallback did not fire for OOV pair (sofa,couch)"
+    assert 0.0 <= sim_sofa_couch <= _GROUNDED_CAP
+
+    # (6c) anti-over-merge-by-construction, exercised through the PUBLIC concept_similarity API
+    # (not just hdlab.grounded_similarity directly): every grounded-fallback value concept_
+    # similarity can return is capped strictly below SIMILARITY_LINK_THRESHOLD, so an OOV
+    # sibling-distinct pair (apple/orange -- perceptually similar, identity-distinct fruits) can
+    # never trigger a same-idea/merge decision at the project's standard link convention.
+    sim_apple_orange = concept_similarity("apple", "orange")
+    assert sim_apple_orange is not None
+    assert sim_apple_orange < SIMILARITY_LINK_THRESHOLD, (
+        "OVER-LINK FAILURE: grounded-fallback sim(apple,orange)=%.4f must stay BELOW "
+        "SIMILARITY_LINK_THRESHOLD %.2f" % (sim_apple_orange, SIMILARITY_LINK_THRESHOLD))
+
+    # (6d) mixed hand-lexicon/OOV pair: "vessel" IS in CONCEPT_FEATURES, "sofa" is not -- must
+    # fall through to the grounded path for BOTH words (never mix a hand-lexicon-FHRR-cosine with
+    # a grounded-cosine; those are different vector spaces).
+    sim_mixed = concept_similarity("vessel", "sofa")
+    assert sim_mixed is not None and 0.0 <= sim_mixed <= _GROUNDED_CAP
+
+    # (6e) in_lexicon_or_grounded: True for hand-lexicon words, True for grounded-only words,
+    # False for genuine nonsense.
+    assert in_lexicon_or_grounded("vessel") is True
+    assert in_lexicon_or_grounded("sofa") is True
+    assert in_lexicon_or_grounded("not_a_real_word_zzz") is False
+
+    # (6f) the grounded module's own self-test (coverage/ordering/cap/circularity) must also pass
+    # standalone -- re-asserted here so a regression in hdlab/grounded_similarity.py surfaces at
+    # THIS module's self_test too (the same "core_preserved" discipline
+    # exp_representation_canonicalization_v1 already applies to lexical_similarity/hd_fact_store).
+    grounded_result = _grounded_similarity_self_test()
+    assert grounded_result is not None
+
     return {
         "sim_vessel_ferry": round(sim_vessel_ferry, 4),
         "sim_vessel_dock": round(sim_vessel_dock, 4),
@@ -371,6 +470,14 @@ def self_test() -> dict:
         "threshold": SIMILARITY_LINK_THRESHOLD,
         "n_concepts": len(CONCEPT_FEATURES),
         "n_feature_tags": len(_feature_vocab()),
+        "grounded_fallback": {
+            "sim_sofa_couch_fallback_off": None,
+            "sim_sofa_couch": round(sim_sofa_couch, 4),
+            "sim_apple_orange": round(sim_apple_orange, 4),
+            "sim_vessel_sofa_mixed": round(sim_mixed, 4),
+            "grounded_cap": _GROUNDED_CAP,
+            "grounded_self_test": grounded_result,
+        },
     }
 
 

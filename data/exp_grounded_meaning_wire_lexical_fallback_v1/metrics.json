@@ -1,0 +1,287 @@
+{
+  "verdict": "HARD_PASS_grounded_meaning_wired_without_over_merge",
+  "verdict_msg": "grounded (Lancaster sensorimotor + Brysbaert concreteness) fallback wired into concept_similarity: n_words_now_covered=400 (median_synonym=0.3781 > median_unrelated=0.0000), anti-over-merge clean (19/19 trap pairs stay distinct, capped at GROUNDED_CAP=0.45 < SIMILARITY_LINK_THRESHOLD=0.5), controls clean, no regression on covered vocab (pytest GREEN).",
+  "summary": "HARD_PASS_grounded_meaning_wired_without_over_merge",
+  "elapsed_s": 128.3219870000612,
+  "run_mode": "full",
+  "anchor_name": "grounded_meaning_wire_lexical_fallback_v1",
+  "T1_no_regression": {
+    "lex_self_test_ok": true,
+    "canon_verdict": "HARD_PASS_representation_canonicalization_realizes_same_rep_principle",
+    "canon_prior_verdict": "HARD_PASS_representation_canonicalization_realizes_same_rep_principle",
+    "canon_same_idea_match_rate": 1.0,
+    "canon_prior_same_idea_match_rate": 1.0,
+    "canon_corroboration_rate": 1.0,
+    "canon_prior_corroboration_rate": 1.0,
+    "canon_n_distinct_canon_triples": 72,
+    "canon_prior_n_distinct_canon_triples": 72,
+    "canon_n_distinct_material_whole_pairs": 72,
+    "canon_prior_n_distinct_material_whole_pairs": 72,
+    "no_regression_ok": true
+  },
+  "T2_oov_coverage": {
+    "n_synonym_pairs": 200,
+    "n_unrelated_pairs": 200,
+    "n_words_now_covered": 400,
+    "n_previously_none_words": 400,
+    "median_synonym_score": 0.3781,
+    "median_unrelated_score": 0.0,
+    "ordering_ok": true,
+    "sample_synonym_pairs": [
+      [
+        "unit",
+        "whole"
+      ],
+      [
+        "individual",
+        "mortal"
+      ],
+      [
+        "beast",
+        "brute"
+      ],
+      [
+        "cognition",
+        "knowledge"
+      ],
+      [
+        "motivation",
+        "motive"
+      ],
+      [
+        "infinite",
+        "space"
+      ],
+      [
+        "act",
+        "deed"
+      ],
+      [
+        "group",
+        "grouping"
+      ],
+      [
+        "amount",
+        "measure"
+      ],
+      [
+        "accomplishment",
+        "achievement"
+      ]
+    ],
+    "sample_unrelated_pairs": [
+      [
+        "abandonment",
+        "wrecking"
+      ],
+      [
+        "abolishment",
+        "wipe"
+      ],
+      [
+        "abolition",
+        "willing"
+      ],
+      [
+        "absolution",
+        "whole"
+      ],
+      [
+        "accomplishment",
+        "whip"
+      ],
+      [
+        "achievement",
+        "waiver"
+      ],
+      [
+        "act",
+        "vomit"
+      ],
+      [
+        "adjustment",
+        "volition"
+      ],
+      [
+        "adoption",
+        "vault"
+      ],
+      [
+        "advent",
+        "variation"
+      ]
+    ]
+  },
+  "T3_anti_over_merge": {
+    "n_trap_pairs": 19,
+    "n_over_merge": 0,
+    "anti_over_merge_ok": true,
+    "trap_results": [
+      {
+        "a": "acorn",
+        "b": "berry",
+        "category": "fruit.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "gourd",
+        "b": "hip",
+        "category": "fruit.n.01",
+        "score": 0.0,
+        "stays_distinct": true
+      },
+      {
+        "a": "craft",
+        "b": "projectile",
+        "category": "vehicle.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "rocket",
+        "b": "sled",
+        "category": "vehicle.n.01",
+        "score": 0.0408,
+        "stays_distinct": true
+      },
+      {
+        "a": "bookcase",
+        "b": "buffet",
+        "category": "furniture.n.01",
+        "score": 0.202,
+        "stays_distinct": true
+      },
+      {
+        "a": "bureau",
+        "b": "cabinet",
+        "category": "furniture.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "aluminum",
+        "b": "am",
+        "category": "metal.n.01",
+        "score": 0.0,
+        "stays_distinct": true
+      },
+      {
+        "a": "be",
+        "b": "cadmium",
+        "category": "metal.n.01",
+        "score": 0.0,
+        "stays_distinct": true
+      },
+      {
+        "a": "butane",
+        "b": "charcoal",
+        "category": "fuel.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "coke",
+        "b": "combustible",
+        "category": "fuel.n.01",
+        "score": 0.0,
+        "stays_distinct": true
+      },
+      {
+        "a": "awl",
+        "b": "bevel",
+        "category": "hand_tool.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "crank",
+        "b": "file",
+        "category": "hand_tool.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "cock",
+        "b": "hen",
+        "category": "bird.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "parrot",
+        "b": "raptor",
+        "category": "bird.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "alcohol",
+        "b": "chocolate",
+        "category": "beverage.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "cider",
+        "b": "cocoa",
+        "category": "beverage.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "artichoke",
+        "b": "asparagus",
+        "category": "vegetable.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "celery",
+        "b": "cucumber",
+        "category": "vegetable.n.01",
+        "score": 0.45,
+        "stays_distinct": true
+      },
+      {
+        "a": "produce",
+        "b": "consume",
+        "category": "task_named_example",
+        "score": 0.45,
+        "stays_distinct": true
+      }
+    ]
+  },
+  "T4_controls": {
+    "grounded_self_test": {
+      "n_words": 36810,
+      "grounded_cap": 0.45,
+      "sim_sofa_couch": 0.45,
+      "sim_stone_idea": 0.0,
+      "mean_synonym_raw": 0.9451,
+      "mean_synonym_raw_scrambled": 0.3118
+    },
+    "scramble_control_ok": true,
+    "no_leak_ok": true,
+    "cap_below_threshold_ok": true
+  },
+  "pytest": {
+    "returncode": 0,
+    "elapsed_s": 88.53,
+    "stdout_tail": "....................................s.s................................. [ 27%]\n......s................................................................. [ 55%]\n........................................................................ [ 83%]\n...........................................                              [100%]\n256 passed, 3 skipped in 83.04s (0:01:23)\n",
+    "pytest_green": true
+  },
+  "arms_digests": {
+    "hand_lexicon_vessel_ferry": "813f6b81cebe266b92ba2ef0e03a518509902dd00f961a0a326b0c66cf815ae9",
+    "grounded_fallback_sofa_couch": "bffb16d6fe1445f051b3cff3025340011b817b391ffc04dcd77d1452efa10c25",
+    "grounded_fallback_off_sofa_couch": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91",
+    "grounded_scrambled_marker": "70eddf026da81226757fa54dc728e818c660f5af9f1c56fed80ed41ce0099da2"
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "ts_iso": "2026-08-12T01:55:52.503828+00:00",
+  "pid": 33820
+}
