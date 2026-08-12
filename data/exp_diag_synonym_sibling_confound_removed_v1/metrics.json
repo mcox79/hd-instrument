@@ -1,0 +1,1328 @@
+{
+  "verdict": "MIDDLE_BAND_HELDOUT_UNDERPOWERED",
+  "verdict_msg": "DECISIVE (concreteness-balanced + held-out) set underpowered: n_syn=5 n_sib=5 (need >=8 each). MAIN (concreteness-balanced only) set: n_syn=26 n_sib=26, randinit_AUC=0.46153846153846156 (power_ok=True), gap(sib-syn)=0.04057683557486878 -- reported as secondary, non-gating context isolating whether concreteness alone (independent of exposure) explains the original 0.71.",
+  "summary": "DECISIVE (concreteness-balanced + held-out) set underpowered: n_syn=5 n_sib=5 (need >=8 each). MAIN (concreteness-balanced only) set: n_syn=26 n_sib=26, randinit_AUC=0.46153846153846156 (power_ok=True), gap(sib-syn)=0.04057683557486878 -- reported as secondary, non-gating context isolating whether concreteness alone (independent of exposure) explains the original 0.71.",
+  "anchor_name": "diag_synonym_sibling_confound_removed_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-08-12T03:54:01.674546+00:00",
+  "pid": 16208,
+  "elapsed_s": 254.1221716,
+  "device": "cpu",
+  "cuda": false,
+  "model_cfg": {
+    "vocab": 16000,
+    "max_len": 128,
+    "d_model": 512,
+    "n_layers": 6,
+    "n_heads": 8,
+    "ffn_mult": 4,
+    "pad_id": 0
+  },
+  "cited_original": {
+    "encoder_auc_trained_confounded": 0.7064,
+    "randinit_auc_confounded": 0.7452,
+    "grounding_auc_matched": 0.3186,
+    "scramble_auc": 0.5042,
+    "conc_z_gap_sibling_minus_synonym": 1.6022158963360675,
+    "chance_auc": 0.5
+  },
+  "positive_control": {
+    "ok": true,
+    "pairs": [
+      {
+        "a": "apple",
+        "b": "orange",
+        "cited": 0.952,
+        "measured": 0.9521749019622803,
+        "ok": true
+      },
+      {
+        "a": "happy",
+        "b": "joyful",
+        "cited": 0.962,
+        "measured": 0.9616310000419617,
+        "ok": true
+      }
+    ]
+  },
+  "n_read_lines": 14621856,
+  "scan_elapsed_s": 102.39138209994417,
+  "sibling_pool_raw_n": 112,
+  "synonym_pool_raw_n": 300,
+  "main_bin_report": [
+    {
+      "bin": 0,
+      "bin_range": [
+        -4.0,
+        -1.2
+      ],
+      "n_syn_avail": 2,
+      "n_sib_avail": 5,
+      "n_taken": 2
+    },
+    {
+      "bin": 1,
+      "bin_range": [
+        -1.2,
+        -0.4
+      ],
+      "n_syn_avail": 67,
+      "n_sib_avail": 23,
+      "n_taken": 6
+    },
+    {
+      "bin": 2,
+      "bin_range": [
+        -0.4,
+        0.4
+      ],
+      "n_syn_avail": 101,
+      "n_sib_avail": 17,
+      "n_taken": 6
+    },
+    {
+      "bin": 3,
+      "bin_range": [
+        0.4,
+        1.2
+      ],
+      "n_syn_avail": 100,
+      "n_sib_avail": 17,
+      "n_taken": 6
+    },
+    {
+      "bin": 4,
+      "bin_range": [
+        1.2,
+        4.0
+      ],
+      "n_syn_avail": 23,
+      "n_sib_avail": 43,
+      "n_taken": 6
+    }
+  ],
+  "decisive_bin_report": [
+    {
+      "bin": 0,
+      "bin_range": [
+        -4.0,
+        -1.2
+      ],
+      "n_syn_avail": 0,
+      "n_sib_avail": 1,
+      "n_taken": 0
+    },
+    {
+      "bin": 1,
+      "bin_range": [
+        -1.2,
+        -0.4
+      ],
+      "n_syn_avail": 8,
+      "n_sib_avail": 2,
+      "n_taken": 2
+    },
+    {
+      "bin": 2,
+      "bin_range": [
+        -0.4,
+        0.4
+      ],
+      "n_syn_avail": 10,
+      "n_sib_avail": 0,
+      "n_taken": 0
+    },
+    {
+      "bin": 3,
+      "bin_range": [
+        0.4,
+        1.2
+      ],
+      "n_syn_avail": 14,
+      "n_sib_avail": 2,
+      "n_taken": 2
+    },
+    {
+      "bin": 4,
+      "bin_range": [
+        1.2,
+        4.0
+      ],
+      "n_syn_avail": 3,
+      "n_sib_avail": 1,
+      "n_taken": 1
+    }
+  ],
+  "main_pairs": {
+    "synonym": [
+      [
+        "fruition",
+        "realization"
+      ],
+      [
+        "coercion",
+        "compulsion"
+      ],
+      [
+        "abasement",
+        "humiliation"
+      ],
+      [
+        "volition",
+        "willing"
+      ],
+      [
+        "breakup",
+        "dissolution"
+      ],
+      [
+        "freeing",
+        "liberation"
+      ],
+      [
+        "interpretation",
+        "rendering"
+      ],
+      [
+        "exclusion",
+        "riddance"
+      ],
+      [
+        "infinite",
+        "space"
+      ],
+      [
+        "journey",
+        "journeying"
+      ],
+      [
+        "impoundment",
+        "internment"
+      ],
+      [
+        "interchange",
+        "reciprocation"
+      ],
+      [
+        "reverse",
+        "reversion"
+      ],
+      [
+        "handling",
+        "manipulation"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "jerk",
+        "tug"
+      ],
+      [
+        "soar",
+        "zoom"
+      ],
+      [
+        "climax",
+        "orgasm"
+      ],
+      [
+        "dismissal",
+        "sack"
+      ],
+      [
+        "release",
+        "waiver"
+      ],
+      [
+        "dig",
+        "jab"
+      ],
+      [
+        "lash",
+        "whip"
+      ],
+      [
+        "belch",
+        "burp"
+      ],
+      [
+        "chop",
+        "chopper"
+      ],
+      [
+        "hurdle",
+        "vault"
+      ],
+      [
+        "splash",
+        "splashing"
+      ]
+    ],
+    "sibling": [
+      [
+        "motive",
+        "need"
+      ],
+      [
+        "expectation",
+        "faith"
+      ],
+      [
+        "ability",
+        "accuracy"
+      ],
+      [
+        "ambivalence",
+        "apathy"
+      ],
+      [
+        "outlook",
+        "pacifism"
+      ],
+      [
+        "individualism",
+        "opinion"
+      ],
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "knowledge",
+        "motivation"
+      ],
+      [
+        "asset",
+        "attraction"
+      ],
+      [
+        "connection",
+        "connective"
+      ],
+      [
+        "blackout",
+        "certainty"
+      ],
+      [
+        "cheer",
+        "cheerfulness"
+      ],
+      [
+        "otherworld",
+        "quantity"
+      ],
+      [
+        "form",
+        "heritage"
+      ],
+      [
+        "conveyance",
+        "device"
+      ],
+      [
+        "absorption",
+        "amnesia"
+      ],
+      [
+        "aluminum",
+        "am"
+      ],
+      [
+        "columbine",
+        "composite"
+      ],
+      [
+        "communication",
+        "group"
+      ],
+      [
+        "attempt",
+        "bag"
+      ],
+      [
+        "calcium",
+        "chromium"
+      ],
+      [
+        "hammer",
+        "opener"
+      ],
+      [
+        "bonsai",
+        "chestnut"
+      ],
+      [
+        "coffee",
+        "ebony"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ],
+      [
+        "crank",
+        "file"
+      ]
+    ]
+  },
+  "decisive_pairs": {
+    "synonym": [
+      [
+        "popularization",
+        "vulgarization"
+      ],
+      [
+        "forwarding",
+        "furtherance"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "lurch",
+        "stagger"
+      ],
+      [
+        "belch",
+        "burp"
+      ]
+    ],
+    "sibling": [
+      [
+        "communicativeness",
+        "compulsiveness"
+      ],
+      [
+        "joyfulness",
+        "joyousness"
+      ],
+      [
+        "fizz",
+        "inebriant"
+      ],
+      [
+        "awl",
+        "bevel"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ]
+    ]
+  },
+  "main_randinit": {
+    "auc": 0.46153846153846156,
+    "d_prime": -0.34974359885026224,
+    "mean_syn": 0.9104464925252475,
+    "mean_sib": 0.9168755962298467,
+    "std_syn": 0.021731327074771028,
+    "std_sib": 0.014267790366901845,
+    "n_syn": 26,
+    "n_sib": 26,
+    "label": "main_randinit",
+    "syn_used": [
+      [
+        "fruition",
+        "realization"
+      ],
+      [
+        "coercion",
+        "compulsion"
+      ],
+      [
+        "abasement",
+        "humiliation"
+      ],
+      [
+        "volition",
+        "willing"
+      ],
+      [
+        "breakup",
+        "dissolution"
+      ],
+      [
+        "freeing",
+        "liberation"
+      ],
+      [
+        "interpretation",
+        "rendering"
+      ],
+      [
+        "exclusion",
+        "riddance"
+      ],
+      [
+        "infinite",
+        "space"
+      ],
+      [
+        "journey",
+        "journeying"
+      ],
+      [
+        "impoundment",
+        "internment"
+      ],
+      [
+        "interchange",
+        "reciprocation"
+      ],
+      [
+        "reverse",
+        "reversion"
+      ],
+      [
+        "handling",
+        "manipulation"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "jerk",
+        "tug"
+      ],
+      [
+        "soar",
+        "zoom"
+      ],
+      [
+        "climax",
+        "orgasm"
+      ],
+      [
+        "dismissal",
+        "sack"
+      ],
+      [
+        "release",
+        "waiver"
+      ],
+      [
+        "dig",
+        "jab"
+      ],
+      [
+        "lash",
+        "whip"
+      ],
+      [
+        "belch",
+        "burp"
+      ],
+      [
+        "chop",
+        "chopper"
+      ],
+      [
+        "hurdle",
+        "vault"
+      ],
+      [
+        "splash",
+        "splashing"
+      ]
+    ],
+    "sib_used": [
+      [
+        "motive",
+        "need"
+      ],
+      [
+        "expectation",
+        "faith"
+      ],
+      [
+        "ability",
+        "accuracy"
+      ],
+      [
+        "ambivalence",
+        "apathy"
+      ],
+      [
+        "outlook",
+        "pacifism"
+      ],
+      [
+        "individualism",
+        "opinion"
+      ],
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "knowledge",
+        "motivation"
+      ],
+      [
+        "asset",
+        "attraction"
+      ],
+      [
+        "connection",
+        "connective"
+      ],
+      [
+        "blackout",
+        "certainty"
+      ],
+      [
+        "cheer",
+        "cheerfulness"
+      ],
+      [
+        "otherworld",
+        "quantity"
+      ],
+      [
+        "form",
+        "heritage"
+      ],
+      [
+        "conveyance",
+        "device"
+      ],
+      [
+        "absorption",
+        "amnesia"
+      ],
+      [
+        "aluminum",
+        "am"
+      ],
+      [
+        "columbine",
+        "composite"
+      ],
+      [
+        "communication",
+        "group"
+      ],
+      [
+        "attempt",
+        "bag"
+      ],
+      [
+        "calcium",
+        "chromium"
+      ],
+      [
+        "hammer",
+        "opener"
+      ],
+      [
+        "bonsai",
+        "chestnut"
+      ],
+      [
+        "coffee",
+        "ebony"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ],
+      [
+        "crank",
+        "file"
+      ]
+    ]
+  },
+  "main_trained": {
+    "auc": 0.5887573964497042,
+    "d_prime": 0.29242299510211195,
+    "mean_syn": 0.8870852910555326,
+    "mean_sib": 0.8631803760161767,
+    "std_syn": 0.08068470106395176,
+    "std_sib": 0.08279710505255858,
+    "n_syn": 26,
+    "n_sib": 26,
+    "label": "main_trained",
+    "syn_used": [
+      [
+        "fruition",
+        "realization"
+      ],
+      [
+        "coercion",
+        "compulsion"
+      ],
+      [
+        "abasement",
+        "humiliation"
+      ],
+      [
+        "volition",
+        "willing"
+      ],
+      [
+        "breakup",
+        "dissolution"
+      ],
+      [
+        "freeing",
+        "liberation"
+      ],
+      [
+        "interpretation",
+        "rendering"
+      ],
+      [
+        "exclusion",
+        "riddance"
+      ],
+      [
+        "infinite",
+        "space"
+      ],
+      [
+        "journey",
+        "journeying"
+      ],
+      [
+        "impoundment",
+        "internment"
+      ],
+      [
+        "interchange",
+        "reciprocation"
+      ],
+      [
+        "reverse",
+        "reversion"
+      ],
+      [
+        "handling",
+        "manipulation"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "jerk",
+        "tug"
+      ],
+      [
+        "soar",
+        "zoom"
+      ],
+      [
+        "climax",
+        "orgasm"
+      ],
+      [
+        "dismissal",
+        "sack"
+      ],
+      [
+        "release",
+        "waiver"
+      ],
+      [
+        "dig",
+        "jab"
+      ],
+      [
+        "lash",
+        "whip"
+      ],
+      [
+        "belch",
+        "burp"
+      ],
+      [
+        "chop",
+        "chopper"
+      ],
+      [
+        "hurdle",
+        "vault"
+      ],
+      [
+        "splash",
+        "splashing"
+      ]
+    ],
+    "sib_used": [
+      [
+        "motive",
+        "need"
+      ],
+      [
+        "expectation",
+        "faith"
+      ],
+      [
+        "ability",
+        "accuracy"
+      ],
+      [
+        "ambivalence",
+        "apathy"
+      ],
+      [
+        "outlook",
+        "pacifism"
+      ],
+      [
+        "individualism",
+        "opinion"
+      ],
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "knowledge",
+        "motivation"
+      ],
+      [
+        "asset",
+        "attraction"
+      ],
+      [
+        "connection",
+        "connective"
+      ],
+      [
+        "blackout",
+        "certainty"
+      ],
+      [
+        "cheer",
+        "cheerfulness"
+      ],
+      [
+        "otherworld",
+        "quantity"
+      ],
+      [
+        "form",
+        "heritage"
+      ],
+      [
+        "conveyance",
+        "device"
+      ],
+      [
+        "absorption",
+        "amnesia"
+      ],
+      [
+        "aluminum",
+        "am"
+      ],
+      [
+        "columbine",
+        "composite"
+      ],
+      [
+        "communication",
+        "group"
+      ],
+      [
+        "attempt",
+        "bag"
+      ],
+      [
+        "calcium",
+        "chromium"
+      ],
+      [
+        "hammer",
+        "opener"
+      ],
+      [
+        "bonsai",
+        "chestnut"
+      ],
+      [
+        "coffee",
+        "ebony"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ],
+      [
+        "crank",
+        "file"
+      ]
+    ]
+  },
+  "main_scramble": {
+    "auc": 0.507396449704142,
+    "d_prime": 0.19338884513386279,
+    "mean_syn": 0.9041098126998315,
+    "mean_sib": 0.8975779780974755,
+    "std_syn": 0.02328761210447694,
+    "std_sib": 0.041704635786089,
+    "n_syn": 26,
+    "n_sib": 26,
+    "label": "main_scramble",
+    "syn_used": [
+      [
+        "fruition",
+        "realization"
+      ],
+      [
+        "coercion",
+        "compulsion"
+      ],
+      [
+        "abasement",
+        "humiliation"
+      ],
+      [
+        "volition",
+        "willing"
+      ],
+      [
+        "breakup",
+        "dissolution"
+      ],
+      [
+        "freeing",
+        "liberation"
+      ],
+      [
+        "interpretation",
+        "rendering"
+      ],
+      [
+        "exclusion",
+        "riddance"
+      ],
+      [
+        "infinite",
+        "space"
+      ],
+      [
+        "journey",
+        "journeying"
+      ],
+      [
+        "impoundment",
+        "internment"
+      ],
+      [
+        "interchange",
+        "reciprocation"
+      ],
+      [
+        "reverse",
+        "reversion"
+      ],
+      [
+        "handling",
+        "manipulation"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "jerk",
+        "tug"
+      ],
+      [
+        "soar",
+        "zoom"
+      ],
+      [
+        "climax",
+        "orgasm"
+      ],
+      [
+        "dismissal",
+        "sack"
+      ],
+      [
+        "release",
+        "waiver"
+      ],
+      [
+        "dig",
+        "jab"
+      ],
+      [
+        "lash",
+        "whip"
+      ],
+      [
+        "belch",
+        "burp"
+      ],
+      [
+        "chop",
+        "chopper"
+      ],
+      [
+        "hurdle",
+        "vault"
+      ],
+      [
+        "splash",
+        "splashing"
+      ]
+    ],
+    "sib_used": [
+      [
+        "motive",
+        "need"
+      ],
+      [
+        "expectation",
+        "faith"
+      ],
+      [
+        "ability",
+        "accuracy"
+      ],
+      [
+        "ambivalence",
+        "apathy"
+      ],
+      [
+        "outlook",
+        "pacifism"
+      ],
+      [
+        "individualism",
+        "opinion"
+      ],
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "knowledge",
+        "motivation"
+      ],
+      [
+        "asset",
+        "attraction"
+      ],
+      [
+        "connection",
+        "connective"
+      ],
+      [
+        "blackout",
+        "certainty"
+      ],
+      [
+        "cheer",
+        "cheerfulness"
+      ],
+      [
+        "otherworld",
+        "quantity"
+      ],
+      [
+        "form",
+        "heritage"
+      ],
+      [
+        "conveyance",
+        "device"
+      ],
+      [
+        "absorption",
+        "amnesia"
+      ],
+      [
+        "aluminum",
+        "am"
+      ],
+      [
+        "columbine",
+        "composite"
+      ],
+      [
+        "communication",
+        "group"
+      ],
+      [
+        "attempt",
+        "bag"
+      ],
+      [
+        "calcium",
+        "chromium"
+      ],
+      [
+        "hammer",
+        "opener"
+      ],
+      [
+        "bonsai",
+        "chestnut"
+      ],
+      [
+        "coffee",
+        "ebony"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ],
+      [
+        "crank",
+        "file"
+      ]
+    ]
+  },
+  "decisive_randinit": {
+    "auc": 0.6,
+    "d_prime": 0.44451458838315294,
+    "mean_syn": 0.8992646336555481,
+    "mean_sib": 0.876805555820465,
+    "std_syn": 0.03388978046210729,
+    "std_sib": 0.06290488172407988,
+    "n_syn": 5,
+    "n_sib": 5,
+    "label": "decisive_randinit",
+    "syn_used": [
+      [
+        "popularization",
+        "vulgarization"
+      ],
+      [
+        "forwarding",
+        "furtherance"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "lurch",
+        "stagger"
+      ],
+      [
+        "belch",
+        "burp"
+      ]
+    ],
+    "sib_used": [
+      [
+        "communicativeness",
+        "compulsiveness"
+      ],
+      [
+        "joyfulness",
+        "joyousness"
+      ],
+      [
+        "fizz",
+        "inebriant"
+      ],
+      [
+        "awl",
+        "bevel"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ]
+    ]
+  },
+  "decisive_trained": {
+    "auc": 0.72,
+    "d_prime": 0.8101608634096567,
+    "mean_syn": 0.9270909070968628,
+    "mean_sib": 0.8784470677375793,
+    "std_syn": 0.05429969597986968,
+    "std_sib": 0.06528149977167425,
+    "n_syn": 5,
+    "n_sib": 5,
+    "label": "decisive_trained",
+    "syn_used": [
+      [
+        "popularization",
+        "vulgarization"
+      ],
+      [
+        "forwarding",
+        "furtherance"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "lurch",
+        "stagger"
+      ],
+      [
+        "belch",
+        "burp"
+      ]
+    ],
+    "sib_used": [
+      [
+        "communicativeness",
+        "compulsiveness"
+      ],
+      [
+        "joyfulness",
+        "joyousness"
+      ],
+      [
+        "fizz",
+        "inebriant"
+      ],
+      [
+        "awl",
+        "bevel"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ]
+    ]
+  },
+  "decisive_scramble": {
+    "auc": 0.64,
+    "d_prime": 0.3992495329249347,
+    "mean_syn": 0.9001033782958985,
+    "mean_sib": 0.8907649874687195,
+    "std_syn": 0.018926271229348868,
+    "std_sib": 0.027128718978969627,
+    "n_syn": 5,
+    "n_sib": 5,
+    "label": "decisive_scramble",
+    "syn_used": [
+      [
+        "popularization",
+        "vulgarization"
+      ],
+      [
+        "forwarding",
+        "furtherance"
+      ],
+      [
+        "caesarean",
+        "caesarian"
+      ],
+      [
+        "lurch",
+        "stagger"
+      ],
+      [
+        "belch",
+        "burp"
+      ]
+    ],
+    "sib_used": [
+      [
+        "communicativeness",
+        "compulsiveness"
+      ],
+      [
+        "joyfulness",
+        "joyousness"
+      ],
+      [
+        "fizz",
+        "inebriant"
+      ],
+      [
+        "awl",
+        "bevel"
+      ],
+      [
+        "sledge",
+        "sleigh"
+      ]
+    ]
+  },
+  "decisive_grounding": {
+    "auc": 0.72,
+    "d_prime": 0.8750455640624201,
+    "mean_syn": 0.8229773283004761,
+    "mean_sib": 0.6496161431074142,
+    "std_syn": 0.11800966549106288,
+    "std_sib": 0.2541145683897659,
+    "n_syn": 5,
+    "n_sib": 5,
+    "label": "decisive_grounding"
+  },
+  "main_conc_balance": {
+    "mean_conc_z_synonym": -0.028944933536247566,
+    "mean_conc_z_sibling": 0.011631902038621215,
+    "conc_z_gap_sibling_minus_synonym": 0.04057683557486878,
+    "balanced": true
+  },
+  "decisive_conc_balance": {
+    "mean_conc_z_synonym": 0.030175885558128356,
+    "mean_conc_z_sibling": 0.2579370399937034,
+    "conc_z_gap_sibling_minus_synonym": 0.22776115443557501,
+    "balanced": true
+  },
+  "train_overlap": {
+    "scan_scope": "bounded single pass over data/corpora/arc/.../ARC_Corpus.txt (all lines of 14,621,856 total); true (uncapped) mention counts, unlike f6c6c843e which only tracked capped counts (cap=24).",
+    "n_read": 14621856,
+    "held_out_percentile": 25.0,
+    "held_out_threshold_true_count": 314.25,
+    "n_zero_mention_words_in_candidate_pool": 0,
+    "main_set_true_count_stats": {
+      "n": 104,
+      "mean": 7721.432692307692,
+      "median": 1166.0,
+      "min": 35,
+      "max": 127452
+    },
+    "decisive_set_true_count_stats": {
+      "n": 20,
+      "mean": 98.45,
+      "median": 83.0,
+      "min": 2,
+      "max": 288
+    },
+    "original_confounded_set_note": "f6c6c843e's 38 probe words were ALL capped at cap_mentions=24 (i.e. true count >= 24 for every one, by construction of its min_mentions=10 floor with no upper visibility) -- this cell's DECISIVE set true-count stats above should be read against that.",
+    "held_out_split_membership_note": "This is an adaptive, self-calibrating LOW-CORPUS-EXPOSURE split (bottom 25-th percentile of measured true mention count among this run's own candidate pool), NOT a reproduction of the training pipeline's official ~800-concept held-out split (that requires the full CSKG universe + a second full corpus pass, out of scope for a standalone diagnostic -- same honest-scoping precedent as f6c6c843e). Scope the DECISIVE-set claim accordingly: it measures whether the pooling interface separates synonym from sibling for words with LOW (not necessarily zero) measured corpus exposure, relative to this candidate pool."
+  },
+  "arm_digests": {
+    "random_init": "8070024c593f761671a12102f95f01b02fba4be5bd558ebb2b830099f44c0fad",
+    "trained": "f767e6c4d06e66f5469b018137ebd19cd1c779b39a0e9d3e1d9dd044c6c5ec5c",
+    "scrambled": "8400611fc573a3e8386bb9b0a5fa3f697c7d7e0536bb3b75cbaf6b29f590ac7a"
+  },
+  "power_floor_main_n": 12,
+  "power_floor_decisive_n": 8,
+  "main_power_ok": true,
+  "decisive_power_ok": false,
+  "bands": {
+    "hp_auc_min": 0.65,
+    "hf_auc_max": 0.56,
+    "near_chance_band": [
+      0.4,
+      0.6
+    ],
+    "concreteness_balance_tol": 0.3,
+    "conc_bin_edges": [
+      -4.0,
+      -1.2,
+      -0.4,
+      0.4,
+      1.2,
+      4.0
+    ],
+    "held_out_percentile": 25.0
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace"
+}

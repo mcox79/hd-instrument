@@ -1,0 +1,372 @@
+{
+  "verdict": "MIDDLE_BAND_HELDOUT_UNDERPOWERED",
+  "verdict_msg": "DECISIVE (concreteness-balanced + held-out) set underpowered: n_syn=0 n_sib=0 (need >=8 each). MAIN (concreteness-balanced only) set: n_syn=2 n_sib=2, randinit_AUC=0.75 (power_ok=False), gap(sib-syn)=0.029579371213912964 -- reported as secondary, non-gating context isolating whether concreteness alone (independent of exposure) explains the original 0.71.",
+  "summary": "DECISIVE (concreteness-balanced + held-out) set underpowered: n_syn=0 n_sib=0 (need >=8 each). MAIN (concreteness-balanced only) set: n_syn=2 n_sib=2, randinit_AUC=0.75 (power_ok=False), gap(sib-syn)=0.029579371213912964 -- reported as secondary, non-gating context isolating whether concreteness alone (independent of exposure) explains the original 0.71.",
+  "anchor_name": "diag_synonym_sibling_confound_removed_v1",
+  "run_mode": "self_test",
+  "ts_iso": "2026-08-12T03:36:01.526596+00:00",
+  "pid": 10544,
+  "elapsed_s": 197.99962269992102,
+  "device": "cpu",
+  "cuda": false,
+  "model_cfg": {
+    "vocab": 16000,
+    "max_len": 128,
+    "d_model": 512,
+    "n_layers": 6,
+    "n_heads": 8,
+    "ffn_mult": 4,
+    "pad_id": 0
+  },
+  "cited_original": {
+    "encoder_auc_trained_confounded": 0.7064,
+    "randinit_auc_confounded": 0.7452,
+    "grounding_auc_matched": 0.3186,
+    "scramble_auc": 0.5042,
+    "conc_z_gap_sibling_minus_synonym": 1.6022158963360675,
+    "chance_auc": 0.5
+  },
+  "positive_control": {
+    "ok": true,
+    "pairs": [
+      {
+        "a": "apple",
+        "b": "orange",
+        "cited": 0.952,
+        "measured": 0.9521749019622803,
+        "ok": true
+      },
+      {
+        "a": "happy",
+        "b": "joyful",
+        "cited": 0.962,
+        "measured": 0.9616310000419617,
+        "ok": true
+      }
+    ]
+  },
+  "n_read_lines": 1000000,
+  "scan_elapsed_s": 6.364046399947256,
+  "sibling_pool_raw_n": 6,
+  "synonym_pool_raw_n": 20,
+  "main_bin_report": [
+    {
+      "bin": 0,
+      "bin_range": [
+        -4.0,
+        -1.2
+      ],
+      "n_syn_avail": 1,
+      "n_sib_avail": 0,
+      "n_taken": 0
+    },
+    {
+      "bin": 1,
+      "bin_range": [
+        -1.2,
+        -0.4
+      ],
+      "n_syn_avail": 6,
+      "n_sib_avail": 2,
+      "n_taken": 1
+    },
+    {
+      "bin": 2,
+      "bin_range": [
+        -0.4,
+        0.4
+      ],
+      "n_syn_avail": 8,
+      "n_sib_avail": 0,
+      "n_taken": 0
+    },
+    {
+      "bin": 3,
+      "bin_range": [
+        0.4,
+        1.2
+      ],
+      "n_syn_avail": 4,
+      "n_sib_avail": 2,
+      "n_taken": 1
+    },
+    {
+      "bin": 4,
+      "bin_range": [
+        1.2,
+        4.0
+      ],
+      "n_syn_avail": 0,
+      "n_sib_avail": 2,
+      "n_taken": 0
+    }
+  ],
+  "decisive_bin_report": [
+    {
+      "bin": 1,
+      "bin_range": [
+        -1.2,
+        -0.4
+      ],
+      "n_syn_avail": 0,
+      "n_sib_avail": 1,
+      "n_taken": 0
+    },
+    {
+      "bin": 2,
+      "bin_range": [
+        -0.4,
+        0.4
+      ],
+      "n_syn_avail": 2,
+      "n_sib_avail": 0,
+      "n_taken": 0
+    },
+    {
+      "bin": 4,
+      "bin_range": [
+        1.2,
+        4.0
+      ],
+      "n_syn_avail": 0,
+      "n_sib_avail": 1,
+      "n_taken": 0
+    }
+  ],
+  "main_pairs": {
+    "synonym": [
+      [
+        "cognition",
+        "knowledge"
+      ],
+      [
+        "unit",
+        "whole"
+      ]
+    ],
+    "sibling": [
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "aluminum",
+        "am"
+      ]
+    ]
+  },
+  "decisive_pairs": {
+    "synonym": [],
+    "sibling": []
+  },
+  "main_randinit": {
+    "auc": 0.75,
+    "d_prime": 0.7094462847206234,
+    "mean_syn": 0.8359567224979401,
+    "mean_sib": 0.8118613660335541,
+    "std_syn": 0.023681176213361563,
+    "std_sib": 0.041788220976914835,
+    "n_syn": 2,
+    "n_sib": 2,
+    "label": "main_randinit",
+    "syn_used": [
+      [
+        "cognition",
+        "knowledge"
+      ],
+      [
+        "unit",
+        "whole"
+      ]
+    ],
+    "sib_used": [
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "aluminum",
+        "am"
+      ]
+    ]
+  },
+  "main_trained": {
+    "auc": 0.25,
+    "d_prime": -0.7200895769928757,
+    "mean_syn": 0.6440798044204712,
+    "mean_sib": 0.7812440991401672,
+    "std_syn": 0.1979875182782294,
+    "std_sib": 0.18266890901215688,
+    "n_syn": 2,
+    "n_sib": 2,
+    "label": "main_trained",
+    "syn_used": [
+      [
+        "cognition",
+        "knowledge"
+      ],
+      [
+        "unit",
+        "whole"
+      ]
+    ],
+    "sib_used": [
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "aluminum",
+        "am"
+      ]
+    ]
+  },
+  "main_scramble": {
+    "auc": 0.5,
+    "d_prime": -0.24596206538342,
+    "mean_syn": 0.8171014189720154,
+    "mean_sib": 0.8290385603904724,
+    "std_syn": 0.02257461070570804,
+    "std_sib": 0.06481654250684264,
+    "n_syn": 2,
+    "n_sib": 2,
+    "label": "main_scramble",
+    "syn_used": [
+      [
+        "cognition",
+        "knowledge"
+      ],
+      [
+        "unit",
+        "whole"
+      ]
+    ],
+    "sib_used": [
+      [
+        "awe",
+        "fearfulness"
+      ],
+      [
+        "aluminum",
+        "am"
+      ]
+    ]
+  },
+  "decisive_randinit": {
+    "auc": null,
+    "d_prime": null,
+    "mean_syn": null,
+    "mean_sib": null,
+    "std_syn": 0.0,
+    "std_sib": 0.0,
+    "n_syn": 0,
+    "n_sib": 0,
+    "label": "decisive_randinit",
+    "syn_used": [],
+    "sib_used": []
+  },
+  "decisive_trained": {
+    "auc": null,
+    "d_prime": null,
+    "mean_syn": null,
+    "mean_sib": null,
+    "std_syn": 0.0,
+    "std_sib": 0.0,
+    "n_syn": 0,
+    "n_sib": 0,
+    "label": "decisive_trained",
+    "syn_used": [],
+    "sib_used": []
+  },
+  "decisive_scramble": {
+    "auc": null,
+    "d_prime": null,
+    "mean_syn": null,
+    "mean_sib": null,
+    "std_syn": 0.0,
+    "std_sib": 0.0,
+    "n_syn": 0,
+    "n_sib": 0,
+    "label": "decisive_scramble",
+    "syn_used": [],
+    "sib_used": []
+  },
+  "decisive_grounding": {
+    "auc": null,
+    "d_prime": null,
+    "mean_syn": null,
+    "mean_sib": null,
+    "std_syn": 0.0,
+    "std_sib": 0.0,
+    "n_syn": 0,
+    "n_sib": 0,
+    "label": "decisive_grounding"
+  },
+  "main_conc_balance": {
+    "mean_conc_z_synonym": -0.32872046530246735,
+    "mean_conc_z_sibling": -0.2991410940885544,
+    "conc_z_gap_sibling_minus_synonym": 0.029579371213912964,
+    "balanced": true
+  },
+  "decisive_conc_balance": {
+    "mean_conc_z_synonym": null,
+    "mean_conc_z_sibling": null,
+    "conc_z_gap_sibling_minus_synonym": null,
+    "balanced": false
+  },
+  "train_overlap": {
+    "scan_scope": "bounded single pass over data/corpora/arc/.../ARC_Corpus.txt (1000000 lines of 14,621,856 total); true (uncapped) mention counts, unlike f6c6c843e which only tracked capped counts (cap=24).",
+    "n_read": 1000000,
+    "held_out_percentile": 25.0,
+    "held_out_threshold_true_count": 74.0,
+    "n_zero_mention_words_in_candidate_pool": 1,
+    "main_set_true_count_stats": {
+      "n": 8,
+      "mean": 1414.625,
+      "median": 1137.0,
+      "min": 8,
+      "max": 3618
+    },
+    "decisive_set_true_count_stats": {
+      "n": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    },
+    "original_confounded_set_note": "f6c6c843e's 38 probe words were ALL capped at cap_mentions=24 (i.e. true count >= 24 for every one, by construction of its min_mentions=10 floor with no upper visibility) -- this cell's DECISIVE set true-count stats above should be read against that.",
+    "held_out_split_membership_note": "This is an adaptive, self-calibrating LOW-CORPUS-EXPOSURE split (bottom 25-th percentile of measured true mention count among this run's own candidate pool), NOT a reproduction of the training pipeline's official ~800-concept held-out split (that requires the full CSKG universe + a second full corpus pass, out of scope for a standalone diagnostic -- same honest-scoping precedent as f6c6c843e). Scope the DECISIVE-set claim accordingly: it measures whether the pooling interface separates synonym from sibling for words with LOW (not necessarily zero) measured corpus exposure, relative to this candidate pool."
+  },
+  "arm_digests": {
+    "random_init": "16f79b91f021409ca888160c8a4115c7f08f10f3e578031ff8f6e1f344241f36",
+    "trained": "266f702805762cc3137f6acb3a788ebb0e719b336c08af6cc6d16563120ba999",
+    "scrambled": "dd21b44b1d85e5f4eed50b2465d73f133f2116ee36285082d5bad5663fee0387"
+  },
+  "power_floor_main_n": 12,
+  "power_floor_decisive_n": 8,
+  "main_power_ok": false,
+  "decisive_power_ok": false,
+  "bands": {
+    "hp_auc_min": 0.65,
+    "hf_auc_max": 0.56,
+    "near_chance_band": [
+      0.4,
+      0.6
+    ],
+    "concreteness_balance_tol": 0.3,
+    "conc_bin_edges": [
+      -4.0,
+      -1.2,
+      -0.4,
+      0.4,
+      1.2,
+      4.0
+    ],
+    "held_out_percentile": 25.0
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "final_metrics_atomicity": "tmp_replace"
+}
