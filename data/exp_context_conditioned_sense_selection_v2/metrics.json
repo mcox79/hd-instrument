@@ -1,0 +1,734 @@
+{
+  "cell": "exp_context_conditioned_sense_selection_v2",
+  "prereg": "preregs/2026-08-12_context_conditioned_sense_selection_v2.md",
+  "v1_prereg_for_reference": "preregs/2026-08-12_context_conditioned_sense_selection_v1.md",
+  "facts_source": "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v5_termboundary\\definitional_facts_v5.jsonl",
+  "corpus_loader": "exp_definitional_grounding_v5.load_corpus_v5(lineaware=True)",
+  "ri_encoder": {
+    "N": 8192,
+    "sparsity": 10,
+    "window": 5,
+    "min_count": 3,
+    "seed": 0,
+    "vocab_size": 13373,
+    "n_tokens_seen": 600143
+  },
+  "L1_union_eval_sentences_removed": 1165,
+  "L1_asserted_disjoint": true,
+  "primary_index": "subject",
+  "removed_control_cannot_fail": "WORD-ORDER SCRAMBLE of the context: both selectors are bag-of-words aggregates, so permuting token order leaves every score bit-identical -- cannot fail by construction. Re-verified fresh in this run's self-test against the imported (unchanged) selector classes, not merely cited from v1.",
+  "per_index": {
+    "subject": {
+      "index_key": "subject",
+      "is_primary": true,
+      "census": {
+        "index_key": "subject",
+        "n_facts_total": 2092,
+        "n_distinct_subjects": 1734,
+        "n_multisense_subjects": 288,
+        "multisense_subject_frac": 0.1661,
+        "n_facts_in_multisense": 646,
+        "mean_k": 2.2431,
+        "k_distribution": {
+          "2": 230,
+          "3": 49,
+          "4": 7,
+          "5": 1,
+          "6": 1
+        },
+        "analytic_floor_subject_weighted": 0.4634,
+        "analytic_floor_micro_per_fact": 0.4458,
+        "n_trials": 758,
+        "n_trials_excluded_label_ambiguous": 4,
+        "n_words_with_ambiguous_sentence": 2,
+        "senses_with_gt1_source_sentence": 96,
+        "words_with_ALL_senses_gt1": 3,
+        "src_sentence_count_distribution": {
+          "1": 550,
+          "2": 83,
+          "3": 9,
+          "4": 1,
+          "5": 3
+        }
+      },
+      "floor": {
+        "analytic_subject_weighted": 0.4634,
+        "empirical_subject_weighted": 0.4636,
+        "analytic_micro_per_fact": 0.4458
+      },
+      "leakage_control": {
+        "L1_eval_sentences_removed_from_shared_fit_corpus": 1165,
+        "L2_answer_tokens_masked_asserted": true,
+        "L2_mean_context_tokens": 3.56,
+        "L2_empty_context_trials": 291,
+        "L3_no_extractor_metadata_in_scorer": true
+      },
+      "primary": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4685,
+          "micro_acc": 0.4537,
+          "micro_ci95": [
+            0.4158,
+            0.4922
+          ],
+          "n_words": 245,
+          "n_trials": 648,
+          "unscorable_trials": 110,
+          "n_words_zero_correct": 35
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4809,
+          "micro_acc": 0.4638,
+          "micro_ci95": [
+            0.4254,
+            0.5027
+          ],
+          "n_words": 236,
+          "n_trials": 636,
+          "unscorable_trials": 122,
+          "n_words_zero_correct": 20
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.449,
+          "micro_acc": 0.4331,
+          "micro_ci95": [
+            0.3929,
+            0.4742
+          ],
+          "n_words": 210,
+          "n_trials": 568,
+          "unscorable_trials": 190,
+          "n_words_zero_correct": 14
+        }
+      },
+      "primary_context_rich_only": {
+        "n_trials": 325,
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4139,
+          "micro_acc": 0.3993,
+          "micro_ci95": [
+            0.343,
+            0.4584
+          ],
+          "n_words": 154,
+          "n_trials": 273,
+          "unscorable_trials": 52,
+          "n_words_zero_correct": 60
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.5268,
+          "micro_acc": 0.4963,
+          "micro_ci95": [
+            0.4371,
+            0.5556
+          ],
+          "n_words": 149,
+          "n_trials": 270,
+          "unscorable_trials": 55,
+          "n_words_zero_correct": 45
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4694,
+          "micro_acc": 0.4473,
+          "micro_ci95": [
+            0.3853,
+            0.5109
+          ],
+          "n_words": 132,
+          "n_trials": 237,
+          "unscorable_trials": 88,
+          "n_words_zero_correct": 45
+        }
+      },
+      "C1_cross_item_context_swap": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4684,
+          "subject_weighted_sd": 0.0077,
+          "micro_acc": 0.45,
+          "n_seeds": 5
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4709,
+          "subject_weighted_sd": 0.0169,
+          "micro_acc": 0.45,
+          "n_seeds": 5
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4745,
+          "subject_weighted_sd": 0.0201,
+          "micro_acc": 0.4546,
+          "n_seeds": 5
+        }
+      },
+      "C2_context_lesion": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.46,
+          "micro_acc": 0.4383,
+          "micro_ci95": [
+            0.4005,
+            0.4767
+          ],
+          "n_words": 245,
+          "n_trials": 648,
+          "unscorable_trials": 110,
+          "n_words_zero_correct": 0
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4564,
+          "micro_acc": 0.434,
+          "micro_ci95": [
+            0.396,
+            0.4728
+          ],
+          "n_words": 236,
+          "n_trials": 636,
+          "unscorable_trials": 122,
+          "n_words_zero_correct": 0
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4541,
+          "micro_acc": 0.4313,
+          "micro_ci95": [
+            0.3912,
+            0.4724
+          ],
+          "n_words": 210,
+          "n_trials": 568,
+          "unscorable_trials": 190,
+          "n_words_zero_correct": 0
+        }
+      },
+      "C3_strict_leave_one_sentence_out": {
+        "acc": 0.6606,
+        "subject_weighted_acc": 0.6276,
+        "n_trials": 109,
+        "n_words": 49,
+        "n_unscorable": 103,
+        "ci95": [
+          0.5675,
+          0.7426
+        ],
+        "mode": "primary",
+        "count_match": false,
+        "mean_target_ctx_tokens": 8.05,
+        "mean_competitor_ctx_tokens": 6.52,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_query_swap": {
+        "acc": 0.5116,
+        "acc_sd": 0.0142,
+        "n_seeds": 5,
+        "n_trials": 138
+      },
+      "C3_control_count_matched": {
+        "acc": 0.5652,
+        "subject_weighted_acc": 0.5581,
+        "n_trials": 92,
+        "n_words": 43,
+        "n_unscorable": 120,
+        "ci95": [
+          0.4633,
+          0.6619
+        ],
+        "mode": "primary",
+        "count_match": true,
+        "mean_target_ctx_tokens": 6.04,
+        "mean_competitor_ctx_tokens": 6.53,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_same_segment_only": {
+        "acc": 0.5714,
+        "subject_weighted_acc": 0.5265,
+        "n_trials": 49,
+        "n_words": 22,
+        "n_unscorable": 78,
+        "ci95": [
+          0.4327,
+          0.6998
+        ],
+        "mode": "primary",
+        "count_match": false,
+        "mean_target_ctx_tokens": 7.86,
+        "mean_competitor_ctx_tokens": 6.29,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_same_segment_only_query_swap": {
+        "acc": 0.4928,
+        "subject_weighted_acc": 0.5242,
+        "n_trials": 69,
+        "n_words": 33,
+        "n_unscorable": 58,
+        "ci95": [
+          0.3783,
+          0.6079
+        ],
+        "mode": "swap",
+        "count_match": false,
+        "mean_target_ctx_tokens": 7.09,
+        "mean_competitor_ctx_tokens": 5.92,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_same_segment_clears_floor_with_ci": false,
+      "best_selector": "S2_PERC",
+      "best_subject_weighted_acc": 0.4809,
+      "C1_drop": 0.01,
+      "inseparable_tail": {
+        "n_words_scored": 271,
+        "n_words_never_correct": 15,
+        "frac_words_never_correct": 0.0554,
+        "pattern_counts": {
+          "distinct_senses_no_context_support": 13,
+          "proper_noun_entity_collision": 2
+        },
+        "examples": {
+          "distinct_senses_no_context_support": [
+            {
+              "word": "add",
+              "senses": [
+                "boss",
+                "moment"
+              ]
+            },
+            {
+              "word": "bolus",
+              "senses": [
+                "chewing",
+                "mass"
+              ]
+            },
+            {
+              "word": "fermentation",
+              "senses": [
+                "nadh",
+                "steps"
+              ]
+            },
+            {
+              "word": "genome",
+              "senses": [
+                "complement",
+                "dna"
+              ]
+            },
+            {
+              "word": "homologous chromosome",
+              "senses": [
+                "copy",
+                "length"
+              ]
+            },
+            {
+              "word": "mitosis",
+              "senses": [
+                "division",
+                "period"
+              ]
+            },
+            {
+              "word": "monohybrid",
+              "senses": [
+                "offspring",
+                "result"
+              ]
+            },
+            {
+              "word": "ovulation",
+              "senses": [
+                "phase",
+                "release"
+              ]
+            }
+          ],
+          "proper_noun_entity_collision": [
+            {
+              "word": "Harper",
+              "senses": [
+                "councillor",
+                "politician"
+              ]
+            },
+            {
+              "word": "Lukla Airport",
+              "senses": [
+                "entrance",
+                "gateway"
+              ]
+            }
+          ]
+        }
+      },
+      "index_verdict": "HARD_FAIL_context_conditioned_sense_selection_DOES_NOT_WORK"
+    },
+    "subject_head_lemma": {
+      "index_key": "subject_head_lemma",
+      "is_primary": false,
+      "census": {
+        "index_key": "subject_head_lemma",
+        "n_facts_total": 2092,
+        "n_distinct_subjects": 1472,
+        "n_multisense_subjects": 379,
+        "multisense_subject_frac": 0.2575,
+        "n_facts_in_multisense": 967,
+        "mean_k": 2.4538,
+        "k_distribution": {
+          "2": 264,
+          "3": 83,
+          "4": 22,
+          "5": 4,
+          "6": 3,
+          "8": 2,
+          "11": 1
+        },
+        "analytic_floor_subject_weighted": 0.4401,
+        "analytic_floor_micro_per_fact": 0.3919,
+        "n_trials": 1137,
+        "n_trials_excluded_label_ambiguous": 6,
+        "n_words_with_ambiguous_sentence": 3,
+        "senses_with_gt1_source_sentence": 145,
+        "words_with_ALL_senses_gt1": 4,
+        "src_sentence_count_distribution": {
+          "1": 822,
+          "2": 122,
+          "3": 18,
+          "4": 2,
+          "5": 3
+        }
+      },
+      "floor": {
+        "analytic_subject_weighted": 0.4401,
+        "empirical_subject_weighted": 0.4402,
+        "analytic_micro_per_fact": 0.3919
+      },
+      "leakage_control": {
+        "L1_eval_sentences_removed_from_shared_fit_corpus": 1165,
+        "L2_answer_tokens_masked_asserted": true,
+        "L2_mean_context_tokens": 3.64,
+        "L2_empty_context_trials": 440,
+        "L3_no_extractor_metadata_in_scorer": true
+      },
+      "primary": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4293,
+          "micro_acc": 0.4036,
+          "micro_ci95": [
+            0.3735,
+            0.4345
+          ],
+          "n_words": 325,
+          "n_trials": 991,
+          "unscorable_trials": 146,
+          "n_words_zero_correct": 50
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4449,
+          "micro_acc": 0.4063,
+          "micro_ci95": [
+            0.3756,
+            0.4377
+          ],
+          "n_words": 311,
+          "n_trials": 955,
+          "unscorable_trials": 182,
+          "n_words_zero_correct": 33
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4143,
+          "micro_acc": 0.3803,
+          "micro_ci95": [
+            0.3487,
+            0.413
+          ],
+          "n_words": 281,
+          "n_trials": 873,
+          "unscorable_trials": 264,
+          "n_words_zero_correct": 21
+        }
+      },
+      "primary_context_rich_only": {
+        "n_trials": 491,
+        "S1_DIST": {
+          "subject_weighted_acc": 0.3612,
+          "micro_acc": 0.3603,
+          "micro_ci95": [
+            0.3152,
+            0.408
+          ],
+          "n_words": 216,
+          "n_trials": 408,
+          "unscorable_trials": 83,
+          "n_words_zero_correct": 97
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.492,
+          "micro_acc": 0.4403,
+          "micro_ci95": [
+            0.3926,
+            0.4892
+          ],
+          "n_words": 209,
+          "n_trials": 402,
+          "unscorable_trials": 89,
+          "n_words_zero_correct": 71
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4195,
+          "micro_acc": 0.4023,
+          "micro_ci95": [
+            0.3524,
+            0.4542
+          ],
+          "n_words": 187,
+          "n_trials": 353,
+          "unscorable_trials": 138,
+          "n_words_zero_correct": 74
+        }
+      },
+      "C1_cross_item_context_swap": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4414,
+          "subject_weighted_sd": 0.0088,
+          "micro_acc": 0.4115,
+          "n_seeds": 5
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4228,
+          "subject_weighted_sd": 0.0194,
+          "micro_acc": 0.3906,
+          "n_seeds": 5
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4275,
+          "subject_weighted_sd": 0.0151,
+          "micro_acc": 0.3982,
+          "n_seeds": 5
+        }
+      },
+      "C2_context_lesion": {
+        "S1_DIST": {
+          "subject_weighted_acc": 0.4327,
+          "micro_acc": 0.3986,
+          "micro_ci95": [
+            0.3686,
+            0.4294
+          ],
+          "n_words": 325,
+          "n_trials": 991,
+          "unscorable_trials": 146,
+          "n_words_zero_correct": 0
+        },
+        "S2_PERC": {
+          "subject_weighted_acc": 0.4316,
+          "micro_acc": 0.3937,
+          "micro_ci95": [
+            0.3632,
+            0.4251
+          ],
+          "n_words": 311,
+          "n_trials": 955,
+          "unscorable_trials": 182,
+          "n_words_zero_correct": 0
+        },
+        "S3_COMBO": {
+          "subject_weighted_acc": 0.4266,
+          "micro_acc": 0.3895,
+          "micro_ci95": [
+            0.3577,
+            0.4222
+          ],
+          "n_words": 281,
+          "n_trials": 873,
+          "unscorable_trials": 264,
+          "n_words_zero_correct": 0
+        }
+      },
+      "C3_strict_leave_one_sentence_out": {
+        "acc": 0.6792,
+        "subject_weighted_acc": 0.6393,
+        "n_trials": 159,
+        "n_words": 70,
+        "n_unscorable": 162,
+        "ci95": [
+          0.6032,
+          0.7468
+        ],
+        "mode": "primary",
+        "count_match": false,
+        "mean_target_ctx_tokens": 8.38,
+        "mean_competitor_ctx_tokens": 6.81,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_query_swap": {
+        "acc": 0.4368,
+        "acc_sd": 0.0058,
+        "n_seeds": 5,
+        "n_trials": 201
+      },
+      "C3_control_count_matched": {
+        "acc": 0.5918,
+        "subject_weighted_acc": 0.5707,
+        "n_trials": 147,
+        "n_words": 66,
+        "n_unscorable": 174,
+        "ci95": [
+          0.511,
+          0.668
+        ],
+        "mode": "primary",
+        "count_match": true,
+        "mean_target_ctx_tokens": 5.9,
+        "mean_competitor_ctx_tokens": 6.32,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_same_segment_only": {
+        "acc": 0.5303,
+        "subject_weighted_acc": 0.4806,
+        "n_trials": 66,
+        "n_words": 30,
+        "n_unscorable": 114,
+        "ci95": [
+          0.4116,
+          0.6457
+        ],
+        "mode": "primary",
+        "count_match": false,
+        "mean_target_ctx_tokens": 7.21,
+        "mean_competitor_ctx_tokens": 6.46,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_control_same_segment_only_query_swap": {
+        "acc": 0.4149,
+        "subject_weighted_acc": 0.4242,
+        "n_trials": 94,
+        "n_words": 44,
+        "n_unscorable": 86,
+        "ci95": [
+          0.3205,
+          0.5159
+        ],
+        "mode": "swap",
+        "count_match": false,
+        "mean_target_ctx_tokens": 6.46,
+        "mean_competitor_ctx_tokens": 6.17,
+        "note": "sense side built ONLY from the sense's other sentences; held-out sentence excluded from every candidate. Underpowered: facts with >=2 source sentences."
+      },
+      "C3_same_segment_clears_floor_with_ci": false,
+      "best_selector": "S2_PERC",
+      "best_subject_weighted_acc": 0.4449,
+      "C1_drop": 0.0221,
+      "inseparable_tail": {
+        "n_words_scored": 355,
+        "n_words_never_correct": 20,
+        "frac_words_never_correct": 0.0563,
+        "pattern_counts": {
+          "distinct_senses_no_context_support": 15,
+          "proper_noun_entity_collision": 5
+        },
+        "examples": {
+          "distinct_senses_no_context_support": [
+            {
+              "word": "add",
+              "senses": [
+                "boss",
+                "moment"
+              ]
+            },
+            {
+              "word": "bolus",
+              "senses": [
+                "chewing",
+                "mass"
+              ]
+            },
+            {
+              "word": "cloning",
+              "senses": [
+                "creation",
+                "method",
+                "production"
+              ]
+            },
+            {
+              "word": "excitation",
+              "senses": [
+                "depolarization",
+                "level"
+              ]
+            },
+            {
+              "word": "genome",
+              "senses": [
+                "complement",
+                "dna"
+              ]
+            },
+            {
+              "word": "mitosis",
+              "senses": [
+                "division",
+                "period"
+              ]
+            },
+            {
+              "word": "monohybrid",
+              "senses": [
+                "offspring",
+                "result"
+              ]
+            },
+            {
+              "word": "organs",
+              "senses": [
+                "androecium",
+                "ovum",
+                "pollen"
+              ]
+            }
+          ],
+          "proper_noun_entity_collision": [
+            {
+              "word": "airport",
+              "senses": [
+                "entrance",
+                "gateway"
+              ]
+            },
+            {
+              "word": "harper",
+              "senses": [
+                "councillor",
+                "politician"
+              ]
+            },
+            {
+              "word": "life",
+              "senses": [
+                "guidebook",
+                "journey"
+              ]
+            },
+            {
+              "word": "ligase",
+              "senses": [
+                "addition",
+                "enzyme",
+                "gap"
+              ]
+            },
+            {
+              "word": "morace",
+              "senses": [
+                "italian",
+                "player"
+              ]
+            }
+          ]
+        }
+      },
+      "index_verdict": "HARD_FAIL_context_conditioned_sense_selection_DOES_NOT_WORK"
+    }
+  },
+  "final_verdict": "HARD_FAIL_context_conditioned_sense_selection_DOES_NOT_WORK",
+  "final_verdict_basis": "primary index (subject) main-arm bands",
+  "runtime_s": 47.7,
+  "smoke": false
+}
