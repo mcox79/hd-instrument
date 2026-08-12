@@ -1,0 +1,18 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "sampling identical + real code path",
+  "summary": "selftest",
+  "elapsed_s": 1.94,
+  "tiny": {
+    "n_selftest_facts": 4,
+    "pairs": [
+      "Piraeus|port",
+      "dialysis|process",
+      "nephron|unit",
+      "transcription bubble|region"
+    ],
+    "refusals": {
+      "LOW_INFORMATION_OBJECT": 1
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_B3",
+  "verdict_msg": "v4 parse-fix: 1956 facts (v3 1751, +205); yield band YIELD_REGRESSED; all machine checks pass",
+  "summary": "definitional parse-fault repair v4",
+  "elapsed_s": 29.19,
+  "n_facts_v3": 1751,
+  "n_facts_v4": 1956,
+  "n_pairs_kept_from_v3": 777,
+  "n_pairs_new_in_v4": 1179,
+  "n_pairs_dropped_from_v3": 974,
+  "subject_type_mix": {
+    "PROPER": 328,
+    "COMMON": 1628
+  },
+  "multiword_subject_count": 716,
+  "pattern_mix": {
+    "APPOSITIVE": 498,
+    "COPULA": 647,
+    "CALLED": 430,
+    "GLOSSARY_COLON": 373,
+    "REFERS_TO": 8
+  },
+  "segment_mix": {
+    "bio_new": 1241,
+    "bootstrap": 278,
+    "adv_new": 166,
+    "int_cont": 141,
+    "ele_cont": 130
+  },
+  "refusals": {
+    "LOW_INFORMATION_OBJECT": 390,
+    "NEVER_CO_OCCURS": 1
+  },
+  "checks": {
+    "arms_differ_verified": true,
+    "control_rows_survived": {
+      "aorta|artery": true,
+      "cholesterol|lipid": true,
+      "arthropoda|phylum": true,
+      "Piraeus|port": true,
+      "Drosophila|fly": true,
+      "arteriole|vessel": true
+    },
+    "fault_rows_removed": {
+      "fan|expert": true,
+      "technology|seller": true,
+      "kidney|ureter": true,
+      "system|locomotion": true,
+      "structure|function": true,
+      "dialysis|medical": true,
+      "kidney|pair": true,
+      "bubble|region": true,
+      "effect|magnification": true
+    }
+  },
+  "pmi_calibration_controls": {
+    "primer->polymerase": {
+      "survives": true,
+      "pmi": 9.115124953948307,
+      "refusal": null
+    },
+    "organelle->cytoplasm": {
+      "survives": true,
+      "pmi": 6.615892327253035,
+      "refusal": null
+    },
+    "tree->phylogenetic": {
+      "survives": true,
+      "pmi": 7.010200132100852,
+      "refusal": null
+    },
+    "variant->gene": {
+      "survives": true,
+      "pmi": 5.60733031374961,
+      "refusal": null
+    },
+    "alternation->haploid": {
+      "survives": true,
+      "pmi": 8.011030269094174,
+      "refusal": null
+    }
+  },
+  "yield_band": "YIELD_REGRESSED",
+  "multisense_yield_BEFORE_v3": {
+    "n_facts": 1751,
+    "n_distinct_subjects": 1316,
+    "n_multi_sense_words": 288,
+    "n_facts_in_multi_sense_words": 723,
+    "n_senses_with_gt1_source_sentence": 102,
+    "n_multi_sense_words_with_ANY_sense_gt1_sentence": 83,
+    "n_multi_sense_words_with_ALL_senses_gt1_sentence": 7,
+    "sentence_count_dist_in_multi_sense": {
+      "1": 621,
+      "2": 78,
+      "3": 24
+    }
+  },
+  "multisense_yield_AFTER_v4": {
+    "n_facts": 1956,
+    "n_distinct_subjects": 1698,
+    "n_multi_sense_words": 197,
+    "n_facts_in_multi_sense_words": 455,
+    "n_senses_with_gt1_source_sentence": 51,
+    "n_multi_sense_words_with_ANY_sense_gt1_sentence": 45,
+    "n_multi_sense_words_with_ALL_senses_gt1_sentence": 2,
+    "sentence_count_dist_in_multi_sense": {
+      "1": 404,
+      "2": 42,
+      "3": 8,
+      "5": 1
+    }
+  },
+  "b3_audit_sample_path": "D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v4\\b3_audit_sample_DEF_V4.json",
+  "facts_path": "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v4_parsefix\\definitional_facts_v4.jsonl",
+  "prereg": "preregs/2026-08-12_definitional_parse_faults_v4.md",
+  "quality_scored_here": false
+}

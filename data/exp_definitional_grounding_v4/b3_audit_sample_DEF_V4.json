@@ -1,0 +1,1022 @@
+{
+  "arm": "DEF_V4_PARSEFIX",
+  "n_facts_in_arm": 1956,
+  "sample_seed": 42,
+  "sampling": "random.Random(42).sample over fid order -- BIT-IDENTICAL to v2/v3 B3, asserted in run_self_test",
+  "rubric": "MEANINGFUL / RELATED / NOISE per notes/foundation_grounding_sample_2026-08-12.md",
+  "scored": false,
+  "note": "UNSCORED. The cell assigns no buckets and claims no quality band. Baseline to compare against is the v3 DEF hand-score 19/9/22 = 38% MEANINGFUL (notes/director_handscore_b3_def_vs_control_2026-08-12.md). Bands: preregs/2026-08-12_definitional_parse_faults_v4.md",
+  "rows": [
+    {
+      "subject": "Arabia",
+      "object": "mummy",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "arabia",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 12.0082,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "On the edge of the Sahara Desert and at the centre of the North African country’s “Ouallywood” film industry, it has played host to big-budget location shots in Lawrence of Arabia, The Mummy, The Living Daylights and even Game of Thrones"
+      ],
+      "definiendum_surface": "Arabia",
+      "definiens_surface": "The Mummy",
+      "fid": 13,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Cheshire",
+      "object": "body",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "cheshire",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 4.7159,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Active Cheshire, a strategic body for sports and fitness in Cheshire and Warrington, is taking a group of senior figures from the local authority up to Scotland to assess the results of the daily mile"
+      ],
+      "definiendum_surface": "Cheshire",
+      "definiens_surface": "a strategic body for sports and fitness in Cheshire and Warrington",
+      "fid": 51,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Chon",
+      "object": "counsellor",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "chon",
+      "segment": "int_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 9.2009,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Pate K Chon, a counsellor who works with HIV sufferers in Liberia, provided a surprising solution",
+        "Pate K Chon, a counsellor who works with HIV sufferers in Liberia, provided an unlikely solution"
+      ],
+      "definiendum_surface": "Chon",
+      "definiens_surface": "a counsellor who works with HIV sufferers in Liberia",
+      "fid": 54,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Coventry",
+      "object": "pub",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "coventry",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 10.8383,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "“Back home in Coventry, every pub where I was a regular closed within a year of the smoking ban,” remembers Timms of the UK’s ban, begun in 2007"
+      ],
+      "definiendum_surface": "Coventry",
+      "definiens_surface": "every pub where I was a regular closed within a year of the smoking ban",
+      "fid": 61,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "DNA RNA",
+      "object": "polymer",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "rna",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 5.8085,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Like DNA, RNA is a polymer of nucleotides"
+      ],
+      "definiendum_surface": "RNA",
+      "definiens_surface": "a polymer of nucleotides",
+      "fid": 65,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Lodge",
+      "object": "scene",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "lodge",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.7228,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Heath Lodge, the scene of the 1984 murder, by silver bullet, of fashion tycoon Aristos Constantinou, is worth £13m today, after having been sold in the late 1970s for £400,000"
+      ],
+      "definiendum_surface": "Lodge",
+      "definiens_surface": "the scene of the 1984 murder",
+      "fid": 178,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Margaret Thatcher",
+      "object": "best",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "thatcher",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 2.6337,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Intermediate \nMargaret Thatcher, the best known British prime minister since Winston Churchill in 1940 and a global supporter of free market economics, has died"
+      ],
+      "definiendum_surface": "Thatcher",
+      "definiens_surface": "the best known British prime minister since Winston Churchill in 1940 and a global supporter of free market economics",
+      "fid": 189,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Mars Bas Lansdorp",
+      "object": "founder",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "lansdorp",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.8085,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "“The money made broadcasting the London Olympics was almost enough to pay for a mission to Mars,” Bas Lansdorp, the company’s founder, said"
+      ],
+      "definiendum_surface": "Lansdorp",
+      "definiens_surface": "the company’s founder",
+      "fid": 191,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Naeem",
+      "object": "campaigner",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "naeem",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 10.1753,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Furqan Naeem, a campaigner from Manchester, said: I recently visited the United States and I saw some really important work the president did  the work celebrated Americas diversity and brought communities together",
+        "Furqan Naeem, a campaigner from Manchester, said: “I recently visited the States through the US embassy on the community leaders programme and saw first hand some really important work the president did in celebrating America’s diversity and bringing communities together"
+      ],
+      "definiendum_surface": "Naeem",
+      "definiens_surface": "a campaigner from Manchester",
+      "fid": 209,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Olkin",
+      "object": "scientist",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "olkin",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 3,
+      "pmi": 6.3572,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Cathy Olkin, a mission scientist, said: Charon just blew our socks off when we saw the new image today",
+        "Cathy Olkin, a mission scientist, said: “Charon just blew our socks off when we saw the new image",
+        "Cathy Olkin, a mission scientist, said: “Charon just blew our socks off when we had the new image today"
+      ],
+      "definiendum_surface": "Olkin",
+      "definiens_surface": "a mission scientist",
+      "fid": 228,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Star Wars",
+      "object": "brand",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "war",
+      "segment": "int_cont",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 2.3444,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Truly, Star Wars is the ultimate movie brand"
+      ],
+      "definiendum_surface": "Star Wars",
+      "definiens_surface": "the ultimate movie brand",
+      "fid": 285,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Wembley Stadium Bowie",
+      "object": "performer",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "bowie",
+      "segment": "bootstrap",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 6.1785,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "At the 1985 Live Aid famine relief concert at Wembley Stadium, Bowie was one of the best performers",
+        "At the 1985 Live Aid concert at Wembley Stadium, Bowie was one of the best performers"
+      ],
+      "definiendum_surface": "Bowie",
+      "definiens_surface": "one of the best performers",
+      "fid": 318,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "abiotic environment equilibrium",
+      "object": "state",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "equilibrium",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.4204,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "autotroph: an organism capable of synthesizing its own food molecules from smaller inorganic molecules apex consumer: an organism at the top of the food chain biomagnification: an increasing concentration of persistent, toxic substances in organisms at each trophic level, from the producers to the apex consumers biome: a large-scale community of organisms, primarily defined on land by the dominant plant types that exist in geographic regions of the planet with similar climatic conditions chemoautotroph: an organism capable of synthesizing its own food using energy from inorganic molecules detrital food web: a type of food web that is supported by dead or decaying organisms rather than by living autotrophs; these are often associated with grazing food webs within the same ecosystem ecosystem: a community of living organisms and their interactions with their abiotic environment equilibrium: the steady state of a system in which the relationships between elements of the system do not change food chain: a linear sequence of trophic (feeding) relationships of producers, primary consumers, and higher level consumers food web: a web of trophic (feeding) relationships among producers, primary consumers, and higher level consumers in an ecosystem grazing food web: a type of food web in which the producers are either plants on land or phytoplankton in the water; often associated with a detrital food web within the same ecosystem gross primary productivity: the rate at which photosynthetic producers incorporate energy from the Sun net primary productivity: the energy that remains in the producers after accounting for the organisms’ respiration and heat loss photoautotroph: an organism that uses sunlight as an energy source to synthesize its own food molecules primary consumer: the trophic level that obtains its energy from the producers of an ecosystem producer: the trophic level that obtains its energy from sunlight, inorganic chemicals, or dead or decaying organic material resilience (ecological): the speed at which an ecosystem recovers equilibrium after being disturbed resistance (ecological): the ability of an ecosystem to remain at equilibrium in spite of disturbances secondary consumer: a trophic level in an ecosystem, usually a carnivore that eats a primary consumer tertiary consumer: a trophic level in an ecosystem, usually carnivores that eat other carnivores trophic level: the position of a species or group of species in a food chain or a food web Energy flows directionally through ecosystems, entering as sunlight (or inorganic molecules for chemoautotrophs) and leaving as heat during the transfers between trophic levels"
+      ],
+      "definiendum_surface": "their abiotic environment equilibrium",
+      "definiens_surface": "the steady state of a system in which the relationships between elements of the system do",
+      "fid": 326,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "apex consumers biome",
+      "object": "community",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "biome",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 3.6099,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "autotroph: an organism capable of synthesizing its own food molecules from smaller inorganic molecules apex consumer: an organism at the top of the food chain biomagnification: an increasing concentration of persistent, toxic substances in organisms at each trophic level, from the producers to the apex consumers biome: a large-scale community of organisms, primarily defined on land by the dominant plant types that exist in geographic regions of the planet with similar climatic conditions chemoautotroph: an organism capable of synthesizing its own food using energy from inorganic molecules detrital food web: a type of food web that is supported by dead or decaying organisms rather than by living autotrophs; these are often associated with grazing food webs within the same ecosystem ecosystem: a community of living organisms and their interactions with their abiotic environment equilibrium: the steady state of a system in which the relationships between elements of the system do not change food chain: a linear sequence of trophic (feeding) relationships of producers, primary consumers, and higher level consumers food web: a web of trophic (feeding) relationships among producers, primary consumers, and higher level consumers in an ecosystem grazing food web: a type of food web in which the producers are either plants on land or phytoplankton in the water; often associated with a detrital food web within the same ecosystem gross primary productivity: the rate at which photosynthetic producers incorporate energy from the Sun net primary productivity: the energy that remains in the producers after accounting for the organisms’ respiration and heat loss photoautotroph: an organism that uses sunlight as an energy source to synthesize its own food molecules primary consumer: the trophic level that obtains its energy from the producers of an ecosystem producer: the trophic level that obtains its energy from sunlight, inorganic chemicals, or dead or decaying organic material resilience (ecological): the speed at which an ecosystem recovers equilibrium after being disturbed resistance (ecological): the ability of an ecosystem to remain at equilibrium in spite of disturbances secondary consumer: a trophic level in an ecosystem, usually a carnivore that eats a primary consumer tertiary consumer: a trophic level in an ecosystem, usually carnivores that eat other carnivores trophic level: the position of a species or group of species in a food chain or a food web Energy flows directionally through ecosystems, entering as sunlight (or inorganic molecules for chemoautotrophs) and leaving as heat during the transfers between trophic levels"
+      ],
+      "definiendum_surface": "the apex consumers biome",
+      "definiens_surface": "a large-scale community of organisms, primarily defined on land by the dominant plant types that exist in geographic regions of the planet with",
+      "fid": 407,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "autism",
+      "object": "disorder",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "autism",
+      "segment": "ele_cont",
+      "pattern": "COPULA",
+      "n_attestations": 3,
+      "pmi": 6.0657,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Autism is a disorder that one in 100 people have",
+        "Autism is a developmental disorder that more than one in 100 people have",
+        "Autism is a developmental disorder seen in more than one in 100 people"
+      ],
+      "definiendum_surface": "Autism",
+      "definiens_surface": "a disorder that one in 100 people have",
+      "fid": 440,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "axon terminal",
+      "object": "structure",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "terminal",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.9679,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "An axon is a tube-like structure that propagates the signal from the cell body to specialized endings called axon terminals"
+      ],
+      "definiendum_surface": "axon terminals",
+      "definiens_surface": "An axon is a tube-like structure that propagates the signal from the cell body to specialized endings",
+      "fid": 447,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "bacteria",
+      "object": "fixation",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "bacteria",
+      "segment": "bootstrap",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.8716,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Most nitrogen fixation is done by microorganisms called bacteria."
+      ],
+      "definiendum_surface": "bacteria",
+      "definiens_surface": "Most nitrogen fixation is done by microorganisms",
+      "fid": 451,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "belt",
+      "object": "zone",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "belt",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.0309,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "One of the biggest surprises was the discovery that there are mountains in the Kuiper belt, the solar systems mysterious third zone where Pluto is, with about 100,000 smaller icy objects"
+      ],
+      "definiendum_surface": "belt",
+      "definiens_surface": "the solar systems mysterious third zone where Pluto is",
+      "fid": 457,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "biogeography",
+      "object": "study",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "biogeography",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.982,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Biogeography is the study of the distribution of the world’s species both in the past and in the present"
+      ],
+      "definiendum_surface": "Biogeography",
+      "definiens_surface": "the study of the distribution of the world’s species both in the past and in the present",
+      "fid": 476,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "body temperature endotherm",
+      "object": "organism",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "endotherm",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.6397,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "ectotherm: an organism that relies primarily on environmental heat sources to maintain its body temperature endotherm: an organism that relies primarily on internal heat sources to maintain its body temperature interstitial fluid: the fluid found between cells in the body, similar in constitution to the fluid component of blood, but without the high concentrations of proteins kidney: the organ that performs excretory and osmoregulatory functions nephron: the functional unit of the kidney osmoregulation: the mechanism by which water and solute concentrations are maintained at desired levels osmotic balance: the appropriate values of water and solute concentrations for a healthy organism renal artery: the artery that delivers blood to the kidney renal vein: the vein that drains blood from the kidney set point: the target value of a physiological state in homeostasis ureter: the urine-bearing tubes coming out of the kidney urethra: the tube that conducts urine from the urinary bladder to the external environment urinary bladder: the structure that the ureters empty the urine into All living organisms need nutrients to survive"
+      ],
+      "definiendum_surface": "its body temperature endotherm",
+      "definiens_surface": "an organism that relies primarily on internal heat sources to maintain its",
+      "fid": 501,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "cell",
+      "object": "lymphocyte",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "cell",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 2,
+      "pmi": 4.1548,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "complement system: an array of approximately 20 soluble proteins of the innate immune system that enhance phagocytosis, bore holes in pathogens, and recruit lymphocytes cytokine: a chemical messenger that regulates cell differentiation, proliferation, and gene expression to effect immune responses inflammation: the localized redness, swelling, heat, and pain that results from the movement of leukocytes through opened capillaries to a site of infection innate immunity: an immunity that occurs naturally because of genetic factors or physiology, and is not caused by infection or vaccination interferon: a cytokine that inhibits viral replication lymphocyte: a type of white blood cell that includes natural killer cells of the innate immune system and B and T cells of the adaptive immune system macrophage: a large phagocytic cell that engulfs foreign particles and pathogens major histocompatibility complex (MHC) I: a group of proteins found on the surface of all nucleated cells that signals to immune cells whether the cell is normal or is infected or cancerous; it also provides the appropriate sites into which antigens can be loaded for recognition by lymphocytes mast cell: a leukocyte that produces inflammatory molecules, such as histamine, in response to large pathogens monocyte: a type of white blood cell that circulates in the blood and lymph and differentiates into a macrophage after it moves into infected tissue natural killer (NK) cell: a lymphocyte that can kill cells infected with viruses or tumor cells neutrophil: a phagocytic leukocyte that engulfs and digests pathogens white blood cell: a nucleated cell found in the blood that is a part of the immune system; also called leukocytes The adaptive, or acquired, immune response takes days or even weeks to become established—much longer than the innate response; however, adaptive immunity is more specific to an invading pathogen",
+        "active immunity: an immunity that occurs as a result of the activity of the body’s own cells rather than from antibodies acquired from an external source adaptive immunity: a specific immune response that occurs after exposure to an antigen either from a pathogen or a vaccination antibody: a protein that is produced by plasma cells after stimulation by an antigen; also known as an immunoglobulin antigen: a macromolecule that reacts with cells of the immune system and which may or may not have a stimulatory effect antigen-presenting cell (APC): an immune cell that detects, engulfs, and informs the adaptive immune response about an infection by presenting the processed antigen on its cell surface B cell: a lymphocyte that matures in the bone marrow cell-mediated immune response: an adaptive immune response that is controlled by T cells cytotoxic T lymphocyte (TC): an adaptive immune cell that directly kills infected cells via enzymes, and that releases cytokines to enhance the immune response dendritic cell: an immune cell that processes antigen material and presents it on the surface of its cell in MHC class II molecules and induces an immune response in other cells effector cell: a lymphocyte that has differentiated, such as a B cell, plasma cell, or cytotoxic T cell helper T lymphocyte (TH): a cell of the adaptive immune system that binds APCs via MHC class II molecules and stimulates B cells or secretes cytokines to initiate the immune response humoral immune response: the adaptive immune response that is controlled by activated B cells and antibodies immune tolerance: an acquired ability to prevent an unnecessary or harmful immune response to a detected foreign body known not to cause disease lymph: the watery fluid present in the lymphatic circulatory system that bathes tissues and organs with protective white blood cells and does not contain erythrocytes memory cell: an antigen-specific B or T lymphocyte that does not differentiate into an effector cell during the primary immune response but that can immediately become an effector cell on reexposure to the same pathogen major histocompatibility complex (MHC) II molecule: a protein found on the surface of antigen-presenting cells that signals to immune cells whether the cell is normal or is infected or cancerous; it provides the appropriate template into which antigens can be loaded for recognition by lymphocytes passive immunity: an immunity that does not result from the activity of the body’s own immune cells but by transfer of antibodies from one individual to another primary immune response: the response of the adaptive immune system to the first exposure to an antigen secondary immune response: the response of the adaptive immune system to a second or later exposure to an antigen mediated by memory cells T cell: a lymphocyte that matures in the thymus gland A functioning immune system is essential for survival, but even the sophisticated cellular and molecular defenses of the mammalian immune response can be defeated by pathogens at virtually every step"
+      ],
+      "definiendum_surface": "cell",
+      "definiens_surface": "a lymphocyte that can kill cells infected with viruses",
+      "fid": 563,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "cell centrosome cleavage furrow",
+      "object": "constriction",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "furrow",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 10.4232,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "anaphase: the stage of mitosis during which sister chromatids are separated from each other cell cycle: the ordered sequence of events that a cell passes through between one cell division and the next cell cycle checkpoints: mechanisms that monitor the preparedness of a eukaryotic cell to advance through the various cell cycle stages cell plate: a structure formed during plant-cell cytokinesis by Golgi vesicles fusing at the metaphase plate; will ultimately lead to formation of a cell wall to separate the two daughter cells centriole: a paired rod-like structure constructed of microtubules at the center of each animal cell centrosome cleavage furrow: a constriction formed by the actin ring during animal-cell cytokinesis that leads to cytoplasmic division cytokinesis: the division of the cytoplasm following mitosis to form two daughter cells G0 phase: a cell-cycle phase distinct from the G1 phase of interphase; a cell in G0 is not preparing to divide G1 phase: (also, first gap) a cell-cycle phase; first phase of interphase centered on cell growth during mitosis G2 phase: (also, second gap) a cell-cycle phase; third phase of interphase where the cell undergoes the final preparations for mitosis interphase: the period of the cell cycle leading up to mitosis; includes G1, S, and G2 phases; the interim between two consecutive cell divisions kinetochore: a protein structure in the centromere of each sister chromatid that attracts and binds spindle microtubules during prometaphase metaphase plate: the equatorial plane midway between two poles of a cell where the chromosomes align during metaphase metaphase: the stage of mitosis during which chromosomes are lined up at the metaphase plate mitosis: the period of the cell cycle at which the duplicated chromosomes are separated into identical nuclei; includes prophase, prometaphase, metaphase, anaphase, and telophase mitotic phase: the period of the cell cycle when duplicated chromosomes are distributed into two nuclei and the cytoplasmic contents are divided; includes mitosis and cytokinesis mitotic spindle: the microtubule apparatus that orchestrates the movement of chromosomes during mitosis prometaphase: the stage of mitosis during which mitotic spindle fibers attach to kinetochores prophase: the stage of mitosis during which chromosomes condense and the mitotic spindle begins to form quiescent: describes a cell that is performing normal cell functions and has not initiated preparations for cell division S phase: the second, or synthesis phase, of interphase during which DNA replication occurs telophase: the stage of mitosis during which chromosomes arrive at opposite poles, decondense, and are surrounded by new nuclear envelopes Cancer is a collective name for many different diseases caused by a common mechanism: uncontrolled cell division"
+      ],
+      "definiendum_surface": "cell centrosome cleavage furrow",
+      "definiens_surface": "a constriction formed by the actin ring during animal-cell cytokinesis that leads",
+      "fid": 569,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "convergent evolution",
+      "object": "phenomenon",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "evolution",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.5544,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "This phenomenon is called convergent evolution"
+      ],
+      "definiendum_surface": "convergent evolution",
+      "definiens_surface": "This phenomenon",
+      "fid": 689,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "corn",
+      "object": "crop",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "corn",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.8383,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Corn, a major agricultural crop used to create products for a variety of industries, is often modified through plant biotechnology"
+      ],
+      "definiendum_surface": "Corn",
+      "definiens_surface": "a major agricultural crop used to create products for a variety of industries",
+      "fid": 696,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "dominant phase",
+      "object": "short",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "hornwort",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.9314,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The dominant phase of the life cycle of hornworts is the short, blue-green gametophyte"
+      ],
+      "definiendum_surface": "dominant phase of the life cycle of hornworts",
+      "definiens_surface": "the short",
+      "fid": 778,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "eukaryote",
+      "object": "process",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "eukaryote",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 3.2887,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Although the stages of mitosis are similar for most eukaryotes, the process of cytokinesis is quite different for eukaryotes that have cell walls, such as plant cells"
+      ],
+      "definiendum_surface": "eukaryotes",
+      "definiens_surface": "the process of cytokinesis is quite different for eukaryotes that have cell walls",
+      "fid": 859,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "evaporation",
+      "object": "process",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "evaporation",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 2.541,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "This process results in the release of individual water molecules at the surface of the liquid (such as a body of water, the leaves of a plant, or the skin of an organism) in a process called evaporation"
+      ],
+      "definiendum_surface": "evaporation",
+      "definiens_surface": "in a process",
+      "fid": 864,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "evaporation",
+      "object": "water",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "evaporation",
+      "segment": "bootstrap",
+      "pattern": "REFERS_TO",
+      "n_attestations": 1,
+      "pmi": 3.853,
+      "patterns_seen": [
+        "REFERS_TO"
+      ],
+      "source_sentences": [
+        "Evaporation means the sun heats the water which turns into a gas"
+      ],
+      "definiendum_surface": "Evaporation",
+      "definiens_surface": "the sun heats the water which turns into a gas",
+      "fid": 865,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "final electron acceptor",
+      "object": "molecule",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "acceptor",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.8252,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "acetyl CoA: the combination of an acetyl group derived from pyruvic acid and coenzyme A which is made from pantothenic acid (a B-group vitamin) ATP synthase: a membrane-embedded protein complex that regenerates ATP from ADP with energy from protons diffusing through it chemiosmosis: the movement of hydrogen ions down their electrochemical gradient across a membrane through ATP synthase to generate ATP citric acid cycle: a series of enzyme-catalyzed chemical reactions of central importance in all living cells that harvests the energy in carbon-carbon bonds of sugar molecules to generate ATP; the citric acid cycle is an aerobic metabolic pathway because it requires oxygen in later reactions to proceed electron transport chain: a series of four large, multi-protein complexes embedded in the inner mitochondrial membrane that accepts electrons from donor compounds and harvests energy from a series of chemical reactions to generate a hydrogen ion gradient across the membrane oxidative phosphorylation: the production of ATP by the transfer of electrons down the electron transport chain to create a proton gradient that is used by ATP synthase to add phosphate groups to ADP molecules In aerobic respiration, the final electron acceptor is an oxygen molecule, O2"
+      ],
+      "definiendum_surface": "final electron acceptor",
+      "definiens_surface": "an oxygen molecule",
+      "fid": 919,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "growth curve",
+      "object": "shape",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "curve",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 3.1352,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "birth rate: the number of births within a population at a specific point in time carrying capacity: the maximum number of individuals of a population that can be supported by the limited resources of a habitat death rate: the number of deaths within a population at a specific point in time density-dependent regulation: the regulation of population in which birth and death rates are dependent on population size density-independent regulation: the regulation of population in which the death rate is independent of the population size exponential growth: an accelerating growth pattern seen in populations where resources are not limiting intraspecific competition: the competition among members of the same species J-shaped growth curve: the shape of an exponential growth curve K-selected species: a species suited to stable environments that produce a few, relatively large offspring and provide parental care logistic growth: the leveling off of exponential growth due to limiting resources r-selected species: a species suited to changing environments that produce many offspring and provide little or no parental care S-shaped growth curve: the shape of a logistic growth curve zero population growth: the steady population size where birth rates and death rates are equal Concepts of animal population dynamics can be applied to human population growth"
+      ],
+      "definiendum_surface": "growth curve",
+      "definiens_surface": "the shape of an exponential growth curve K-selected",
+      "fid": 1034,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "inhibition",
+      "object": "bind",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "inhibition",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.8053,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "On the other hand, in noncompetitive inhibition, an inhibitor molecule binds to the enzyme in a location other than the active site, called an allosteric site, but still manages to prevent substrate binding to the active site"
+      ],
+      "definiendum_surface": "inhibition",
+      "definiens_surface": "an inhibitor molecule binds to the enzyme in a location other than the active site",
+      "fid": 1116,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "karyotype",
+      "object": "number",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "karyotype",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 3.8899,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "A karyotype is the number and appearance of chromosomes, including their length, banding pattern, and centromere position"
+      ],
+      "definiendum_surface": "karyotype",
+      "definiens_surface": "the number and appearance of chromosomes",
+      "fid": 1149,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "low-density lipoprotein",
+      "object": "cholesterol",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "lipoprotein",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 10.3644,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "For example, the form of cholesterol termed low-density lipoprotein or LDL (also referred to as “bad” cholesterol) is removed from the blood by receptor-mediated endocytosis"
+      ],
+      "definiendum_surface": "low-density lipoprotein",
+      "definiens_surface": "the form of cholesterol",
+      "fid": 1206,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "lymph",
+      "object": "fluid",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "lymph",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 5.8534,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Lymph is the watery fluid that bathes tissues and organs and contains protective white blood cells but does not contain erythrocytes"
+      ],
+      "definiendum_surface": "Lymph",
+      "definiens_surface": "the watery fluid that bathes tissues and organs and contains protective white blood cells but does not contain erythrocytes",
+      "fid": 1209,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "manager",
+      "object": "motivation",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "manager",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.6073,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "But Soulier was hopeful: “Hopefully, with the new manager, the club can find the motivation they’re lacking at the moment,” she said"
+      ],
+      "definiendum_surface": "manager",
+      "definiens_surface": "the club can find the motivation they’re lacking at the moment",
+      "fid": 1232,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "morel mushroom",
+      "object": "ascomycete",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "mushroom",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 10.4232,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The morel mushroom is an ascomycete that is much appreciated for its delicate taste"
+      ],
+      "definiendum_surface": "morel mushroom",
+      "definiens_surface": "an ascomycete that is much appreciated for its delicate taste",
+      "fid": 1309,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "natural gas",
+      "object": "resource",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "gas",
+      "segment": "bootstrap",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 3.1259,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Natural gas is a natural resource, often found in the ground, either alone or together with petroleum."
+      ],
+      "definiendum_surface": "Natural gas",
+      "definiens_surface": "a natural resource",
+      "fid": 1330,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "oil",
+      "object": "liquid",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "oil",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.3664,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Most unsaturated fats are liquid at room temperature and are called oils"
+      ],
+      "definiendum_surface": "oils",
+      "definiens_surface": "Most unsaturated fats are liquid at room temperature and",
+      "fid": 1385,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "patagonia",
+      "object": "region",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "patagonia",
+      "segment": "bootstrap",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 6.2073,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Patagonia is an important region for the country’s economy because it has oil, fishing, mining and agriculture resources",
+        "Patagonia is an important region for the countrys economy because it has oil, fishing, mining and agriculture resources"
+      ],
+      "definiendum_surface": "Patagonia",
+      "definiens_surface": "an important region for the country’s economy because it has oil",
+      "fid": 1429,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "pellucida",
+      "object": "event",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "pellucida",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.0745,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "When a sperm binds to the zona pellucida, a series of events, called the acrosomal reactions, take place"
+      ],
+      "definiendum_surface": "pellucida",
+      "definiens_surface": "a series of events",
+      "fid": 1436,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "photosynthesis place thylakoid",
+      "object": "chloroplast",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "thylakoid",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 5.7842,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "autotroph: an organism capable of producing its own food chlorophyll: the green pigment that captures the light energy that drives the reactions of photosynthesis chloroplast: the organelle where photosynthesis takes place granum: a stack of thylakoids located inside a chloroplast heterotroph: an organism that consumes other organisms for food light-dependent reaction: the first stage of photosynthesis where visible light is absorbed to form two energy-carrying molecules (ATP and NADPH) mesophyll: the middle layer of cells in a leaf photoautotroph: an organism capable of synthesizing its own food molecules (storing energy), using the energy of light pigment: a molecule that is capable of absorbing light energy stoma: the opening that regulates gas exchange and water regulation between leaves and the environment; plural: stomata stroma: the fluid-filled space surrounding the grana inside a chloroplast where the Calvin cycle reactions of photosynthesis take place thylakoid: a disc-shaped membranous structure inside a chloroplast where the light-dependent reactions of photosynthesis take place using chlorophyll embedded in the membranes How can light be used to make food"
+      ],
+      "definiendum_surface": "photosynthesis take place thylakoid",
+      "definiens_surface": "a disc-shaped membranous structure inside a chloroplast where the light-dependent reactions of photosynthesis take place using chlorophyll embedded in the membranes How can light be used to make food",
+      "fid": 1466,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "population",
+      "object": "allele",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "variation",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.037,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        ", allele frequency) migration: the movement of individuals of a population to a new location; in population genetics it refers to the movement of individuals and their alleles from one population to another, potentially changing allele frequencies in both the old and the new population modern synthesis: the overarching evolutionary paradigm that took shape by the 1940s and is generally accepted today natural selection: the greater relative survival and reproduction of individuals in a population that have favorable heritable traits, leading to evolutionary change population genetics: the study of how selective forces change the allele frequencies in a population over time variation: the variety of alleles in a population The Hardy-Weinberg equilibrium principle says that allele frequencies in a population will remain constant in the absence of the four factors that could change them"
+      ],
+      "definiendum_surface": "population over time variation",
+      "definiens_surface": "the variety of alleles in a population The Hardy-Weinberg equilibrium principle says that allele frequencies in a population will remain constant in the absence of the four factors that could change them",
+      "fid": 1508,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "postsynaptic membranes temporal lobe",
+      "object": "memory",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "lobe",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 3.6031,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "action potential: a momentary change in the electrical potential of a neuron (or muscle) membrane amygdala: a structure within the limbic system that processes fear autonomic nervous system: the part of the peripheral nervous system that controls bodily functions axon: a tube-like structure that propagates a signal from a neuron’s cell body to axon terminals basal ganglia: an interconnected collections of cells in the brain that are involved in movement and motivation brainstem: a portion of brain that connects with the spinal cord; controls basic nervous system functions like breathing and swallowing central nervous system (CNS): the nervous system made up of the brain and spinal cord; covered with three layers of protective meninges cerebellum: the brain structure involved in posture, motor coordination, and learning new motor actions cerebral cortex: the outermost sheet of brain tissue; involved in many higher-order functions cerebrospinal fluid (CSF): a clear liquid that surrounds the brain and fills its ventricles and acts as a shock absorber corpus callosum: a thick nerve bundle that connects the cerebral hemispheres dendrite: a structure that extends away from the cell body to receive messages from other neurons depolarization: a change in the membrane potential to a less negative value frontal lobe: the part of the cerebral cortex that contains the motor cortex and areas involved in planning, attention, and language glia: (also, glial cells) the cells that provide support functions for neurons hippocampus: the brain structure in the temporal lobe involved in processing memories hypothalamus: the brain structure that controls hormone release and body homeostasis limbic system: a connected brain area that processes emotion and motivation membrane potential: a difference in electrical potential between the inside and outside of a cell meninges: (singular: meninx) the membranes that cover and protect the central nervous system myelin sheath: a cellular extension containing a fatty substance produced by glia that surrounds and insulates axons neuron: a specialized cell that can receive and transmit electrical and chemical signals occipital lobe: the part of the cerebral cortex that contains visual cortex and processes visual stimuli parasympathetic nervous system: the division of autonomic nervous system that regulates visceral functions during relaxation parietal lobe: the part of the cerebral cortex involved in processing touch and the sense of the body in space peripheral nervous system (PNS): the nervous system that serves as the connection between the central nervous system and the rest of the body; consists of the autonomic nervous system and the sensory-somatic nervous system sensory-somatic nervous system: the system of sensory and motor nerves spinal cord: a thick fiber bundle that connects the brain with peripheral nerves; transmits sensory and motor information; contains neurons that control motor reflexes sympathetic nervous system: the division of autonomic nervous system activated during stressful \"fight-or-flight” situations synapse: a junction between two neurons where neuronal signals are communicated synaptic cleft: a space between the presynaptic and postsynaptic membranes temporal lobe: the part of the cerebral cortex that processes auditory input; parts of the temporal lobe are involved in speech, memory, and emotion processing thalamus: the brain area that relays sensory information to the cortex threshold of excitation: the level of depolarization needed for an action potential to fire (a) This smallpox (variola) vaccine is derived from calves exposed to cowpox virus"
+      ],
+      "definiendum_surface": "postsynaptic membranes temporal lobe",
+      "definiens_surface": "the part of the cerebral cortex that processes auditory input; parts of the temporal lobe are involved in speech, memory",
+      "fid": 1516,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "predecessor",
+      "object": "warner",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "predecessor",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 10.0082,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Webbs predecessor, the controversial Jack Warner, was also arrested in May",
+        "Webb’s predecessor, the controversial Jack Warner, was also seized in May"
+      ],
+      "definiendum_surface": "predecessor",
+      "definiens_surface": "the controversial Jack Warner",
+      "fid": 1518,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "quadrat",
+      "object": "wood",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "quadrat",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 7.6159,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "A quadrat is a wood, plastic, or metal square that is randomly located on the ground and used to count the number of individuals that lie within its boundaries"
+      ],
+      "definiendum_surface": "quadrat",
+      "definiens_surface": "a wood",
+      "fid": 1554,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "rajagopalan",
+      "object": "student",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "rajagopalan",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.446,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Rajagopalan, a student at Boston College, doesn’t see any drawbacks to abstaining from social media"
+      ],
+      "definiendum_surface": "Rajagopalan",
+      "definiens_surface": "a student at Boston College",
+      "fid": 1563,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "scrub forest",
+      "object": "chaparral",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "forest",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 6.6684,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The chaparral is also called scrub forest and is found in California, along the Mediterranean Sea, and along the southern coast of Australia"
+      ],
+      "definiendum_surface": "scrub forest",
+      "definiens_surface": "The chaparral is also",
+      "fid": 1650,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "secretes digestive juices pepsin",
+      "object": "enzyme",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "pepsin",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 7.0864,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "amylase: an enzyme found in saliva and secreted by the pancreas that converts carbohydrates to maltose anus: the exit point of the digestive system for waste material bile: a digestive juice produced by the liver; important for digestion of lipids bolus: a mass of food resulting from chewing action and wetting by saliva colon: the largest portion of the large intestine consisting of the ascending colon, transverse colon, and descending colon chyme: a mixture of partially digested food and stomach juices esophagus: a tubular organ that connects the mouth to the stomach essential nutrient: a nutrient that cannot be synthesized by the body; it must be obtained from food gallbladder: the organ that stores and concentrates bile large intestine: a digestive system organ that reabsorbs water from undigested material and processes waste matter liver: an organ that produces bile for digestion and processes vitamins and lipids mineral: an inorganic, elemental molecule that carries out important roles in the body oral cavity: the point of entry of food into the digestive system pancreas: a gland that secretes digestive juices pepsin: an enzyme found in the stomach whose main role is protein digestion peristalsis: wave-like movements of muscle tissue rectum: the area of the body where feces is stored until elimination salivary gland: one of three pairs of exocrine glands in the mammalian mouth that secretes saliva, a mix of watery mucus and enzymes small intestine: the organ where digestion of protein, fats, and carbohydrates is completed stomach: a saclike organ containing acidic digestive juices vitamin: an organic substance necessary in small amounts to sustain life Animals are complex multicellular organisms that require a mechanism for transporting nutrients throughout their bodies and removing wastes"
+      ],
+      "definiendum_surface": "secretes digestive juices pepsin",
+      "definiens_surface": "an enzyme found in the stomach whose main role",
+      "fid": 1657,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "sweden",
+      "object": "country",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "sweden",
+      "segment": "bootstrap",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 3.8628,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Sweden is the best country for older people; Afghanistan is the worst – but rich countries are not always better for people over 60 years old, says the first global study on ageing",
+        "Sweden is the best country for older people, Afghanistan the worst – but general affluence does not necessarily mean better conditions for the over-60s, according to the first global index on ageing"
+      ],
+      "definiendum_surface": "Sweden",
+      "definiens_surface": "the best country for older people",
+      "fid": 1780,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "thylakoids",
+      "object": "structure",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "thylakoids",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.5529,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Within the chloroplast is a third membrane that forms stacked, disc-shaped structures called thylakoids"
+      ],
+      "definiendum_surface": "thylakoids",
+      "definiens_surface": "disc-shaped structures",
+      "fid": 1827,
+      "relation": "GROUNDED_MEANING"
+    }
+  ]
+}
