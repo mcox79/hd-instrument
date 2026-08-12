@@ -1,0 +1,726 @@
+{
+  "verdict": "MEASURED",
+  "verdict_msg": "parse-fault frequency over all 1751 v3 definitional facts; 992 rows (56.7%) carry >=1 fault flag",
+  "summary": "definitional parse-fault frequency v1",
+  "elapsed_s": 0.0,
+  "n_facts": 1751,
+  "n_rows_with_any_flag": 992,
+  "frac_rows_with_any_flag": 0.5665,
+  "per_class": {
+    "F1_proper_noun": {
+      "n_flagged": 319,
+      "frac_of_1751": 0.1822,
+      "subclasses": {
+        "F1c_NAME_TRUNCATED_ONLY": 96,
+        "F1a_COLLIDES_AND_NAME_TRUNCATED": 127,
+        "F1a_COLLIDES_WITH_COMMON_NOUN": 96,
+        "F1b_CLEAN_PROPER_NOUN": 49
+      },
+      "examples": [
+        {
+          "subject": "abdullah",
+          "object": "minister",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Abdullah",
+          "definiens_surface": "the Chief Minister of Jammu and Kashmir",
+          "sentence": "Omar Abdullah, the Chief Minister of Jammu and Kashmir, has asked the British government to change its advice, but they haven\u2019t changed it"
+        },
+        {
+          "subject": "act",
+          "object": "agreement",
+          "pattern": "COPULA",
+          "definiendum_surface": "Migratory Bird Act",
+          "definiens_surface": "an agreement between Canada and the United States to protect migratory birds",
+          "sentence": "The Migratory Bird Act is an agreement between Canada and the United States to protect migratory birds"
+        },
+        {
+          "subject": "afghanistan",
+          "object": "catch",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Afghanistan",
+          "definiens_surface": "the prince was caught in another media furore",
+          "sentence": "Shortly before he went to Afghanistan, the prince was caught in another media furore, when pictures emerged of him frolicking naked in Las Vegas during a privat"
+        },
+        {
+          "subject": "afghanistan",
+          "object": "worst",
+          "pattern": "COPULA",
+          "definiendum_surface": "Afghanistan",
+          "definiens_surface": "the worst \u2013 but rich countries are not always better for people over 60 years old",
+          "sentence": "Sweden is the best country for older people; Afghanistan is the worst \u2013 but rich countries are not always better for people over 60 years old, says the first gl"
+        },
+        {
+          "subject": "airport",
+          "object": "entrance",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Airport",
+          "definiens_surface": "the entrance to the Everest region",
+          "sentence": "Cloudy weather is closing Lukla Airport, the entrance to the Everest region, more often"
+        },
+        {
+          "subject": "airport",
+          "object": "gateway",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Airport",
+          "definiens_surface": "the gateway to the Everest region",
+          "sentence": "Increased cloud cover in periods of normally clear weather is closing Lukla Airport, the gateway to the Everest region, more often"
+        },
+        {
+          "subject": "alaska",
+          "object": "oil",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Alaska",
+          "definiens_surface": "the workers hosed oil from beaches and then used a floating boom to corral the oil",
+          "sentence": "(a) Cleaning up oil after the Valdez spill in Alaska, the workers hosed oil from beaches and then used a floating boom to corral the oil, which was finally skim"
+        },
+        {
+          "subject": "ambani",
+          "object": "man",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Ambani",
+          "definiens_surface": "the countrys wealthiest man",
+          "sentence": "Mukesh Ambani, the countrys wealthiest man, has built the worlds most valuable home in Mumbai, the commercial capital"
+        },
+        {
+          "subject": "america",
+          "object": "east",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "America",
+          "definiens_surface": "the Middle East and south-east and even south Asia",
+          "sentence": "That change is very obvious in Latin America, the Middle East and south-east and even south Asia, Murray said"
+        },
+        {
+          "subject": "america",
+          "object": "state",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "America",
+          "definiens_surface": "the southeastern United States",
+          "sentence": "Crocodilians (a) live throughout the tropics of Africa, South America, the southeastern United States, Asia, and Australia"
+        },
+        {
+          "subject": "anderson",
+          "object": "activist",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Anderson",
+          "definiens_surface": "an animal-rights activist",
+          "sentence": "Former Baywatch star Pamela Anderson, an animal-rights activist, wrote an open letter to the ALS Association, saying she could not support its record on animal "
+        },
+        {
+          "subject": "anderson",
+          "object": "team",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Anderson",
+          "definiens_surface": "one of the research team",
+          "sentence": "Ross Anderson, one of the research team, said: \u201cGuilty people fidget more and we can now measure this"
+        }
+      ]
+    },
+    "F2_list_as_appositive": {
+      "n_flagged": 78,
+      "frac_of_1751": 0.0445,
+      "subclasses": {
+        "F2b_COORDINATE_TAIL_NO_FINITE_VERB": 35,
+        "F2a_ENUMERATION_TRIGGER_PLUS_BARE_NP": 21,
+        "F2c_DEFINIENS_STARTS_WITH_COORDINATOR": 22
+      },
+      "examples": [
+        {
+          "subject": "america",
+          "object": "state",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "America",
+          "definiens_surface": "the southeastern United States",
+          "sentence": "Crocodilians (a) live throughout the tropics of Africa, South America, the southeastern United States, Asia, and Australia"
+        },
+        {
+          "subject": "arabia",
+          "object": "mummy",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "Arabia",
+          "definiens_surface": "The Mummy",
+          "sentence": "It is on the edge of the Sahara Desert and at the centre of the North African countrys Ouallywood  lm industry, where scenes from movies such as Lawrence of Ara"
+        },
+        {
+          "subject": "arteriole",
+          "object": "vessel",
+          "pattern": "CALLED",
+          "definiendum_surface": "arterioles",
+          "definiens_surface": "and then smaller vessels",
+          "sentence": "The major arteries diverge into minor arteries, and then smaller vessels called arterioles, to reach more deeply into the muscles and organs of the body"
+        },
+        {
+          "subject": "average",
+          "object": "dq",
+          "pattern": "COPULA",
+          "definiendum_surface": "when the average",
+          "definiens_surface": "a DQ of 113",
+          "sentence": "Digital understanding peaks between 14 and 15 years of age, when the average is a DQ of 113, and then drops gradually throughout adulthood, before falling rapid"
+        },
+        {
+          "subject": "chondrichthyes",
+          "object": "development",
+          "pattern": "COPULA",
+          "definiendum_surface": "cartilaginous skeleton of Chondrichthyes",
+          "definiens_surface": "a later development",
+          "sentence": "They are thought to have descended from an extinct group that had a skeleton made of bone; thus, the cartilaginous skeleton of Chondrichthyes is a later develop"
+        },
+        {
+          "subject": "ciliate",
+          "object": "algae",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "ciliates",
+          "definiens_surface": "the brown algae",
+          "sentence": "Amoebozoa: the eukaryotic supergroup that contains the amoebas and slime molds Archaeplastida: the eukaryotic supergroup that contains land plants, green algae,"
+        },
+        {
+          "subject": "cotyledon",
+          "object": "organs",
+          "pattern": "CALLED",
+          "definiendum_surface": "cotyledons",
+          "definiens_surface": "and one or two leaf-like organs",
+          "sentence": "The zygote develops into an embryo with a radicle, or small root, and one or two leaf-like organs called cotyledons"
+        },
+        {
+          "subject": "dicostanza",
+          "object": "ceo",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "DiCostanza",
+          "definiens_surface": "the CEO of Pedego",
+          "sentence": "\u201cBatteries are getting smaller, they\u2019re getting lighter, they\u2019re getting more reliable and they are lasting longer,\u201d says Don DiCostanza, the CEO of Pedego, an "
+        },
+        {
+          "subject": "dicot",
+          "object": "paraphyletic",
+          "pattern": "COPULA",
+          "definiendum_surface": "while the eudicots or dicots",
+          "definiens_surface": "a paraphyletic group",
+          "sentence": "Within the group the monocots, which include grasses and lilies, are monophyletic, while the eudicots or dicots are a paraphyletic group"
+        },
+        {
+          "subject": "diploid",
+          "object": "configuration",
+          "pattern": "CALLED",
+          "definiendum_surface": "diploid",
+          "definiens_surface": "a configuration",
+          "sentence": "A somatic cell contains two matched sets of chromosomes, a configuration known as diploid"
+        },
+        {
+          "subject": "ecology",
+          "object": "extension",
+          "pattern": "COPULA",
+          "definiendum_surface": "Ecosystem ecology",
+          "definiens_surface": "an extension of organismal",
+          "sentence": "Ecosystem ecology is an extension of organismal, population, and community ecology"
+        },
+        {
+          "subject": "electron",
+          "object": "charge",
+          "pattern": "CALLED",
+          "definiendum_surface": "electrons",
+          "definiens_surface": "and the negative charges",
+          "sentence": "The positive charges are called protons, and the negative charges are called electrons."
+        }
+      ]
+    },
+    "F3_subject_truncation": {
+      "n_flagged": 588,
+      "frac_of_1751": 0.3358,
+      "subclasses": {
+        "F3a_MULTIWORD_TERM_TRUNCATED": 469,
+        "F3b_RUNON_DEFINIENDUM": 119
+      },
+      "examples": [
+        {
+          "subject": "abundance",
+          "object": "individual",
+          "pattern": "COPULA",
+          "definiendum_surface": "Relative species abundance",
+          "definiens_surface": "the number individuals in a species relative to the total number of individuals in all spe",
+          "sentence": "Relative species abundance is the number individuals in a species relative to the total number of individuals in all species within a system"
+        },
+        {
+          "subject": "acceptor",
+          "object": "molecule",
+          "pattern": "COPULA",
+          "definiendum_surface": "final electron acceptor",
+          "definiens_surface": "an oxygen molecule",
+          "sentence": "acetyl CoA: the combination of an acetyl group derived from pyruvic acid and coenzyme A which is made from pantothenic acid (a B-group vitamin) ATP synthase: a "
+        },
+        {
+          "subject": "acid",
+          "object": "monomer",
+          "pattern": "COPULA",
+          "definiendum_surface": "Amino acids",
+          "definiens_surface": "the monomers that make up proteins",
+          "sentence": "Amino acids are the monomers that make up proteins"
+        },
+        {
+          "subject": "act",
+          "object": "agreement",
+          "pattern": "COPULA",
+          "definiendum_surface": "Migratory Bird Act",
+          "definiens_surface": "an agreement between Canada and the United States to protect migratory birds",
+          "sentence": "The Migratory Bird Act is an agreement between Canada and the United States to protect migratory birds"
+        },
+        {
+          "subject": "add",
+          "object": "moment",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "He added",
+          "definiens_surface": "The most beautiful moment was when I was standing on the landing area and Mike Todd [the l",
+          "sentence": "He added: The most beautiful moment was when I was standing on the landing area and Mike Todd [the life support engineer who dressed Baumgartner in his suit] ap"
+        },
+        {
+          "subject": "aircraft",
+          "object": "problem",
+          "pattern": "COPULA",
+          "definiendum_surface": "finding a missing aircraft",
+          "definiens_surface": "a needle- in-a-haystack problem",
+          "sentence": "13 Needle in a haystack \nWith modern technology, it seems strange that Malaysian flight MH370 could disappear without a trace \u2013 yet, finding a missing aircraft "
+        },
+        {
+          "subject": "allele",
+          "object": "square",
+          "pattern": "COPULA",
+          "definiendum_surface": "equal segregation of alleles",
+          "definiens_surface": "the reason we can apply the Punnett square to accurately predict the offspring of parents ",
+          "sentence": "The equal segregation of alleles is the reason we can apply the Punnett square to accurately predict the offspring of parents with known genotypes"
+        },
+        {
+          "subject": "allergy",
+          "object": "reason",
+          "pattern": "COPULA",
+          "definiendum_surface": "This is leading many more people to suspect allergies",
+          "definiens_surface": "the reason for their own or their childrens health problems",
+          "sentence": "This is leading many more people to suspect allergies are the reason for their own or their childrens health problems"
+        },
+        {
+          "subject": "amphibian",
+          "object": "moist",
+          "pattern": "COPULA",
+          "definiendum_surface": "important characteristic of extant amphibians",
+          "definiens_surface": "a moist",
+          "sentence": "An important characteristic of extant amphibians is a moist, permeable skin, achieved by mucus glands"
+        },
+        {
+          "subject": "amylase",
+          "object": "enzyme",
+          "pattern": "CALLED",
+          "definiendum_surface": "salivary amylase",
+          "definiens_surface": "It also contains an enzyme",
+          "sentence": "It also contains an enzyme called salivary amylase that begins the process of converting starches in the food into a disaccharide called maltose"
+        },
+        {
+          "subject": "analysis",
+          "object": "geneticist",
+          "pattern": "CALLED",
+          "definiendum_surface": "this linkage analysis",
+          "definiens_surface": "Early geneticists",
+          "sentence": "Early geneticists called this linkage analysis"
+        },
+        {
+          "subject": "animal",
+          "object": "jellyfish",
+          "pattern": "COPULA",
+          "definiendum_surface": "perhaps the best-known medusoid animals",
+          "definiens_surface": "the jellies (jellyfish)",
+          "sentence": "Examples of the polyp form are freshwater species of the genus Hydra; perhaps the best-known medusoid animals are the jellies (jellyfish)"
+        }
+      ]
+    },
+    "F4_polarity_inversion": {
+      "n_flagged": 2,
+      "frac_of_1751": 0.0011,
+      "subclasses": {
+        "F4a_NEGATION_SCOPES_OVER_OBJECT": 2
+      },
+      "examples": [
+        {
+          "subject": "manager",
+          "object": "lack",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "manager",
+          "definiens_surface": "the club can find the motivation theyre lacking at the moment",
+          "sentence": "But Soulier was hopeful: Hopefully, with the new manager, the club can find the motivation theyre lacking at the moment, she said"
+        },
+        {
+          "subject": "structure",
+          "object": "function",
+          "pattern": "CALLED",
+          "definiendum_surface": "vestigial structures",
+          "definiens_surface": "These unused structures without function",
+          "sentence": "These unused structures without function are called vestigial structures"
+        }
+      ]
+    },
+    "F5_bad_definiens_head": {
+      "n_flagged": 168,
+      "frac_of_1751": 0.0959,
+      "subclasses": {
+        "F5b_MEASURE_HEAD_INDEFINITE_OF_COMPLEMENT": 38,
+        "F5a_HEAD_NOT_A_NOUN": 124,
+        "F5d_MEASURE_HEAD_NO_OF_COMPLEMENT": 4,
+        "F5c_MEASURE_HEAD_DEFINITE_OF_COMPLEMENT": 2
+      },
+      "examples": [
+        {
+          "subject": "allopolyploid",
+          "object": "form",
+          "pattern": "CALLED",
+          "definiendum_surface": "allopolyploid",
+          "definiens_surface": "The other form of polyploidy occurs when individuals of two different species reproduce to",
+          "sentence": "The other form of polyploidy occurs when individuals of two different species reproduce to form a viable offspring called an allopolyploid"
+        },
+        {
+          "subject": "ampakines",
+          "object": "class",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "ampakines",
+          "definiens_surface": "a class of drugs that modulate neurotransmitters in the brain",
+          "sentence": "The report goes on to look at the effects of ampakines, a class of drugs that modulate neurotransmitters in the brain, to remove the effects of sleep deprivatio"
+        },
+        {
+          "subject": "amphibian",
+          "object": "moist",
+          "pattern": "COPULA",
+          "definiendum_surface": "important characteristic of extant amphibians",
+          "definiens_surface": "a moist",
+          "sentence": "An important characteristic of extant amphibians is a moist, permeable skin, achieved by mucus glands"
+        },
+        {
+          "subject": "animalia",
+          "object": "group",
+          "pattern": "COPULA",
+          "definiendum_surface": "kingdom Animalia",
+          "definiens_surface": "a group of multicellular Eukarya",
+          "sentence": "The kingdom Animalia is a group of multicellular Eukarya"
+        },
+        {
+          "subject": "annelid",
+          "object": "indicate",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "annelids",
+          "definiens_surface": "the digestive system is indicated in green",
+          "sentence": "In this schematic showing the basic anatomy of annelids, the digestive system is indicated in green, the nervous system is indicated in yellow, and the circulat"
+        },
+        {
+          "subject": "anthracite",
+          "object": "hard",
+          "pattern": "COPULA",
+          "definiendum_surface": "Anthracite",
+          "definiens_surface": "a harder",
+          "sentence": "Anthracite is a harder, glossy, black coal."
+        },
+        {
+          "subject": "apps",
+          "object": "extraordinary",
+          "pattern": "APPOSITIVE",
+          "definiendum_surface": "apps",
+          "definiens_surface": "the response has been extraordinary",
+          "sentence": "Despite the competition from other apps, the response has been extraordinary, with more than 20 million downloads"
+        },
+        {
+          "subject": "arthrography",
+          "object": "type",
+          "pattern": "COPULA",
+          "definiendum_surface": "Arthrography",
+          "definiens_surface": "a type of medical imaging of joints that uses a contrast agent",
+          "sentence": "Arthrography is a type of medical imaging of joints that uses a contrast agent, such as a dye that is opaque to x-rays"
+        },
+        {
+          "subject": "autoimmunity",
+          "object": "type",
+          "pattern": "COPULA",
+          "definiendum_surface": "Autoimmunity",
+          "definiens_surface": "a type of hypersensitivity to self-antigens that affects approximately five percent of the",
+          "sentence": "Autoimmunity is a type of hypersensitivity to self-antigens that affects approximately five percent of the population"
+        },
+        {
+          "subject": "basalt",
+          "object": "type",
+          "pattern": "COPULA",
+          "definiendum_surface": "gabbro and basalt",
+          "definiens_surface": "a few types of igneous rock",
+          "sentence": "Granite, diorite, gabbro and basalt are a few types of igneous rock."
+        },
+        {
+          "subject": "biodiversity",
+          "object": "variety",
+          "pattern": "CALLED",
+          "definiendum_surface": "biodiversity",
+          "definiens_surface": "The variety of these species",
+          "sentence": "The variety of these species is referred to as biodiversity"
+        },
+        {
+          "subject": "bioethics",
+          "object": "important",
+          "pattern": "COPULA",
+          "definiendum_surface": "Bioethics",
+          "definiens_surface": "an important and continually evolving field",
+          "sentence": "Bioethics is an important and continually evolving field, in which researchers collaborate with other thinkers and organizations"
+        }
+      ]
+    },
+    "F6_glossary_runon": {
+      "n_flagged": 53,
+      "frac_of_1751": 0.0303,
+      "subclasses": {
+        "F6_GLOSSARY_RUNON": 53
+      },
+      "examples": [
+        {
+          "subject": "acid",
+          "object": "substance",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "acid",
+          "definiens_surface": "a substance that donates hydrogen ions and therefore lowers pH adhesion: the attraction be",
+          "sentence": "acid: a substance that donates hydrogen ions and therefore lowers pH adhesion: the attraction between water molecules and molecules of a different substance bas"
+        },
+        {
+          "subject": "allele",
+          "object": "factor",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "allele",
+          "definiens_surface": "one of two or more variants of a gene that determines a particular trait for a characteris",
+          "sentence": "allele: one of two or more variants of a gene that determines a particular trait for a characteristic dihybrid: the result of a cross between two true-breeding "
+        },
+        {
+          "subject": "allergy",
+          "object": "reaction",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "allergy",
+          "definiens_surface": "an immune reaction that results from immediate hypersensitivities in which an antibody-med",
+          "sentence": "allergy: an immune reaction that results from immediate hypersensitivities in which an antibody-mediated immune response occurs within minutes of exposure to a "
+        },
+        {
+          "subject": "amoebocyte",
+          "object": "cell",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "amoebocyte",
+          "definiens_surface": "an amoeba-like cell of sponges whose functions include distribution of nutrients to other ",
+          "sentence": "amoebocyte: an amoeba-like cell of sponges whose functions include distribution of nutrients to other cells in the sponge budding: a form of asexual reproductio"
+        },
+        {
+          "subject": "amoebozoa",
+          "object": "supergroup",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "Amoebozoa",
+          "definiens_surface": "the eukaryotic supergroup that contains the amoebas and slime molds Archaeplastida: the eu",
+          "sentence": "Amoebozoa: the eukaryotic supergroup that contains the amoebas and slime molds Archaeplastida: the eukaryotic supergroup that contains land plants, green algae,"
+        },
+        {
+          "subject": "anaphase",
+          "object": "stage",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "anaphase",
+          "definiens_surface": "the stage of mitosis during which sister chromatids are separated from each other cell cyc",
+          "sentence": "anaphase: the stage of mitosis during which sister chromatids are separated from each other cell cycle: the ordered sequence of events that a cell passes throug"
+        },
+        {
+          "subject": "annelida",
+          "object": "phylum",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "Annelida",
+          "definiens_surface": "a phylum of worm-like animals with metamerism chaeta: a chitinous projection from the cuti",
+          "sentence": "Annelida: a phylum of worm-like animals with metamerism chaeta: a chitinous projection from the cuticle found in annelids clitellum: a specialized band of fused"
+        },
+        {
+          "subject": "anther",
+          "object": "structure",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "anther",
+          "definiens_surface": "a sac-like structure at the tip of the stamen in which pollen grains are produced Anthophy",
+          "sentence": "anther: a sac-like structure at the tip of the stamen in which pollen grains are produced Anthophyta: the division to which angiosperms belong basal angiosperms"
+        },
+        {
+          "subject": "atom",
+          "object": "unit",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "atom",
+          "definiens_surface": "a basic unit of matter that cannot be broken down by normal chemical reactions biology: th",
+          "sentence": "atom: a basic unit of matter that cannot be broken down by normal chemical reactions biology: the study of life biosphere: a collection of all ecosystems on Ear"
+        },
+        {
+          "subject": "blastocyst",
+          "object": "structure",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "blastocyst",
+          "definiens_surface": "the structure formed when cells in the mammalian blastula separate into an inner and outer",
+          "sentence": "blastocyst: the structure formed when cells in the mammalian blastula separate into an inner and outer layer gastrulation: the process in which the blastula fol"
+        },
+        {
+          "subject": "cancer",
+          "object": "collective",
+          "pattern": "COPULA",
+          "definiendum_surface": "and are surrounded by new nuclear envelopes Cancer",
+          "definiens_surface": "a collective name for many different diseases caused by a common mechanism: uncontrolled c",
+          "sentence": "anaphase: the stage of mitosis during which sister chromatids are separated from each other cell cycle: the ordered sequence of events that a cell passes throug"
+        },
+        {
+          "subject": "cephalochordata",
+          "object": "clade",
+          "pattern": "GLOSSARY_COLON",
+          "definiendum_surface": "Cephalochordata",
+          "definiens_surface": "a chordate clade whose members possess a notochord, dorsal hollow nerve cord, pharyngeal s",
+          "sentence": "Cephalochordata: a chordate clade whose members possess a notochord, dorsal hollow nerve cord, pharyngeal slits, and a post-anal tail in the adult stage Chordat"
+        }
+      ]
+    }
+  },
+  "flag_cooccurrence_top20": [
+    {
+      "classes": [
+        "F3_subject_truncation"
+      ],
+      "n": 413
+    },
+    {
+      "classes": [
+        "F1_proper_noun"
+      ],
+      "n": 222
+    },
+    {
+      "classes": [
+        "F5_bad_definiens_head"
+      ],
+      "n": 87
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F3_subject_truncation"
+      ],
+      "n": 71
+    },
+    {
+      "classes": [
+        "F3_subject_truncation",
+        "F5_bad_definiens_head"
+      ],
+      "n": 54
+    },
+    {
+      "classes": [
+        "F2_list_as_appositive"
+      ],
+      "n": 47
+    },
+    {
+      "classes": [
+        "F6_glossary_runon"
+      ],
+      "n": 23
+    },
+    {
+      "classes": [
+        "F3_subject_truncation",
+        "F6_glossary_runon"
+      ],
+      "n": 19
+    },
+    {
+      "classes": [
+        "F2_list_as_appositive",
+        "F3_subject_truncation"
+      ],
+      "n": 14
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F2_list_as_appositive"
+      ],
+      "n": 9
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F5_bad_definiens_head"
+      ],
+      "n": 7
+    },
+    {
+      "classes": [
+        "F3_subject_truncation",
+        "F5_bad_definiens_head",
+        "F6_glossary_runon"
+      ],
+      "n": 6
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F3_subject_truncation",
+        "F5_bad_definiens_head"
+      ],
+      "n": 5
+    },
+    {
+      "classes": [
+        "F2_list_as_appositive",
+        "F3_subject_truncation",
+        "F5_bad_definiens_head"
+      ],
+      "n": 3
+    },
+    {
+      "classes": [
+        "F2_list_as_appositive",
+        "F5_bad_definiens_head"
+      ],
+      "n": 3
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F6_glossary_runon"
+      ],
+      "n": 2
+    },
+    {
+      "classes": [
+        "F5_bad_definiens_head",
+        "F6_glossary_runon"
+      ],
+      "n": 2
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F3_subject_truncation",
+        "F6_glossary_runon"
+      ],
+      "n": 1
+    },
+    {
+      "classes": [
+        "F1_proper_noun",
+        "F2_list_as_appositive",
+        "F3_subject_truncation"
+      ],
+      "n": 1
+    },
+    {
+      "classes": [
+        "F4_polarity_inversion"
+      ],
+      "n": 1
+    }
+  ],
+  "multisense_yield_BEFORE": {
+    "n_facts": 1751,
+    "n_distinct_subjects": 1316,
+    "n_multi_sense_words": 288,
+    "n_facts_in_multi_sense_words": 723,
+    "n_senses_with_gt1_source_sentence": 102,
+    "n_multi_sense_words_with_ALL_senses_gt1_sentence": 7,
+    "n_multi_sense_words_with_ANY_sense_gt1_sentence": 83,
+    "sentence_count_dist_in_multi_sense": {
+      "1": 621,
+      "2": 78,
+      "3": 24
+    }
+  },
+  "source": "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v3_definitional\\definitional_facts.jsonl"
+}
