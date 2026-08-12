@@ -160,12 +160,70 @@ class Trace:
 
 
 @dataclass
+class Hypothesis:
+    """The ONE carried referent hypothesis for a library item (2026-08-12 PBV build).
+
+    SHAPE (Medina 2011 PNAS / Trueswell 2013 Cog Psych / Woodard 2016): exactly one hypothesis is
+    held at a time and NO score is retained for any alternative -- there is deliberately no
+    `runner_up` field and no candidate set, because "no partial credit to alternatives" is the one
+    thing the PBV literature is unambiguous about. `strength` is Stevens 2017 Hybrid Pursuit's
+    refinement: the single carried hypothesis has a PERSISTING scalar that rises on confirmation
+    and falls on disconfirmation, so it survives one noisy encounter but not a run of them.
+
+    `rejected` is a LOG ONLY -- it is written on every abandonment and is NEVER read by any
+    decision in this module (grep: it appears in exactly one write site and zero read sites in
+    the update path). PBV learners retain nothing usable about hypotheses they have dropped;
+    keeping the list readable by the mechanism would smuggle partial credit back in through the
+    back door. It exists so a cell can AUDIT the trajectory."""
+    obj: str
+    strength: float
+    proposed_pass: int
+    proposed_at_n_traces: int
+    n_confirm: int = 0
+    n_disconfirm: int = 0
+    n_uninformative: int = 0
+
+
+@dataclass
 class LibraryItem:
     lemma: str
     traces: List[Trace] = field(default_factory=list)
     status: str = "PENDING"     # PENDING | GROUNDED_POS | GROUNDED_NEG | GROUNDED_NEUTRAL | ESCALATED
     first_min_confirm_pass: Optional[int] = None
     patience: int = 0
+    # ---- PBV hypothesis state (2026-08-12; all defaulted, so every existing constructor call
+    # -- including hdlab.foundation_persistence.load_library_pending's keyword construction, which
+    # this build does not touch -- keeps working unchanged and every pre-existing snapshot loads).
+    hypothesis: Optional[Hypothesis] = None
+    hypothesis_log: List[dict] = field(default_factory=list)   # PROPOSE/CONFIRM/DISCONFIRM/ABANDON/REPROPOSE/REVIVE
+    n_abandoned: int = 0
+    n_revivals: int = 0
+    rejected: List[str] = field(default_factory=list)          # LOG ONLY -- never read by a decision
+
+
+# ---- PBV config (Stevens 2017 Hybrid Pursuit shape; values are OURS, justified in the pre-reg) --
+PBV_INIT_STRENGTH = 0.5      # a freshly proposed hypothesis is a coin-flip commitment, not a belief
+PBV_GAMMA = 0.5              # Bush-Mosteller step. From 0.5: two consecutive disconfirmations reach
+                             # 0.125 < PBV_ABANDON_STRENGTH -> ABRUPT switching (Trueswell), while a
+                             # confirmed hypothesis (0.75, 0.875, ...) needs progressively more
+                             # disconfirmation to dislodge -- Pursuit's persisting-strength refinement.
+PBV_ABANDON_STRENGTH = 0.2   # strictly below PBV_INIT_STRENGTH, so abandonment always requires
+                             # accumulated disconfirming evidence, never a single noisy encounter
+                             # from the proposal point.
+PBV_MAX_REVIVALS = 2         # bounded re-opening of an ESCALATED item (see Library.flag); a hard cap
+                             # is what guarantees the loop still terminates once escalation is no
+                             # longer terminal.
+
+
+def pbv_update_strength(strength: float, confirmed: bool, gamma: float = PBV_GAMMA) -> float:
+    """Bush-Mosteller linear reward-penalty update on the ONE carried hypothesis' strength.
+    confirm: s + gamma*(1-s)  (asymptotes at 1, never saturates exactly)
+    disconfirm: s*(1-gamma)   (geometric decay toward 0)
+    Pure function of (strength, verdict) -- no reference to any alternative candidate's score,
+    which is the structural guarantee that no partial credit can reach a runner-up."""
+    if confirmed:
+        return strength + gamma * (1.0 - strength)
+    return strength * (1.0 - gamma)
 
 
 class Library:
@@ -176,18 +234,123 @@ class Library:
         self.items: Dict[str, LibraryItem] = {}
 
     def flag(self, lemma: str, episode_id: str, pole: str, context_vec: np.ndarray,
-             pass_idx: int) -> bool:
-        """Append one trace. No-ops (returns False) for an item that already reached a terminal
-        status (GROUNDED_* / ESCALATED) -- terminal items accept no further evidence. Returns True
-        iff a trace was actually appended."""
+             pass_idx: int, *,
+             propose_fn: Optional[Callable[[LibraryItem, Trace], Optional[Tuple[str, float]]]] = None,
+             verify_fn: Optional[Callable[[LibraryItem, Trace], Optional[bool]]] = None,
+             gamma: float = PBV_GAMMA,
+             abandon_strength: float = PBV_ABANDON_STRENGTH,
+             init_strength: float = PBV_INIT_STRENGTH,
+             revive_terminal: bool = False,
+             max_revivals: int = PBV_MAX_REVIVALS) -> bool:
+        """Append one trace -- and, when `propose_fn`/`verify_fn` are supplied, run the PBV
+        PROPOSE / VERIFY / ABANDON-AND-RE-PROPOSE cycle at this encounter.
+
+        DEFAULTS (both fns None, revive_terminal False) reproduce the prior behavior byte-for-byte:
+        no-op (returns False) for an item that already reached a terminal status; append + return
+        True otherwise. Every existing caller is unchanged.
+
+        WHY HERE (2026-08-12): this is the "an encounter happened" site, and PBV's verification is
+        an ONLINE event at the encounter -- not an offline pass. Putting it anywhere else would
+        reproduce the POSITION infidelity the audit named. This module stays generic: it knows
+        nothing about words, concept spaces or cosines. `propose_fn(item, trace)` returns
+        (object, score) or None (this encounter licenses no proposal); `verify_fn(item, trace)`
+        returns True (this encounter CONFIRMS the standing hypothesis), False (DISCONFIRMS), or
+        None (UNINFORMATIVE -- Medina 2011's ~90%: no strength change at all, which is why the
+        third return value is not optional).
+
+        revive_terminal (default False = prior behavior): when True, an ESCALATED item receiving a
+        new trace returns to PENDING with patience reset and n_revivals incremented, up to
+        max_revivals. ESCALATE means "inconclusive so far", never "proven wrong" (this module's own
+        docstring), and PBV abandons-and-re-proposes rather than exiting -- so permanent terminality
+        on escalation was a fidelity bug. GROUNDED_* items are NEVER revived here (a banked fact is
+        the store's business, not the library's).
+
+        Returns True iff a trace was actually appended."""
         it = self.items.get(lemma)
         if it is None:
             it = LibraryItem(lemma=lemma)
             self.items[lemma] = it
         if it.status != "PENDING":
-            return False
-        it.traces.append(Trace(episode_id, pole, context_vec, pass_idx))
+            if not (revive_terminal and it.status == "ESCALATED" and it.n_revivals < max_revivals):
+                return False
+            it.status = "PENDING"
+            it.patience = 0
+            it.n_revivals += 1
+            it.hypothesis_log.append({"event": "REVIVE", "pass_idx": pass_idx,
+                                      "n_revivals": it.n_revivals, "n_traces": len(it.traces)})
+        tr = Trace(episode_id, pole, context_vec, pass_idx)
+        it.traces.append(tr)
+        if propose_fn is None and verify_fn is None:
+            return True
+
+        if it.hypothesis is None:
+            self._propose(it, tr, pass_idx, propose_fn, init_strength, event="PROPOSE")
+            return True
+        if verify_fn is None:
+            return True
+        verdict = verify_fn(it, tr)
+        h = it.hypothesis
+        if verdict is None:
+            h.n_uninformative += 1
+            return True
+        if verdict:
+            h.n_confirm += 1
+            h.strength = pbv_update_strength(h.strength, True, gamma)
+            it.hypothesis_log.append({"event": "CONFIRM", "pass_idx": pass_idx, "obj": h.obj,
+                                      "strength": round(h.strength, 6), "n_traces": len(it.traces)})
+            return True
+        h.n_disconfirm += 1
+        h.strength = pbv_update_strength(h.strength, False, gamma)
+        it.hypothesis_log.append({"event": "DISCONFIRM", "pass_idx": pass_idx, "obj": h.obj,
+                                  "strength": round(h.strength, 6), "n_traces": len(it.traces)})
+        if h.strength > abandon_strength:
+            return True
+        # ---- ABANDON, then RE-PROPOSE in the same act (Trueswell 2013). Abandonment is
+        # hypothesis-level: the ITEM stays PENDING and keeps accumulating evidence. The re-proposal
+        # is drawn from THIS (disconfirming) encounter, not from any accumulated score over past
+        # encounters -- that is what keeps runner-up credit structurally impossible.
+        it.hypothesis_log.append({"event": "ABANDON", "pass_idx": pass_idx, "obj": h.obj,
+                                  "strength": round(h.strength, 6),
+                                  "n_confirm": h.n_confirm, "n_disconfirm": h.n_disconfirm,
+                                  "n_traces": len(it.traces)})
+        it.rejected.append(h.obj)     # LOG ONLY (see Hypothesis docstring); never read below
+        it.n_abandoned += 1
+        it.hypothesis = None
+        if propose_fn is not None:
+            self._propose(it, tr, pass_idx, propose_fn, init_strength, event="REPROPOSE")
         return True
+
+    @staticmethod
+    def _propose(it: LibraryItem, tr: Trace, pass_idx: int,
+                 propose_fn: Optional[Callable[[LibraryItem, Trace], Optional[Tuple[str, float]]]],
+                 init_strength: float, *, event: str) -> None:
+        """Propose from ONE encounter. No-op when propose_fn is None or declines (an uninformative
+        encounter licenses no commitment -- Medina 2011)."""
+        if propose_fn is None:
+            return
+        cand = propose_fn(it, tr)
+        if cand is None:
+            return
+        obj, score = cand
+        it.hypothesis = Hypothesis(obj=obj, strength=init_strength, proposed_pass=pass_idx,
+                                   proposed_at_n_traces=len(it.traces))
+        it.hypothesis_log.append({"event": event, "pass_idx": pass_idx, "obj": obj,
+                                  "score": round(float(score), 6),
+                                  "strength": round(init_strength, 6), "n_traces": len(it.traces)})
+
+    def inject_hypothesis(self, lemma: str, obj: str, strength: float, pass_idx: int) -> None:
+        """CAN-FAIL TEST HOOK (2026-08-12): force a specific standing hypothesis onto an item.
+        Exists so an experiment can inject a DELIBERATELY WRONG meaning and measure whether the
+        verification machinery abandons it on disconfirming evidence. Not called by any production
+        path (grep-checkable: only experiments/exp_pbv_hypothesis_v1.py and the self-tests)."""
+        it = self.items.get(lemma)
+        if it is None:
+            it = LibraryItem(lemma=lemma)
+            self.items[lemma] = it
+        it.hypothesis = Hypothesis(obj=obj, strength=strength, proposed_pass=pass_idx,
+                                   proposed_at_n_traces=len(it.traces))
+        it.hypothesis_log.append({"event": "INJECT", "pass_idx": pass_idx, "obj": obj,
+                                  "strength": round(float(strength), 6), "n_traces": len(it.traces)})
 
 
 def schema_consistency_split_half(traces: List[Trace], min_half_size: int = 2,
@@ -558,6 +721,88 @@ def self_test() -> dict:
     assert store.query("weaktest", "OUTCOME_POLARITY") == [], (
         "guard leak: an inconsistent-but-banked item is readable from native_store")
 
+    # (8) PBV hypothesis: propose -> confirm -> disconfirm -> abandon -> re-propose, with the
+    # BACKWARD-COMPAT check first (no fns supplied => no hypothesis state touched at all).
+    lib6 = Library()
+    lib6.flag("compat", "c0", "POS", v1, 1)
+    assert lib6.items["compat"].hypothesis is None and lib6.items["compat"].hypothesis_log == [], (
+        "flag() without propose_fn/verify_fn must not touch hypothesis state (backward compat)")
+
+    # scripted verifier: returns the next verdict in a queue; None means UNINFORMATIVE.
+    verdicts: List[Optional[bool]] = [None, True, False, False]
+    proposals = ["alpha", "beta"]
+    prop_calls: List[str] = []
+
+    def _prop(item, tr):
+        if not proposals:
+            return None
+        obj = proposals.pop(0)
+        prop_calls.append(obj)
+        return (obj, 0.9)
+
+    def _ver(item, tr):
+        return verdicts.pop(0) if verdicts else None
+
+    lib7 = Library()
+    for i in range(5):
+        lib7.flag("pbvtest", f"p{i}", "POS", v1, 1, propose_fn=_prop, verify_fn=_ver)
+    it7 = lib7.items["pbvtest"]
+    events = [e["event"] for e in it7.hypothesis_log]
+    assert events[0] == "PROPOSE" and prop_calls[0] == "alpha", (events, prop_calls)
+    # t1 PROPOSE(alpha, s=0.5); t2 UNINFORMATIVE (no event, no strength change);
+    # t3 CONFIRM -> 0.75; t4 DISCONFIRM -> 0.375; t5 DISCONFIRM -> 0.1875 <= 0.2 -> ABANDON+REPROPOSE
+    assert events == ["PROPOSE", "CONFIRM", "DISCONFIRM", "DISCONFIRM", "ABANDON", "REPROPOSE"], events
+    assert it7.n_abandoned == 1 and it7.rejected == ["alpha"], (it7.n_abandoned, it7.rejected)
+    assert it7.hypothesis is not None and it7.hypothesis.obj == "beta", it7.hypothesis
+    assert abs(it7.hypothesis.strength - 0.5) < 1e-12, "re-proposal must start at init_strength"
+    conf_ev = [e for e in it7.hypothesis_log if e["event"] == "CONFIRM"][0]
+    assert abs(conf_ev["strength"] - 0.75) < 1e-9, conf_ev
+    aband = [e for e in it7.hypothesis_log if e["event"] == "ABANDON"][0]
+    assert abs(aband["strength"] - 0.1875) < 1e-9, aband
+    assert aband["n_confirm"] == 1 and aband["n_disconfirm"] == 2, aband
+    assert len(it7.traces) == 5, "every encounter must still append a trace regardless of verdict"
+
+    # (8b) UNINFORMATIVE encounters must leave strength EXACTLY unchanged (Medina ~90% census --
+    # if uninformative encounters moved the strength the mechanism would be an accumulator again).
+    lib8 = Library()
+    lib8.flag("uninf", "u0", "POS", v1, 1, propose_fn=lambda i, t: ("gamma_obj", 0.8),
+              verify_fn=lambda i, t: None)
+    for i in range(1, 5):
+        lib8.flag("uninf", f"u{i}", "POS", v1, 1, propose_fn=lambda it_, t: ("never", 0.1),
+                  verify_fn=lambda it_, t: None)
+    h8 = lib8.items["uninf"].hypothesis
+    assert h8 is not None and h8.obj == "gamma_obj" and h8.strength == PBV_INIT_STRENGTH, h8
+    assert h8.n_uninformative == 4 and h8.n_confirm == 0 and h8.n_disconfirm == 0, h8
+
+    # (8c) pbv_update_strength: pure, monotone, bounded.
+    assert abs(pbv_update_strength(0.5, True, 0.5) - 0.75) < 1e-12
+    assert abs(pbv_update_strength(0.5, False, 0.5) - 0.25) < 1e-12
+    assert pbv_update_strength(0.99, True, 0.5) < 1.0, "confirm must asymptote below 1"
+    # a well-confirmed hypothesis resists a single disconfirmation (Pursuit persisting strength)
+    s = PBV_INIT_STRENGTH
+    for _ in range(3):
+        s = pbv_update_strength(s, True)
+    assert pbv_update_strength(s, False) > PBV_ABANDON_STRENGTH, (
+        "a 3x-confirmed hypothesis must survive one disconfirmation (persisting strength)")
+
+    # (9) ESCALATED is no longer terminal WHEN revive_terminal=True, and still terminal by default.
+    lib9 = Library()
+    lib9.flag("esc", "e0", "POS", v1, 1)
+    lib9.items["esc"].status = "ESCALATED"
+    assert lib9.flag("esc", "e1", "POS", v1, 2) is False, "default must keep ESCALATED terminal"
+    assert lib9.flag("esc", "e1", "POS", v1, 2, revive_terminal=True) is True, (
+        "revive_terminal=True must re-open an ESCALATED item")
+    assert lib9.items["esc"].status == "PENDING" and lib9.items["esc"].n_revivals == 1
+    lib9.items["esc"].status = "ESCALATED"
+    assert lib9.flag("esc", "e2", "POS", v1, 3, revive_terminal=True) is True
+    lib9.items["esc"].status = "ESCALATED"
+    assert lib9.flag("esc", "e3", "POS", v1, 4, revive_terminal=True) is False, (
+        "revival must be BOUNDED by max_revivals so the loop still terminates")
+    lib9.flag("grounded_item", "g0", "POS", v1, 1)
+    lib9.items["grounded_item"].status = "GROUNDED_POS"
+    assert lib9.flag("grounded_item", "g1", "POS", v1, 2, revive_terminal=True) is False, (
+        "revive_terminal must NEVER revive a GROUNDED item, only an ESCALATED one")
+
     return {
         "context_vector_deterministic": True,
         "schema_metric_discriminant_valid": True,
@@ -568,6 +813,11 @@ def self_test() -> dict:
         "real_credit_window_exercised": True,
         "native_promotion_connector_ok": True,
         "native_promotion_guard_holds_ok": True,
+        "pbv_backward_compat_ok": True,
+        "pbv_propose_verify_abandon_repropose_ok": True,
+        "pbv_uninformative_leaves_strength_unchanged_ok": True,
+        "pbv_persisting_strength_resists_one_disconfirm_ok": True,
+        "escalated_revivable_and_bounded_ok": True,
     }
 
 
