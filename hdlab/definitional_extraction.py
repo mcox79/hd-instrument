@@ -375,19 +375,34 @@ _MAX_TERM_CONTENT_TOKENS = 4
 
 
 def _sentence_token_spans(sentence: str):
-    return [(m.group(0), m.start()) for m in _TOKEN_RE.finditer(sentence)]
+    """(token, start_offset, end_offset) for every word token. The END offset is what makes the
+    v5 gap test possible; v4 kept only the start and so could not see that two tokens it was
+    about to merge had a comma between them."""
+    return [(m.group(0), m.start(), m.end()) for m in _TOKEN_RE.finditer(sentence)]
+
+
+# v5 F7 (2026-08-12). A TERM IS A CONTIGUOUS SURFACE SPAN. Anything other than spaces between
+# two tokens -- a comma, a period, a quote, a bracket -- is a boundary that no single term can
+# cross. v4's proper-name expansion walked leftwards over the TOKEN list, which drops punctuation
+# entirely, so "Like DNA, RNA is a polymer" merged into the term `DNA RNA`, and
+# "at Wembley Stadium, Bowie was one of the best performers" into `Wembley Stadium Bowie`.
+# MEASURED@notes/definitional_term_boundary_v5_2026-08-12.md: 22 such merged terms in the 1956
+# v4 facts.
+def _gap_is_clean(sentence: str, a_end: int, b_start: int) -> bool:
+    return sentence[a_end:b_start].strip(" ") == ""
 
 
 def _expand_proper_name(dfd: str, sentence: str) -> Tuple[str, bool]:
     """If the definiendum is a NAME, grow it leftwards over contiguous capitalised tokens and
     report proper-ness. "said Shanhui Fan, an expert..." -> ("Shanhui Fan", True);
     "Currie Technologies, the number one seller" -> ("Currie Technologies", True).
-    Capitalisation at position 0 of the sentence is NOT evidence of a name."""
+    Capitalisation at position 0 of the sentence is NOT evidence of a name.
+    v5: expansion NEVER crosses punctuation (see _gap_is_clean)."""
     toks = _tokens(dfd)
     if not toks or not toks[0][:1].isupper():
         return dfd, False
     spans = _sentence_token_spans(sentence)
-    for i, (t, _pos) in enumerate(spans):
+    for i, (t, _pos, _end) in enumerate(spans):
         if t != toks[0]:
             continue
         if i == 0 and len(toks) == 1:
@@ -396,7 +411,8 @@ def _expand_proper_name(dfd: str, sentence: str) -> Tuple[str, bool]:
         while (j > 0 and spans[j - 1][0][:1].isupper()
                and spans[j - 1][0].lower() not in _NP_BOUNDARY
                and not is_closed_class(lemma_verb(spans[j - 1][0]))
-               and j - 1 > 0):             # never absorb the sentence-initial token
+               and j - 1 > 0                # never absorb the sentence-initial token
+               and _gap_is_clean(sentence, spans[j - 1][2], spans[j][1])):   # v5 F7
             j -= 1
         head_tok = toks[-1]
         end = None
@@ -406,6 +422,10 @@ def _expand_proper_name(dfd: str, sentence: str) -> Tuple[str, bool]:
                 break
         if end is None:
             end = i
+        for k in range(i, end):            # v5 F7: forward extent is contiguous too
+            if not _gap_is_clean(sentence, spans[k][2], spans[k + 1][1]):
+                end = k
+                break
         name = " ".join(s[0] for s in spans[j:end + 1])
         proper = (i > 0) or (j < i)
         return name, proper
@@ -480,14 +500,35 @@ def _mk(dfd: str, dfs: str, pattern: str, sentence: str) -> Optional[Definition]
 # entries with no sentence boundary, so a definiens runs into the NEXT entry
 # ("bottleneck effect: the magnification of genetic drift ... catastrophes FOUNDER EFFECT: a
 # magnification ..."). Split on entry starts before extracting.
+#
+# v5 F8 (2026-08-12) -- THE SPLIT POINT IS MINIMAL, NOT MAXIMAL. v4's `{0,3}` let the entry term
+# start up to THREE WORDS to the LEFT of where it really starts, and regex alternation picks the
+# LEFTMOST viable start, so the term absorbed the TAIL OF THE PREVIOUS ENTRY'S DEFINIENS:
+#   "... with their abiotic environment equilibrium: the steady state ..."
+#        -> term `abiotic environment equilibrium`   (true term: `equilibrium`)
+#   "... from the producers to the apex consumers biome: a large-scale community ..."
+#        -> term `apex consumers biome`              (true term: `biome`)
+# MEASURED@notes/definitional_term_boundary_v5_2026-08-12.md: 292 of 363 glossary facts (80.4%)
+# carried a term that is NOT a real glossary key of the source textbook.
+#
+# Inside a RUN-ON block the true left edge of the term is UNRECOVERABLE -- the preceding words
+# are ordinary running text and no surface cue separates them. What IS certain is that the token
+# immediately left of the colon is the term's HEAD (English terms are head-final). So the split
+# point is that token: the resulting term is UNDER-SPECIFIC (`web` for `detrital food web`) but
+# it is NEVER A DIFFERENT CONCEPT. Under-specific beats corrupt.
+#
+# The multiword term is recovered instead by NOT DESTROYING THE LINE STRUCTURE upstream: in a
+# line-aware corpus each glossary entry is its own sentence, `split_glossary_entries` finds a
+# single marker and returns the text unchanged, and `_RE_COLON` (anchored at ^) reads the full
+# correct term. See `load_biology_sentences_lineaware` in experiments/exp_definitional_grounding_v5.py.
 _GLOSSARY_ENTRY = re.compile(
-    r"(?:(?<=^)|(?<=\s))(?P<term>[a-z][a-z'\-]*(?:\s+[a-z][a-z'\-]*){0,3})\s*:\s")
+    r"(?:(?<=^)|(?<=\s))(?P<term>[A-Za-z][A-Za-z0-9'\-]*)\s*:\s")
 
 
 def split_glossary_entries(text: str) -> List[str]:
     """Split a run-on glossary block into one string per `term: definition` entry. Returns
     [text] unchanged unless at least TWO entry markers are present (a single mid-sentence colon
-    is not a glossary)."""
+    is not a glossary). The boundary is placed at the LAST token before the colon (v5 F8)."""
     starts = [m.start("term") for m in _GLOSSARY_ENTRY.finditer(text)]
     if len(starts) < 2:
         return [text]
@@ -816,6 +857,79 @@ def _self_test() -> None:
     # a sentence-INITIAL capital is not evidence of a name
     assert build_term("Dialysis", "Dialysis is a medical process of removing wastes") == (
         "dialysis", "COMMON")
+
+    # === v5 TERM-BOUNDARY REGRESSIONS (2026-08-12) ============================================
+    # Every case below is a REAL v4 row from
+    # data/foundation/reading_grounding_v4_parsefix/definitional_facts_v4.jsonl.
+
+    # --- F7: a term may not cross PUNCTUATION -------------------------------------------------
+    # v4 merged across a comma because the proper-name walk ran over the TOKEN list.
+    s = "Like DNA, RNA is a polymer of nucleotides"
+    assert not any(t == "DNA RNA" for t, _ty, _h in _terms(s)), _terms(s)
+    s = ("At the 1985 Live Aid famine relief concert at Wembley Stadium, Bowie was one of the "
+         "best performers")
+    assert not any(t.startswith("Wembley") for t, _ty, _h in _terms(s)), _terms(s)
+    s = ("The money made broadcasting the London Olympics was almost enough to pay for a mission "
+         "to Mars, Bas Lansdorp, the company's founder, said")
+    assert not any(t.startswith("Mars") for t, _ty, _h in _terms(s)), _terms(s)
+    assert _gap_is_clean("Ban Ki-moon said", 0, 0) is True
+    assert _expand_proper_name("RNA", "Like DNA, RNA is a polymer")[0] == "RNA"
+
+    # --- F8: a term may not cross a GLOSSARY ENTRY BOUNDARY -----------------------------------
+    # v4 absorbed up to three words of the PREVIOUS entry's definiens into the next term.
+    blk = ("ecosystem: a community of living organisms and their interactions with their abiotic "
+           "environment equilibrium: the steady state of a system in which the relationships "
+           "between elements of the system do not change")
+    got = set()
+    for seg in split_glossary_entries(blk):
+        got |= {d.term for d in _extract_one(seg)}
+    assert not any(t and "abiotic" in t and "equilibrium" in t for t in got), got
+    blk2 = ("autotroph: an organism capable of synthesizing its own food molecules from smaller "
+            "inorganic molecules apex consumer: an organism at the top of the food chain "
+            "biomagnification: an increasing concentration of persistent toxic substances")
+    got = set()
+    for seg in split_glossary_entries(blk2):
+        got |= {d.term for d in _extract_one(seg)}
+    assert not any(t and t.startswith("apex consumers") for t in got), got
+    # ...and a LINE-AWARE (one entry per sentence) glossary entry keeps its FULL multiword term,
+    # which is the whole reason the run-on split is allowed to be under-specific.
+    assert ("absorption spectrum", "COMMON", "pattern") in _terms(
+        "absorption spectrum: the specific pattern of absorption for a substance"), _terms(
+        "absorption spectrum: the specific pattern of absorption for a substance")
+    assert ("bottleneck effect", "COMMON", "magnification") in _terms(
+        "bottleneck effect: the magnification of genetic drift as a result of natural events")
+
+    # --- F1 GAINS MUST NOT REGRESS ------------------------------------------------------------
+    # The v4 proper-noun fix is the one thing the director confirmed WORKED. Each row below is a
+    # v4 fact the director hand-scored correct; the v5 boundary fix must leave all of them intact.
+    F1_GAINS = [
+        ("Pate K Chon, a counsellor who works with HIV sufferers in Liberia, provided a "
+         "surprising solution", "Chon", "counsellor"),
+        ("Furqan Naeem, a campaigner from Manchester, said: I recently visited the United States",
+         "Naeem", "campaigner"),
+        ("Cathy Olkin, a mission scientist, said: Charon just blew our socks off",
+         "Olkin", "scientist"),
+        ("Hariharan Rajagopalan, 18, Boston, Massachusetts Rajagopalan, a student at Boston "
+         "College, doesnt see any problem with not using social media", "Rajagopalan", "student"),
+        ("You can offset the electricity used for air conditioning, said Shanhui Fan, an expert "
+         "in the study of light at Stanford University, who led the development of the mirror",
+         "Shanhui Fan", "expert"),
+        ("Pizzi, who is now CEO of Currie Technologies, the number one seller of e-bikes in the "
+         "US, believes thats about to change", "Currie Technologies", "seller"),
+        ("I would dock in Piraeus, the port in Athens, take my pay, then get the first boat over",
+         "Piraeus", "port"),
+        ("Eye color in Drosophila, the common fruit fly, was the first X-linked trait identified",
+         "Drosophila", "fly"),
+    ]
+    for s, term, head in F1_GAINS:
+        assert (term, "PROPER", head) in _terms(s), (term, head, _terms(s))
+    # ...and the v3 common-noun COLLISIONS the F1 fix removed must stay removed.
+    s = ("You can offset the electricity used for air conditioning, said Shanhui Fan, an expert "
+         "in the study of light at Stanford University, who led the development of the mirror")
+    assert not any(t == "fan" for t, _ty, _h in _terms(s)), _terms(s)
+    s = ("Pizzi, who is now CEO of Currie Technologies, the number one seller of e-bikes in the "
+         "US, believes thats about to change")
+    assert not any(t == "technology" for t, _ty, _h in _terms(s)), _terms(s)
 
     print("[definitional_extraction] self-test PASS")
 
