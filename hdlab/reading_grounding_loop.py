@@ -95,6 +95,7 @@ from hdlab.grounding_acquisition_loop import (
 from hdlab.hd_fact_store import HDFactStore
 from hdlab.gap_detector import GapDetector
 from hdlab.thematic_role_labeler import lemma_verb
+from hdlab.closed_class_lexicon import is_closed_class, is_eligible_meaning
 
 KNOWN_RELATION = "KNOWN_WORD"
 KNOWN_OBJECT = "CORE"
@@ -170,17 +171,35 @@ def _cos(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def canonicalize(new_lemma: str, new_raw_sum: np.ndarray, space: ConceptSpace,
-                 thresh: float = SENSE_MATCH_THRESH) -> Tuple[str, float]:
+                 thresh: float = SENSE_MATCH_THRESH,
+                 eligible: Optional[Callable[[str], bool]] = None) -> Tuple[str, float]:
     """Nearest-neighbor sense assignment for a newly-grounded word against every anchor
     CURRENTLY in `space` (excludes new_lemma itself, which may already be present as a seed
     accumulator coincidentally sharing the name -- excluded defensively, though in practice a
     just-grounded word is never also a seed word by construction). Returns (canonical_obj,
-    best_cosine); canonical_obj == new_lemma (self-grounded, standalone new concept) when no
-    anchor clears `thresh`, or the best-matching PRIOR anchor's lemma otherwise."""
+    best_cosine); canonical_obj == new_lemma when no ELIGIBLE anchor clears `thresh` -- see the
+    NOTE below on what that return value means -- or the best-matching eligible PRIOR anchor
+    otherwise.
+
+    eligible (2026-08-12, additive; default None preserves the prior behavior byte-for-byte):
+    a predicate over anchor lemmas. Ineligible anchors are SKIPPED DURING THE SCAN rather than
+    vetoing the word, so a target whose single nearest anchor is a function word can still link to
+    its best ELIGIBLE anchor instead of being lost. Callers pass
+    hdlab.closed_class_lexicon.is_eligible_meaning (a function word cannot BE what a content word
+    means; see that module's criterion + sources).
+
+    NOTE ON THE SELF-RETURN (load-bearing, 2026-08-12): `canonical_obj == new_lemma` is this
+    function's NO-MATCH signal -- "no anchor in the concept space was close enough". It is NOT a
+    meaning. A caller must NOT record it as a (lemma, GROUNDED_MEANING, lemma) fact: that is a
+    tautology which asserts nothing, and doing so is exactly the defect measured at 65.7% of the
+    landed foundation in notes/foundation_grounding_sample_2026-08-12.md. See
+    `_grounding_gate` below, which refuses it at the consolidation gate."""
     new_bundle = np.sign(new_raw_sum)
     best_anchor, best_cos = None, -2.0
     for anchor in space.anchors():
         if anchor == new_lemma:
+            continue
+        if eligible is not None and not eligible(anchor):
             continue
         ab = space.bundle(anchor)
         if ab is None:
@@ -207,6 +226,23 @@ class ReadingLoopState:
     n_occurrences_seen: int = 0
     n_flagged: int = 0
     growth_curve: List[dict] = field(default_factory=list)   # one row per checkpoint
+    # ---- PROVENANCE + REFUSAL ledgers (2026-08-12; all additive, all default-empty) ----------
+    sentence_pool: List[str] = field(default_factory=list)     # dedup'd corpus sentences
+    sentence_index: Dict[str, int] = field(default_factory=dict)   # sentence text -> sent_id
+    evidence: Dict[str, List[dict]] = field(default_factory=dict)  # lemma -> [{episode_id, pass_idx, sent_id}]
+    provenance: List[dict] = field(default_factory=list)   # one row per GROUNDED_MEANING fact written
+    refusals: List[dict] = field(default_factory=list)     # one row per refused non-grounding
+    gate_decisions: Dict[str, dict] = field(default_factory=dict)  # lemma -> last gate verdict
+
+    def sentence_id(self, sentence: str) -> int:
+        """Intern a sentence into the pool and return its STABLE id. The provenance ledger stores
+        ids, not repeated text, so per-trace provenance costs 8 bytes rather than ~120."""
+        sid = self.sentence_index.get(sentence)
+        if sid is None:
+            sid = len(self.sentence_pool)
+            self.sentence_pool.append(sentence)
+            self.sentence_index[sentence] = sid
+        return sid
 
 
 def seed_known_words(state: ReadingLoopState, words: Sequence[str], source: str) -> None:
@@ -268,38 +304,154 @@ def process_sentence(state: ReadingLoopState, sentence: str, episode_id: str, pa
             src_sent = scramble_context_source[int(scramble_rng.integers(0, len(scramble_context_source)))]
             ctx = context_vector_masked(src_sent, lemma)
         else:
+            src_sent = sentence
             ctx = context_vector_masked(sentence, lemma)
         if not np.any(ctx != 0.0):
             continue  # empty window (all-stopword context); nothing to learn from this occurrence
         flagged = state.library.flag(lemma, episode_id, "POS", ctx, pass_idx)
         if flagged:
             n_flagged += 1
+            # PROVENANCE (2026-08-12): record, IN TRACE ORDER, the actual context sentence this
+            # trace's context_vec was built from. Trace.context_vec is a bundled bag-of-words
+            # vector from which no text can ever be recovered, so without this row a grounded
+            # fact's evidence is structurally unrecoverable -- the glass-box gap the audit found.
+            row = {"episode_id": episode_id, "pass_idx": pass_idx,
+                   "sent_id": state.sentence_id(src_sent)}
+            if src_sent is not sentence and src_sent != sentence:
+                row["occurrence_sent_id"] = state.sentence_id(sentence)  # scramble control
+            state.evidence.setdefault(lemma, []).append(row)
     return n_flagged
 
 
+REFUSAL_TAUTOLOGY = "TAUTOLOGY_NO_ANCHOR"
+REFUSAL_CLOSED_CLASS_OBJECT = "CLOSED_CLASS_OBJECT"
+REFUSAL_CLOSED_CLASS_SUBJECT = "CLOSED_CLASS_SUBJECT"
+
+
+def _make_grounding_gate(state: ReadingLoopState, pass_idx: int, source_tag: str,
+                         thresh: float = SENSE_MATCH_THRESH) -> Callable[[object], bool]:
+    """Build the REFUSE-NON-GROUNDINGS gate (2026-08-12 fix).
+
+    Wired through consolidation_pass's EXISTING `mdl_gate_fn` extension point -- no edit to
+    hdlab.grounding_acquisition_loop. That hook is consulted only when the schema-coherence check
+    has ALREADY passed, and a False verdict is handled exactly like a schema failure: the item does
+    NOT bank, `patience` increments, and it stays PENDING (still accumulating exposures, still a
+    GAP to GapDetector because no KNOWN_WORD fact is written) until PATIENCE_MAX further passes
+    have failed, at which point it ESCALATES ("inconclusive so far", never "proven wrong").
+
+    Two refusal classes, both of which are FAILURES TO GROUND being recorded as such rather than
+    dressed up as facts:
+      * TAUTOLOGY_NO_ANCHOR -- canonicalize found no eligible anchor above `thresh`, so its return
+        value is the target itself. Writing (X, GROUNDED_MEANING, X) asserts nothing.
+      * CLOSED_CLASS_SUBJECT/OBJECT -- a function/discourse word cannot BE a content word's
+        meaning, and has no lexical meaning of its own to ground. Criterion + sources:
+        hdlab.closed_class_lexicon.
+    Every refusal is APPENDED TO state.refusals with its reason, exposure count, best cosine and
+    pass -- nothing is silently dropped, and a refused word remains visible to the gap machinery."""
+
+    def gate(item) -> bool:
+        lemma = item.lemma
+        if is_closed_class(lemma):
+            state.refusals.append({"lemma": lemma, "reason": REFUSAL_CLOSED_CLASS_SUBJECT,
+                                   "pass_idx": pass_idx, "segment": source_tag,
+                                   "n_exposures": len(item.traces), "best_cos": None,
+                                   "candidate_object": None})
+            return False
+        raw_sum = np.sum([t.context_vec for t in item.traces], axis=0)
+        canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=thresh,
+                                           eligible=is_eligible_meaning)
+        if canon_obj == lemma:
+            state.refusals.append({"lemma": lemma, "reason": REFUSAL_TAUTOLOGY,
+                                   "pass_idx": pass_idx, "segment": source_tag,
+                                   "n_exposures": len(item.traces),
+                                   "best_cos": round(float(best_cos), 4), "candidate_object": None})
+            return False
+        if is_closed_class(canon_obj):
+            # Defensive: canonicalize already skipped ineligible anchors, so reaching here means
+            # the eligibility predicate and this check disagree -- a real bug, not a data case.
+            raise AssertionError(
+                f"eligibility filter leaked a closed-class anchor {canon_obj!r} for {lemma!r}")
+        state.gate_decisions[lemma] = {"canonical_obj": canon_obj,
+                                       "best_cos": round(float(best_cos), 4),
+                                       "raw_sum": raw_sum, "pass_idx": pass_idx}
+        return True
+
+    return gate
+
+
+def _provenance_rows(state: ReadingLoopState, lemma: str) -> List[dict]:
+    """Expand the interned evidence rows for `lemma` into self-contained provenance rows carrying
+    the VERBATIM source sentence text (so grounding_provenance.jsonl answers 'why did it learn
+    this' without needing the sentence pool alongside it)."""
+    out: List[dict] = []
+    for row in state.evidence.get(lemma, []):
+        sid = row.get("sent_id")
+        entry = {"episode_id": row.get("episode_id"), "pass_idx": row.get("pass_idx"),
+                 "sent_id": sid,
+                 "sentence": state.sentence_pool[sid] if (sid is not None and sid < len(state.sentence_pool)) else None}
+        if "occurrence_sent_id" in row:
+            osid = row["occurrence_sent_id"]
+            entry["occurrence_sentence"] = (state.sentence_pool[osid]
+                                            if osid < len(state.sentence_pool) else None)
+        out.append(entry)
+    return out
+
+
 def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: str = "TRUST_MID",
-              *, min_confirm: int = MIN_CONFIRM, schema_thresh: float = 0.10) -> dict:
+              *, min_confirm: int = MIN_CONFIRM, schema_thresh: float = 0.10,
+              refuse_non_groundings: bool = True) -> dict:
     """One consolidation checkpoint: run consolidation_pass over state.library, then for every
     NEWLY-GROUNDED lemma this pass, canonicalize it against state.space and PROMOTE both a
     MEANING_RELATION fact (the semantic content) and a KNOWN_WORD fact (so the GATE recognizes
     it as known on any future re-encounter) into state.store. Appends one row to
-    state.growth_curve and returns the row."""
+    state.growth_curve and returns the row.
+
+    refuse_non_groundings (2026-08-12, DEFAULT TRUE -- this is the fix, not an opt-in): install
+    _make_grounding_gate so a self-tautology or a closed-class subject/object is REFUSED at the
+    consolidation gate instead of being written as a GROUNDED_MEANING fact. Pass False ONLY to
+    reproduce the pre-fix behaviour for a controlled before/after comparison; production callers
+    must leave it True. Every fact written under the gate also emits a PROVENANCE row into
+    state.provenance (source sentences + segment + exposure/cosine/schema scores)."""
+    gate = _make_grounding_gate(state, pass_idx, source_tag) if refuse_non_groundings else None
     report = consolidation_pass(state.library, pass_idx, min_confirm=min_confirm,
-                                schema_thresh=schema_thresh, register=False)
+                                schema_thresh=schema_thresh, register=False, mdl_gate_fn=gate)
     newly = report["newly_grounded_pos"]  # pole is always POS in this loop (see module docstring)
     canon_log = []
     for lemma in sorted(newly):
         it = state.library.items[lemma]
-        raw_sum = np.sum([t.context_vec for t in it.traces], axis=0)
-        canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=SENSE_MATCH_THRESH)
-        state.store.store(lemma, MEANING_RELATION, canon_obj, f"reading:{source_tag}", trust)
+        decision = state.gate_decisions.get(lemma) if refuse_non_groundings else None
+        if refuse_non_groundings and decision is None:
+            # The gate MUST have run and approved every lemma reaching this branch. A miss is an
+            # invariant violation, never a case to paper over with a recomputed value.
+            raise AssertionError(
+                f"grounding gate produced no decision for banked lemma {lemma!r} (invariant broken)")
+        if decision is not None:
+            canon_obj, best_cos, raw_sum = (decision["canonical_obj"], decision["best_cos"],
+                                            decision["raw_sum"])
+        else:
+            raw_sum = np.sum([t.context_vec for t in it.traces], axis=0)
+            canon_obj, best_cos = canonicalize(lemma, raw_sum, state.space, thresh=SENSE_MATCH_THRESH)
+        res = state.store.store(lemma, MEANING_RELATION, canon_obj, f"reading:{source_tag}", trust)
         state.store.store(lemma, KNOWN_RELATION, KNOWN_OBJECT, f"reading:{source_tag}", trust)
         state.space.seed_from_bundle(lemma, raw_sum)
         self_grounded = (canon_obj == lemma)
         bank_schema_score = schema_consistency_split_half(it.traces, min_half_size=2)
+        state.provenance.append({
+            "fid": res.fid, "subject": lemma, "relation": MEANING_RELATION, "object": canon_obj,
+            "segment": source_tag, "source": f"reading:{source_tag}", "trust": trust,
+            "pass_idx": pass_idx, "best_cos": round(float(best_cos), 4),
+            "n_exposures": len(it.traces),
+            "schema_score": round(float(bank_schema_score), 4) if bank_schema_score is not None else None,
+            "evidence": _provenance_rows(state, lemma),
+        })
+        state.evidence.pop(lemma, None)      # terminal item; its evidence now lives in provenance
+        state.gate_decisions.pop(lemma, None)
         canon_log.append({"lemma": lemma, "canonical_obj": canon_obj, "best_cos": round(best_cos, 4),
                           "self_grounded": self_grounded, "n_exposures": len(it.traces),
                           "bank_schema_score": round(bank_schema_score, 4) if bank_schema_score is not None else None})
+    for lemma in report["newly_escalated"]:
+        state.evidence.pop(lemma, None)      # terminal (inconclusive); stop carrying its text
+        state.gate_decisions.pop(lemma, None)
     if newly:
         state.gap_detector.refresh()
         for lemma in newly:
@@ -314,6 +466,8 @@ def checkpoint(state: ReadingLoopState, pass_idx: int, source_tag: str, trust: s
         "cumulative_pending": report["cumulative_pending"],
         "n_self_grounded_this_pass": sum(1 for c in canon_log if c["self_grounded"]),
         "n_linked_this_pass": sum(1 for c in canon_log if not c["self_grounded"]),
+        "n_refused_this_pass": sum(1 for r in state.refusals if r["pass_idx"] == pass_idx),
+        "n_refused_cumulative": len(state.refusals),
         "canon_log": canon_log,
     }
     state.growth_curve.append(row)
@@ -422,18 +576,129 @@ def _selftest_canonicalize_links_vs_self_grounds() -> None:
     assert far_obj == "lonely_word", (far_obj, far_cos)
 
 
+def _no_anchor_fixture(seed: int) -> ReadingLoopState:
+    """A state whose ONLY anchors come from sentences topically unrelated to the target word, so
+    the target has no eligible anchor above SENSE_MATCH_THRESH -- canonicalize's no-match case."""
+    st = HDFactStore(n_dim=2048, seed=seed,
+                     relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                           MEANING_RELATION: "FUNCTIONAL"})
+    state = ReadingLoopState(store=st)
+    seed_known_words(state, ["engine", "harvest", "tractor", "barn"], f"seed_noanchor_{seed}")
+    for i, s in enumerate(["The engine and the tractor waited inside the barn until harvest.",
+                           "A tractor engine ran loudly in the barn before harvest."]):
+        process_sentence(state, s, f"anchor{i}", pass_idx=0)
+    return state
+
+
+def _selftest_tautology_is_refused_not_recorded() -> None:
+    """A word with coherent, repeated exposure but NO eligible anchor must NOT be recorded as
+    (X, GROUNDED_MEANING, X). It must stay UNGROUNDED, stay VISIBLE to the gap machinery, and be
+    recorded in the refusal ledger with a reason -- not silently dropped."""
+    state = _no_anchor_fixture(seed=901)
+    sentences = [
+        "The zibbo glimmered softly across the quiet violet meadow.",
+        "A quiet zibbo glimmered above the violet meadow again.",
+        "Every violet meadow held a softly glimmering zibbo.",
+        "The glimmering zibbo drifted over that quiet violet meadow.",
+    ]
+    for i, s in enumerate(sentences):
+        process_sentence(state, s, f"z{i}", pass_idx=1)
+    for p in (1, 2, 3, 4, 5, 6):
+        checkpoint(state, pass_idx=p, source_tag="selftest_taut")
+
+    objs = [f.obj for f in state.store.live_facts() if f.relation == MEANING_RELATION]
+    subs = [f.subject for f in state.store.live_facts() if f.relation == MEANING_RELATION]
+    assert "zibbo" not in subs, f"tautology-refused word must not be counted grounded: {list(zip(subs, objs))}"
+    assert not any(s == o for s, o in zip(subs, objs)), f"a self-tautology was recorded: {list(zip(subs, objs))}"
+    assert is_gap(state, "zibbo") is True, (
+        "a refused word must remain a GAP -- the gap machinery still needs to see it")
+    reasons = [r["reason"] for r in state.refusals if r["lemma"] == "zibbo"]
+    assert REFUSAL_TAUTOLOGY in reasons, f"refusal not recorded for zibbo: {state.refusals}"
+
+
+def _selftest_closed_class_never_becomes_a_meaning() -> None:
+    """A function word that IS the cosine-nearest anchor must never be recorded as what a content
+    word means. CAN-FAIL by construction: the same fixture is asserted to pick that function word
+    when the eligibility filter is removed, so deleting the filter breaks this test."""
+    st = HDFactStore(n_dim=2048, seed=902,
+                     relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                           MEANING_RELATION: "FUNCTIONAL"})
+    state = ReadingLoopState(store=st)
+    seed_known_words(state, ["also", "engine", "harvest"], "seed_filler")
+    sentences = [
+        "The zibbo also appeared beside the humming engine before harvest.",
+        "A zibbo also rested near the humming engine before harvest.",
+        "That zibbo also stood beside the humming engine before harvest.",
+        "Each zibbo also waited near the humming engine before harvest.",
+    ]
+    for i, s in enumerate(sentences):
+        process_sentence(state, s, f"f{i}", pass_idx=1)
+    checkpoint(state, pass_idx=1, source_tag="selftest_filler")
+
+    it = state.library.items["zibbo"]
+    raw_sum = np.sum([t.context_vec for t in it.traces], axis=0)
+    unfiltered_obj, unfiltered_cos = canonicalize("zibbo", raw_sum, state.space,
+                                                  thresh=SENSE_MATCH_THRESH)
+    assert unfiltered_obj == "also" and unfiltered_cos >= SENSE_MATCH_THRESH, (
+        f"fixture broken: without the eligibility filter the nearest anchor must be the function "
+        f"word (got {unfiltered_obj!r} at {unfiltered_cos:.3f}) -- otherwise this test cannot fail")
+
+    checkpoint(state, pass_idx=2, source_tag="selftest_filler")
+    objs = [f.obj for f in state.store.live_facts() if f.relation == MEANING_RELATION]
+    assert "also" not in objs, f"a closed-class word was recorded as a meaning: {objs}"
+    for o in objs:
+        assert is_eligible_meaning(o), f"closed-class object {o!r} recorded as a meaning"
+
+
+def _selftest_provenance_records_source_sentences() -> None:
+    """Every GROUNDED_MEANING fact carries its segment plus the VERBATIM source sentences that
+    produced it -- the 'why did it learn this' the persisted store could not previously answer."""
+    st = HDFactStore(n_dim=2048, seed=903,
+                     relation_cardinality={KNOWN_RELATION: "FUNCTIONAL",
+                                           MEANING_RELATION: "FUNCTIONAL"})
+    state = ReadingLoopState(store=st)
+    seed_known_words(state, ["boat", "storm", "harbor"], "seed_prov")
+    sentences = [
+        "Owen moored the flimzat boat before the storm reached the harbor.",
+        "The crew moored a flimzat boat before every storm hit the harbor.",
+        "Sailors always moor the flimzat boat before a storm nears the harbor.",
+        "They moored the old flimzat boat before the storm entered the harbor.",
+    ]
+    for i, s in enumerate(sentences):
+        process_sentence(state, s, f"p{i}", pass_idx=1)
+    checkpoint(state, pass_idx=1, source_tag="prov_segment")
+    checkpoint(state, pass_idx=2, source_tag="prov_segment")
+
+    rows = [r for r in state.provenance if r["subject"] == "flimzat"]
+    assert len(rows) == 1, f"expected exactly one provenance row for flimzat, got {len(rows)}"
+    row = rows[0]
+    assert row["segment"] == "prov_segment" and row["relation"] == MEANING_RELATION
+    got = [e["sentence"] for e in row["evidence"]]
+    assert len(got) == 4 and all(s in sentences for s in got), (
+        f"provenance must carry the verbatim source sentences, got {got}")
+    live = [f for f in state.store.live_facts()
+            if f.relation == MEANING_RELATION and f.subject == "flimzat"]
+    assert live and live[0].fid == row["fid"], "provenance fid must key the actual stored fact"
+
+
 def _run_all_selftests() -> dict:
     _selftest_no_leak_masking()
     _selftest_gap_gate_known_vs_novel()
     _selftest_grounding_needs_coherent_repeated_exposure()
     _selftest_promotion_closes_the_gap_gate()
     _selftest_canonicalize_links_vs_self_grounds()
+    _selftest_tautology_is_refused_not_recorded()
+    _selftest_closed_class_never_becomes_a_meaning()
+    _selftest_provenance_records_source_sentences()
     return {
         "no_leak_masking_ok": True,
         "gap_gate_known_vs_novel_ok": True,
         "coherent_vs_incoherent_grounding_ok": True,
         "promotion_closes_gap_gate_ok": True,
         "canonicalize_link_vs_self_ground_ok": True,
+        "tautology_refused_not_recorded_ok": True,
+        "closed_class_never_a_meaning_ok": True,
+        "provenance_records_source_sentences_ok": True,
         "reuse": ["hdlab.grounding_acquisition_loop", "hdlab.hd_fact_store.HDFactStore",
                   "hdlab.gap_detector.GapDetector", "hdlab.thematic_role_labeler.lemma_verb"],
     }

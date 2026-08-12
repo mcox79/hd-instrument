@@ -77,7 +77,7 @@ from __future__ import annotations
 import json
 import os
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -87,7 +87,14 @@ from hdlab.reading_grounding_loop import ConceptSpace, ReadingLoopState, GAP_FLO
 from hdlab.gap_detector import GapDetector
 from hdlab.grounding_acquisition_loop import Library, LibraryItem, Trace
 
-FORMAT_VERSION = 1
+FORMAT_VERSION = 2
+# v1 -> v2 (2026-08-12): adds THREE optional sidecar files -- grounding_provenance.jsonl,
+# grounding_refusals.jsonl, evidence_pending.json. Every reader below treats all three as OPTIONAL
+# (os.path.isfile guards, manifest .get()), so a v1 snapshot written before this change -- e.g. the
+# evidence store data/foundation/reading_grounding_v1 -- still loads unchanged. Nothing about the
+# store/, concept_space.npz or library_pending.* formats changed, so v1 and v2 differ only by the
+# PRESENCE of the sidecars.
+BACKWARD_COMPATIBLE_VERSIONS = (1, 2)
 
 
 # ============================================================================ atomic I/O
@@ -96,6 +103,28 @@ def _write_json(path: str, obj: object) -> None:
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(obj, f)
     os.replace(tmp, path)
+
+
+def _write_jsonl(path: str, rows: List[dict]) -> None:
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=True) + "\n")
+    os.replace(tmp, path)
+
+
+def _read_jsonl(path: str) -> List[dict]:
+    """Read a sidecar ledger. Returns [] when the file is absent (a v1 snapshot) -- the ONLY
+    tolerated absence; a present-but-malformed line raises rather than being skipped."""
+    if not os.path.isfile(path):
+        return []
+    out: List[dict] = []
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                out.append(json.loads(line))
+    return out
 
 
 def _write_npz(path: str, **arrays: np.ndarray) -> None:
@@ -229,6 +258,55 @@ def load_library_pending(json_path: str, npz_path: str) -> Library:
     return lib
 
 
+# ================================================== provenance / refusals / pending evidence (v2)
+PROVENANCE_FILE = "grounding_provenance.jsonl"
+REFUSALS_FILE = "grounding_refusals.jsonl"
+EVIDENCE_PENDING_FILE = "evidence_pending.json"
+
+
+def save_pending_evidence(state: ReadingLoopState, path: str) -> None:
+    """Persist the raw source-sentence evidence for PENDING library items only, with the sentence
+    pool COMPACTED to just the sentences those items actually reference (a full-corpus pool would
+    be persisted over and over across segments for no gain). Terminal GROUNDED items need nothing
+    here -- their evidence has already been written into grounding_provenance.jsonl."""
+    pending = sorted(l for l, it in state.library.items.items() if it.status == "PENDING")
+    pool: List[str] = []
+    remap: Dict[int, int] = {}
+
+    def _remap(old_id: int) -> Optional[int]:
+        if old_id is None or old_id >= len(state.sentence_pool):
+            return None
+        if old_id not in remap:
+            remap[old_id] = len(pool)
+            pool.append(state.sentence_pool[old_id])
+        return remap[old_id]
+
+    evidence: Dict[str, List[dict]] = {}
+    for lemma in pending:
+        rows = state.evidence.get(lemma)
+        if not rows:
+            continue
+        out_rows = []
+        for r in rows:
+            new_row = {"episode_id": r.get("episode_id"), "pass_idx": r.get("pass_idx"),
+                       "sent_id": _remap(r.get("sent_id"))}
+            if "occurrence_sent_id" in r:
+                new_row["occurrence_sent_id"] = _remap(r["occurrence_sent_id"])
+            out_rows.append(new_row)
+        evidence[lemma] = out_rows
+    _write_json(path, {"format_version": FORMAT_VERSION, "sentence_pool": pool,
+                       "evidence": evidence})
+
+
+def load_pending_evidence(path: str) -> Tuple[List[str], Dict[str, List[dict]]]:
+    """Returns (sentence_pool, evidence). Absent file (a v1 snapshot) -> ([], {})."""
+    if not os.path.isfile(path):
+        return [], {}
+    with open(path, encoding="utf-8") as f:
+        payload = json.load(f)
+    return list(payload.get("sentence_pool", [])), dict(payload.get("evidence", {}))
+
+
 # ============================================================================ combined foundation
 def save_foundation(state: ReadingLoopState, dir_path: str, *, source_tag: str, next_pass_idx: int,
                     growth_curve_all: Optional[List[dict]] = None) -> dict:
@@ -238,6 +316,9 @@ def save_foundation(state: ReadingLoopState, dir_path: str, *, source_tag: str, 
     save_concept_space(state.space, os.path.join(dir_path, "concept_space.npz"))
     save_library_pending(state.library, os.path.join(dir_path, "library_pending.json"),
                          os.path.join(dir_path, "library_pending_ctx.npz"))
+    _write_jsonl(os.path.join(dir_path, PROVENANCE_FILE), state.provenance)
+    _write_jsonl(os.path.join(dir_path, REFUSALS_FILE), state.refusals)
+    save_pending_evidence(state, os.path.join(dir_path, EVIDENCE_PENDING_FILE))
     manifest = {
         "format_version": FORMAT_VERSION,
         "saved_ts_iso": datetime.now(timezone.utc).isoformat(),
@@ -250,6 +331,8 @@ def save_foundation(state: ReadingLoopState, dir_path: str, *, source_tag: str, 
         "n_facts": len(state.store._facts),
         "n_live_facts": len(state.store.live_facts()),
         "n_pending_library_items": sum(1 for it in state.library.items.values() if it.status == "PENDING"),
+        "n_provenance_rows": len(state.provenance),
+        "n_refusals": len(state.refusals),
         "growth_curve_all": growth_curve_all if growth_curve_all is not None else list(state.growth_curve),
     }
     _write_json(os.path.join(dir_path, "manifest.json"), manifest)
@@ -268,6 +351,13 @@ def load_foundation(dir_path: str) -> ReadingLoopState:
                              n_occurrences_seen=manifest["n_occurrences_seen"],
                              n_flagged=manifest.get("n_flagged", 0),
                              growth_curve=list(manifest.get("growth_curve_all", [])))
+    # v2 sidecars; ALL optional so a v1 snapshot (no sidecars) loads to empty ledgers unchanged.
+    state.provenance = _read_jsonl(os.path.join(dir_path, PROVENANCE_FILE))
+    state.refusals = _read_jsonl(os.path.join(dir_path, REFUSALS_FILE))
+    pool, evidence = load_pending_evidence(os.path.join(dir_path, EVIDENCE_PENDING_FILE))
+    state.sentence_pool = list(pool)
+    state.sentence_index = {s: i for i, s in enumerate(state.sentence_pool)}
+    state.evidence = {k: list(v) for k, v in evidence.items()}
     state.gap_detector = GapDetector(store, floor=GAP_FLOOR)
     state.gap_detector.refresh()
     return state
@@ -434,6 +524,54 @@ def _selftest_full_foundation_roundtrip_and_resume_grounds(tmp_dir: str) -> None
     assert is_gap(reloaded, "flimzat") is False
 
 
+def _selftest_v1_snapshot_without_sidecars_still_loads(tmp_dir: str) -> None:
+    """BACKWARD COMPATIBILITY (v2 gate): a snapshot written WITHOUT the v2 sidecars -- exactly the
+    shape of the landed evidence store data/foundation/reading_grounding_v1 -- must still load, with
+    empty ledgers rather than an exception. Simulated by deleting the sidecars after a v2 save, so
+    the test exercises the real absent-file code path and cannot drift out of date."""
+    state = _build_tiny_state(seed=811)
+    d = os.path.join(tmp_dir, "v1_shape")
+    save_foundation(state, d, source_tag="v1_shape", next_pass_idx=1)
+    for fn in (PROVENANCE_FILE, REFUSALS_FILE, EVIDENCE_PENDING_FILE):
+        os.remove(os.path.join(d, fn))
+    reloaded = load_foundation(d)
+    assert reloaded.provenance == [] and reloaded.refusals == []
+    assert reloaded.sentence_pool == [] and reloaded.evidence == {}
+    assert len(reloaded.store._facts) == len(state.store._facts), "v1-shape store failed to reload"
+
+
+def _selftest_provenance_and_refusal_ledgers_roundtrip(tmp_dir: str) -> None:
+    """Provenance + refusal rows survive save/reload with their source sentences intact, and a
+    PENDING item's evidence survives so a word grounding AFTER a reload still gets provenance
+    covering exposures from BOTH sides of the boundary."""
+    from hdlab.reading_grounding_loop import process_sentence, checkpoint, MEANING_RELATION
+    state = _build_tiny_state(seed=812)   # flimzat PENDING with 3 traces + 3 evidence rows
+    assert len(state.evidence.get("flimzat", [])) == 3, state.evidence.get("flimzat")
+    d = os.path.join(tmp_dir, "prov_rt")
+    save_foundation(state, d, source_tag="segment_a", next_pass_idx=1)
+
+    reloaded = load_foundation(d)
+    assert len(reloaded.evidence.get("flimzat", [])) == 3, "pending evidence lost across reload"
+    fourth = "They moored the old flimzat boat before the storm entered the harbor."
+    process_sentence(reloaded, fourth, "g3", pass_idx=1)
+    checkpoint(reloaded, pass_idx=1, source_tag="segment_b")
+    checkpoint(reloaded, pass_idx=2, source_tag="segment_b")
+
+    rows = [r for r in reloaded.provenance if r["subject"] == "flimzat"]
+    assert len(rows) == 1, f"expected one provenance row post-reload, got {rows}"
+    sents = [e["sentence"] for e in rows[0]["evidence"]]
+    assert len(sents) == 4 and fourth in sents and all(s for s in sents), (
+        f"provenance must pool evidence across the save/reload boundary, got {sents}")
+
+    d2 = os.path.join(tmp_dir, "prov_rt2")
+    save_foundation(reloaded, d2, source_tag="segment_b", next_pass_idx=3)
+    again = load_foundation(d2)
+    assert [r["subject"] for r in again.provenance] == [r["subject"] for r in reloaded.provenance]
+    assert again.provenance[0]["evidence"] == reloaded.provenance[0]["evidence"]
+    fids = {f.fid for f in again.store.live_facts() if f.relation == MEANING_RELATION}
+    assert all(r["fid"] in fids for r in again.provenance), "provenance fid does not key a live fact"
+
+
 def _run_all_selftests() -> dict:
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
@@ -442,12 +580,16 @@ def _run_all_selftests() -> dict:
         _selftest_concept_space_roundtrip(tmp)
         _selftest_library_pending_roundtrip(tmp)
         _selftest_full_foundation_roundtrip_and_resume_grounds(tmp)
+        _selftest_v1_snapshot_without_sidecars_still_loads(tmp)
+        _selftest_provenance_and_refusal_ledgers_roundtrip(tmp)
     return {
         "store_roundtrip_identical_ok": True,
         "continuation_matches_uninterrupted_run_ok": True,
         "concept_space_roundtrip_ok": True,
         "library_pending_roundtrip_ok": True,
         "full_foundation_roundtrip_and_resume_grounds_ok": True,
+        "v1_snapshot_without_sidecars_still_loads_ok": True,
+        "provenance_and_refusal_ledgers_roundtrip_ok": True,
     }
 
 
