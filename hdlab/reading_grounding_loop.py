@@ -211,6 +211,133 @@ class ConceptSpace:
     def anchors(self) -> List[str]:
         return sorted(self._sums)
 
+    def freeze(self) -> "FrozenAnchorSpace":
+        """READ-OUT FIX 3 (2026-08-12, ADDITIVE, OFF unless a caller asks for it): a snapshot of
+        the CURRENT anchor field, so one verification episode compares every encounter of one
+        hypothesis against a STABLE field instead of a field that grew under it.
+
+        MEASURED motivation (data/exp_context_vector_signal_v1/metrics.json:space_drift): re-scoring
+        the identical encounters against each segment's own snapshot instead of one fixed space
+        raises the per-encounter argmax flip rate 0.782962 -> 0.856881, i.e. anchor-space growth
+        contributes ~+0.074 of pure instability, and PBV ran against a space that grew at EVERY
+        encounter. Nothing in ConceptSpace's own behavior changes; this only hands out a read-only
+        view."""
+        anchors, mat = self.anchor_matrix()
+        return FrozenAnchorSpace(anchors, mat)
+
+
+class FrozenAnchorSpace:
+    """Immutable snapshot of a ConceptSpace's anchor field.
+
+    Duck-types the ONLY method `canonicalize_fast` reads (`anchor_matrix`), plus `anchors` /
+    `bundle` / `__contains__` for the reference `canonicalize`, so it is a drop-in wherever a
+    ConceptSpace is read but never written. Deliberately has NO `observe` / `seed_from_bundle`:
+    an attempt to mutate a frozen field is a bug and should raise AttributeError loudly rather
+    than silently write to a copy."""
+
+    __slots__ = ("_anchors", "_mat", "_pos", "_elig_cache")
+
+    def __init__(self, anchors: Sequence[str], mat: np.ndarray) -> None:
+        self._anchors: List[str] = list(anchors)
+        self._mat = np.array(mat, dtype=np.float64, copy=True)
+        self._pos = {a: i for i, a in enumerate(self._anchors)}
+        self._elig_cache: Dict[str, object] = {}
+
+    @property
+    def d(self) -> int:
+        return int(self._mat.shape[1]) if self._mat.size else CTX_D
+
+    def anchor_matrix(self) -> Tuple[List[str], np.ndarray]:
+        return self._anchors, self._mat
+
+    def anchors(self) -> List[str]:
+        return list(self._anchors)
+
+    def bundle(self, lemma: str) -> Optional[np.ndarray]:
+        i = self._pos.get(lemma)
+        return None if i is None else self._mat[i]
+
+    def __contains__(self, lemma: str) -> bool:
+        return lemma in self._pos
+
+
+@dataclass
+class ReadoutConfig:
+    """Read-out options for `canonicalize_fast`. EVERY FIELD DEFAULTS OFF; `readout=None` (the
+    default everywhere) takes the pre-existing code path unchanged.
+
+    FIX 1 -- `margin_z_min` (+ `margin_stat`): REPLACES the magnitude test `best_cos >= thresh` as
+    the informativeness criterion. MEASURED defect: the magnitude test admits a DIFFERENT lemma's
+    context window at 0.416808 and the true one at 0.416687 -- enrichment 1.0000x, i.e. provably
+    blind to whether the context belongs to the lemma (mean best cosine 0.311344 vs 0.311343;
+    data/exp_context_vector_signal_v1/metrics.json:per_encounter). All lemma-specific information
+    is in argmax IDENTITY, none in the score, so the replacement asks a FIELD-RELATIVE question:
+    how far does the winner stand above the rest of the anchor field?
+        margin_stat="z_top":  (s_best - mean(s_field)) / sd(s_field)
+        margin_stat="margin": s_best - s_second
+    `margin_z_min` is NOT a guessed constant: callers derive it as a quantile of a MEASURED
+    statistic distribution (see preregs/2026-08-12_readout_fix_v1.md sec 4).
+
+    FIX 2 -- `anchor_background` {anchor: (mu, sd)}: per-anchor background mean/sd of cos(context,
+    anchor) over a background sample of encounter contexts. Scores become
+    (cos - mu_a) / max(sd_a, eps) BEFORE the argmax, so an anchor that scores high against
+    EVERYTHING (the corpus frequency backbone -- anchors are themselves accumulated context sums)
+    stops winning by genericity. MEASURED defect: a lemma's OWN summed contexts clear
+    SENSE_MATCH_THRESH LESS often (0.221625) than scrambled ones (0.285400) --
+    `trace_sum_separation` = -0.063775. Anchors absent from the dict are left uncalibrated
+    (mu=0, sd=1), so a growing space is always safe.
+
+    FIX 3 is not a field here: it is `ConceptSpace.freeze()` (pass the frozen view AS the space).
+
+    The returned cosine is always the RAW cosine of the winning anchor, on the same scale as
+    before, so existing telemetry stays interpretable; only the WINNER and the ACCEPT decision
+    change when the corresponding option is set."""
+
+    anchor_background: Optional[Dict[str, Tuple[float, float]]] = None
+    margin_z_min: Optional[float] = None
+    margin_stat: str = "z_top"          # "z_top" | "margin"
+    scale_floor: float = 1e-6
+    _aligned: Dict[int, Tuple[np.ndarray, np.ndarray]] = field(default_factory=dict, repr=False)
+
+    @property
+    def active(self) -> bool:
+        return self.anchor_background is not None or self.margin_z_min is not None
+
+    def aligned(self, anchors: Sequence[str]) -> Optional[Tuple[np.ndarray, np.ndarray]]:
+        """(center, scale) aligned to `anchors`, cached on anchor count (anchors are only ever
+        added, and the background is a pure function of the anchor name)."""
+        if self.anchor_background is None:
+            return None
+        hit = self._aligned.get(len(anchors))
+        if hit is not None:
+            return hit
+        ctr = np.zeros(len(anchors), dtype=np.float64)
+        scl = np.ones(len(anchors), dtype=np.float64)
+        for i, a in enumerate(anchors):
+            bg = self.anchor_background.get(a)
+            if bg is not None:
+                ctr[i] = float(bg[0])
+                scl[i] = max(float(bg[1]), self.scale_floor)
+        self._aligned[len(anchors)] = (ctr, scl)
+        return ctr, scl
+
+
+def _readout_statistic(scores: np.ndarray, best_pos: int, stat: str) -> float:
+    """Field-relative standout statistic over the SCANNABLE anchor scores (FIX 1)."""
+    if stat == "margin":
+        if scores.size < 2:
+            return float("inf")
+        part = np.partition(scores, -2)
+        return float(part[-1] - part[-2])
+    if stat != "z_top":
+        raise ValueError(f"unknown margin_stat {stat!r} (expected 'z_top' or 'margin')")
+    if scores.size < 2:
+        return float("inf")
+    sd = float(np.std(scores))
+    if sd < 1e-12:
+        return 0.0
+    return float((scores[best_pos] - float(np.mean(scores))) / sd)
+
 
 def _cos(a: np.ndarray, b: np.ndarray) -> float:
     na, nb = float(np.linalg.norm(a)), float(np.linalg.norm(b))
@@ -261,14 +388,21 @@ def canonicalize(new_lemma: str, new_raw_sum: np.ndarray, space: ConceptSpace,
     return new_lemma, best_cos if best_anchor is not None else 0.0
 
 
-def canonicalize_fast(new_lemma: str, new_raw_sum: np.ndarray, space: ConceptSpace,
+def canonicalize_fast(new_lemma: str, new_raw_sum: np.ndarray, space: "ConceptSpace",
                       thresh: float = SENSE_MATCH_THRESH,
-                      eligible_mask: Optional[np.ndarray] = None) -> Tuple[str, float]:
+                      eligible_mask: Optional[np.ndarray] = None,
+                      *, readout: Optional["ReadoutConfig"] = None) -> Tuple[str, float]:
     """Vectorized `canonicalize`. SAME contract, SAME return values, SAME no-match self-return, SAME
     first-max-in-sorted-order tie-break -- only the loop is replaced by one matvec. `eligible_mask`
     is a boolean array aligned to `space.anchor_matrix()`'s anchor order (True = scannable);
     None means every anchor is eligible. Equivalence to the reference implementation is asserted
-    in `_selftest_canonicalize_fast_matches_reference`, which is the only thing licensing its use."""
+    in `_selftest_canonicalize_fast_matches_reference`, which is the only thing licensing its use.
+
+    `readout` (2026-08-12, ADDITIVE, keyword-only, DEFAULT None = prior behavior byte-for-byte):
+    a ReadoutConfig enabling FIX 1 (field-relative informativeness gate) and/or FIX 2 (per-anchor
+    frequency-backbone correction). See ReadoutConfig for the measured defects each addresses.
+    `space` may be a ConceptSpace or a `FrozenAnchorSpace` (FIX 3) -- this function only ever READS
+    `space.anchor_matrix()`."""
     anchors, mat = space.anchor_matrix()
     if not anchors:
         return new_lemma, 0.0
@@ -293,6 +427,25 @@ def canonicalize_fast(new_lemma: str, new_raw_sum: np.ndarray, space: ConceptSpa
     sims[ok] = (mat[ok] @ nb) / (norms[ok] * nn)
     zero_rows = keep & ~ok
     sims[zero_rows] = 0.0
+    if readout is not None and readout.active:
+        # ---- READ-OUT FIX 1 / FIX 2 (2026-08-12). Unreachable unless a caller passes a
+        # ReadoutConfig; `readout=None` (every existing caller) skips this block entirely.
+        scan = np.flatnonzero(keep)
+        raw_scores = sims[scan]
+        cal_scores = raw_scores
+        aligned = readout.aligned(anchors)
+        if aligned is not None:                              # FIX 2: frequency-corrected pool
+            ctr, scl = aligned
+            cal_scores = (raw_scores - ctr[scan]) / scl[scan]
+        best_local = int(np.argmax(cal_scores))
+        best = int(scan[best_local])
+        best_cos = float(sims[best])                          # RAW cosine, scale unchanged
+        if readout.margin_z_min is None:
+            accept = best_cos >= thresh
+        else:                                                 # FIX 1: field-relative gate
+            accept = _readout_statistic(cal_scores, best_local,
+                                        readout.margin_stat) >= readout.margin_z_min
+        return (anchors[best], best_cos) if accept else (new_lemma, best_cos)
     best = int(np.argmax(sims))
     best_cos = float(sims[best])
     if best_cos >= thresh:
@@ -312,7 +465,8 @@ def _eligible_mask(space: ConceptSpace, cache: Dict[str, object]) -> np.ndarray:
     return mask
 
 
-def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFORMATIVE_MIN):
+def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFORMATIVE_MIN,
+                 readout: Optional[ReadoutConfig] = None, freeze_episode: bool = False):
     """Build the PBV (propose_fn, verify_fn) pair for `state`. THIS is the propose-then-verify
     wiring; hdlab.grounding_acquisition_loop.Library.flag owns the control flow.
 
@@ -334,12 +488,31 @@ def make_pbv_fns(state: "ReadingLoopState", *, informative_min: float = PBV_INFO
     alternative's score is stored anywhere. On DISCONFIRMATION the re-proposal (issued by
     `Library.flag`) is this same encounter's own best candidate -- Trueswell 2013's abandon-and-
     re-propose in one act -- not an argmax over accumulated evidence, which is what keeps a rejected
-    alternative from re-entering through an accumulator."""
+    alternative from re-entering through an accumulator.
+
+    READ-OUT OPTIONS (2026-08-12, ADDITIVE; both default OFF = prior behavior byte-for-byte).
+    `readout`: a ReadoutConfig (FIX 1 field-relative gate / FIX 2 frequency-corrected pool).
+    `freeze_episode` (FIX 3): snapshot the anchor field when a hypothesis is PROPOSED and compare
+    every encounter of THAT episode against the snapshot, releasing it when the hypothesis is
+    abandoned -- so a hypothesis is verified against a stable field rather than one that grew under
+    it. MEASURED: growth alone adds ~+0.074 flip (see ConceptSpace.freeze)."""
     cache: Dict[str, object] = {}
+    episodes: Dict[str, FrozenAnchorSpace] = {}
+
+    def _space_for(item):
+        """Live space unless FIX 3 is on. A new episode begins exactly where `Library.flag` starts
+        one: at an encounter where the item carries no hypothesis (PROPOSE / post-ABANDON)."""
+        if not freeze_episode:
+            return state.space
+        if item.hypothesis is None or item.lemma not in episodes:
+            episodes[item.lemma] = state.space.freeze()
+        return episodes[item.lemma]
 
     def _encounter_best(item, tr) -> Tuple[str, float]:
-        return canonicalize_fast(item.lemma, tr.context_vec, state.space, thresh=informative_min,
-                                 eligible_mask=_eligible_mask(state.space, cache))
+        sp = _space_for(item)
+        mask_cache = cache if sp is state.space else sp._elig_cache
+        return canonicalize_fast(item.lemma, tr.context_vec, sp, thresh=informative_min,
+                                 eligible_mask=_eligible_mask(sp, mask_cache), readout=readout)
 
     def propose_fn(item, tr):
         obj, cos = _encounter_best(item, tr)
