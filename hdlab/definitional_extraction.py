@@ -32,9 +32,11 @@ module ADDS a signal instead of replacing the existing one.
 
 REUSE (what this module does NOT reimplement)
 ---------------------------------------------
-  hdlab.thematic_role_labeler.lemma_verb   -- surface->lemma normalizer (POS-generic despite name)
+  hdlab.thematic_role_labeler.lemma_word   -- canonical never-emit-a-non-word normalizer
+                                             (NOT lemma_verb, which returns stems like `arteri`)
   hdlab.closed_class_lexicon.is_closed_class / is_eligible_meaning -- function-word gate
-  hdlab.animacy_lexicon                    -- WordNet-sourced category lexicon (head-noun sanity)
+  WordNet (already vendored, already used by hdlab.animacy_lexicon) -- nominal test for the
+                                             definiendum; nothing new is downloaded or trained
 Nothing here re-derives lemmatization, stop-lists, or a parser. The head-of-NP pick is a
 right-most-noun-before-a-clause-boundary heuristic over the definiens span, deliberately shallow
 and deliberately visible, NOT a new parser (hdlab already owns parse organs; none of them expose
@@ -195,7 +197,24 @@ _RE_APPOS = re.compile(
 
 _FRONTING_PREP = {"in", "at", "on", "for", "by", "with", "from", "during", "after", "before",
                   "under", "over", "within", "through", "among", "between", "besides",
-                  "unlike", "like", "despite", "according"}
+                  "unlike", "like", "despite", "according",
+                  # sentence-initial SUBORDINATORS open a clause whose comma is not an appositive
+                  "while", "although", "though", "because", "since", "if", "when", "whereas",
+                  "unless", "as"}
+
+
+def _is_nominal_or_unknown(lemma: str) -> bool:
+    """True if `lemma` can head a noun phrase, or is not in WordNet at all (technical terms and
+    proper nouns must pass -- they are precisely the words a reader needs defined)."""
+    try:
+        from nltk.corpus import wordnet as wn
+    except Exception:                       # noqa: BLE001 - degraded mode, do not block
+        return True
+    if wn.synsets(lemma, pos="n"):
+        return True
+    if wn.synsets(lemma):                   # known to WordNet but NOT as a noun -> reject
+        return False
+    return True                             # out-of-WordNet -> allow
 
 
 def _appos_ok(sentence: str, m: "re.Match") -> bool:
@@ -246,6 +265,14 @@ def _mk(dfd: str, dfs: str, pattern: str, sentence: str) -> Optional[Definition]
     # definiendum head = last token of the definiendum phrase (English NPs are head-final)
     dfd_lemma = lemma_verb(dfd_toks[-1])
     if is_closed_class(dfd_lemma):
+        return None
+    # A DEFINIENDUM IS A NOMINAL. Adverbs and pure verbs cannot be defined by "X is a Y" in the
+    # taxonomic sense this module extracts -- "Additionally, the gradual melting ..." was yielding
+    # `additionally -> melting`, and "although they were disappointing, the prequels ..." was
+    # yielding `disappoint -> prequels`. Out-of-WordNet tokens (technical coinages, proper nouns:
+    # `rubisco`, `arthropoda`) are ALLOWED through, since those are exactly the terms a reader
+    # most needs defined and WordNet cannot adjudicate them.
+    if not _is_nominal_or_unknown(dfd_lemma):
         return None
     head = definiens_head(dfs)
     if head is None or head == dfd_lemma:
@@ -396,6 +423,16 @@ def _self_test() -> None:
     # (e2) head == definiendum collapses to a tautology and MUST be refused, not banked
     s2 = "vestigial structure: a physical structure present in an organism"
     assert all(d.head != d.definiendum_lemma for d in extract_definitions(s2))
+    # (g) a definiendum must be NOMINAL: adverbs and pure verbs are not definable this way
+    s = ("Additionally, the gradual melting and refreezing of the poles, glaciers and ice "
+         "sheets, occurred")
+    assert links(s, "additionally", "melting") is None, extract_definitions(s)
+    s = "While this might sound like an exaggeration, the threat was actually severe"
+    assert all(d.definiendum_lemma != "exaggeration" for d in extract_definitions(s)),         extract_definitions(s)
+    # ...but out-of-WordNet technical terms and proper nouns MUST still pass
+    s = "Arthropoda is the largest phylum in the animal world"
+    assert links(s, "arthropoda", "phylum") == "COPULA:HEAD", extract_definitions(s)
+
     # (f) real bio definitions still survive all the guards
     for s, subj, obj in (
             ("Cholesterol is a lipid that contributes to cell membrane flexibility",

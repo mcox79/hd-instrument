@@ -1,0 +1,822 @@
+{
+  "arm": "DEF",
+  "rubric": "MEANINGFUL / RELATED / NOISE per notes/foundation_grounding_sample_2026-08-12.md; sampling random.seed(42) over GROUNDED_MEANING fid order -- IDENTICAL to the v2 B3 audit so the numbers are directly comparable",
+  "baseline_to_beat": {
+    "source": "v2 hand-score",
+    "MEANINGFUL": 0.08,
+    "RELATED": 0.26,
+    "NOISE": 0.66
+  },
+  "prereg": "preregs/2026-08-12_definitional_grounding_v3.md",
+  "n_facts_in_arm": 1751,
+  "NOT_AUTO_SCORED": true,
+  "rows": [
+    {
+      "subject": "afghanistan",
+      "object": "catch",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 5.6353,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Shortly before he went to Afghanistan, the prince was caught in another media furore, when pictures emerged of him frolicking naked in Las Vegas during a private party"
+      ],
+      "definiendum_surface": "Afghanistan",
+      "definiens_surface": "the prince was caught in another media furore"
+    },
+    {
+      "subject": "anion",
+      "object": "ion",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 2,
+      "pmi": 7.3898,
+      "patterns_seen": [
+        "CALLED",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "Negative ions are formed by gaining electrons and are called anions",
+        "anion: a negative ion formed by gaining electrons atomic number: the number of protons in an atom cation: a positive ion formed by losing electrons chemical bond: an interaction between two or more of the same or different elements that results in the formation of molecules covalent bond: a type of strong bond between two or more of the same or different elements; forms when electrons are shared between elements electron: a negatively charged particle that resides outside of the nucleus in the electron orbital; lacks functional mass and has a charge of \u20131 electron transfer: the movement of electrons from one element to another element: one of 118 unique substances that cannot be broken down into smaller substances and retain the characteristic of that substance; each element has a specified number of protons and unique properties hydrogen bond: a weak bond between partially positively charged hydrogen atoms and partially negatively charged elements or molecules ion: an atom or compound that does not contain equal numbers of protons and electrons, and therefore has a net charge ionic bond: a chemical bond that forms between ions of opposite charges isotope: one or more forms of an element that have different numbers of neutrons mass number: the number of protons plus neutrons in an atom matter: anything that has mass and occupies space neutron: a particle with no charge that resides in the nucleus of an atom; has a mass of 1 nonpolar covalent bond: a type of covalent bond that forms between atoms when electrons are shared equally between atoms, resulting in no regions with partial charges as in polar covalent bonds nucleus: (chemistry) the dense center of an atom made up of protons and (except in the case of a hydrogen atom) neutrons octet rule: states that the outermost shell of an element with a low atomic number can hold eight electrons periodic table of elements: an organizational chart of elements, indicating the atomic number and mass number of each element; also provides key information about the properties of elements polar covalent bond: a type of covalent bond in which electrons are pulled toward one atom and away from another, resulting in slightly positive and slightly negative charged regions of the molecule proton: a positively charged particle that resides in the nucleus of an atom; has a mass of 1 and a charge of +1 radioactive isotope: an isotope that spontaneously emits particles or energy to form a more stable element van der Waals interaction: a weak attraction or interaction between molecules caused by slightly positively charged or slightly negatively charged atoms Do you ever wonder why scientists spend time looking for water on other planets"
+      ],
+      "definiendum_surface": "anions",
+      "definiens_surface": "Negative ions are formed by gaining electrons and"
+    },
+    {
+      "subject": "annelid",
+      "object": "indicate",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 5.1753,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "In this schematic showing the basic anatomy of annelids, the digestive system is indicated in green, the nervous system is indicated in yellow, and the circulatory system is indicated in red"
+      ],
+      "definiendum_surface": "annelids",
+      "definiens_surface": "the digestive system is indicated in green"
+    },
+    {
+      "subject": "anus",
+      "object": "opening",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 7.2712,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The anus is an opening at the far-end of the digestive tract and is the exit point for the waste material"
+      ],
+      "definiendum_surface": "anus",
+      "definiens_surface": "an opening at the far-end of the digestive tract and is the exit point for the waste material"
+    },
+    {
+      "subject": "apple",
+      "object": "company",
+      "segment": "ele_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 3.4167,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "The brand value of Apple, the world\u2019s biggest company, has increased by 21% in 12 months, the Interbrand Best Global Brands report said"
+      ],
+      "definiendum_surface": "Apple",
+      "definiens_surface": "the world\u2019s biggest company"
+    },
+    {
+      "subject": "bowie",
+      "object": "act",
+      "segment": "bootstrap",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 3.5039,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "As an adopted New Yorker, Bowie was the opening act at the Concert for New York City in October 2001, where he joined Paul McCartney, Jon Bon Jovi, Billy Joel, the Who and Elton John in a benefit show six weeks after the 9/11 attacks"
+      ],
+      "definiendum_surface": "Bowie",
+      "definiens_surface": "the opening act at the Concert for New York City in October 2001"
+    },
+    {
+      "subject": "bryophyte",
+      "object": "collectively",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 7.1013,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "They are collectively known as bryophytes"
+      ],
+      "definiendum_surface": "bryophytes",
+      "definiens_surface": "They are collectively"
+    },
+    {
+      "subject": "bubble",
+      "object": "region",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.8854,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The region of unwinding is called a transcription bubble"
+      ],
+      "definiendum_surface": "transcription bubble",
+      "definiens_surface": "The region of unwinding"
+    },
+    {
+      "subject": "cadmium",
+      "object": "metal",
+      "segment": "ele_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 3,
+      "pmi": 8.7603,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "The researchers also found much higher levels of cadmium, a toxic metal, in regular crops",
+        "The researchers also found much higher levels of cadmium, a toxic metal, in conventional crops",
+        "The researchers found much higher levels of cadmium, a toxic metal, in conventional crops"
+      ],
+      "definiendum_surface": "cadmium",
+      "definiens_surface": "a toxic metal"
+    },
+    {
+      "subject": "cancer",
+      "object": "collective",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 5.9858,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "anaphase: the stage of mitosis during which sister chromatids are separated from each other cell cycle: the ordered sequence of events that a cell passes through between one cell division and the next cell cycle checkpoints: mechanisms that monitor the preparedness of a eukaryotic cell to advance through the various cell cycle stages cell plate: a structure formed during plant-cell cytokinesis by Golgi vesicles fusing at the metaphase plate; will ultimately lead to formation of a cell wall to separate the two daughter cells centriole: a paired rod-like structure constructed of microtubules at the center of each animal cell centrosome cleavage furrow: a constriction formed by the actin ring during animal-cell cytokinesis that leads to cytoplasmic division cytokinesis: the division of the cytoplasm following mitosis to form two daughter cells G0 phase: a cell-cycle phase distinct from the G1 phase of interphase; a cell in G0 is not preparing to divide G1 phase: (also, first gap) a cell-cycle phase; first phase of interphase centered on cell growth during mitosis G2 phase: (also, second gap) a cell-cycle phase; third phase of interphase where the cell undergoes the final preparations for mitosis interphase: the period of the cell cycle leading up to mitosis; includes G1, S, and G2 phases; the interim between two consecutive cell divisions kinetochore: a protein structure in the centromere of each sister chromatid that attracts and binds spindle microtubules during prometaphase metaphase plate: the equatorial plane midway between two poles of a cell where the chromosomes align during metaphase metaphase: the stage of mitosis during which chromosomes are lined up at the metaphase plate mitosis: the period of the cell cycle at which the duplicated chromosomes are separated into identical nuclei; includes prophase, prometaphase, metaphase, anaphase, and telophase mitotic phase: the period of the cell cycle when duplicated chromosomes are distributed into two nuclei and the cytoplasmic contents are divided; includes mitosis and cytokinesis mitotic spindle: the microtubule apparatus that orchestrates the movement of chromosomes during mitosis prometaphase: the stage of mitosis during which mitotic spindle fibers attach to kinetochores prophase: the stage of mitosis during which chromosomes condense and the mitotic spindle begins to form quiescent: describes a cell that is performing normal cell functions and has not initiated preparations for cell division S phase: the second, or synthesis phase, of interphase during which DNA replication occurs telophase: the stage of mitosis during which chromosomes arrive at opposite poles, decondense, and are surrounded by new nuclear envelopes Cancer is a collective name for many different diseases caused by a common mechanism: uncontrolled cell division"
+      ],
+      "definiendum_surface": "and are surrounded by new nuclear envelopes Cancer",
+      "definiens_surface": "a collective name for many different diseases caused by a common mechanism: uncontrolled cell division"
+    },
+    {
+      "subject": "cell",
+      "object": "gradient",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 2.7804,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "The difference in electrical charges attracts the positively charged Na ions toward the inside of the cell, the electrical gradient, while the K ions tend to flow through K channels toward the outside of the cell due to the concentration difference, the concentration gradient"
+      ],
+      "definiendum_surface": "cell",
+      "definiens_surface": "the electrical gradient"
+    },
+    {
+      "subject": "chytridiomycosis",
+      "object": "die",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 5.8687,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "This Limosa harlequin frog (Atelopus limosus), an endangered species from Panama, died from a fungal disease called chytridiomycosis"
+      ],
+      "definiendum_surface": "chytridiomycosis",
+      "definiens_surface": "died from a fungal disease"
+    },
+    {
+      "subject": "coelom",
+      "object": "characterize",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 5.9155,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Animals with three germ layers, called triploblasts, are further characterized by the presence or absence of an internal body cavity called a coelom"
+      ],
+      "definiendum_surface": "coelom",
+      "definiens_surface": "are further characterized by the presence or absence of an internal body cavity"
+    },
+    {
+      "subject": "community",
+      "object": "state",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 2.3377,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "This equilibrium state is referred to as the climax community, which will remain until the next disturbance"
+      ],
+      "definiendum_surface": "climax community",
+      "definiens_surface": "This equilibrium state"
+    },
+    {
+      "subject": "dialysis",
+      "object": "medical",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 5.6684,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Dialysis is a medical process of removing wastes and excess water from the blood by diffusion and ultrafiltration"
+      ],
+      "definiendum_surface": "Dialysis",
+      "definiens_surface": "a medical process of removing wastes and excess water from the blood by diffusion and ultrafiltration"
+    },
+    {
+      "subject": "document",
+      "object": "access",
+      "segment": "int_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 4.9575,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Intermediate \nAccording to a top-secret document, the National Security Agency (NSA) has got direct access to the systems of Google, Facebook, Apple and other major US internet companies"
+      ],
+      "definiendum_surface": "document",
+      "definiens_surface": "the National Security Agency (NSA) has got direct access to the systems of Google"
+    },
+    {
+      "subject": "drosophila",
+      "object": "fly",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.9556,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Eye color in Drosophila, the common fruit fly, was the first X-linked trait to be identified"
+      ],
+      "definiendum_surface": "Drosophila",
+      "definiens_surface": "the common fruit fly"
+    },
+    {
+      "subject": "dryad",
+      "object": "recently",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.9638,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Dryades, a mansion until recently owned by a Pakistani politician, sold for \u00a312m in 2007 and is believed to be worth about \u00a330m today"
+      ],
+      "definiendum_surface": "Dryades",
+      "definiens_surface": "a mansion until recently owned by a Pakistani politician"
+    },
+    {
+      "subject": "earlobe",
+      "object": "characteristic",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 7.6595,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "For example, the shape of earlobes is a characteristic with traits of free or attached"
+      ],
+      "definiendum_surface": "shape of earlobes",
+      "definiens_surface": "a characteristic with traits of free or attached"
+    },
+    {
+      "subject": "effect",
+      "object": "magnification",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.5673,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "bottleneck effect: the magnification of genetic drift as a result of natural events or catastrophes founder effect: a magnification of genetic drift in a small population that migrates away from a large parent population carrying with it an unrepresentative set of alleles gene flow: the flow of alleles in and out of a population due to the migration of individuals or gametes The evidence for evolution is compelling and extensive"
+      ],
+      "definiendum_surface": "bottleneck effect",
+      "definiens_surface": "the magnification of genetic drift as a result of natural events or catastrophes founder effect: a magnification of genetic drift in a small population that migrates away from a large parent population carrying with it an unrepresentative set of alleles gene flow: the flow of alleles in and out of a population due to the migration of individuals or gametes The evidence for evolution is compelling and extensive"
+    },
+    {
+      "subject": "energy",
+      "object": "proceed",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.2696,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "activation energy: the amount of initial energy necessary for reactions to occur active site: a specific region on the enzyme where the substrate binds allosteric inhibition: the mechanism for inhibiting enzyme action in which a regulatory molecule binds to a second site (not the active site) and initiates a conformation change in the active site, preventing binding with the substrate anabolic: describes the pathway that requires a net energy input to synthesize complex molecules from simpler ones bioenergetics: the concept of energy flow through living systems catabolic: describes the pathway in which complex molecules are broken down into simpler ones, yielding energy as an additional product of the reaction competitive inhibition: a general mechanism of enzyme activity regulation in which a molecule other than the enzyme\u2019s substrate is able to bind the active site and prevent the substrate itself from binding, thus inhibiting the overall rate of reaction for the enzyme endergonic: describes a chemical reaction that results in products that store more chemical potential energy than the reactants enzyme: a molecule that catalyzes a biochemical reaction exergonic: describes a chemical reaction that results in products with less chemical potential energy than the reactants, plus the release of free energy feedback inhibition: a mechanism of enzyme activity regulation in which the product of a reaction or the final product of a series of sequential reactions inhibits an enzyme for an earlier step in the reaction series heat energy: the energy transferred from one system to another that is not work in vitro: taking place in a test tube, culture dish, or elsewhere outside a living organism kinetic energy: the type of energy associated with objects in motion metabolism: all the chemical reactions that take place inside cells, including those that use energy and those that release energy noncompetitive inhibition: a general mechanism of enzyme activity regulation in which a regulatory molecule binds to a site other than the active site and prevents the active site from binding the substrate; thus, the inhibitor molecule does not compete with the substrate for the active site; allosteric inhibition is a form of noncompetitive inhibition potential energy: the type of energy that refers to the potential to do work substrate: a molecule on which the enzyme acts thermodynamics: the science of the relationships between heat, energy, and work Even exergonic, energy-releasing reactions require a small amount of activation energy to proceed"
+      ],
+      "definiendum_surface": "activation energy",
+      "definiens_surface": "the amount of initial energy necessary for reactions to occur active site: a specific region on the enzyme where the substrate binds allosteric inhibition: the mechanism for inhibiting enzyme action in which a regulatory molecule binds to a second site (not the active site) and initiates a conformation change in the active site, preventing binding with the substrate anabolic: describes the pathway that requires a net energy input to synthesize complex molecules from simpler ones bioenergetics: the concept of energy flow through living systems catabolic: describes the pathway in which complex molecules are broken down into simpler ones, yielding energy as an additional product of the reaction competitive inhibition: a general mechanism of enzyme activity regulation in which a molecule other than the enzyme\u2019s substrate is able to bind the active site and prevent the substrate itself from binding, thus inhibiting the overall rate of reaction for the enzyme endergonic: describes a chemical reaction that results in products that store more chemical potential energy than the reactants enzyme: a molecule that catalyzes a biochemical reaction exergonic: describes a chemical reaction that results in products with less chemical potential energy than the reactants, plus the release of free energy feedback inhibition: a mechanism of enzyme activity regulation in which the product of a reaction or the final product of a series of sequential reactions inhibits an enzyme for an earlier step in the reaction series heat energy: the energy transferred from one system to another that is not work in vitro: taking place in a test tube, culture dish, or elsewhere outside a living organism kinetic energy: the type of energy associated with objects in motion metabolism: all the chemical reactions that take place inside cells, including those that use energy and those that release energy noncompetitive inhibition: a general mechanism of enzyme activity regulation in which a regulatory molecule binds to a site other than the active site and prevents the active site from binding the substrate; thus, the inhibitor molecule does not compete with the substrate for the active site; allosteric inhibition is a form of noncompetitive inhibition potential energy: the type of energy that refers to the potential to do work substrate: a molecule on which the enzyme acts thermodynamics: the science of the relationships between heat, energy, and work Even exergonic, energy-releasing reactions require a small amount of activation energy to proceed"
+    },
+    {
+      "subject": "factor",
+      "object": "allele",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.2611,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor"
+      ],
+      "definiendum_surface": "latent unit factor",
+      "definiens_surface": "the recessive allele"
+    },
+    {
+      "subject": "fan",
+      "object": "expert",
+      "segment": "int_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 3.4028,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "You can signi cantly offset the electricity used for air conditioning, said Shanhui Fan, an expert in the study of light at Stanford University, who led the development of the mirror",
+        "You can significantly offset the electricity used for air conditioning,\u201d said Shanhui Fan, an expert in photonics at Stanford University, who led the development of the mirror"
+      ],
+      "definiendum_surface": "Fan",
+      "definiens_surface": "an expert in the study of light at Stanford University"
+    },
+    {
+      "subject": "genetics",
+      "object": "study",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 3.9902,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Genetics is the study of heredity"
+      ],
+      "definiendum_surface": "Genetics",
+      "definiens_surface": "the study of heredity"
+    },
+    {
+      "subject": "gift",
+      "object": "increasingly",
+      "segment": "bootstrap",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 5.7544,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The growing appetite for traditional crops and the booming health-food and gluten-free markets are breathing new life into the grain, which is increasingly being called Ethiopias second gift to the world, after coffee"
+      ],
+      "definiendum_surface": "Ethiopias second gift",
+      "definiens_surface": "which is increasingly being"
+    },
+    {
+      "subject": "habitat",
+      "object": "resistant",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 2.4424,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Depending on their habitat, the cysts may be particularly resistant to temperature extremes, desiccation, or low pH"
+      ],
+      "definiendum_surface": "habitat",
+      "definiens_surface": "the cysts may be particularly resistant to temperature extremes"
+    },
+    {
+      "subject": "hydrolysis",
+      "object": "process",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 5.5999,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The release of one or two phosphate groups from ATP, a process called hydrolysis, releases energy"
+      ],
+      "definiendum_surface": "hydrolysis",
+      "definiens_surface": "a process"
+    },
+    {
+      "subject": "kebede",
+      "object": "entrepreneur",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 8.5653,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Sophie Kebede, a London-based entrepreneur who owns a UK company specializing in the grain, says she was \u201cflabbergasted\u201d when she discovered its nutritional value"
+      ],
+      "definiendum_surface": "Kebede",
+      "definiens_surface": "a London-based entrepreneur who owns a UK company specializing in the grain"
+    },
+    {
+      "subject": "kidney",
+      "object": "pair",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.4009,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The kidneys are a pair of bean-shaped structures that are located just below the liver in the body cavity"
+      ],
+      "definiendum_surface": "kidneys",
+      "definiens_surface": "a pair of bean-shaped structures that are located just below the liver in the body cavity"
+    },
+    {
+      "subject": "kidney",
+      "object": "ureter",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 9.7228,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Here we focus on the urinary system, which is comprised of the paired kidneys, the ureter, urinary bladder and urethra"
+      ],
+      "definiendum_surface": "kidneys",
+      "definiens_surface": "the ureter"
+    },
+    {
+      "subject": "lipoprotein",
+      "object": "form",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.5946,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "For example, the form of cholesterol termed low-density lipoprotein or LDL (also referred to as \u201cbad\u201d cholesterol) is removed from the blood by receptor-mediated endocytosis"
+      ],
+      "definiendum_surface": "low-density lipoprotein",
+      "definiens_surface": "the form of cholesterol"
+    },
+    {
+      "subject": "monohybrid",
+      "object": "offspring",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 6.2712,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "When fertilization occurs between two true-breeding parents that differ by only the characteristic being studied, the process is called a monohybrid cross, and the resulting offspring are called monohybrids"
+      ],
+      "definiendum_surface": "monohybrids",
+      "definiens_surface": "and the resulting offspring"
+    },
+    {
+      "subject": "omikron",
+      "object": "game",
+      "segment": "adv_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 8.5325,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "His 1999 album Hours \u2026 was based around music he had written for a computer game called Omikron, in which Bowie and Iman appeared as characters"
+      ],
+      "definiendum_surface": "Omikron",
+      "definiens_surface": "was based around music he had written for a computer game"
+    },
+    {
+      "subject": "pack",
+      "object": "unit",
+      "segment": "int_cont",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.4064,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The Beskidy pack is a strong unit, eight or nine animals"
+      ],
+      "definiendum_surface": "Beskidy pack",
+      "definiens_surface": "a strong unit"
+    },
+    {
+      "subject": "piraeus",
+      "object": "port",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 11.3078,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "I would dock in Piraeus, the port in Athens, take my pay, then get the first boat over"
+      ],
+      "definiendum_surface": "Piraeus",
+      "definiens_surface": "the port in Athens"
+    },
+    {
+      "subject": "pituitary",
+      "object": "extension",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 5.7915,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The posterior pituitary is an extension of the brain and releases hormones (antidiuretic hormone and oxytocin) produced by the hypothalamus"
+      ],
+      "definiendum_surface": "posterior pituitary",
+      "definiens_surface": "an extension of the brain and releases hormones (antidiuretic hormone and oxytocin) produced by the hypothalamus"
+    },
+    {
+      "subject": "policymakers",
+      "object": "minister",
+      "segment": "adv_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 5.9556,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "EU finance ministers have called on policymakers to explore \u201cappropriate restrictions\u201d on high-value notes and report back by 1 May 2016"
+      ],
+      "definiendum_surface": "on policymakers",
+      "definiens_surface": "EU finance ministers have"
+    },
+    {
+      "subject": "recombinant",
+      "object": "chromosome",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.7551,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The chromosomes that have a mixture of maternal and paternal sequence are called recombinant and the chromosomes that are completely paternal or maternal are called non-recombinant"
+      ],
+      "definiendum_surface": "recombinant",
+      "definiens_surface": "The chromosomes that have a mixture of maternal and paternal sequence"
+    },
+    {
+      "subject": "report",
+      "object": "joy",
+      "segment": "int_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 3.5483,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "The report, The Joys and Dilemmas of Wealth, was 500 pages long and seemed to prove the old saying that money cant buy happiness"
+      ],
+      "definiendum_surface": "report",
+      "definiens_surface": "The Joys and Dilemmas of Wealth"
+    },
+    {
+      "subject": "salmon",
+      "object": "consumer",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 4.2769,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "In the Lake Ontario food chain, shown in, the Chinook salmon is the apex consumer at the top of this food chain"
+      ],
+      "definiendum_surface": "Chinook salmon",
+      "definiens_surface": "the apex consumer at the top of this food chain"
+    },
+    {
+      "subject": "singing",
+      "object": "blend",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.9858,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "He was similarly self-deprecating about his singing, a sumptuous blend of honey and lemon, mixed half-and-half from crooners such as Nat King Cole and blues shouters such as Joe Turner and Dr Clayton"
+      ],
+      "definiendum_surface": "singing",
+      "definiens_surface": "a sumptuous blend of honey and lemon"
+    },
+    {
+      "subject": "sleep",
+      "object": "fit",
+      "segment": "adv_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 2.9516,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Getting enough sleep is a natural fit for the sort of lifestyle in which paying $10 for green juice and $34 for a SoulCycle class is the norm"
+      ],
+      "definiendum_surface": "Getting enough sleep",
+      "definiens_surface": "a natural fit for the sort of lifestyle in which paying $10 for green juice and $34 for a SoulCycle class is the norm"
+    },
+    {
+      "subject": "species",
+      "object": "carp",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 4.1554,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "One species, the grass carp, feeds on phytoplankton and aquatic plants",
+        "Another species, the silver carp, competes with native fish that feed on zooplankton"
+      ],
+      "definiendum_surface": "species",
+      "definiens_surface": "the grass carp"
+    },
+    {
+      "subject": "stimulus",
+      "object": "change",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.0716,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "A change in the internal or external environment is called a stimulus and is detected by a receptor; the response of the system is to adjust the activities of the system so the value moves back toward the set point"
+      ],
+      "definiendum_surface": "stimulus",
+      "definiens_surface": "A change in the internal or external environment"
+    },
+    {
+      "subject": "structure",
+      "object": "function",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.8845,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "These unused structures without function are called vestigial structures"
+      ],
+      "definiendum_surface": "vestigial structures",
+      "definiens_surface": "These unused structures without function"
+    },
+    {
+      "subject": "structure",
+      "object": "proportion",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 2.4654,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Age structure is the proportion of a population in different age classes"
+      ],
+      "definiendum_surface": "Age structure",
+      "definiens_surface": "the proportion of a population in different age classes"
+    },
+    {
+      "subject": "system",
+      "object": "locomotion",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 2.334,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Echinoderms have a unique system for gas exchange, nutrient circulation, and locomotion called the water vascular system"
+      ],
+      "definiendum_surface": "water vascular system",
+      "definiens_surface": "and locomotion"
+    },
+    {
+      "subject": "technology",
+      "object": "seller",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 4.9693,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Pizzi, who is now CEO of Currie Technologies, the number one seller of e-bikes in the US, believes thats about to change",
+        "Pizzi, who is now CEO of Currie Technologies, the number one seller of e-bikes in the US, believes that\u2019s about to change"
+      ],
+      "definiendum_surface": "Technologies",
+      "definiens_surface": "the number one seller of e-bikes in the US"
+    },
+    {
+      "subject": "use",
+      "object": "technique",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 2.7657,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "A technique called immunohistochemistry can be used to attach a fluorescent label to the incorporated BrdU, and a researcher can use fluorescent microscopy to visualize the presence of BrdU, and thus new neurons, in brain tissue"
+      ],
+      "definiendum_surface": "immunohistochemistry can be used",
+      "definiens_surface": "A technique"
+    },
+    {
+      "subject": "valve",
+      "object": "muscle",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.8439,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Ring-like muscles called sphincters form valves in the digestive system"
+      ],
+      "definiendum_surface": "sphincters form valves",
+      "definiens_surface": "Ring-like muscles"
+    }
+  ]
+}

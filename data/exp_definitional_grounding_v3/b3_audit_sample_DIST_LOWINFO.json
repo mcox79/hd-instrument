@@ -1,0 +1,3016 @@
+{
+  "arm": "DIST_LOWINFO",
+  "purpose": "CONTROL -- isolates how much of any DEF gain is due to the step-2 fixes rather than to definitional structure. If this scores as well as DEF, the definitional signal has NOT been shown to add anything.",
+  "rubric": "MEANINGFUL / RELATED / NOISE per notes/foundation_grounding_sample_2026-08-12.md; sampling random.seed(42) over GROUNDED_MEANING fid order -- IDENTICAL to the v2 B3 audit so the numbers are directly comparable",
+  "prereg": "preregs/2026-08-12_definitional_grounding_v3.md",
+  "n_facts_in_arm": 290,
+  "NOT_AUTO_SCORED": true,
+  "rows": [
+    {
+      "fid": 894,
+      "subject": "gap",
+      "relation": "GROUNDED_MEANING",
+      "object": "pay",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 2,
+      "best_cos": 0.5234,
+      "n_exposures": 5,
+      "schema_score": 0.2693,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_1_80",
+          "pass_idx": 1,
+          "sent_id": 217,
+          "sentence": "But the differences in the sizes of bonuses do make Britain\u2019s pay gap worse"
+        },
+        {
+          "episode_id": "bootstrap_1_81",
+          "pass_idx": 1,
+          "sent_id": 218,
+          "sentence": "The government says the pay gap is closing but that full-time male employees still earn 10% more than women"
+        },
+        {
+          "episode_id": "bootstrap_1_83",
+          "pass_idx": 1,
+          "sent_id": 220,
+          "sentence": "\u201cChanges in the workplace are happening and it\u2019s good that the pay gap is closing \u2013 but there is still more to do before we see full equality in the workplace"
+        },
+        {
+          "episode_id": "bootstrap_1_86",
+          "pass_idx": 1,
+          "sent_id": 223,
+          "sentence": "\u201cWe\u2019ve also looked at other causes of the pay gap, such as having to juggle work and family"
+        },
+        {
+          "episode_id": "bootstrap_1_89",
+          "pass_idx": 1,
+          "sent_id": 226,
+          "sentence": "But the CMI\u2019s numbers also showed that the pay gap is closing: the difference between the average salaries earned by male and female bosses appeared to be smaller than in 2012"
+        }
+      ]
+    },
+    {
+      "fid": 924,
+      "subject": "sue",
+      "relation": "GROUNDED_MEANING",
+      "object": "kenyan",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 8,
+      "best_cos": 0.4776,
+      "n_exposures": 5,
+      "schema_score": 0.4094,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_6_70",
+          "pass_idx": 6,
+          "sent_id": 898,
+          "sentence": "A British court has decided that three old Kenyans, who were put in prison and tortured during the fighting in Kenya in the 1950s, can sue the British government"
+        },
+        {
+          "episode_id": "bootstrap_6_71",
+          "pass_idx": 6,
+          "sent_id": 899,
+          "sentence": "There are thousands of other people who were put in prison and say they were treated badly during the final days of the British Empire, and now they may also try to sue"
+        },
+        {
+          "episode_id": "bootstrap_6_74",
+          "pass_idx": 6,
+          "sent_id": 902,
+          "sentence": "In 2011 the government said that the three claimants should sue the Kenyan government because it became legally responsible after independence in 1963"
+        },
+        {
+          "episode_id": "bootstrap_6_77",
+          "pass_idx": 6,
+          "sent_id": 905,
+          "sentence": "Many of them may sue the British government"
+        },
+        {
+          "episode_id": "bootstrap_6_78",
+          "pass_idx": 6,
+          "sent_id": 906,
+          "sentence": "The court decision may also make it possible for victims in other parts of the world to sue"
+        }
+      ]
+    },
+    {
+      "fid": 928,
+      "subject": "collection",
+      "relation": "GROUNDED_MEANING",
+      "object": "american",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 9,
+      "best_cos": 0.468,
+      "n_exposures": 5,
+      "schema_score": 0.3844,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_8_88",
+          "pass_idx": 8,
+          "sent_id": 1184,
+          "sentence": "This bill would stop the collection of phone records in the US"
+        },
+        {
+          "episode_id": "bootstrap_8_89",
+          "pass_idx": 8,
+          "sent_id": 1185,
+          "sentence": "Feinstein defended the NSA phone data collection programme, but said that people didn\u2019t trust the NSA anymore"
+        },
+        {
+          "episode_id": "bootstrap_8_101",
+          "pass_idx": 8,
+          "sent_id": 1196,
+          "sentence": "\u201cMy top priority is ending the collection of data on millions and millions of innocent Americans"
+        },
+        {
+          "episode_id": "bootstrap_8_103",
+          "pass_idx": 8,
+          "sent_id": 1198,
+          "sentence": "But Feinstein agrees with the NSA\u2019s collection of Americans\u2019 phone records"
+        },
+        {
+          "episode_id": "bootstrap_9_114",
+          "pass_idx": 9,
+          "sent_id": 1349,
+          "sentence": "\u201cWe remain more than a collection of red states and blue states"
+        }
+      ]
+    },
+    {
+      "fid": 938,
+      "subject": "duke",
+      "relation": "GROUNDED_MEANING",
+      "object": "son",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 13,
+      "best_cos": 0.4641,
+      "n_exposures": 8,
+      "schema_score": 0.4492,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_6_55",
+          "pass_idx": 6,
+          "sent_id": 884,
+          "sentence": "The Duke and Duchess of Cambridge have won the first part of their fight for privacy"
+        },
+        {
+          "episode_id": "bootstrap_11_13",
+          "pass_idx": 11,
+          "sent_id": 1531,
+          "sentence": "We could not be happier, the Duke of Cambridge said"
+        },
+        {
+          "episode_id": "bootstrap_11_17",
+          "pass_idx": 11,
+          "sent_id": 1534,
+          "sentence": "The Duke of Cambridge was present for the birth"
+        },
+        {
+          "episode_id": "bootstrap_11_18",
+          "pass_idx": 11,
+          "sent_id": 1535,
+          "sentence": "The Queen, the Duke of Edinburgh, the Prince of Wales, the Duchess of Cornwall, Prince Harry and members of both families were informed and were delighted with the news that Her Royal Highness and her child were both doing well"
+        },
+        {
+          "episode_id": "bootstrap_11_21",
+          "pass_idx": 11,
+          "sent_id": 1538,
+          "sentence": "The birth of the baby prince means the monarchy has three generations of heirs to the throne for the first time since 1894\nThe baby is the first Prince of Cambridge to be born for more than 190 years since Prince George of Cambridge, a grandson of George III and the only son of Prince Adolphus Frederick, the 1st Duke of Cambridge"
+        },
+        {
+          "episode_id": "bootstrap_11_40",
+          "pass_idx": 11,
+          "sent_id": 1554,
+          "sentence": "The president said: Michelle and I are so pleased to congratulate the Duke and Duchess of Cambridge on the joyous occasion of the birth of their first child"
+        },
+        {
+          "episode_id": "bootstrap_11_42",
+          "pass_idx": 11,
+          "sent_id": 1556,
+          "sentence": "The Archbishop of Canterbury, the Most Rev Justin Welby, tweeted: Delighted for the Duke and Duchess of Cambridge"
+        },
+        {
+          "episode_id": "bootstrap_11_44",
+          "pass_idx": 11,
+          "sent_id": 1558,
+          "sentence": "The Labour leader, Ed Miliband, said: Many congratulations to the Duke and Duchess of Cambridge"
+        }
+      ]
+    },
+    {
+      "fid": 944,
+      "subject": "cambridge",
+      "relation": "GROUNDED_MEANING",
+      "object": "duke",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 14,
+      "best_cos": 0.5048,
+      "n_exposures": 10,
+      "schema_score": 0.4453,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_6_55",
+          "pass_idx": 6,
+          "sent_id": 884,
+          "sentence": "The Duke and Duchess of Cambridge have won the first part of their fight for privacy"
+        },
+        {
+          "episode_id": "bootstrap_11_8",
+          "pass_idx": 11,
+          "sent_id": 1527,
+          "sentence": "Intermediate \nThe Duchess of Cambridge gave birth to a son on Monday, 22 July"
+        },
+        {
+          "episode_id": "bootstrap_11_13",
+          "pass_idx": 11,
+          "sent_id": 1531,
+          "sentence": "We could not be happier, the Duke of Cambridge said"
+        },
+        {
+          "episode_id": "bootstrap_11_14",
+          "pass_idx": 11,
+          "sent_id": 1532,
+          "sentence": "In a statement, Kensington Palace said: Her Royal Highness the Duchess of Cambridge was safely delivered of a son at 4"
+        },
+        {
+          "episode_id": "bootstrap_11_17",
+          "pass_idx": 11,
+          "sent_id": 1534,
+          "sentence": "The Duke of Cambridge was present for the birth"
+        },
+        {
+          "episode_id": "bootstrap_11_21",
+          "pass_idx": 11,
+          "sent_id": 1538,
+          "sentence": "The birth of the baby prince means the monarchy has three generations of heirs to the throne for the first time since 1894\nThe baby is the first Prince of Cambridge to be born for more than 190 years since Prince George of Cambridge, a grandson of George III and the only son of Prince Adolphus Frederick, the 1st Duke of Cambridge"
+        },
+        {
+          "episode_id": "bootstrap_11_25",
+          "pass_idx": 11,
+          "sent_id": 1542,
+          "sentence": "The newest royal will be called HRH Prince George* of Cambridge"
+        },
+        {
+          "episode_id": "bootstrap_11_40",
+          "pass_idx": 11,
+          "sent_id": 1554,
+          "sentence": "The president said: Michelle and I are so pleased to congratulate the Duke and Duchess of Cambridge on the joyous occasion of the birth of their first child"
+        },
+        {
+          "episode_id": "bootstrap_11_42",
+          "pass_idx": 11,
+          "sent_id": 1556,
+          "sentence": "The Archbishop of Canterbury, the Most Rev Justin Welby, tweeted: Delighted for the Duke and Duchess of Cambridge"
+        },
+        {
+          "episode_id": "bootstrap_11_44",
+          "pass_idx": 11,
+          "sent_id": 1558,
+          "sentence": "The Labour leader, Ed Miliband, said: Many congratulations to the Duke and Duchess of Cambridge"
+        }
+      ]
+    },
+    {
+      "fid": 978,
+      "subject": "generator",
+      "relation": "GROUNDED_MEANING",
+      "object": "use",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 26,
+      "best_cos": 0.4881,
+      "n_exposures": 15,
+      "schema_score": 0.2919,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_24_63",
+          "pass_idx": 24,
+          "sent_id": 3365,
+          "sentence": "Electrical energy can be made naturally (such as lightning), or by people (such as in a generator)."
+        },
+        {
+          "episode_id": "bootstrap_24_73",
+          "pass_idx": 24,
+          "sent_id": 3375,
+          "sentence": "This is the method used by a generator."
+        },
+        {
+          "episode_id": "bootstrap_24_74",
+          "pass_idx": 24,
+          "sent_id": 3376,
+          "sentence": "The biggest generators are in power stations."
+        },
+        {
+          "episode_id": "bootstrap_25_23",
+          "pass_idx": 25,
+          "sent_id": 3471,
+          "sentence": "The steam engine's turbine turns a machine called a 'generator'."
+        },
+        {
+          "episode_id": "bootstrap_25_24",
+          "pass_idx": 25,
+          "sent_id": 3472,
+          "sentence": "Coiled wires inside the generator are made to spin in a magnetic field."
+        },
+        {
+          "episode_id": "bootstrap_25_28",
+          "pass_idx": 25,
+          "sent_id": 3476,
+          "sentence": "Many sources of heat can be used to boil water for generators."
+        },
+        {
+          "episode_id": "bootstrap_25_30",
+          "pass_idx": 25,
+          "sent_id": 3478,
+          "sentence": "Sometimes a natural flow, such as wind power or water power, can be used directly to turn a generator so no heat is needed."
+        },
+        {
+          "episode_id": "bootstrap_25_32",
+          "pass_idx": 25,
+          "sent_id": 3480,
+          "sentence": "Most comes from rotary electrical generators turned by various engines."
+        },
+        {
+          "episode_id": "bootstrap_25_37",
+          "pass_idx": 25,
+          "sent_id": 3485,
+          "sentence": "Different sources of energy have been used to run generators, including coal, nuclear, natural gas, hydroelectric, and petroleum power and a small amount from solar energy, tidal harnesses, wind generators, and geothermal sources."
+        },
+        {
+          "episode_id": "bootstrap_25_45",
+          "pass_idx": 25,
+          "sent_id": 3493,
+          "sentence": "Rotating turbines attached to electrical generators produce most commercially available electricity."
+        },
+        {
+          "episode_id": "bootstrap_25_57",
+          "pass_idx": 25,
+          "sent_id": 3505,
+          "sentence": "Small electricity generators are often powered by reciprocating engines burning diesel fuel, biogas or natural gas."
+        },
+        {
+          "episode_id": "bootstrap_25_58",
+          "pass_idx": 25,
+          "sent_id": 3506,
+          "sentence": "Diesel generators are often used for backup power, usually at low voltages."
+        },
+        {
+          "episode_id": "bootstrap_25_66",
+          "pass_idx": 25,
+          "sent_id": 3514,
+          "sentence": "Most do this by a big spinning electrical generator."
+        },
+        {
+          "episode_id": "bootstrap_25_72",
+          "pass_idx": 25,
+          "sent_id": 3520,
+          "sentence": "Some do not use steam engines to spin the generator."
+        },
+        {
+          "episode_id": "bootstrap_25_81",
+          "pass_idx": 25,
+          "sent_id": 3527,
+          "sentence": "They are more expensive than generators, and are used where other questions are more important."
+        }
+      ]
+    },
+    {
+      "fid": 984,
+      "subject": "solute",
+      "relation": "GROUNDED_MEANING",
+      "object": "solvent",
+      "segment": "bootstrap",
+      "source": "reading:bootstrap",
+      "trust": "TRUST_MID",
+      "pass_idx": 27,
+      "best_cos": 0.4677,
+      "n_exposures": 9,
+      "schema_score": 0.2931,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_24_27",
+          "pass_idx": 24,
+          "sent_id": 3329,
+          "sentence": "Solubility is the ability of a substance (the solute), to mix into a liquid (the solvent)."
+        },
+        {
+          "episode_id": "bootstrap_24_34",
+          "pass_idx": 24,
+          "sent_id": 3336,
+          "sentence": "A solute is a substance that is dissolving in a solvent and is the smaller part of the solution."
+        },
+        {
+          "episode_id": "bootstrap_24_35",
+          "pass_idx": 24,
+          "sent_id": 3337,
+          "sentence": "A solvent is the bigger part of a solution and is the substance that the solute dissolves in."
+        },
+        {
+          "episode_id": "bootstrap_24_44",
+          "pass_idx": 24,
+          "sent_id": 3346,
+          "sentence": "The amount of solute added to the solvent determines the concentration of the solution."
+        },
+        {
+          "episode_id": "bootstrap_24_45",
+          "pass_idx": 24,
+          "sent_id": 3347,
+          "sentence": "The solution with the large amount of solute is called a concentrated solution; the solution with less solute is called a dilute solution."
+        },
+        {
+          "episode_id": "bootstrap_24_49",
+          "pass_idx": 24,
+          "sent_id": 3351,
+          "sentence": "An unsaturated solution has less solute than it can dissolve, while a saturated solution contains the maximum amount of solute it can hold."
+        },
+        {
+          "episode_id": "bootstrap_24_50",
+          "pass_idx": 24,
+          "sent_id": 3352,
+          "sentence": "A supersaturated solution holds more solute than is typically possible under normal conditions."
+        },
+        {
+          "episode_id": "bootstrap_24_51",
+          "pass_idx": 24,
+          "sent_id": 3353,
+          "sentence": "Solvation, commonly called dissolution, is the process of attraction and association of molecules of a solvent with molecules or ions of a solute."
+        },
+        {
+          "episode_id": "bootstrap_24_52",
+          "pass_idx": 24,
+          "sent_id": 3354,
+          "sentence": "If the molecules or ions of the solute are more strongly attracted to the molecules of the solvent than to each other, solvation can occur."
+        }
+      ]
+    },
+    {
+      "fid": 1028,
+      "subject": "bacteria",
+      "relation": "GROUNDED_MEANING",
+      "object": "resistant",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 33,
+      "best_cos": 0.546,
+      "n_exposures": 9,
+      "schema_score": 0.2939,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_1_106",
+          "pass_idx": 32,
+          "sent_id": 3298,
+          "sentence": "In intensive care, antibiotic resistant bacteria are most common"
+        },
+        {
+          "episode_id": "ele_cont_1_108",
+          "pass_idx": 32,
+          "sent_id": 3300,
+          "sentence": "These drugs kill ordinary bacteria"
+        },
+        {
+          "episode_id": "ele_cont_1_109",
+          "pass_idx": 32,
+          "sent_id": 3301,
+          "sentence": "But they cannot kill strong bacteria that have begun to learn how to survive antibiotic drugs"
+        },
+        {
+          "episode_id": "ele_cont_1_110",
+          "pass_idx": 32,
+          "sent_id": 3302,
+          "sentence": "When I became a doctor in the 1990s, I learnt about Methicillin Resistant Staphylococcus Aureus (MRSA) is a bacteria that is resistant to methicillin and all other penicillins"
+        },
+        {
+          "episode_id": "ele_cont_1_112",
+          "pass_idx": 32,
+          "sent_id": 3304,
+          "sentence": "But antibiotic resistant bacteria became more and more common"
+        },
+        {
+          "episode_id": "ele_cont_1_118",
+          "pass_idx": 32,
+          "sent_id": 3309,
+          "sentence": "We have found new, more resistant bacteria"
+        },
+        {
+          "episode_id": "ele_cont_1_121",
+          "pass_idx": 32,
+          "sent_id": 3311,
+          "sentence": "And other bacteria were becoming resistant too"
+        },
+        {
+          "episode_id": "ele_cont_1_123",
+          "pass_idx": 32,
+          "sent_id": 3313,
+          "sentence": "It is more and more difficult to develop new drugs that can kill resistant bacteria"
+        },
+        {
+          "episode_id": "ele_cont_1_125",
+          "pass_idx": 32,
+          "sent_id": 3315,
+          "sentence": "This war against bacteria is different from all other wars"
+        }
+      ]
+    },
+    {
+      "fid": 1044,
+      "subject": "scientist",
+      "relation": "GROUNDED_MEANING",
+      "object": "share",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 33,
+      "best_cos": 0.5807,
+      "n_exposures": 7,
+      "schema_score": 0.3787,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_0_31",
+          "pass_idx": 31,
+          "sent_id": 3130,
+          "sentence": "Scientists have connected the brains of two rats and allowed them to share information"
+        },
+        {
+          "episode_id": "ele_cont_0_35",
+          "pass_idx": 31,
+          "sent_id": 3134,
+          "sentence": "In one important demonstration of the technology, the scientists used the internet to connect the brains of two rats thousands of miles away from each other"
+        },
+        {
+          "episode_id": "ele_cont_0_41",
+          "pass_idx": 31,
+          "sent_id": 3140,
+          "sentence": "The scientists have shown that rats can share information and respond to that information"
+        },
+        {
+          "episode_id": "ele_cont_0_42",
+          "pass_idx": 31,
+          "sent_id": 3141,
+          "sentence": "The scientists do this by electrically connecting the rats\u2019 brains"
+        },
+        {
+          "episode_id": "ele_cont_0_53",
+          "pass_idx": 31,
+          "sent_id": 3150,
+          "sentence": "In the final test, the scientists connected rats on different continents and used the internet to send their brain activity"
+        },
+        {
+          "episode_id": "ele_cont_0_73",
+          "pass_idx": 31,
+          "sent_id": 3169,
+          "sentence": "The scientists who did the DNA tests, the people who created the computer-imaging technology to look at the bones in extraordinary detail, the genealogists who found a distant descendant with matching DNA, and the academics who read old texts looking for accounts of the king\u2019s death and burial all gave their findings"
+        },
+        {
+          "episode_id": "ele_cont_2_67",
+          "pass_idx": 33,
+          "sent_id": 3396,
+          "sentence": "Regassa Feyissa, an Ethiopian agricultural scientist, says that, without careful planning, growing more teff for export may mean that farmers do not grow other important crops"
+        }
+      ]
+    },
+    {
+      "fid": 1060,
+      "subject": "experience",
+      "relation": "GROUNDED_MEANING",
+      "object": "partner",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 34,
+      "best_cos": 0.5003,
+      "n_exposures": 7,
+      "schema_score": 0.5021,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_2_0",
+          "pass_idx": 33,
+          "sent_id": 3339,
+          "sentence": "But, in my experience, most prisoners want to change and we must do what we can to help them"
+        },
+        {
+          "episode_id": "ele_cont_2_128",
+          "pass_idx": 33,
+          "sent_id": 2255,
+          "sentence": "6% of all women around the world will experience physical or sexual violence in their lifetime, usually from a male partner"
+        },
+        {
+          "episode_id": "ele_cont_2_132",
+          "pass_idx": 33,
+          "sent_id": 3454,
+          "sentence": "6% \u2013 will experience physical or sexual violence"
+        },
+        {
+          "episode_id": "ele_cont_2_136",
+          "pass_idx": 33,
+          "sent_id": 3457,
+          "sentence": "7%) will experience violence"
+        },
+        {
+          "episode_id": "ele_cont_2_137",
+          "pass_idx": 33,
+          "sent_id": 3458,
+          "sentence": "42% of the women who experience violence have injuries, which doctors and nurses may notice"
+        },
+        {
+          "episode_id": "ele_cont_2_147",
+          "pass_idx": 33,
+          "sent_id": 3468,
+          "sentence": "2% of women will experience physical and/or sexual violence from a partner in their lives"
+        },
+        {
+          "episode_id": "ele_cont_3_4",
+          "pass_idx": 34,
+          "sent_id": 3473,
+          "sentence": "The report says that their previous research shows that better-educated women and working women are less likely to experience violence, but not in all regions"
+        }
+      ]
+    },
+    {
+      "fid": 1070,
+      "subject": "syria",
+      "relation": "GROUNDED_MEANING",
+      "object": "gun",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 34,
+      "best_cos": 0.5713,
+      "n_exposures": 4,
+      "schema_score": 0.5924,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_12_85",
+          "pass_idx": 12,
+          "sent_id": 2952,
+          "sentence": "All day and all night you can hear the sound of guns, rockets or planes attacking rebel positions  the sound of war getting closer to Syrias capital"
+        },
+        {
+          "episode_id": "bootstrap_12_121",
+          "pass_idx": 12,
+          "sent_id": 2645,
+          "sentence": "One view is that the fight for Syrias capital is coming, but not quite yet  in the summer perhaps, some predict, when the rebels have made further progress in the south"
+        },
+        {
+          "episode_id": "ele_cont_2_2",
+          "pass_idx": 33,
+          "sent_id": 3341,
+          "sentence": "All day and all night you can hear the sound of guns, rockets or planes attacking rebels \u2013 the sound of war is getting closer to Syria\u2019s capital"
+        },
+        {
+          "episode_id": "ele_cont_2_34",
+          "pass_idx": 33,
+          "sent_id": 3367,
+          "sentence": "One view is that there will be a battle for Syria\u2019s capital, but not yet \u2013 in the summer perhaps"
+        }
+      ]
+    },
+    {
+      "fid": 1076,
+      "subject": "advice",
+      "relation": "GROUNDED_MEANING",
+      "object": "ascent",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 35,
+      "best_cos": 0.5193,
+      "n_exposures": 4,
+      "schema_score": 1.0,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_0_135",
+          "pass_idx": 31,
+          "sent_id": 3221,
+          "sentence": "Kittinger jumped from a balloon 19 miles above the Earth in 1960 and gave advice to Baumgartner during the ascent"
+        },
+        {
+          "episode_id": "ele_cont_0_139",
+          "pass_idx": 31,
+          "sent_id": 3224,
+          "sentence": "If there is a young guy who wants to break my record, I want to give him advice"
+        },
+        {
+          "episode_id": "ele_cont_1_26",
+          "pass_idx": 32,
+          "sent_id": 3221,
+          "sentence": "Kittinger jumped from a balloon 19 miles above the Earth in 1960 and gave advice to Baumgartner during the ascent"
+        },
+        {
+          "episode_id": "ele_cont_1_30",
+          "pass_idx": 32,
+          "sent_id": 3224,
+          "sentence": "If there is a young guy who wants to break my record, I want to give him advice"
+        }
+      ]
+    },
+    {
+      "fid": 1084,
+      "subject": "sexual",
+      "relation": "GROUNDED_MEANING",
+      "object": "experience",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 35,
+      "best_cos": 0.5562,
+      "n_exposures": 6,
+      "schema_score": 0.4405,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_2_128",
+          "pass_idx": 33,
+          "sent_id": 2255,
+          "sentence": "6% of all women around the world will experience physical or sexual violence in their lifetime, usually from a male partner"
+        },
+        {
+          "episode_id": "ele_cont_2_132",
+          "pass_idx": 33,
+          "sent_id": 3454,
+          "sentence": "6% \u2013 will experience physical or sexual violence"
+        },
+        {
+          "episode_id": "ele_cont_2_143",
+          "pass_idx": 33,
+          "sent_id": 3464,
+          "sentence": "\u201cFor the first time we have compared data from all over the world on partner violence and sexual violence by non-partners and the effect of these sorts of violence on health,\u201d said Garcia-Moreno"
+        },
+        {
+          "episode_id": "ele_cont_2_147",
+          "pass_idx": 33,
+          "sent_id": 3468,
+          "sentence": "2% of women will experience physical and/or sexual violence from a partner in their lives"
+        },
+        {
+          "episode_id": "ele_cont_2_149",
+          "pass_idx": 33,
+          "sent_id": 3470,
+          "sentence": "Women report more sexual assaults and rapes by acquaintances or strangers in rich countries than elsewhere"
+        },
+        {
+          "episode_id": "ele_cont_3_12",
+          "pass_idx": 34,
+          "sent_id": 3480,
+          "sentence": "The WHO now recommends teaching doctors and nurses to recognize the signs of domestic violence and sexual assault"
+        }
+      ]
+    },
+    {
+      "fid": 1086,
+      "subject": "value",
+      "relation": "GROUNDED_MEANING",
+      "object": "ahead",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 35,
+      "best_cos": 0.4833,
+      "n_exposures": 8,
+      "schema_score": 0.4137,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_3_93",
+          "pass_idx": 34,
+          "sent_id": 3548,
+          "sentence": "The brand value of Apple, the world\u2019s biggest company, has increased by 21% in 12 months, the Interbrand Best Global Brands report said"
+        },
+        {
+          "episode_id": "ele_cont_3_97",
+          "pass_idx": 34,
+          "sent_id": 3552,
+          "sentence": "Google\u2019s brand value rose by 15% to $107 billion to take second place"
+        },
+        {
+          "episode_id": "ele_cont_3_100",
+          "pass_idx": 34,
+          "sent_id": 3554,
+          "sentence": "IBM\u2019s value is $72"
+        },
+        {
+          "episode_id": "ele_cont_3_104",
+          "pass_idx": 34,
+          "sent_id": 3557,
+          "sentence": "Facebook\u2019s value has increased the most in the table"
+        },
+        {
+          "episode_id": "ele_cont_3_105",
+          "pass_idx": 34,
+          "sent_id": 3558,
+          "sentence": "Its brand value increased by 86% to $14"
+        },
+        {
+          "episode_id": "ele_cont_3_118",
+          "pass_idx": 34,
+          "sent_id": 3568,
+          "sentence": "It has a brand value of $4"
+        },
+        {
+          "episode_id": "ele_cont_3_124",
+          "pass_idx": 34,
+          "sent_id": 3571,
+          "sentence": "Designer label Louis Vuitton is the top fashion name, in 19th position with a value of $23 billion, just ahead of clothing chain H&M, with a brand value of $21 billion in place 21"
+        },
+        {
+          "episode_id": "ele_cont_3_125",
+          "pass_idx": 34,
+          "sent_id": 3572,
+          "sentence": "Sports brand Nike is at place 22 with a brand value of nearly $20 billion, ahead of its rival Adidas at place 59 with a value of $7 billion"
+        }
+      ]
+    },
+    {
+      "fid": 1098,
+      "subject": "algae",
+      "relation": "GROUNDED_MEANING",
+      "object": "green",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 37,
+      "best_cos": 0.4841,
+      "n_exposures": 4,
+      "schema_score": 0.4805,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_16_2",
+          "pass_idx": 16,
+          "sent_id": 148,
+          "sentence": "Its huge, high-ceiling halls are occupied by pigeons and its walls have been turned bright green by algae"
+        },
+        {
+          "episode_id": "bootstrap_28_141",
+          "pass_idx": 28,
+          "sent_id": 149,
+          "sentence": "High nitrate levels can also cause too much algae growth in lakes and pools."
+        },
+        {
+          "episode_id": "bootstrap_29_135",
+          "pass_idx": 29,
+          "sent_id": 150,
+          "sentence": "The photosystems of green sulfur bacteria and those of cyanobacteria, algae, and higher plants are not the same."
+        },
+        {
+          "episode_id": "ele_cont_5_17",
+          "pass_idx": 36,
+          "sent_id": 3734,
+          "sentence": "There are pigeons in its huge, high-ceiling halls and its walls are bright green with algae"
+        }
+      ]
+    },
+    {
+      "fid": 1138,
+      "subject": "hall",
+      "relation": "GROUNDED_MEANING",
+      "object": "algae",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 40,
+      "best_cos": 0.549,
+      "n_exposures": 4,
+      "schema_score": 0.8607,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_16_2",
+          "pass_idx": 16,
+          "sent_id": 148,
+          "sentence": "Its huge, high-ceiling halls are occupied by pigeons and its walls have been turned bright green by algae"
+        },
+        {
+          "episode_id": "bootstrap_19_89",
+          "pass_idx": 19,
+          "sent_id": 1680,
+          "sentence": "He was entered into the Rock and Roll Hall of Fame in 1996"
+        },
+        {
+          "episode_id": "ele_cont_5_17",
+          "pass_idx": 36,
+          "sent_id": 3734,
+          "sentence": "There are pigeons in its huge, high-ceiling halls and its walls are bright green with algae"
+        },
+        {
+          "episode_id": "ele_cont_8_61",
+          "pass_idx": 39,
+          "sent_id": 1680,
+          "sentence": "He was entered into the Rock and Roll Hall of Fame in 1996"
+        }
+      ]
+    },
+    {
+      "fid": 1180,
+      "subject": "zone",
+      "relation": "GROUNDED_MEANING",
+      "object": "belt",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 44,
+      "best_cos": 0.5145,
+      "n_exposures": 4,
+      "schema_score": 0.3584,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_12_119",
+          "pass_idx": 12,
+          "sent_id": 121,
+          "sentence": "Parts of the city already feel like a war zone: its most exclusive and expensive hotel is almost empty, although many rooms are being used as offices by international agencies with white UN vehicles parked behind the blast barriers outside"
+        },
+        {
+          "episode_id": "bootstrap_21_111",
+          "pass_idx": 21,
+          "sent_id": 557,
+          "sentence": "One of the biggest surprises was the discovery that there are mountains in the Kuiper belt, the solar systems mysterious third zone where Pluto is, with about 100,000 smaller icy objects"
+        },
+        {
+          "episode_id": "bootstrap_23_87",
+          "pass_idx": 23,
+          "sent_id": 1652,
+          "sentence": "While some wildfires burn in remote forested regions, they can cause extensive destruction of homes and other property in the zone between developed areas and undeveloped wilderness."
+        },
+        {
+          "episode_id": "ele_cont_10_87",
+          "pass_idx": 41,
+          "sent_id": 4421,
+          "sentence": "The Kuiper belt is the solar system\u2019s mysterious \u201cthird zone\u201d where Pluto is, with about 100,000 smaller icy objects"
+        }
+      ]
+    },
+    {
+      "fid": 1222,
+      "subject": "represent",
+      "relation": "GROUNDED_MEANING",
+      "object": "meaning",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 51,
+      "best_cos": 0.4922,
+      "n_exposures": 7,
+      "schema_score": 0.2748,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_21_14",
+          "pass_idx": 21,
+          "sent_id": 155,
+          "sentence": "Lynch said: The Department of Justice is committed to ending the rampant corruption we have described in the leadership of international football  not only because of the scale of the schemes alleged earlier and today or the breadth of the operation required to sustain such corruption, but also because of the insult to international principles that this behaviour represents"
+        },
+        {
+          "episode_id": "ele_cont_17_32",
+          "pass_idx": 48,
+          "sent_id": 5316,
+          "sentence": "\u201cWe wanted to build a giant atlas that shows how the meanings of words are represented in the brain,\u201d said Jack Gallant, a neuroscientist at the University of California, Berkeley"
+        },
+        {
+          "episode_id": "ele_cont_17_36",
+          "pass_idx": 48,
+          "sent_id": 5320,
+          "sentence": "Together, they form networks that represent the meanings of each word we use: life and love, death and taxes"
+        },
+        {
+          "episode_id": "ele_cont_17_49",
+          "pass_idx": 48,
+          "sent_id": 5331,
+          "sentence": "For example, on the left-hand side of the brain, above the ear, is one of the tiny regions that represents the word \u201cvictim\u201d"
+        },
+        {
+          "episode_id": "ele_cont_17_52",
+          "pass_idx": 48,
+          "sent_id": 5334,
+          "sentence": "Each word is represented by more than one spot because words often have many meanings"
+        },
+        {
+          "episode_id": "ele_cont_17_63",
+          "pass_idx": 48,
+          "sent_id": 5344,
+          "sentence": "\u201cThis research is amazing and new, there is still a lot to learn about how the meaning of words is represented in the brain"
+        },
+        {
+          "episode_id": "ele_cont_19_119",
+          "pass_idx": 50,
+          "sent_id": 5652,
+          "sentence": "The authors say governments should have a national development plan and make sure the poorest people are represented politically as well as trying to stop difficult social customs, such as dowries and witchcraft, that make extreme poverty worse"
+        }
+      ]
+    },
+    {
+      "fid": 1242,
+      "subject": "patch",
+      "relation": "GROUNDED_MEANING",
+      "object": "nicotine",
+      "segment": "ele_cont",
+      "source": "reading:ele_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 58,
+      "best_cos": 0.479,
+      "n_exposures": 6,
+      "schema_score": 0.3782,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_1_135",
+          "pass_idx": 1,
+          "sent_id": 1915,
+          "sentence": "3 million people in Britain, to be regulated in the same way as gums, patches and mouth sprays, which are aimed at helping smokers to quit"
+        },
+        {
+          "episode_id": "bootstrap_12_105",
+          "pass_idx": 12,
+          "sent_id": 368,
+          "sentence": "You can still see the crater, marked by an enormous patch of fresh asphalt on the main road going north"
+        },
+        {
+          "episode_id": "ele_cont_25_29",
+          "pass_idx": 56,
+          "sent_id": 6306,
+          "sentence": "\u201cE-cigarettes are like a sort of nicotine patch,\u201d West agreed"
+        },
+        {
+          "episode_id": "ele_cont_25_30",
+          "pass_idx": 56,
+          "sent_id": 6307,
+          "sentence": "\u201cThey are more popular than nicotine patches but we do not know if they are more effective"
+        },
+        {
+          "episode_id": "ele_cont_25_68",
+          "pass_idx": 56,
+          "sent_id": 6306,
+          "sentence": "\u201cE-cigarettes are like a sort of nicotine patch,\u201d West agreed"
+        },
+        {
+          "episode_id": "ele_cont_25_69",
+          "pass_idx": 56,
+          "sent_id": 6307,
+          "sentence": "\u201cThey are more popular than nicotine patches but we do not know if they are more effective"
+        }
+      ]
+    },
+    {
+      "fid": 1292,
+      "subject": "heroin",
+      "relation": "GROUNDED_MEANING",
+      "object": "mad",
+      "segment": "int_cont",
+      "source": "reading:int_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 68,
+      "best_cos": 0.5835,
+      "n_exposures": 4,
+      "schema_score": 0.4704,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_4_138",
+          "pass_idx": 4,
+          "sent_id": 165,
+          "sentence": "It burns your insides, it makes you aggressive and makes you go mad,\u201d said Maria, an ex-heroin addict"
+        },
+        {
+          "episode_id": "bootstrap_4_149",
+          "pass_idx": 4,
+          "sent_id": 542,
+          "sentence": "Charalampos Poulopoulos, the director of Kethea, Greece\u2019s anti-drug centre, said shisha is an \u201causterity drug\u201d \u2013 it is made by dealers who have become clever at making drugs for addicts who can no longer afford heroin and cocaine"
+        },
+        {
+          "episode_id": "int_cont_5_60",
+          "pass_idx": 67,
+          "sent_id": 5571,
+          "sentence": "It burns your insides, it makes you aggressive and makes you go totally mad, said Maria, a former heroin addict"
+        },
+        {
+          "episode_id": "int_cont_5_72",
+          "pass_idx": 67,
+          "sent_id": 5582,
+          "sentence": "It is, he said, an austerity drug  it is the response of dealers who have become more and more clever at producing synthetic drugs designed for those who can no longer afford more expensive highs from such drugs as heroin and cocaine"
+        }
+      ]
+    },
+    {
+      "fid": 1328,
+      "subject": "highclere",
+      "relation": "GROUNDED_MEANING",
+      "object": "home",
+      "segment": "int_cont",
+      "source": "reading:int_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 75,
+      "best_cos": 0.5049,
+      "n_exposures": 12,
+      "schema_score": 0.333,
+      "evidence": [
+        {
+          "episode_id": "int_cont_12_45",
+          "pass_idx": 74,
+          "sent_id": 6483,
+          "sentence": "But, at the real Downton Abbey, Highclere Castle  a stately home owned by George Geordie Herbert, 8th Earl of Carnarvon  they have more money than before"
+        },
+        {
+          "episode_id": "int_cont_12_46",
+          "pass_idx": 74,
+          "sent_id": 6484,
+          "sentence": "According to Lady Fiona Carnarvon, the huge global success of Downton has paid for building repairs that are needed to save Highclere for the next generation"
+        },
+        {
+          "episode_id": "int_cont_12_50",
+          "pass_idx": 74,
+          "sent_id": 6488,
+          "sentence": "My husband and I love Highclere Castle"
+        },
+        {
+          "episode_id": "int_cont_12_52",
+          "pass_idx": 74,
+          "sent_id": 6489,
+          "sentence": "Currently, only the ground and first floors of Highclere, on the borders of Hampshire, are used"
+        },
+        {
+          "episode_id": "int_cont_12_54",
+          "pass_idx": 74,
+          "sent_id": 6491,
+          "sentence": "When the Downton Abbey producers first approached Highclere in 2009, the family had 12 million of repairs to do  1"
+        },
+        {
+          "episode_id": "int_cont_12_58",
+          "pass_idx": 74,
+          "sent_id": 6495,
+          "sentence": "Then, Downton began and Highclere became a major tourist attraction"
+        },
+        {
+          "episode_id": "int_cont_12_64",
+          "pass_idx": 74,
+          "sent_id": 6500,
+          "sentence": "Peter Fincham, ITVs director of television, remembers the moment when Highclere was booked"
+        },
+        {
+          "episode_id": "int_cont_12_66",
+          "pass_idx": 74,
+          "sent_id": 6501,
+          "sentence": ", because I had never heard of Highclere Castle"
+        },
+        {
+          "episode_id": "int_cont_12_80",
+          "pass_idx": 74,
+          "sent_id": 6512,
+          "sentence": "Lady Carnarvon says that the long-term future of Highclere is not necessarily secure"
+        },
+        {
+          "episode_id": "int_cont_12_82",
+          "pass_idx": 74,
+          "sent_id": 6514,
+          "sentence": "Highclere Castle plans a Tutankhamun event in 2022, 100 years after the 5th Earl of Carnarvon discovered Tutankhamuns tomb with Howard Carter"
+        },
+        {
+          "episode_id": "int_cont_12_83",
+          "pass_idx": 74,
+          "sent_id": 6515,
+          "sentence": "Another opportunity to keep Highclere in the public mind is the 300th anniversary of the birth of Lancelot Capability Brown, who designed the grounds"
+        },
+        {
+          "episode_id": "int_cont_12_87",
+          "pass_idx": 74,
+          "sent_id": 6519,
+          "sentence": "In the past, an estate and house supported the family and their lifestyle but, today, it is quite the reverse: the challenge is how Geordie and I can support Highclere"
+        }
+      ]
+    },
+    {
+      "fid": 1370,
+      "subject": "debit",
+      "relation": "GROUNDED_MEANING",
+      "object": "card",
+      "segment": "int_cont",
+      "source": "reading:int_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 90,
+      "best_cos": 0.4523,
+      "n_exposures": 4,
+      "schema_score": 0.6283,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_19_15",
+          "pass_idx": 50,
+          "sent_id": 1727,
+          "sentence": "Protesters plan to target PizzaExpress restaurants, to try to get the restaurant chain to stop taking a percentage of tips for staff that have been paid on credit and debit cards"
+        },
+        {
+          "episode_id": "ele_cont_25_144",
+          "pass_idx": 56,
+          "sent_id": 109,
+          "sentence": "The report said that some waiters are made to pay a 15% administration fee on tips that customers pay by credit or debit card"
+        },
+        {
+          "episode_id": "int_cont_20_30",
+          "pass_idx": 82,
+          "sent_id": 7513,
+          "sentence": "PizzaExpress branches are to be targeted by protesters, in an attempt to get the restaurant chain to stop taking a proportion of tips for staff that have been paid on credit and debit cards"
+        },
+        {
+          "episode_id": "int_cont_27_82",
+          "pass_idx": 89,
+          "sent_id": 8403,
+          "sentence": "The report said that some waiters are charged up to a 15% administration fee on tips that are left when customers pay by credit or debit cards"
+        }
+      ]
+    },
+    {
+      "fid": 1372,
+      "subject": "lemon",
+      "relation": "GROUNDED_MEANING",
+      "object": "blind",
+      "segment": "int_cont",
+      "source": "reading:int_cont",
+      "trust": "TRUST_MID",
+      "pass_idx": 90,
+      "best_cos": 0.4866,
+      "n_exposures": 4,
+      "schema_score": 0.726,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_5_59",
+          "pass_idx": 5,
+          "sent_id": 340,
+          "sentence": "Its chef, Ren\u00e9 Redzepi, says that ants taste like lemon, and a mixture of grasshoppers and moth larvae tastes like a strong fish sauce"
+        },
+        {
+          "episode_id": "ele_cont_25_94",
+          "pass_idx": 56,
+          "sent_id": 827,
+          "sentence": "He also mentioned the earlier blues guitarists Blind Lemon Jefferson and Lonnie Johnson and the jazz players Charlie Christian and Django Reinhardt"
+        },
+        {
+          "episode_id": "int_cont_5_135",
+          "pass_idx": 67,
+          "sent_id": 5643,
+          "sentence": "Its chef, Ren Redzepi, says that ants taste like lemon, and a pure of fermented grasshoppers and moth larvae tastes like a strong fish sauce"
+        },
+        {
+          "episode_id": "int_cont_26_131",
+          "pass_idx": 88,
+          "sent_id": 8323,
+          "sentence": "He would also cite the earlier blues guitarists Blind Lemon Jefferson and Lonnie Johnson and the jazz players Charlie Christian and Django Reinhardt"
+        }
+      ]
+    },
+    {
+      "fid": 1392,
+      "subject": "backpack",
+      "relation": "GROUNDED_MEANING",
+      "object": "telescopic",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 97,
+      "best_cos": 0.716,
+      "n_exposures": 5,
+      "schema_score": 0.5003,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_0_86",
+          "pass_idx": 0,
+          "sent_id": 657,
+          "sentence": "They have taken their warmest winter clothes, many laptop computers and an 18kg telescopic camera that they can fix to their backpacks"
+        },
+        {
+          "episode_id": "ele_cont_3_133",
+          "pass_idx": 34,
+          "sent_id": 657,
+          "sentence": "They have taken their warmest winter clothes, many laptop computers and an 18kg telescopic camera that they can fix to their backpacks"
+        },
+        {
+          "episode_id": "int_cont_0_93",
+          "pass_idx": 62,
+          "sent_id": 658,
+          "sentence": "They have with them their warmest winter clothes, a stack of laptop computers and an 18kg telescopic camera that they can fix to their backpacks"
+        },
+        {
+          "episode_id": "adv_new_0_107",
+          "pass_idx": 96,
+          "sent_id": 6035,
+          "sentence": "Google has flown a small team to Iqaluit, the largest town in the Canadian territory of Nunavut, armed with their warmest winter gear, a stack of laptop computers and an 18kg backpack- mounted telescopic camera"
+        },
+        {
+          "episode_id": "adv_new_0_129",
+          "pass_idx": 96,
+          "sent_id": 6057,
+          "sentence": "The next northern site has not yet been identified but, when it is selected, Brindle said the company might simply send one of its hi-tech backpacks and rely on volunteers to literally put themselves on the map"
+        }
+      ]
+    },
+    {
+      "fid": 1396,
+      "subject": "dancer",
+      "relation": "GROUNDED_MEANING",
+      "object": "janeiro",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 97,
+      "best_cos": 0.6721,
+      "n_exposures": 4,
+      "schema_score": 0.698,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_0_62",
+          "pass_idx": 0,
+          "sent_id": 677,
+          "sentence": "In her teens, she made a name for herself in Rio de Janeiro\u2019s baile funk scene as a dancer and singer"
+        },
+        {
+          "episode_id": "int_cont_0_62",
+          "pass_idx": 62,
+          "sent_id": 678,
+          "sentence": "In her teens, she made a name for herself in Rio de Janeiros baile funk scene as a dancer and singer"
+        },
+        {
+          "episode_id": "int_cont_4_62",
+          "pass_idx": 66,
+          "sent_id": 1920,
+          "sentence": "Allen, a keen dancer, has never done any formal training to be a fitness instructor"
+        },
+        {
+          "episode_id": "adv_new_0_66",
+          "pass_idx": 96,
+          "sent_id": 677,
+          "sentence": "In her teens, she made a name for herself in Rio de Janeiro\u2019s baile funk scene as a dancer and singer"
+        }
+      ]
+    },
+    {
+      "fid": 1406,
+      "subject": "bolivian",
+      "relation": "GROUNDED_MEANING",
+      "object": "danny",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 98,
+      "best_cos": 0.7409,
+      "n_exposures": 4,
+      "schema_score": 0.5676,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_1_46",
+          "pass_idx": 1,
+          "sent_id": 954,
+          "sentence": "\u201cThe Bolivian move is very important,\u201d said Danny Kushlick, of the Transform Drug Policy Foundation"
+        },
+        {
+          "episode_id": "int_cont_1_61",
+          "pass_idx": 63,
+          "sent_id": 955,
+          "sentence": "The Bolivian move is inspirational and groundbreaking, said Danny Kushlick, of the Transform Drug Policy Foundation, which supports drug liberalization"
+        },
+        {
+          "episode_id": "adv_new_1_94",
+          "pass_idx": 97,
+          "sent_id": 6162,
+          "sentence": "\u201cThe Bolivian move is inspirational and groundbreaking,\u201d said Danny Kushlick, Head of External Affairs at the Transform Drug Policy Foundation, which promotes drug liberalization"
+        },
+        {
+          "episode_id": "adv_new_1_119",
+          "pass_idx": 97,
+          "sent_id": 6186,
+          "sentence": "The policy has been credited with a fall in cocaine production in the country, leading some experts to see the Bolivian model as a way forward for other countries"
+        }
+      ]
+    },
+    {
+      "fid": 1416,
+      "subject": "whatsapp",
+      "relation": "GROUNDED_MEANING",
+      "object": "swap",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 98,
+      "best_cos": 0.4755,
+      "n_exposures": 6,
+      "schema_score": 0.275,
+      "evidence": [
+        {
+          "episode_id": "adv_new_1_40",
+          "pass_idx": 97,
+          "sent_id": 6114,
+          "sentence": "Dozens of alternatives have sprung up to take its place, from Facebook\u2019s and Apple\u2019s own-brand instant messaging applications to independent start-ups such as WhatsApp and Kik (which is also Canadian)"
+        },
+        {
+          "episode_id": "adv_new_1_41",
+          "pass_idx": 97,
+          "sent_id": 6115,
+          "sentence": "Free to download and use, they use the internet to swap text messages, pictures, voice clips,\u2019stickers\u2019, and even videos in WhatsApp\u2019s case, between most types of phones"
+        },
+        {
+          "episode_id": "adv_new_1_46",
+          "pass_idx": 97,
+          "sent_id": 6120,
+          "sentence": "\u201cWhatsApp has removed the reason why young people would use a BlackBerry"
+        },
+        {
+          "episode_id": "adv_new_1_47",
+          "pass_idx": 97,
+          "sent_id": 6121,
+          "sentence": "BBM claims 80 million monthly users after its upgrade, but WhatsApp has 300 million"
+        },
+        {
+          "episode_id": "adv_new_1_72",
+          "pass_idx": 97,
+          "sent_id": 6142,
+          "sentence": "At the touch of a few buttons, a single BlackBerry message can be sent to the phone owner\u2019s entire contacts book \u2013 several hundred people in some cases; on WhatsApp, the limit for a broadcast message is 50"
+        },
+        {
+          "episode_id": "adv_new_1_83",
+          "pass_idx": 97,
+          "sent_id": 6153,
+          "sentence": "They all use WhatsApp"
+        }
+      ]
+    },
+    {
+      "fid": 1438,
+      "subject": "fbi",
+      "relation": "GROUNDED_MEANING",
+      "object": "widely",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 105,
+      "best_cos": 0.4682,
+      "n_exposures": 4,
+      "schema_score": 0.4601,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_6_145",
+          "pass_idx": 6,
+          "sent_id": 2741,
+          "sentence": "The polygraph is often used in the US in criminal cases and by the FBI and CIA but is much less popular in Europe"
+        },
+        {
+          "episode_id": "int_cont_7_99",
+          "pass_idx": 69,
+          "sent_id": 1453,
+          "sentence": "The polygraph is widely used in the US in criminal cases and for security clearance for the FBI and CIA but is much less popular in Europe"
+        },
+        {
+          "episode_id": "adv_new_0_139",
+          "pass_idx": 96,
+          "sent_id": 6067,
+          "sentence": "The FBI refused to confirm reports they were asked to investigate"
+        },
+        {
+          "episode_id": "adv_new_8_66",
+          "pass_idx": 104,
+          "sent_id": 7054,
+          "sentence": "The polygraph is widely used in the US in criminal and other cases and for security clearance for the FBI and CIA but is much less popular in Europe"
+        }
+      ]
+    },
+    {
+      "fid": 1472,
+      "subject": "paddington",
+      "relation": "GROUNDED_MEANING",
+      "object": "mary",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 110,
+      "best_cos": 0.5437,
+      "n_exposures": 4,
+      "schema_score": 0.7227,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_11_12",
+          "pass_idx": 11,
+          "sent_id": 3930,
+          "sentence": "24pm in the exclusive Lindo Wing at St Marys Hospital, Paddington, West London"
+        },
+        {
+          "episode_id": "bootstrap_11_36",
+          "pass_idx": 11,
+          "sent_id": 1567,
+          "sentence": "Speaking outside 10 Downing Street, David Cameron said: It is wonderful news from St Marys, Paddington, and I am sure that, right across the country, and, indeed, right across the Commonwealth, people will be celebrating and wishing the royal couple well"
+        },
+        {
+          "episode_id": "adv_new_13_91",
+          "pass_idx": 109,
+          "sent_id": 7690,
+          "sentence": "24pm in the exclusive Lindo Wing at St Mary\u2019s Hospital, Paddington, West London"
+        },
+        {
+          "episode_id": "adv_new_13_118",
+          "pass_idx": 109,
+          "sent_id": 7708,
+          "sentence": "Speaking outside 10 Downing Street, David Cameron said: \u201cIt is wonderful news from St Mary\u2019s, Paddington, and I am sure that, right across the country, and, indeed, right across the Commonwealth, people will be celebrating and wishing the royal couple well"
+        }
+      ]
+    },
+    {
+      "fid": 1486,
+      "subject": "workman",
+      "relation": "GROUNDED_MEANING",
+      "object": "knife",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 110,
+      "best_cos": 0.5643,
+      "n_exposures": 4,
+      "schema_score": 0.4679,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_10_15",
+          "pass_idx": 10,
+          "sent_id": 5910,
+          "sentence": "And on a grey, cold, windy Monday in February, he resigned in the same way: like an old workman with pains in his back and no more strength in his arms"
+        },
+        {
+          "episode_id": "bootstrap_10_142",
+          "pass_idx": 10,
+          "sent_id": 1914,
+          "sentence": "Bob Savage, a medieval weapons expert, said it was probably not a war weapon but the sort of sharp knife or dagger any workman might have carried"
+        },
+        {
+          "episode_id": "ele_cont_0_90",
+          "pass_idx": 31,
+          "sent_id": 5922,
+          "sentence": "It was probably the sort of sharp knife a workman normally carried"
+        },
+        {
+          "episode_id": "adv_new_13_72",
+          "pass_idx": 109,
+          "sent_id": 7677,
+          "sentence": "Bob Savage, a medieval arms expert from the Royal Armouries who helped identify the wounds, said it was probably not a war weapon but the sort of sharp knife or dagger any workman might have carried"
+        }
+      ]
+    },
+    {
+      "fid": 1492,
+      "subject": "clearance",
+      "relation": "GROUNDED_MEANING",
+      "object": "fbi",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 112,
+      "best_cos": 0.5558,
+      "n_exposures": 4,
+      "schema_score": 0.8927,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_12_117",
+          "pass_idx": 12,
+          "sent_id": 1452,
+          "sentence": "Only drivers with an official security clearance can use special fast lanes to avoid the wait"
+        },
+        {
+          "episode_id": "int_cont_7_99",
+          "pass_idx": 69,
+          "sent_id": 1453,
+          "sentence": "The polygraph is widely used in the US in criminal cases and for security clearance for the FBI and CIA but is much less popular in Europe"
+        },
+        {
+          "episode_id": "adv_new_8_66",
+          "pass_idx": 104,
+          "sent_id": 7054,
+          "sentence": "The polygraph is widely used in the US in criminal and other cases and for security clearance for the FBI and CIA but is much less popular in Europe"
+        },
+        {
+          "episode_id": "adv_new_15_76",
+          "pass_idx": 111,
+          "sent_id": 1452,
+          "sentence": "Only drivers with an official security clearance can use special fast lanes to avoid the wait"
+        }
+      ]
+    },
+    {
+      "fid": 1508,
+      "subject": "reservoir",
+      "relation": "GROUNDED_MEANING",
+      "object": "smith",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 116,
+      "best_cos": 0.4851,
+      "n_exposures": 4,
+      "schema_score": 0.6035,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_16_106",
+          "pass_idx": 16,
+          "sent_id": 4984,
+          "sentence": "Intermediate \nOn the top of a hill, looking down on Northumberlands beautiful Kielder Water reservoir, a group of people wait in a car park next to a strange wooden building"
+        },
+        {
+          "episode_id": "bootstrap_22_106",
+          "pass_idx": 22,
+          "sent_id": 4985,
+          "sentence": "Smith said that, instead of buying bottled water, festival-goers should take advantage of the water on tap, which comes from huge underground reservoirs"
+        },
+        {
+          "episode_id": "ele_cont_11_69",
+          "pass_idx": 42,
+          "sent_id": 4986,
+          "sentence": "Smith said that festival-goers should not buy bottled water; they should use the water on tap, which comes from big underground reservoirs"
+        },
+        {
+          "episode_id": "adv_new_19_93",
+          "pass_idx": 115,
+          "sent_id": 8418,
+          "sentence": "On Black Fell, looking down on Northumberland\u2019s beautiful Kielder Water reservoir, a group of people wait in a car park next to a strange wooden building with a minimalist design beamed down from the future"
+        }
+      ]
+    },
+    {
+      "fid": 1518,
+      "subject": "alexandria",
+      "relation": "GROUNDED_MEANING",
+      "object": "duncan",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 119,
+      "best_cos": 0.4914,
+      "n_exposures": 5,
+      "schema_score": 0.8302,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_19_84",
+          "pass_idx": 19,
+          "sent_id": 222,
+          "sentence": "The birth of Bowie and Imans daughter, Alexandria, followed in August 2000"
+        },
+        {
+          "episode_id": "bootstrap_19_95",
+          "pass_idx": 19,
+          "sent_id": 223,
+          "sentence": "He is survived by Iman, their daughter, Alexandria, his stepdaughter, Zulekha, and his son, Duncan, from his first marriage"
+        },
+        {
+          "episode_id": "ele_cont_8_66",
+          "pass_idx": 39,
+          "sent_id": 224,
+          "sentence": "He leaves behind his wife, Iman, their daughter, Alexandria, his stepdaughter, Zulekha, and his son, Duncan, from his first marriage"
+        },
+        {
+          "episode_id": "adv_new_22_101",
+          "pass_idx": 118,
+          "sent_id": 8771,
+          "sentence": "The birth of Bowie and Iman\u2019s daughter, Alexandria, followed in August 2000"
+        },
+        {
+          "episode_id": "adv_new_22_113",
+          "pass_idx": 118,
+          "sent_id": 223,
+          "sentence": "He is survived by Iman, their daughter, Alexandria, his stepdaughter, Zulekha, and his son, Duncan, from his first marriage"
+        }
+      ]
+    },
+    {
+      "fid": 1602,
+      "subject": "salad",
+      "relation": "GROUNDED_MEANING",
+      "object": "yesterday",
+      "segment": "adv_new",
+      "source": "reading:adv_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 134,
+      "best_cos": 0.5705,
+      "n_exposures": 4,
+      "schema_score": 0.7632,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_26_92",
+          "pass_idx": 57,
+          "sent_id": 3877,
+          "sentence": "By percentage, the most wasted food is lettuce and leafy salads \u2013 people throw away 38% (64,000 tonnes) of all they buy"
+        },
+        {
+          "episode_id": "int_cont_22_46",
+          "pass_idx": 84,
+          "sent_id": 5114,
+          "sentence": "You should wash your hands, he said, and probably get some sleep, eat salads and go to the gym, and thats about the same today as it was yesterday"
+        },
+        {
+          "episode_id": "int_cont_28_64",
+          "pass_idx": 90,
+          "sent_id": 3878,
+          "sentence": "By percentage, the most wasted food is lettuce and leafy salads, of which consumers throw away 38% (64,000 tonnes) of all they buy"
+        },
+        {
+          "episode_id": "adv_new_37_74",
+          "pass_idx": 133,
+          "sent_id": 10506,
+          "sentence": "\u201cYou should wash your hands,\u201d he said, \u201cand probably get some sleep and eat salads and go to the gym, and that\u2019s about the same today as it was yesterday"
+        }
+      ]
+    },
+    {
+      "fid": 1622,
+      "subject": "champ",
+      "relation": "GROUNDED_MEANING",
+      "object": "agent",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 147,
+      "best_cos": 0.508,
+      "n_exposures": 4,
+      "schema_score": 0.5787,
+      "evidence": [
+        {
+          "episode_id": "bootstrap_15_144",
+          "pass_idx": 15,
+          "sent_id": 1804,
+          "sentence": "Now, Chinese house hunters are following Russians and Kazakhs who have spent millions to get an address that estate agents tell them is as world famous as the Champs Elyses and Rodeo Drive"
+        },
+        {
+          "episode_id": "ele_cont_5_9",
+          "pass_idx": 36,
+          "sent_id": 1805,
+          "sentence": "Now, Chinese house hunters are following Russians and Kazakhs who have spent millions to get an address that estate agents tell them is as world famous as the Champs Elys\u00e9es and Rodeo Drive"
+        },
+        {
+          "episode_id": "adv_new_18_133",
+          "pass_idx": 114,
+          "sent_id": 1806,
+          "sentence": "Now, Chinese house hunters are following Russians and Kazakhs who have spent millions securing an address estate agents tell them is as world famous as the Champs Elys\u00e9es and Rodeo Drive"
+        },
+        {
+          "episode_id": "bio_new_0_79",
+          "pass_idx": 146,
+          "sent_id": 7933,
+          "sentence": "Concepts of Biology would not be possible if not for the tremendous contributions of the authors and community reviewing team Samantha Fowler, Clayton State University Rebecca Roush, Sandhills Community College James Wise, Hampton University Mark Belk, Brigham Young University Lisa Boggs, Southwestern Oklahoma State University Sherryl Broverman, Duke University David Byres, Florida State College at Jacksonville Aaron Cassill, The University of Texas at San Antonio Karen Champ, College of Central Florida Sue Chaplin, University of St"
+        }
+      ]
+    },
+    {
+      "fid": 1626,
+      "subject": "coral",
+      "relation": "GROUNDED_MEANING",
+      "object": "reef",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 147,
+      "best_cos": 0.6254,
+      "n_exposures": 4,
+      "schema_score": 0.5477,
+      "evidence": [
+        {
+          "episode_id": "ele_cont_18_142",
+          "pass_idx": 49,
+          "sent_id": 2331,
+          "sentence": "Our coral reefs, the greatest in the world, and our fishing grounds are disappearing"
+        },
+        {
+          "episode_id": "int_cont_20_1",
+          "pass_idx": 82,
+          "sent_id": 2332,
+          "sentence": "Our coral reefs, the greatest in the world and our spawning grounds are disappearing"
+        },
+        {
+          "episode_id": "adv_new_35_7",
+          "pass_idx": 131,
+          "sent_id": 2333,
+          "sentence": "Our coral reefs, the greatest in the world, and our mangrove and wetland spawning grounds are disappearing"
+        },
+        {
+          "episode_id": "bio_new_0_68",
+          "pass_idx": 146,
+          "sent_id": 7922,
+          "sentence": "Evolution Connection features uphold the importance of evolution to all biological study through discussions like \u201cGlobal Decline of Coral Reefs\u201d and \u201cThe Red Queen Hypothesis"
+        }
+      ]
+    },
+    {
+      "fid": 1686,
+      "subject": "singular",
+      "relation": "GROUNDED_MEANING",
+      "object": "transport",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 157,
+      "best_cos": 0.4854,
+      "n_exposures": 6,
+      "schema_score": 0.2548,
+      "evidence": [
+        {
+          "episode_id": "bio_new_8_84",
+          "pass_idx": 154,
+          "sent_id": 9092,
+          "sentence": "The plasma membranes of cells that specialize in absorption are folded into fingerlike projections called microvilli (singular = microvillus)"
+        },
+        {
+          "episode_id": "bio_new_8_120",
+          "pass_idx": 154,
+          "sent_id": 9127,
+          "sentence": "Flagella (singular = flagellum) are long, hair-like structures that extend from the plasma membrane and are used to move an entire cell, (for example, sperm, Euglena)"
+        },
+        {
+          "episode_id": "bio_new_8_122",
+          "pass_idx": 154,
+          "sent_id": 9129,
+          "sentence": "When cilia (singular = cilium) are present, however, they are many in number and extend along the entire surface of the plasma membrane"
+        },
+        {
+          "episode_id": "bio_new_9_48",
+          "pass_idx": 155,
+          "sent_id": 9204,
+          "sentence": "Mitochondria (singular = mitochondrion) are often called the \u201cpowerhouses\u201d or \u201cenergy factories\u201d of a cell because they are responsible for making adenosine triphosphate (ATP), the cell\u2019s main energy-carrying molecule"
+        },
+        {
+          "episode_id": "bio_new_9_120",
+          "pass_idx": 155,
+          "sent_id": 9274,
+          "sentence": "Plasmodesmata (singular = plasmodesma) are junctions between plant cells, whereas animal cell contacts include tight and gap junctions, and desmosomes"
+        },
+        {
+          "episode_id": "bio_new_10_17",
+          "pass_idx": 156,
+          "sent_id": 9317,
+          "sentence": "cell wall: a rigid cell covering made of cellulose in plants, peptidoglycan in bacteria, non-peptidoglycan compounds in Archaea, and chitin in fungi that protects the cell, provides structural support, and gives shape to the cell central vacuole: a large plant cell organelle that acts as a storage compartment, water reservoir, and site of macromolecule degradation chloroplast: a plant cell organelle that carries out photosynthesis chromatin: protein-DNA complex that serves as the chromosomes' building material chromosome: structure within the nucleus that comprises chromatin that contains DNA, the hereditary material cilium: (plural: cilia) a short, hair-like structure that extends from the plasma membrane in large numbers and is used to move an entire cell or move substances along the outer surface of the cell cytoplasm: the entire region between the plasma membrane and the nuclear envelope, consisting of organelles suspended in the gel-like cytosol, the cytoskeleton, and various chemicals cytoskeleton: the network of protein fibers that collectively maintains the shape of the cell, secures some organelles in specific positions, allows cytoplasm and vesicles to move within the cell, and enables unicellular organisms to move cytosol: the gel-like material of the cytoplasm in which cell structures are suspended desmosome: a linkage between adjacent epithelial cells that forms when cadherins in the plasma membrane attach to intermediate filaments endomembrane system: the group of organelles and membranes in eukaryotic cells that work together to modify, package, and transport lipids and proteins endoplasmic reticulum (ER): a series of interconnected membranous structures within eukaryotic cells that collectively modify proteins and synthesize lipids extracellular matrix: the material, primarily collagen, glycoproteins, and proteoglycans, secreted from animal cells that holds cells together as a tissue, allows cells to communicate with each other, and provides mechanical protection and anchoring for cells in the tissue flagellum: (plural: flagella) the long, hair-like structure that extends from the plasma membrane and is used to move the cell gap junction: a channel between two adjacent animal cells that allows ions, nutrients, and other low-molecular weight substances to pass between the cells, enabling the cells to communicate Golgi apparatus: a eukaryotic organelle made up of a series of stacked membranes that sorts, tags, and packages lipids and proteins for distribution lysosome: an organelle in an animal cell that functions as the cell\u2019s digestive component; it breaks down proteins, polysaccharides, lipids, nucleic acids, and even worn-out organelles mitochondria: (singular: mitochondrion) the cellular organelles responsible for carrying out cellular respiration, resulting in the production of ATP, the cell\u2019s main energy-carrying molecule nuclear envelope: the double-membrane structure that constitutes the outermost portion of the nucleus nucleolus: the darkly staining body within the nucleus that is responsible for assembling ribosomal subunits nucleus: the cell organelle that houses the cell\u2019s DNA and directs the synthesis of ribosomes and proteins peroxisome: a small, round organelle that contains hydrogen peroxide, oxidizes fatty acids and amino acids, and detoxifies many poisons plasma membrane: a phospholipid bilayer with embedded (integral) or attached (peripheral) proteins that separates the internal contents of the cell from its surrounding environment plasmodesma: (plural: plasmodesmata) a channel that passes between the cell walls of adjacent plant cells, connects their cytoplasm, and allows materials to be transported from cell to cell ribosome: a cellular structure that carries out protein synthesis rough endoplasmic reticulum (RER): the region of the endoplasmic reticulum that is studded with ribosomes and engages in protein modification smooth endoplasmic reticulum (SER): the region of the endoplasmic reticulum that has few or no ribosomes on its cytoplasmic surface and synthesizes carbohydrates, lipids, and steroid hormones; detoxifies chemicals like pesticides, preservatives, medications, and environmental pollutants, and stores calcium ions tight junction: a firm seal between two adjacent animal cells created by protein adherence vacuole: a membrane-bound sac, somewhat larger than a vesicle, that functions in cellular storage and transport vesicle: a small, membrane-bound sac that functions in cellular storage and transport; its membrane is capable of fusing with the plasma membrane and the membranes of the endoplasmic reticulum and Golgi apparatus A cell\u2019s plasma membrane defines the boundary of the cell and determines the nature of its contact with the environment"
+        }
+      ]
+    },
+    {
+      "fid": 1690,
+      "subject": "glycoprotein",
+      "relation": "GROUNDED_MEANING",
+      "object": "singular",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 158,
+      "best_cos": 0.4611,
+      "n_exposures": 8,
+      "schema_score": 0.2603,
+      "evidence": [
+        {
+          "episode_id": "bio_new_9_111",
+          "pass_idx": 155,
+          "sent_id": 9266,
+          "sentence": "The primary components of these materials are glycoproteins and the protein collagen"
+        },
+        {
+          "episode_id": "bio_new_10_17",
+          "pass_idx": 156,
+          "sent_id": 9317,
+          "sentence": "cell wall: a rigid cell covering made of cellulose in plants, peptidoglycan in bacteria, non-peptidoglycan compounds in Archaea, and chitin in fungi that protects the cell, provides structural support, and gives shape to the cell central vacuole: a large plant cell organelle that acts as a storage compartment, water reservoir, and site of macromolecule degradation chloroplast: a plant cell organelle that carries out photosynthesis chromatin: protein-DNA complex that serves as the chromosomes' building material chromosome: structure within the nucleus that comprises chromatin that contains DNA, the hereditary material cilium: (plural: cilia) a short, hair-like structure that extends from the plasma membrane in large numbers and is used to move an entire cell or move substances along the outer surface of the cell cytoplasm: the entire region between the plasma membrane and the nuclear envelope, consisting of organelles suspended in the gel-like cytosol, the cytoskeleton, and various chemicals cytoskeleton: the network of protein fibers that collectively maintains the shape of the cell, secures some organelles in specific positions, allows cytoplasm and vesicles to move within the cell, and enables unicellular organisms to move cytosol: the gel-like material of the cytoplasm in which cell structures are suspended desmosome: a linkage between adjacent epithelial cells that forms when cadherins in the plasma membrane attach to intermediate filaments endomembrane system: the group of organelles and membranes in eukaryotic cells that work together to modify, package, and transport lipids and proteins endoplasmic reticulum (ER): a series of interconnected membranous structures within eukaryotic cells that collectively modify proteins and synthesize lipids extracellular matrix: the material, primarily collagen, glycoproteins, and proteoglycans, secreted from animal cells that holds cells together as a tissue, allows cells to communicate with each other, and provides mechanical protection and anchoring for cells in the tissue flagellum: (plural: flagella) the long, hair-like structure that extends from the plasma membrane and is used to move the cell gap junction: a channel between two adjacent animal cells that allows ions, nutrients, and other low-molecular weight substances to pass between the cells, enabling the cells to communicate Golgi apparatus: a eukaryotic organelle made up of a series of stacked membranes that sorts, tags, and packages lipids and proteins for distribution lysosome: an organelle in an animal cell that functions as the cell\u2019s digestive component; it breaks down proteins, polysaccharides, lipids, nucleic acids, and even worn-out organelles mitochondria: (singular: mitochondrion) the cellular organelles responsible for carrying out cellular respiration, resulting in the production of ATP, the cell\u2019s main energy-carrying molecule nuclear envelope: the double-membrane structure that constitutes the outermost portion of the nucleus nucleolus: the darkly staining body within the nucleus that is responsible for assembling ribosomal subunits nucleus: the cell organelle that houses the cell\u2019s DNA and directs the synthesis of ribosomes and proteins peroxisome: a small, round organelle that contains hydrogen peroxide, oxidizes fatty acids and amino acids, and detoxifies many poisons plasma membrane: a phospholipid bilayer with embedded (integral) or attached (peripheral) proteins that separates the internal contents of the cell from its surrounding environment plasmodesma: (plural: plasmodesmata) a channel that passes between the cell walls of adjacent plant cells, connects their cytoplasm, and allows materials to be transported from cell to cell ribosome: a cellular structure that carries out protein synthesis rough endoplasmic reticulum (RER): the region of the endoplasmic reticulum that is studded with ribosomes and engages in protein modification smooth endoplasmic reticulum (SER): the region of the endoplasmic reticulum that has few or no ribosomes on its cytoplasmic surface and synthesizes carbohydrates, lipids, and steroid hormones; detoxifies chemicals like pesticides, preservatives, medications, and environmental pollutants, and stores calcium ions tight junction: a firm seal between two adjacent animal cells created by protein adherence vacuole: a membrane-bound sac, somewhat larger than a vesicle, that functions in cellular storage and transport vesicle: a small, membrane-bound sac that functions in cellular storage and transport; its membrane is capable of fusing with the plasma membrane and the membranes of the endoplasmic reticulum and Golgi apparatus A cell\u2019s plasma membrane defines the boundary of the cell and determines the nature of its contact with the environment"
+        },
+        {
+          "episode_id": "bio_new_10_43",
+          "pass_idx": 156,
+          "sent_id": 9341,
+          "sentence": "The plasma membrane is made up primarily of a bilayer of phospholipids with embedded proteins, carbohydrates, glycolipids, and glycoproteins, and, in animal cells, cholesterol"
+        },
+        {
+          "episode_id": "bio_new_10_56",
+          "pass_idx": 156,
+          "sent_id": 9353,
+          "sentence": "They are always found on the exterior surface of cells and are bound either to proteins (forming glycoproteins) or to lipids (forming glycolipids)"
+        },
+        {
+          "episode_id": "bio_new_10_59",
+          "pass_idx": 156,
+          "sent_id": 9356,
+          "sentence": "Specific glycoprotein molecules exposed on the surface of the cell membranes of host cells are exploited by many viruses to infect specific organs"
+        },
+        {
+          "episode_id": "bio_new_10_62",
+          "pass_idx": 156,
+          "sent_id": 9359,
+          "sentence": "These viruses are able to invade these cells, because the cells have binding sites on their surfaces that the viruses have exploited with equally specific glycoproteins in their coats"
+        },
+        {
+          "episode_id": "bio_new_10_70",
+          "pass_idx": 156,
+          "sent_id": 9367,
+          "sentence": "HIV docks at and binds to the CD4 receptor, a glycoprotein on the surface of T cells, before entering, or infecting, the cell"
+        },
+        {
+          "episode_id": "bio_new_10_129",
+          "pass_idx": 156,
+          "sent_id": 9423,
+          "sentence": "The material being transported is first attached to protein or glycoprotein receptors on the exterior surface of the plasma membrane"
+        }
+      ]
+    },
+    {
+      "fid": 1728,
+      "subject": "capture",
+      "relation": "GROUNDED_MEANING",
+      "object": "potential",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 162,
+      "best_cos": 0.502,
+      "n_exposures": 4,
+      "schema_score": 0.2876,
+      "evidence": [
+        {
+          "episode_id": "bio_new_1_32",
+          "pass_idx": 147,
+          "sent_id": 8030,
+          "sentence": "Some organisms capture energy from the Sun and convert it into chemical energy in food; others use chemical energy from molecules they take in"
+        },
+        {
+          "episode_id": "bio_new_11_129",
+          "pass_idx": 157,
+          "sent_id": 9568,
+          "sentence": "Plants use photosynthesis to capture sunlight, and herbivores eat the plants to obtain energy"
+        },
+        {
+          "episode_id": "bio_new_15_92",
+          "pass_idx": 161,
+          "sent_id": 10078,
+          "sentence": "In the Calvin cycle, which takes place in the stroma, the chemical energy derived from the light-dependent reactions drives both the capture of carbon in carbon dioxide molecules and the subsequent assembly of sugar molecules"
+        },
+        {
+          "episode_id": "bio_new_15_108",
+          "pass_idx": 161,
+          "sent_id": 10091,
+          "sentence": "Autotrophs can capture light energy from the sun, converting it into chemical energy used to build food molecules"
+        }
+      ]
+    },
+    {
+      "fid": 1732,
+      "subject": "generate",
+      "relation": "GROUNDED_MEANING",
+      "object": "potential",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 162,
+      "best_cos": 0.4512,
+      "n_exposures": 11,
+      "schema_score": 0.4376,
+      "evidence": [
+        {
+          "episode_id": "bio_new_11_127",
+          "pass_idx": 157,
+          "sent_id": 9566,
+          "sentence": "Together, all of the chemical reactions that take place inside cells, including those that consume or generate energy, are referred to as the cell\u2019s metabolism"
+        },
+        {
+          "episode_id": "bio_new_12_2",
+          "pass_idx": 158,
+          "sent_id": 9591,
+          "sentence": "Catabolic pathways are those that generate energy by breaking down larger molecules"
+        },
+        {
+          "episode_id": "bio_new_14_1",
+          "pass_idx": 160,
+          "sent_id": 9864,
+          "sentence": "You have just read about two pathways in glucose catabolism\u2014glycolysis and the citric acid cycle\u2014that generate ATP"
+        },
+        {
+          "episode_id": "bio_new_14_5",
+          "pass_idx": 160,
+          "sent_id": 9868,
+          "sentence": "The energy of the electrons is harvested and used to generate an electrochemical gradient across the inner mitochondrial membrane"
+        },
+        {
+          "episode_id": "bio_new_14_6",
+          "pass_idx": 160,
+          "sent_id": 9869,
+          "sentence": "The potential energy of this gradient is used to generate ATP"
+        },
+        {
+          "episode_id": "bio_new_14_26",
+          "pass_idx": 160,
+          "sent_id": 9889,
+          "sentence": "The mitochondria would be unable to generate new ATP in this way, and the cell would ultimately die from lack of energy"
+        },
+        {
+          "episode_id": "bio_new_14_34",
+          "pass_idx": 160,
+          "sent_id": 9897,
+          "sentence": "Chemiosmosis (c) is used to generate 90 percent of the ATP made during aerobic glucose catabolism"
+        },
+        {
+          "episode_id": "bio_new_14_60",
+          "pass_idx": 160,
+          "sent_id": 9922,
+          "sentence": "The citric acid cycle is a series of chemical reactions that removes high-energy electrons and uses them in the electron transport chain to generate ATP"
+        },
+        {
+          "episode_id": "bio_new_14_69",
+          "pass_idx": 160,
+          "sent_id": 9929,
+          "sentence": "acetyl CoA: the combination of an acetyl group derived from pyruvic acid and coenzyme A which is made from pantothenic acid (a B-group vitamin) ATP synthase: a membrane-embedded protein complex that regenerates ATP from ADP with energy from protons diffusing through it chemiosmosis: the movement of hydrogen ions down their electrochemical gradient across a membrane through ATP synthase to generate ATP citric acid cycle: a series of enzyme-catalyzed chemical reactions of central importance in all living cells that harvests the energy in carbon-carbon bonds of sugar molecules to generate ATP; the citric acid cycle is an aerobic metabolic pathway because it requires oxygen in later reactions to proceed electron transport chain: a series of four large, multi-protein complexes embedded in the inner mitochondrial membrane that accepts electrons from donor compounds and harvests energy from a series of chemical reactions to generate a hydrogen ion gradient across the membrane oxidative phosphorylation: the production of ATP by the transfer of electrons down the electron transport chain to create a proton gradient that is used by ATP synthase to add phosphate groups to ADP molecules In aerobic respiration, the final electron acceptor is an oxygen molecule, O2"
+        },
+        {
+          "episode_id": "bio_new_16_40",
+          "pass_idx": 162,
+          "sent_id": 10171,
+          "sentence": "The remaining function of the light-dependent reaction is to generate the other energy-carrier molecule, NADPH"
+        },
+        {
+          "episode_id": "bio_new_16_113",
+          "pass_idx": 162,
+          "sent_id": 10229,
+          "sentence": "Both organelles use electron transport chains to generate the energy necessary to drive other reactions"
+        }
+      ]
+    },
+    {
+      "fid": 1824,
+      "subject": "inversion",
+      "relation": "GROUNDED_MEANING",
+      "object": "karyotype",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 168,
+      "best_cos": 0.4545,
+      "n_exposures": 18,
+      "schema_score": 0.413,
+      "evidence": [
+        {
+          "episode_id": "int_cont_13_56",
+          "pass_idx": 75,
+          "sent_id": 4729,
+          "sentence": "There are a number of jet streams in the upper atmosphere, especially on the journey from the US to Europe, where a temperature inversion causes a stream of air to move as fast as 250 miles per hour"
+        },
+        {
+          "episode_id": "adv_new_27_136",
+          "pass_idx": 123,
+          "sent_id": 4730,
+          "sentence": "There are a number of jet streams in the upper atmosphere, notably on the journey from the US to Europe, where a temperature inversion causes a corridor of air to move as fast as 250mph"
+        },
+        {
+          "episode_id": "bio_new_20_134",
+          "pass_idx": 166,
+          "sent_id": 10798,
+          "sentence": "Cytologists have characterized numerous structural rearrangements in chromosomes, including partial duplications, deletions, inversions, and translocations"
+        },
+        {
+          "episode_id": "bio_new_20_139",
+          "pass_idx": 166,
+          "sent_id": 10803,
+          "sentence": "Chromosome inversions and translocations can be identified by observing cells during meiosis because homologous chromosomes with a rearrangement in one of the pair must contort to maintain appropriate gene alignment and pair effectively during prophase I"
+        },
+        {
+          "episode_id": "bio_new_20_140",
+          "pass_idx": 166,
+          "sent_id": 10804,
+          "sentence": "A chromosome inversion is the detachment, 180\u00b0 rotation, and reinsertion of part of a chromosome"
+        },
+        {
+          "episode_id": "bio_new_20_141",
+          "pass_idx": 166,
+          "sent_id": 10805,
+          "sentence": "Unless they disrupt a gene sequence, inversions only change the orientation of genes and are likely to have more mild effects than aneuploid errors"
+        },
+        {
+          "episode_id": "bio_new_20_144",
+          "pass_idx": 166,
+          "sent_id": 10808,
+          "sentence": "In fact, an inversion in chromosome 18 appears to have contributed to the evolution of humans"
+        },
+        {
+          "episode_id": "bio_new_20_145",
+          "pass_idx": 166,
+          "sent_id": 10809,
+          "sentence": "This inversion is not present in our closest genetic relatives, the chimpanzees"
+        },
+        {
+          "episode_id": "bio_new_20_146",
+          "pass_idx": 166,
+          "sent_id": 10810,
+          "sentence": "The chromosome 18 inversion is believed to have occurred in early humans following their divergence from a common ancestor with chimpanzees approximately five million years ago"
+        },
+        {
+          "episode_id": "bio_new_20_148",
+          "pass_idx": 166,
+          "sent_id": 10812,
+          "sentence": "A comparison of human and chimpanzee genes in the region of this inversion indicates that two genes\u2014ROCK1 and USP14\u2014are farther apart on human chromosome 18 than they are on the corresponding chimpanzee chromosome"
+        },
+        {
+          "episode_id": "bio_new_20_149",
+          "pass_idx": 166,
+          "sent_id": 10813,
+          "sentence": "This suggests that one of the inversion breakpoints occurred between these two genes"
+        },
+        {
+          "episode_id": "bio_new_21_1",
+          "pass_idx": 167,
+          "sent_id": 10815,
+          "sentence": "Perhaps the chromosome 18 inversion in an ancestral human repositioned specific genes and reset their expression levels in a useful way"
+        },
+        {
+          "episode_id": "bio_new_21_3",
+          "pass_idx": 167,
+          "sent_id": 10817,
+          "sentence": "It is not known how this inversion contributed to hominid evolution, but it appears to be a significant factor in the divergence of humans from other primates"
+        },
+        {
+          "episode_id": "bio_new_21_5",
+          "pass_idx": 167,
+          "sent_id": 10818,
+          "sentence": ", \u201cSegmental duplication associated with the human-specific inversion of chromosome 18: a further example of the impact of segmental duplications on karyotype and genome evolution in primates,\u201d Human Genetics, 115 (2004):116\u201322"
+        },
+        {
+          "episode_id": "bio_new_21_10",
+          "pass_idx": 167,
+          "sent_id": 10823,
+          "sentence": "An (a) inversion occurs when a chromosome segment breaks from the chromosome, reverses its orientation, and then reattaches in the original position"
+        },
+        {
+          "episode_id": "bio_new_21_16",
+          "pass_idx": 167,
+          "sent_id": 10829,
+          "sentence": "Chromosome structures also may be rearranged, for example by inversion or translocation"
+        },
+        {
+          "episode_id": "bio_new_21_18",
+          "pass_idx": 167,
+          "sent_id": 10831,
+          "sentence": "Because they force chromosomes to assume contorted pairings during meiosis I, inversions and translocations are often associated with reduced fertility because of the likelihood of nondisjunction"
+        },
+        {
+          "episode_id": "bio_new_21_19",
+          "pass_idx": 167,
+          "sent_id": 10832,
+          "sentence": "aneuploid: an individual with an error in chromosome number; includes deletions and duplications of chromosome segments autosome: any of the non-sex chromosomes chromosome inversion: the detachment, 180\u00b0 rotation, and reinsertion of a chromosome arm euploid: an individual with the appropriate number of chromosomes for their species karyogram: the photographic image of a karyotype karyotype: the number and appearance of an individuals chromosomes, including the size, banding patterns, and centromere position monosomy: an otherwise diploid genotype in which one chromosome is missing nondisjunction: the failure of synapsed homologs to completely separate and migrate to separate poles during the first cell division of meiosis polyploid: an individual with an incorrect number of chromosome sets translocation: the process by which one segment of a chromosome dissociates and reattaches to a different, nonhomologous chromosome trisomy: an otherwise diploid genotype in which one entire chromosome is duplicated X inactivation: the condensation of X chromosomes into Barr bodies during embryonic development in females to compensate for the double genetic dose Experimenting with thousands of garden peas, Mendel uncovered the fundamentals of genetics"
+        }
+      ]
+    },
+    {
+      "fid": 1832,
+      "subject": "pea",
+      "relation": "GROUNDED_MEANING",
+      "object": "true",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 168,
+      "best_cos": 0.463,
+      "n_exposures": 34,
+      "schema_score": 0.4612,
+      "evidence": [
+        {
+          "episode_id": "int_cont_18_2",
+          "pass_idx": 80,
+          "sent_id": 1775,
+          "sentence": "Then, they matched the transcripts of the stories with the brain activity data to show how groups of related words produced brain responses in 50,000 to 80,000 pea-sized spots all over the cerebral cortex"
+        },
+        {
+          "episode_id": "adv_new_32_136",
+          "pass_idx": 128,
+          "sent_id": 1776,
+          "sentence": "They then matched the transcripts of the stories with the brain activity data to show how groups of related words triggered neural responses in 50,000 to 80,000 pea-sized spots all over the cerebral cortex"
+        },
+        {
+          "episode_id": "bio_new_21_19",
+          "pass_idx": 167,
+          "sent_id": 10832,
+          "sentence": "aneuploid: an individual with an error in chromosome number; includes deletions and duplications of chromosome segments autosome: any of the non-sex chromosomes chromosome inversion: the detachment, 180\u00b0 rotation, and reinsertion of a chromosome arm euploid: an individual with the appropriate number of chromosomes for their species karyogram: the photographic image of a karyotype karyotype: the number and appearance of an individuals chromosomes, including the size, banding patterns, and centromere position monosomy: an otherwise diploid genotype in which one chromosome is missing nondisjunction: the failure of synapsed homologs to completely separate and migrate to separate poles during the first cell division of meiosis polyploid: an individual with an incorrect number of chromosome sets translocation: the process by which one segment of a chromosome dissociates and reattaches to a different, nonhomologous chromosome trisomy: an otherwise diploid genotype in which one entire chromosome is duplicated X inactivation: the condensation of X chromosomes into Barr bodies during embryonic development in females to compensate for the double genetic dose Experimenting with thousands of garden peas, Mendel uncovered the fundamentals of genetics"
+        },
+        {
+          "episode_id": "bio_new_21_32",
+          "pass_idx": 167,
+          "sent_id": 10845,
+          "sentence": "In 1856, he began a decade-long research pursuit involving inheritance patterns in honeybees and plants, ultimately settling on pea plants as his primary model system (a system with convenient characteristics that is used to study a specific biological phenomenon to gain understanding to be applied to other systems)"
+        },
+        {
+          "episode_id": "bio_new_21_33",
+          "pass_idx": 167,
+          "sent_id": 10846,
+          "sentence": "In 1865, Mendel presented the results of his experiments with nearly 30,000 pea plants to the local natural history society"
+        },
+        {
+          "episode_id": "bio_new_21_53",
+          "pass_idx": 167,
+          "sent_id": 10863,
+          "sentence": "Mendel\u2019s seminal work was accomplished using the garden pea, Pisum sativum, to study inheritance"
+        },
+        {
+          "episode_id": "bio_new_21_55",
+          "pass_idx": 167,
+          "sent_id": 10865,
+          "sentence": "Because every pea plant has both male reproductive organs and female reproductive organs, each plant produces both types of gametes required for reproduction\u2014both pollen and ova"
+        },
+        {
+          "episode_id": "bio_new_21_58",
+          "pass_idx": 167,
+          "sent_id": 10868,
+          "sentence": "In garden peas, the flower petals remain sealed tightly until pollination is completed to prevent the pollination of other plants"
+        },
+        {
+          "episode_id": "bio_new_21_59",
+          "pass_idx": 167,
+          "sent_id": 10869,
+          "sentence": "The result is highly inbred, or \u201ctrue-breeding,\u201d pea plants"
+        },
+        {
+          "episode_id": "bio_new_21_61",
+          "pass_idx": 167,
+          "sent_id": 10870,
+          "sentence": "By experimenting with true-breeding pea plants, Mendel avoided the appearance of unexpected traits in offspring that might occur if the plants were not true-breeding"
+        },
+        {
+          "episode_id": "bio_new_21_62",
+          "pass_idx": 167,
+          "sent_id": 10871,
+          "sentence": "The garden pea also grows to maturity within one season, meaning that several generations could be evaluated over a relatively short time"
+        },
+        {
+          "episode_id": "bio_new_21_63",
+          "pass_idx": 167,
+          "sent_id": 10872,
+          "sentence": "Finally, large quantities of garden peas could be cultivated simultaneously, allowing Mendel to conclude that his results did not come about simply by chance"
+        },
+        {
+          "episode_id": "bio_new_21_65",
+          "pass_idx": 167,
+          "sent_id": 10874,
+          "sentence": "In the pea, which is naturally self-pollinating, this is done by manually transferring pollen from the anther of a mature pea plant of one variety to the stigma of a separate mature pea plant of the second variety"
+        },
+        {
+          "episode_id": "bio_new_21_75",
+          "pass_idx": 167,
+          "sent_id": 10884,
+          "sentence": "The characteristics included plant height, seed texture, seed color, flower color, pea-pod size, pea-pod color, and flower position"
+        },
+        {
+          "episode_id": "bio_new_21_81",
+          "pass_idx": 167,
+          "sent_id": 10890,
+          "sentence": "In addition, Mendel confirmed that, other than flower color, the pea plants were physically identical"
+        },
+        {
+          "episode_id": "bio_new_21_82",
+          "pass_idx": 167,
+          "sent_id": 10891,
+          "sentence": "This was an important check to make sure that the two varieties of pea plants only differed with respect to one trait, flower color"
+        },
+        {
+          "episode_id": "bio_new_21_97",
+          "pass_idx": 167,
+          "sent_id": 10905,
+          "sentence": "Mendel identified seven pea plant characteristics"
+        },
+        {
+          "episode_id": "bio_new_21_109",
+          "pass_idx": 167,
+          "sent_id": 10917,
+          "sentence": "Working with garden pea plants, Mendel found that crosses between parents that differed for one trait produced F1 offspring that all expressed one parent\u2019s traits"
+        },
+        {
+          "episode_id": "bio_new_21_114",
+          "pass_idx": 167,
+          "sent_id": 10922,
+          "sentence": "continuous variation: a variation in a characteristic in which individuals show a range of traits with small differences between them discontinuous variation: a variation in a characteristic in which individuals show two, or a few, traits with large differences between them dominant: describes a trait that masks the expression of another trait when both versions of the gene are present in an individual F1: the first filial generation in a cross; the offspring of the parental generation F2: the second filial generation produced when F1 individuals are self-crossed or fertilized with each other hybridization: the process of mating two individuals that differ, with the goal of achieving a certain characteristic in their offspring model system: a species or biological system used to study a specific biological phenomenon to gain understanding that will be applied to other species parental generation (P): the first generation in a cross recessive: describes a trait whose expression is masked by another trait when the alleles for both traits are present in an individual reciprocal cross: a paired cross in which the respective traits of the male and female in one cross become the respective traits of the female and male in the other cross trait: a variation in an inherited characteristic The seven characteristics that Mendel evaluated in his pea plants were each expressed as one of two versions, or traits"
+        },
+        {
+          "episode_id": "bio_new_21_130",
+          "pass_idx": 167,
+          "sent_id": 10935,
+          "sentence": "For example, the phenotypes that Mendel observed in his crosses between pea plants with differing traits are connected to the diploid genotypes of the plants in the P, F1, and F2 generations"
+        },
+        {
+          "episode_id": "bio_new_21_143",
+          "pass_idx": 167,
+          "sent_id": 10948,
+          "sentence": "Mendel\u2019s parental pea plants always bred true because both produced gametes carried the same allele"
+        },
+        {
+          "episode_id": "bio_new_22_1",
+          "pass_idx": 168,
+          "sent_id": 10956,
+          "sentence": "In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive"
+        },
+        {
+          "episode_id": "bio_new_22_21",
+          "pass_idx": 168,
+          "sent_id": 10974,
+          "sentence": "To demonstrate this with a monohybrid cross, consider the case of true-breeding pea plants with yellow versus green seeds"
+        },
+        {
+          "episode_id": "bio_new_22_24",
+          "pass_idx": 168,
+          "sent_id": 10977,
+          "sentence": "shows a Punnett square for a cross between a plant with yellow peas and one with green peas"
+        },
+        {
+          "episode_id": "bio_new_22_38",
+          "pass_idx": 168,
+          "sent_id": 10991,
+          "sentence": "Observing that true-breeding pea plants with contrasting traits gave rise to F1 generations that all expressed the dominant trait and F2 generations that expressed the dominant and recessive traits in a 3:1 ratio, Mendel proposed the law of segregation"
+        },
+        {
+          "episode_id": "bio_new_22_57",
+          "pass_idx": 168,
+          "sent_id": 11010,
+          "sentence": "In pea plants, round peas (R) are dominant to wrinkled peas (r)"
+        },
+        {
+          "episode_id": "bio_new_22_58",
+          "pass_idx": 168,
+          "sent_id": 11011,
+          "sentence": "You do a test cross between a pea plant with wrinkled peas (genotype rr) and a plant of unknown genotype that has round peas"
+        },
+        {
+          "episode_id": "bio_new_22_59",
+          "pass_idx": 168,
+          "sent_id": 11012,
+          "sentence": "You end up with three plants, all which have round peas"
+        },
+        {
+          "episode_id": "bio_new_22_63",
+          "pass_idx": 168,
+          "sent_id": 11016,
+          "sentence": "Consider the characteristics of seed color and seed texture for two pea plants, one that has wrinkled, green seeds (rryy) and another that has round, yellow seeds (RRYY)"
+        },
+        {
+          "episode_id": "bio_new_22_66",
+          "pass_idx": 168,
+          "sent_id": 11019,
+          "sentence": "A dihybrid cross in pea plants involves the genes for seed color and texture"
+        },
+        {
+          "episode_id": "bio_new_22_69",
+          "pass_idx": 168,
+          "sent_id": 11022,
+          "sentence": "In pea plants, round seed shape (R) is dominant to wrinkled seed shape (r) and yellow peas (Y) are dominant to green peas (y)"
+        },
+        {
+          "episode_id": "bio_new_22_70",
+          "pass_idx": 168,
+          "sent_id": 11023,
+          "sentence": "What are the possible genotypes and phenotypes for a cross between RrYY and rrYy pea plants"
+        },
+        {
+          "episode_id": "bio_new_22_93",
+          "pass_idx": 168,
+          "sent_id": 11045,
+          "sentence": ", genes) segregate equally into gametes such that offspring have an equal likelihood of inheriting any combination of factors monohybrid: the result of a cross between two true-breeding parents that express different traits for only one characteristic phenotype: the observable traits expressed by an organism Punnett square: a visual representation of a cross between two individuals in which the gametes of each individual are denoted along the top and side of a grid, respectively, and the possible zygotic genotypes are recombined at each box in the grid test cross: a cross between a dominant expressing individual with an unknown genotype and a homozygous recessive individual; the offspring phenotypes indicate whether the unknown parent is heterozygous or homozygous for the dominant trait Mendel studied traits with only one mode of inheritance in pea plants"
+        },
+        {
+          "episode_id": "bio_new_22_96",
+          "pass_idx": 168,
+          "sent_id": 11048,
+          "sentence": "Mendel\u2019s experiments with pea plants suggested that: 1) two types of \u201cunits\u201d or alleles exist for every gene; 2) alleles maintain their integrity in each generation (no blending); and 3) in the presence of the dominant allele, the recessive allele is hidden, with no contribution to the phenotype"
+        }
+      ]
+    },
+    {
+      "fid": 1878,
+      "subject": "lightly",
+      "relation": "GROUNDED_MEANING",
+      "object": "clinic",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 171,
+      "best_cos": 0.5633,
+      "n_exposures": 4,
+      "schema_score": 0.5334,
+      "evidence": [
+        {
+          "episode_id": "int_cont_9_5",
+          "pass_idx": 71,
+          "sent_id": 5142,
+          "sentence": "A steady stream of lightly injured people, most suffering cuts from flying glass, came into the clinic where Bets works"
+        },
+        {
+          "episode_id": "adv_new_4_68",
+          "pass_idx": 100,
+          "sent_id": 5143,
+          "sentence": "Regarding his decision, Ferguson said: \u201cThe decision to retire is one that I have thought a great deal about and one that I have not taken lightly"
+        },
+        {
+          "episode_id": "adv_new_9_131",
+          "pass_idx": 105,
+          "sent_id": 5142,
+          "sentence": "A steady stream of lightly injured people, most suffering cuts from flying glass, came into the clinic where Bets works"
+        },
+        {
+          "episode_id": "bio_new_24_53",
+          "pass_idx": 170,
+          "sent_id": 11271,
+          "sentence": "The lightly staining regions usually contain genes that are active, with DNA packaged around nucleosomes but not further compacted"
+        }
+      ]
+    },
+    {
+      "fid": 1890,
+      "subject": "okazaki",
+      "relation": "GROUNDED_MEANING",
+      "object": "fragment",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 173,
+      "best_cos": 0.4933,
+      "n_exposures": 6,
+      "schema_score": 0.4496,
+      "evidence": [
+        {
+          "episode_id": "bio_new_24_107",
+          "pass_idx": 170,
+          "sent_id": 11307,
+          "sentence": "Because DNA polymerase can only synthesize DNA in a 5' to 3' direction, the other new strand is put together in short pieces called Okazaki fragments"
+        },
+        {
+          "episode_id": "bio_new_24_108",
+          "pass_idx": 170,
+          "sent_id": 11308,
+          "sentence": "The Okazaki fragments each require a primer made of RNA to start the synthesis"
+        },
+        {
+          "episode_id": "bio_new_24_109",
+          "pass_idx": 170,
+          "sent_id": 11309,
+          "sentence": "The strand with the Okazaki fragments is known as the lagging strand"
+        },
+        {
+          "episode_id": "bio_new_24_119",
+          "pass_idx": 170,
+          "sent_id": 11319,
+          "sentence": "You isolate a cell strain in which the joining together of Okazaki fragments is impaired and suspect that a mutation has occurred in an enzyme found at the replication fork"
+        },
+        {
+          "episode_id": "bio_new_25_33",
+          "pass_idx": 171,
+          "sent_id": 11370,
+          "sentence": "The other strand is synthesized in a direction away from the replication fork, in short stretches of DNA known as Okazaki fragments"
+        },
+        {
+          "episode_id": "bio_new_25_42",
+          "pass_idx": 171,
+          "sent_id": 11377,
+          "sentence": "DNA ligase: the enzyme that catalyzes the joining of DNA fragments together DNA polymerase: an enzyme that synthesizes a new strand of DNA complementary to a template strand helicase: an enzyme that helps to open up the DNA helix during DNA replication by breaking the hydrogen bonds lagging strand: during replication of the 3' to 5' strand, the strand that is replicated in short fragments and away from the replication fork leading strand: the strand that is synthesized continuously in the 5' to 3' direction that is synthesized in the direction of the replication fork mismatch repair: a form of DNA repair in which non-complementary nucleotides are recognized, excised, and replaced with correct nucleotides mutation: a permanent variation in the nucleotide sequence of a genome nucleotide excision repair: a form of DNA repair in which the DNA molecule is unwound and separated in the region of the nucleotide damage, the damaged nucleotides are removed and replaced with new nucleotides using the complementary strand, and the DNA strand is resealed and allowed to rejoin its complement Okazaki fragments: the DNA fragments that are synthesized in short stretches on the lagging strand primer: a short stretch of RNA nucleotides that is required to initiate replication and allow DNA polymerase to bind and begin replication replication fork: the Y-shaped structure formed during the initiation of replication semiconservative replication: the method used to replicate DNA in which the double-stranded molecule is separated and each strand acts as a template for a new strand to be synthesized, so the resulting DNA molecules are composed of one new strand of nucleotides and one old strand of nucleotides telomerase: an enzyme that contains a catalytic part and an inbuilt RNA template; it functions to maintain telomeres at chromosome ends telomere: the DNA at the end of linear chromosomes In both prokaryotes and eukaryotes, the second function of DNA (the first was replication) is to provide the information needed to construct the proteins necessary so that the cell can perform all of its functions"
+        }
+      ]
+    },
+    {
+      "fid": 1896,
+      "subject": "termination",
+      "relation": "GROUNDED_MEANING",
+      "object": "translation",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 173,
+      "best_cos": 0.4776,
+      "n_exposures": 10,
+      "schema_score": 0.3366,
+      "evidence": [
+        {
+          "episode_id": "bio_new_24_93",
+          "pass_idx": 170,
+          "sent_id": 11299,
+          "sentence": "It occurs in three main stages: initiation, elongation, and termination"
+        },
+        {
+          "episode_id": "bio_new_25_55",
+          "pass_idx": 171,
+          "sent_id": 11390,
+          "sentence": "In both prokaryotes and eukaryotes, transcription occurs in three main stages: initiation, elongation, and termination"
+        },
+        {
+          "episode_id": "bio_new_25_69",
+          "pass_idx": 171,
+          "sent_id": 11404,
+          "sentence": "Depending on the gene being transcribed, there are two kinds of termination signals, but both involve repeated nucleotide sequences in the DNA template that result in RNA polymerase stalling, leaving the DNA template, and freeing the mRNA transcript"
+        },
+        {
+          "episode_id": "bio_new_25_70",
+          "pass_idx": 171,
+          "sent_id": 11405,
+          "sentence": "On termination, the process of transcription is complete"
+        },
+        {
+          "episode_id": "bio_new_25_71",
+          "pass_idx": 171,
+          "sent_id": 11406,
+          "sentence": "In a prokaryotic cell, by the time termination occurs, the transcript would already have been used to partially synthesize numerous copies of the encoded protein because these processes can occur concurrently using multiple ribosomes (polyribosomes)"
+        },
+        {
+          "episode_id": "bio_new_25_94",
+          "pass_idx": 171,
+          "sent_id": 11428,
+          "sentence": "Termination liberates the mRNA and occurs by mechanisms that stall the RNA polymerase and cause it to fall off the DNA template"
+        },
+        {
+          "episode_id": "bio_new_25_128",
+          "pass_idx": 171,
+          "sent_id": 11457,
+          "sentence": "This figure shows the genetic code for translating each nucleotide triplet, or codon, in mRNA into an amino acid or a termination signal in a nascent protein"
+        },
+        {
+          "episode_id": "bio_new_25_136",
+          "pass_idx": 171,
+          "sent_id": 11465,
+          "sentence": "Just as with mRNA synthesis, protein synthesis can be divided into three phases: initiation, elongation, and termination"
+        },
+        {
+          "episode_id": "bio_new_26_10",
+          "pass_idx": 172,
+          "sent_id": 11486,
+          "sentence": "Termination of translation occurs when a stop codon (UAA, UAG, or UGA) is encountered"
+        },
+        {
+          "episode_id": "bio_new_26_28",
+          "pass_idx": 172,
+          "sent_id": 11503,
+          "sentence": "codon: three consecutive nucleotides in mRNA that specify the addition of a specific amino acid or the release of a polypeptide chain during translation genetic code: the amino acids that correspond to three-nucleotide codons of mRNA rRNA: ribosomal RNA; molecules of RNA that combine to form part of the ribosome stop codon: one of the three mRNA codons that specifies termination of translation start codon: the AUG (or, rarely GUG) on an mRNA from which translation begins; always specifies methionine tRNA: transfer RNA; an RNA molecule that contains a specific three-nucleotide anticodon sequence to pair with the mRNA codon and also binds to a specific amino acid For a cell to function properly, necessary proteins must be synthesized at the proper time"
+        }
+      ]
+    },
+    {
+      "fid": 2010,
+      "subject": "exocrine",
+      "relation": "GROUNDED_MEANING",
+      "object": "endocrine",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 200,
+      "best_cos": 0.4761,
+      "n_exposures": 7,
+      "schema_score": 0.2965,
+      "evidence": [
+        {
+          "episode_id": "bio_new_51_145",
+          "pass_idx": 197,
+          "sent_id": 14736,
+          "sentence": "amylase: an enzyme found in saliva and secreted by the pancreas that converts carbohydrates to maltose anus: the exit point of the digestive system for waste material bile: a digestive juice produced by the liver; important for digestion of lipids bolus: a mass of food resulting from chewing action and wetting by saliva colon: the largest portion of the large intestine consisting of the ascending colon, transverse colon, and descending colon chyme: a mixture of partially digested food and stomach juices esophagus: a tubular organ that connects the mouth to the stomach essential nutrient: a nutrient that cannot be synthesized by the body; it must be obtained from food gallbladder: the organ that stores and concentrates bile large intestine: a digestive system organ that reabsorbs water from undigested material and processes waste matter liver: an organ that produces bile for digestion and processes vitamins and lipids mineral: an inorganic, elemental molecule that carries out important roles in the body oral cavity: the point of entry of food into the digestive system pancreas: a gland that secretes digestive juices pepsin: an enzyme found in the stomach whose main role is protein digestion peristalsis: wave-like movements of muscle tissue rectum: the area of the body where feces is stored until elimination salivary gland: one of three pairs of exocrine glands in the mammalian mouth that secretes saliva, a mix of watery mucus and enzymes small intestine: the organ where digestion of protein, fats, and carbohydrates is completed stomach: a saclike organ containing acidic digestive juices vitamin: an organic substance necessary in small amounts to sustain life Animals are complex multicellular organisms that require a mechanism for transporting nutrients throughout their bodies and removing wastes"
+        },
+        {
+          "episode_id": "bio_new_52_144",
+          "pass_idx": 198,
+          "sent_id": 14858,
+          "sentence": "The endocrine glands differ from the exocrine glands"
+        },
+        {
+          "episode_id": "bio_new_52_145",
+          "pass_idx": 198,
+          "sent_id": 14859,
+          "sentence": "Exocrine glands secrete chemicals through ducts that lead outside the gland (not to the blood)"
+        },
+        {
+          "episode_id": "bio_new_52_147",
+          "pass_idx": 198,
+          "sent_id": 14861,
+          "sentence": "The pancreas has both endocrine and exocrine functions because besides releasing hormones into the blood"
+        },
+        {
+          "episode_id": "bio_new_53_72",
+          "pass_idx": 199,
+          "sent_id": 14926,
+          "sentence": "It contains both exocrine cells that excrete digestive enzymes and endocrine cells that release hormones"
+        },
+        {
+          "episode_id": "bio_new_53_135",
+          "pass_idx": 199,
+          "sent_id": 14983,
+          "sentence": "adrenal gland: the endocrine gland associated with the kidneys down-regulation: a decrease in the number of hormone receptors in response to increased hormone levels endocrine gland: the gland that secretes hormones into the surrounding interstitial fluid, which then diffuse into blood and are carried to various organs and tissues within the body exocrine gland: the gland that secretes chemicals through ducts that lead to skin surfaces, body cavities, and organ cavities"
+        },
+        {
+          "episode_id": "bio_new_53_136",
+          "pass_idx": 199,
+          "sent_id": 14984,
+          "sentence": "hormone: a chemical released by cells in one area of the body that affects cells in other parts of the body intracellular hormone receptor: a hormone receptor in the cytoplasm or nucleus of a cell pancreas: the organ located between the stomach and the small intestine that contains exocrine and endocrine cells parathyroid gland: the gland located on the surface of the thyroid that produces parathyroid hormone pituitary gland: the endocrine gland located at the base of the brain composed of an anterior and posterior region; also called hypophysis thymus: the gland located behind the sternum that produces thymosin hormones that contribute to the development of the immune system thyroid gland: an endocrine gland located in the neck that produces thyroid hormones thyroxine and triiodothyronine up-regulation: an increase in the number of hormone receptors in response to increased hormone levels The muscular and skeletal systems provide support to the body and allow for movement"
+        }
+      ]
+    },
+    {
+      "fid": 2050,
+      "subject": "motor",
+      "relation": "GROUNDED_MEANING",
+      "object": "pns",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 203,
+      "best_cos": 0.4724,
+      "n_exposures": 24,
+      "schema_score": 0.3897,
+      "evidence": [
+        {
+          "episode_id": "bio_new_10_13",
+          "pass_idx": 156,
+          "sent_id": 9313,
+          "sentence": "Microtubules help the cell resist compression, serve as tracks for motor proteins that move vesicles through the cell, and pull replicated chromosomes to opposite ends of a dividing cell"
+        },
+        {
+          "episode_id": "bio_new_55_13",
+          "pass_idx": 201,
+          "sent_id": 15136,
+          "sentence": "The visual system is processing what is seen on the page; the motor system controls your eye movements and the turn of the pages (or click of the mouse); the prefrontal cortex maintains attention"
+        },
+        {
+          "episode_id": "bio_new_55_19",
+          "pass_idx": 201,
+          "sent_id": 15139,
+          "sentence": "The nervous system acquires information from sensory organs, processes it and then may initiate a response either through motor function, leading to movement, or in a change in the organism\u2019s physiological state"
+        },
+        {
+          "episode_id": "bio_new_55_28",
+          "pass_idx": 201,
+          "sent_id": 15145,
+          "sentence": "While there is great diversity among different vertebrate nervous systems, they all share a basic structure: a CNS that contains a brain and spinal cord and a PNS made up of peripheral sensory and motor nerves"
+        },
+        {
+          "episode_id": "bio_new_55_82",
+          "pass_idx": 201,
+          "sent_id": 15185,
+          "sentence": "This insulation is important, as the axon from a human motor neuron can be as long as a meter (3"
+        },
+        {
+          "episode_id": "bio_new_55_111",
+          "pass_idx": 201,
+          "sent_id": 15209,
+          "sentence": "All functions performed by the nervous system\u2014from a simple motor reflex to more advanced functions like making a memory or a decision\u2014require neurons to communicate with one another"
+        },
+        {
+          "episode_id": "bio_new_55_144",
+          "pass_idx": 201,
+          "sent_id": 15240,
+          "sentence": "The frontal lobe also contains the motor cortex, which is important for planning and implementing movement"
+        },
+        {
+          "episode_id": "bio_new_55_145",
+          "pass_idx": 201,
+          "sent_id": 15241,
+          "sentence": "Areas within the motor cortex map to different muscle groups"
+        },
+        {
+          "episode_id": "bio_new_56_1",
+          "pass_idx": 202,
+          "sent_id": 15247,
+          "sentence": "The parietal lobe contains a somatosensory map of the body similar to the motor cortex"
+        },
+        {
+          "episode_id": "bio_new_56_7",
+          "pass_idx": 202,
+          "sent_id": 15252,
+          "sentence": "His seizures went away, but he could no longer form new memories (although he could remember some facts from before his surgery and could learn new motor tasks)"
+        },
+        {
+          "episode_id": "bio_new_56_11",
+          "pass_idx": 202,
+          "sent_id": 15256,
+          "sentence": "It receives sensory and motor inputs from the body and also receives feedback from the cortex"
+        },
+        {
+          "episode_id": "bio_new_56_12",
+          "pass_idx": 202,
+          "sent_id": 15257,
+          "sentence": "This feedback mechanism can modulate conscious awareness of sensory and motor inputs depending on the attention and arousal state of the animal"
+        },
+        {
+          "episode_id": "bio_new_56_23",
+          "pass_idx": 202,
+          "sent_id": 15268,
+          "sentence": "The cerebellum controls balance and aids in coordinating movement and learning new motor tasks"
+        },
+        {
+          "episode_id": "bio_new_56_25",
+          "pass_idx": 202,
+          "sent_id": 15270,
+          "sentence": "The brainstem connects the rest of the brain with the spinal cord and regulates some of the most important and basic functions of the nervous system including breathing, swallowing, digestion, sleeping, walking, and sensory and motor information integration"
+        },
+        {
+          "episode_id": "bio_new_56_33",
+          "pass_idx": 202,
+          "sent_id": 15278,
+          "sentence": "The spinal cord also controls motor reflexes"
+        },
+        {
+          "episode_id": "bio_new_56_36",
+          "pass_idx": 202,
+          "sent_id": 15281,
+          "sentence": "For example, the knee reflex that a doctor tests during a routine physical is controlled by a single synapse between a sensory neuron and a motor neuron"
+        },
+        {
+          "episode_id": "bio_new_56_40",
+          "pass_idx": 202,
+          "sent_id": 15285,
+          "sentence": "The PNS can be broken down into the autonomic nervous system, which controls bodily functions without conscious control, and the sensory-somatic nervous system, which transmits sensory information from the skin, muscles, and sensory organs to the CNS and sends motor commands from the CNS to the muscles"
+        },
+        {
+          "episode_id": "bio_new_56_58",
+          "pass_idx": 202,
+          "sent_id": 15302,
+          "sentence": "The sensory-somatic nervous system is made up of cranial and spinal nerves and contains both sensory and motor neurons"
+        },
+        {
+          "episode_id": "bio_new_56_60",
+          "pass_idx": 202,
+          "sent_id": 15304,
+          "sentence": "Motor neurons transmit messages about desired movement from the CNS to the muscles to make them contract"
+        },
+        {
+          "episode_id": "bio_new_56_61",
+          "pass_idx": 202,
+          "sent_id": 15305,
+          "sentence": "Without its sensory-somatic nervous system, an animal would be unable to process any information about its environment (what it sees, feels, hears, and so on) and could not control motor movements"
+        },
+        {
+          "episode_id": "bio_new_56_62",
+          "pass_idx": 202,
+          "sent_id": 15306,
+          "sentence": "Unlike the autonomic nervous system, which usually has two synapses between the CNS and the target organ, sensory and motor neurons usually have only one synapse\u2014one ending of the neuron is at the organ and the other directly contacts a CNS neuron"
+        },
+        {
+          "episode_id": "bio_new_56_75",
+          "pass_idx": 202,
+          "sent_id": 15318,
+          "sentence": "It transmits sensory and motor input and also controls motor reflexes"
+        },
+        {
+          "episode_id": "bio_new_56_80",
+          "pass_idx": 202,
+          "sent_id": 15323,
+          "sentence": "The sensory-somatic nervous system is made of cranial and spinal nerves that transmit sensory information from skin and muscle to the CNS and motor commands from the CNS to the muscles"
+        },
+        {
+          "episode_id": "bio_new_56_81",
+          "pass_idx": 202,
+          "sent_id": 15324,
+          "sentence": "action potential: a momentary change in the electrical potential of a neuron (or muscle) membrane amygdala: a structure within the limbic system that processes fear autonomic nervous system: the part of the peripheral nervous system that controls bodily functions axon: a tube-like structure that propagates a signal from a neuron\u2019s cell body to axon terminals basal ganglia: an interconnected collections of cells in the brain that are involved in movement and motivation brainstem: a portion of brain that connects with the spinal cord; controls basic nervous system functions like breathing and swallowing central nervous system (CNS): the nervous system made up of the brain and spinal cord; covered with three layers of protective meninges cerebellum: the brain structure involved in posture, motor coordination, and learning new motor actions cerebral cortex: the outermost sheet of brain tissue; involved in many higher-order functions cerebrospinal fluid (CSF): a clear liquid that surrounds the brain and fills its ventricles and acts as a shock absorber corpus callosum: a thick nerve bundle that connects the cerebral hemispheres dendrite: a structure that extends away from the cell body to receive messages from other neurons depolarization: a change in the membrane potential to a less negative value frontal lobe: the part of the cerebral cortex that contains the motor cortex and areas involved in planning, attention, and language glia: (also, glial cells) the cells that provide support functions for neurons hippocampus: the brain structure in the temporal lobe involved in processing memories hypothalamus: the brain structure that controls hormone release and body homeostasis limbic system: a connected brain area that processes emotion and motivation membrane potential: a difference in electrical potential between the inside and outside of a cell meninges: (singular: meninx) the membranes that cover and protect the central nervous system myelin sheath: a cellular extension containing a fatty substance produced by glia that surrounds and insulates axons neuron: a specialized cell that can receive and transmit electrical and chemical signals occipital lobe: the part of the cerebral cortex that contains visual cortex and processes visual stimuli parasympathetic nervous system: the division of autonomic nervous system that regulates visceral functions during relaxation parietal lobe: the part of the cerebral cortex involved in processing touch and the sense of the body in space peripheral nervous system (PNS): the nervous system that serves as the connection between the central nervous system and the rest of the body; consists of the autonomic nervous system and the sensory-somatic nervous system sensory-somatic nervous system: the system of sensory and motor nerves spinal cord: a thick fiber bundle that connects the brain with peripheral nerves; transmits sensory and motor information; contains neurons that control motor reflexes sympathetic nervous system: the division of autonomic nervous system activated during stressful \"fight-or-flight\u201d situations synapse: a junction between two neurons where neuronal signals are communicated synaptic cleft: a space between the presynaptic and postsynaptic membranes temporal lobe: the part of the cerebral cortex that processes auditory input; parts of the temporal lobe are involved in speech, memory, and emotion processing thalamus: the brain area that relays sensory information to the cortex threshold of excitation: the level of depolarization needed for an action potential to fire (a) This smallpox (variola) vaccine is derived from calves exposed to cowpox virus"
+        }
+      ]
+    },
+    {
+      "fid": 2064,
+      "subject": "synaptic",
+      "relation": "GROUNDED_MEANING",
+      "object": "dendrite",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 204,
+      "best_cos": 0.476,
+      "n_exposures": 6,
+      "schema_score": 0.2632,
+      "evidence": [
+        {
+          "episode_id": "bio_new_55_88",
+          "pass_idx": 201,
+          "sent_id": 15190,
+          "sentence": "Dendrites from a single neuron may receive synaptic contact from many other neurons"
+        },
+        {
+          "episode_id": "bio_new_55_112",
+          "pass_idx": 201,
+          "sent_id": 15210,
+          "sentence": "Neurons communicate between the axon of one neuron and the dendrites, and sometimes the cell body, of another neuron across the gap between them, known as the synaptic cleft"
+        },
+        {
+          "episode_id": "bio_new_55_113",
+          "pass_idx": 201,
+          "sent_id": 15211,
+          "sentence": "When an action potential reaches the end of an axon it stimulates the release of neurotransmitter molecules into the synaptic cleft between the synaptic knob of the axon and the post-synaptic membrane of the dendrite or soma of the next cell"
+        },
+        {
+          "episode_id": "bio_new_55_115",
+          "pass_idx": 201,
+          "sent_id": 15213,
+          "sentence": "The neurotransmitter diffuses across the synaptic cleft and binds to receptors in the post-synaptic membrane"
+        },
+        {
+          "episode_id": "bio_new_56_35",
+          "pass_idx": 202,
+          "sent_id": 15280,
+          "sentence": "Reflexes are so fast because they involve local synaptic connections"
+        },
+        {
+          "episode_id": "bio_new_56_81",
+          "pass_idx": 202,
+          "sent_id": 15324,
+          "sentence": "action potential: a momentary change in the electrical potential of a neuron (or muscle) membrane amygdala: a structure within the limbic system that processes fear autonomic nervous system: the part of the peripheral nervous system that controls bodily functions axon: a tube-like structure that propagates a signal from a neuron\u2019s cell body to axon terminals basal ganglia: an interconnected collections of cells in the brain that are involved in movement and motivation brainstem: a portion of brain that connects with the spinal cord; controls basic nervous system functions like breathing and swallowing central nervous system (CNS): the nervous system made up of the brain and spinal cord; covered with three layers of protective meninges cerebellum: the brain structure involved in posture, motor coordination, and learning new motor actions cerebral cortex: the outermost sheet of brain tissue; involved in many higher-order functions cerebrospinal fluid (CSF): a clear liquid that surrounds the brain and fills its ventricles and acts as a shock absorber corpus callosum: a thick nerve bundle that connects the cerebral hemispheres dendrite: a structure that extends away from the cell body to receive messages from other neurons depolarization: a change in the membrane potential to a less negative value frontal lobe: the part of the cerebral cortex that contains the motor cortex and areas involved in planning, attention, and language glia: (also, glial cells) the cells that provide support functions for neurons hippocampus: the brain structure in the temporal lobe involved in processing memories hypothalamus: the brain structure that controls hormone release and body homeostasis limbic system: a connected brain area that processes emotion and motivation membrane potential: a difference in electrical potential between the inside and outside of a cell meninges: (singular: meninx) the membranes that cover and protect the central nervous system myelin sheath: a cellular extension containing a fatty substance produced by glia that surrounds and insulates axons neuron: a specialized cell that can receive and transmit electrical and chemical signals occipital lobe: the part of the cerebral cortex that contains visual cortex and processes visual stimuli parasympathetic nervous system: the division of autonomic nervous system that regulates visceral functions during relaxation parietal lobe: the part of the cerebral cortex involved in processing touch and the sense of the body in space peripheral nervous system (PNS): the nervous system that serves as the connection between the central nervous system and the rest of the body; consists of the autonomic nervous system and the sensory-somatic nervous system sensory-somatic nervous system: the system of sensory and motor nerves spinal cord: a thick fiber bundle that connects the brain with peripheral nerves; transmits sensory and motor information; contains neurons that control motor reflexes sympathetic nervous system: the division of autonomic nervous system activated during stressful \"fight-or-flight\u201d situations synapse: a junction between two neurons where neuronal signals are communicated synaptic cleft: a space between the presynaptic and postsynaptic membranes temporal lobe: the part of the cerebral cortex that processes auditory input; parts of the temporal lobe are involved in speech, memory, and emotion processing thalamus: the brain area that relays sensory information to the cortex threshold of excitation: the level of depolarization needed for an action potential to fire (a) This smallpox (variola) vaccine is derived from calves exposed to cowpox virus"
+        }
+      ]
+    },
+    {
+      "fid": 2076,
+      "subject": "apc",
+      "relation": "GROUNDED_MEANING",
+      "object": "antigen",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 206,
+      "best_cos": 0.4766,
+      "n_exposures": 23,
+      "schema_score": 0.4211,
+      "evidence": [
+        {
+          "episode_id": "bio_new_58_141",
+          "pass_idx": 204,
+          "sent_id": 15604,
+          "sentence": "Then, an antigen-presenting cell (APC) detects, engulfs, and informs the adaptive immune response about an infection"
+        },
+        {
+          "episode_id": "bio_new_58_142",
+          "pass_idx": 204,
+          "sent_id": 15605,
+          "sentence": "When a pathogen is detected, these APCs will engulf and break it down through phagocytosis"
+        },
+        {
+          "episode_id": "bio_new_58_143",
+          "pass_idx": 204,
+          "sent_id": 15606,
+          "sentence": "Antigen fragments will then be transported to the surface of the APC, where they will serve as an indicator to other immune cells"
+        },
+        {
+          "episode_id": "bio_new_58_147",
+          "pass_idx": 204,
+          "sent_id": 15609,
+          "sentence": "Once they are activated by pathogens and mature to become APCs they migrate to the spleen or a lymph node"
+        },
+        {
+          "episode_id": "bio_new_58_148",
+          "pass_idx": 204,
+          "sent_id": 15610,
+          "sentence": "Macrophages also function as APCs"
+        },
+        {
+          "episode_id": "bio_new_59_2",
+          "pass_idx": 205,
+          "sent_id": 15614,
+          "sentence": "The APCs express MHC class II on their surfaces, and when combined with a foreign antigen, these complexes signal an invader"
+        },
+        {
+          "episode_id": "bio_new_59_3",
+          "pass_idx": 205,
+          "sent_id": 15615,
+          "sentence": "An antigen-presenting cell (APC), such as a macrophage, engulfs a foreign antigen, partially digests it in a lysosome, and then embeds it in an MHC class II molecule for presentation at the cell surface"
+        },
+        {
+          "episode_id": "bio_new_59_7",
+          "pass_idx": 205,
+          "sent_id": 15618,
+          "sentence": "Some respond to APCs of the innate immune system and indirectly induce immune responses by releasing cytokines"
+        },
+        {
+          "episode_id": "bio_new_59_9",
+          "pass_idx": 205,
+          "sent_id": 15620,
+          "sentence": "Another type of T cell detects APC signals and directly kills the infected cells, while some are involved in suppressing inappropriate immune reactions to harmless or \u201cself\u201d antigens"
+        },
+        {
+          "episode_id": "bio_new_59_12",
+          "pass_idx": 205,
+          "sent_id": 15623,
+          "sentence": "TH lymphocytes recognize specific antigens presented by the MHC class II complexes of APCs"
+        },
+        {
+          "episode_id": "bio_new_59_28",
+          "pass_idx": 205,
+          "sent_id": 15636,
+          "sentence": "A helper T cell becomes activated by binding to an antigen presented by an APC via the MHCII receptor, causing it to release cytokines"
+        },
+        {
+          "episode_id": "bio_new_59_44",
+          "pass_idx": 205,
+          "sent_id": 15652,
+          "sentence": "However, if the host is re-exposed to the same pathogen type, circulating memory cells will immediately differentiate into plasma cells and TC cells without input from APCs or TH cells"
+        },
+        {
+          "episode_id": "bio_new_59_70",
+          "pass_idx": 205,
+          "sent_id": 15672,
+          "sentence": "APCs in the lymph nodes capture and process antigens and inform nearby lymphocytes about potential pathogens"
+        },
+        {
+          "episode_id": "bio_new_59_74",
+          "pass_idx": 205,
+          "sent_id": 15676,
+          "sentence": "The spleen is the site where APCs that have trapped foreign particles in the blood can communicate with lymphocytes"
+        },
+        {
+          "episode_id": "bio_new_59_85",
+          "pass_idx": 205,
+          "sent_id": 15686,
+          "sentence": "Foreign particles that make their way to MALT are taken up by absorptive epithelial cells and delivered to APCs located directly below the mucosal tissue"
+        },
+        {
+          "episode_id": "bio_new_59_86",
+          "pass_idx": 205,
+          "sent_id": 15687,
+          "sentence": "APCs of the mucosal immune system are primarily dendritic cells, with B cells and macrophages having minor roles"
+        },
+        {
+          "episode_id": "bio_new_59_87",
+          "pass_idx": 205,
+          "sent_id": 15688,
+          "sentence": "Processed antigens displayed on APCs are detected by T cells in the MALT and at the tonsils, adenoids, appendix, or the mesenteric lymph nodes of the intestine"
+        },
+        {
+          "episode_id": "bio_new_59_93",
+          "pass_idx": 205,
+          "sent_id": 15694,
+          "sentence": "Immune tolerance is especially well developed in the mucosa of the upper digestive system because of the tremendous number of foreign substances (such as food proteins) that APCs of the oral cavity, pharynx, and gastrointestinal mucosa encounter"
+        },
+        {
+          "episode_id": "bio_new_59_94",
+          "pass_idx": 205,
+          "sent_id": 15695,
+          "sentence": "Immune tolerance is brought about by specialized APCs in the liver, lymph nodes, small intestine, and lung that present harmless antigens to a diverse population of regulatory T (Treg) cells, specialized lymphocytes that suppress local inflammation and inhibit the secretion of stimulatory immune factors"
+        },
+        {
+          "episode_id": "bio_new_59_98",
+          "pass_idx": 205,
+          "sent_id": 15699,
+          "sentence": "APCs display antigens on MHC molecules to na\u00efve T cells"
+        },
+        {
+          "episode_id": "bio_new_59_99",
+          "pass_idx": 205,
+          "sent_id": 15700,
+          "sentence": "T cells with cell-surface receptors that bind a specific antigen will bind to that APC"
+        },
+        {
+          "episode_id": "bio_new_59_107",
+          "pass_idx": 205,
+          "sent_id": 15708,
+          "sentence": "active immunity: an immunity that occurs as a result of the activity of the body\u2019s own cells rather than from antibodies acquired from an external source adaptive immunity: a specific immune response that occurs after exposure to an antigen either from a pathogen or a vaccination antibody: a protein that is produced by plasma cells after stimulation by an antigen; also known as an immunoglobulin antigen: a macromolecule that reacts with cells of the immune system and which may or may not have a stimulatory effect antigen-presenting cell (APC): an immune cell that detects, engulfs, and informs the adaptive immune response about an infection by presenting the processed antigen on its cell surface B cell: a lymphocyte that matures in the bone marrow cell-mediated immune response: an adaptive immune response that is controlled by T cells cytotoxic T lymphocyte (TC): an adaptive immune cell that directly kills infected cells via enzymes, and that releases cytokines to enhance the immune response dendritic cell: an immune cell that processes antigen material and presents it on the surface of its cell in MHC class II molecules and induces an immune response in other cells effector cell: a lymphocyte that has differentiated, such as a B cell, plasma cell, or cytotoxic T cell helper T lymphocyte (TH): a cell of the adaptive immune system that binds APCs via MHC class II molecules and stimulates B cells or secretes cytokines to initiate the immune response humoral immune response: the adaptive immune response that is controlled by activated B cells and antibodies immune tolerance: an acquired ability to prevent an unnecessary or harmful immune response to a detected foreign body known not to cause disease lymph: the watery fluid present in the lymphatic circulatory system that bathes tissues and organs with protective white blood cells and does not contain erythrocytes memory cell: an antigen-specific B or T lymphocyte that does not differentiate into an effector cell during the primary immune response but that can immediately become an effector cell on reexposure to the same pathogen major histocompatibility complex (MHC) II molecule: a protein found on the surface of antigen-presenting cells that signals to immune cells whether the cell is normal or is infected or cancerous; it provides the appropriate template into which antigens can be loaded for recognition by lymphocytes passive immunity: an immunity that does not result from the activity of the body\u2019s own immune cells but by transfer of antibodies from one individual to another primary immune response: the response of the adaptive immune system to the first exposure to an antigen secondary immune response: the response of the adaptive immune system to a second or later exposure to an antigen mediated by memory cells T cell: a lymphocyte that matures in the thymus gland A functioning immune system is essential for survival, but even the sophisticated cellular and molecular defenses of the mammalian immune response can be defeated by pathogens at virtually every step"
+        },
+        {
+          "episode_id": "bio_new_59_128",
+          "pass_idx": 205,
+          "sent_id": 15727,
+          "sentence": "On initial exposure to a potential allergen, an allergic individual synthesizes antibodies through the typical process of APCs presenting processed antigen to TH cells that stimulate B cells to produce the antibodies"
+        }
+      ]
+    },
+    {
+      "fid": 2116,
+      "subject": "lymphatic",
+      "relation": "GROUNDED_MEANING",
+      "object": "lymph",
+      "segment": "bio_new",
+      "source": "reading:bio_new",
+      "trust": "TRUST_MID",
+      "pass_idx": 208,
+      "best_cos": 0.5326,
+      "n_exposures": 8,
+      "schema_score": 0.3692,
+      "evidence": [
+        {
+          "episode_id": "bio_new_58_99",
+          "pass_idx": 204,
+          "sent_id": 15568,
+          "sentence": "Once the B cells mature in the bone marrow, they migrate to lymph nodes or other lymphatic organs"
+        },
+        {
+          "episode_id": "bio_new_58_112",
+          "pass_idx": 204,
+          "sent_id": 15581,
+          "sentence": "These antibodies circulate in the blood stream and lymphatic system and bind with the antigen whenever it is encountered"
+        },
+        {
+          "episode_id": "bio_new_59_57",
+          "pass_idx": 205,
+          "sent_id": 15663,
+          "sentence": "Lymph moves about the body through the lymphatic system, which is made up of vessels, lymph ducts, lymph glands, and organs, such as tonsils, adenoids, thymus, and spleen"
+        },
+        {
+          "episode_id": "bio_new_59_63",
+          "pass_idx": 205,
+          "sent_id": 15666,
+          "sentence": "Cells of the immune system can travel between the distinct lymphatic and blood circulatory systems, which are separated by interstitial space, by a process called extravasation (passing through to surrounding tissue)"
+        },
+        {
+          "episode_id": "bio_new_59_71",
+          "pass_idx": 205,
+          "sent_id": 15673,
+          "sentence": "(a) Lymphatic vessels carry a clear fluid called lymph throughout the body"
+        },
+        {
+          "episode_id": "bio_new_59_82",
+          "pass_idx": 205,
+          "sent_id": 15684,
+          "sentence": "MALT is a collection of lymphatic tissue that combines with epithelial tissue lining the mucosa throughout the body"
+        },
+        {
+          "episode_id": "bio_new_59_88",
+          "pass_idx": 205,
+          "sent_id": 15689,
+          "sentence": "Activated T cells then migrate through the lymphatic system and into the circulatory system to mucosal sites of infection"
+        },
+        {
+          "episode_id": "bio_new_59_107",
+          "pass_idx": 205,
+          "sent_id": 15708,
+          "sentence": "active immunity: an immunity that occurs as a result of the activity of the body\u2019s own cells rather than from antibodies acquired from an external source adaptive immunity: a specific immune response that occurs after exposure to an antigen either from a pathogen or a vaccination antibody: a protein that is produced by plasma cells after stimulation by an antigen; also known as an immunoglobulin antigen: a macromolecule that reacts with cells of the immune system and which may or may not have a stimulatory effect antigen-presenting cell (APC): an immune cell that detects, engulfs, and informs the adaptive immune response about an infection by presenting the processed antigen on its cell surface B cell: a lymphocyte that matures in the bone marrow cell-mediated immune response: an adaptive immune response that is controlled by T cells cytotoxic T lymphocyte (TC): an adaptive immune cell that directly kills infected cells via enzymes, and that releases cytokines to enhance the immune response dendritic cell: an immune cell that processes antigen material and presents it on the surface of its cell in MHC class II molecules and induces an immune response in other cells effector cell: a lymphocyte that has differentiated, such as a B cell, plasma cell, or cytotoxic T cell helper T lymphocyte (TH): a cell of the adaptive immune system that binds APCs via MHC class II molecules and stimulates B cells or secretes cytokines to initiate the immune response humoral immune response: the adaptive immune response that is controlled by activated B cells and antibodies immune tolerance: an acquired ability to prevent an unnecessary or harmful immune response to a detected foreign body known not to cause disease lymph: the watery fluid present in the lymphatic circulatory system that bathes tissues and organs with protective white blood cells and does not contain erythrocytes memory cell: an antigen-specific B or T lymphocyte that does not differentiate into an effector cell during the primary immune response but that can immediately become an effector cell on reexposure to the same pathogen major histocompatibility complex (MHC) II molecule: a protein found on the surface of antigen-presenting cells that signals to immune cells whether the cell is normal or is infected or cancerous; it provides the appropriate template into which antigens can be loaded for recognition by lymphocytes passive immunity: an immunity that does not result from the activity of the body\u2019s own immune cells but by transfer of antibodies from one individual to another primary immune response: the response of the adaptive immune system to the first exposure to an antigen secondary immune response: the response of the adaptive immune system to a second or later exposure to an antigen mediated by memory cells T cell: a lymphocyte that matures in the thymus gland A functioning immune system is essential for survival, but even the sophisticated cellular and molecular defenses of the mammalian immune response can be defeated by pathogens at virtually every step"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_B3",
+  "verdict_msg": "STRUCTURAL_PASS_PENDING_B3: DEF arm banked 1751 facts (1749 NOT produced by the distributional path); DIST_LOWINFO control kept 290/634. B3 requires the HUMAN-bucketed 50-pair audits at D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v3\\b3_audit_sample_DEF.json and D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v3\\b3_audit_sample_DIST_LOWINFO.json -- NOT auto-scored, NOT claimed here. Bands + the 'definitional extraction is NOT the answer' condition: preregs/2026-08-12_definitional_grounding_v3.md",
+  "summary": "definitional grounding v3: 1751 DEF facts, pending human B3",
+  "elapsed_s": 35.69,
+  "ts_iso": "2026-08-12T18:35:04.666018+00:00",
+  "pid": 34176,
+  "anchor_name": "definitional_grounding_v3",
+  "run_mode": "full",
+  "n_corpus_sentences": 32955,
+  "arms": {
+    "DIST_ASIS": {
+      "n_facts": 634,
+      "hand_scored_MEANINGFUL_rate": 0.08,
+      "implied_meaningful_count": 51
+    },
+    "DIST_LOWINFO": {
+      "n_facts": 290,
+      "refusals": {
+        "NEVER_CO_OCCURS": 296,
+        "LOW_INFORMATION_OBJECT": 48
+      }
+    },
+    "DEF": {
+      "n_facts": 1751,
+      "n_novel_vs_dist": 1749,
+      "n_banked_live_in_store": 1751,
+      "refusals": {
+        "LOW_INFORMATION_OBJECT": 408,
+        "CLOSED_CLASS_OBJECT": 9,
+        "NEVER_CO_OCCURS": 1
+      },
+      "pattern_mix": {
+        "APPOSITIVE": 528,
+        "COPULA": 711,
+        "GLOSSARY_COLON": 52,
+        "CALLED": 451,
+        "REFERS_TO": 9
+      },
+      "segment_mix": {
+        "bootstrap": 305,
+        "bio_new": 990,
+        "ele_cont": 131,
+        "adv_new": 167,
+        "int_cont": 158
+      },
+      "attestation_hist": {
+        "3": 123,
+        "1": 1388,
+        "2": 236,
+        "4": 2,
+        "5": 2
+      }
+    }
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "DEF": "976acdb9631c5fc4868f03af8f0695eac7ee32c7f454b520c15f2d5a38436c58",
+    "DIST_LOWINFO": "c9eb268a470fdf8c5604dc6c3baa2e7b140886d3091050d4d84321e1d04743c4",
+    "DIST_ASIS": "21f9257ccd33cb1776d9ff515c4d1a3c43d7f1bdf203ce67f9c6f22f1772378d"
+  },
+  "cardinality_ok": true,
+  "discriminator_fires": true,
+  "calibration_check": "adaptive_with_discriminator_gate",
+  "calibration_detail": {
+    "pmi_floor": 2.3134165950318453,
+    "pmi_calibration": {
+      "status": "CALIBRATED_ON_CLOSED_CLASS_REFERENCE",
+      "percentile": 75.0,
+      "n_reference_pairs": 971,
+      "reference_pmi_p50": 1.1785,
+      "floor": 2.3134
+    },
+    "known_meaningful_controls": {
+      "primer->polymerase": {
+        "survives": true,
+        "pmi": 9.115124953948307,
+        "refusal": null
+      },
+      "organelle->cytoplasm": {
+        "survives": true,
+        "pmi": 6.615892327253035,
+        "refusal": null
+      },
+      "tree->phylogenetic": {
+        "survives": true,
+        "pmi": 7.010200132100852,
+        "refusal": null
+      },
+      "variant->gene": {
+        "survives": true,
+        "pmi": 5.60733031374961,
+        "refusal": null
+      },
+      "alternation->haploid": {
+        "survives": true,
+        "pmi": 8.011030269094174,
+        "refusal": null
+      }
+    },
+    "n_people_facts_in_v2": 38,
+    "n_people_facts_surviving_gate": 0
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "b3_audit_sample_paths": {
+    "DEF": "D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v3\\b3_audit_sample_DEF.json",
+    "DIST_LOWINFO": "D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v3\\b3_audit_sample_DIST_LOWINFO.json"
+  },
+  "new_foundation_dir": "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v3_definitional",
+  "evidence_stores_untouched": [
+    "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v2_qualityfix",
+    "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v1"
+  ]
+}
