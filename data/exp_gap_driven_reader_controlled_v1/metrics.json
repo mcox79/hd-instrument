@@ -1,0 +1,2907 @@
+{
+  "anchor_name": "gap_driven_reader_controlled_v1",
+  "run_mode": "full",
+  "n_trials": 8,
+  "cardinality_ok": true,
+  "expected_n_units": 24,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all bands cleared with >5% margin",
+  "summary": "HARD_PASS: all bands cleared with >5% margin",
+  "elapsed_s": 3.0052197000004526,
+  "ts_iso": "2026-08-12T13:53:20.931820+00:00",
+  "metrics": {
+    "n_trials": 8,
+    "budget": 2,
+    "n_settle": 3,
+    "prereq_identification_precision_real": 1.0,
+    "prereq_identification_precision_ablated": 0.0,
+    "doc_prioritization_top1_accuracy_real": 1.0,
+    "doc_prioritization_top1_accuracy_ablated": 0.25,
+    "b_grounds_rate_gap_driven_real": 1.0,
+    "b_grounds_rate_gap_driven_ablated": 0.0,
+    "b_grounds_rate_random_baseline": 0.125,
+    "theoretical_chance_rate_random_baseline": 0.16666666666666666,
+    "gap_real_minus_ablated_precision": 1.0,
+    "gap_real_minus_random_grounding": 0.875
+  },
+  "per_policy_trials": {
+    "gap_driven_real": [
+      {
+        "trial_idx": 0,
+        "policy": "gap_driven_real",
+        "quad": [
+          "velmara",
+          "dravithex",
+          "borlune",
+          "kestrophy"
+        ],
+        "doc_ids": {
+          "prereq": "doc_2c887a87",
+          "bexplain": "doc_506de4c3",
+          "distractor1": "doc_c0e7fb01",
+          "distractor2": "doc_54d061ee"
+        },
+        "read_order": [
+          "doc_2c887a87",
+          "doc_506de4c3"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "velmara",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "velmara",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "borlune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_2c887a87",
+                4
+              ],
+              [
+                "doc_506de4c3",
+                0
+              ],
+              [
+                "doc_54d061ee",
+                0
+              ],
+              [
+                "doc_c0e7fb01",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_2c887a87"
+          },
+          {
+            "step": 1,
+            "target": "dravithex",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "velmara",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "borlune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_506de4c3",
+                2
+              ],
+              [
+                "doc_54d061ee",
+                0
+              ],
+              [
+                "doc_c0e7fb01",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_506de4c3"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 1,
+        "policy": "gap_driven_real",
+        "quad": [
+          "quenzor",
+          "nostravex",
+          "tharkin",
+          "ombrilax"
+        ],
+        "doc_ids": {
+          "prereq": "doc_9b43a51d",
+          "bexplain": "doc_215d9fa2",
+          "distractor1": "doc_1de13d31",
+          "distractor2": "doc_4e536550"
+        },
+        "read_order": [
+          "doc_9b43a51d",
+          "doc_215d9fa2"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "quenzor",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "quenzor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "tharkin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_9b43a51d",
+                4
+              ],
+              [
+                "doc_1de13d31",
+                0
+              ],
+              [
+                "doc_215d9fa2",
+                0
+              ],
+              [
+                "doc_4e536550",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_9b43a51d"
+          },
+          {
+            "step": 1,
+            "target": "nostravex",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "quenzor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "tharkin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_215d9fa2",
+                2
+              ],
+              [
+                "doc_1de13d31",
+                0
+              ],
+              [
+                "doc_4e536550",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_215d9fa2"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 2,
+        "policy": "gap_driven_real",
+        "quad": [
+          "brintacol",
+          "weldronix",
+          "savrune",
+          "plectomar"
+        ],
+        "doc_ids": {
+          "prereq": "doc_cfd90277",
+          "bexplain": "doc_d73c4158",
+          "distractor1": "doc_1516530a",
+          "distractor2": "doc_f476af41"
+        },
+        "read_order": [
+          "doc_cfd90277",
+          "doc_d73c4158"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "brintacol",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "brintacol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "savrune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_cfd90277",
+                4
+              ],
+              [
+                "doc_1516530a",
+                0
+              ],
+              [
+                "doc_d73c4158",
+                0
+              ],
+              [
+                "doc_f476af41",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_cfd90277"
+          },
+          {
+            "step": 1,
+            "target": "weldronix",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "brintacol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "savrune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_d73c4158",
+                2
+              ],
+              [
+                "doc_1516530a",
+                0
+              ],
+              [
+                "doc_f476af41",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_d73c4158"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 3,
+        "policy": "gap_driven_real",
+        "quad": [
+          "vintorra",
+          "cravendex",
+          "molbarik",
+          "fessulon"
+        ],
+        "doc_ids": {
+          "prereq": "doc_be3ed3a8",
+          "bexplain": "doc_4f8a0a68",
+          "distractor1": "doc_d6b05263",
+          "distractor2": "doc_db1ad4cd"
+        },
+        "read_order": [
+          "doc_be3ed3a8",
+          "doc_4f8a0a68"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "vintorra",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "vintorra",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "molbarik",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_be3ed3a8",
+                4
+              ],
+              [
+                "doc_4f8a0a68",
+                0
+              ],
+              [
+                "doc_d6b05263",
+                0
+              ],
+              [
+                "doc_db1ad4cd",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_be3ed3a8"
+          },
+          {
+            "step": 1,
+            "target": "cravendex",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "vintorra",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "molbarik",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_4f8a0a68",
+                2
+              ],
+              [
+                "doc_d6b05263",
+                0
+              ],
+              [
+                "doc_db1ad4cd",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_4f8a0a68"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 4,
+        "policy": "gap_driven_real",
+        "quad": [
+          "drenzimol",
+          "xantoverix",
+          "harnuclet",
+          "bostrivan"
+        ],
+        "doc_ids": {
+          "prereq": "doc_48087717",
+          "bexplain": "doc_8b11e86e",
+          "distractor1": "doc_949c70b1",
+          "distractor2": "doc_0a5b6c34"
+        },
+        "read_order": [
+          "doc_48087717",
+          "doc_8b11e86e"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "drenzimol",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "drenzimol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "harnuclet",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_48087717",
+                4
+              ],
+              [
+                "doc_0a5b6c34",
+                0
+              ],
+              [
+                "doc_8b11e86e",
+                0
+              ],
+              [
+                "doc_949c70b1",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_48087717"
+          },
+          {
+            "step": 1,
+            "target": "xantoverix",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "drenzimol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "harnuclet",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_8b11e86e",
+                2
+              ],
+              [
+                "doc_0a5b6c34",
+                0
+              ],
+              [
+                "doc_949c70b1",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_8b11e86e"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 5,
+        "policy": "gap_driven_real",
+        "quad": [
+          "corvantel",
+          "phindravor",
+          "welmatur",
+          "grozniven"
+        ],
+        "doc_ids": {
+          "prereq": "doc_ce9382fb",
+          "bexplain": "doc_b41091c2",
+          "distractor1": "doc_75879365",
+          "distractor2": "doc_efdfdd06"
+        },
+        "read_order": [
+          "doc_ce9382fb",
+          "doc_b41091c2"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "corvantel",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "corvantel",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "welmatur",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_ce9382fb",
+                4
+              ],
+              [
+                "doc_75879365",
+                0
+              ],
+              [
+                "doc_b41091c2",
+                0
+              ],
+              [
+                "doc_efdfdd06",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_ce9382fb"
+          },
+          {
+            "step": 1,
+            "target": "phindravor",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "corvantel",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "welmatur",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_b41091c2",
+                2
+              ],
+              [
+                "doc_75879365",
+                0
+              ],
+              [
+                "doc_efdfdd06",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_b41091c2"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 6,
+        "policy": "gap_driven_real",
+        "quad": [
+          "marveldin",
+          "trocavex",
+          "undoril",
+          "faskaren"
+        ],
+        "doc_ids": {
+          "prereq": "doc_f54ef8a6",
+          "bexplain": "doc_6265d560",
+          "distractor1": "doc_889a66c5",
+          "distractor2": "doc_0d405c64"
+        },
+        "read_order": [
+          "doc_f54ef8a6",
+          "doc_6265d560"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "marveldin",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "marveldin",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "undoril",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_f54ef8a6",
+                4
+              ],
+              [
+                "doc_0d405c64",
+                0
+              ],
+              [
+                "doc_6265d560",
+                0
+              ],
+              [
+                "doc_889a66c5",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_f54ef8a6"
+          },
+          {
+            "step": 1,
+            "target": "trocavex",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "marveldin",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "undoril",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_6265d560",
+                2
+              ],
+              [
+                "doc_0d405c64",
+                0
+              ],
+              [
+                "doc_889a66c5",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_6265d560"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 7,
+        "policy": "gap_driven_real",
+        "quad": [
+          "zolbatric",
+          "quandrivex",
+          "nortemal",
+          "vasculin"
+        ],
+        "doc_ids": {
+          "prereq": "doc_5edd600e",
+          "bexplain": "doc_497a8eb0",
+          "distractor1": "doc_321b4083",
+          "distractor2": "doc_a2f95bb0"
+        },
+        "read_order": [
+          "doc_5edd600e",
+          "doc_497a8eb0"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "zolbatric",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "zolbatric",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "nortemal",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_5edd600e",
+                4
+              ],
+              [
+                "doc_321b4083",
+                0
+              ],
+              [
+                "doc_497a8eb0",
+                0
+              ],
+              [
+                "doc_a2f95bb0",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_5edd600e"
+          },
+          {
+            "step": 1,
+            "target": "quandrivex",
+            "retargeted_to_primary": true,
+            "candidates": [
+              {
+                "lemma": "zolbatric",
+                "score": 1.0,
+                "count": 2,
+                "ablated": false
+              },
+              {
+                "lemma": "nortemal",
+                "score": 0.5,
+                "count": 1,
+                "ablated": false
+              }
+            ],
+            "ranking": [
+              [
+                "doc_497a8eb0",
+                2
+              ],
+              [
+                "doc_321b4083",
+                0
+              ],
+              [
+                "doc_a2f95bb0",
+                0
+              ]
+            ],
+            "chosen_doc": "doc_497a8eb0"
+          }
+        ],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": true,
+        "top1_doc_prioritization_hit": true
+      }
+    ],
+    "gap_driven_ablated": [
+      {
+        "trial_idx": 0,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "velmara",
+          "dravithex",
+          "borlune",
+          "kestrophy"
+        ],
+        "doc_ids": {
+          "prereq": "doc_2c887a87",
+          "bexplain": "doc_506de4c3",
+          "distractor1": "doc_c0e7fb01",
+          "distractor2": "doc_54d061ee"
+        },
+        "read_order": [
+          "doc_2c887a87",
+          "doc_54d061ee"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "borlune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_2c887a87",
+                4
+              ],
+              [
+                "doc_54d061ee",
+                4
+              ],
+              [
+                "doc_c0e7fb01",
+                4
+              ],
+              [
+                "doc_506de4c3",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_2c887a87"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "velmara",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "borlune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "manual",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_54d061ee",
+                4
+              ],
+              [
+                "doc_c0e7fb01",
+                4
+              ],
+              [
+                "doc_506de4c3",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_54d061ee"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 1,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "quenzor",
+          "nostravex",
+          "tharkin",
+          "ombrilax"
+        ],
+        "doc_ids": {
+          "prereq": "doc_9b43a51d",
+          "bexplain": "doc_215d9fa2",
+          "distractor1": "doc_1de13d31",
+          "distractor2": "doc_4e536550"
+        },
+        "read_order": [
+          "doc_1de13d31",
+          "doc_4e536550"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "quenzor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "tharkin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_1de13d31",
+                4
+              ],
+              [
+                "doc_4e536550",
+                4
+              ],
+              [
+                "doc_9b43a51d",
+                4
+              ],
+              [
+                "doc_215d9fa2",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_1de13d31"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "quenzor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "tharkin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_4e536550",
+                4
+              ],
+              [
+                "doc_9b43a51d",
+                4
+              ],
+              [
+                "doc_215d9fa2",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_4e536550"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "PENDING",
+        "b_grounded": false,
+        "a_grounded": false,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 2,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "brintacol",
+          "weldronix",
+          "savrune",
+          "plectomar"
+        ],
+        "doc_ids": {
+          "prereq": "doc_cfd90277",
+          "bexplain": "doc_d73c4158",
+          "distractor1": "doc_1516530a",
+          "distractor2": "doc_f476af41"
+        },
+        "read_order": [
+          "doc_1516530a",
+          "doc_cfd90277"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "brintacol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "savrune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_1516530a",
+                4
+              ],
+              [
+                "doc_cfd90277",
+                4
+              ],
+              [
+                "doc_f476af41",
+                4
+              ],
+              [
+                "doc_d73c4158",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_1516530a"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "brintacol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "manual",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "savrune",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_cfd90277",
+                4
+              ],
+              [
+                "doc_f476af41",
+                4
+              ],
+              [
+                "doc_d73c4158",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_cfd90277"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 3,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "vintorra",
+          "cravendex",
+          "molbarik",
+          "fessulon"
+        ],
+        "doc_ids": {
+          "prereq": "doc_be3ed3a8",
+          "bexplain": "doc_4f8a0a68",
+          "distractor1": "doc_d6b05263",
+          "distractor2": "doc_db1ad4cd"
+        },
+        "read_order": [
+          "doc_be3ed3a8",
+          "doc_d6b05263"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_be3ed3a8",
+                4
+              ],
+              [
+                "doc_d6b05263",
+                4
+              ],
+              [
+                "doc_db1ad4cd",
+                4
+              ],
+              [
+                "doc_4f8a0a68",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_be3ed3a8"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "vintorra",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "molbarik",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_d6b05263",
+                4
+              ],
+              [
+                "doc_db1ad4cd",
+                4
+              ],
+              [
+                "doc_4f8a0a68",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_d6b05263"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": true
+      },
+      {
+        "trial_idx": 4,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "drenzimol",
+          "xantoverix",
+          "harnuclet",
+          "bostrivan"
+        ],
+        "doc_ids": {
+          "prereq": "doc_48087717",
+          "bexplain": "doc_8b11e86e",
+          "distractor1": "doc_949c70b1",
+          "distractor2": "doc_0a5b6c34"
+        },
+        "read_order": [
+          "doc_0a5b6c34",
+          "doc_48087717"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "drenzimol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "harnuclet",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "manual",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_0a5b6c34",
+                4
+              ],
+              [
+                "doc_48087717",
+                4
+              ],
+              [
+                "doc_949c70b1",
+                4
+              ],
+              [
+                "doc_8b11e86e",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_0a5b6c34"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "drenzimol",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "harnuclet",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_48087717",
+                4
+              ],
+              [
+                "doc_949c70b1",
+                4
+              ],
+              [
+                "doc_8b11e86e",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_48087717"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 5,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "corvantel",
+          "phindravor",
+          "welmatur",
+          "grozniven"
+        ],
+        "doc_ids": {
+          "prereq": "doc_ce9382fb",
+          "bexplain": "doc_b41091c2",
+          "distractor1": "doc_75879365",
+          "distractor2": "doc_efdfdd06"
+        },
+        "read_order": [
+          "doc_75879365",
+          "doc_ce9382fb"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "corvantel",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_75879365",
+                4
+              ],
+              [
+                "doc_ce9382fb",
+                4
+              ],
+              [
+                "doc_efdfdd06",
+                4
+              ],
+              [
+                "doc_b41091c2",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_75879365"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "corvantel",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "manual",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "welmatur",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_ce9382fb",
+                4
+              ],
+              [
+                "doc_efdfdd06",
+                4
+              ],
+              [
+                "doc_b41091c2",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_ce9382fb"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 6,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "marveldin",
+          "trocavex",
+          "undoril",
+          "faskaren"
+        ],
+        "doc_ids": {
+          "prereq": "doc_f54ef8a6",
+          "bexplain": "doc_6265d560",
+          "distractor1": "doc_889a66c5",
+          "distractor2": "doc_0d405c64"
+        },
+        "read_order": [
+          "doc_0d405c64",
+          "doc_889a66c5"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "undoril",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_0d405c64",
+                4
+              ],
+              [
+                "doc_889a66c5",
+                4
+              ],
+              [
+                "doc_f54ef8a6",
+                4
+              ],
+              [
+                "doc_6265d560",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_0d405c64"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "marveldin",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "undoril",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_889a66c5",
+                4
+              ],
+              [
+                "doc_f54ef8a6",
+                4
+              ],
+              [
+                "doc_6265d560",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_889a66c5"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "PENDING",
+        "b_grounded": false,
+        "a_grounded": false,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 7,
+        "policy": "gap_driven_ablated",
+        "quad": [
+          "zolbatric",
+          "quandrivex",
+          "nortemal",
+          "vasculin"
+        ],
+        "doc_ids": {
+          "prereq": "doc_5edd600e",
+          "bexplain": "doc_497a8eb0",
+          "distractor1": "doc_321b4083",
+          "distractor2": "doc_a2f95bb0"
+        },
+        "read_order": [
+          "doc_321b4083",
+          "doc_5edd600e"
+        ],
+        "identify_log": [
+          {
+            "step": 0,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "harvest",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nortemal",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_321b4083",
+                4
+              ],
+              [
+                "doc_5edd600e",
+                4
+              ],
+              [
+                "doc_a2f95bb0",
+                4
+              ],
+              [
+                "doc_497a8eb0",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_321b4083"
+          },
+          {
+            "step": 1,
+            "target": "before",
+            "retargeted_to_primary": false,
+            "candidates": [
+              {
+                "lemma": "before",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "delicate",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "engine",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "sensor",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "using",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "zolbatric",
+                "score": 1.0,
+                "count": 2,
+                "ablated": true
+              },
+              {
+                "lemma": "adjust",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "begin",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "calibrat",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "ignor",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "long",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "nell",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              },
+              {
+                "lemma": "owen",
+                "score": 0.5,
+                "count": 1,
+                "ablated": true
+              }
+            ],
+            "ranking": [
+              [
+                "doc_5edd600e",
+                4
+              ],
+              [
+                "doc_a2f95bb0",
+                4
+              ],
+              [
+                "doc_497a8eb0",
+                2
+              ]
+            ],
+            "chosen_doc": "doc_5edd600e"
+          }
+        ],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      }
+    ],
+    "random_order": [
+      {
+        "trial_idx": 0,
+        "policy": "random_order",
+        "quad": [
+          "velmara",
+          "dravithex",
+          "borlune",
+          "kestrophy"
+        ],
+        "doc_ids": {
+          "prereq": "doc_2c887a87",
+          "bexplain": "doc_506de4c3",
+          "distractor1": "doc_c0e7fb01",
+          "distractor2": "doc_54d061ee"
+        },
+        "read_order": [
+          "doc_c0e7fb01",
+          "doc_506de4c3"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "PENDING",
+        "b_grounded": false,
+        "a_grounded": false,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 1,
+        "policy": "random_order",
+        "quad": [
+          "quenzor",
+          "nostravex",
+          "tharkin",
+          "ombrilax"
+        ],
+        "doc_ids": {
+          "prereq": "doc_9b43a51d",
+          "bexplain": "doc_215d9fa2",
+          "distractor1": "doc_1de13d31",
+          "distractor2": "doc_4e536550"
+        },
+        "read_order": [
+          "doc_4e536550",
+          "doc_1de13d31"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "PENDING",
+        "b_grounded": false,
+        "a_grounded": false,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 2,
+        "policy": "random_order",
+        "quad": [
+          "brintacol",
+          "weldronix",
+          "savrune",
+          "plectomar"
+        ],
+        "doc_ids": {
+          "prereq": "doc_cfd90277",
+          "bexplain": "doc_d73c4158",
+          "distractor1": "doc_1516530a",
+          "distractor2": "doc_f476af41"
+        },
+        "read_order": [
+          "doc_cfd90277",
+          "doc_f476af41"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 3,
+        "policy": "random_order",
+        "quad": [
+          "vintorra",
+          "cravendex",
+          "molbarik",
+          "fessulon"
+        ],
+        "doc_ids": {
+          "prereq": "doc_be3ed3a8",
+          "bexplain": "doc_4f8a0a68",
+          "distractor1": "doc_d6b05263",
+          "distractor2": "doc_db1ad4cd"
+        },
+        "read_order": [
+          "doc_be3ed3a8",
+          "doc_db1ad4cd"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 4,
+        "policy": "random_order",
+        "quad": [
+          "drenzimol",
+          "xantoverix",
+          "harnuclet",
+          "bostrivan"
+        ],
+        "doc_ids": {
+          "prereq": "doc_48087717",
+          "bexplain": "doc_8b11e86e",
+          "distractor1": "doc_949c70b1",
+          "distractor2": "doc_0a5b6c34"
+        },
+        "read_order": [
+          "doc_48087717",
+          "doc_949c70b1"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 5,
+        "policy": "random_order",
+        "quad": [
+          "corvantel",
+          "phindravor",
+          "welmatur",
+          "grozniven"
+        ],
+        "doc_ids": {
+          "prereq": "doc_ce9382fb",
+          "bexplain": "doc_b41091c2",
+          "distractor1": "doc_75879365",
+          "distractor2": "doc_efdfdd06"
+        },
+        "read_order": [
+          "doc_ce9382fb",
+          "doc_b41091c2"
+        ],
+        "identify_log": [],
+        "b_status": "GROUNDED_POS",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": true,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 6,
+        "policy": "random_order",
+        "quad": [
+          "marveldin",
+          "trocavex",
+          "undoril",
+          "faskaren"
+        ],
+        "doc_ids": {
+          "prereq": "doc_f54ef8a6",
+          "bexplain": "doc_6265d560",
+          "distractor1": "doc_889a66c5",
+          "distractor2": "doc_0d405c64"
+        },
+        "read_order": [
+          "doc_f54ef8a6",
+          "doc_889a66c5"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      },
+      {
+        "trial_idx": 7,
+        "policy": "random_order",
+        "quad": [
+          "zolbatric",
+          "quandrivex",
+          "nortemal",
+          "vasculin"
+        ],
+        "doc_ids": {
+          "prereq": "doc_5edd600e",
+          "bexplain": "doc_497a8eb0",
+          "distractor1": "doc_321b4083",
+          "distractor2": "doc_a2f95bb0"
+        },
+        "read_order": [
+          "doc_a2f95bb0",
+          "doc_5edd600e"
+        ],
+        "identify_log": [],
+        "b_status": "PENDING",
+        "a_status": "GROUNDED_POS",
+        "b_grounded": false,
+        "a_grounded": true,
+        "top1_prereq_identification_hit": false,
+        "top1_doc_prioritization_hit": false
+      }
+    ]
+  }
+}

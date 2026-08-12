@@ -1,0 +1,27 @@
+{
+  "nonce_words_unmangled": true,
+  "nonce_words_distinct": true,
+  "no_leak_ok": true,
+  "single_trial_gap_driven_real_ok": true,
+  "mini_study_cardinality_ok": true,
+  "mini_study_metrics": {
+    "n_trials": 2,
+    "budget": 2,
+    "n_settle": 3,
+    "prereq_identification_precision_real": 1.0,
+    "prereq_identification_precision_ablated": 0.0,
+    "doc_prioritization_top1_accuracy_real": 1.0,
+    "doc_prioritization_top1_accuracy_ablated": 0.5,
+    "b_grounds_rate_gap_driven_real": 1.0,
+    "b_grounds_rate_gap_driven_ablated": 0.0,
+    "b_grounds_rate_random_baseline": 0.0,
+    "theoretical_chance_rate_random_baseline": 0.16666666666666666,
+    "gap_real_minus_ablated_precision": 1.0,
+    "gap_real_minus_random_grounding": 1.0
+  },
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "self_test() completed; real code path exercised at n_trials=2",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 2.4685318999981973,
+  "run_mode": "self_test"
+}
