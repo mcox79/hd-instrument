@@ -2,8 +2,8 @@
   "verdict": "SELF_TEST_PASS",
   "verdict_msg": "real KGStore+HDFactStore+Library+TierState+ScriptLibrary+RelationRegister+ThreeTierLoop fixture: CORRECT order consolidates (energy FOUNDATION_RESOLVED), REVERSED order fails, SEEN_NOT_CONSOLIDATED shows energy stuck at MIDDLE_RESOLVED (seen, never promoted) -- decisive isolation confirmed; GATHER topical-selectivity confirmed (distractor excluded)",
   "summary": "SELF_TEST_PASS",
-  "elapsed_s": 0.4218701000791043,
-  "ts_iso": "2026-08-12T00:24:23.259283+00:00",
+  "elapsed_s": 0.2094863000093028,
+  "ts_iso": "2026-08-12T00:39:30.753311+00:00",
   "anchor_name": "curriculum_prerequisite_scaffold_consolidation_v1",
   "run_mode": "self_test",
   "result": {

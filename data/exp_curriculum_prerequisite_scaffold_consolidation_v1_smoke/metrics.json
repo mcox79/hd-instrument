@@ -2,8 +2,8 @@
   "verdict": "HARD_PASS_curriculum_prerequisite_scaffold_consolidation",
   "verdict_msg": "correct=1.0000 reversed=0.0000 partial=0.0000 seen_not_consolidated=0.0000 anti_artifact_scramble=0.0000 delta_reversed=1.0000 (>=0.5); controls_clean=True; schema-scaffolding consolidation mechanism validated in-substrate: the order effect REQUIRES the prerequisite to be CONSOLIDATED (not merely seen) and REQUIRES its genuine content (not an order/pass-index artifact)",
   "summary": "correct=1.0000 reversed=0.0000 partial=0.0000 seen_not_consolidated=0.0000 anti_artifact_scramble=0.0000 delta_reversed=1.0000 (>=0.5); controls_clean=True; schema-scaffolding consolidation mechanism validated in-substrate: the order effect REQUIRES the prerequisite to be CONSOLIDATED (not merely seen) and REQUIRES its genuine content (not an order/pass-index artifact)",
-  "elapsed_s": 0.3161957999691367,
-  "ts_iso": "2026-08-12T00:30:26.204583+00:00",
+  "elapsed_s": 0.32876259996555746,
+  "ts_iso": "2026-08-12T00:39:34.549898+00:00",
   "anchor_name": "curriculum_prerequisite_scaffold_consolidation_v1",
   "run_mode": "smoke",
   "chain": [

@@ -488,57 +488,61 @@ def main() -> None:
                         help="declared wall-time budget: self-test<5s, smoke/FULL~seconds-30s")
     args = parser.parse_args()
 
+    # output_dir resolved BEFORE any risky call, so a crash in run_self_test()/run_pipeline()
+    # writes its diagnostic to the run-mode-CORRECT directory, never mis-stamping a stale
+    # self-test/smoke failure into the FULL dir (or vice versa) -- see _run_mode_aware_main below.
     if args.self_test:
         run_mode = "self_test"
         output_dir = repo_path(f"data/exp_{ANCHOR_NAME}_selftest")
-        t0 = time.perf_counter()
-        _write_start_marker(output_dir, run_mode, expected_n_units=3 * 3 * N_VISITS)
-        result = run_self_test()
-        elapsed = time.perf_counter() - t0
-        metrics = {"verdict": "SELF_TEST_PASS",
-                  "verdict_msg": ("real KGStore+HDFactStore+Library+TierState+ScriptLibrary+"
-                                  "RelationRegister+ThreeTierLoop fixture: CORRECT order consolidates "
-                                  "(energy FOUNDATION_RESOLVED), REVERSED order fails, SEEN_NOT_"
-                                  "CONSOLIDATED shows energy stuck at MIDDLE_RESOLVED (seen, never "
-                                  "promoted) -- decisive isolation confirmed; GATHER topical-"
-                                  "selectivity confirmed (distractor excluded)"),
-                  "summary": "SELF_TEST_PASS", "elapsed_s": elapsed,
-                  "ts_iso": datetime.now(timezone.utc).isoformat(), "anchor_name": ANCHOR_NAME,
-                  "run_mode": run_mode, "result": result}
-        _atomic_write(output_dir, metrics)
-        print(f"[{ANCHOR_NAME}] SELF_TEST_PASS elapsed={elapsed:.2f}s -> {output_dir}")
-        return
-
-    if args.smoke:
+    elif args.smoke:
         run_mode = "smoke"
         output_dir = repo_path(f"data/exp_{ANCHOR_NAME}_smoke")
     else:
         run_mode = "full"
         output_dir = repo_path(f"data/exp_{ANCHOR_NAME}")
 
-    _write_start_marker(output_dir, run_mode, expected_n_units=5 * 3 * N_VISITS)
-    metrics = run_pipeline(run_mode)
-
-    if run_mode == "smoke":
-        pf = metrics["property_frac_by_arm"]
-        discriminator_ok = (pf["CORRECT"] - pf["REVERSED"]) >= 0.5
-        if not discriminator_ok:
-            metrics["verdict"] = "SMOKE_GATE_FAIL_discriminator_not_firing"
-            metrics["verdict_msg"] = (f"smoke discriminator check: correct={pf['CORRECT']:.4f} "
-                                      f"reversed={pf['REVERSED']:.4f} delta={pf['CORRECT']-pf['REVERSED']:.4f} "
-                                      f"-- required >=0.5 for FULL dispatch readiness")
-
-    _atomic_write(output_dir, metrics)
-    print(f"[{ANCHOR_NAME}] {metrics['verdict']} elapsed={metrics['elapsed_s']:.2f}s -> {output_dir}")
-
-
-if __name__ == "__main__":
     try:
-        main()
+        if run_mode == "self_test":
+            t0 = time.perf_counter()
+            _write_start_marker(output_dir, run_mode, expected_n_units=3 * 3 * N_VISITS)
+            result = run_self_test()
+            elapsed = time.perf_counter() - t0
+            metrics = {"verdict": "SELF_TEST_PASS",
+                      "verdict_msg": ("real KGStore+HDFactStore+Library+TierState+ScriptLibrary+"
+                                      "RelationRegister+ThreeTierLoop fixture: CORRECT order consolidates "
+                                      "(energy FOUNDATION_RESOLVED), REVERSED order fails, SEEN_NOT_"
+                                      "CONSOLIDATED shows energy stuck at MIDDLE_RESOLVED (seen, never "
+                                      "promoted) -- decisive isolation confirmed; GATHER topical-"
+                                      "selectivity confirmed (distractor excluded)"),
+                      "summary": "SELF_TEST_PASS", "elapsed_s": elapsed,
+                      "ts_iso": datetime.now(timezone.utc).isoformat(), "anchor_name": ANCHOR_NAME,
+                      "run_mode": run_mode, "result": result}
+            _atomic_write(output_dir, metrics)
+            print(f"[{ANCHOR_NAME}] SELF_TEST_PASS elapsed={elapsed:.2f}s -> {output_dir}")
+            return
+
+        _write_start_marker(output_dir, run_mode, expected_n_units=5 * 3 * N_VISITS)
+        metrics = run_pipeline(run_mode)
+
+        if run_mode == "smoke":
+            pf = metrics["property_frac_by_arm"]
+            discriminator_ok = (pf["CORRECT"] - pf["REVERSED"]) >= 0.5
+            if not discriminator_ok:
+                metrics["verdict"] = "SMOKE_GATE_FAIL_discriminator_not_firing"
+                metrics["verdict_msg"] = (f"smoke discriminator check: correct={pf['CORRECT']:.4f} "
+                                          f"reversed={pf['REVERSED']:.4f} delta={pf['CORRECT']-pf['REVERSED']:.4f} "
+                                          f"-- required >=0.5 for FULL dispatch readiness")
+
+        _atomic_write(output_dir, metrics)
+        print(f"[{ANCHOR_NAME}] {metrics['verdict']} elapsed={metrics['elapsed_s']:.2f}s -> {output_dir}")
     except SystemExit:
         raise
     except KeyboardInterrupt:
         raise
     except Exception as e:  # noqa: BLE001 -- deliberately narrow; NOT BaseException
-        _write_crash_metrics(repo_path(f"data/exp_{ANCHOR_NAME}"), e)
+        _write_crash_metrics(output_dir, e)  # run-mode-correct dir, not a hardcoded FULL fallback
         raise
+
+
+if __name__ == "__main__":
+    main()
