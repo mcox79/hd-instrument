@@ -1,0 +1,3 @@
+b61f6ab296202bfd539671c04ef7fed3c93531751ecead159c0218ea9d0aec93 *reading_grounding_v1_2026-08-12.tar.gz
+d422edefd03195be5f167253242378ce0e2b87bff4745b4c91b640257d3df4dd *reading_grounding_v2_qualityfix_2026-08-12.tar.gz
+065ee70c864285d87b2aac1640c4bcad27dcc784d53438c8a346f40991aec26b *reading_grounding_v3_definitional_2026-08-12.tar.gz
