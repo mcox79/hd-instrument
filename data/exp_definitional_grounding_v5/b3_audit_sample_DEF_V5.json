@@ -1,0 +1,1029 @@
+{
+  "arm": "DEF_V5_TERM_BOUNDARY",
+  "n_facts_in_arm": 2092,
+  "sample_seed": 42,
+  "sampling": "random.Random(42).sample over fid order -- BIT-IDENTICAL to v2/v3/v4 B3, asserted in run_self_test",
+  "rubric": "MEANINGFUL / RELATED / NOISE per notes/foundation_grounding_sample_2026-08-12.md",
+  "scored": false,
+  "note": "UNSCORED. The cell assigns no buckets and claims no quality band. Baselines: v3 DEF 38% and v4 DEF 40% MEANINGFUL (notes/director_handscore_b3_v4_parsefix_2026-08-12.md). Bands + the explicit FALSIFIER: preregs/2026-08-12_definitional_term_boundary_v5.md",
+  "rows": [
+    {
+      "subject": "Ban Ki-moon",
+      "object": "secretary-general",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "ki-moon",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 3,
+      "pmi": 13.0604,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "She listened quietly as Ban Ki-moon, the UN secretary-general, described her as “our hero, our champion”; and as the ex-British prime minister and now UN education envoy, Gordon Brown, said “the words the Taliban never wanted her to hear: happy 16th birthday, Malala ”",
+        "She listened quietly as Ban Ki-moon, the UN secretary-general, described her as our hero, our champion; and as the former British prime minister and now UN education envoy, Gordon Brown, said what he called the words the Taliban never wanted her to hear: happy 16th birthday, Malala",
+        "She listened quietly as Ban Ki-moon, the UN secretary-general, described her as “our hero, our champion”; and as the former British prime minister and now UN education envoy, Gordon Brown, uttered what he called “the words the Taliban never wanted her to hear: happy 16th birthday, Malala ”"
+      ],
+      "definiendum_surface": "Ki-moon",
+      "definiens_surface": "the UN secretary-general",
+      "fid": 26,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Gaustatoppen",
+      "object": "mountain",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "gaustatoppen",
+      "segment": "bootstrap",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 6.8316,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Behind him, to the south, is the 1,800-metre mountain known as Gaustatoppen"
+      ],
+      "definiendum_surface": "Gaustatoppen",
+      "definiens_surface": "metre mountain",
+      "fid": 102,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Glazer",
+      "object": "manchester",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "glazer",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 9.3379,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Joel Glazer, one of the owners of Manchester United, said: “Alex has shown us so often what a fantastic manager he is, but he’s also a wonderful person"
+      ],
+      "definiendum_surface": "Glazer",
+      "definiens_surface": "one of the owners of Manchester United",
+      "fid": 108,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Harper",
+      "object": "politician",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "harper",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.6681,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Andrew Harper, a local Conservative politician, laughed when he was asked whether some of the derelict housing could become cheap homes"
+      ],
+      "definiendum_surface": "Harper",
+      "definiens_surface": "a local Conservative politician",
+      "fid": 122,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Hyde Park",
+      "object": "block",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "park",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 4.1496,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "One Hyde Park, a block of apartments in Knightsbridge, is another example where more than half the flats are registered with the council as empty or second homes"
+      ],
+      "definiendum_surface": "Park",
+      "definiens_surface": "a block of apartments in Knightsbridge",
+      "fid": 130,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Levita",
+      "object": "producer",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "levita",
+      "segment": "int_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 9.1535,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Goldsmith, 69, also revealed that he is working with Robin de Levita, the Dutch producer of the Whos 1970s rock musical Tommy, at a new 1,100-seat theatre in Wembley, London, where the  rst stage adaptation of the teen book and movie series The Hunger Games will be performed in June 2016",
+        "Goldsmith, 69, also revealed that he has teamed up with Robin de Levita, the Dutch producer of the Who’s 1970s rock musical Tommy, at a new 1,100-seat theatre in Wembley, which is due to be finished in time for the first stage adaptation of the phenomenally successful teen book and movie series The Hunger Games in June 2016"
+      ],
+      "definiendum_surface": "Levita",
+      "definiens_surface": "the Dutch producer of the Whos 1970s rock musical Tommy",
+      "fid": 177,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Magnoliidae",
+      "object": "grouping",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "magnoliidae",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 10.016,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "They are categorized separately in many classification schemes, and correspond to a grouping known as the Magnoliidae"
+      ],
+      "definiendum_surface": "Magnoliidae",
+      "definiens_surface": "correspond to a grouping",
+      "fid": 187,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Solspeil",
+      "object": "idea",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "solspeil",
+      "segment": "int_cont",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 6.0492,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "The idea of an artwork Andersen called the Solspeil, or Sun mirror, came to him at the end of one September: Every day, we would take our young child for a walk, he says, and, every day, I realized we were having to go a little further down the valley to find the sun"
+      ],
+      "definiendum_surface": "Solspeil",
+      "definiens_surface": "The idea of an artwork Andersen",
+      "fid": 284,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Williams",
+      "object": "officer",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "williams",
+      "segment": "ele_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 8.651,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Tanya Williams, a community officer, said: “I like Barack Obama and it’s exciting to hear someone who has changed so much"
+      ],
+      "definiendum_surface": "Williams",
+      "definiens_surface": "a community officer",
+      "fid": 322,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "Zimarco Jones",
+      "object": "founder",
+      "subject_type": "PROPER",
+      "subject_head_lemma": "jones",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 2,
+      "pmi": 6.8607,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "We did it so people can learn French, said Zimarco Jones, the schools Nigerian founder, who arrived in Calais in 2013 and is still waiting to hear if he can stay",
+        "“We did it to reunite the 'brothers' and, at the same time, they can learn French,” said Zimarco Jones, the school’s Nigerian founder, who arrived in Calais in 2013 and is still waiting for his asylum claim to be processed"
+      ],
+      "definiendum_surface": "Jones",
+      "definiens_surface": "the schools Nigerian founder",
+      "fid": 326,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "age",
+      "object": "indicator",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "meteorite",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 6.2087,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Thus, the age of meteorites is a good indicator of the age of the formation of Earth"
+      ],
+      "definiendum_surface": "age of meteorites",
+      "definiens_surface": "a good indicator of the age of the formation of Earth",
+      "fid": 356,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "ampakines",
+      "object": "drug",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "ampakines",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.4383,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "The report goes on to look at the effects of ampakines, a class of drugs that modulate neurotransmitters in the brain, to remove the effects of sleep deprivation"
+      ],
+      "definiendum_surface": "ampakines",
+      "definiens_surface": "a class of drugs that modulate neurotransmitters in the brain",
+      "fid": 379,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "amylase",
+      "object": "enzyme",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "amylase",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 2,
+      "pmi": 7.3809,
+      "patterns_seen": [
+        "CALLED",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "Saliva contains an enzyme called amylase that breaks down carbohydrates",
+        "amylase: an enzyme found in saliva and secreted by the pancreas that converts carbohydrates to maltose"
+      ],
+      "definiendum_surface": "amylase",
+      "definiens_surface": "Saliva contains an enzyme",
+      "fid": 383,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "anthropoid",
+      "object": "clade",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "anthropoid",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 6.5251,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "anthropoids: a clade consisting of monkeys, apes, and humans"
+      ],
+      "definiendum_surface": "anthropoids",
+      "definiens_surface": "a clade consisting of monkeys, apes, and humans",
+      "fid": 396,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "arthrography",
+      "object": "imaging",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "arthrography",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 11.4754,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Arthrography is a type of medical imaging of joints that uses a contrast agent, such as a dye that is opaque to x-rays"
+      ],
+      "definiendum_surface": "Arthrography",
+      "definiens_surface": "a type of medical imaging of joints that uses a contrast agent",
+      "fid": 418,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "arthropoda",
+      "object": "phylum",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "arthropoda",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 8.601,
+      "patterns_seen": [
+        "COPULA",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "Arthropoda is the largest phylum in the animal world in terms of numbers of species, and insects form the single largest group within this phylum",
+        "Arthropoda: a phylum of Ecdysozoa with jointed appendages and segmented bodies"
+      ],
+      "definiendum_surface": "Arthropoda",
+      "definiens_surface": "the largest phylum in the animal world in terms of numbers of species",
+      "fid": 419,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "belt",
+      "object": "zone",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "belt",
+      "segment": "bootstrap",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 6.9107,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "One of the biggest surprises was the discovery that there are mountains in the Kuiper belt, the solar systems mysterious third zone where Pluto is, with about 100,000 smaller icy objects"
+      ],
+      "definiendum_surface": "belt",
+      "definiens_surface": "the solar systems mysterious third zone where Pluto is",
+      "fid": 456,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "boreal forest",
+      "object": "biome",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "forest",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.9587,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "boreal forest: a biome found in temperate and subarctic regions characterized by short growing seasons and dominated structurally by coniferous trees"
+      ],
+      "definiendum_surface": "boreal forest",
+      "definiens_surface": "a biome found in temperate and subarctic regions characterized by short growing seasons and dominated structurally by coniferous trees",
+      "fid": 511,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "cell cycle",
+      "object": "event",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "cycle",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 2.4263,
+      "patterns_seen": [
+        "COPULA",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "The cell cycle is an orderly sequence of events",
+        "cell cycle: the ordered sequence of events that a cell passes through between one cell division and the next"
+      ],
+      "definiendum_surface": "cell cycle",
+      "definiens_surface": "an orderly sequence of events",
+      "fid": 571,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "cinema",
+      "object": "screen",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "cinema",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 5.725,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "In London, they are also creating a 37-screen pop-up cinema, one screen to showcase each of Shakespeare’s plays, along the South Bank"
+      ],
+      "definiendum_surface": "cinema",
+      "definiens_surface": "one screen to showcase each of Shakespeare’s plays",
+      "fid": 636,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "club moss",
+      "object": "plant",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "moss",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.5768,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "club moss: the earliest group of seedless vascular plants"
+      ],
+      "definiendum_surface": "club moss",
+      "definiens_surface": "the earliest group of seedless vascular plants",
+      "fid": 653,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "dna",
+      "object": "molecule",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "dna",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 2.7378,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "DNA is a working molecule; it must be replicated when a cell is ready to divide, and it must be “read” to produce the molecules, such as proteins, to carry out the functions of the cell"
+      ],
+      "definiendum_surface": "DNA",
+      "definiens_surface": "a working molecule",
+      "fid": 787,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "ecology",
+      "object": "study",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "ecology",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 2,
+      "pmi": 4.0801,
+      "patterns_seen": [
+        "GLOSSARY_COLON",
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "ecology: the study of the relationships among living organisms and their environment",
+        "Socio-political issues like the Asian carp make extensive use of the sciences of population ecology, the study of members of a particular species occupying a habitat; and community ecology, the study of the interaction of all species within a habitat"
+      ],
+      "definiendum_surface": "ecology",
+      "definiens_surface": "the study of the relationships among living organisms and their environment",
+      "fid": 814,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "evolution",
+      "object": "change",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "evolution",
+      "segment": "bio_new",
+      "pattern": "REFERS_TO",
+      "n_attestations": 2,
+      "pmi": 2.6421,
+      "patterns_seen": [
+        "REFERS_TO",
+        "COPULA"
+      ],
+      "source_sentences": [
+        "In population genetic terms, evolution is defined as a change in the frequency of an allele in a population",
+        "Evolution is the change in genetic composition of a population over time, specifically over generations, resulting from differential reproduction of individuals with certain alleles"
+      ],
+      "definiendum_surface": "evolution",
+      "definiens_surface": "a change in the frequency of an allele in a population",
+      "fid": 881,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "extinction",
+      "object": "disappearance",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "extinction",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 6.4905,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "extinction: the disappearance of a species from Earth; local extinction is the disappearance of a species from a region"
+      ],
+      "definiendum_surface": "extinction",
+      "definiens_surface": "the disappearance of a species from Earth; local extinction is the disappearance of a species from a region",
+      "fid": 895,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "extremophiles",
+      "object": "belonging",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "extremophiles",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 9.0604,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Many organisms belonging to the Archaea domain live under extreme conditions and are called extremophiles"
+      ],
+      "definiendum_surface": "extremophiles",
+      "definiens_surface": "Many organisms belonging to the Archaea domain live under extreme conditions and",
+      "fid": 902,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "fat",
+      "object": "molecule",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "fat",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 2.3103,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "fat: a lipid molecule composed of three fatty acids and a glycerol (triglyceride) that typically exists in a solid form at room temperature"
+      ],
+      "definiendum_surface": "fat",
+      "definiens_surface": "a lipid molecule composed of three fatty acids and a glycerol (triglyceride) that typically exists in a solid form at room temperature",
+      "fid": 914,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "filament",
+      "object": "stamen",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "filament",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 7.0946,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Stamens are composed of a thin stalk called a filament and a sac-like structure, the anther, in which microspores are produced by meiosis and develop into pollen grains"
+      ],
+      "definiendum_surface": "filament",
+      "definiens_surface": "Stamens are composed of a thin stalk",
+      "fid": 933,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "forward",
+      "object": "maria",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "forward",
+      "segment": "adv_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 4.431,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "When it’s her turn, Maria is called forward to pick up a brown paper bag filled with essentials including pasta, eggs and cornflakes, and is invited to choose between butternut squash or carrots as this week’s vegetables"
+      ],
+      "definiendum_surface": "forward",
+      "definiens_surface": "Maria",
+      "fid": 952,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "forward",
+      "object": "step",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "forward",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 5.7134,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Too many families are experiencing 'two steps forward, one step back', where they struggle to recover from personal or bigger setbacks"
+      ],
+      "definiendum_surface": "forward",
+      "definiens_surface": "one step back",
+      "fid": 953,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "genetic map",
+      "object": "outline",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "map",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 6.2307,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "genetic map: an outline of genes and their location on a chromosome that is based on recombination frequencies between markers"
+      ],
+      "definiendum_surface": "genetic map",
+      "definiens_surface": "an outline of genes and their location on a chromosome that is based on recombination frequencies between markers",
+      "fid": 1003,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "homeostasis",
+      "object": "equilibrium",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "homeostasis",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 7.502,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Homeostasis is a dynamic equilibrium that is maintained in body tissues and organs"
+      ],
+      "definiendum_surface": "Homeostasis",
+      "definiens_surface": "a dynamic equilibrium that is maintained in body tissues and organs",
+      "fid": 1083,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "inductive reasoning",
+      "object": "thinking",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "reasoning",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 7.6104,
+      "patterns_seen": [
+        "COPULA",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "Inductive reasoning is a form of logical thinking that uses related observations to arrive at a general conclusion",
+        "inductive reasoning: a form of logical thinking that uses related observations to arrive at a general conclusion"
+      ],
+      "definiendum_surface": "Inductive reasoning",
+      "definiens_surface": "a form of logical thinking that uses related observations to arrive at a general conclusion",
+      "fid": 1126,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "injera",
+      "object": "flatbread",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "injera",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 10.253,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Ground into flour and used to make injera, the spongy fermented flatbread that is basic to Ethiopian cuisine, the grain is central to many religious and cultural ceremonies"
+      ],
+      "definiendum_surface": "injera",
+      "definiens_surface": "the spongy fermented flatbread that is basic to Ethiopian cuisine",
+      "fid": 1138,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "injury",
+      "object": "stab",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "injury",
+      "segment": "adv_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 7.0436,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "One terrible injury, a stab through the right buttock and into his pelvis, was certainly after death and could not have happened when his lower body was protected by armour"
+      ],
+      "definiendum_surface": "injury",
+      "definiens_surface": "a stab through the right buttock and into his pelvis",
+      "fid": 1139,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "label",
+      "object": "riveter",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "label",
+      "segment": "adv_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 10.601,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Its label is a take on Rosie the Riveter, the creation of a US Second World War propaganda campaign that went on to become a symbol of women’s power in the workplace"
+      ],
+      "definiendum_surface": "Its label",
+      "definiens_surface": "a take on Rosie the Riveter",
+      "fid": 1185,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "lateral line",
+      "object": "organ",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "line",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 2.5856,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "lateral line: the sense organ that runs the length of a fish’s body, used to detect vibration in the water"
+      ],
+      "definiendum_surface": "lateral line",
+      "definiens_surface": "the sense organ that runs the length of a fish’s body, used to detect vibration in the water",
+      "fid": 1200,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "natural science",
+      "object": "field",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "science",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 3.21,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "natural science: a field of science that studies the physical world, its phenomena, and processes"
+      ],
+      "definiendum_surface": "natural science",
+      "definiens_surface": "a field of science that studies the physical world, its phenomena, and processes",
+      "fid": 1378,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "neuropathy",
+      "object": "disease",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "neuropathy",
+      "segment": "bootstrap",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 6.4531,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "A disease of nerves is also called a neuropathy."
+      ],
+      "definiendum_surface": "neuropathy",
+      "definiens_surface": "A disease of nerves is also",
+      "fid": 1393,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "noncompetitive inhibition",
+      "object": "mechanism",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "inhibition",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 6.6141,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "noncompetitive inhibition: a general mechanism of enzyme activity regulation in which a regulatory molecule binds to a site other than the active site and prevents the active site from binding the substrate; thus, the inhibitor molecule does not compete with the substrate for the active site; allosteric inhibition is a form of noncompetitive inhibition"
+      ],
+      "definiendum_surface": "noncompetitive inhibition",
+      "definiens_surface": "a general mechanism of enzyme activity regulation in which a regulatory molecule binds to a site other than the active site and prevents the active site from binding the substrate; thus, the inhibitor molecule does not compete with the substrate for the active site; allosteric inhibition is a form of noncompetitive inhibition",
+      "fid": 1408,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "outermost layer",
+      "object": "mater",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "layer",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 7.5329,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The outermost layer is the dura mater, the middle layer is the web-like arachnoid mater, and the inner layer is the pia mater, which directly contacts and covers the brain and spinal cord"
+      ],
+      "definiendum_surface": "outermost layer",
+      "definiens_surface": "the dura mater",
+      "fid": 1470,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "oxidative phosphorylation",
+      "object": "production",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "phosphorylation",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 7.19,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "oxidative phosphorylation: the production of ATP by the transfer of electrons down the electron transport chain to create a proton gradient that is used by ATP synthase to add phosphate groups to ADP molecules"
+      ],
+      "definiendum_surface": "oxidative phosphorylation",
+      "definiens_surface": "the production of ATP by the transfer of electrons down the electron transport chain to create a proton gradient that is used by ATP synthase to add phosphate groups to ADP molecules",
+      "fid": 1481,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "phototrophs",
+      "object": "organism",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "phototrophs",
+      "segment": "bio_new",
+      "pattern": "CALLED",
+      "n_attestations": 1,
+      "pmi": 3.2506,
+      "patterns_seen": [
+        "CALLED"
+      ],
+      "source_sentences": [
+        "Organisms that convert solar energy into chemical energy are called phototrophs"
+      ],
+      "definiendum_surface": "phototrophs",
+      "definiens_surface": "Organisms that convert solar energy into chemical energy",
+      "fid": 1550,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "phylum mollusca",
+      "object": "large",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "mollusca",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 3.898,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "The phylum Mollusca is a large, mainly marine group of invertebrates"
+      ],
+      "definiendum_surface": "phylum Mollusca",
+      "definiens_surface": "a large",
+      "fid": 1556,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "s-shaped growth curve",
+      "object": "shape",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "curve",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 4.1062,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "S-shaped growth curve: the shape of a logistic growth curve"
+      ],
+      "definiendum_surface": "S-shaped growth curve",
+      "definiens_surface": "the shape of a logistic growth curve",
+      "fid": 1718,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "sarcolemma",
+      "object": "membrane",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "sarcolemma",
+      "segment": "bio_new",
+      "pattern": "GLOSSARY_COLON",
+      "n_attestations": 1,
+      "pmi": 6.803,
+      "patterns_seen": [
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "sarcolemma: the plasma membrane of a skeletal muscle fiber"
+      ],
+      "definiendum_surface": "sarcolemma",
+      "definiens_surface": "the plasma membrane of a skeletal muscle fiber",
+      "fid": 1728,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "sarcomere",
+      "object": "unit",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "sarcomere",
+      "segment": "bio_new",
+      "pattern": "COPULA",
+      "n_attestations": 2,
+      "pmi": 7.236,
+      "patterns_seen": [
+        "COPULA",
+        "GLOSSARY_COLON"
+      ],
+      "source_sentences": [
+        "The sarcomere is the unit of contraction in a muscle cell",
+        "sarcomere: the functional unit of skeletal muscle"
+      ],
+      "definiendum_surface": "sarcomere",
+      "definiens_surface": "the unit of contraction in a muscle cell",
+      "fid": 1731,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "start",
+      "object": "minimum",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "start",
+      "segment": "ele_cont",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 3.2627,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Typical salary: When you start, the salary is a minimum of £30,000"
+      ],
+      "definiendum_surface": "start",
+      "definiens_surface": "the salary is a minimum of £30",
+      "fid": 1839,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "switch",
+      "object": "tragedy",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "switch",
+      "segment": "ele_cont",
+      "pattern": "COPULA",
+      "n_attestations": 1,
+      "pmi": 6.9005,
+      "patterns_seen": [
+        "COPULA"
+      ],
+      "source_sentences": [
+        "Henk Strydom, a lawyer for one of the mothers, said the switch was a tragedy that will probably not have a happy ending"
+      ],
+      "definiendum_surface": "said the switch",
+      "definiens_surface": "a tragedy that will probably not have a happy ending",
+      "fid": 1881,
+      "relation": "GROUNDED_MEANING"
+    },
+    {
+      "subject": "wings",
+      "object": "foreleg",
+      "subject_type": "COMMON",
+      "subject_head_lemma": "wings",
+      "segment": "bio_new",
+      "pattern": "APPOSITIVE",
+      "n_attestations": 1,
+      "pmi": 10.388,
+      "patterns_seen": [
+        "APPOSITIVE"
+      ],
+      "source_sentences": [
+        "Bat and bird wings, the foreleg of a horse, the flipper of a whale, and the arm of a human are homologous structures, indicating that bats, birds, horses, whales, and humans share a common evolutionary past"
+      ],
+      "definiendum_surface": "wings",
+      "definiens_surface": "the foreleg of a horse",
+      "fid": 2069,
+      "relation": "GROUNDED_MEANING"
+    }
+  ]
+}
