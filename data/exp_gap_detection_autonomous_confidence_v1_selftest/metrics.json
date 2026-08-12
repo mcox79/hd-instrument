@@ -1,0 +1,157 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: MIDDLE_BAND on: ['test2_not_a_lookup'] | t1_auc=1.0000 t1_dprime=2.7660 t1b_auc=1.0000 t2_delta_auc=0.7500 t3_flip_rate=1.0000 t4_recall=1.0000 t4_resolution_acc=1.0000",
+  "summary": "gap_detection_autonomous_confidence_v1 self_test: MIDDLE_BAND (grades={'test1_signal_detection': 'HARD_PASS', 'test2_not_a_lookup': 'MIDDLE_BAND', 'test3_scramble_sensitivity': 'HARD_PASS', 'test4_end_to_end': 'HARD_PASS'})",
+  "elapsed_s": 0.0743967000162229,
+  "ts_iso": "2026-08-12T02:16:19.682613+00:00",
+  "pid": 8428,
+  "anchor_name": "gap_detection_autonomous_confidence_v1",
+  "run_mode": "self_test",
+  "floor": 0.625,
+  "n_dim": 1024,
+  "profile": {
+    "n_facts_per_rel": 3,
+    "obj_cycle": 3,
+    "n_known_probe": 6,
+    "n_novel_easy": 6,
+    "n_novel_hard": 3,
+    "n_lesion": 3,
+    "n_dim": 1024,
+    "e2e_dim": 1024,
+    "e2e_kg_dim": 256
+  },
+  "multi_seed_variance_probe": null,
+  "tests_1_2_3": {
+    "n_dim": 1024,
+    "floor": 0.625,
+    "n_codebook_at_refresh": 18,
+    "n_known_probe": 6,
+    "n_novel_easy": 6,
+    "n_novel_hard": 3,
+    "n_lesion": 3,
+    "test1_known_vs_novel_easy": {
+      "n_known": 6,
+      "n_novel": 6,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 2.765988254201276,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0,
+      "known_margin_min": 1.0,
+      "novel_margin_mean": 0.2692057291666667,
+      "novel_margin_max": 0.2890625,
+      "floor": 0.625
+    },
+    "test1b_known_vs_novel_hard_HONEST_SECONDARY": {
+      "n_known": 6,
+      "n_novel": 3,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 2.350415693202339,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0,
+      "known_margin_min": 1.0,
+      "novel_margin_mean": 0.4895833333333333,
+      "novel_margin_max": 0.5078125,
+      "floor": 0.625
+    },
+    "test2_ablation": {
+      "real": {
+        "n_known": 6,
+        "n_novel": 6,
+        "hit_rate": 1.0,
+        "false_alarm_rate": 0.0,
+        "d_prime": 2.765988254201276,
+        "auc": 1.0,
+        "auc_vs_chance_baseline_0.5": 0.5,
+        "known_margin_mean": 1.0,
+        "known_margin_min": 1.0,
+        "novel_margin_mean": 0.2692057291666667,
+        "novel_margin_max": 0.2890625,
+        "floor": 0.625
+      },
+      "ablated": {
+        "n_known": 6,
+        "n_novel": 6,
+        "hit_rate": 0.6666666666666666,
+        "false_alarm_rate": 1.0,
+        "d_prime": -0.9522668278051807,
+        "auc": 0.25,
+        "auc_vs_chance_baseline_0.5": -0.25,
+        "known_margin_mean": -0.06415155167208646,
+        "known_margin_min": -0.4436486826669013,
+        "novel_margin_mean": 0.3208938397101118,
+        "novel_margin_max": 0.9815704903658973,
+        "floor": 0.625
+      },
+      "delta_auc_real_minus_ablated": 0.75,
+      "arms_differ_verified": true
+    },
+    "test3_scramble": {
+      "n_lesion_targets": 3,
+      "n_correctly_known_before_lesion": 3,
+      "n_flipped_known_to_gap": 3,
+      "flip_rate": 1.0,
+      "lesion_before_margin_mean": 1.0,
+      "lesion_after_margin_mean": 0.529296875,
+      "lesion_replace_resolutions_all_replace": true
+    }
+  },
+  "test4_end_to_end": {
+    "n_subjects": 6,
+    "n_categories": 3,
+    "true_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05"
+    ],
+    "autonomous_detected_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05"
+    ],
+    "detection_recall": 1.0,
+    "detection_false_positives": [],
+    "n_fed_to_loop": 3,
+    "reasoning_correct": 3,
+    "resolved_correct": 3,
+    "reasoning_accuracy": 1.0,
+    "resolution_accuracy": 1.0,
+    "no_handfed_gapset_audit": "PASS: loop GATHER/REASON/ENCOUNTER/CONSOLIDATE steps iterated exclusively over autonomous_detected_gap_subjects (detector runtime output); true_gap_subjects/odd_subjects is used ONLY for grading (detection_recall/false_positives), never fed to the loop",
+    "per_gap_detail": [
+      {
+        "subject": "e2e_subj_01",
+        "predicted_category": "e2e_cat_01",
+        "gold_category": "e2e_cat_01",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_03",
+        "predicted_category": "e2e_cat_00",
+        "gold_category": "e2e_cat_00",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_05",
+        "predicted_category": "e2e_cat_02",
+        "gold_category": "e2e_cat_02",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      }
+    ]
+  },
+  "grades": {
+    "test1_signal_detection": "HARD_PASS",
+    "test2_not_a_lookup": "MIDDLE_BAND",
+    "test3_scramble_sensitivity": "HARD_PASS",
+    "test4_end_to_end": "HARD_PASS"
+  },
+  "required_fields_present": true
+}

@@ -1,0 +1,198 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 4 axes (signal-detection / not-a-lookup / scramble / end-to-end) HARD_PASS | t1_auc=1.0000 t1_dprime=3.9199 t1b_auc=1.0000 t2_delta_auc=0.5475 t3_flip_rate=1.0000 t4_recall=1.0000 t4_resolution_acc=1.0000",
+  "summary": "gap_detection_autonomous_confidence_v1 smoke: HARD_PASS (grades={'test1_signal_detection': 'HARD_PASS', 'test2_not_a_lookup': 'HARD_PASS', 'test3_scramble_sensitivity': 'HARD_PASS', 'test4_end_to_end': 'HARD_PASS'})",
+  "elapsed_s": 0.8115579000441357,
+  "ts_iso": "2026-08-12T02:16:24.397233+00:00",
+  "pid": 11212,
+  "anchor_name": "gap_detection_autonomous_confidence_v1",
+  "run_mode": "smoke",
+  "floor": 0.625,
+  "n_dim": 2048,
+  "profile": {
+    "n_facts_per_rel": 10,
+    "obj_cycle": 6,
+    "n_known_probe": 20,
+    "n_novel_easy": 20,
+    "n_novel_hard": 15,
+    "n_lesion": 10,
+    "n_dim": 2048,
+    "e2e_dim": 2048,
+    "e2e_kg_dim": 512
+  },
+  "multi_seed_variance_probe": {
+    "per_seed": [
+      {
+        "seed": 20260811001,
+        "auc": 1.0,
+        "d_prime": 3.9199279690801085
+      },
+      {
+        "seed": 20260811002,
+        "auc": 1.0,
+        "d_prime": 3.9199279690801085
+      },
+      {
+        "seed": 20260811003,
+        "auc": 1.0,
+        "d_prime": 3.9199279690801085
+      }
+    ],
+    "auc_min": 1.0,
+    "auc_max": 1.0,
+    "auc_stable": true
+  },
+  "tests_1_2_3": {
+    "n_dim": 2048,
+    "floor": 0.625,
+    "n_codebook_at_refresh": 60,
+    "n_known_probe": 20,
+    "n_novel_easy": 20,
+    "n_novel_hard": 15,
+    "n_lesion": 10,
+    "test1_known_vs_novel_easy": {
+      "n_known": 20,
+      "n_novel": 20,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 3.9199279690801085,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0000001192092896,
+      "known_margin_min": 1.0000001192092896,
+      "novel_margin_mean": 0.2819336228072643,
+      "novel_margin_max": 0.3154297173023224,
+      "floor": 0.625
+    },
+    "test1b_known_vs_novel_hard_HONEST_SECONDARY": {
+      "n_known": 20,
+      "n_novel": 15,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 3.793878620355969,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0000001192092896,
+      "known_margin_min": 1.0000001192092896,
+      "novel_margin_mean": 0.4904948314030965,
+      "novel_margin_max": 0.5117188096046448,
+      "floor": 0.625
+    },
+    "test2_ablation": {
+      "real": {
+        "n_known": 20,
+        "n_novel": 20,
+        "hit_rate": 1.0,
+        "false_alarm_rate": 0.0,
+        "d_prime": 3.9199279690801085,
+        "auc": 1.0,
+        "auc_vs_chance_baseline_0.5": 0.5,
+        "known_margin_mean": 1.0000001192092896,
+        "known_margin_min": 1.0000001192092896,
+        "novel_margin_mean": 0.2819336228072643,
+        "novel_margin_max": 0.3154297173023224,
+        "floor": 0.625
+      },
+      "ablated": {
+        "n_known": 20,
+        "n_novel": 20,
+        "hit_rate": 0.75,
+        "false_alarm_rate": 0.85,
+        "d_prime": -0.3619436392977081,
+        "auc": 0.4525,
+        "auc_vs_chance_baseline_0.5": -0.04749999999999999,
+        "known_margin_mean": -0.08723888442532829,
+        "known_margin_min": -0.9158912302757198,
+        "novel_margin_mean": 0.03544131455248726,
+        "novel_margin_max": 0.9432447869153762,
+        "floor": 0.625
+      },
+      "delta_auc_real_minus_ablated": 0.5475,
+      "arms_differ_verified": true
+    },
+    "test3_scramble": {
+      "n_lesion_targets": 10,
+      "n_correctly_known_before_lesion": 10,
+      "n_flipped_known_to_gap": 10,
+      "flip_rate": 1.0,
+      "lesion_before_margin_mean": 1.0000001192092896,
+      "lesion_after_margin_mean": 0.5126953601837159,
+      "lesion_replace_resolutions_all_replace": true
+    }
+  },
+  "test4_end_to_end": {
+    "n_subjects": 10,
+    "n_categories": 3,
+    "true_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05",
+      "e2e_subj_07",
+      "e2e_subj_09"
+    ],
+    "autonomous_detected_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05",
+      "e2e_subj_07",
+      "e2e_subj_09"
+    ],
+    "detection_recall": 1.0,
+    "detection_false_positives": [],
+    "n_fed_to_loop": 5,
+    "reasoning_correct": 5,
+    "resolved_correct": 5,
+    "reasoning_accuracy": 1.0,
+    "resolution_accuracy": 1.0,
+    "no_handfed_gapset_audit": "PASS: loop GATHER/REASON/ENCOUNTER/CONSOLIDATE steps iterated exclusively over autonomous_detected_gap_subjects (detector runtime output); true_gap_subjects/odd_subjects is used ONLY for grading (detection_recall/false_positives), never fed to the loop",
+    "per_gap_detail": [
+      {
+        "subject": "e2e_subj_01",
+        "predicted_category": "e2e_cat_01",
+        "gold_category": "e2e_cat_01",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_03",
+        "predicted_category": "e2e_cat_00",
+        "gold_category": "e2e_cat_00",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_05",
+        "predicted_category": "e2e_cat_02",
+        "gold_category": "e2e_cat_02",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_07",
+        "predicted_category": "e2e_cat_01",
+        "gold_category": "e2e_cat_01",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_09",
+        "predicted_category": "e2e_cat_00",
+        "gold_category": "e2e_cat_00",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      }
+    ]
+  },
+  "grades": {
+    "test1_signal_detection": "HARD_PASS",
+    "test2_not_a_lookup": "HARD_PASS",
+    "test3_scramble_sensitivity": "HARD_PASS",
+    "test4_end_to_end": "HARD_PASS"
+  },
+  "required_fields_present": true
+}

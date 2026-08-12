@@ -1,0 +1,177 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 4 axes (signal-detection / not-a-lookup / scramble / end-to-end) HARD_PASS | t1_auc=1.0000 t1_dprime=5.1517 t1b_auc=1.0000 t2_delta_auc=0.5196 t3_flip_rate=1.0000 t4_recall=1.0000 t4_resolution_acc=1.0000",
+  "summary": "gap_detection_autonomous_confidence_v1 full: HARD_PASS (grades={'test1_signal_detection': 'HARD_PASS', 'test2_not_a_lookup': 'HARD_PASS', 'test3_scramble_sensitivity': 'HARD_PASS', 'test4_end_to_end': 'HARD_PASS'})",
+  "elapsed_s": 6.1037655000109226,
+  "ts_iso": "2026-08-12T02:16:34.328501+00:00",
+  "pid": 2400,
+  "anchor_name": "gap_detection_autonomous_confidence_v1",
+  "run_mode": "full",
+  "floor": 0.625,
+  "n_dim": 4096,
+  "profile": {
+    "n_facts_per_rel": 40,
+    "obj_cycle": 15,
+    "n_known_probe": 100,
+    "n_novel_easy": 100,
+    "n_novel_hard": 60,
+    "n_lesion": 40,
+    "n_dim": 4096,
+    "e2e_dim": 4096,
+    "e2e_kg_dim": 1024
+  },
+  "multi_seed_variance_probe": null,
+  "tests_1_2_3": {
+    "n_dim": 4096,
+    "floor": 0.625,
+    "n_codebook_at_refresh": 240,
+    "n_known_probe": 100,
+    "n_novel_easy": 100,
+    "n_novel_hard": 60,
+    "n_lesion": 40,
+    "test1_known_vs_novel_easy": {
+      "n_known": 100,
+      "n_novel": 100,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 5.151658607097801,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0,
+      "known_margin_min": 1.0,
+      "novel_margin_mean": 0.2786376953125,
+      "novel_margin_max": 0.2978515625,
+      "floor": 0.625
+    },
+    "test1b_known_vs_novel_hard_HONEST_SECONDARY": {
+      "n_known": 100,
+      "n_novel": 60,
+      "hit_rate": 1.0,
+      "false_alarm_rate": 0.0,
+      "d_prime": 4.969809103367411,
+      "auc": 1.0,
+      "auc_vs_chance_baseline_0.5": 0.5,
+      "known_margin_mean": 1.0,
+      "known_margin_min": 1.0,
+      "novel_margin_mean": 0.5023111979166667,
+      "novel_margin_max": 0.53271484375,
+      "floor": 0.625
+    },
+    "test2_ablation": {
+      "real": {
+        "n_known": 100,
+        "n_novel": 100,
+        "hit_rate": 1.0,
+        "false_alarm_rate": 0.0,
+        "d_prime": 5.151658607097801,
+        "auc": 1.0,
+        "auc_vs_chance_baseline_0.5": 0.5,
+        "known_margin_mean": 1.0,
+        "known_margin_min": 1.0,
+        "novel_margin_mean": 0.2786376953125,
+        "novel_margin_max": 0.2978515625,
+        "floor": 0.625
+      },
+      "ablated": {
+        "n_known": 100,
+        "n_novel": 100,
+        "hit_rate": 0.82,
+        "false_alarm_rate": 0.82,
+        "d_prime": 0.0,
+        "auc": 0.4804,
+        "auc_vs_chance_baseline_0.5": -0.019600000000000006,
+        "known_margin_mean": -0.06747186778768369,
+        "known_margin_min": -0.980746688188179,
+        "novel_margin_mean": -0.032279677192539324,
+        "novel_margin_max": 0.9262871384215305,
+        "floor": 0.625
+      },
+      "delta_auc_real_minus_ablated": 0.5196000000000001,
+      "arms_differ_verified": true
+    },
+    "test3_scramble": {
+      "n_lesion_targets": 40,
+      "n_correctly_known_before_lesion": 40,
+      "n_flipped_known_to_gap": 40,
+      "flip_rate": 1.0,
+      "lesion_before_margin_mean": 1.0,
+      "lesion_after_margin_mean": 0.4986328125,
+      "lesion_replace_resolutions_all_replace": true
+    }
+  },
+  "test4_end_to_end": {
+    "n_subjects": 10,
+    "n_categories": 3,
+    "true_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05",
+      "e2e_subj_07",
+      "e2e_subj_09"
+    ],
+    "autonomous_detected_gap_subjects": [
+      "e2e_subj_01",
+      "e2e_subj_03",
+      "e2e_subj_05",
+      "e2e_subj_07",
+      "e2e_subj_09"
+    ],
+    "detection_recall": 1.0,
+    "detection_false_positives": [],
+    "n_fed_to_loop": 5,
+    "reasoning_correct": 5,
+    "resolved_correct": 5,
+    "reasoning_accuracy": 1.0,
+    "resolution_accuracy": 1.0,
+    "no_handfed_gapset_audit": "PASS: loop GATHER/REASON/ENCOUNTER/CONSOLIDATE steps iterated exclusively over autonomous_detected_gap_subjects (detector runtime output); true_gap_subjects/odd_subjects is used ONLY for grading (detection_recall/false_positives), never fed to the loop",
+    "per_gap_detail": [
+      {
+        "subject": "e2e_subj_01",
+        "predicted_category": "e2e_cat_01",
+        "gold_category": "e2e_cat_01",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_03",
+        "predicted_category": "e2e_cat_00",
+        "gold_category": "e2e_cat_00",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_05",
+        "predicted_category": "e2e_cat_02",
+        "gold_category": "e2e_cat_02",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_07",
+        "predicted_category": "e2e_cat_01",
+        "gold_category": "e2e_cat_01",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      },
+      {
+        "subject": "e2e_subj_09",
+        "predicted_category": "e2e_cat_00",
+        "gold_category": "e2e_cat_00",
+        "reasoning_ok": true,
+        "answer_tag": "FOUNDATION_RESOLVED",
+        "resolved_ok": true
+      }
+    ]
+  },
+  "grades": {
+    "test1_signal_detection": "HARD_PASS",
+    "test2_not_a_lookup": "HARD_PASS",
+    "test3_scramble_sensitivity": "HARD_PASS",
+    "test4_end_to_end": "HARD_PASS"
+  },
+  "required_fields_present": true
+}
