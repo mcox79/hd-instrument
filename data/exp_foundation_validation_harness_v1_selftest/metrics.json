@@ -1,0 +1,18 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "all 7 formula self-tests passed (wilson_ci, prefix-cooccurs, cohesion_gap discriminates, contradiction scanner can-fail, chain builder degenerate/cycle exclusion, leak detection fires on a corrupted store, reason mechanism+controls fire)",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.09748629999739933,
+  "ts_iso": "2026-08-12T14:10:59.017070+00:00",
+  "anchor_name": "foundation_validation_harness_v1",
+  "run_mode": "self_test",
+  "result": {
+    "wilson_ci_ok": true,
+    "cooccurs_prefix_match_ok": true,
+    "cohesion_gap_discriminates_ok": true,
+    "contradiction_scanner_can_fail_ok": true,
+    "chain_builder_noleak_ok": true,
+    "leak_detection_fires_on_corrupted_store_ok": true,
+    "reason_mechanism_and_controls_ok": true
+  }
+}
