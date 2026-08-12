@@ -62,14 +62,26 @@ _DET = r"(?:a|an|the|any|each|every|one)"
 _BE = r"(?:is|are|was|were)"
 
 # Determiners / degree words that can never be a genus head.
+# 2026-08-12 (v4 F5 fix): the WEAK-TAXONOMY NOUNS (kind/type/form/part/number/group/set/series/
+# process) were REMOVED from this set. Excluding them from the candidate list is what let the
+# ADJECTIVE `medical` win in "a medical process of removing wastes" (-> `dialysis -> medical`).
+# Weak nouns are now legal heads, ranked below a more specific noun, and the partitive rule
+# below handles the cases where the content really does sit in the of-complement.
 _NON_HEAD = {
     "a", "an", "the", "this", "that", "these", "those", "its", "their", "his", "her",
-    "one", "kind", "type", "sort", "form", "way", "part", "piece", "number", "group",
-    "set", "lot", "bit", "series", "process",  # weak taxonomy nouns: kept but down-ranked
+    "one",
 }
-# The weak-taxonomy nouns above are legal heads only when nothing better exists in the span.
 _WEAK_HEAD = {"kind", "type", "sort", "form", "way", "part", "piece", "number", "group",
               "set", "lot", "bit", "series", "process", "unit", "thing"}
+
+# MEASURE / PARTITIVE heads: "a pair of bean-shaped structures" asserts that the definiendum is
+# a STRUCTURE, not a PAIR. The content sits in the of-complement -- but ONLY when that complement
+# is indefinite/bare. "the functional unit of THE kidney" is a RELATIONAL noun, not a partitive:
+# a nephron is a unit, it is not a kidney. That determiner test is the whole rule.
+_MEASURE_HEAD = {"pair", "group", "number", "set", "collection", "variety", "bunch", "couple",
+                 "series", "amount", "lot", "class", "kind", "type", "sort", "form", "piece",
+                 "range", "array", "majority", "portion", "handful", "sequence"}
+_DEFINITE = {"the", "this", "that", "these", "those", "its", "their", "his", "her", "our"}
 
 PATTERNS = ("COPULA", "APPOSITIVE", "GLOSSARY_COLON", "CALLED", "REFERS_TO")
 
@@ -128,37 +140,83 @@ _NP_BOUNDARY = {
     "such", "including", "known", "given", "taken", "seen", "shown",
     # coordination ends the NP too (a LIST is not a definiens)
     "and", "or", "but",
+    # 2026-08-12 (v4 F4 fix) NEGATION / EXCLUSION cues. Their absence is why
+    # "These unused structures WITHOUT function are called vestigial structures" yielded
+    # `structure -> function`: the head walk crossed the negation and took the word whose
+    # ABSENCE the sentence asserts. A genus head can never sit inside the scope of a negator.
+    "without", "lacking", "lack", "lacks", "no", "not", "non", "never", "absent",
+    "absence", "except", "excluding", "unlike", "rather", "instead", "minus", "sans",
 }
 
 
-def definiens_head(definiens: str) -> Optional[str]:
-    """Genus head of a definiens NP: the LAST open-class token before the first NP boundary
-    (relativizer / preposition / post-nominal participle / coordinator) -- i.e. the head of the
-    LEADING NP, never a word from its post-modifier. Falls back to the last open-class token in
-    the whole span. Deliberately shallow + fully visible (see module docstring)."""
+def is_nominal_lemma(lemma: str) -> bool:
+    """True iff `lemma` can be a NOUN: it has a WordNet noun sense, or WordNet does not know it
+    at all (technical terms / proper nouns must pass). A lemma WordNet knows ONLY as an adjective
+    or verb (`medical`, `moist`, `indicate`) returns False -- that test is what the old head
+    picker lacked."""
+    if not lemma:
+        return False
+    try:
+        from nltk.corpus import wordnet as wn
+    except Exception:                        # noqa: BLE001 - degraded mode, do not block
+        return True
+    if wn.synsets(lemma, pos="n"):
+        return True
+    if wn.synsets(lemma):
+        return False
+    return True
+
+
+def _lead_np(tokens: List[str]) -> List[str]:
+    lead: List[str] = []
+    for t in tokens:
+        if t.lower() in _NP_BOUNDARY:
+            break
+        lead.append(t)
+    return lead
+
+
+def definiens_head(definiens: str, _depth: int = 0) -> Optional[str]:
+    """Genus head of a definiens NP: the LAST NOUN of the leading NP (English NPs are
+    head-final), never a word from its post-modifier, never a word inside a negation, never an
+    adjective. If that head is a MEASURE/partitive noun with an INDEFINITE of-complement, the
+    real genus is the complement's head, so recurse into it.
+
+    v4 (2026-08-12) fixes, each with a named regression test in _self_test:
+      `dialysis -> medical`   an adjective won because `process` was excluded from the candidates
+      `kidney -> pair`        partitive head kept instead of its of-complement
+      `structure -> function` head taken from inside "without function"
+    Deliberately shallow + fully visible (see module docstring)."""
     toks = _tokens(definiens)
     if not toks:
         return None
-    boundary = _NP_BOUNDARY
-    lead: List[str] = []
-    for t in toks:
-        if t.lower() in boundary:
-            break
-        lead.append(t)
+    lead = _lead_np(toks)
     span = lead if lead else toks
-    strong = [t for t in span
-              if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
-    if not strong:
-        # allow weak-taxonomy heads only when nothing stronger exists
-        weak = [t for t in span if lemma_verb(t) in _WEAK_HEAD]
-        if weak:
-            return lemma_verb(weak[-1])
-        # try the full span before giving up
-        strong = [t for t in toks
-                  if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
-        if not strong:
+    cands = [t for t in span
+             if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
+    nouns = [t for t in cands if is_nominal_lemma(lemma_verb(t))]
+    if not nouns:
+        # nothing nominal in the leading NP: try the whole span once, then REFUSE. Emitting an
+        # adjective ("a moist, permeable skin" -> `moist`) is worse than emitting nothing.
+        if lead:
+            allc = [t for t in toks
+                    if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
+            nouns = [t for t in allc if is_nominal_lemma(lemma_verb(t))]
+        if not nouns:
             return None
-    return lemma_verb(strong[-1])
+    head = lemma_verb(nouns[-1])
+    # ---- partitive / measure expansion -------------------------------------------------------
+    if _depth < 2 and head in _MEASURE_HEAD:
+        m = re.search(r"\b" + re.escape(nouns[-1]) + r"\s+of\s+(?P<comp>.+)$", definiens,
+                      re.IGNORECASE)
+        if m:
+            comp = m.group("comp")
+            first = (_tokens(comp) or [""])[0].lower()
+            if first not in _DEFINITE:          # indefinite/bare complement => true partitive
+                sub = definiens_head(comp, _depth + 1)
+                if sub:
+                    return sub
+    return head
 
 
 # -------------------------------------------------------------------------------------------
@@ -352,6 +410,14 @@ def extract_from_sentences(sentences: Sequence[str]) -> Dict[str, List[Definitio
 # Self-test (run: python -m hdlab.definitional_extraction)
 # -------------------------------------------------------------------------------------------
 
+def _heads_for(sentence: str, definiendum_lemma: str) -> set:
+    """Set of genus heads this sentence banks for `definiendum_lemma`. The FACT SET uses the
+    HEAD, so regressions must be asserted on the head -- links(...) also matches at SPAN level
+    (any word inside the definiens) and would mask a head fix."""
+    return {d.head for d in extract_definitions(sentence)
+            if d.definiendum_lemma == definiendum_lemma}
+
+
 def _self_test() -> None:
     pos: List[Tuple[str, str, str]] = [
         ("Renal artery: the artery that delivers blood to the kidney",
@@ -443,6 +509,39 @@ def _self_test() -> None:
             ("Gene therapy is a genetic engineering technique that may cure diseases",
              "therapy", "technique")):
         assert links(s, subj, obj) == "COPULA:HEAD", (s, extract_definitions(s))
+
+    # === v4 PARSE-FAULT REGRESSIONS (2026-08-12) ==============================================
+    # Each case below is a REAL ROW from data/foundation/reading_grounding_v3_definitional/
+    # definitional_facts.jsonl that the director hand-scored NOISE or RELATED. The assertion is
+    # the fixed behaviour; the comment records the v3 output being corrected.
+
+    # F5a: adjective head. v3 gave `dialysis -> medical` because `process` was excluded from the
+    # candidate list, leaving the adjective as the last "strong" token.
+    s = ("Dialysis is a medical process of removing wastes and excess water from the blood by "
+         "diffusion and ultrafiltration")
+    assert _heads_for(s, "dialysis") == {"process"}, extract_definitions(s)
+
+    # F5a: adjective-only heads are refused outright rather than emitted.
+    assert definiens_head("a moist") is None
+    assert definiens_head("a harder") is None
+    assert definiens_head("a moist, permeable skin") == "skin"
+
+    # F5b: partitive head. v3 gave `kidney -> pair`.
+    s = ("The kidneys are a pair of bean-shaped structures that are located just below the liver "
+         "in the body cavity")
+    assert _heads_for(s, "kidney") == {"structure"}, extract_definitions(s)
+    assert definiens_head("a group of multicellular Eukarya") == "eukarya"
+    assert definiens_head("a class of drugs that modulate neurotransmitters") == "drug"
+    # ...but a RELATIONAL noun with a DEFINITE of-complement is NOT a partitive: a nephron is a
+    # unit, it is not a kidney. This determiner test is the whole rule and must not regress.
+    assert definiens_head("the functional unit of the kidney") == "unit"
+
+    # F4: polarity inversion. v3 gave `structure -> function` from a sentence asserting the
+    # ABSENCE of function; with `without` as an NP boundary the head becomes `structure`, which
+    # equals the definiendum and is refused as a tautology.
+    s = "These unused structures without function are called vestigial structures"
+    assert _heads_for(s, "structure") == set(), extract_definitions(s)
+    assert definiens_head("These unused structures without function") == "structure"
 
     print("[definitional_extraction] self-test PASS")
 
