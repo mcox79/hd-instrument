@@ -169,3 +169,28 @@ GROUNDED_MEANING facts in fid order -- the same procedure and seed as the prior 
   (119/1216). Closed-class SUBJECT share BEFORE = 0.0102 (36/3544).
 - B4 grounded concepts BEFORE = 3544
 - B5 provenance coverage BEFORE = 0.0000 (0 provenance rows persisted)
+
+### 3.3 Smoke gate (scale-reduced: 300/400/200/200/200 sentences) -- PASS
+`--mode smoke`, ~105 s wall. MEASURED@data/exp_reading_grounding_loop_cycle3_groundingfix_v1_smoke/metrics.json
+- B1 tautology rate 0.6569 -> 0.0 ; B2 closed-class object share 0.0401 -> 0.0
+- B5 provenance coverage 0.0 -> 1.0 ; B6 v1 store loads, 7966 facts unchanged
+- DISCRIMINATOR FIRES: 401 refusals vs 211 groundings at smoke scale (the gate is doing work, not
+  a no-op). B4 = 211 at smoke scale, below the FULL-scale band by construction (smoke reads ~5% of
+  the corpus), so the smoke verdict is MIDDLE_BAND and the FULL run is what B4 is judged on.
+
+### 3.4 Tests
+- `pytest verification/test_grounding_refusal.py` -> 7 passed (scaffold-free; real HDFactStore /
+  ReadingLoopState / checkpoint / save+load_foundation; no mocks).
+- Every other verification test touching the changed modules: test_gap_detector.py,
+  test_three_tier_loop_e2e.py, test_prelim_tier.py -> 9 passed, 0 regressions.
+- Module self-tests: closed_class_lexicon 5/5, reading_grounding_loop 8/8, foundation_persistence
+  7/7.
+- Commit 04b922c0e (local only; no push).
+
+### 3.5 FULL re-run in flight
+`--mode full --segment all` over the SAME 5 segments at the SAME full sentence counts, into
+`data/foundation/reading_grounding_v2_qualityfix/` (NEW; `reading_grounding_v1` opened read-only
+only, verified by mtime + absence of the v2 sidecars in it). Log: `data/exp_cycle3_full_run.log`.
+- bootstrap segment COMPLETE: 62 grounded / 340 refused, 131 s (v1 bootstrap = 185 grounded,
+  132 s). Same wall time, ~1/3 the grounded count -- the drop is the refusal biting, and the
+  direction matches the 65.7% tautology rate the audit measured.

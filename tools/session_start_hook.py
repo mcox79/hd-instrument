@@ -15,10 +15,12 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 PY = REPO / '.venv' / 'Scripts' / 'python.exe'
+STATUS_MD = REPO / 'notes' / 'STATUS.md'
 PROBE_TIMEOUT_SEC = 25
 
 # The non-negotiables. Kept SHORT on purpose: a wall of text gets skimmed, and these have to
@@ -42,6 +44,14 @@ RULES = """\
    every cert/HARD_PASS gets WIRE (+target) or SHELVE (+revival criteria). No limbo.
 6. DELEGATE. Director does judgment/strategy/verification; hdi_* subagents do the building.
    Tripwire: editing experiments/*.py or running smoke in main thread = spawn hdi_exp_dev.
+
+== HOW TO TALK TO THE USER (USER directive 2026-08-12) ==
+- PLAIN LANGUAGE. No jargon where an ordinary word works. Expand any term the first time.
+- ANALOGIES only when they genuinely clarify. Never decorative.
+- SUCCINCT. Lead with the answer. Cut preamble, restatement, and hedging.
+- KEEP THE MAIN THREAD FREE. Long work goes to a background subagent; dispatch and reply
+  immediately. Do not run bulk file ops, full-corpus scans, or multi-minute commands inline.
+  The user queues messages -- a blocked main thread blocks THEM.
 """
 
 
@@ -67,6 +77,47 @@ def probe(label: str, script: str, *args: str) -> str:
     status = 'OK' if proc.returncode == 0 else f'EXIT {proc.returncode} <-- ATTENTION'
     body = '\n'.join(f'    {line}' for line in tail) if tail else '    (no output)'
     return f"[{label}] {status}\n{body}"
+
+
+def status_summary() -> str:
+    """Cheap summary of notes/STATUS.md: its AS-OF line, its WHAT IS RUNNING section, and
+    days since it was last modified (loud warning past 1 day).
+
+    Deliberately a plain file read + line scan + a single os.stat call -- no subprocess, no
+    git call, no parsing beyond splitting on section headers. The staleness GUARD (which does
+    need a git call) lives in status_freshness_check.py and is reported separately via probe().
+    """
+    if not STATUS_MD.exists():
+        return "[STATUS.md] MISSING <-- ATTENTION\n    create notes/STATUS.md (see task history)"
+
+    try:
+        text = STATUS_MD.read_text(encoding='utf-8')
+        mtime = STATUS_MD.stat().st_mtime
+    except OSError as exc:
+        return f"[STATUS.md] unreadable ({exc})"
+
+    lines = text.splitlines()
+    as_of_line = next((ln.strip() for ln in lines if ln.strip().startswith('AS OF:')), '(no AS OF line found)')
+
+    running_lines: list[str] = []
+    in_running = False
+    for ln in lines:
+        if ln.strip().startswith('## WHAT IS RUNNING'):
+            in_running = True
+            continue
+        if in_running and ln.strip().startswith('## '):
+            break
+        if in_running and ln.strip():
+            running_lines.append(ln)
+    running_body = '\n'.join(f'    {ln}' for ln in running_lines) if running_lines else '    (no WHAT IS RUNNING section found)'
+
+    age_days = (time.time() - mtime) / 86400.0
+    age_flag = ' <-- STALE, over 1 day old, rewrite it' if age_days > 1.0 else ''
+    return (
+        f"[STATUS.md] {as_of_line}\n"
+        f"    age: {age_days:.2f} days{age_flag}\n"
+        f"  WHAT IS RUNNING:\n{running_body}"
+    )
 
 
 def registry_report() -> str:
@@ -103,11 +154,15 @@ def registry_report() -> str:
 
 
 def main() -> int:
-    blocks = [RULES, "== DURABILITY GATE (status read at session start) =="]
+    blocks = [RULES, "== STATUS (single source of truth -- notes/STATUS.md) =="]
+    blocks.append(status_summary())
+    blocks.append(probe('status-freshness-guard', 'status_freshness_check.py'))
+    blocks.append("== DURABILITY GATE (status read at session start) ==")
     blocks.append(registry_report())
     blocks.append(probe('director-kb-freshness', 'director_kb_freshness_check.py'))
     blocks.append(
         "== ORIENT ==\n"
+        "  notes/STATUS.md (read this FIRST -- cheap, current, sourced; <=6KB by design)\n"
         "  notes/SUBSTRATE_CHARTER_read_first.md (rules + current frontier)\n"
         "  notes/WHERE_WE_ARE_NOW.md (live state)  |  notes/THE_PLAN.md (the plan)\n"
         "  Search prior work: python tools/director_kb_query.py --help"
