@@ -96,6 +96,13 @@ class Definition:
     definiendum_lemma: Optional[str] = None
     definiens_lemmas: List[str] = field(default_factory=list)
     sentence: str = ""
+    # v4 (2026-08-12). `definiendum_lemma` is the HEAD lemma and is what v3 stored as the
+    # subject; storing it alone asserts about the general word something that was said about a
+    # compound ("transcription bubble" -> `bubble`). `term` is the full definiendum and is the
+    # v4 subject key; `term_type` is COMMON or PROPER, and PROPER keys keep their case so a
+    # surname can never fold onto a common noun (`Shanhui Fan` vs `fan`).
+    term: Optional[str] = None
+    term_type: str = "COMMON"
 
     def to_dict(self) -> dict:
         return {
@@ -106,6 +113,8 @@ class Definition:
             "definiendum_lemma": self.definiendum_lemma,
             "definiens_lemmas": list(self.definiens_lemmas),
             "sentence": self.sentence,
+            "term": self.term,
+            "term_type": self.term_type,
         }
 
 
@@ -355,6 +364,83 @@ _RE_REFERS = re.compile(
     re.IGNORECASE)
 
 
+# v4 F3/F1 -------------------------------------------------------------------------------------
+# A definiendum is a TERM. v3 stored only its head lemma, so "transcription bubble is called..."
+# banked `bubble -> region`, which asserts about the general word something that was said about a
+# compound; and a COPULA whose subject span ran on ("...and are surrounded by new nuclear
+# envelopes Cancer") banked a subject that is not a term at all.
+_TERM_STOP = set(_NP_BOUNDARY) | {"is", "are", "was", "were", "has", "have", "had", "does",
+                                  "do", "did", "can", "will", "would", "until", "unless"}
+_MAX_TERM_CONTENT_TOKENS = 4
+
+
+def _sentence_token_spans(sentence: str):
+    return [(m.group(0), m.start()) for m in _TOKEN_RE.finditer(sentence)]
+
+
+def _expand_proper_name(dfd: str, sentence: str) -> Tuple[str, bool]:
+    """If the definiendum is a NAME, grow it leftwards over contiguous capitalised tokens and
+    report proper-ness. "said Shanhui Fan, an expert..." -> ("Shanhui Fan", True);
+    "Currie Technologies, the number one seller" -> ("Currie Technologies", True).
+    Capitalisation at position 0 of the sentence is NOT evidence of a name."""
+    toks = _tokens(dfd)
+    if not toks or not toks[0][:1].isupper():
+        return dfd, False
+    spans = _sentence_token_spans(sentence)
+    for i, (t, _pos) in enumerate(spans):
+        if t != toks[0]:
+            continue
+        if i == 0 and len(toks) == 1:
+            return dfd, False              # sentence-initial capital only -> ordinary word
+        j = i
+        while (j > 0 and spans[j - 1][0][:1].isupper()
+               and spans[j - 1][0].lower() not in _NP_BOUNDARY
+               and not is_closed_class(lemma_verb(spans[j - 1][0]))
+               and j - 1 > 0):             # never absorb the sentence-initial token
+            j -= 1
+        head_tok = toks[-1]
+        end = None
+        for k in range(i, len(spans)):
+            if spans[k][0] == head_tok:
+                end = k
+                break
+        if end is None:
+            end = i
+        name = " ".join(s[0] for s in spans[j:end + 1])
+        proper = (i > 0) or (j < i)
+        return name, proper
+    return dfd, False
+
+
+def build_term(dfd: str, sentence: str) -> Optional[Tuple[str, str]]:
+    """(term, term_type) for a definiendum span, or None if it is not a term at all.
+    COMMON terms are lowercased with the HEAD token lemmatised ("Age structure" ->
+    "age structure"); PROPER terms keep their surface case so they can never collide with a
+    common noun ("Shanhui Fan" stays distinct from `fan`)."""
+    name, proper = _expand_proper_name(dfd, sentence)
+    toks = _tokens(name)
+    if not toks:
+        return None
+    cut: List[str] = []
+    for t in toks:
+        if t.lower() in _TERM_STOP and not proper:
+            break
+        cut.append(t)
+    if not cut:
+        return None
+    content = [t for t in cut if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
+    if not content:
+        return None
+    if len(content) > _MAX_TERM_CONTENT_TOKENS:
+        return None                         # run-on span, not a term (F3b)
+    if any(t.lower() in _TERM_STOP for t in content):
+        return None
+    if proper:
+        return " ".join(content), "PROPER"
+    body = [t.lower() for t in content[:-1]]
+    return " ".join(body + [lemma_verb(content[-1])]), "COMMON"
+
+
 def _mk(dfd: str, dfs: str, pattern: str, sentence: str) -> Optional[Definition]:
     dfd = dfd.strip().strip(",;:'\" ")
     dfs = dfs.strip().strip(",;:'\" ")
@@ -378,10 +464,16 @@ def _mk(dfd: str, dfs: str, pattern: str, sentence: str) -> Optional[Definition]
     head = definiens_head(dfs)
     if head is None or head == dfd_lemma:
         return None
+    built = build_term(dfd, sentence)
+    if built is None:
+        return None                          # F3b: run-on / non-term definiendum
+    term, term_type = built
+    if term.lower() == head:                 # tautology at TERM level too
+        return None
     dfs_lemmas = [l for l in _lemmas(dfs) if not is_closed_class(l)]
     return Definition(definiendum=dfd, definiens=dfs, pattern=pattern, head=head,
                       definiendum_lemma=dfd_lemma, definiens_lemmas=dfs_lemmas,
-                      sentence=sentence)
+                      sentence=sentence, term=term, term_type=term_type)
 
 
 # v4 F6: OpenStax glossary blocks arrive as ONE "sentence" holding many `term: definition`
@@ -689,6 +781,41 @@ def _self_test() -> None:
     assert len(split_glossary_entries(block)) >= 2, split_glossary_entries(block)
     assert split_glossary_entries("A nephron is the functional unit of the kidney") == [
         "A nephron is the functional unit of the kidney"]
+
+    # F3: subject truncation. v3 stored only the head lemma of a multiword term.
+    def _terms(sentence):
+        return {(d.term, d.term_type, d.head) for d in extract_definitions(sentence)}
+    assert ("transcription bubble", "COMMON", "region") in _terms(
+        "The region of unwinding is called a transcription bubble"), _terms(
+        "The region of unwinding is called a transcription bubble")
+    assert ("age structure", "COMMON", "proportion") in _terms(
+        "Age structure is the proportion of a population in different age classes")
+    # F3b: a run-on COPULA subject is not a term at all. v3 banked `cancer -> collective` from
+    # a definiendum span reading "and are surrounded by new nuclear envelopes Cancer".
+    assert build_term("and are surrounded by new nuclear envelopes Cancer", "x") is None
+    assert build_term("An important characteristic of extant amphibians", "x") == (
+        "important characteristic", "COMMON")
+
+    # F1: proper-noun / common-noun collision. v3 banked `fan -> expert` (a SURNAME) and
+    # `technology -> seller` (the head token of an ORG name) onto the common nouns.
+    s = ("You can offset the electricity used for air conditioning, said Shanhui Fan, an expert "
+         "in the study of light at Stanford University, who led the development of the mirror")
+    got = _terms(s)
+    assert ("Shanhui Fan", "PROPER", "expert") in got, got
+    assert not any(t == "fan" for t, _ty, _h in got), got
+    s = ("Pizzi, who is now CEO of Currie Technologies, the number one seller of e-bikes in the "
+         "US, believes thats about to change")
+    got = _terms(s)
+    assert ("Currie Technologies", "PROPER", "seller") in got, got
+    assert not any(t == "technology" for t, _ty, _h in got), got
+    # ...and proper nouns are NOT dropped: a real proper-noun definition survives, typed PROPER
+    s = "I would dock in Piraeus, the port in Athens, take my pay, then get the first boat over"
+    assert ("Piraeus", "PROPER", "port") in _terms(s), _terms(s)
+    s = "Eye color in Drosophila, the common fruit fly, was the first X-linked trait identified"
+    assert ("Drosophila", "PROPER", "fly") in _terms(s), _terms(s)
+    # a sentence-INITIAL capital is not evidence of a name
+    assert build_term("Dialysis", "Dialysis is a medical process of removing wastes") == (
+        "dialysis", "COMMON")
 
     print("[definitional_extraction] self-test PASS")
 
