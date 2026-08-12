@@ -1,0 +1,428 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "primary=CONTEXT_CARRIES_SIGNAL (prereg-literal=MIDDLE_BAND_CEILING_LIMITED) D(SCRAMBLE_SENT-REAL)=+0.2155 CI95[+0.1982,+0.2332] | flip REAL=0.7830 SCRAMBLE_SENT=0.9984 WORD=0.9948 RAND=0.9990 | argmax agree REAL|SCRAMBLE_SENT raw=0.0022 kappa=0.0001 | secondary=TRACE_SUM_ALIVE trace-sum agree raw=0.0663 kappa=0.0446",
+  "summary": "primary=CONTEXT_CARRIES_SIGNAL (prereg-literal=MIDDLE_BAND_CEILING_LIMITED) D(SCRAMBLE_SENT-REAL)=+0.2155 CI95[+0.1982,+0.2332] | flip REAL=0.7830 SCRAMBLE_SENT=0.9984 WORD=0.9948 RAND=0.9990 | argmax agree REAL|SCRAMBLE_SENT raw=0.0022 kappa=0.0001 | secondary=TRACE_SUM_ALIVE trace-sum agree raw=0.",
+  "primary_verdict": "CONTEXT_CARRIES_SIGNAL",
+  "secondary_verdict": "TRACE_SUM_ALIVE",
+  "prereg_literal_primary": "MIDDLE_BAND_CEILING_LIMITED",
+  "prereg_literal_secondary": "TRACE_SUM_MIDDLE",
+  "amendments": [
+    "A1 ceiling guard: pre-registered rule fired on the NULL arm alone, which can only suppress a positive; amended to require BOTH arms pinned. prereg_literal_primary records the unamended outcome.",
+    "A2 trace-sum ALIVE criterion was written backwards (high REAL-vs-SCRAMBLE agreement is the DEAD signature); amended to input-dependence + separation. prereg_literal_secondary records the unamended outcome."
+  ],
+  "trace_sum_separation": -0.063801,
+  "prefix_sum_D": 0.226474,
+  "blockers": [],
+  "positive_control": {
+    "measured_informative_rate": 0.416687,
+    "reference_arm_B_informative_rate": 0.393912,
+    "abs_deviation": 0.022775,
+    "tolerance": 0.1,
+    "flag": "ok",
+    "note": "arm B scored against the LIVE space at each encounter; this cell scores against the FINAL space, so exact equality is not expected"
+  },
+  "bands": {
+    "D_noise_max": 0.05,
+    "D_signal_min": 0.1,
+    "scramble_ceiling": 0.98,
+    "ts_dead_raw_min": 0.8,
+    "ts_dead_kappa_max": 0.1,
+    "ts_alive_kappa_min_PREREG_LITERAL": 0.2,
+    "ts_alive_raw_max": 0.3,
+    "ts_sep_min": 0.05,
+    "ts_prefix_gain_min": 0.05
+  },
+  "cannot_fail_declared": [
+    "LESION_ZERO (zero probe -> canonicalize_fast self-return; flip rate 0.000 by construction; harness sanity only, no verdict weight)"
+  ],
+  "per_encounter": {
+    "REAL": {
+      "flip_rate": 0.782962,
+      "flip_rate_ci95": [
+        0.764563,
+        0.800267
+      ],
+      "n_pairs": 3815,
+      "modal_share_mean": 0.787837,
+      "modal_share_ci95": [
+        0.779604,
+        0.79622
+      ],
+      "informative_rate": 0.416687,
+      "sense_thresh_rate": 0.10722,
+      "best_cos_mean": 0.311343,
+      "argmax_in_own_window_rate": 0.287129,
+      "concentration": {
+        "n_distinct_argmax": 884,
+        "top1_share": 0.014851,
+        "norm_entropy": 0.959808
+      }
+    },
+    "SCRAMBLE_SENT": {
+      "flip_rate": 0.998427,
+      "flip_rate_ci95": [
+        0.996964,
+        0.999484
+      ],
+      "n_pairs": 3815,
+      "modal_share_mean": 0.712655,
+      "modal_share_ci95": [
+        0.703735,
+        0.721448
+      ],
+      "informative_rate": 0.416808,
+      "sense_thresh_rate": 0.10722,
+      "best_cos_mean": 0.311344,
+      "argmax_in_own_window_rate": 0.00495,
+      "concentration": {
+        "n_distinct_argmax": 883,
+        "top1_share": 0.014731,
+        "norm_entropy": 0.959998
+      }
+    },
+    "SCRAMBLE_WORD": {
+      "flip_rate": 0.994758,
+      "flip_rate_ci95": [
+        0.992175,
+        0.997056
+      ],
+      "n_pairs": 3815,
+      "modal_share_mean": 0.713598,
+      "modal_share_ci95": [
+        0.704658,
+        0.722387
+      ],
+      "informative_rate": 0.194035,
+      "sense_thresh_rate": 0.007003,
+      "best_cos_mean": 0.250685,
+      "argmax_in_own_window_rate": 0.006641,
+      "concentration": {
+        "n_distinct_argmax": 894,
+        "top1_share": 0.020406,
+        "norm_entropy": 0.957842
+      }
+    },
+    "LESION_RANDOM": {
+      "flip_rate": 0.998952,
+      "flip_rate_ci95": [
+        0.997897,
+        0.999762
+      ],
+      "n_pairs": 3815,
+      "modal_share_mean": 0.712463,
+      "modal_share_ci95": [
+        0.703517,
+        0.721288
+      ],
+      "informative_rate": 0.000724,
+      "sense_thresh_rate": 0.0,
+      "best_cos_mean": 0.190186,
+      "argmax_in_own_window_rate": 0.001328,
+      "concentration": {
+        "n_distinct_argmax": 889,
+        "top1_share": 0.003864,
+        "norm_entropy": 0.975994
+      }
+    },
+    "LESION_ZERO": {
+      "flip_rate": 0.0,
+      "flip_rate_ci95": [
+        0.0,
+        0.0
+      ],
+      "n_pairs": 3815,
+      "modal_share_mean": 1.0,
+      "modal_share_ci95": [
+        1.0,
+        1.0
+      ],
+      "informative_rate": 0.0,
+      "sense_thresh_rate": 0.0,
+      "best_cos_mean": 0.0,
+      "argmax_in_own_window_rate": 0.0,
+      "concentration": {
+        "n_distinct_argmax": 1,
+        "top1_share": 1.0,
+        "norm_entropy": -0.0
+      }
+    }
+  },
+  "paired_D": {
+    "SCRAMBLE_SENT": {
+      "D_point": 0.215465,
+      "D_ci95": [
+        0.198154,
+        0.233161
+      ],
+      "D_frac_above_zero": 1.0
+    },
+    "SCRAMBLE_WORD": {
+      "D_point": 0.211796,
+      "D_ci95": [
+        0.194569,
+        0.229826
+      ],
+      "D_frac_above_zero": 1.0
+    },
+    "LESION_RANDOM": {
+      "D_point": 0.21599,
+      "D_ci95": [
+        0.198754,
+        0.234394
+      ],
+      "D_frac_above_zero": 1.0
+    }
+  },
+  "argmax_agreement": {
+    "REAL|SCRAMBLE_SENT": {
+      "raw": 0.002173,
+      "chance": 0.002083,
+      "kappa": 9.1e-05
+    },
+    "REAL|SCRAMBLE_WORD": {
+      "raw": 0.005313,
+      "chance": 0.001848,
+      "kappa": 0.003471
+    },
+    "REAL|LESION_RANDOM": {
+      "raw": 0.000604,
+      "chance": 0.001056,
+      "kappa": -0.000452
+    },
+    "REAL|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "SCRAMBLE_SENT|SCRAMBLE_WORD": {
+      "raw": 0.002053,
+      "chance": 0.001846,
+      "kappa": 0.000208
+    },
+    "SCRAMBLE_SENT|LESION_RANDOM": {
+      "raw": 0.000966,
+      "chance": 0.001056,
+      "kappa": -9e-05
+    },
+    "SCRAMBLE_SENT|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "SCRAMBLE_WORD|LESION_RANDOM": {
+      "raw": 0.00169,
+      "chance": 0.000951,
+      "kappa": 0.00074
+    },
+    "SCRAMBLE_WORD|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "LESION_RANDOM|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    }
+  },
+  "trace_sum": {
+    "REAL": {
+      "n_lemmas": 4467,
+      "sense_thresh_rate": 0.221625,
+      "informative_rate": 0.558093,
+      "best_cos_mean": 0.353978,
+      "concentration": {
+        "n_distinct_argmax": 823,
+        "top1_share": 0.111932,
+        "norm_entropy": 0.894318
+      }
+    },
+    "SCRAMBLE_SENT": {
+      "n_lemmas": 4467,
+      "sense_thresh_rate": 0.285426,
+      "informative_rate": 0.574659,
+      "best_cos_mean": 0.365392,
+      "concentration": {
+        "n_distinct_argmax": 801,
+        "top1_share": 0.185359,
+        "norm_entropy": 0.836485
+      }
+    },
+    "SCRAMBLE_WORD": {
+      "n_lemmas": 4467,
+      "sense_thresh_rate": 0.227446,
+      "informative_rate": 0.436535,
+      "best_cos_mean": 0.329299,
+      "concentration": {
+        "n_distinct_argmax": 804,
+        "top1_share": 0.187598,
+        "norm_entropy": 0.825222
+      }
+    },
+    "LESION_RANDOM": {
+      "n_lemmas": 4467,
+      "sense_thresh_rate": 0.093575,
+      "informative_rate": 0.26707,
+      "best_cos_mean": 0.254384,
+      "concentration": {
+        "n_distinct_argmax": 854,
+        "top1_share": 0.116857,
+        "norm_entropy": 0.89985
+      }
+    },
+    "LESION_ZERO": {
+      "n_lemmas": 4467,
+      "sense_thresh_rate": 0.0,
+      "informative_rate": 0.0,
+      "best_cos_mean": 0.0,
+      "concentration": {
+        "n_distinct_argmax": 1,
+        "top1_share": 1.0,
+        "norm_entropy": -0.0
+      }
+    }
+  },
+  "trace_sum_agreement": {
+    "REAL|SCRAMBLE_SENT": {
+      "raw": 0.066264,
+      "chance": 0.022657,
+      "kappa": 0.044617
+    },
+    "REAL|SCRAMBLE_WORD": {
+      "raw": 0.079919,
+      "chance": 0.022846,
+      "kappa": 0.058408
+    },
+    "REAL|LESION_RANDOM": {
+      "raw": 0.046788,
+      "chance": 0.014535,
+      "kappa": 0.032728
+    },
+    "REAL|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "SCRAMBLE_SENT|SCRAMBLE_WORD": {
+      "raw": 0.110589,
+      "chance": 0.036866,
+      "kappa": 0.076545
+    },
+    "SCRAMBLE_SENT|LESION_RANDOM": {
+      "raw": 0.080143,
+      "chance": 0.023243,
+      "kappa": 0.058254
+    },
+    "SCRAMBLE_SENT|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "SCRAMBLE_WORD|LESION_RANDOM": {
+      "raw": 0.077009,
+      "chance": 0.023588,
+      "kappa": 0.054711
+    },
+    "SCRAMBLE_WORD|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    },
+    "LESION_RANDOM|LESION_ZERO": {
+      "raw": 0.0,
+      "chance": 0.0,
+      "kappa": 0.0
+    }
+  },
+  "prefix_sum": {
+    "REAL": {
+      "prefix_sum_flip_rate": 0.71481,
+      "prefix_sum_flip_ci95": [
+        0.695155,
+        0.734269
+      ]
+    },
+    "SCRAMBLE_SENT": {
+      "prefix_sum_flip_rate": 0.941284,
+      "prefix_sum_flip_ci95": [
+        0.927054,
+        0.953573
+      ]
+    }
+  },
+  "space_drift": {
+    "REAL": {
+      "snapshot_space_flip_rate": 0.856881,
+      "snapshot_space_flip_ci95": [
+        0.843105,
+        0.870592
+      ]
+    },
+    "SCRAMBLE_SENT": {
+      "snapshot_space_flip_rate": 0.998952,
+      "snapshot_space_flip_ci95": [
+        0.997818,
+        0.99975
+      ]
+    }
+  },
+  "config": {
+    "run_mode": "full",
+    "limit_per_segment": 1500,
+    "n_sentences": 7500,
+    "n_anchors_total": 1045,
+    "n_anchors_eligible": 898,
+    "n_lemmas": 4467,
+    "ctx_d": 256,
+    "informative_min": 0.3,
+    "sense_match_thresh": 0.45,
+    "n_bootstrap": 2000,
+    "store_seed": 4101,
+    "scramble_seed": 20260812
+  },
+  "integrity": {
+    "trace_alignment_ok": true,
+    "n_encounters": 8282,
+    "n_lemmas": 4467,
+    "n_encounters_scored": 8282,
+    "n_dropped_empty_window": 0,
+    "no_leak_violations": 0,
+    "arms_differ_verified": true,
+    "arm_digests": {
+      "REAL": "c834fbba25d1b0e7bc56d82aa5fc8a2713797773ac4639eac520113215bc1b39",
+      "SCRAMBLE_SENT": "f5c82417f6b7cca79d750583585b88da83ef28316b162da1936792a898680ef4",
+      "SCRAMBLE_WORD": "328ccddcd6908fbf3faf18f3d2f93423861a4251fbdba6c52668b929ff82c3eb",
+      "LESION_RANDOM": "42e79561f88ffc413f9d1d7bbb7591558abf7bd04a68b243d6ddb38d26f3403c",
+      "LESION_ZERO": "903cf9d5e4f4fcee79fa7e9a4bf043db0a2b192df43145859227e4bc55df380c"
+    },
+    "keep_set_size": 8282,
+    "readout_fidelity_mismatches": 0,
+    "readout_fidelity_n_sampled": 200,
+    "cardinality_ok": true,
+    "n_regimes": 2,
+    "pass_elapsed_s": 208.99,
+    "n_segment_snapshots": 5
+  },
+  "anchor_name": "context_vector_signal_v1",
+  "run_mode": "full",
+  "elapsed_s": 216.87,
+  "ts_iso": "2026-08-12T22:53:06.417491+00:00",
+  "prereg": "preregs/2026-08-12_context_vector_signal_v1.md",
+  "self_test": {
+    "real_code_path_exercised": [
+      "ConceptSpace",
+      "HDFactStore",
+      "ReadingLoopState",
+      "canonicalize_fast",
+      "checkpoint",
+      "context_vector",
+      "context_vector_masked",
+      "process_sentence",
+      "seed_known_words"
+    ],
+    "n_encounters_selftest": 18,
+    "n_anchors_selftest": 7,
+    "selftest_ok": true
+  },
+  "wire_status": "MEASUREMENT_ONLY_NO_WIRE"
+}
