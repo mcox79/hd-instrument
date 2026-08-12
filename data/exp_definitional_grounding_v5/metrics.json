@@ -1,0 +1,885 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_B3",
+  "verdict_msg": "v5 term-boundary: 2092 facts (v4 1956, +136); corruption 16.1% -> 1.0% (parser-only arm 7.8%); all machine checks pass",
+  "summary": "definitional term-boundary repair v5",
+  "elapsed_s": 17.51,
+  "run_mode": "full",
+  "n_facts_v4": 1956,
+  "n_facts_v5": 2092,
+  "n_facts_v5_parser_only_arm": 2105,
+  "n_pairs_kept_from_v4": 1601,
+  "n_pairs_new_in_v5": 491,
+  "n_pairs_dropped_from_v4": 355,
+  "subject_type_mix": {
+    "PROPER": 329,
+    "COMMON": 1763
+  },
+  "multiword_subject_count": 615,
+  "pattern_mix": {
+    "APPOSITIVE": 495,
+    "COPULA": 648,
+    "CALLED": 422,
+    "GLOSSARY_COLON": 519,
+    "REFERS_TO": 8
+  },
+  "segment_mix": {
+    "bio_new": 1371,
+    "bootstrap": 281,
+    "adv_new": 167,
+    "int_cont": 141,
+    "ele_cont": 132
+  },
+  "refusals": {
+    "LOW_INFORMATION_OBJECT": 421,
+    "NEVER_CO_OCCURS": 1
+  },
+  "refusals_parser_only_arm": {
+    "LOW_INFORMATION_OBJECT": 402,
+    "NEVER_CO_OCCURS": 1
+  },
+  "checks": {
+    "arms_differ_verified": true,
+    "f1_gains_survived": {
+      "Chon|counsellor": true,
+      "Naeem|campaigner": true,
+      "Olkin|scientist": true,
+      "Rajagopalan|student": true,
+      "Shanhui Fan|expert": true,
+      "Currie Technologies|seller": true,
+      "Piraeus|port": true,
+      "Drosophila|fly": true
+    },
+    "control_rows_survived": {
+      "aorta|artery": true,
+      "cholesterol|lipid": true,
+      "arthropoda|phylum": true,
+      "arteriole|vessel": true
+    },
+    "fault_rows_removed": {
+      "fan|expert": true,
+      "technology|seller": true,
+      "kidney|ureter": true,
+      "system|locomotion": true,
+      "structure|function": true,
+      "dialysis|medical": true,
+      "kidney|pair": true,
+      "bubble|region": true,
+      "effect|magnification": true,
+      "DNA RNA|polymer": true,
+      "Mars Bas Lansdorp|founder": true,
+      "Wembley Stadium Bowie|performer": true,
+      "abiotic environment equilibrium|state": true,
+      "apex consumers biome|community": true,
+      "cell centrosome cleavage furrow|constriction": true,
+      "photosynthesis place thylakoid|chloroplast": true,
+      "postsynaptic membranes temporary|memory": true,
+      "secretes digestive juices|enzyme": true,
+      "body temperature endotherm|organism": true
+    },
+    "v3_collision_keys_absent": {
+      "fan": true,
+      "technology": true
+    }
+  },
+  "pmi_calibration_controls": {
+    "primer->polymerase": {
+      "survives": true,
+      "pmi": 9.079852768263406,
+      "refusal": null
+    },
+    "organelle->cytoplasm": {
+      "survives": true,
+      "pmi": 6.5140995252451805,
+      "refusal": null
+    },
+    "tree->phylogenetic": {
+      "survives": true,
+      "pmi": 6.950569751318438,
+      "refusal": null
+    },
+    "variant->gene": {
+      "survives": true,
+      "pmi": 5.576584628332975,
+      "refusal": null
+    },
+    "alternation->haploid": {
+      "survives": true,
+      "pmi": 7.895493478921545,
+      "refusal": null
+    }
+  },
+  "corruption_audit_v4_BEFORE": {
+    "n_facts": 1956,
+    "T1_boundary_crossing": 22,
+    "T1_by_class": {
+      "PUNCT": 16,
+      "FUNC": 6
+    },
+    "T2_glossary_key_mismatch": 292,
+    "n_glossary_facts_evaluable": 363,
+    "T2_rate_within_glossary": 0.8044,
+    "n_corrupt": 314,
+    "corruption_rate": 0.1605,
+    "note": "LOWER BOUND; see pre-reg s.MEASURED",
+    "examples": [
+      {
+        "subject": "Beausoleil Oakland California Beausoleil",
+        "object": "worker",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Brazil Russia India China",
+        "object": "bag",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "DNA RNA",
+        "object": "polymer",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "December Mikhail Kalashnikov",
+        "object": "designer",
+        "pattern": "APPOSITIVE",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "December Mikhail Kalashnikov",
+        "object": "inventor",
+        "pattern": "APPOSITIVE",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Gant Mendes",
+        "object": "director",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Google Telepathy",
+        "object": "minnow",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "IFPI Direction",
+        "object": "artist",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Licence Kill",
+        "object": "worst-performing",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "London Edinburgh",
+        "object": "city",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Malala Day girl Mingora",
+        "object": "event",
+        "pattern": "CALLED",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Mars Bas Lansdorp",
+        "object": "founder",
+        "pattern": "APPOSITIVE",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "New Yorker Bowie",
+        "object": "act",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Norway Germany",
+        "object": "netherlands",
+        "pattern": "APPOSITIVE",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Office National Statistics Britain",
+        "object": "place",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Ringelmann Indiegogo",
+        "object": "crowdfunder",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Spain Tarifa",
+        "object": "crossroads",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Steve Jobs Iguchi",
+        "object": "man",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Talk Hamblin",
+        "object": "man",
+        "pattern": "APPOSITIVE",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "Vatican officials Popes decision",
+        "object": "brave",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Wembley Stadium Bowie",
+        "object": "performer",
+        "pattern": "COPULA",
+        "test": "PUNCT"
+      },
+      {
+        "subject": "abiotic environment equilibrium",
+        "object": "state",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "abiotic world dead zone",
+        "object": "area",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "absorbing light energy stoma",
+        "object": "opening",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "accepted today natural selection",
+        "object": "survival",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "acidic digestive juices vitamin",
+        "object": "necessary",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "adaptive immune system macrophage",
+        "object": "cell",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "age interval population density",
+        "object": "divide",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "age mark",
+        "object": "method",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "align",
+        "object": "stage",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "alveolar sac capillary",
+        "object": "vessel",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "angiosperms belong basal angiosperm",
+        "object": "plant",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "animal",
+        "object": "projection",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "animal extracellular digestion",
+        "object": "breakdown",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "apex consumers biome",
+        "object": "community",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "apparatus",
+        "object": "organelle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "aquatic ecosystems biogeochemical cycle",
+        "object": "cycling",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "aquatic system aphotic zone",
+        "object": "photosynthesis",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "artificially changed plasmid",
+        "object": "molecule",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "assembling ribosomal subunits nucleus",
+        "object": "organelle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      }
+    ]
+  },
+  "corruption_audit_v5_parser_only": {
+    "n_facts": 2105,
+    "T1_boundary_crossing": 8,
+    "T1_by_class": {
+      "FUNC": 8
+    },
+    "T2_glossary_key_mismatch": 157,
+    "n_glossary_facts_evaluable": 514,
+    "T2_rate_within_glossary": 0.3054,
+    "n_corrupt": 165,
+    "corruption_rate": 0.0784,
+    "note": "LOWER BOUND; see pre-reg s.MEASURED",
+    "examples": [
+      {
+        "subject": "IFPI Direction",
+        "object": "artist",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "India China",
+        "object": "bag",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Inky size rugby ball",
+        "object": "octopus",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Licence Kill",
+        "object": "worst-performing",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Malala Day girl Mingora",
+        "object": "event",
+        "pattern": "CALLED",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Office National Statistics Britain",
+        "object": "place",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Vatican officials Popes decision",
+        "object": "brave",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "abundance",
+        "object": "size",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "angiosperm",
+        "object": "plant",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "apparatus",
+        "object": "organelle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "balance",
+        "object": "values",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "biogeography",
+        "object": "study",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "bladder",
+        "object": "structure",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "bloom",
+        "object": "increase",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "bond",
+        "object": "interaction",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "bubble",
+        "object": "region",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "callosum",
+        "object": "bundle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "capacity",
+        "object": "individual",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cava",
+        "object": "vein",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cavity",
+        "object": "bound",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cavity",
+        "object": "opening",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cavity",
+        "object": "point",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "chain",
+        "object": "complex",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "characteristic",
+        "object": "phrase",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "circulation",
+        "object": "flow",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cleft",
+        "object": "space",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "coa",
+        "object": "combination",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "code",
+        "object": "acid",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "column",
+        "object": "bones",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "commons",
+        "object": "principle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "consumer",
+        "object": "level",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cord",
+        "object": "bundle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cord",
+        "object": "structure",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cortex",
+        "object": "sheet",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "curve",
+        "object": "graph",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "curve",
+        "object": "shape",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cycle",
+        "object": "cycling",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cycle",
+        "object": "event",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cycle",
+        "object": "filling",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "cycle",
+        "object": "reaction",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      }
+    ]
+  },
+  "corruption_audit_v5_CANONICAL": {
+    "n_facts": 2092,
+    "T1_boundary_crossing": 8,
+    "T1_by_class": {
+      "FUNC": 8
+    },
+    "T2_glossary_key_mismatch": 12,
+    "n_glossary_facts_evaluable": 506,
+    "T2_rate_within_glossary": 0.0237,
+    "n_corrupt": 20,
+    "corruption_rate": 0.0096,
+    "note": "LOWER BOUND; see pre-reg s.MEASURED",
+    "examples": [
+      {
+        "subject": "IFPI Direction",
+        "object": "artist",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "India China",
+        "object": "bag",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Inky size rugby ball",
+        "object": "octopus",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Licence Kill",
+        "object": "worst-performing",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Malala Day girl Mingora",
+        "object": "event",
+        "pattern": "CALLED",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Office National Statistics Britain",
+        "object": "place",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "Vatican officials Popes decision",
+        "object": "brave",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "ampulla",
+        "object": "organ",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "gnathostome",
+        "object": "fish",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "inactivation",
+        "object": "condensation",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "inheritance",
+        "object": "phrase",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "interstitial cell",
+        "object": "type",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "lloyds bank bishops avenue",
+        "object": "street",
+        "pattern": "COPULA",
+        "test": "FUNC"
+      },
+      {
+        "subject": "mark",
+        "object": "method",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "periodic table",
+        "object": "chart",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "pharynx",
+        "object": "throat",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "phase",
+        "object": "second",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "threshold",
+        "object": "level",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "tragedy",
+        "object": "principle",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      },
+      {
+        "subject": "van waals interaction",
+        "object": "attraction",
+        "pattern": "GLOSSARY_COLON",
+        "test": "T2_GLOSSARY_KEY"
+      }
+    ]
+  },
+  "out_of_scope_faults_v4": {
+    "available": true,
+    "IN_SCOPE": false,
+    "note": "REPORTED NOT REPAIRED. Inverted hypernymy is NOT a parse bug -- it is not knowing which side of a definition carries the genus. The v5 term-boundary fix does not touch it.",
+    "n_inverted_hypernymy": 24,
+    "rate_inverted_hypernymy": 0.0123,
+    "examples_inverted": [
+      "age structure -> proportion",
+      "allele -> dominant",
+      "aqueous solution -> solvent",
+      "assume -> eggs",
+      "best-known extinct vertebrate -> dinosaur",
+      "best-known medusoid animal -> jellyfish",
+      "book -> diary",
+      "brain smooth muscle tissue -> muscle",
+      "cell -> axon",
+      "cell -> lymphocyte",
+      "chemotherapy drug -> methotrexate",
+      "cone -> strobilus",
+      "continuous variation -> difference",
+      "distinct new class -> category",
+      "drug -> cocaine",
+      "food -> salmon",
+      "inflammation -> redness",
+      "molecule -> protein",
+      "mythological concept -> elements",
+      "ocean -> deep",
+      "plant -> autotroph",
+      "prototherian -> monotreme",
+      "science -> politics",
+      "tropical wet forest -> rainforest"
+    ],
+    "n_adjectival_head": 0,
+    "rate_adjectival_head": 0.0,
+    "examples_adjectival": []
+  },
+  "out_of_scope_faults_v5": {
+    "available": true,
+    "IN_SCOPE": false,
+    "note": "REPORTED NOT REPAIRED. Inverted hypernymy is NOT a parse bug -- it is not knowing which side of a definition carries the genus. The v5 term-boundary fix does not touch it.",
+    "n_inverted_hypernymy": 25,
+    "rate_inverted_hypernymy": 0.012,
+    "examples_inverted": [
+      "age structure -> proportion",
+      "allele -> dominant",
+      "aqueous solution -> solvent",
+      "assume -> eggs",
+      "best-known extinct vertebrate -> dinosaur",
+      "best-known medusoid animal -> jellyfish",
+      "book -> diary",
+      "cell -> axon",
+      "cell -> lymphocyte",
+      "chemotherapy drug -> methotrexate",
+      "class -> category",
+      "cone -> strobilus",
+      "continuous variation -> difference",
+      "drug -> cocaine",
+      "effector cell -> lymphocyte",
+      "food -> salmon",
+      "inflammation -> redness",
+      "mast cell -> leukocyte",
+      "mythological concept -> elements",
+      "ocean -> deep",
+      "plant -> autotroph",
+      "prototherian -> monotreme",
+      "science -> politics",
+      "smooth muscle tissue -> muscle",
+      "tropical wet forest -> rainforest"
+    ],
+    "n_adjectival_head": 0,
+    "rate_adjectival_head": 0.0,
+    "examples_adjectival": []
+  },
+  "multisense_yield_v4_term": [
+    197,
+    51,
+    2
+  ],
+  "multisense_yield_v4_head_lemma": [
+    333,
+    88,
+    2
+  ],
+  "multisense_yield_v5_term": [
+    288,
+    96,
+    3
+  ],
+  "multisense_yield_v5_head_lemma": [
+    379,
+    145,
+    4
+  ],
+  "multisense_yield_v5_term_FULL": {
+    "key": "subject",
+    "n_facts": 2092,
+    "n_distinct_subjects": 1734,
+    "n_multi_sense_words": 288,
+    "n_facts_in_multi_sense_words": 646,
+    "n_senses_with_gt1_source_sentence": 96,
+    "n_multi_sense_words_with_ANY_sense_gt1_sentence": 88,
+    "n_multi_sense_words_with_ALL_senses_gt1_sentence": 3,
+    "triple_words_senses_allmulti": [
+      288,
+      96,
+      3
+    ]
+  },
+  "multisense_yield_v5_head_lemma_FULL": {
+    "key": "subject_head_lemma",
+    "n_facts": 2092,
+    "n_distinct_subjects": 1472,
+    "n_multi_sense_words": 379,
+    "n_facts_in_multi_sense_words": 967,
+    "n_senses_with_gt1_source_sentence": 145,
+    "n_multi_sense_words_with_ANY_sense_gt1_sentence": 131,
+    "n_multi_sense_words_with_ALL_senses_gt1_sentence": 4,
+    "triple_words_senses_allmulti": [
+      379,
+      145,
+      4
+    ]
+  },
+  "b3_audit_sample_path": "D:\\AI\\hd-instrument\\data\\exp_definitional_grounding_v5\\b3_audit_sample_DEF_V5.json",
+  "facts_path": "D:\\AI\\hd-instrument\\data\\foundation\\reading_grounding_v5_termboundary\\definitional_facts_v5.jsonl",
+  "prereg": "preregs/2026-08-12_definitional_term_boundary_v5.md",
+  "quality_scored_here": false,
+  "wire_status": "VET_PENDING"
+}
