@@ -134,3 +134,14 @@ data/exp_cskg_foundation_v1/
 # tools/hd_session_watchdog.py; this guards against regeneration if the task is revived.
 notes/watchdog_ping_*
 archive/watchdog_pings/
+
+# Repo-hygiene reclaim sweep (2026-08-13): uncited large artifacts moved out of data/,
+# never deleted. Keep out of git -- these are multi-GB binaries, not source.
+archive/reclaimed_2026-08-13/
+
+# Literature source cache (2026-08-13). Track the index and the README: they are the
+# authoritative record and are small text. Do NOT track files/ -- stored PDFs are binaries,
+# they are reproducible from doi_or_url, and index.jsonl carries their sha256.
+!data/literature_cache/README.md
+!data/literature_cache/index.jsonl
+data/literature_cache/files/**
