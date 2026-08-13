@@ -1,0 +1,304 @@
+{
+  "anchor_name": "substrate_refuse_gate_v_rel_extension_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_V_REL_EXTENSION: RELATION_CHECK chain-grades at V_REL=256 (extension confirmed; envelope chain-grades at [8, 64, 256]) | V_REL=8 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.400 cv=0.000] | V_REL=64 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.000 cv=0.000] | V_REL=256 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.000 cv=0.000] | [Q-DISCIPLINE: RELATION_CHECK >= 0.995 at V_REL=[8, 64, 256]; suspect saturation]",
+  "run_mode": "smoke",
+  "n_units": 3,
+  "config_version": "substrateRefuseGateVrelExtension-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[8, 64, 256] N_QUERIES_PER_CATEGORY=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_near>=0.85 HP_partial>=0.70 cv<=0.05 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+  "per_unit": [
+    {
+      "seed": 11,
+      "v_rel": 8,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 8,
+      "V_RELATIONS_OUT": 8,
+      "n_queries_per_category": 20,
+      "config_version": "substrateRefuseGateVrelExtension-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[8, 64, 256] N_QUERIES_PER_CATEGORY=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_near>=0.85 HP_partial>=0.70 cv<=0.05 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.001
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.001
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.4,
+            "answer_rate": 0.6,
+            "n_refused": 8,
+            "n_answered": 12,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "elapsed_s_unit": 0.02,
+      "_ckpt_key": "seed11_vrel8",
+      "_partial_written_at": 1782442067.4495692
+    },
+    {
+      "seed": 11,
+      "v_rel": 64,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 64,
+      "V_RELATIONS_OUT": 64,
+      "n_queries_per_category": 20,
+      "config_version": "substrateRefuseGateVrelExtension-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[8, 64, 256] N_QUERIES_PER_CATEGORY=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_near>=0.85 HP_partial>=0.70 cv<=0.05 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.005
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.003
+      },
+      "elapsed_s_unit": 0.03,
+      "_ckpt_key": "seed11_vrel64",
+      "_partial_written_at": 1782442067.4910083
+    },
+    {
+      "seed": 11,
+      "v_rel": 256,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 256,
+      "V_RELATIONS_OUT": 256,
+      "n_queries_per_category": 20,
+      "config_version": "substrateRefuseGateVrelExtension-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[8, 64, 256] N_QUERIES_PER_CATEGORY=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_near>=0.85 HP_partial>=0.70 cv<=0.05 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.009
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20
+          }
+        },
+        "elapsed_s_arm": 0.007
+      },
+      "elapsed_s_unit": 0.04,
+      "_ckpt_key": "seed11_vrel256",
+      "_partial_written_at": 1782442067.5458596
+    }
+  ],
+  "elapsed_s": 0.2,
+  "summary": "HARD_PASS_V_REL_EXTENSION: RELATION_CHECK chain-grades at V_REL=256 (extension confirmed; envelope chain-grades at [8, 64, 256]) | V_REL=8 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.400 cv=0.000] | V_REL=64 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.000 cv=0.000] | V_REL=256 REL[in_ans=1.000 near_ref=1.000 cv=0.000] AIP[near_ref=0.000 cv=0.000] | [Q-DISCIPLINE: RELATION_CHECK >= 0.995 at V_REL=[8, 64, 256]; suspect saturation]",
+  "_llm_forward_calls_at_inference": 0,
+  "V_REL_SWEEP": [
+    8,
+    64,
+    256
+  ],
+  "seeds": [
+    11
+  ],
+  "DESIGN_NOTE": "V_REL envelope extension from v2's chain-grade rail V_REL=8. Sweep V_REL in {8,16,32,64,128,256,512} with all other config matched to v2. Tests how far the NEAR-DOMAIN-MIXED refuse-gate scales as the audit relation library grows. Pre-reg per preregs/2026-06-25_substrate_refuse_gate_v_rel_extension_v1.md."
+}

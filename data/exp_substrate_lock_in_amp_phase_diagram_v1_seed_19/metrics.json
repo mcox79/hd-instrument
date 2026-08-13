@@ -1,0 +1,1425 @@
+{
+  "anchor_name": "substrate_lock_in_amp_phase_diagram_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: phase diagram discriminating at >= 50% but not all 3 regimes populated at >= 20%. hp=[sat=False,floor=False,adv=True,discrim=True]. n_points=60 lock_in_recall_mean=0.711 (min=0.000, max=1.000); direct_recall_mean=0.290; floor_recall_mean=0.012; delta_LD_mean=+0.421; n_SAT(L>=0.95 AND D>=0.95)=10/60 (need >= 12); n_FLOOR(L<=0.015 AND D<=0.015)=2/60 (need >= 12); n_ADVANTAGE(L-D>=0.30)=30/60 (need >= 12); n_DISCRIMINATING=53/60 (need >= 30)",
+  "summary": "n_seeds=1 axes(SNR,t,N)=[0.001, 0.0032, 0.01, 0.032, 0.1]x[10, 100, 1000, 10000]x[2048, 4096, 8192] freq=0.1 M=100 N_eval=30 expected_n_units=60 mode=full",
+  "elapsed_s": 2027.554857492447,
+  "config_version": "ANCHOR=substrate_lock_in_amp_phase_diagram_v1,SNR_AXIS=0.001-0.0032-0.01-0.032-0.1,T_AXIS=10-100-1000-10000,N_AXIS=2048-4096-8192,SIGNAL_FREQ=0.1,M=100,N_EVAL=30,SEEDS=19,RUN_MODE=full,EXPECTED_N_UNITS=60",
+  "SNR_INPUT_AXIS": [
+    0.001,
+    0.0032,
+    0.01,
+    0.032,
+    0.1
+  ],
+  "INTEGRATION_TIME_AXIS": [
+    10,
+    100,
+    1000,
+    10000
+  ],
+  "N_AXIS": [
+    2048,
+    4096,
+    8192
+  ],
+  "signal_freq": 0.1,
+  "M_codebook": 100,
+  "N_EVAL": 30,
+  "expected_n_units": 60,
+  "n_seeds": 1,
+  "seeds": [
+    19
+  ],
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 19,
+      "elapsed_s": 2027.2304306030273,
+      "n_grid_points": 60,
+      "grid_points": [
+        {
+          "snr_input": 0.001,
+          "integration_time": 10,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.00223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.03333333333333333,
+          "wall_s": 0.08180689811706543
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 10,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.00223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "lock_in_minus_direct": 0.03333333333333333,
+          "wall_s": 0.11385250091552734
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 10,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.00223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "lock_in_minus_direct": 0.03333333333333333,
+          "wall_s": 0.2197568416595459
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 100,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.31548380851745605
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 100,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.03333333333333333,
+          "wall_s": 0.7781021595001221
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 100,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.03333333333333333,
+          "wall_s": 2.2840850353240967
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 1000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.13333333333333333,
+            "n_correct": 4
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.13333333333333333,
+          "wall_s": 5.298789739608765
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 1000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.2,
+            "n_correct": 6
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.16666666666666669,
+          "wall_s": 10.260653495788574
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 1000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.3,
+            "n_correct": 9
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.3,
+          "wall_s": 21.825999975204468
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 10000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.7,
+            "n_correct": 21
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7,
+          "wall_s": 44.92379879951477
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 10000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.9666666666666667,
+            "n_correct": 29
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9666666666666667,
+          "wall_s": 100.20355296134949
+        },
+        {
+          "snr_input": 0.001,
+          "integration_time": 10000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 192.73116493225098
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.03333333333333333,
+          "wall_s": 0.07143926620483398
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.03333333333333334,
+          "wall_s": 0.11448407173156738
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.007155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": -0.06666666666666667,
+          "wall_s": 0.23090100288391113
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 100,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.31577157974243164
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 100,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.2,
+            "n_correct": 6
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.2,
+          "wall_s": 0.7248165607452393
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 100,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.4,
+            "n_correct": 12
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.4,
+          "wall_s": 1.339839220046997
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 1000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.7333333333333333,
+            "n_correct": 22
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7333333333333333,
+          "wall_s": 3.909672975540161
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 1000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 10.265753984451294
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 1000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 20.482988357543945
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.22627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 48.045613527297974
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.22627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 98.60288763046265
+        },
+        {
+          "snr_input": 0.0032,
+          "integration_time": 10000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.22627416997969524,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9666666666666667,
+          "wall_s": 204.89034461975098
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.13333333333333333,
+            "n_correct": 4
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.13333333333333333,
+          "wall_s": 0.33179497718811035
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.16666666666666666,
+            "n_correct": 5
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.06666666666666665,
+          "wall_s": 0.5176331996917725
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.022360679774997897,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.26666666666666666,
+            "n_correct": 8
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.2,
+          "wall_s": 0.9105842113494873
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 100,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.7,
+            "n_correct": 21
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.6666666666666666,
+          "wall_s": 1.277662992477417
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 100,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "lock_in_minus_direct": 0.9666666666666667,
+          "wall_s": 2.4277544021606445
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 100,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07071067811865475,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.9666666666666667,
+          "wall_s": 4.308265209197998
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 1000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 10.2671377658844
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 1000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9,
+          "wall_s": 19.65044116973877
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 1000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.13333333333333333,
+            "n_correct": 4
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.8666666666666667,
+          "wall_s": 39.5307092666626
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 1.0,
+          "wall_s": 99.91751217842102
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9,
+          "wall_s": 82.31474947929382
+        },
+        {
+          "snr_input": 0.01,
+          "integration_time": 10000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9333333333333333,
+          "wall_s": 164.82410264015198
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 0.6333333333333333,
+            "n_correct": 19
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.16666666666666666,
+            "n_correct": 5
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.4666666666666667,
+          "wall_s": 0.13072705268859863
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.3,
+            "n_correct": 9
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7,
+          "wall_s": 0.22133278846740723
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.07155417527999328,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.7666666666666667,
+            "n_correct": 23
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.23333333333333328,
+          "wall_s": 0.37275266647338867
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 100,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.2262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9,
+          "wall_s": 0.5090034008026123
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 100,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.2262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.26666666666666666,
+            "n_correct": 8
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7333333333333334,
+          "wall_s": 1.0221107006072998
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 100,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.2262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.7666666666666667,
+            "n_correct": 23
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.23333333333333328,
+          "wall_s": 1.7042732238769531
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 1000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7155417527999327,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.23333333333333334,
+            "n_correct": 7
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7666666666666666,
+          "wall_s": 4.184122085571289
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 1000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7155417527999327,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.26666666666666666,
+            "n_correct": 8
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.7333333333333334,
+          "wall_s": 8.455825805664062
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 1000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7155417527999327,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.6,
+            "n_correct": 18
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "lock_in_minus_direct": 0.4,
+          "wall_s": 15.600818634033203
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.1,
+            "n_correct": 3
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.9,
+          "wall_s": 44.69608187675476
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.26666666666666666,
+            "n_correct": 8
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.06666666666666667,
+            "n_correct": 2
+          },
+          "lock_in_minus_direct": 0.7333333333333334,
+          "wall_s": 192.60150837898254
+        },
+        {
+          "snr_input": 0.032,
+          "integration_time": 10000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.262741699796952,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.6666666666666666,
+            "n_correct": 20
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.33333333333333337,
+          "wall_s": 217.43397760391235
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.0664057731628418
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.15160846710205078
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.223606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.36452436447143555
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 100,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.9333333333333333,
+            "n_correct": 28
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.06666666666666665,
+          "wall_s": 0.45760178565979004
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 100,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 0.9077892303466797
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 100,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 0.7071067811865476,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 1.707639217376709
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 1000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.23606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 0.9333333333333333,
+            "n_correct": 28
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.03333333333333333,
+            "n_correct": 1
+          },
+          "lock_in_minus_direct": 0.06666666666666665,
+          "wall_s": 3.5851712226867676
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 1000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.23606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 8.50107216835022
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 1000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 2.23606797749979,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 15.566929578781128
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10000,
+          "n_dim": 2048,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 7.0710678118654755,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 39.8316011428833
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10000,
+          "n_dim": 4096,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 7.0710678118654755,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 83.03460264205933
+        },
+        {
+          "snr_input": 0.1,
+          "integration_time": 10000,
+          "n_dim": 8192,
+          "signal_freq": 0.1,
+          "M": 100,
+          "N_EVAL": 30,
+          "snr_output_predicted": 7.0710678118654755,
+          "ARM_LOCK_IN": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_DIRECT_COSINE": {
+            "recall_at_1": 1.0,
+            "n_correct": 30
+          },
+          "ARM_NOISE_FLOOR": {
+            "recall_at_1": 0.0,
+            "n_correct": 0
+          },
+          "lock_in_minus_direct": 0.0,
+          "wall_s": 191.76082277297974
+        }
+      ]
+    }
+  ]
+}

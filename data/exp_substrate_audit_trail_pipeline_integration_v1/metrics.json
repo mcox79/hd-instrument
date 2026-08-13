@@ -1,0 +1,199 @@
+{
+  "anchor_name": "substrate_audit_trail_pipeline_integration_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: V3 provenance 0.750 below 0.85 OR refuse 0.003 below 0.5; audit-trail integration did not transfer (Gap 4 still open). NAIVE_prov=0.678 (sanity [0.63,0.73] -> IN) | V1_prov=0.710 | V3_prov=0.750 (cv=0.068; refuse_acc=0.003; false_refuse=0.000) | V5_prov=0.677 (cv=0.030; refuse_acc=0.010; false_refuse=0.000) | V5_lift_vs_V3=-0.073",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config": {
+    "N_DIM": 8192,
+    "V_CONCEPTS": 200,
+    "V_PREDICATES": 10,
+    "M_TRIPLES": 500,
+    "M_UNKNOWN": 100,
+    "TAU_FRAC_KNOWN": 0.55,
+    "V5_TOPK": 5,
+    "V5_CONF_FLOOR": 0.5,
+    "SEEDS": [
+      11,
+      23,
+      47
+    ]
+  },
+  "aggregate": {
+    "naive_provenance_mean": 0.6783333333333333,
+    "naive_provenance_cv": 0.024323083382338195,
+    "v1_provenance_mean": 0.71,
+    "v1_provenance_cv": 0.03201451102578835,
+    "v3_provenance_mean": 0.75,
+    "v3_provenance_cv": 0.06798692684790379,
+    "v3_refuse_acc_mean": 0.0033333333333333335,
+    "v3_false_refuse_mean": 0.0,
+    "v5_provenance_mean": 0.6766666666666666,
+    "v5_provenance_cv": 0.03036657144319689,
+    "v5_refuse_acc_mean": 0.01,
+    "v5_false_refuse_mean": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.7,
+        "object_recall": 0.7,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.715,
+        "object_recall": 0.585,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.02495333783142269,
+        "mean_known_conf": 0.04536970514804125,
+        "provenance_accuracy": 0.8,
+        "object_recall": 0.71,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 0,
+        "n_rerank_changed": 0,
+        "tau_calibrated": 0.024655563971027736,
+        "obj_tau_calibrated": 0.02520850790385157,
+        "mean_known_slot_conf": 0.04482829812914133,
+        "mean_known_obj_conf": 0.04583365073427558,
+        "provenance_accuracy": 0.68,
+        "object_recall": 0.62,
+        "refuse_accuracy": 0.02,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 2.351031541824341
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.66,
+        "object_recall": 0.66,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.735,
+        "object_recall": 0.64,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.025118799580261114,
+        "mean_known_conf": 0.04567054469138384,
+        "provenance_accuracy": 0.77,
+        "object_recall": 0.69,
+        "refuse_accuracy": 0.01,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 1,
+        "n_rerank_changed": 1,
+        "tau_calibrated": 0.024029142039828005,
+        "obj_tau_calibrated": 0.025597322760149838,
+        "mean_known_slot_conf": 0.04368934916332364,
+        "mean_known_obj_conf": 0.04654058683663607,
+        "provenance_accuracy": 0.7,
+        "object_recall": 0.63,
+        "refuse_accuracy": 0.01,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 9.18454623222351
+    },
+    {
+      "seed": 47,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.675,
+        "object_recall": 0.675,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.68,
+        "object_recall": 0.6,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.025031356541439894,
+        "mean_known_conf": 0.04551155734807253,
+        "provenance_accuracy": 0.68,
+        "object_recall": 0.61,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 0,
+        "n_rerank_changed": 0,
+        "tau_calibrated": 0.025188753085210923,
+        "obj_tau_calibrated": 0.024102613174356524,
+        "mean_known_slot_conf": 0.045797732882201674,
+        "mean_known_obj_conf": 0.043822933044284584,
+        "provenance_accuracy": 0.65,
+        "object_recall": 0.53,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 11.076974868774414
+    }
+  ],
+  "elapsed_s": 22.6960711479187,
+  "summary": "HARD_FAIL: V3 provenance 0.750 below 0.85 OR refuse 0.003 below 0.5; audit-trail integration did not transfer (Gap 4 still open). NAIVE_prov=0.678 (sanity [0.63,0.73] -> IN) | V1_prov=0.710 | V3_prov=0.750 (cv=0.068; refuse_acc=0.003; false_refuse=0.000) | V5_prov=0.677 (cv=0.030; refuse_acc=0.010; false_refuse=0.000) | V5_lift_vs_V3=-0.073"
+}

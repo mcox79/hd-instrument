@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_md_chunk_config_sweep_E3_v1",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=17 (2/3)",
+  "summary": "RUNNING: seed=17 (2/3)",
+  "elapsed_s": 3572.5,
+  "ts_iso": "2026-06-28T03:17:05Z",
+  "pid": 26124,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_md_chunk_config_sweep_E3_v1,N=2048,docs=152,doc_tokens=1200,queries=50,seeds=[7, 17, 23],n_configs=15,mode=full,HP_subst>=0.70,HP_diag<=0.20,expected_n=6750,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_md_chunk_config_sweep_E3",
+  "_phase": "seed_running",
+  "_current_seed": 17
+}

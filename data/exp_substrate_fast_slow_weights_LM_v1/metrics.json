@@ -1,0 +1,53 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "ARM_FAST_PLUS_SLOW_W bpc=4.7225; ARM_SINGLE_W bpc=4.7209; lift=-0.0016 <= 0.05; fast-slow weight separation does NOT help substrate-LM; CLAIM 5 appears OVER-MAPPED at this scale/encoder; route SAME-CYCLE to Strategy: revival angle: try pretrained encoder or per-token W_fast reconstruction at eval time; ARM_FAST_W_ONLY bpc=4.8328 (lift_fo=-0.1119; fast-only does not help)",
+  "arm_summary": {
+    "ARM_SINGLE_W": {
+      "bpc_mean": 4.720912456512451,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.47333333333333333,
+      "n_seeds": 1
+    },
+    "ARM_FAST_W_ONLY": {
+      "bpc_mean": 4.832837104797363,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.41,
+      "n_seeds": 1
+    },
+    "ARM_FAST_PLUS_SLOW_W": {
+      "bpc_mean": 4.7225422859191895,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.47333333333333333,
+      "n_seeds": 1
+    },
+    "ARM_UNIGRAM": {
+      "bpc_mean": 4.949831485748291,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.4816666666666667,
+      "n_seeds": 1
+    }
+  },
+  "lift_fps_vs_single_w_bpc": -0.0016298294067382812,
+  "lift_fo_vs_single_w_bpc": -0.11192464828491211,
+  "fps_bpc_mean": 4.7225422859191895,
+  "fo_bpc_mean": 4.832837104797363,
+  "single_w_bpc_mean": 4.720912456512451,
+  "unigram_bpc_mean": 4.949831485748291,
+  "fair_harness_bpc_ref": 7.3065,
+  "n_seeds": 1,
+  "config_version": "substrate_fast_slow_weights_LM_v1; N_DIM=512 N_TRAIN=3000 N_HELD=600 VOCAB_CAP=400 arms=['ARM_SINGLE_W', 'ARM_FAST_W_ONLY', 'ARM_FAST_PLUS_SLOW_W'] seeds=[0] mode=smoke; TAU_GRID=[5, 20] ETA_FAST_GRID=[2.0, 5.0] ALPHA_GRID=[1.0] temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10; bands HP_lift>=0.150 chain_grade>=0.250 harness_margin>=0.200 MIDDLE=[0.050,0.150] HARD_FAIL<=0.050 cv_max=0.05",
+  "what_this_does_not_show": "Does NOT test fast-slow on tasks beyond next-token BPC. Does NOT test tau beyond {10,100}. Does NOT claim this is optimal; eta_fast/alpha grid is a proxy. Does NOT test per-token W_fast reconstruction at eval time (that is a follow-on cell).",
+  "pre_reg": {
+    "CHAIN_GRADE_BONUS": "lift>=0.25 AND fps_bpc beats fair_harness 7.3065 by >=0.2",
+    "HARD_PASS": "fps lift >= 0.15 bits vs ARM_SINGLE_W",
+    "MIDDLE_BAND": "lift in [0.05,0.15]",
+    "HARD_FAIL": "lift <= 0.05",
+    "CV_MAX": 0.05
+  },
+  "elapsed_s": 0.0,
+  "summary": "ARM_FAST_PLUS_SLOW_W bpc=4.7225; ARM_SINGLE_W bpc=4.7209; lift=-0.0016 <= 0.05; fast-slow weight separation does NOT help substrate-LM; CLAIM 5 appears OVER-MAPPED at this scale/encoder; route SAME-CYCLE to Strategy: revival angle: try pretrained encoder or per-token W_fast reconstruction at eval time; ARM_FAST_W_ONLY bpc=4.8328 (lift_fo=-0.1119; fast-only does not help)"
+}

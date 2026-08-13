@@ -1,0 +1,382 @@
+{
+  "anchor": "substrate_native_qa_hotpotqa_v2_composition_drill",
+  "anchor_name": "substrate_native_qa_hotpotqa_v2_composition_drill",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: composition lifts but bands not crossed. harness_em=0.1203 (v1=0.1223 delta=0.0017 tol=0.005) best_alpha=0.2 best_alpha_em=0.1537 lift=0.0333 cv_best=0.0215 n_llm=0",
+  "n_seeds": 3,
+  "N": 8192,
+  "N_DIM": 8192,
+  "N_Q": 1000,
+  "TOP_K": 5,
+  "GEN_DEPTH": 4,
+  "alpha_grid": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "c_arms": [
+    "FREQ_BIAS",
+    "SUBSTRING_OVERLAP",
+    "QUESTION_TYPE_SPLIT",
+    "START_ENTITY_LEAK",
+    "RANDOM_SEED_CONTROL"
+  ],
+  "harness_arm": "GENERATION_ONLY_REPRO",
+  "run_mode": "full",
+  "device": "cuda",
+  "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 sigma=0.100 run_mode=full device=cuda alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.005 cv_max=0.10",
+  "corpus_provenance": "hotpotqa_distractor_dev_1k_jsonl",
+  "allow_synthetic": false,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_harness_em": 0.12033333333333333,
+    "v1_anchor_em": 0.122,
+    "harness_delta_abs": 0.0016666666666666635,
+    "harness_tol": 0.005,
+    "harness_within_tol": true,
+    "cv_harness": 0.01707593906639607,
+    "mean_b_by_alpha": {
+      "0.0": 0.1376666666666667,
+      "0.2": 0.15366666666666665,
+      "0.4": 0.15333333333333332,
+      "0.6": 0.14766666666666664,
+      "0.8": 0.043666666666666666,
+      "1.0": 0.010333333333333332
+    },
+    "cv_b_by_alpha": {
+      "0.0": 0.07830974154380738,
+      "0.2": 0.02147395864774767,
+      "0.4": 0.020160040207599376,
+      "0.6": 0.011510202062286208,
+      "0.8": 0.1556952523234438,
+      "1.0": 0.09123958466923196
+    },
+    "best_alpha": 0.2,
+    "best_alpha_em": 0.15366666666666665,
+    "composed_lift_vs_harness": 0.03333333333333331,
+    "cv_best_alpha": 0.02147395864774767,
+    "c_aggregate": {
+      "FREQ_BIAS": {
+        "em_mean": 0.11133333333333334,
+        "n_candidates_mean": 100.0
+      },
+      "SUBSTRING_OVERLAP": {
+        "em_when_substring_mean": 0.10511599511599512,
+        "substring_overlap_rate_mean": 0.030666666666666665,
+        "n_not_substring_mean": 969.3333333333334,
+        "em_when_not_substring_mean": 0.13864920569510694,
+        "n_substring_mean": 30.666666666666668,
+        "em_generation_only_mean": 0.1376666666666667
+      },
+      "QUESTION_TYPE_SPLIT": {
+        "per_type_em_mean": {
+          "comparison": 0.07944732297063904,
+          "bridge": 0.15159025196199916
+        },
+        "per_type_n_mean": {
+          "comparison": 193.0,
+          "bridge": 807.0
+        }
+      },
+      "START_ENTITY_LEAK": {
+        "em_seed_in_supporting_facts_mean": 0.21695629278567666,
+        "n_seed_not_in_sf_mean": 367.0,
+        "n_seed_in_sf_mean": 633.0,
+        "em_seed_NOT_in_supporting_facts_mean": 0.0009082652134423251,
+        "leak_rate_mean": 0.0
+      },
+      "RANDOM_SEED_CONTROL": {
+        "em_mean": 0.0003333333333333333
+      }
+    },
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Composition fix drill on HotpotQA-distractor 1k-dev (N_Q=1000), N_DIM=8192, GEN_DEPTH=4, TOP_K=5. 11 arms (1 harness + 6 B alpha-sweep + 5 C characterization). Substrate-only-decode gate enforced (n_llm=0). Score-fusion replaces v1's mode-aggregation composition (per Research 2x-revival drill 2026-06-22). Builds on CERT 587 (g1b) + CERT 588 (h_hotpotqa KG) + char_trigram_encoder."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 sigma=0.100 run_mode=full device=cuda alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.005 cv_max=0.10",
+      "harness_em": 0.12,
+      "b_arms": [
+        {
+          "arm": "COMPOSED_alpha_0.0",
+          "alpha": 0.0,
+          "em": 0.152
+        },
+        {
+          "arm": "COMPOSED_alpha_0.2",
+          "alpha": 0.2,
+          "em": 0.149
+        },
+        {
+          "arm": "COMPOSED_alpha_0.4",
+          "alpha": 0.4,
+          "em": 0.149
+        },
+        {
+          "arm": "COMPOSED_alpha_0.6",
+          "alpha": 0.6,
+          "em": 0.146
+        },
+        {
+          "arm": "COMPOSED_alpha_0.8",
+          "alpha": 0.8,
+          "em": 0.053
+        },
+        {
+          "arm": "COMPOSED_alpha_1.0",
+          "alpha": 1.0,
+          "em": 0.009
+        }
+      ],
+      "c_arms": [
+        {
+          "arm": "FREQ_BIAS",
+          "em": 0.112,
+          "n_candidates": 100,
+          "n_q": 1000,
+          "note": "predict restricted to top-100 most-frequent answer entities"
+        },
+        {
+          "arm": "SUBSTRING_OVERLAP",
+          "em_generation_only": 0.152,
+          "substring_overlap_rate": 0.039,
+          "em_when_substring": 0.1282051282051282,
+          "em_when_not_substring": 0.1529656607700312,
+          "n_substring": 39,
+          "n_not_substring": 961,
+          "n_q": 1000
+        },
+        {
+          "arm": "QUESTION_TYPE_SPLIT",
+          "n_q": 1000,
+          "per_type": {
+            "comparison": {
+              "em": 0.08808290155440414,
+              "n": 193
+            },
+            "bridge": {
+              "em": 0.16728624535315986,
+              "n": 807
+            }
+          }
+        },
+        {
+          "arm": "START_ENTITY_LEAK",
+          "leak_rate": 0.0,
+          "n_q": 1000,
+          "em_seed_in_supporting_facts": 0.2401263823064771,
+          "em_seed_NOT_in_supporting_facts": 0.0,
+          "n_seed_in_sf": 633,
+          "n_seed_not_in_sf": 367
+        },
+        {
+          "arm": "RANDOM_SEED_CONTROL",
+          "em": 0.001,
+          "n_q": 1000,
+          "note": "generation seeded from RANDOM entity (not nearest)"
+        }
+      ],
+      "elapsed_s": 391.2912223339081,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782215674.795018
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 sigma=0.100 run_mode=full device=cuda alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.005 cv_max=0.10",
+      "harness_em": 0.118,
+      "b_arms": [
+        {
+          "arm": "COMPOSED_alpha_0.0",
+          "alpha": 0.0,
+          "em": 0.135
+        },
+        {
+          "arm": "COMPOSED_alpha_0.2",
+          "alpha": 0.2,
+          "em": 0.156
+        },
+        {
+          "arm": "COMPOSED_alpha_0.4",
+          "alpha": 0.4,
+          "em": 0.155
+        },
+        {
+          "arm": "COMPOSED_alpha_0.6",
+          "alpha": 0.6,
+          "em": 0.147
+        },
+        {
+          "arm": "COMPOSED_alpha_0.8",
+          "alpha": 0.8,
+          "em": 0.041
+        },
+        {
+          "arm": "COMPOSED_alpha_1.0",
+          "alpha": 1.0,
+          "em": 0.011
+        }
+      ],
+      "c_arms": [
+        {
+          "arm": "FREQ_BIAS",
+          "em": 0.109,
+          "n_candidates": 100,
+          "n_q": 1000,
+          "note": "predict restricted to top-100 most-frequent answer entities"
+        },
+        {
+          "arm": "SUBSTRING_OVERLAP",
+          "em_generation_only": 0.135,
+          "substring_overlap_rate": 0.028,
+          "em_when_substring": 0.10714285714285714,
+          "em_when_not_substring": 0.13580246913580246,
+          "n_substring": 28,
+          "n_not_substring": 972,
+          "n_q": 1000
+        },
+        {
+          "arm": "QUESTION_TYPE_SPLIT",
+          "n_q": 1000,
+          "per_type": {
+            "comparison": {
+              "em": 0.08290155440414508,
+              "n": 193
+            },
+            "bridge": {
+              "em": 0.14745972738537794,
+              "n": 807
+            }
+          }
+        },
+        {
+          "arm": "START_ENTITY_LEAK",
+          "leak_rate": 0.0,
+          "n_q": 1000,
+          "em_seed_in_supporting_facts": 0.2132701421800948,
+          "em_seed_NOT_in_supporting_facts": 0.0,
+          "n_seed_in_sf": 633,
+          "n_seed_not_in_sf": 367
+        },
+        {
+          "arm": "RANDOM_SEED_CONTROL",
+          "em": 0.0,
+          "n_q": 1000,
+          "note": "generation seeded from RANDOM entity (not nearest)"
+        }
+      ],
+      "elapsed_s": 386.989609003067,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782216061.8545089
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 sigma=0.100 run_mode=full device=cuda alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.005 cv_max=0.10",
+      "harness_em": 0.123,
+      "b_arms": [
+        {
+          "arm": "COMPOSED_alpha_0.0",
+          "alpha": 0.0,
+          "em": 0.126
+        },
+        {
+          "arm": "COMPOSED_alpha_0.2",
+          "alpha": 0.2,
+          "em": 0.156
+        },
+        {
+          "arm": "COMPOSED_alpha_0.4",
+          "alpha": 0.4,
+          "em": 0.156
+        },
+        {
+          "arm": "COMPOSED_alpha_0.6",
+          "alpha": 0.6,
+          "em": 0.15
+        },
+        {
+          "arm": "COMPOSED_alpha_0.8",
+          "alpha": 0.8,
+          "em": 0.037
+        },
+        {
+          "arm": "COMPOSED_alpha_1.0",
+          "alpha": 1.0,
+          "em": 0.011
+        }
+      ],
+      "c_arms": [
+        {
+          "arm": "FREQ_BIAS",
+          "em": 0.113,
+          "n_candidates": 100,
+          "n_q": 1000,
+          "note": "predict restricted to top-100 most-frequent answer entities"
+        },
+        {
+          "arm": "SUBSTRING_OVERLAP",
+          "em_generation_only": 0.126,
+          "substring_overlap_rate": 0.025,
+          "em_when_substring": 0.08,
+          "em_when_not_substring": 0.12717948717948718,
+          "n_substring": 25,
+          "n_not_substring": 975,
+          "n_q": 1000
+        },
+        {
+          "arm": "QUESTION_TYPE_SPLIT",
+          "n_q": 1000,
+          "per_type": {
+            "comparison": {
+              "em": 0.06735751295336788,
+              "n": 193
+            },
+            "bridge": {
+              "em": 0.14002478314745972,
+              "n": 807
+            }
+          }
+        },
+        {
+          "arm": "START_ENTITY_LEAK",
+          "leak_rate": 0.0,
+          "n_q": 1000,
+          "em_seed_in_supporting_facts": 0.19747235387045814,
+          "em_seed_NOT_in_supporting_facts": 0.0027247956403269754,
+          "n_seed_in_sf": 633,
+          "n_seed_not_in_sf": 367
+        },
+        {
+          "arm": "RANDOM_SEED_CONTROL",
+          "em": 0.0,
+          "n_q": 1000,
+          "note": "generation seeded from RANDOM entity (not nearest)"
+        }
+      ],
+      "elapsed_s": 376.6439800262451,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782216438.5925093
+    }
+  ],
+  "metrics_source": "measured_substrate_native_qa_hotpotqa_v2_composition_drill",
+  "elapsed_s": 1155.2712943553925,
+  "summary": "MIDDLE_BAND: composition lifts but bands not crossed. harness_em=0.1203 (v1=0.1223 delta=0.0017 tol=0.005) best_alpha=0.2 best_alpha_em=0.1537 lift=0.0333 cv_best=0.0215 n_llm=0"
+}

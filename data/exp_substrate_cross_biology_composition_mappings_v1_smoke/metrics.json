@@ -1,0 +1,314 @@
+{
+  "anchor_name": "substrate_cross_biology_composition_mappings_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_BONUS: best_bio=ARM_STIGMERGIC_SHARED_CACHE BPC=6.0141 <= 6.80 (chain-grade-eligible). Non-brain biology composition mapping decisively breaks cap. USER directive vindicated. uni=8.194 | BASE_CFRPE_K1=6.0287(drift=-1.0420,rail=False) | SCAFFOLD=6.1256 | HOX_3AXIS=6.4751 | STIG=6.0141 | best_bio=ARM_STIGMERGIC_SHARED_CACHE (BPC=6.0141 cv=0.0000)",
+  "summary": "HARD_PASS | arms=4 seeds=1 N_DIM=1024 N_TRAIN=2000 encoder=word2vec_sparse_bipolar cross_biology_v1",
+  "config_version": "substrate_cross_biology_composition_mappings_v1; encoder=word2vec_sparse_bipolar_f0.050; N_DIM=1024 (axisA=342 B=341 C=341) N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_BASELINE_CFRPE_K1', 'ARM_SCAFFOLD_KINETIC', 'ARM_HOX_COMBINATORIAL_3AXIS', 'ARM_STIGMERGIC_SHARED_CACHE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.1, 0.3, 0.5, 0.7, 1.0] cfrpe_lr=0.500 stdp_w=0.500 n_steps=80 batch=64 scaffold_eps=0.010 scaffold_interval=20 stig_tau_fast=10.0 stig_tau_med=100.0 stig_stdp_dep_w=0.500 stig_amp_alpha=0.050 device=cpu",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "N_DIM": 1024,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "N_STEPS": 80,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "SCAFFOLD_TRANSFER_EPS": 0.01,
+  "SCAFFOLD_TRANSFER_INTERVAL": 20,
+  "STIGMERGIC_TAU_FAST": 10.0,
+  "STIGMERGIC_TAU_MED": 100.0,
+  "STIGMERGIC_STDP_DEPOSIT_WEIGHT": 0.5,
+  "STIGMERGIC_SPARSE_AMP_ALPHA": 0.05,
+  "HOX_AXIS_DIMS": [
+    342,
+    341,
+    341
+  ],
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    0
+  ],
+  "ARMS": [
+    "ARM_BASELINE_CFRPE_K1",
+    "ARM_SCAFFOLD_KINETIC",
+    "ARM_HOX_COMBINATORIAL_3AXIS",
+    "ARM_STIGMERGIC_SHARED_CACHE"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 8.1936,
+        "bpc_std": 0.0
+      },
+      "ARM_BASELINE_CFRPE_K1": {
+        "bpc_best_mean": 6.0287,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3719,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3988,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7774,
+        "n_valid_seeds": 1,
+        "discriminating_per_seed": [
+          {}
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_SCAFFOLD_KINETIC": {
+        "bpc_best_mean": 6.1256,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3618,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3916,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.8183,
+        "n_valid_seeds": 1,
+        "discriminating_per_seed": [
+          {
+            "w_cf_vs_w_stdp_corr": 0.7292,
+            "transfer_rate_eps": 0.01,
+            "transfer_interval": 20,
+            "n_cross_transfers": 4
+          }
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_HOX_COMBINATORIAL_3AXIS": {
+        "bpc_best_mean": 6.4751,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2462,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3077,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.59,
+        "n_valid_seeds": 1,
+        "discriminating_per_seed": [
+          {
+            "axis_orthog_residual_max": 5e-08,
+            "axis_a_dim": 342,
+            "axis_b_dim": 341,
+            "axis_c_dim": 341,
+            "axis_a_ablation_lift": 0.9737,
+            "axis_b_ablation_lift": 0.6391,
+            "axis_c_ablation_lift": -0.1841,
+            "bpc_full_3axis": 6.4751,
+            "bpc_ablate_a": 7.4488,
+            "bpc_ablate_b": 7.1142,
+            "bpc_ablate_c": 6.291
+          }
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_STIGMERGIC_SHARED_CACHE": {
+        "bpc_best_mean": 6.0141,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3869,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.413,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.8034,
+        "n_valid_seeds": 1,
+        "discriminating_per_seed": [
+          {
+            "cache_norm_max": 123.1762,
+            "cache_norm_mean": 110.786,
+            "cache_norm_std": 14.9213,
+            "cache_utilization_score": 0.1347,
+            "n_cache_samples": 80
+          }
+        ],
+        "all_seeds_failed": false
+      }
+    },
+    "bio_arm_bpc": {
+      "ARM_SCAFFOLD_KINETIC": 6.1256,
+      "ARM_HOX_COMBINATORIAL_3AXIS": 6.4751,
+      "ARM_STIGMERGIC_SHARED_CACHE": 6.0141
+    },
+    "best_bio_arm": "ARM_STIGMERGIC_SHARED_CACHE",
+    "best_bio_bpc": 6.0141,
+    "best_bio_cv": 0.0,
+    "sanity_rails": {
+      "baseline_ref_A3_cfrpe_coarse": 7.0707,
+      "baseline_drift": 1.042,
+      "baseline_rail_ok": false,
+      "tolerance": 0.05
+    },
+    "bands": {
+      "hard_pass_near_decomposability_bpc": 6.95,
+      "chain_grade_bonus_bpc": 6.8,
+      "middle_band_lower": 6.95,
+      "middle_band_upper": 7.05,
+      "hard_fail_decisive_floor": 7.2,
+      "cv_max": 0.05
+    },
+    "n_seeds": 1,
+    "unigram_bpc": 8.1936,
+    "llm_forward_calls_total": 0,
+    "honest_scope": "Tests 3 non-brain-biology-inspired composition architectures (scaffold-kinetic / Hox 3-axis combinatorial / stigmergic shared cache) vs cf-RPE single-bank baseline at production scale (N_DIM=8192, N_TRAIN=100k text8, V=4000, word2vec sparse-bipolar f=0.05). HARD_PASS_NEAR_DECOMPOSABILITY: any bio arm BPC <= 6.95 confirms near-decomposability + weak-coupling principle works in substrate. WHAT_THIS_DOES_NOT_SHOW: doesn't test other 4 non-brain biology principles (gene regulation cooperative-AND, immune mutate-and-select, cellular compartmentalization, sigma-factor switching); doesn't sweep transfer rates; doesn't stack bio arms; result at text8 V=4000 may not generalize.",
+    "cites": [
+      "notes/research_biology_cross_system_composition_strategies_2x_drill_2026-06-24.md",
+      "data/exp_substrate_cfrpe_n_steps_curve_v1/metrics.json (A3 cf-RPE coarse ref 7.0707)",
+      "experiments/exp_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1.py",
+      "experiments/exp_substrate_compose_heterogeneous_routing_v1.py",
+      "preregs/2026-06-24_substrate_cross_biology_composition_mappings_v1.md"
+    ],
+    "provenance_check_active": false,
+    "verdict_tier": "HARD_PASS_CHAIN_GRADE_BONUS"
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 8.1936,
+          "top1_unigram": 0.0151,
+          "mrr_unigram": 0.0436,
+          "n_test": 199
+        },
+        "w2v_meta": {
+          "n_hit": 300,
+          "n_miss": 0,
+          "n_vocab": 300,
+          "pretrain_dim": 1024,
+          "synthetic_smoke": true
+        },
+        "ARM_BASELINE_CFRPE_K1": {
+          "bpc_best": 6.0287,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 5.8928,
+          "top1_acc": 0.3719,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3988,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.7,
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.17,
+          "wall_ingest_s": 0.29,
+          "wall_recall_s": 0.01,
+          "raw_bpc_at_T1_L1": 7.7774,
+          "discriminating": {}
+        },
+        "ARM_SCAFFOLD_KINETIC": {
+          "bpc_best": 6.1256,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 5.9177,
+          "top1_acc": 0.3618,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3916,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.3,
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.18,
+          "wall_ingest_s": 0.59,
+          "wall_recall_s": 0.01,
+          "raw_bpc_at_T1_L1": 7.8183,
+          "discriminating": {
+            "w_cf_vs_w_stdp_corr": 0.7292,
+            "transfer_rate_eps": 0.01,
+            "transfer_interval": 20,
+            "n_cross_transfers": 4
+          }
+        },
+        "ARM_HOX_COMBINATORIAL_3AXIS": {
+          "bpc_best": 6.4751,
+          "best_T_for_bpc": 0.2,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 6.313,
+          "top1_acc": 0.2462,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3077,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.7,
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.37,
+          "wall_ingest_s": 0.07,
+          "wall_recall_s": 0.01,
+          "raw_bpc_at_T1_L1": 7.59,
+          "discriminating": {
+            "axis_orthog_residual_max": 5e-08,
+            "axis_a_dim": 342,
+            "axis_b_dim": 341,
+            "axis_c_dim": 341,
+            "axis_a_ablation_lift": 0.9737,
+            "axis_b_ablation_lift": 0.6391,
+            "axis_c_ablation_lift": -0.1841,
+            "bpc_full_3axis": 6.4751,
+            "bpc_ablate_a": 7.4488,
+            "bpc_ablate_b": 7.1142,
+            "bpc_ablate_c": 6.291
+          }
+        },
+        "ARM_STIGMERGIC_SHARED_CACHE": {
+          "bpc_best": 6.0141,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 5.8596,
+          "top1_acc": 0.3869,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.413,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.7,
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.2,
+          "wall_ingest_s": 0.66,
+          "wall_recall_s": 0.01,
+          "raw_bpc_at_T1_L1": 7.8034,
+          "discriminating": {
+            "cache_norm_max": 123.1762,
+            "cache_norm_mean": 110.786,
+            "cache_norm_std": 14.9213,
+            "cache_utilization_score": 0.1347,
+            "n_cache_samples": 80
+          }
+        }
+      },
+      "V": 300,
+      "N_DIM": 1024,
+      "N_TRAIN": 2000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "smoke_synthetic": true,
+        "V": 300,
+        "N_TRAIN": 2000,
+        "n_hit": 300,
+        "n_miss": 0,
+        "n_vocab": 300,
+        "pretrain_dim": 1024,
+        "synthetic_smoke": true
+      },
+      "elapsed_s_seed": 3.36
+    }
+  ],
+  "elapsed_s": 3.36
+}

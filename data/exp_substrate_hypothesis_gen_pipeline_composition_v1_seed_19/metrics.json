@@ -1,0 +1,86 @@
+{
+  "anchor_name": "substrate_hypothesis_gen_pipeline_composition_v1_seed_19",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS substrate_hypothesis_gen_pipeline_composition_v1_seed_19 | PIPELINE=0.610 GEN_ONLY=0.080 SCORER_ONLY=0.000 RANDOM=0.000 ORACLE=1.000 | lift_over_max_prim=+0.530 comp_value_add=True | arms_distinct=True cardinality_ok=True (obs=1000/exp=1000) | fps={'ARM_PIPELINE_FULL': '91b65d2691d1f7fd', 'ARM_GENERATOR_ONLY': 'bdc97d8f956b1257', 'ARM_SCORER_ONLY': 'b215671fab271992', 'ARM_RANDOM_CANDIDATES': 'f240d60023000eb0', 'ARM_ORACLE': '061eb705688db4f8'}",
+  "summary": "HARD_PASS substrate_hypothesis_gen_pipeline_composition_v1_seed_19 | PIPELINE=0.610 GEN_ONLY=0.080 SCORER_ONLY=0.000 RANDOM=0.000 ORACLE=1.000 | lift_over_max_prim=+0.530 comp_value_add=True | arms_distinct=True cardinality_ok=True (obs=1000/exp=1000) | fps={'ARM_PIPELINE_FULL': '91b65d2691d1f7fd', 'ARM_GENERATOR_ONLY': 'bdc97d8f956b1257', 'ARM_SCORER_ONLY': 'b215671fab271992', 'ARM_RANDOM_CANDIDATES': 'f240d60023000eb0', 'ARM_ORACLE': '061eb705688db4f8'}",
+  "elapsed_s": 4.45,
+  "ts_iso": "2026-06-28T20:42:54Z",
+  "pid": 16600,
+  "run_mode": "full",
+  "N": 8192,
+  "V_BANK": 256,
+  "N_PROBLEMS": 200,
+  "K_CANDS": 10,
+  "seed": 19,
+  "config_version": "ANCHOR=substrate_hypothesis_gen_pipeline_composition_v1_seed_19,N=8192,V=256,K=10,problems=200,M_OBS=5,seed=19,mode=full,HP_lift>=0.15,HP_pipe_lo=0.30,HP_pipe_hi=0.95,HP_random_max=0.05,HP_oracle_min=0.90,cos_hit=0.70,cos_novel=0.50,expected_n=1000",
+  "arms_tested": [
+    "ARM_PIPELINE_FULL",
+    "ARM_GENERATOR_ONLY",
+    "ARM_SCORER_ONLY",
+    "ARM_RANDOM_CANDIDATES",
+    "ARM_ORACLE"
+  ],
+  "per_arm_summary": {
+    "ARM_PIPELINE_FULL": {
+      "top1_rate": 0.61,
+      "fingerprint": "91b65d2691d1f7fd",
+      "n_decisions": 200,
+      "elapsed_s": 1.42
+    },
+    "ARM_GENERATOR_ONLY": {
+      "top1_rate": 0.08,
+      "fingerprint": "bdc97d8f956b1257",
+      "n_decisions": 200,
+      "elapsed_s": 0.46
+    },
+    "ARM_SCORER_ONLY": {
+      "top1_rate": 0.0,
+      "fingerprint": "b215671fab271992",
+      "n_decisions": 200,
+      "elapsed_s": 1.18
+    },
+    "ARM_RANDOM_CANDIDATES": {
+      "top1_rate": 0.0,
+      "fingerprint": "f240d60023000eb0",
+      "n_decisions": 200,
+      "elapsed_s": 0.12
+    },
+    "ARM_ORACLE": {
+      "top1_rate": 1.0,
+      "fingerprint": "061eb705688db4f8",
+      "n_decisions": 200,
+      "elapsed_s": 1.17
+    }
+  },
+  "rates": {
+    "ARM_PIPELINE_FULL": 0.61,
+    "ARM_GENERATOR_ONLY": 0.08,
+    "ARM_SCORER_ONLY": 0.0,
+    "ARM_RANDOM_CANDIDATES": 0.0,
+    "ARM_ORACLE": 1.0
+  },
+  "fingerprints": {
+    "ARM_PIPELINE_FULL": "91b65d2691d1f7fd",
+    "ARM_GENERATOR_ONLY": "bdc97d8f956b1257",
+    "ARM_SCORER_ONLY": "b215671fab271992",
+    "ARM_RANDOM_CANDIDATES": "f240d60023000eb0",
+    "ARM_ORACLE": "061eb705688db4f8"
+  },
+  "arms_distinct": true,
+  "cardinality_ok": true,
+  "n_observed": 1000,
+  "n_expected": 1000,
+  "composition_value_add": true,
+  "lift_over_max_primitive": 0.53,
+  "hp_conds": {
+    "composition_lift_ge_0.15": true,
+    "pipeline_in_[0.30,0.95]": true,
+    "oracle>pipeline": true,
+    "random<=0.05": true,
+    "arms_distinct": true,
+    "cardinality_ok": true
+  },
+  "hf_reasons": [],
+  "suspect_q": false,
+  "_hardening_marker": "v1_hypgen_pipeline_seed_chunk"
+}

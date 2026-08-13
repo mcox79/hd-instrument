@@ -1,0 +1,5830 @@
+{
+  "anchor": "substrate_three_tier_generational_v1",
+  "anchor_name": "substrate_three_tier_generational_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_THREE_TIER_ADDS_RETENTION: THREE_TIER wins retention delta=0.0500 >= 0.05 at t=100 replays (cv=0.0000 <= 0.1). ITM_util=0.266 >= 0.05; arm_distinct=True. arms: ARM_TWO_TIER_t100=fin_forget=0.8000+/-0.0000 | ARM_THREE_TIER_t100=fin_forget=0.7500+/-0.0000",
+  "headline": "HARD_PASS_THREE_TIER_ADDS_RETENTION: THREE_TIER wins retention delta=0.0500 >= 0.05 at t=100 replays (cv=0.0000 <= 0.1). ITM_util=0.266 >= 0.05; arm_distinct=True. arms: ARM_TWO_TIER_t100=fin_forget=0.8000+/-0.0000 | ARM_THREE_TIER_t100=fin_forget=0.7500+/-0.0000",
+  "n_seeds": 1,
+  "N": 8192,
+  "run_mode": "smoke",
+  "M_atoms": 40,
+  "T_list": [
+    100
+  ],
+  "arms_tested": [
+    "ARM_TWO_TIER_t100",
+    "ARM_THREE_TIER_t100"
+  ],
+  "arms_config": {
+    "ARM_TWO_TIER_t100": {
+      "structure": "TWO_TIER",
+      "t_replay": 100,
+      "K_stm_ltm": 20,
+      "tau_stm_ltm": 0.1,
+      "gamma_stm": 0.9
+    },
+    "ARM_THREE_TIER_t100": {
+      "structure": "THREE_TIER",
+      "t_replay": 100,
+      "K_stm_itm": 10,
+      "K_itm_ltm": 20,
+      "tau_stm_itm": 0.1,
+      "tau_itm_ltm": 0.1,
+      "gamma_stm": 0.9,
+      "gamma_itm": 0.95
+    }
+  },
+  "detail": {
+    "arms_aggregate": {
+      "ARM_TWO_TIER_t100": {
+        "mean_final_forget": 0.8,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.8
+        ]
+      },
+      "ARM_THREE_TIER_t100": {
+        "mean_final_forget": 0.75,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.75
+        ]
+      }
+    },
+    "retention_delta_by_t": {
+      "100": {
+        "delta_mean": 0.050000000000000044,
+        "delta_pairwise_cv": 0.0,
+        "two_forget": 0.8,
+        "three_forget": 0.75
+      }
+    },
+    "itm_utilization_by_t": {
+      "100": 0.2664187645539937
+    },
+    "arm_distinctness_by_t": {
+      "100": true
+    },
+    "discriminator_t": 100,
+    "discriminator_delta": 0.050000000000000044,
+    "discriminator_cv": 0.0,
+    "discriminator_itm_util": 0.2664187645539937,
+    "discriminator_arm_distinct": true,
+    "honest_scope": "THREE_TIER vs TWO_TIER generational W over T=[100] replays; M_atoms=40 N=8192; 2 arms; forget on first 20 atoms; combined-read all tiers"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "run_mode": "smoke",
+      "M_atoms": 40,
+      "T_list": [
+        100
+      ],
+      "arms": {
+        "ARM_TWO_TIER_t100": {
+          "arm": "ARM_TWO_TIER_t100",
+          "arm_cfg": {
+            "structure": "TWO_TIER",
+            "t_replay": 100,
+            "K_stm_ltm": 20,
+            "tau_stm_ltm": 0.1,
+            "gamma_stm": 0.9
+          },
+          "curve": [
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.95,
+              "forget": 0.050000000000000044
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.75,
+              "forget": 0.25
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.45,
+              "forget": 0.55
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.45,
+              "forget": 0.55
+            },
+            {
+              "cycle": 3000,
+              "recall_acc": 0.2,
+              "forget": 0.8
+            },
+            {
+              "cycle": 3500,
+              "recall_acc": 0.2,
+              "forget": 0.8
+            },
+            {
+              "cycle": 4000,
+              "recall_acc": 0.2,
+              "forget": 0.8
+            }
+          ],
+          "promotions_log": [
+            {
+              "cycle": 20,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 40,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 60,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 80,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 100,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 120,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 140,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 160,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 180,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 200,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 220,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 240,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 260,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 280,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 300,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 320,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 340,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 360,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 380,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 400,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 420,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 440,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 460,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 480,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 500,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 520,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 540,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 560,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 580,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 600,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 620,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 640,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 660,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 680,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 700,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 720,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 740,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 760,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 780,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 800,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 820,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 840,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 860,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 880,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 900,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 920,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 940,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 960,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 980,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1000,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1020,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1040,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1060,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1080,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1100,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1120,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1140,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1160,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1180,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1200,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1220,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1240,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1260,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1280,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1300,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1320,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1340,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1360,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1380,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1400,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1420,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1440,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1460,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1480,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1500,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1520,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1540,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1560,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1580,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1600,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1620,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1640,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1660,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1680,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1700,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1720,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1740,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1760,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1780,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1800,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1820,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1840,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1860,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1880,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1900,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1920,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1940,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1960,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1980,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2000,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2020,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2040,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2060,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2080,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2100,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2120,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2140,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2160,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2180,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2200,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2220,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2240,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2260,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2280,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2300,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2320,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2340,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2360,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2380,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2400,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2420,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2440,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2460,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2480,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2500,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2520,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2540,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2560,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2580,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2600,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2620,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2640,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2660,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2680,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2700,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2720,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2740,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2760,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2780,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2800,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2820,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2840,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2860,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2880,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2900,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2920,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2940,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2960,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2980,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3000,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3020,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3040,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3060,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3080,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3100,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3120,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3140,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3160,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3180,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3200,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3220,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3240,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3260,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3280,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3300,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3320,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3340,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3360,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3380,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3400,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3420,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3440,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3460,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3480,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3500,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3520,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3540,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3560,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3580,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3600,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3620,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3640,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3660,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3680,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3700,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3720,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3740,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3760,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3780,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3800,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3820,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3840,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3860,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3880,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3900,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3920,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3940,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3960,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3980,
+              "from": "STM",
+              "to": "LTM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            }
+          ],
+          "final_cycle": 4000,
+          "final_acc": 0.2,
+          "final_forget": 0.8,
+          "W_stm_norm": 258797.73555446137,
+          "W_itm_norm": 0.0,
+          "W_ltm_norm": 3261045.7333744955,
+          "W_itm_utilization": 0.0,
+          "W_ltm_utilization": 0.9264746464327261,
+          "stm_hash": "b13f6c1118ba5842",
+          "itm_hash": null,
+          "ltm_hash": "2ed384cdb41cf8f1",
+          "n_cycles_run": 4000,
+          "elapsed_s": 2456.7790474891663
+        },
+        "ARM_THREE_TIER_t100": {
+          "arm": "ARM_THREE_TIER_t100",
+          "arm_cfg": {
+            "structure": "THREE_TIER",
+            "t_replay": 100,
+            "K_stm_itm": 10,
+            "K_itm_ltm": 20,
+            "tau_stm_itm": 0.1,
+            "tau_itm_ltm": 0.1,
+            "gamma_stm": 0.9,
+            "gamma_itm": 0.95
+          },
+          "curve": [
+            {
+              "cycle": 500,
+              "recall_acc": 0.9,
+              "forget": 0.09999999999999998
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.45,
+              "forget": 0.55
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.55,
+              "forget": 0.44999999999999996
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.3,
+              "forget": 0.7
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.25,
+              "forget": 0.75
+            },
+            {
+              "cycle": 3000,
+              "recall_acc": 0.25,
+              "forget": 0.75
+            },
+            {
+              "cycle": 3500,
+              "recall_acc": 0.3,
+              "forget": 0.7
+            },
+            {
+              "cycle": 4000,
+              "recall_acc": 0.25,
+              "forget": 0.75
+            }
+          ],
+          "promotions_log": [
+            {
+              "cycle": 10,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 20,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 20,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 30,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 40,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 40,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 50,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 60,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 60,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 70,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 80,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 80,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 90,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 100,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 100,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 110,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 120,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 120,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 130,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 140,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 140,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 150,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 160,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 160,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 170,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 180,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 180,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 190,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 200,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 200,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 210,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 220,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 220,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 230,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 240,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 240,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 250,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 260,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 260,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 270,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 280,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 280,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 290,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 300,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 300,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 310,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 320,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 320,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 330,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 340,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 340,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 350,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 360,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 360,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 370,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 380,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 380,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 390,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 400,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 400,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 410,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 420,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 420,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 430,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 440,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 440,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 450,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 460,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 460,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 470,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 480,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 480,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 490,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 500,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 500,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 510,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 520,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 520,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 530,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 540,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 540,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 550,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 560,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 560,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 570,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 580,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 580,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 590,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 600,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 600,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 610,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 620,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 620,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 630,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 640,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 640,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 650,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 660,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 660,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 670,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 680,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 680,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 690,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 700,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 700,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 710,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 720,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 720,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 730,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 740,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 740,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 750,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 760,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 760,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 770,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 780,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 780,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 790,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 800,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 800,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 810,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 820,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 820,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 830,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 840,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 840,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 850,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 860,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 860,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 870,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 880,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 880,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 890,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 900,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 900,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 910,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 920,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 920,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 930,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 940,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 940,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 950,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 960,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 960,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 970,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 980,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 980,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 990,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1000,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1000,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1010,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1020,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1020,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1030,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1040,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1040,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1050,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1060,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1060,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1070,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1080,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1080,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1090,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1100,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1100,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1110,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1120,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1120,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1130,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1140,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1140,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1150,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1160,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1160,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1170,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1180,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1180,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1190,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1200,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1200,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1210,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1220,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1220,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1230,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1240,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1240,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1250,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1260,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1260,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1270,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1280,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1280,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1290,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1300,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1300,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1310,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1320,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1320,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1330,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1340,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1340,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1350,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1360,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1360,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1370,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1380,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1380,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1390,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1400,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1400,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1410,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1420,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1420,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1430,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1440,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1440,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1450,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1460,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1460,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1470,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1480,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1480,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1490,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1500,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1500,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1510,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1520,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1520,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1530,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1540,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1540,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1550,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1560,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1560,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1570,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1580,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1580,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1590,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1600,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1600,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1610,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1620,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1620,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1630,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1640,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1640,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1650,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1660,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1660,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1670,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1680,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1680,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1690,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1700,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1700,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1710,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1720,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1720,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1730,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1740,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1740,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1750,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1760,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1760,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1770,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1780,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1780,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1790,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1800,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1800,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1810,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1820,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1820,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1830,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1840,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1840,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1850,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1860,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1860,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1870,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1880,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1880,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1890,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1900,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1900,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1910,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1920,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1920,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1930,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1940,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1940,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1950,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1960,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1960,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1970,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1980,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1980,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 1990,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2000,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2000,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2010,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2020,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2020,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2030,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2040,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2040,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2050,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2060,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2060,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2070,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2080,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2080,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2090,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2100,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2100,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2110,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2120,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2120,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2130,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2140,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2140,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2150,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2160,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2160,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2170,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2180,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2180,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2190,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2200,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2200,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2210,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2220,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2220,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2230,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2240,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2240,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2250,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2260,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2260,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2270,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2280,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2280,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2290,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2300,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2300,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2310,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2320,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2320,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2330,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2340,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2340,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2350,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2360,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2360,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2370,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2380,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2380,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2390,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2400,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2400,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2410,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2420,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2420,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2430,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2440,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2440,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2450,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2460,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2460,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2470,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2480,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2480,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2490,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2500,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2500,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2510,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2520,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2520,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2530,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2540,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2540,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2550,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2560,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2560,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2570,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2580,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2580,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2590,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2600,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2600,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2610,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2620,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2620,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2630,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2640,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2640,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2650,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2660,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2660,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2670,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2680,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2680,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2690,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2700,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2700,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2710,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2720,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2720,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2730,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2740,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2740,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2750,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2760,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2760,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2770,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2780,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2780,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2790,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2800,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2800,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2810,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2820,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2820,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2830,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2840,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2840,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2850,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2860,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2860,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2870,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2880,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2880,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2890,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2900,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2900,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2910,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2920,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2920,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2930,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2940,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2940,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2950,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2960,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2960,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2970,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2980,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2980,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 2990,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3000,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3000,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3010,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3020,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3020,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3030,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3040,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3040,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3050,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3060,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3060,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3070,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3080,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3080,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3090,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3100,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3100,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3110,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3120,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3120,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3130,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3140,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3140,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3150,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3160,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3160,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3170,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3180,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3180,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3190,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3200,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3200,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3210,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3220,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3220,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3230,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3240,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3240,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3250,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3260,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3260,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3270,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3280,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3280,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3290,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3300,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3300,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3310,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3320,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3320,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3330,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3340,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3340,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3350,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3360,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3360,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3370,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3380,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3380,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3390,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3400,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3400,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3410,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3420,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3420,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3430,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3440,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3440,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3450,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3460,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3460,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3470,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3480,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3480,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3490,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3500,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3500,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3510,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3520,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3520,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3530,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3540,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3540,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3550,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3560,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3560,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3570,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3580,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3580,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3590,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3600,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3600,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3610,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3620,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3620,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3630,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3640,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3640,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3650,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3660,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3660,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3670,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3680,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3680,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3690,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3700,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3700,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3710,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3720,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3720,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3730,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3740,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3740,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3750,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3760,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3760,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3770,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3780,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3780,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3790,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3800,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3800,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3810,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3820,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3820,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3830,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3840,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3840,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3850,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3860,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3860,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3870,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3880,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3880,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3890,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3900,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3900,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3910,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3920,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3920,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3930,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3940,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3940,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3950,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3960,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3960,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3970,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3980,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3980,
+              "from": "ITM",
+              "to": "LTM",
+              "n_promoted": 1,
+              "mean_importance_promoted": 1.0
+            },
+            {
+              "cycle": 3990,
+              "from": "STM",
+              "to": "ITM",
+              "n_promoted": 4,
+              "mean_importance_promoted": 1.0
+            }
+          ],
+          "final_cycle": 4000,
+          "final_acc": 0.25,
+          "final_forget": 0.75,
+          "W_stm_norm": 129482.17837918954,
+          "W_itm_norm": 639076.4385304218,
+          "W_ltm_norm": 1630208.0,
+          "W_itm_utilization": 0.2664187645539937,
+          "W_ltm_utilization": 0.6796025876415756,
+          "stm_hash": "cd8ea8142c9c181d",
+          "itm_hash": "b0034b2cba387ddb",
+          "ltm_hash": "5b3c2b15b233a207",
+          "n_cycles_run": 4000,
+          "elapsed_s": 4049.8382391929626
+        }
+      },
+      "elapsed_s": 6512.104628324509,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782886379.3355489
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_three_tier_generational_W_replay_sweep",
+  "elapsed_s": 0.034058332443237305,
+  "summary": "HARD_PASS_THREE_TIER_ADDS_RETENTION: THREE_TIER wins retention delta=0.0500 >= 0.05 at t=100 replays (cv=0.0000 <= 0.1). ITM_util=0.266 >= 0.05; arm_distinct=True. arms: ARM_TWO_TIER_t100=fin_forget=0",
+  "honest_scope": "THREE_TIER vs TWO_TIER generational W over T=[100] replays; M_atoms=40 N=8192; 2 arms; forget on first 20 atoms; combined-read all tiers",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls; numpy + Hopfield sign() only)",
+  "pre_reg_bands": {
+    "HARD_PASS_RETENTION_DELTA": 0.05,
+    "HARD_PASS_CV_CEILING": 0.1,
+    "HARD_PASS_ITM_UTIL_FLOOR": 0.05,
+    "HARD_FAIL_MATCH_TOL": 0.02
+  },
+  "compose_upstream": [
+    "gap4_two_tier_generational_W_v1",
+    "exp_substrate_continual_NREM_replay_v1"
+  ],
+  "seed": 7,
+  "seed_wrapper_anchor": "substrate_three_tier_generational_v1_seed_7",
+  "seed_wrapper_elapsed_s": 0.89,
+  "seed_wrapper_config_version": "ANCHOR=substrate_three_tier_generational_v1_seed_7,structures=[TWO_TIER,THREE_TIER],N=8192,SEED=7,mode=smoke,M_atoms_full=200,M_atoms_smoke=40,T_list_full=[10,50,100],T_list_smoke=[100],expected_n_full=6,expected_n_smoke=2,discriminator=three_tier_retention_delta_ge_0p05_at_t100_cv_le_0p10,bands=HP_delta0.05_HP_cv0.10_HP_itm_util0.05_HF_tol0.02,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "cell_lineage": "research_2026_07_01_phase_diagram_gap_analysis_cell_4_axis_P_three_tier_generational",
+  "n_llm_calls": 0
+}

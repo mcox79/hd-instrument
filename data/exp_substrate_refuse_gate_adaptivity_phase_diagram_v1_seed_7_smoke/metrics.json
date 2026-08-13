@@ -1,0 +1,308 @@
+{
+  "seed": 7,
+  "N": 2048,
+  "V_C_per_cat": 50,
+  "V_REL": 256,
+  "n_queries_per_regime": 30,
+  "elapsed_phase_sweep_s": 0.08,
+  "observed_n_units": 8,
+  "expected_n_units": 8,
+  "cardinality_ok": true,
+  "phase_map": [
+    {
+      "family": "fixed_threshold",
+      "regime": "PURE_OUT_OF_DOMAIN",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.6957,
+      "tpr_random": 0.5333,
+      "tnr_random": 1.0,
+      "discriminator": 0.3043,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "737348a1045ad6a2",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.008,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "fixed_threshold",
+      "regime": "AMBIGUOUS_BOUNDARY",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 0.0,
+      "f1_random": 0.6047,
+      "tpr_random": 1.0,
+      "tnr_random": 0.4333,
+      "discriminator": 0.3953,
+      "mech_decision_hash": "4a05a819ad3645a3",
+      "rnd_decision_hash": "b38be67c5942636e",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.008,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "adaptive_bayesian_CI",
+      "regime": "PURE_OUT_OF_DOMAIN",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.6047,
+      "tpr_random": 0.4333,
+      "tnr_random": 1.0,
+      "discriminator": 0.3953,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "80d620003e4f289e",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.009,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "adaptive_bayesian_CI",
+      "regime": "AMBIGUOUS_BOUNDARY",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 0.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 0.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.5714,
+      "tpr_random": 1.0,
+      "tnr_random": 0.4,
+      "discriminator": -0.5714,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "5626fae0898c7a50",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "elapsed_per_point_s": 0.01,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "learned_logistic",
+      "regime": "PURE_OUT_OF_DOMAIN",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.6957,
+      "tpr_random": 0.5333,
+      "tnr_random": 1.0,
+      "discriminator": 0.3043,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "e91dc9890ae91b3c",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.013,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "learned_logistic",
+      "regime": "AMBIGUOUS_BOUNDARY",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 0.0,
+      "f1_random": 0.75,
+      "tpr_random": 1.0,
+      "tnr_random": 0.6,
+      "discriminator": 0.25,
+      "mech_decision_hash": "4a05a819ad3645a3",
+      "rnd_decision_hash": "192f6cbd118ab04d",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.013,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "percentile_based",
+      "regime": "PURE_OUT_OF_DOMAIN",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 1.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 1.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.8235,
+      "tpr_random": 0.7,
+      "tnr_random": 1.0,
+      "discriminator": 0.1765,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "2b3ece2c419f3f4f",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "elapsed_per_point_s": 0.01,
+      "noise_floor_prediction": 0.07
+    },
+    {
+      "family": "percentile_based",
+      "regime": "AMBIGUOUS_BOUNDARY",
+      "cal_size": 64,
+      "n_queries": 30,
+      "seed": 7,
+      "f1_mechanism": 0.0,
+      "tpr_mechanism": 1.0,
+      "tnr_mechanism": 0.0,
+      "refuse_rate_mechanism": 1.0,
+      "f1_random": 0.6364,
+      "tpr_random": 1.0,
+      "tnr_random": 0.4667,
+      "discriminator": -0.6364,
+      "mech_decision_hash": "d4bbd427d9f23676",
+      "rnd_decision_hash": "66656fbd16405d98",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "elapsed_per_point_s": 0.01,
+      "noise_floor_prediction": 0.07
+    }
+  ],
+  "per_family_summary": {
+    "fixed_threshold": {
+      "f1_mean": 1.0,
+      "tpr_mean": 1.0,
+      "tnr_mean": 1.0,
+      "cal_size_sensitivity": 0.0,
+      "tier_counts": {
+        "SATURATED": 2,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      }
+    },
+    "adaptive_bayesian_CI": {
+      "f1_mean": 0.5,
+      "tpr_mean": 1.0,
+      "tnr_mean": 0.5,
+      "cal_size_sensitivity": 0.0,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      }
+    },
+    "learned_logistic": {
+      "f1_mean": 1.0,
+      "tpr_mean": 1.0,
+      "tnr_mean": 1.0,
+      "cal_size_sensitivity": 0.0,
+      "tier_counts": {
+        "SATURATED": 2,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      }
+    },
+    "percentile_based": {
+      "f1_mean": 0.5,
+      "tpr_mean": 1.0,
+      "tnr_mean": 0.5,
+      "cal_size_sensitivity": 0.0,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      }
+    }
+  },
+  "family_tiers": {
+    "fixed_threshold": "COMPETITIVE_FAMILY",
+    "adaptive_bayesian_CI": "DOMINATED_FAMILY",
+    "learned_logistic": "COMPETITIVE_FAMILY",
+    "percentile_based": "DOMINATED_FAMILY"
+  },
+  "family_pair_distinctness": {
+    "fixed_threshold_vs_adaptive_bayesian_CI": true,
+    "fixed_threshold_vs_learned_logistic": false,
+    "fixed_threshold_vs_percentile_based": true,
+    "adaptive_bayesian_CI_vs_learned_logistic": true,
+    "adaptive_bayesian_CI_vs_percentile_based": false,
+    "learned_logistic_vs_percentile_based": true
+  },
+  "n_family_pairs_differ": 4,
+  "family_mech_hashes": {
+    "fixed_threshold": "6da62e3f3f4eccf1337215be66869b96ea089e56090415c146b06b54e692507b",
+    "adaptive_bayesian_CI": "58081f2bc840ac6f042ea8e892dabda4cc0a202d3dafc90298f9482a664b4a15",
+    "learned_logistic": "6da62e3f3f4eccf1337215be66869b96ea089e56090415c146b06b54e692507b",
+    "percentile_based": "58081f2bc840ac6f042ea8e892dabda4cc0a202d3dafc90298f9482a664b4a15"
+  },
+  "arms_differ_per_family": {
+    "fixed_threshold": {
+      "mechanism_hash": "6da62e3f3f4eccf1337215be66869b96ea089e56090415c146b06b54e692507b",
+      "random_hash": "2f47939937eb242f24f5ba8b45da485b4024bb69684fc7f9bf0967f2866f2f8c",
+      "differ": true
+    },
+    "adaptive_bayesian_CI": {
+      "mechanism_hash": "58081f2bc840ac6f042ea8e892dabda4cc0a202d3dafc90298f9482a664b4a15",
+      "random_hash": "3cf8a5a58606f464d06d5b41ed0c18e92c3456f308fb911a7824f39a690b694e",
+      "differ": true
+    },
+    "learned_logistic": {
+      "mechanism_hash": "6da62e3f3f4eccf1337215be66869b96ea089e56090415c146b06b54e692507b",
+      "random_hash": "835619c06df53ba7b81e38db4bbf0c225edebeb655ac09bbb72cec48684ce8b0",
+      "differ": true
+    },
+    "percentile_based": {
+      "mechanism_hash": "58081f2bc840ac6f042ea8e892dabda4cc0a202d3dafc90298f9482a664b4a15",
+      "random_hash": "f1003e9f4ac392f494f47c83d394fc1895aae235e153f9ea296f024bd86ceb68",
+      "differ": true
+    }
+  },
+  "positive_control_check": {
+    "expected": {
+      "family": "fixed_threshold",
+      "regime": "PURE_OUT_OF_DOMAIN",
+      "cal_size": 64,
+      "refuse_rate_floor": 0.75
+    },
+    "observed_refuse_rate": 1.0,
+    "passed": true
+  },
+  "n_passing_points": 0,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_ADAPTIVITY_DIFFERS_BUT_LOW_DISC: 0/8 HARD_PASS+MIDDLE_BAND < threshold 1; family pairs differ (4/6)",
+  "summary": "MIDDLE_BAND_ADAPTIVITY_DIFFERS_BUT_LOW_DISC: 0/8 HARD_PASS+MIDDLE_BAND < threshold 1; family pairs differ (4/6)",
+  "anchor_name": "substrate_refuse_gate_adaptivity_phase_diagram_v1_seed_7",
+  "config_version": "ANCHOR=substrate_refuse_gate_adaptivity_phase_diagram_v1_seed_7,families=[fixed_threshold,adaptive_bayesian_CI,learned_logistic,percentile_based],regimes=[PURE_IN,PURE_OUT,NEAR_DOMAIN_MIXED,AMBIGUOUS_BOUNDARY],cal_sizes=[64,256,1024],V_REL=256,SEED=7,mode=smoke,N=[2048|8192],V_C_per_cat=[50|200],n_queries_per_regime=[30|80],expected_n_full=48,expected_n_smoke=8,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_ckpt_key": "7",
+  "_partial_written_at": 1782709209.150107,
+  "seeds_observed": [
+    "7"
+  ],
+  "n_seeds": 1,
+  "elapsed_s": 0.3,
+  "ts_iso": "2026-06-30T17:36:19Z",
+  "pid": 13404,
+  "run_mode": "smoke",
+  "_hardening_marker": "v1_refuse_gate_adaptivity_chunked",
+  "backend": "numpy.cpu",
+  "corpus_provenance": "synthetic_substrate_refuse_gate_4_family",
+  "n_llm_calls": 0
+}

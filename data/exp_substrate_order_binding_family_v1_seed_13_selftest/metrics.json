@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_order_binding_family_v1_seed_13",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=9 SMOKE=9; round_trip CYCLIC_SHIFT: K=5 argmax=0 (0 in top10); round_trip RANDOM_PERMUTATION: K=5 argmax=0 (0 in top10); round_trip PHASE_ROTATION: K=5 argmax=0 (0 in top10); arms_differ_bundle_hashes: {'CYCLIC_SHIFT': '55adec56c21ac5fe', 'RANDOM_PERMUTATION': 'f6cb606f1f18a341', 'PHASE_ROTATION': '352f50913de5ca63'}; arms_differ_positions_hashes: {'CYCLIC_SHIFT': '585d4d450c8fb91c', 'RANDOM_PERMUTATION': 'c5bdcbae29844bcc', 'PHASE_ROTATION': '5f400dc5b3284568'}",
+  "summary": "cardinality FULL=9 SMOKE=9; round_trip CYCLIC_SHIFT: K=5 argmax=0 (0 in top10); round_trip RANDOM_PERMUTATION: K=5 argmax=0 (0 in top10); round_trip PHASE_ROTATION: K=5 argmax=0 (0 in top10); arms_differ_bundle_hashes: {'CYCLIC_SHIFT': '55adec56c21ac5fe', 'RANDOM_PERMUTATION': 'f6cb606f1f18a341', 'PHASE_ROTATION': '352f50913de5ca63'}; arms_differ_positions_hashes: {'CYCLIC_SHIFT': '585d4d450c8fb91c', 'RANDOM_PERMUTATION': 'c5bdcbae29844bcc', 'PHASE_ROTATION': '5f400dc5b3284568'}",
+  "elapsed_s": 0.58,
+  "ts_iso": "2026-07-01T03:38:19Z",
+  "pid": 17228,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_order_binding_family_v1_seed_13,order_ops=[CYCLIC_SHIFT,RANDOM_PERMUTATION,PHASE_ROTATION],N_DIM=8192,SEED=13,mode=selftest,K_FULL=[50,500,2000],K_SMOKE=[50,500,2000],n_q_full=50,n_q_smoke=5,V_ITEMS=2500,V_POS=2500,expected_n_full=9,expected_n_smoke=9,discriminator=K_star_log10_sep_min0.15_from_CYCLIC_baseline,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_order_binding_family_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

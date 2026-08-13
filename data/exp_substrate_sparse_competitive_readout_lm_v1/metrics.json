@@ -1,0 +1,576 @@
+{
+  "anchor_name": "substrate_sparse_competitive_readout_lm_v1",
+  "anchor": "substrate_sparse_competitive_readout_lm_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SPARSE_COMP_READOUT MIDDLE_BAND: decisive ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 BPC 7.738 vs rank1 7.666 (delta=-0.072) absolute_bar=7.500. Competitive readout lifts over rank-1 but doesn't fully break the cap and/or beat unigram. Characterize K-sweep + excitability beta. SPARSE_COMP_READOUT unigram=7.738 | RANK1_ARGMAX=bpc7.666(lam0.10,K=?) | SPARSE_COMPETITIVE_K10=bpc7.643(lam0.10,K=?) | SPARSE_COMPETITIVE_K100=bpc7.738(lam0.00,K=?) | SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100=bpc7.738(lam0.00,K=?) | n_llm=0",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "TOPK_LIST": [
+    10,
+    100
+  ],
+  "EXCITABILITY_ALPHA": 0.01,
+  "EXCITABILITY_DECAY": 0.99,
+  "EXCITABILITY_BETA": 1.0,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_RANK1_ARGMAX",
+    "ARM_SPARSE_COMPETITIVE_K10",
+    "ARM_SPARSE_COMPETITIVE_K100",
+    "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0
+      },
+      "ARM_RANK1_ARGMAX": {
+        "bpc_best_mean": 7.6659,
+        "bpc_best_std": 0.001,
+        "bpc_best_cv": 0.0001,
+        "bpc_raw_mean": 21.1685,
+        "best_lambda_mean": 0.1,
+        "fraction_above_uniform_mean": 0.0002,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_SPARSE_COMPETITIVE_K10": {
+        "bpc_best_mean": 7.6433,
+        "bpc_best_std": 0.0196,
+        "bpc_best_cv": 0.0026,
+        "bpc_raw_mean": 17.8435,
+        "best_lambda_mean": 0.1,
+        "fraction_above_uniform_mean": 0.0025,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_SPARSE_COMPETITIVE_K100": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 16.4065,
+        "best_lambda_mean": 0.0,
+        "fraction_above_uniform_mean": 0.025,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 15.9141,
+        "best_lambda_mean": 0.0,
+        "fraction_above_uniform_mean": 0.025,
+        "n_valid_seeds": 3,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "decisive_arm": "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100",
+    "decisive_bpc": 7.7378,
+    "decisive_cv": 0.0,
+    "rank1_bpc": 7.6659,
+    "delta_excit_vs_rank1": -0.0719000000000003,
+    "delta_k10_vs_rank1": 0.02259999999999973,
+    "delta_k100_vs_rank1": -0.0719000000000003,
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "rank1_prior_bpc_ref": 7.738,
+    "hp_bpc_delta_bar": 0.5,
+    "hp_bpc_absolute_bar": 7.5,
+    "hp_bpc_cv_max": 0.05,
+    "TOPK_LIST": [
+      10,
+      100
+    ],
+    "EXCITABILITY_ALPHA": 0.01,
+    "EXCITABILITY_DECAY": 0.99,
+    "EXCITABILITY_BETA": 1.0,
+    "CONFIG_VERSION": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[7, 17, 23] mode=full topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+    "honest_scope": "Sparse competitive readout sweep: 5 arms isolate the readout layer (SHARED W+E across all sparse arms). Decisive = ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 (K-WTA top-100 + Tonegawa excitability bias). HARD_PASS = decisive < rank1 - 0.50 AND < 7.500 (breaks rank-1 cap + beats unigram). HARD_FAIL = all competitive >= rank1 (readout layer is NOT the bottleneck). Brain-existence-proof tested in substrate.",
+    "cites": [
+      "preregs/2026-06-23_substrate_sparse_competitive_readout_lm_v1.md",
+      "experiments/exp_substrate_as_lm_composed_primitives_GPU_v1.py",
+      "experiments/exp_excitability_gated_substrate_cpu_v1.py",
+      "USER_2026-06-23_brain_existence_proof_kwta_excitability",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_sparse_competitive_readout_lm_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_RANK1_ARGMAX": {
+          "bpc_raw": 21.177,
+          "bpc_best": 7.6647,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2607,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2607,
+            "0.3": 9.2934,
+            "0.5": 12.1819,
+            "0.7": 16.0354,
+            "1.0": 21.9867
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6647,
+            "0.3": 8.6578,
+            "0.5": 11.5075,
+            "0.7": 15.3088,
+            "1.0": 21.177
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.24,
+          "K": 1,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0002,
+          "wall_arm_s": 3.54
+        },
+        "ARM_SPARSE_COMPETITIVE_K10": {
+          "bpc_raw": 17.9413,
+          "bpc_best": 7.6599,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2622,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2622,
+            "0.3": 9.4596,
+            "0.5": 11.7376,
+            "0.7": 14.3719,
+            "1.0": 18.7437
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6599,
+            "0.3": 8.7969,
+            "0.5": 11.0241,
+            "0.7": 13.6164,
+            "1.0": 17.9413
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.33,
+          "K": 10,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0025,
+          "wall_arm_s": 3.29
+        },
+        "ARM_SPARSE_COMPETITIVE_K100": {
+          "bpc_raw": 16.2113,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3337,
+            "0.3": 9.3695,
+            "0.5": 11.2469,
+            "0.7": 13.5741,
+            "1.0": 17.706
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6668,
+            "0.3": 8.5192,
+            "0.5": 10.2119,
+            "0.7": 12.3545,
+            "1.0": 16.2113
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.42,
+          "K": 100,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.43
+        },
+        "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+          "bpc_raw": 15.8202,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3399,
+            "0.3": 9.3576,
+            "0.5": 11.1519,
+            "0.7": 13.3627,
+            "1.0": 17.3181
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6693,
+            "0.3": 8.5009,
+            "0.5": 10.1118,
+            "0.7": 12.1394,
+            "1.0": 15.8202
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.39,
+          "K": 100,
+          "beta_used": 1.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.46
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "TOPK_LIST": [
+        10,
+        100
+      ],
+      "EXCITABILITY_ALPHA": 0.01,
+      "EXCITABILITY_DECAY": 0.99,
+      "EXCITABILITY_BETA": 1.0,
+      "wall_encode_s": 2.54,
+      "wall_ingest_s": 0.99,
+      "run_mode": "full",
+      "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[7, 17, 23] mode=full topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+      "elapsed_s_seed": 17.33,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782256637.486843
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_RANK1_ARGMAX": {
+          "bpc_raw": 21.0329,
+          "bpc_best": 7.6671,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2682,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2682,
+            "0.3": 9.3915,
+            "0.5": 12.3204,
+            "0.7": 16.0836,
+            "1.0": 21.8746
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6671,
+            "0.3": 8.7391,
+            "0.5": 11.6233,
+            "0.7": 15.3301,
+            "1.0": 21.0329
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.22,
+          "K": 1,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0002,
+          "wall_arm_s": 3.31
+        },
+        "ARM_SPARSE_COMPETITIVE_K10": {
+          "bpc_raw": 17.3186,
+          "bpc_best": 7.6158,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2614,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2614,
+            "0.3": 9.421,
+            "0.5": 11.646,
+            "0.7": 14.2429,
+            "1.0": 18.5832
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6158,
+            "0.3": 8.6339,
+            "0.5": 10.7218,
+            "0.7": 13.18,
+            "1.0": 17.3186
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.38,
+          "K": 10,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0025,
+          "wall_arm_s": 3.96
+        },
+        "ARM_SPARSE_COMPETITIVE_K100": {
+          "bpc_raw": 16.3393,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3421,
+            "0.3": 9.4038,
+            "0.5": 11.3266,
+            "0.7": 13.7015,
+            "1.0": 17.8956
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6763,
+            "0.3": 8.5539,
+            "0.5": 10.275,
+            "0.7": 12.4451,
+            "1.0": 16.3393
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.21,
+          "K": 100,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.49
+        },
+        "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+          "bpc_raw": 15.8627,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3404,
+            "0.3": 9.3609,
+            "0.5": 11.1672,
+            "0.7": 13.3885,
+            "1.0": 17.3495
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6784,
+            "0.3": 8.5273,
+            "0.5": 10.1473,
+            "0.7": 12.1792,
+            "1.0": 15.8627
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.32,
+          "K": 100,
+          "beta_used": 1.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.81
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "TOPK_LIST": [
+        10,
+        100
+      ],
+      "EXCITABILITY_ALPHA": 0.01,
+      "EXCITABILITY_DECAY": 0.99,
+      "EXCITABILITY_BETA": 1.0,
+      "wall_encode_s": 2.39,
+      "wall_ingest_s": 0.99,
+      "run_mode": "full",
+      "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[7, 17, 23] mode=full topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+      "elapsed_s_seed": 18.0,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782256655.5032291
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "n_test": 7886
+        },
+        "ARM_RANK1_ARGMAX": {
+          "bpc_raw": 21.2955,
+          "bpc_best": 7.6658,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2573,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2573,
+            "0.3": 9.2728,
+            "0.5": 12.1616,
+            "0.7": 16.0302,
+            "1.0": 22.006
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6658,
+            "0.3": 8.632,
+            "0.5": 11.4831,
+            "0.7": 15.3371,
+            "1.0": 21.2955
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.22,
+          "K": 1,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0002,
+          "wall_arm_s": 3.73
+        },
+        "ARM_SPARSE_COMPETITIVE_K10": {
+          "bpc_raw": 18.2706,
+          "bpc_best": 7.6541,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2701,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.2701,
+            "0.3": 9.4842,
+            "0.5": 11.8675,
+            "0.7": 14.657,
+            "1.0": 19.2865
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6541,
+            "0.3": 8.786,
+            "0.5": 11.0809,
+            "0.7": 13.7768,
+            "1.0": 18.2706
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.39,
+          "K": 10,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0025,
+          "wall_arm_s": 3.53
+        },
+        "ARM_SPARSE_COMPETITIVE_K100": {
+          "bpc_raw": 16.6689,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3423,
+            "0.3": 9.3969,
+            "0.5": 11.3111,
+            "0.7": 13.6801,
+            "1.0": 17.8718
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.7164,
+            "0.3": 8.6662,
+            "0.5": 10.4485,
+            "0.7": 12.6782,
+            "1.0": 16.6689
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.44,
+          "K": 100,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.6
+        },
+        "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+          "bpc_raw": 16.0593,
+          "bpc_best": 7.7378,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "bpc_per_lambda_dev": {
+            "0.0": 8.314,
+            "0.1": 8.3349,
+            "0.3": 9.3497,
+            "0.5": 11.1679,
+            "0.7": 13.4106,
+            "1.0": 17.4094
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 7.7378,
+            "0.1": 7.6935,
+            "0.3": 8.5746,
+            "0.5": 10.2326,
+            "0.7": 12.3067,
+            "1.0": 16.0593
+          },
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_recall_s": 0.43,
+          "K": 100,
+          "beta_used": 1.0,
+          "fraction_above_uniform": 0.025,
+          "wall_arm_s": 3.52
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "TOPK_LIST": [
+        10,
+        100
+      ],
+      "EXCITABILITY_ALPHA": 0.01,
+      "EXCITABILITY_DECAY": 0.99,
+      "EXCITABILITY_BETA": 1.0,
+      "wall_encode_s": 2.81,
+      "wall_ingest_s": 0.9,
+      "run_mode": "full",
+      "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[7, 17, 23] mode=full topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+      "elapsed_s_seed": 18.15,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782256673.6666863
+    }
+  ],
+  "elapsed_s": 53.53361415863037,
+  "summary": "SPARSE_COMP_READOUT MIDDLE_BAND: decisive ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 BPC 7.738 vs rank1 7.666 (delta=-0.072) absolute_bar=7.500. Competitive readout lifts over rank-1 but doesn't fully break the cap and/or beat unigram. C",
+  "substrate_only_decode_gate": "TRUE (substrate-native readout sweep; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[7, 17, 23] mode=full topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cuda lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

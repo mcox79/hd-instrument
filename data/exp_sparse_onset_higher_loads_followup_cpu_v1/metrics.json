@@ -1,0 +1,139 @@
+{
+  "anchor_name": "sparse_onset_higher_loads_followup_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (boundary-refinement; MEASURED_MECHANISM tier -> Skunkworks rules): located the sparse-capacity onset alpha_c(f) for f=[0.02, 0.03, 0.04, 0.05, 0.1] at LOADS<=8, monotonic Willshaw rise as f decreases, seed-stable (cv<=0.05); f=[0.002, 0.005, 0.01] remain >=lower-bound (preserved). located=[0.02, 0.03, 0.04, 0.05, 0.1] still_capped(>=LB)=[0.002, 0.005, 0.01] monotonic=True worst_cv=0.000 | alpha_c={'f0.002': (8.0, 'cap'), 'f0.005': (8.0, 'cap'), 'f0.010': (8.0, 'cap'), 'f0.020': (4.0, ''), 'f0.030': (2.5, ''), 'f0.040': (1.5, ''), 'f0.050': (1.0, ''), 'f0.100': (0.4, '')}",
+  "run_mode": "smoke",
+  "N": 2048,
+  "FRACS": [
+    0.002,
+    0.005,
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.1
+  ],
+  "LOADS": [
+    0.1,
+    0.4,
+    0.7,
+    1.0,
+    1.5,
+    2.5,
+    4.0,
+    6.0,
+    8.0
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "alpha_c_by_f": {
+      "f0.002": {
+        "alpha_c_mean": 8.0,
+        "capped_lower_bound": true,
+        "seed_cv": 0.0
+      },
+      "f0.005": {
+        "alpha_c_mean": 8.0,
+        "capped_lower_bound": true,
+        "seed_cv": 0.0
+      },
+      "f0.010": {
+        "alpha_c_mean": 8.0,
+        "capped_lower_bound": true,
+        "seed_cv": 0.0
+      },
+      "f0.020": {
+        "alpha_c_mean": 4.0,
+        "capped_lower_bound": false,
+        "seed_cv": 0.0
+      },
+      "f0.030": {
+        "alpha_c_mean": 2.5,
+        "capped_lower_bound": false,
+        "seed_cv": 0.0
+      },
+      "f0.040": {
+        "alpha_c_mean": 1.5,
+        "capped_lower_bound": false,
+        "seed_cv": 0.0
+      },
+      "f0.050": {
+        "alpha_c_mean": 1.0,
+        "capped_lower_bound": false,
+        "seed_cv": 0.0
+      },
+      "f0.100": {
+        "alpha_c_mean": 0.4,
+        "capped_lower_bound": false,
+        "seed_cv": 0.0
+      }
+    },
+    "located_f": [
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.1
+    ],
+    "still_capped_lower_bound_f": [
+      0.002,
+      0.005,
+      0.01
+    ],
+    "monotonic_over_located": true,
+    "worst_seed_cv": 0.0,
+    "seed_stable": true,
+    "CONFIG_VERSION": "a3f473dd-match:FLIP0.05/Nmatch/kofN/Wfree-sign((s@P.T)@P-s*diag)/recall>=0.95",
+    "source_cell": "sparse_alpha_fine_sweep_below_004_v1",
+    "cites": [
+      "sparse_alpha_fine_sweep_below_004_v1",
+      "7315be3c_crosstalk_capacity_law"
+    ],
+    "honest_scope": "Extends a3f473dd sparse super-capacity to higher LOADS<=8 to LOCATE the onset alpha_c(f). LOCATED for f=[0.02, 0.03, 0.04, 0.05, 0.1]; f=[0.002, 0.005, 0.01] still >=lower-bound (capped at LOADS<=8, recall>=0.95 throughout -- preserve the >= flag, do NOT overwrite with a located value). alpha_c rises monotonically as f decreases (Willshaw). Config-matched to a3f473dd (C2; chunked==unchunked verified). MEASURED_MECHANISM boundary-refinement."
+  },
+  "metrics_source": "measured_cpu_sparse_onset_higher_loads_extends_a3f473dd",
+  "per_unit": [
+    {
+      "seed": 1,
+      "onset": {
+        "f0.002": {
+          "alpha_c": 8.0,
+          "capped_lower_bound": true
+        },
+        "f0.005": {
+          "alpha_c": 8.0,
+          "capped_lower_bound": true
+        },
+        "f0.010": {
+          "alpha_c": 8.0,
+          "capped_lower_bound": true
+        },
+        "f0.020": {
+          "alpha_c": 4.0,
+          "capped_lower_bound": false
+        },
+        "f0.030": {
+          "alpha_c": 2.5,
+          "capped_lower_bound": false
+        },
+        "f0.040": {
+          "alpha_c": 1.5,
+          "capped_lower_bound": false
+        },
+        "f0.050": {
+          "alpha_c": 1.0,
+          "capped_lower_bound": false
+        },
+        "f0.100": {
+          "alpha_c": 0.4,
+          "capped_lower_bound": false
+        }
+      },
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1782013383.6234934
+    }
+  ],
+  "elapsed_s": 72.4835832118988,
+  "summary": "HARD_PASS (boundary-refinement; MEASURED_MECHANISM tier -> Skunkworks rules): located the sparse-capacity onset alpha_c(f) for f=[0.02, 0.03, 0.04, 0.05, 0.1] at LOADS<=8, monotonic Willshaw rise as f decreases, seed-stable (cv<=0.05); f=[0.002, 0.005, 0.01] remain >=lower-bound (preserved). located=[0.02, 0.03, 0.04, 0.05, 0.1] still_capped(>=LB)=[0.002, 0.005, 0.01] monotonic=True worst_cv=0.000 | alpha_c={'f0.002': (8.0, 'cap'), 'f0.005': (8.0, 'cap'), 'f0.010': (8.0, 'cap'), 'f0.020': (4.0, ''), 'f0.030': (2.5, ''), 'f0.040': (1.5, ''), 'f0.050': (1.0, ''), 'f0.100': (0.4, '')}"
+}

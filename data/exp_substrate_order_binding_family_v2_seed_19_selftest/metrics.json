@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_order_binding_family_v2_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=18 SMOKE=18; round_trip CYCLIC_SHIFT: L=1 K=5 argmax=0 (0 in top10); round_trip RANDOM_PERMUTATION: L=1 K=5 argmax=0 (0 in top10); round_trip PHASE_ROTATION: L=1 K=5 argmax=0 (0 in top10); arms_differ_bundle_hashes: {'CYCLIC_SHIFT': 'dfd655e8dc16c610', 'RANDOM_PERMUTATION': '17179104c05fc451', 'PHASE_ROTATION': 'a7a0b4b9eb977834'}; arms_differ_positions_hashes: {'CYCLIC_SHIFT': 'c5d5c9227349ccae', 'RANDOM_PERMUTATION': 'a015c803298ce907', 'PHASE_ROTATION': 'f3a2afc655810a8b'}; v2_salt_applied: unsalted=a1779761706c6392 salted=dfd655e8dc16c610 DISTINCT",
+  "summary": "cardinality FULL=18 SMOKE=18; round_trip CYCLIC_SHIFT: L=1 K=5 argmax=0 (0 in top10); round_trip RANDOM_PERMUTATION: L=1 K=5 argmax=0 (0 in top10); round_trip PHASE_ROTATION: L=1 K=5 argmax=0 (0 in top10); arms_differ_bundle_hashes: {'CYCLIC_SHIFT': 'dfd655e8dc16c610', 'RANDOM_PERMUTATION': '17179104c05fc451', 'PHASE_ROTATION': 'a7a0b4b9eb977834'}; arms_differ_positions_hashes: {'CYCLIC_SHIFT': 'c5d5c9227349ccae', 'RANDOM_PERMUTATION': 'a015c803298ce907', 'PHASE_ROTATION': 'f3a2afc655810a8b'}; v2_salt_applied: unsalted=a1779761706c6392 salted=dfd655e8dc16c610 DISTINCT",
+  "elapsed_s": 1.23,
+  "ts_iso": "2026-07-01T11:57:38Z",
+  "pid": 22224,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_order_binding_family_v2_seed_19,order_ops=[CYCLIC_SHIFT,RANDOM_PERMUTATION,PHASE_ROTATION],N_DIM=8192,SEED=19,mode=selftest,L_FULL=[1,2,4],L_SMOKE=[1,2,4],K_PER_SEQ_FULL=[125,250],K_PER_SEQ_SMOKE=[125,250],n_q_full=60,n_q_smoke=8,V_ITEMS=4000,V_POS=4000,expected_n_full=18,expected_n_smoke=18,discriminator=max_pair_diff_top1_at_L4_K250_min_0.15,honest_abort=max_pair_diff_top1_at_L4_K250_le_0.03,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,v2_salt=substrate_order_binding_family_v2_load_variant_2026-07-01,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_order_binding_family_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

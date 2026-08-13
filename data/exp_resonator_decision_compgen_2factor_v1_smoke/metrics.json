@@ -1,0 +1,179 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | @sigma=0.8: RES ho=1.000/id=1.000 FLATj ho=0.139/id=0.958 FLATf ho=0.236 SS ho=0.375 | heldout_gap(vs flat_joint)=+0.861 (vs flat_factored)=+0.764 | GEN_GAP res=+0.000 flat_joint=+0.819 flat_factored=+0.747 | indist_gap=0.042 indist_cost=-0.042 literal_designsource=MIDDLE_BAND | pos_control(sig0 RES ho)=1.000 chance=0.250 | void=none cardinality_ok=True arms_differ=True",
+  "verdict_literal_designsource": "MIDDLE_BAND",
+  "advantage_dominance": 0.8194444444444445,
+  "indist_advantage": 0.04166666666666663,
+  "summary": "HARD_PASS: resonator-decision compgen 2-factor (heldout_gap=+0.861 @sig0.8)",
+  "elapsed_s": 11.564813199976925,
+  "run_mode": "smoke",
+  "anchor_name": "exp_resonator_decision_compgen_2factor_v1",
+  "ts_iso": "2026-07-21T06:52:32.071777+00:00",
+  "chance": 0.25,
+  "sigma_gate": 0.8,
+  "arm_by_sigma": {
+    "0.0": {
+      "flat_joint": {
+        "indist_mean": 1.0,
+        "heldout_mean": 0.16666666666666666,
+        "n_seeds": 1
+      },
+      "flat_factored": {
+        "indist_mean": 1.0,
+        "heldout_mean": 0.125,
+        "n_seeds": 1
+      },
+      "single_shot": {
+        "indist_mean": 0.5,
+        "heldout_mean": 0.4166666666666667,
+        "n_seeds": 1
+      },
+      "resonator_iter": {
+        "indist_mean": 1.0,
+        "heldout_mean": 1.0,
+        "n_seeds": 1
+      }
+    },
+    "0.8": {
+      "flat_joint": {
+        "indist_mean": 0.9583333333333334,
+        "heldout_mean": 0.1388888888888889,
+        "n_seeds": 1
+      },
+      "flat_factored": {
+        "indist_mean": 0.9826388888888888,
+        "heldout_mean": 0.2361111111111111,
+        "n_seeds": 1
+      },
+      "single_shot": {
+        "indist_mean": 0.3923611111111111,
+        "heldout_mean": 0.375,
+        "n_seeds": 1
+      },
+      "resonator_iter": {
+        "indist_mean": 1.0,
+        "heldout_mean": 1.0,
+        "n_seeds": 1
+      }
+    }
+  },
+  "per_unit": {
+    "flat_joint__sig0.0_seed7": {
+      "arm": "flat_joint",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.16666666666666666,
+      "gen_gap": 0.8333333333333334,
+      "failure_class": null
+    },
+    "flat_factored__sig0.0_seed7": {
+      "arm": "flat_factored",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.125,
+      "gen_gap": 0.875,
+      "failure_class": null
+    },
+    "single_shot__sig0.0_seed7": {
+      "arm": "single_shot",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 0.5,
+      "heldout_acc": 0.4166666666666667,
+      "gen_gap": 0.08333333333333331,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.0_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.8_seed7": {
+      "arm": "flat_joint",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.9583333333333334,
+      "heldout_acc": 0.1388888888888889,
+      "gen_gap": 0.8194444444444444,
+      "failure_class": null
+    },
+    "flat_factored__sig0.8_seed7": {
+      "arm": "flat_factored",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.9826388888888888,
+      "heldout_acc": 0.2361111111111111,
+      "gen_gap": 0.7465277777777777,
+      "failure_class": null
+    },
+    "single_shot__sig0.8_seed7": {
+      "arm": "single_shot",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.3923611111111111,
+      "heldout_acc": 0.375,
+      "gen_gap": 0.017361111111111105,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.8_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "n_units_done": 8,
+  "arms_differ": true,
+  "pos_control_ok": true,
+  "void_reasons": [],
+  "gate_metrics": {
+    "heldout_gap_vs_flat_joint": 0.8611111111111112,
+    "heldout_gap_vs_flat_factored": 0.7638888888888888,
+    "gen_gap_resonator": 0.0,
+    "gen_gap_flat_joint": 0.8194444444444444,
+    "gen_gap_flat_factored": 0.7465277777777777,
+    "indist_gap": 0.04166666666666663,
+    "indist_cost": -0.04166666666666663,
+    "resonator_heldout": 1.0,
+    "resonator_indist": 1.0,
+    "flat_joint_heldout": 0.1388888888888889,
+    "flat_joint_indist": 0.9583333333333334,
+    "flat_factored_heldout": 0.2361111111111111,
+    "single_shot_heldout": 0.375
+  },
+  "config": {
+    "N_DIM": 2048,
+    "N_CONSTR": 8,
+    "N_VERBCLASS": 10,
+    "N_ROLE": 4,
+    "HELD_PER_CONSTR": 3,
+    "n_train_per": 12,
+    "n_test_per": 12,
+    "sigma_sweep": [
+      0.0,
+      0.8
+    ],
+    "seeds": [
+      7
+    ],
+    "arms": [
+      "flat_joint",
+      "flat_factored",
+      "single_shot",
+      "resonator_iter"
+    ],
+    "RES_N_ITER": 25,
+    "RES_N_RESTART": 4
+  }
+}

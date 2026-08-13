@@ -1,0 +1,150 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | TREE_NO_SIGNAL (tree=0.000 < 0.30) | RAIL=1.000 RAND=0.000 FLAT=0.133 TREE=0.000 NOCLEAN=0.000 | TREE-FLAT=-0.133 TREE-NOCLEAN=0.000 plan_ratio=inf cv=inf arms_distinct=True chance_floor=5.954e-07",
+  "summary": "HARD_FAIL | TREE_NO_SIGNAL (tree=0.000 < 0.30) | RAIL=1.000 RAND=0.000 FLAT=0.133 TREE=0.000 NOCLEAN=0.000 | TREE-FLAT=-0.133 TREE-NOCLEAN=0.000 plan_ratio=inf cv=inf arms_distinct=True chance_floor=5.954e-07",
+  "per_arm": {
+    "reproduce_rail": {
+      "7": {
+        "solve_rate": 1.0,
+        "n_solved": 30,
+        "n_goals": 30,
+        "median_plan_len": 7.0,
+        "median_plan_ratio_vs_optimal": 1.0,
+        "_seq_hash": "1ca28792c710c2bf"
+      },
+      "17": {
+        "solve_rate": 1.0,
+        "n_solved": 30,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": 1.0,
+        "_seq_hash": "4ec0ff5d3f5716c8"
+      }
+    },
+    "random_plan": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "d263aeccc693c6de"
+      },
+      "17": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "03a45ef446cdf9cb"
+      }
+    },
+    "flat_preplay_k64_d8": {
+      "7": {
+        "solve_rate": 0.16666666666666666,
+        "n_solved": 5,
+        "n_goals": 30,
+        "median_plan_len": 7.0,
+        "median_plan_ratio_vs_optimal": 1.1428571428571428,
+        "_seq_hash": "ee32d6aee66f411e"
+      },
+      "17": {
+        "solve_rate": 0.1,
+        "n_solved": 3,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": 1.1428571428571428,
+        "_seq_hash": "adbf7268397c267f"
+      }
+    },
+    "hrr_tree_decompose_3lvl": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "b29176431f957022"
+      },
+      "17": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "6a4307027a448316"
+      }
+    },
+    "hrr_tree_no_cleanup": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "508589c67c602c6f"
+      },
+      "17": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 30,
+        "median_plan_len": 8.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "6f23beda2acc5291"
+      }
+    }
+  },
+  "per_arm_summary": {
+    "reproduce_rail": {
+      "solve_rate_mean": 1.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 1.0,
+      "n": 2
+    },
+    "random_plan": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 2
+    },
+    "flat_preplay_k64_d8": {
+      "solve_rate_mean": 0.13333333333333333,
+      "solve_rate_std": 0.033333333333333326,
+      "solve_rate_cv": 0.24999999999999994,
+      "median_plan_ratio_mean": 1.1428571428571428,
+      "n": 2
+    },
+    "hrr_tree_decompose_3lvl": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 2
+    },
+    "hrr_tree_no_cleanup": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 2
+    }
+  },
+  "tree_minus_flat": -0.13333333333333333,
+  "tree_minus_noclean": 0.0,
+  "arms_distinct": true,
+  "n_seeds_complete": 2,
+  "expected_n_units": 300,
+  "completed_units": 300,
+  "cardinality_ok": true,
+  "chance_random_floor": 5.953741807651273e-07,
+  "chance_random_rerank_ub": 0.05003810394756897,
+  "anchor_name": "substrate_hierarchical_subgoal_planner_v1",
+  "elapsed_s": 294.9,
+  "ts_iso": "2026-06-28T02:08:02Z",
+  "pid": 9100,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_subgoal_planner_v1,N=8192,blocks=8,actions=6,macros=5,goals=30,depth=8,K_flat=64,K_tree=16,seeds=[7, 17],mode=smoke,HP_solve>=0.65,HP_lift_flat>=0.25,HP_lift_clean>=0.20,expected_n=300,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AF+META_AH+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_subgoal_planner"
+}

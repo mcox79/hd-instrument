@@ -1,0 +1,135 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE HARD_PASS: NC_recall=1.000>=0.60 (smoke floor); HM_ratio=100.0, NC_ratio=1.0, compression_gap=100.0x>=100.0x; pareto_distinct_pairs=6/6; arms_differ_mean=6.0/6",
+  "summary": "SMOKE HARD_PASS: NC_recall=1.000>=0.60 (smoke floor); HM_ratio=100.0, NC_ratio=1.0, compression_gap=100.0x>=100.0x; pareto_distinct_pairs=6/6; arms_differ_mean=6.0/6",
+  "arm_summary": {
+    "ARM_NO_COMPRESSION": {
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 1.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 8192000.0,
+      "efficiency_mean": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_EXEMPLAR_BAYES": {
+      "recall_mean": 0.9333333333333333,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 10.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 8192800.0,
+      "efficiency_mean": 2.149079420127776,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_HARDMAX_CENTROID": {
+      "recall_mean": 0.23333333333333334,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 100.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 85920.0,
+      "efficiency_mean": 1.074539710063888,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_HIERARCHICAL": {
+      "recall_mean": 0.23333333333333334,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 1.0438413361169103,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 7851936.0,
+      "efficiency_mean": 0.01001175023596454,
+      "n_seeds": 1
+    }
+  },
+  "gates": {
+    "positive_control_pass": true,
+    "compression_gap_pass": true,
+    "recall_preserved_pass": false,
+    "pareto_distinct_pass": true,
+    "arms_differ_pass": true,
+    "cross_seed_cv_pass": true
+  },
+  "smoke_positive_control_pass": true,
+  "pareto_pairs_detail": [
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_EXEMPLAR_BAYES"
+      ],
+      "distinct": true,
+      "recall_delta": 0.06666666666666665,
+      "log_ratio_delta": 1.0
+    },
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_HARDMAX_CENTROID"
+      ],
+      "distinct": true,
+      "recall_delta": 0.7666666666666666,
+      "log_ratio_delta": 2.0
+    },
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.7666666666666666,
+      "log_ratio_delta": 0.018634490921455624
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_EXEMPLAR_BAYES",
+        "ARM_SCHEMA_HARDMAX_CENTROID"
+      ],
+      "distinct": true,
+      "recall_delta": 0.7,
+      "log_ratio_delta": 1.0
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_EXEMPLAR_BAYES",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.7,
+      "log_ratio_delta": 0.9813655090785444
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_HARDMAX_CENTROID",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.0,
+      "log_ratio_delta": 1.9813655090785445
+    }
+  ],
+  "compression_ratio_gap_measured": 100.0,
+  "recall_drop_measured": 0.7666666666666666,
+  "distinct_pareto_pairs": 6,
+  "arms_differ_mean_pairs": 6.0,
+  "nc_recall_mean": 1.0,
+  "hm_recall_mean": 0.23333333333333334,
+  "hm_ratio_mean": 100.0,
+  "anchor_name": "substrate_compression_pareto_v1_seed_19",
+  "elapsed_s": 1.38,
+  "ts_iso": "2026-07-01T02:33:37Z",
+  "pid": 35404,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_compression_pareto_v1_seed_19,SEED=19,mode=smoke,arms=[NO_COMPRESSION,SCHEMA_EXEMPLAR_BAYES,SCHEMA_HARDMAX_CENTROID,SCHEMA_HIERARCHICAL],full_n_facts=10000,full_N=8192,full_n_q=100,smoke_n_facts=1000,smoke_N=2048,smoke_n_q=30,hardening=STARTED+SEED_CKPT+HEARTBEAT+CRASH_DIAG+SYS_EXIT_RAISE",
+  "_hardening_marker": "v1_compression_pareto_chunked",
+  "backend": "numpy.cpu",
+  "seed": 19,
+  "expected_n": 4,
+  "observed_n": 4,
+  "cardinality_ok": true
+}

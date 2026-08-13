@@ -1,0 +1,201 @@
+{
+  "anchor_name": "substrate_confidence_calibration_isotonic_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "substrate_confidence_calibration_isotonic_v1 HARD_FAIL: best calibrated arm (ARM_ISOTONIC_REGRESSION) only reaches r=0.1309 <= 0.30 -- off-the-shelf calibration does NOT rescue substrate HRR cosine confidence; substrate confidence is intrinsically poor discriminator of correctness on this task; gap-map's 'existing solution transfers' assumption REFUTED (matches Resonator finding earlier today). calibration_r: raw=0.1107 iso=0.1309 temp=0.1110 | best_cal_arm=ARM_ISOTONIC_REGRESSION best_r=0.1309 | primary=ARM_ISOTONIC_REGRESSION r=0.1309 | sanity_raw_in_band=True (band=[0.02, 0.30]) | n_seeds=3",
+  "run_mode": "full",
+  "N_DIM": 2048,
+  "F_SPARSE": 0.02,
+  "N_VALUES": 50,
+  "M_TRIPLES": 2000,
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_RAW_COSINE": {
+        "r_mean": 0.1107,
+        "r_std": 0.0434,
+        "r_per_seed": [
+          0.077,
+          0.083,
+          0.172
+        ],
+        "ece_mean": 0.4576,
+        "ece_per_seed": [
+          0.4538,
+          0.4655,
+          0.4534
+        ]
+      },
+      "ARM_ISOTONIC_REGRESSION": {
+        "r_mean": 0.1309,
+        "r_std": 0.0698,
+        "r_per_seed": [
+          0.1176,
+          0.0529,
+          0.2223
+        ],
+        "ece_mean": 0.017,
+        "ece_per_seed": [
+          0.0137,
+          0.018,
+          0.0194
+        ]
+      },
+      "ARM_TEMPERATURE_SCALING": {
+        "r_mean": 0.111,
+        "r_std": 0.0437,
+        "r_per_seed": [
+          0.0772,
+          0.0831,
+          0.1728
+        ],
+        "ece_mean": 0.4131,
+        "ece_per_seed": [
+          0.4104,
+          0.4214,
+          0.4074
+        ],
+        "T_fit_per_seed": [
+          0.01,
+          0.01,
+          0.01
+        ]
+      }
+    },
+    "raw_r": 0.1107,
+    "iso_r": 0.1309,
+    "temp_r": 0.111,
+    "best_cal_r": 0.1309,
+    "best_cal_arm": "ARM_ISOTONIC_REGRESSION",
+    "primary_arm": "ARM_ISOTONIC_REGRESSION",
+    "primary_r": 0.1309,
+    "sanity_raw_r_in_band": true,
+    "sanity_raw_band": [
+      0.02,
+      0.3
+    ],
+    "n_seeds": 3,
+    "CONFIG_VERSION": "substrate_confidence_calibration_isotonic_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7, 17, 23] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=full primary=ARM_ISOTONIC_REGRESSION; bands HP_r>=0.70 HF_r<=0.30; metric=pearson_r(conf,correct)",
+    "honest_scope": "Substrate-native HRR cosine confidence calibration on synthetic concept triples (M=2000, N=2048, f=0.020, 50 values). Calibrators fit on dev split (50%), evaluated on test (50%). Primary metric pearson_r(conf, correct) on test. PRIMARY arm pre-registered = ARM_ISOTONIC_REGRESSION. Does NOT test real KG / NLU deployment; tests transformation mechanics only.",
+    "cites": [
+      "preregs/2026-06-24_substrate_confidence_calibration_isotonic_v1.md",
+      "notes/director_stage2_preauthored_dispatch_specs_2026-06-24.md",
+      "experiments/exp_calibration_isotonic_cpu_v1.py (prior MBPP ECE cell; different task)"
+    ]
+  },
+  "metrics_source": "measured_cpu_substrate_confidence_calibration_isotonic_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_RAW_COSINE": {
+          "r": 0.077,
+          "ece": 0.4538,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        },
+        "ARM_ISOTONIC_REGRESSION": {
+          "r": 0.1176,
+          "ece": 0.0137,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        },
+        "ARM_TEMPERATURE_SCALING": {
+          "r": 0.0772,
+          "ece": 0.4104,
+          "T_fit": 0.01,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        }
+      },
+      "N_DIM": 2048,
+      "F_SPARSE": 0.02,
+      "N_VALUES": 50,
+      "M_TRIPLES": 2000,
+      "run_mode": "full",
+      "config_version": "substrate_confidence_calibration_isotonic_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7, 17, 23] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=full primary=ARM_ISOTONIC_REGRESSION; bands HP_r>=0.70 HF_r<=0.30; metric=pearson_r(conf,correct)",
+      "raw_conf_mean": 0.0885,
+      "raw_conf_std": 0.0261,
+      "overall_accuracy": 0.0925,
+      "elapsed_s_seed": 1.79,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782359926.7684894
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_RAW_COSINE": {
+          "r": 0.083,
+          "ece": 0.4655,
+          "n_test": 1000,
+          "accuracy_test": 0.079
+        },
+        "ARM_ISOTONIC_REGRESSION": {
+          "r": 0.0529,
+          "ece": 0.018,
+          "n_test": 1000,
+          "accuracy_test": 0.079
+        },
+        "ARM_TEMPERATURE_SCALING": {
+          "r": 0.0831,
+          "ece": 0.4214,
+          "T_fit": 0.01,
+          "n_test": 1000,
+          "accuracy_test": 0.079
+        }
+      },
+      "N_DIM": 2048,
+      "F_SPARSE": 0.02,
+      "N_VALUES": 50,
+      "M_TRIPLES": 2000,
+      "run_mode": "full",
+      "config_version": "substrate_confidence_calibration_isotonic_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7, 17, 23] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=full primary=ARM_ISOTONIC_REGRESSION; bands HP_r>=0.70 HF_r<=0.30; metric=pearson_r(conf,correct)",
+      "raw_conf_mean": 0.0891,
+      "raw_conf_std": 0.0273,
+      "overall_accuracy": 0.0885,
+      "elapsed_s_seed": 1.8,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782359928.6342316
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_RAW_COSINE": {
+          "r": 0.172,
+          "ece": 0.4534,
+          "n_test": 1000,
+          "accuracy_test": 0.093
+        },
+        "ARM_ISOTONIC_REGRESSION": {
+          "r": 0.2223,
+          "ece": 0.0194,
+          "n_test": 1000,
+          "accuracy_test": 0.093
+        },
+        "ARM_TEMPERATURE_SCALING": {
+          "r": 0.1728,
+          "ece": 0.4074,
+          "T_fit": 0.01,
+          "n_test": 1000,
+          "accuracy_test": 0.093
+        }
+      },
+      "N_DIM": 2048,
+      "F_SPARSE": 0.02,
+      "N_VALUES": 50,
+      "M_TRIPLES": 2000,
+      "run_mode": "full",
+      "config_version": "substrate_confidence_calibration_isotonic_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7, 17, 23] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=full primary=ARM_ISOTONIC_REGRESSION; bands HP_r>=0.70 HF_r<=0.30; metric=pearson_r(conf,correct)",
+      "raw_conf_mean": 0.0877,
+      "raw_conf_std": 0.0291,
+      "overall_accuracy": 0.087,
+      "elapsed_s_seed": 1.86,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782359930.5732074
+    }
+  ],
+  "elapsed_s": 5.725638151168823,
+  "summary": "substrate_confidence_calibration_isotonic_v1 HARD_FAIL: best calibrated arm (ARM_ISOTONIC_REGRESSION) only reaches r=0.1309 <= 0.30 -- off-the-shelf calibration does NOT rescue substrate HRR cosine confidence; substrate confidence is intrinsically poor discriminator of correctness on this task; gap-map's 'existing solution transfers' assumption REFUTED (matches Resonator finding earlier today). calibration_r: raw=0.1107 iso=0.1309 temp=0.1110 | best_cal_arm=ARM_ISOTONIC_REGRESSION best_r=0.1309 | primary=ARM_ISOTONIC_REGRESSION r=0.1309 | sanity_raw_in_band=True (band=[0.02, 0.30]) | n_seeds=3",
+  "substrate_only_decode_gate": "TRUE (substrate-native HRR sparse-bipolar; numpy only; sklearn used only for isotonic regression fit on dev split; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_name_says_smoke_workaround": false
+}

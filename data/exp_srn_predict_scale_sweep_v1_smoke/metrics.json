@@ -1,0 +1,269 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "predictive-reader SCALES toward language capability: AMI margin GROWS: 2/2 seeds positive slope, top-bottom=+0.056 (endpoint_std=0.036); LM gap CLOSES: gap -0.038 -> -0.021 (delta=+0.017)",
+  "summary": "HARD_PASS: predictive-reader SCALES toward language capability: AMI margin GROWS: 2/2 seeds positive slope, top-bottom=+0",
+  "elapsed_s": 10.75,
+  "ts_iso": "2026-07-18T05:08:57.224260+00:00",
+  "anchor_name": "srn_predict_scale_sweep_v1",
+  "mode": "smoke",
+  "config": {
+    "scale_sents": [
+      400,
+      1200
+    ],
+    "vocab_size": 160,
+    "min_count": 3,
+    "d": 64,
+    "k": 4,
+    "epochs": 4,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13
+    ],
+    "kmeans_seeds": [
+      0,
+      1
+    ],
+    "min_members": 5,
+    "bag_seeds": [
+      7
+    ],
+    "kmap_ks": [
+      3,
+      4
+    ],
+    "kmap_scale_idx": [
+      0,
+      1
+    ],
+    "do_lm": true
+  },
+  "fixed_gold": {
+    "vocab_size": 160,
+    "n_gold_words": 154,
+    "n_categories": 8,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT"
+    ],
+    "note": "vocab+gold built ONCE from smallest slice; fixed across scales (confound control)"
+  },
+  "arms": [
+    "LEARNER_POS",
+    "LEARNER_BAG",
+    "STATIC_PPMI",
+    "RANDOM_CODE",
+    "bigram_MLE"
+  ],
+  "MARGIN_CURVE": [
+    {
+      "n_tokens": 4337,
+      "delta_ami_mean": 0.0534,
+      "delta_ami_std": 0.0503,
+      "ami_pos_mean": 0.0812,
+      "ami_static_kseed0": 0.039
+    },
+    {
+      "n_tokens": 11495,
+      "delta_ami_mean": 0.1096,
+      "delta_ami_std": 0.0035,
+      "ami_pos_mean": 0.1576,
+      "ami_static_kseed0": 0.0473
+    }
+  ],
+  "LM_CURVE": [
+    {
+      "n_tokens": 4337,
+      "bigram_top1": 0.1903,
+      "learner_top1": 0.1526,
+      "gap": -0.0377
+    },
+    {
+      "n_tokens": 11495,
+      "bigram_top1": 0.2219,
+      "learner_top1": 0.2008,
+      "gap": -0.0211
+    }
+  ],
+  "KMAP": [
+    {
+      "per_k": [
+        {
+          "k": 3,
+          "ami_pos": 0.1641,
+          "ami_static": 0.0364,
+          "delta_ami": 0.1277
+        },
+        {
+          "k": 4,
+          "ami_pos": 0.042,
+          "ami_static": 0.039,
+          "delta_ami": 0.003
+        }
+      ],
+      "best_k": 3,
+      "best_delta_ami": 0.1277,
+      "scale_sents": 400,
+      "n_tokens": 4337
+    },
+    {
+      "per_k": [
+        {
+          "k": 3,
+          "ami_pos": 0.2197,
+          "ami_static": 0.0466,
+          "delta_ami": 0.1731
+        },
+        {
+          "k": 4,
+          "ami_pos": 0.1605,
+          "ami_static": 0.0473,
+          "delta_ami": 0.1131
+        }
+      ],
+      "best_k": 3,
+      "best_delta_ami": 0.1731,
+      "scale_sents": 1200,
+      "n_tokens": 11495
+    }
+  ],
+  "trend": {
+    "per_seed_slope": {
+      "7": 0.2601,
+      "13": 0.0059
+    },
+    "per_seed_delta_trajectory": {
+      "7": [
+        0.003,
+        0.1131
+      ],
+      "13": [
+        0.1037,
+        0.1062
+      ]
+    },
+    "n_positive_slope": 2,
+    "maj_needed": 2,
+    "mean_delta_by_scale": [
+      0.0534,
+      0.1096
+    ],
+    "growth_margin_top_minus_bottom": 0.0562,
+    "endpoint_std": 0.0357,
+    "above_seed_noise": true,
+    "growth_margin_min": 0.02,
+    "grows": true,
+    "lm": {
+      "gap_bottom": -0.0377,
+      "gap_top": -0.0211,
+      "gap_delta_top_minus_bottom": 0.0166,
+      "lm_close": true
+    }
+  },
+  "per_scale_full": [
+    {
+      "scale_idx": 0,
+      "scale_sents": 400,
+      "n_tokens": 4337,
+      "vocab_size": 160,
+      "n_gold_words": 154,
+      "n_categories": 8,
+      "per_seed": [
+        {
+          "seed": 7,
+          "kmeans_seed": 0,
+          "pos_ce": 4.3076,
+          "ami_learner_pos": 0.042,
+          "ami_static": 0.039,
+          "nmi_learner_pos": 0.1339,
+          "purity_learner_pos": 0.4935,
+          "delta_ami": 0.003
+        },
+        {
+          "seed": 13,
+          "kmeans_seed": 1,
+          "pos_ce": 4.3574,
+          "ami_learner_pos": 0.1204,
+          "ami_static": 0.0168,
+          "nmi_learner_pos": 0.2056,
+          "purity_learner_pos": 0.4935,
+          "delta_ami": 0.1037
+        }
+      ],
+      "bag": [
+        {
+          "seed": 7,
+          "bag_ce": 4.1726,
+          "ami_learner_bag": 0.0086,
+          "delta_ami_bag": -0.0304
+        }
+      ],
+      "ami_static_kseed0": 0.039,
+      "ami_random_kseed0": 0.0001,
+      "delta_ami_mean": 0.0534,
+      "delta_ami_std": 0.0503,
+      "ami_pos_mean": 0.0812,
+      "pos_digest_seed0": "29cef39e728e1156caf49fa093bc59887360fc71e450d7e8c447409d1990972c"
+    },
+    {
+      "scale_idx": 1,
+      "scale_sents": 1200,
+      "n_tokens": 11495,
+      "vocab_size": 160,
+      "n_gold_words": 154,
+      "n_categories": 8,
+      "per_seed": [
+        {
+          "seed": 7,
+          "kmeans_seed": 0,
+          "pos_ce": 3.6899,
+          "ami_learner_pos": 0.1605,
+          "ami_static": 0.0473,
+          "nmi_learner_pos": 0.2412,
+          "purity_learner_pos": 0.5455,
+          "delta_ami": 0.1131
+        },
+        {
+          "seed": 13,
+          "kmeans_seed": 1,
+          "pos_ce": 3.6998,
+          "ami_learner_pos": 0.1547,
+          "ami_static": 0.0485,
+          "nmi_learner_pos": 0.2365,
+          "purity_learner_pos": 0.5584,
+          "delta_ami": 0.1062
+        }
+      ],
+      "bag": [
+        {
+          "seed": 7,
+          "bag_ce": 3.8064,
+          "ami_learner_bag": 0.1206,
+          "delta_ami_bag": 0.0732
+        }
+      ],
+      "ami_static_kseed0": 0.0473,
+      "ami_random_kseed0": 0.0001,
+      "delta_ami_mean": 0.1096,
+      "delta_ami_std": 0.0035,
+      "ami_pos_mean": 0.1576,
+      "pos_digest_seed0": "453b1c15b1b91c267c1380b50b53de0ea6d303c99bfd4be8e88f165eebd951aa"
+    }
+  ],
+  "expected_units": 4,
+  "actual_units": 4,
+  "cardinality_ok": true,
+  "failures": [],
+  "gates": {
+    "arms_differ_verified": true,
+    "cardinality_ok": true
+  }
+}

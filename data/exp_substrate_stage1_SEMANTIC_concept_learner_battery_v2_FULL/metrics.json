@@ -1,0 +1,178 @@
+{
+  "anchor_name": "substrate_stage1_SEMANTIC_concept_learner_battery_v2_FULL",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 6/6 arms PASS including PRIMARY ARM_3 generalization. (Below chain-grade-definitive: cv_ok=False a3=1.000<0.95) [A1=P A2=P A3*=P A4=P A5=P A6=P] A1 recall5=0.993(>=0.95 cv=0.010) | A2 inh_top1=0.927(>=0.80 cv=0.069) | A3* heldout_top1=1.000(>=0.85 cv=0.000, top3=1.000) | A4 compose_top1=0.708(>=0.50 cv=0.083) | A5 refuse=1.000(>=0.80) retention=0.941(>=0.85) | A6 chain=0.944(>=0.70 cv=0.055) | sanity_ok=True max_cv=0.083 cv_ok=False N=8192 cats=8 inst=32 attrs=12",
+  "summary": "HARD_PASS: 6/6 arms PASS including PRIMARY ARM_3 generalization. (Below chain-grade-definitive: cv_ok=False a3=1.000<0.95) [A1=P A2=P A3*=P A4=P A5=P A6=P] A1 recall5=0.993(>=0.95 cv=0.010) | A2 inh_top1=0.927(>=0.80 cv=0.069) | A3* heldout_top1=1.000(>=0.85 cv=0.000, top3=1.000) | A4 compose_top1=0.708(>=0.50 cv=0.083) | A5 refuse=1.000(>=0.80) retention=0.941(>=0.85) | A6 chain=0.944(>=0.70 cv=0.055) | sanity_ok=True max_cv=0.083 cv_ok=False N=8192 cats=8 inst=32 attrs=12",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "stage1_SEMANTIC_concept_learner_v1; N=8192 cats=8 inst/cat=4 attrs=12 M_basic=96 heldout=8 foreign=6 audit=24 sparse_f=0.020 sparse_amp=7.071 seeds=[7, 17, 23] mode=full; bands a1>=0.95 a2>=0.80 a3>=0.85 a4>=0.50 refuse>=0.80 retention>=0.85 chain>=0.70 sanity>=0.70",
+  "per_seed": [
+    {
+      "seed": 7,
+      "config_version": "stage1_SEMANTIC_concept_learner_v1; N=8192 cats=8 inst/cat=4 attrs=12 M_basic=96 heldout=8 foreign=6 audit=24 sparse_f=0.020 sparse_amp=7.071 seeds=[7, 17, 23] mode=full; bands a1>=0.95 a2>=0.80 a3>=0.85 a4>=0.50 refuse>=0.80 retention>=0.85 chain>=0.70 sanity>=0.70",
+      "N": 8192,
+      "run_mode": "full",
+      "n_atoms": 52,
+      "n_cat": 8,
+      "n_inst": 32,
+      "n_attr": 12,
+      "arm1_learn_basic_facts": {
+        "n_triples_stored": 96,
+        "top1": 0.6771,
+        "recall5": 0.9792,
+        "chance_top1": 0.01923,
+        "chance_top5": 0.09615
+      },
+      "arm2_hierarchical_inheritance": {
+        "n_instances": 32,
+        "chain_hop1_cat_top1": 0.8438,
+        "inherited_attr_top1": 0.8438,
+        "inherited_attr_top3": 0.875
+      },
+      "arm3_generalization_new_inst": {
+        "n_heldout": 8,
+        "top1": 1.0,
+        "top3": 1.0,
+        "chance_top3": 0.05769
+      },
+      "arm4_compositional_triple": {
+        "n_heldout": 8,
+        "top1": 0.75,
+        "top3": 1.0,
+        "chance_top1": 0.01923
+      },
+      "arm5_refuse_foreign_concept": {
+        "n_foreign": 6,
+        "n_retention": 96,
+        "refuse_threshold": 0.06681,
+        "mean_retention_cos": 0.08846,
+        "std_retention_cos": 0.01853,
+        "mean_foreign_cos": 0.02311,
+        "refuse_accuracy": 1.0,
+        "retention_not_refused": 0.9479,
+        "retention_top5_kept": 0.9271,
+        "retention_accuracy": 0.9271
+      },
+      "arm6_audit_chain_semantic": {
+        "n_queries": 24,
+        "answer_top1": 0.875,
+        "chain_completeness": 0.875
+      },
+      "wall_s": 0.92,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782369979.897108
+    },
+    {
+      "seed": 17,
+      "config_version": "stage1_SEMANTIC_concept_learner_v1; N=8192 cats=8 inst/cat=4 attrs=12 M_basic=96 heldout=8 foreign=6 audit=24 sparse_f=0.020 sparse_amp=7.071 seeds=[7, 17, 23] mode=full; bands a1>=0.95 a2>=0.80 a3>=0.85 a4>=0.50 refuse>=0.80 retention>=0.85 chain>=0.70 sanity>=0.70",
+      "N": 8192,
+      "run_mode": "full",
+      "n_atoms": 52,
+      "n_cat": 8,
+      "n_inst": 32,
+      "n_attr": 12,
+      "arm1_learn_basic_facts": {
+        "n_triples_stored": 96,
+        "top1": 0.75,
+        "recall5": 1.0,
+        "chance_top1": 0.01923,
+        "chance_top5": 0.09615
+      },
+      "arm2_hierarchical_inheritance": {
+        "n_instances": 32,
+        "chain_hop1_cat_top1": 0.9375,
+        "inherited_attr_top1": 0.9375,
+        "inherited_attr_top3": 0.9375
+      },
+      "arm3_generalization_new_inst": {
+        "n_heldout": 8,
+        "top1": 1.0,
+        "top3": 1.0,
+        "chance_top3": 0.05769
+      },
+      "arm4_compositional_triple": {
+        "n_heldout": 8,
+        "top1": 0.75,
+        "top3": 1.0,
+        "chance_top1": 0.01923
+      },
+      "arm5_refuse_foreign_concept": {
+        "n_foreign": 6,
+        "n_retention": 96,
+        "refuse_threshold": 0.06328,
+        "mean_retention_cos": 0.08542,
+        "std_retention_cos": 0.01872,
+        "mean_foreign_cos": 0.02631,
+        "refuse_accuracy": 1.0,
+        "retention_not_refused": 0.9479,
+        "retention_top5_kept": 0.9479,
+        "retention_accuracy": 0.9479
+      },
+      "arm6_audit_chain_semantic": {
+        "n_queries": 24,
+        "answer_top1": 0.9583,
+        "chain_completeness": 0.9583
+      },
+      "wall_s": 0.92,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782369980.844567
+    },
+    {
+      "seed": 23,
+      "config_version": "stage1_SEMANTIC_concept_learner_v1; N=8192 cats=8 inst/cat=4 attrs=12 M_basic=96 heldout=8 foreign=6 audit=24 sparse_f=0.020 sparse_amp=7.071 seeds=[7, 17, 23] mode=full; bands a1>=0.95 a2>=0.80 a3>=0.85 a4>=0.50 refuse>=0.80 retention>=0.85 chain>=0.70 sanity>=0.70",
+      "N": 8192,
+      "run_mode": "full",
+      "n_atoms": 52,
+      "n_cat": 8,
+      "n_inst": 32,
+      "n_attr": 12,
+      "arm1_learn_basic_facts": {
+        "n_triples_stored": 96,
+        "top1": 0.7917,
+        "recall5": 1.0,
+        "chance_top1": 0.01923,
+        "chance_top5": 0.09615
+      },
+      "arm2_hierarchical_inheritance": {
+        "n_instances": 32,
+        "chain_hop1_cat_top1": 1.0,
+        "inherited_attr_top1": 1.0,
+        "inherited_attr_top3": 1.0
+      },
+      "arm3_generalization_new_inst": {
+        "n_heldout": 8,
+        "top1": 1.0,
+        "top3": 1.0,
+        "chance_top3": 0.05769
+      },
+      "arm4_compositional_triple": {
+        "n_heldout": 8,
+        "top1": 0.625,
+        "top3": 1.0,
+        "chance_top1": 0.01923
+      },
+      "arm5_refuse_foreign_concept": {
+        "n_foreign": 6,
+        "n_retention": 96,
+        "refuse_threshold": 0.06626,
+        "mean_retention_cos": 0.08559,
+        "std_retention_cos": 0.01216,
+        "mean_foreign_cos": 0.02238,
+        "refuse_accuracy": 1.0,
+        "retention_not_refused": 0.9479,
+        "retention_top5_kept": 0.9479,
+        "retention_accuracy": 0.9479
+      },
+      "arm6_audit_chain_semantic": {
+        "n_queries": 24,
+        "answer_top1": 1.0,
+        "chain_completeness": 1.0
+      },
+      "wall_s": 0.91,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782369981.768086
+    }
+  ],
+  "DESIGN_NOTE": "Stage 1 definitive concept-learner test (USER directive 2026-06-24). UNTRAINED random sparse-bipolar encoder; semantic structure comes from binding pattern across observed triples + at-query-time chain traversal via substrate compose primitive. Inheritance / generalization / compositional / refuse / audit-chain arms all use the SAME chain primitive -- this is the substrate-product-relevant test. Lane 1; chance-baseline only; no transformer comparisons.",
+  "elapsed_s": 0.0
+}

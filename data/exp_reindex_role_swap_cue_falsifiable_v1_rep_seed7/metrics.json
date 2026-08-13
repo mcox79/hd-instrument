@@ -1,0 +1,193 @@
+{
+  "verdict": "REINDEX_ORGAN_NECESSARY_AND_READS_ROLE_POSITION_DECORRELATED",
+  "verdict_msg": "band=HARD_PASS | REVISION held STRAIGHT=0.995 SWAP=1.000 acc=0.998 consistency=0.995 (trained STR=1.000 SWP=1.000 cons=1.000) | POSITIONAL FLOORS: FF acc=0.487 cons=0.511 | FF_FROZEN acc=0.497 | NOCUE acc=0.499 SWAP=0.536 | ff_floors=True (need acc<=0.62 + static-inverts; cons diagnostic) | beats_floors=True (rev_acc-floor_max=0.499 need>=0.15) reanalysis_fired=True (REV swap 1.000 - NOCUE swap 0.536 = 0.464 need>=0.15) memorized=False | static-readout linprobe ap=0.002 pa=0.000 (premise_ok=True <=0.55) | gate g_STRAIGHT=0.070 g_SWAP=0.977",
+  "summary": "REINDEX_ORGAN_NECESSARY_AND_READS_ROLE_POSITION_DECORRELATED | chance=0.50 | band=HARD_PASS | REVISION held STRAIGHT=0.995 SWAP=1.000 acc=0.998 consistency=0.995 (trained STR=1.000 SWP=1.000 cons=1.000) | POSITIONAL FLOORS: FF acc=0.487 ",
+  "run_mode": "lite",
+  "elapsed_s": 143.54650949989446,
+  "ts_iso": "2026-07-31T03:05:36.808209+00:00",
+  "anchor_name": "reindex_role_swap_cue_falsifiable_v1",
+  "chance": 0.5,
+  "arms": {
+    "ARM_FF": {
+      "held": {
+        "active": 0.48068180680274963,
+        "passive": 0.49318182468414307,
+        "xvoice_consistency": 0.5113636255264282
+      },
+      "trained": {
+        "active": 0.5011363625526428,
+        "passive": 0.4625000059604645,
+        "xvoice_consistency": 0.5181818008422852
+      },
+      "digest": "d593de121865182a203b87cb82a94e923bd62c82dc7aa25ec1afc93aa8a71747"
+    },
+    "ARM_FF_FROZEN": {
+      "held": {
+        "active": 0.44090908765792847,
+        "_g_active": 0.0,
+        "passive": 0.5522727370262146,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.5522727370262146
+      },
+      "trained": {
+        "active": 0.543181836605072,
+        "passive": 0.4545454680919647,
+        "xvoice_consistency": 0.5022727251052856
+      },
+      "digest": "783ae8d7053626e6b3afdea440abe1e569254b98836b26fe9511bf736b1245ea"
+    },
+    "ARM_REVISION": {
+      "held": {
+        "active": 0.9954545497894287,
+        "_g_active": 0.07044188678264618,
+        "passive": 1.0,
+        "_g_passive": 0.9769407510757446,
+        "xvoice_consistency": 0.9954545497894287
+      },
+      "trained": {
+        "active": 1.0,
+        "passive": 1.0,
+        "xvoice_consistency": 1.0
+      },
+      "digest": "c89ccfade8ccccaf36495a382fa03c28f6a2c44d2e46f2b364e33b31f2b1e2bd"
+    },
+    "ARM_REVISION_NOCUE": {
+      "held": {
+        "active": 0.46136364340782166,
+        "_g_active": 0.0,
+        "passive": 0.5363636612892151,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.543181836605072
+      },
+      "trained": {
+        "active": 0.5454545617103577,
+        "passive": 0.4477272629737854,
+        "xvoice_consistency": 0.49318182468414307
+      },
+      "digest": "70f0b768d299bd1bd5187d5358ab997936216e80d1cf25b58312fd9f0b54458e"
+    },
+    "ARM_ENCODER_LINPROBE": {
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.0022727272727272726,
+        "passive_to_active": 0.0,
+        "within_probe_sanity": 1.0
+      },
+      "digest": "602a3e0e43601b566b4e774095c6479b593c20e90b8787cfee62ec3dc7b50507"
+    }
+  },
+  "positional_floors": {
+    "ff_acc": 0.48693181574344635,
+    "ff_consistency": 0.5113636255264282,
+    "ff_frozen_acc": 0.49659091234207153,
+    "nocue_acc": 0.49886365234851837,
+    "nocue_swap": 0.5363636612892151
+  },
+  "smoke_falsifiability_gate": null,
+  "fhrr_slot_demo": {
+    "agent_recovered": true,
+    "patient_recovered": true
+  },
+  "bands": {
+    "pass_min": 0.7,
+    "fail_max": 0.55,
+    "cons_pass": 0.7,
+    "ff_floor_acc_max": 0.62,
+    "ff_floor_cons_max": 0.6,
+    "discrim_margin": 0.15,
+    "reanalysis_margin": 0.15,
+    "linprobe_max": 0.55
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "ARM_FF": "d593de121865182a203b87cb82a94e923bd62c82dc7aa25ec1afc93aa8a71747",
+    "ARM_FF_FROZEN": "783ae8d7053626e6b3afdea440abe1e569254b98836b26fe9511bf736b1245ea",
+    "ARM_REVISION": "c89ccfade8ccccaf36495a382fa03c28f6a2c44d2e46f2b364e33b31f2b1e2bd",
+    "ARM_REVISION_NOCUE": "70f0b768d299bd1bd5187d5358ab997936216e80d1cf25b58312fd9f0b54458e",
+    "ARM_ENCODER_LINPROBE": "602a3e0e43601b566b4e774095c6479b593c20e90b8787cfee62ec3dc7b50507"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units_done": 5,
+  "params": {
+    "arm_units": [
+      "ARM_FF",
+      "ARM_FF_FROZEN",
+      "ARM_REVISION",
+      "ARM_REVISION_NOCUE",
+      "ARM_ENCODER_LINPROBE"
+    ],
+    "floor_arms": [
+      "ARM_FF",
+      "ARM_FF_FROZEN",
+      "ARM_REVISION_NOCUE"
+    ],
+    "seed": 7,
+    "vocab_size": 54,
+    "max_len": 12,
+    "cue_straight": "by",
+    "cue_swap": "was",
+    "train_nouns": [
+      "dog",
+      "cat",
+      "bird",
+      "fish",
+      "horse",
+      "cow",
+      "sheep",
+      "goat",
+      "lion",
+      "tiger",
+      "bear",
+      "wolf",
+      "fox",
+      "deer",
+      "mouse",
+      "frog"
+    ],
+    "heldout_nouns": [
+      "duck",
+      "hawk",
+      "seal",
+      "crab",
+      "whale",
+      "shark",
+      "snake",
+      "owl"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "heldout_verbs": [
+      "pushed",
+      "pulled",
+      "carried",
+      "called",
+      "touched",
+      "kicked",
+      "licked",
+      "hugged"
+    ],
+    "d_model": 96,
+    "n_layers": 2,
+    "enc_steps": 2000,
+    "dec_steps": 1500,
+    "relax_iters": 4,
+    "sink_temp": 0.5,
+    "n_dec_train": 2200
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "argmax/closed-form role readout on frozen latents; discriminator = pre-registered bands + falsifiability gate",
+  "calibration_check": "default_ok_for_this_regime: fixed HYPOTHESIZED thresholds set before running; chance=0.50 exact-by-construction (position-decorrelated 2-mention/2-role)."
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_anchor4_encoder_family_phase_diagram_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=48 SMOKE=32; encoder distinct hashes: {'binary_bipolar': 'd03fd71a2ac3ce37', 'hrr_real': '7ccb09f7a6592582', 'fhrr': '829051c8db62af29', 'sparse_bipolar': 'be09355e5632e2da'}; recency_decode_acc per encoder: {'binary_bipolar': 1.0, 'hrr_real': 1.0, 'fhrr': 1.0, 'sparse_bipolar': 0.9}; positive_control: binary_bipolar @ (dr=90, ld=1.0, seed=13) pareto=TD_DOMINATES td.ws=1.000 rd.ws=0.894 recency_acc=1.000; pareto_dominance unit-tests pass",
+  "summary": "cardinality FULL=48 SMOKE=32; encoder distinct hashes: {'binary_bipolar': 'd03fd71a2ac3ce37', 'hrr_real': '7ccb09f7a6592582', 'fhrr': '829051c8db62af29', 'sparse_bipolar': 'be09355e5632e2da'}; recency_decode_acc per encoder: {'binary_bipolar': 1.0, 'hrr_real': 1.0, 'fhrr': 1.0, 'sparse_bipolar': 0.9}; positive_control: binary_bipolar @ (dr=90, ld=1.0, seed=13) pareto=TD_DOMINATES td.ws=1.000 rd.ws=0.894 recency_acc=1.000; pareto_dominance unit-tests pass",
+  "elapsed_s": 0.05,
+  "ts_iso": "2026-06-29T09:04:32Z",
+  "pid": 29612,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_anchor4_encoder_family_phase_diagram_v1_seed_7,encoders=[binary_bipolar,hrr_real,fhrr,sparse_bipolar],N_DIM_sweep=[128,1024],R_BUCKETS=64,n_atoms=200,n_days=365,decay_full=[30,90,180],load_full=[1.0,5.0],decay_smoke=[30,90],load_smoke=[1.0,5.0],SEED=7,mode=selftest,arms=[TIME_DECAY,RANDOM],expected_n_full=48,expected_n_smoke=32,discriminator=per_encoder_pareto_dominance_rate_v2,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_anchor4_encoder_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

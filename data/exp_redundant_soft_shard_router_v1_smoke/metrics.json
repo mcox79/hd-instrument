@@ -1,0 +1,285 @@
+{
+  "anchor_name": "redundant_soft_shard_router_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MEASURED_MECHANISM_MIXED (CLAIM, VET-PENDING): best REDUNDANT_SOFT config lands on/inside the Pareto frontier of HARD/SOFT -- NOT framed as domination per CONTRACT. | best_config=R3_M2 acc_at_f0.7=0.979 (hard=0.771 soft=0.995 threshold=0.895) growth_redundant=1.270 (growth_hard=1.800 growth_soft=18.000) | P2 margin(soft-hardvote, TOP-1 acc)@R5_M4=+0.052 (soft_top1=0.891 hardvote_top1=0.839; shortlist-hit-rate was insensitive: soft=0.938 hardvote=0.938) | can_fail_confirmed=True (degenerate=0.250 vs hard=0.771)",
+  "summary": "MIDDLE_BAND: REDUNDANT_SOFT third-design-point shard router (smoke)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_units": 10,
+  "expected_n_units": 10,
+  "cardinality_ok": true,
+  "elapsed_s": 2.3087172508239746,
+  "part_A_corruption_sweep": {
+    "curve": [
+      {
+        "f": 0.0,
+        "acc_hard_mean": 1.0,
+        "acc_soft_mean": 1.0,
+        "hard_vote_acc_mean": 1.0,
+        "hard_vote_top1_acc_mean": 1.0,
+        "soft_rep_top1_acc_mean": 1.0,
+        "acc_R3_M2_mean": 1.0,
+        "cand_R3_M2_mean": 5.0,
+        "acc_R3_M4_mean": 1.0,
+        "cand_R3_M4_mean": 4.96875,
+        "acc_R5_M2_mean": 1.0,
+        "cand_R5_M2_mean": 5.21875,
+        "acc_R5_M4_mean": 1.0,
+        "cand_R5_M4_mean": 5.46875,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.6,
+        "acc_hard_mean": 0.875,
+        "acc_soft_mean": 1.0,
+        "hard_vote_acc_mean": 0.9583333333333333,
+        "hard_vote_top1_acc_mean": 0.9427083333333333,
+        "soft_rep_top1_acc_mean": 0.9479166666666667,
+        "acc_R3_M2_mean": 1.0,
+        "cand_R3_M2_mean": 5.583333333333334,
+        "acc_R3_M4_mean": 0.9947916666666667,
+        "cand_R3_M4_mean": 5.494791666666667,
+        "acc_R5_M2_mean": 0.9739583333333333,
+        "cand_R5_M2_mean": 5.348958333333334,
+        "acc_R5_M4_mean": 0.9583333333333333,
+        "cand_R5_M4_mean": 5.385416666666667,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.7,
+        "acc_hard_mean": 0.7708333333333333,
+        "acc_soft_mean": 0.9947916666666667,
+        "hard_vote_acc_mean": 0.9375,
+        "hard_vote_top1_acc_mean": 0.8385416666666667,
+        "soft_rep_top1_acc_mean": 0.890625,
+        "acc_R3_M2_mean": 0.9791666666666667,
+        "cand_R3_M2_mean": 5.458333333333334,
+        "acc_R3_M4_mean": 0.9635416666666667,
+        "cand_R3_M4_mean": 5.640625,
+        "acc_R5_M2_mean": 0.8958333333333333,
+        "cand_R5_M2_mean": 5.359375,
+        "acc_R5_M4_mean": 0.9375,
+        "cand_R5_M4_mean": 5.489583333333333,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.8,
+        "acc_hard_mean": 0.5,
+        "acc_soft_mean": 0.8125,
+        "hard_vote_acc_mean": 0.7239583333333334,
+        "hard_vote_top1_acc_mean": 0.5833333333333333,
+        "soft_rep_top1_acc_mean": 0.609375,
+        "acc_R3_M2_mean": 0.8541666666666667,
+        "cand_R3_M2_mean": 5.401041666666667,
+        "acc_R3_M4_mean": 0.8645833333333333,
+        "cand_R3_M4_mean": 5.5,
+        "acc_R5_M2_mean": 0.6927083333333333,
+        "cand_R5_M2_mean": 5.276041666666666,
+        "acc_R5_M4_mean": 0.734375,
+        "cand_R5_M4_mean": 5.432291666666666,
+        "acc_R1_M1_degenerate_mean": 0.234375,
+        "cand_R1_M1_degenerate_mean": 4.0
+      }
+    ],
+    "gate_row": {
+      "f": 0.7,
+      "acc_hard_mean": 0.7708333333333333,
+      "acc_soft_mean": 0.9947916666666667,
+      "hard_vote_acc_mean": 0.9375,
+      "hard_vote_top1_acc_mean": 0.8385416666666667,
+      "soft_rep_top1_acc_mean": 0.890625,
+      "acc_R3_M2_mean": 0.9791666666666667,
+      "cand_R3_M2_mean": 5.458333333333334,
+      "acc_R3_M4_mean": 0.9635416666666667,
+      "cand_R3_M4_mean": 5.640625,
+      "acc_R5_M2_mean": 0.8958333333333333,
+      "cand_R5_M2_mean": 5.359375,
+      "acc_R5_M4_mean": 0.9375,
+      "cand_R5_M4_mean": 5.489583333333333,
+      "acc_R1_M1_degenerate_mean": 0.25,
+      "cand_R1_M1_degenerate_mean": 4.0
+    },
+    "arms_differ_digests": {
+      "hard": "c80fca15c9b2182e",
+      "soft": "9d9b6b8754677e52",
+      "R3_M2": "d7eb1bd3cf2fcaf8",
+      "R3_M4": "050e5b00104840a1",
+      "R5_M2": "b9561b376a27a578",
+      "R5_M4": "76b71c2f17f06bb4",
+      "hard_vote_rep": "f3e79fd441381853",
+      "R1_M1_degenerate": "f7bd86ba995f3584"
+    },
+    "config": {
+      "n_shards": 16,
+      "total_dim": 96,
+      "f_grid": [
+        0.0,
+        0.6,
+        0.7,
+        0.8
+      ],
+      "seeds": [
+        7,
+        13
+      ],
+      "Q": 96,
+      "k_top": 5,
+      "redundant_configs": [
+        {
+          "name": "R3_M2",
+          "moduli": [
+            5,
+            7,
+            11
+          ],
+          "M": 2
+        },
+        {
+          "name": "R3_M4",
+          "moduli": [
+            5,
+            7,
+            11
+          ],
+          "M": 4
+        },
+        {
+          "name": "R5_M2",
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ],
+          "M": 2
+        },
+        {
+          "name": "R5_M4",
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ],
+          "M": 4
+        }
+      ],
+      "hardvote_match": {
+        "moduli": [
+          2,
+          3,
+          5,
+          7,
+          11
+        ],
+        "M": 4,
+        "matches_config": "R5_M4"
+      },
+      "degenerate_config": {
+        "name": "R1_M1_degenerate",
+        "moduli": [
+          4
+        ],
+        "M": 1
+      }
+    }
+  },
+  "part_B_cost_scaling": {
+    "per_n": {
+      "32": {
+        "cost_hard": 80,
+        "cost_soft": 1280,
+        "cost_redundant": 984.6875,
+        "acc_redundant_at_f0.2": 1.0,
+        "total_dim": 40,
+        "n_bits": 5,
+        "redundant_detail": {
+          "cost": 984.6875,
+          "channel_score_ops": 224,
+          "combo_enum_ops": 750,
+          "measured_candidates": 10.6875,
+          "acc": 1.0,
+          "dims_list": [
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ]
+        }
+      },
+      "320": {
+        "cost_hard": 144,
+        "cost_soft": 23040,
+        "cost_redundant": 1250.9375,
+        "acc_redundant_at_f0.2": 1.0,
+        "total_dim": 72,
+        "n_bits": 9,
+        "redundant_detail": {
+          "cost": 1250.9375,
+          "channel_score_ops": 397,
+          "combo_enum_ops": 750,
+          "measured_candidates": 103.9375,
+          "acc": 1.0,
+          "dims_list": [
+            15,
+            15,
+            14,
+            14,
+            14
+          ],
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ]
+        }
+      }
+    },
+    "growth_hard": 1.8,
+    "growth_soft": 18.0,
+    "growth_redundant": 1.270390352269121,
+    "config": {
+      "n_shards_pair": [
+        32,
+        320
+      ],
+      "seeds": [
+        7
+      ],
+      "Q": 64,
+      "rep_config_moduli": [
+        2,
+        3,
+        5,
+        7,
+        11
+      ],
+      "rep_config_M": 4,
+      "corruption": 0.2
+    }
+  },
+  "predictions": {
+    "P1_joint_cheap_and_robust": "HARD_PASS",
+    "P2_soft_beats_hard_combine": "MIDDLE_BAND"
+  },
+  "can_fail_confirmed": true,
+  "prediction3_localization_note": null,
+  "ts_iso": "2026-07-17T15:50:45.956292+00:00",
+  "pid": 27628,
+  "host": "FrameworkMPC"
+}

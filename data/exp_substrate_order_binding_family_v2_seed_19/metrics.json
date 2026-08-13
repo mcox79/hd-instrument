@@ -1,0 +1,554 @@
+{
+  "phase_map": [
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 1,
+      "K_per_seq": 125,
+      "K_total": 125,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator_local": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 0.663,
+      "bundle_hash": "226750cb65e8663f8f1d156ee71d2029ce1d96733c67f40d6a53d6f9bbe31c9d",
+      "positions_hash": "d26fc106cbcfe7a015fb726ecf2dad9aead3decbc98b0e80a13f9ba55b5dc5ea",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 1,
+      "K_per_seq": 250,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator_local": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 0.658,
+      "bundle_hash": "f2c15c8bd18a36bb9294a84b2a3134db93d39c868424e34b19178cd3f89794c0",
+      "positions_hash": "883de93f342acb88b256d3458aa206715b9a145c626c5d1ae22696785bccddd4",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 2,
+      "K_per_seq": 125,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.95,
+      "top1_random": 0.0,
+      "discriminator_local": 0.95,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 0.911,
+      "bundle_hash": "241985874165801800ccb527043e25900d8c69c2a3cc5693cc1e996eb51a44cb",
+      "positions_hash": "d26fc106cbcfe7a015fb726ecf2dad9aead3decbc98b0e80a13f9ba55b5dc5ea",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 2,
+      "K_per_seq": 250,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.7667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.7667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 0.897,
+      "bundle_hash": "596933ce6643e14e2760d18e9e920ad5f92eaed659eabcfd1d417be88fd2ab14",
+      "positions_hash": "883de93f342acb88b256d3458aa206715b9a145c626c5d1ae22696785bccddd4",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 125,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.6,
+      "top1_random": 0.0,
+      "discriminator_local": 0.6,
+      "band": "MB",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.347,
+      "bundle_hash": "4ea031865a7a3da13c87acc9ca3b2c718bcadae77231cea24155e7161b9c1927",
+      "positions_hash": "d26fc106cbcfe7a015fb726ecf2dad9aead3decbc98b0e80a13f9ba55b5dc5ea",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.2167,
+      "top1_random": 0.0,
+      "discriminator_local": 0.2167,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.421,
+      "bundle_hash": "2f88dcbf4d37efdf0361ffeaaa98fc34c2207d1eb4b764f4e4e4a340d5a3a11b",
+      "positions_hash": "883de93f342acb88b256d3458aa206715b9a145c626c5d1ae22696785bccddd4",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 1,
+      "K_per_seq": 125,
+      "K_total": 125,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator_local": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 0.893,
+      "bundle_hash": "02a9fbb8df4964bd8e315de8388d93c9be1a182cdfc15aea5ae6ff5c7dce58e6",
+      "positions_hash": "5326e9c599d804555a5cd3c45615dd51e6685165e49deec94e254096411413b5",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 1,
+      "K_per_seq": 250,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.9667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.9667,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.112,
+      "bundle_hash": "cd369f69731b875d7d3183b5d0b3b66aac66bdcdd92440a4a467fb72a6a61a1b",
+      "positions_hash": "27abb71ff7f1511fbc3736adec07607e5fab1789063be4f5dd452d5acbd7838b",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 2,
+      "K_per_seq": 125,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.9667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.9667,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.084,
+      "bundle_hash": "c169898d0e4a3923dd8566e2f460164a9f16825c78f8644e9048447693d61ef8",
+      "positions_hash": "5326e9c599d804555a5cd3c45615dd51e6685165e49deec94e254096411413b5",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 2,
+      "K_per_seq": 250,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.7667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.7667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.256,
+      "bundle_hash": "454aba2866bb997ada61efced8f1b25a2f6bd1b4bcb9078b4b7fe783f6cd35a1",
+      "positions_hash": "27abb71ff7f1511fbc3736adec07607e5fab1789063be4f5dd452d5acbd7838b",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 125,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.7333,
+      "top1_random": 0.0,
+      "discriminator_local": 0.7333,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.587,
+      "bundle_hash": "b067010153d3ecae4b121bec7593dd5ad22fe4c5aa46f5db7829be9e55220fff",
+      "positions_hash": "5326e9c599d804555a5cd3c45615dd51e6685165e49deec94e254096411413b5",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.25,
+      "top1_random": 0.0,
+      "discriminator_local": 0.25,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.687,
+      "bundle_hash": "ed359b13be35a319d9c30534611ab5976ab13756ebbff41a073888b498efd776",
+      "positions_hash": "27abb71ff7f1511fbc3736adec07607e5fab1789063be4f5dd452d5acbd7838b",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 1,
+      "K_per_seq": 125,
+      "K_total": 125,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator_local": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 0.88,
+      "bundle_hash": "4cc09da86a200ea68a7a6930f471c00552d21e0341e11c13d39820a7358734e5",
+      "positions_hash": "450cd80d0666190ce9885810a4bd436c2a5fc2546087214aee5e13e73bbb47d9",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 1,
+      "K_per_seq": 250,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.95,
+      "top1_random": 0.0,
+      "discriminator_local": 0.95,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 0.916,
+      "bundle_hash": "37e45a9f21744aa7f207f81d2bad476b81bb49d0bebc4bc12f9e9780d428d4da",
+      "positions_hash": "1c8673dbef0f20ced1d2a2718bf0c3231e365d03ac2cbcc1b0e6fd0c52126d41",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 2,
+      "K_per_seq": 125,
+      "K_total": 250,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.9833,
+      "top1_random": 0.0,
+      "discriminator_local": 0.9833,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.382,
+      "bundle_hash": "65536fedcb53d0686274e7fd778cf5a670a51b8908f9a28e6f113ca3c487991e",
+      "positions_hash": "450cd80d0666190ce9885810a4bd436c2a5fc2546087214aee5e13e73bbb47d9",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 2,
+      "K_per_seq": 250,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.6667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.6667,
+      "band": "MB",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.343,
+      "bundle_hash": "da529d50e892cbbd129f854259b138f21ad14801ee974a8d24bd8499fe904a3a",
+      "positions_hash": "1c8673dbef0f20ced1d2a2718bf0c3231e365d03ac2cbcc1b0e6fd0c52126d41",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 4,
+      "K_per_seq": 125,
+      "K_total": 500,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.7667,
+      "top1_random": 0.0,
+      "discriminator_local": 0.7667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 2.183,
+      "bundle_hash": "695a276d4be3dea9daf5e47cac63aa4323ec2e4b0b68dc4cc26664a0984ecab5",
+      "positions_hash": "450cd80d0666190ce9885810a4bd436c2a5fc2546087214aee5e13e73bbb47d9",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.2,
+      "top1_random": 0.0,
+      "discriminator_local": 0.2,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 2.295,
+      "bundle_hash": "2368bdf26f79b6a17ad9b8e1aaeda939a4eaf68e3dde39e7a9411205315a8ed2",
+      "positions_hash": "1c8673dbef0f20ced1d2a2718bf0c3231e365d03ac2cbcc1b0e6fd0c52126d41",
+      "bundle_shape": [
+        8192
+      ]
+    }
+  ],
+  "per_op_summary": {
+    "CYCLIC_SHIFT": {
+      "encoder_family": "bipolar",
+      "top1_sub_mean": 0.7556,
+      "top1_rand_mean": 0.0,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 2
+      },
+      "cv_across_sweep": 0.3712
+    },
+    "RANDOM_PERMUTATION": {
+      "encoder_family": "bipolar",
+      "top1_sub_mean": 0.7806,
+      "top1_rand_mean": 0.0,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 0,
+        "FLOOR": 0,
+        "TRANSITION": 3
+      },
+      "cv_across_sweep": 0.3313
+    },
+    "PHASE_ROTATION": {
+      "encoder_family": "hrr_real",
+      "top1_sub_mean": 0.7611,
+      "top1_rand_mean": 0.0,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 2
+      },
+      "cv_across_sweep": 0.3661
+    }
+  },
+  "disc_pts_by_op": {
+    "CYCLIC_SHIFT": {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.2167,
+      "top1_random": 0.0,
+      "discriminator_local": 0.2167,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.421,
+      "bundle_hash": "2f88dcbf4d37efdf0361ffeaaa98fc34c2207d1eb4b764f4e4e4a340d5a3a11b",
+      "positions_hash": "883de93f342acb88b256d3458aa206715b9a145c626c5d1ae22696785bccddd4",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    "RANDOM_PERMUTATION": {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.25,
+      "top1_random": 0.0,
+      "discriminator_local": 0.25,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 1.687,
+      "bundle_hash": "ed359b13be35a319d9c30534611ab5976ab13756ebbff41a073888b498efd776",
+      "positions_hash": "27abb71ff7f1511fbc3736adec07607e5fab1789063be4f5dd452d5acbd7838b",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    "PHASE_ROTATION": {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "L": 4,
+      "K_per_seq": 250,
+      "K_total": 1000,
+      "N_DIM": 8192,
+      "n_queries": 60,
+      "seed": 19,
+      "top1_substrate": 0.2,
+      "top1_random": 0.0,
+      "discriminator_local": 0.2,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 2.295,
+      "bundle_hash": "2368bdf26f79b6a17ad9b8e1aaeda939a4eaf68e3dde39e7a9411205315a8ed2",
+      "positions_hash": "1c8673dbef0f20ced1d2a2718bf0c3231e365d03ac2cbcc1b0e6fd0c52126d41",
+      "bundle_shape": [
+        8192
+      ]
+    }
+  },
+  "disc_pair_diffs": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": 0.0333,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": 0.0167,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": 0.05
+  },
+  "max_pair_diff_at_disc": 0.05,
+  "op_pair_bundle_distinctness": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": true,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": true,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": true
+  },
+  "op_pair_positions_distinctness": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": true,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": true,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": true
+  },
+  "n_pairs_bundle_differ": 3,
+  "n_pairs_positions_differ": 3,
+  "op_bundle_hashes": {
+    "CYCLIC_SHIFT": "226750cb65e8663f8f1d156ee71d2029ce1d96733c67f40d6a53d6f9bbe31c9d",
+    "RANDOM_PERMUTATION": "02a9fbb8df4964bd8e315de8388d93c9be1a182cdfc15aea5ae6ff5c7dce58e6",
+    "PHASE_ROTATION": "4cc09da86a200ea68a7a6930f471c00552d21e0341e11c13d39820a7358734e5"
+  },
+  "op_positions_hashes": {
+    "CYCLIC_SHIFT": "d26fc106cbcfe7a015fb726ecf2dad9aead3decbc98b0e80a13f9ba55b5dc5ea",
+    "RANDOM_PERMUTATION": "5326e9c599d804555a5cd3c45615dd51e6685165e49deec94e254096411413b5",
+    "PHASE_ROTATION": "450cd80d0666190ce9885810a4bd436c2a5fc2546087214aee5e13e73bbb47d9"
+  },
+  "n_suspect_saturation": 4,
+  "positive_control_result": {
+    "order_operation": "CYCLIC_SHIFT",
+    "L": 1,
+    "K_per_seq": 125,
+    "top1_floor_required": 0.8,
+    "measured_top1": 1.0,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 18,
+  "observed_n_units": 18,
+  "tier_counts": {
+    "SAT": 9,
+    "MB": 2,
+    "FLOOR": 0,
+    "TRANSITION": 7
+  },
+  "device": "cpu",
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "regime": "order_binding_family_v2_load_sweep_N8192",
+  "discriminator_L": 4,
+  "discriminator_K": 250,
+  "discriminator_min_pair_diff": 0.15,
+  "discriminator_honest_abort_diff": 0.03,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: max_pair_diff=0.050 in (0.03, 0.15) at (L=4,K=250); disc_pts={'CYCLIC_SHIFT': 0.2167, 'RANDOM_PERMUTATION': 0.25, 'PHASE_ROTATION': 0.2}; disc_pair_diffs={'CYCLIC_SHIFT_vs_RANDOM_PERMUTATION': 0.0333, 'CYCLIC_SHIFT_vs_PHASE_ROTATION': 0.0167, 'RANDOM_PERMUTATION_vs_PHASE_ROTATION': 0.05}",
+  "summary": "MIDDLE_BAND_PARTIAL: max_pair_diff=0.050 in (0.03, 0.15) at (L=4,K=250); disc_pts={'CYCLIC_SHIFT': 0.2167, 'RANDOM_PERMUTATION': 0.25, 'PHASE_ROTATION': 0.2}; disc_pair_diffs={'CYCLIC_SHIFT_vs_RANDOM_PERMUTATION': 0.0333, 'CYCLIC_SHIFT_vs_PHASE_ROTATION': 0.0167, 'RANDOM_PERMUTATION_vs_PHASE_ROTATION': 0.05}",
+  "anchor_name": "substrate_order_binding_family_v2_seed_19",
+  "elapsed_s": 22.81,
+  "ts_iso": "2026-07-01T12:02:00Z",
+  "pid": 14436,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_order_binding_family_v2_seed_19,order_ops=[CYCLIC_SHIFT,RANDOM_PERMUTATION,PHASE_ROTATION],N_DIM=8192,SEED=19,mode=full,L_FULL=[1,2,4],L_SMOKE=[1,2,4],K_PER_SEQ_FULL=[125,250],K_PER_SEQ_SMOKE=[125,250],n_q_full=60,n_q_smoke=8,V_ITEMS=4000,V_POS=4000,expected_n_full=18,expected_n_smoke=18,discriminator=max_pair_diff_top1_at_L4_K250_min_0.15,honest_abort=max_pair_diff_top1_at_L4_K250_le_0.03,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,v2_salt=substrate_order_binding_family_v2_load_variant_2026-07-01,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_order_binding_family_chunked",
+  "backend": "numpy.cpu",
+  "seed": 19,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_3_order_binding_op_family_v2_multi_seq_load",
+  "n_llm_calls": 0,
+  "research_handoff": "notes/research_axis_J_revival_drill_2026-07-01.md#candidate_1"
+}

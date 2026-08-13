@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_pc_cleanup_family_phase_diagram_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=80 SMOKE=12; crlb N=2048 cliff=0.4627; N=8192 cliff=0.4813; sanity modern_hopfield: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity classical_hopfield: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity iterative_cosine: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity soft_energy_attractor: c=0.0 id=20/20; c=0.10 recovered 20/20; cleanup byte-hashes distinct at cliff c=0.475 T=1: {'modern_hopfield': '77152fb8f5da8141', 'classical_hopfield': 'e12854609f865cc4', 'iterative_cosine': '59a4782c2334c799', 'soft_energy_attractor': 'ec0ba87342582289'}",
+  "summary": "cardinality FULL=80 SMOKE=12; crlb N=2048 cliff=0.4627; N=8192 cliff=0.4813; sanity modern_hopfield: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity classical_hopfield: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity iterative_cosine: c=0.0 id=20/20; c=0.10 recovered 20/20; sanity soft_energy_attractor: c=0.0 id=20/20; c=0.10 recovered 20/20; cleanup byte-hashes distinct at cliff c=0.475 T=1: {'modern_hopfield': '77152fb8f5da8141', 'classical_hopfield': 'e12854609f865cc4', 'iterative_cosine': '59a4782c2334c799', 'soft_energy_attractor': 'ec0ba87342582289'}",
+  "elapsed_s": 0.06,
+  "ts_iso": "2026-06-29T02:09:01Z",
+  "pid": 34460,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_pc_cleanup_family_phase_diagram_v1_seed_7,cleanups=[modern_hopfield,classical_hopfield,iterative_cosine,soft_energy_attractor],encoder=binary_bipolar,N=[2048,8192],SEED=7,mode=selftest,corruption=[0.20,0.35,0.45,0.475,0.50],iters=[1,5],M=300,beta=8.0,alpha_soft=0.5,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=80,expected_n_smoke=12,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_pc_cleanup_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

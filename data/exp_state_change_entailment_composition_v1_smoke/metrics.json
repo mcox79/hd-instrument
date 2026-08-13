@@ -1,0 +1,475 @@
+{
+  "verdict": "HARD_PASS_STATE_COMPOSITION",
+  "verdict_msg": "[HARD_PASS_STATE_COMPOSITION] resulting-state entailment N=16 (SMALL, authored+McGuffey, single-annotator) | composed=0.9375(15/16) vs majority=0.4375('changed_state') affectedness_only=0.4375(modal_aff='changed_state') | LIFT vs_affonly=+0.5 vs_majority=+0.5 | per_label=not_intact:0.8333(5/6),changed_state:1.0(7/7),created:1.0(3/3) | MUST-FAIL(a) non-affecting->unchanged holds=True | MUST-FAIL(b) scramble affected 0.9375->0.0 drop=0.9375 collapses=True | VSA round-trip state=True entity=True seed_stable=True vsa_readout_acc=0.9375 | arms_differ=True baseline_in_band=True composed_nonsaturated=True",
+  "summary": "HARD_PASS_STATE_COMPOSITION",
+  "elapsed_s": 1.57,
+  "run_mode": "smoke",
+  "anchor_name": "state_change_entailment_composition_v1",
+  "ts_iso": "2026-07-21T22:35:41.125358+00:00",
+  "N": 16,
+  "expected_n_units": 44,
+  "cardinality_ok": true,
+  "is_probe_flag": true,
+  "used_reader": true,
+  "note": "FIRST composition/reasoning brick = state-change entailment. Compose reader event extraction + proven verb-affectedness gate WITH VerbNet cause->result-state predicates into an FHRR bound proposition; infer the affected entity's resulting state (6-way taxonomy). Composed vs majority + affectedness-only (ablation minus the result predicate) = the composition/reasoning lift. Must-fail (a) non-affecting->unchanged, (b) scramble collapses. VSA round-trip recovers patient+state. LOCAL-only; no push/persist; no hdlab mutation. Credit VerbNet/Levin/Dowty/Beavers + v1/v2 gate + FHRR (Plate/Gayler).",
+  "accuracy": {
+    "composed_acc": 0.9375,
+    "composed_correct": 15,
+    "n": 16,
+    "majority_acc": 0.4375,
+    "majority_label": "changed_state",
+    "affectedness_only_acc": 0.4375,
+    "affectedness_only_modal_label": "changed_state",
+    "affectedness_only_unresolved_acc": 0.0,
+    "lift_vs_affectedness_only": 0.5,
+    "lift_vs_majority": 0.5,
+    "vsa_readout_acc": 0.9375,
+    "per_label": {
+      "not_intact": {
+        "n": 6,
+        "correct": 5,
+        "acc": 0.8333
+      },
+      "changed_state": {
+        "n": 7,
+        "correct": 7,
+        "acc": 1.0
+      },
+      "created": {
+        "n": 3,
+        "correct": 3,
+        "acc": 1.0
+      }
+    },
+    "composed_nonsaturated": true,
+    "baseline_in_band": true
+  },
+  "must_fail_control_a": {
+    "designated_unchanged_n": 0,
+    "holds": true,
+    "violations": [],
+    "desc": "non-affecting verbs (perception/cognition/stative/negated) MUST infer unchanged; fed by the gate"
+  },
+  "must_fail_control_b": {
+    "composed_affected_acc": 0.9375,
+    "n_affected": 16,
+    "scramble_seeds": [
+      101,
+      211,
+      331,
+      457,
+      569
+    ],
+    "scramble_accs": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scramble_affected_acc_mean": 0.0,
+    "drop": 0.9375,
+    "collapses": true,
+    "desc": "derangement of affected-type->result-label; affected acc must collapse (proves real VerbNet schema use)"
+  },
+  "vsa_binding": {
+    "N_DIM": 1024,
+    "flavor": "FHRR complex64 unit-magnitude (bind=elementwise mul, unbind=conj mul)",
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "per_seed": {
+      "7": {
+        "state_recover": 16,
+        "entity_recover": 16,
+        "n": 16
+      },
+      "13": {
+        "state_recover": 16,
+        "entity_recover": 16,
+        "n": 16
+      },
+      "19": {
+        "state_recover": 16,
+        "entity_recover": 16,
+        "n": 16
+      }
+    },
+    "roundtrip_state_ok": true,
+    "roundtrip_entity_ok": true,
+    "readout_seed_stable": true,
+    "desc": "proposition = bind(ROLE_ENTITY,patient)+bind(ROLE_STATE,state)+bind(ROLE_VERB,verb); readout = unbind(prop,ROLE_STATE)->cleanup. Round-trip recovers state + patient; each inference traceable by unbinding any role."
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "composed": "1e926f9620c867a0bcccbb7e64efa553f040816a25995e75083ca0809351b0ad",
+    "affected_only": "f5e6f97011bf41b87266c458cf48daeda5ee07dd73f945fe2c64489e4eca2057",
+    "scrambled": "6ae13039637cac1606caab5bbc168620f6070b478643e3e0fa91e04cdae6366f"
+  },
+  "per_instance": [
+    {
+      "id": "s01",
+      "text": "Tom broke the cup.",
+      "verb": "broke",
+      "gold_state": "not_intact",
+      "gold_affected": "the cup",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "cup",
+      "patient_surf": "cup",
+      "composed": "not_intact",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "break-45.1",
+      "type": "change_of_state",
+      "preds": [
+        "degradation_material_integrity",
+        "physical_form"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s02",
+      "text": "The boy broke his toy.",
+      "verb": "broke",
+      "gold_state": "not_intact",
+      "gold_affected": "his toy",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "toy",
+      "patient_surf": "toy",
+      "composed": "not_intact",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "break-45.1",
+      "type": "change_of_state",
+      "preds": [
+        "degradation_material_integrity",
+        "physical_form"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s03",
+      "text": "The frost cracked the jug.",
+      "verb": "cracked",
+      "gold_state": "not_intact",
+      "gold_affected": "the jug",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "jug",
+      "patient_surf": "jug",
+      "composed": "not_intact",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "break-45.1",
+      "type": "change_of_state",
+      "preds": [
+        "degradation_material_integrity",
+        "physical_form"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s04",
+      "text": "The dog tore the mat.",
+      "verb": "tore",
+      "gold_state": "not_intact",
+      "gold_affected": "the mat",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": null,
+      "patient_surf": "the mat",
+      "composed": "not_intact",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "break-45.1",
+      "type": "change_of_state",
+      "preds": [
+        "degradation_material_integrity",
+        "physical_form"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s05",
+      "text": "The cat tore the coat.",
+      "verb": "tore",
+      "gold_state": "not_intact",
+      "gold_affected": "the coat",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": null,
+      "patient_surf": "the coat",
+      "composed": "not_intact",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "break-45.1",
+      "type": "change_of_state",
+      "preds": [
+        "degradation_material_integrity",
+        "physical_form"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s06",
+      "text": "The fire burned the barn.",
+      "verb": "burned",
+      "gold_state": "not_intact",
+      "gold_affected": "the barn",
+      "ambiguous": true,
+      "negated": false,
+      "reader_patient": "barn",
+      "patient_surf": "barn",
+      "composed": "new_location",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "entity_specific_modes_being-47.2",
+      "type": "motion",
+      "preds": [
+        "exist",
+        "location"
+      ],
+      "composed_correct": false,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s07",
+      "text": "The girl opened the door.",
+      "verb": "opened",
+      "gold_state": "changed_state",
+      "gold_affected": "the door",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "door",
+      "patient_surf": "door",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "other_cos-45.4",
+      "type": "other",
+      "preds": [
+        "state"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s08",
+      "text": "Ann shut the gate.",
+      "verb": "shut",
+      "gold_state": "changed_state",
+      "gold_affected": "the gate",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "gate",
+      "patient_surf": "gate",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "other_cos-45.4",
+      "type": "other",
+      "preds": [
+        "state"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s09",
+      "text": "The man fixed the clock.",
+      "verb": "fixed",
+      "gold_state": "changed_state",
+      "gold_affected": "the clock",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "clock",
+      "patient_surf": "clock",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "price-54.4",
+      "type": "other",
+      "preds": [],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s10",
+      "text": "The maid closed the box.",
+      "verb": "closed",
+      "gold_state": "changed_state",
+      "gold_affected": "the box",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "box",
+      "patient_surf": "box",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "other_cos-45.4",
+      "type": "other",
+      "preds": [
+        "state"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s11",
+      "text": "The cook boiled the egg.",
+      "verb": "boiled",
+      "gold_state": "changed_state",
+      "gold_affected": "the egg",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "egg",
+      "patient_surf": "egg",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "cooking-45.3",
+      "type": "change_of_state",
+      "preds": [
+        "apply_heat",
+        "cooked"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s12",
+      "text": "The man fed the hen.",
+      "verb": "fed",
+      "gold_state": "changed_state",
+      "gold_affected": "the hen",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "hen",
+      "patient_surf": "hen",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "feeding-39.7",
+      "type": "change_of_state",
+      "preds": [],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s13",
+      "text": "The sun dried the hay.",
+      "verb": "dried",
+      "gold_state": "changed_state",
+      "gold_affected": "the hay",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "hay",
+      "patient_surf": "hay",
+      "composed": "changed_state",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "other_cos-45.4",
+      "type": "other",
+      "preds": [
+        "state"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s14",
+      "text": "The men built a house.",
+      "verb": "built",
+      "gold_state": "created",
+      "gold_affected": "a house",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "house",
+      "patient_surf": "house",
+      "composed": "created",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "build-26.1-1",
+      "type": "effected",
+      "preds": [
+        "exist",
+        "made_of"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s15",
+      "text": "The man built a boat.",
+      "verb": "built",
+      "gold_state": "created",
+      "gold_affected": "a boat",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "boat",
+      "patient_surf": "boat",
+      "composed": "created",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "build-26.1-1",
+      "type": "effected",
+      "preds": [
+        "exist",
+        "made_of"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    },
+    {
+      "id": "s16",
+      "text": "The girl made a cake.",
+      "verb": "made",
+      "gold_state": "created",
+      "gold_affected": "a cake",
+      "ambiguous": false,
+      "negated": false,
+      "reader_patient": "cake",
+      "patient_surf": "cake",
+      "composed": "created",
+      "affected_only": "AFFECTED_BUCKET",
+      "route": "composed",
+      "modal_class": "build-26.1-1",
+      "type": "effected",
+      "preds": [
+        "exist",
+        "made_of"
+      ],
+      "composed_correct": true,
+      "is_designated_unchanged": false
+    }
+  ],
+  "label_taxonomy": [
+    "not_intact",
+    "changed_state",
+    "created",
+    "possession_changed",
+    "new_location",
+    "unchanged"
+  ],
+  "design_gate": {
+    "real_baseline": "majority-class AND affectedness-only (full system MINUS result predicate)",
+    "one_variable": "the VerbNet result-predicate composition (off=affectedness_only; on=composed)",
+    "can_fail": "composed<=affectedness_only+0.05 (no lift) OR control_a fails OR scramble no-collapse OR round-trip<1.0",
+    "difficulty_on": "6-way specific resulting-state resolution across diverse verb classes; 7 word-sense-ambiguous verbs (burn/write/draw/get/send/set/carry) = honest misses keeping the system non-saturated",
+    "leak_clean": "inference reads ONLY the sentence verb + negation + VerbNet; never the gold result_state. Mutation-probe (self_test) permutes gold labels -> inference byte-identical",
+    "bands": "HARD_PASS: lift_vs_affonly>=0.20 AND lift_vs_majority>=0.15 AND control_a AND scramble_drop>=0.25 AND round-trip==1.0. MIDDLE_BAND: lift in (0.05,0.20). HARD_FAIL: lift<=0.05 OR control_a fails OR no collapse OR round-trip<1.0",
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n/a": "accuracy on labeled gold; FHRR N=1024 round-trip lossless",
+    "calibration_check": "default_ok_for_this_regime (type-led rule from VerbNet predicate families, gold-independent)"
+  },
+  "credit": "VerbNet (Kipper-Schuler 2005) semantic predicates; Levin 1993; Dowty 1991 proto-patient; Beavers 2011; v1/v2 verb-affectedness gate; FHRR bind/unbind (Plate 1995, Gayler 2003)."
+}

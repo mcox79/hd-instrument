@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_hierarchical_block_sparse_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: opts=0.500 nba=0.250 db=0.250 pol=0.000 rb=0.250 rand=0.250",
+  "summary": "SELFTEST_OK: opts=0.500 nba=0.250 db=0.250 pol=0.000 rb=0.250 rand=0.250",
+  "elapsed_s": 0.5,
+  "ts_iso": "2026-06-28T15:46:29Z",
+  "pid": 33432,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_block_sparse_v1,N=1024,L=8,B=128,blocks_per_opt=2,state_blocks=2,k_per_block=4,domain_blocks=4,pos=3,actions=6,options=3,K_anchor=32,goals=4,depth=4,max_total=16,seeds=[7],mode=smoke,HP_opts>=0.30,HP_lift_rb>=0.15,HP_lift_db>=0.25,db_max=0.20,unsat_hi=0.95,expected_n=24,sbc_cap=38.8,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AC+META_AF+META_AG+META_AH+META_AL+META_AN+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_block_sparse",
+  "_phase": "selftest_done",
+  "selftest_arms": [
+    "block_sparse_options_full",
+    "no_block_assignment",
+    "dense_baseline",
+    "policy_only",
+    "random_blocks",
+    "random"
+  ],
+  "opts_solve": 0.5,
+  "nba_solve": 0.25,
+  "db_solve": 0.25,
+  "pol_solve": 0.0,
+  "rb_solve": 0.25,
+  "rand_solve": 0.25,
+  "arms_distinct": true
+}

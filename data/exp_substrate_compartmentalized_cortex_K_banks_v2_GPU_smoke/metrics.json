@@ -1,0 +1,170 @@
+{
+  "anchor_name": "substrate_compartmentalized_cortex_K_banks_v2_GPU",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial Hc rescue lift +0.289 below HARD_PASS threshold 0.5. M=512 N_h=2048 N_c=512 alpha_simple=0.250 mode=smoke ARM_STANDARD_K1=0.604 ARM_COMPARTMENT_K20=0.826 ARM_COMPARTMENT_K50=0.859 ARM_COMPARTMENT_K100=0.893 ARM_COMPARTMENT_K200=0.891 ARM_DIRECT_UPPER=1.000 | best_K=100 best_lift=+0.289 cv_best=0.000 monotonic=True R_STANDARD_K1=0.604 R_DIRECT=1.000",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 K_banks=(1, 20, 50, 100, 200) +DIRECT mode=smoke alpha_simple=0.250 device=cpu compartmentalized_cortex_K_banks_v2",
+  "elapsed_s": 0.654651403427124,
+  "config_version": "ANCHOR=substrate_compartmentalized_cortex_K_banks_v2_GPU,M=512,N_h=2048,N_c=512,alpha_simple=0.250,K_BANK=(1, 20, 50, 100, 200),SEEDS=7,RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+METARULE_AH+METARULE_H+COMPARTMENT_K_SWEEP_v2",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "n_replay_per_item": 1,
+  "backend": "torch",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 6,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "K_bank_values": [
+    1,
+    20,
+    50,
+    100,
+    200
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_STANDARD_K1",
+      "K_banks": 1,
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K20",
+      "K_banks": 20,
+      "recall_mean": 0.826171875,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K50",
+      "K_banks": 50,
+      "recall_mean": 0.859375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K100",
+      "K_banks": 100,
+      "recall_mean": 0.892578125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K200",
+      "K_banks": 200,
+      "recall_mean": 0.890625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_DIRECT_UPPER",
+      "K_banks": 0,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.5977365970611572,
+      "arms": [
+        {
+          "arm_name": "ARM_STANDARD_K1",
+          "K_banks": 1,
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "bank_sizes_min": 512,
+          "bank_sizes_max": 512,
+          "cortex_norm": 0.21401488780975342,
+          "n_total_writes": 512,
+          "arm_hash": "51c84cca595bdaf5",
+          "alpha_simple": 0.25,
+          "wall_s": 0.0784311294555664,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K20",
+          "K_banks": 20,
+          "seed": 7,
+          "recall_cortex": 0.826171875,
+          "n_items": 512,
+          "bank_sizes_min": 25,
+          "bank_sizes_max": 26,
+          "cortex_norm": 0.5381974093616009,
+          "n_total_writes": 512,
+          "arm_hash": "480b6fac29c6deef",
+          "alpha_simple": 0.25,
+          "wall_s": 0.06281757354736328,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K50",
+          "K_banks": 50,
+          "seed": 7,
+          "recall_cortex": 0.859375,
+          "n_items": 512,
+          "bank_sizes_min": 10,
+          "bank_sizes_max": 11,
+          "cortex_norm": 0.8182842303067446,
+          "n_total_writes": 512,
+          "arm_hash": "4d55b8cf1ef759b4",
+          "alpha_simple": 0.25,
+          "wall_s": 0.08462405204772949,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K100",
+          "K_banks": 100,
+          "seed": 7,
+          "recall_cortex": 0.892578125,
+          "n_items": 512,
+          "bank_sizes_min": 5,
+          "bank_sizes_max": 6,
+          "cortex_norm": 1.143140695989132,
+          "n_total_writes": 512,
+          "arm_hash": "09c4dd1f29fb6916",
+          "alpha_simple": 0.25,
+          "wall_s": 0.13390564918518066,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K200",
+          "K_banks": 200,
+          "seed": 7,
+          "recall_cortex": 0.890625,
+          "n_items": 512,
+          "bank_sizes_min": 2,
+          "bank_sizes_max": 3,
+          "cortex_norm": 1.5986307044513524,
+          "n_total_writes": 512,
+          "arm_hash": "186576bbfa45e051",
+          "alpha_simple": 0.25,
+          "wall_s": 0.19488167762756348,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIRECT_UPPER",
+          "K_banks": 0,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "bank_sizes_min": -1,
+          "bank_sizes_max": -1,
+          "cortex_norm": 0.11360736936330795,
+          "n_total_writes": 512,
+          "arm_hash": "f4be87947cd16c25",
+          "alpha_simple": 0.25,
+          "wall_s": 0.01943516731262207,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

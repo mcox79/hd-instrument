@@ -1,0 +1,15 @@
+{
+  "anchor_name": "theta_gamma_v3_N16384_gpu_seed_7",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=7 mode=smoke",
+  "summary": "RUNNING: seed=7 mode=smoke",
+  "elapsed_s": 0.07,
+  "ts_iso": "2026-07-01T14:13:19Z",
+  "pid": 26484,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=theta_gamma_v3_N16384_gpu_seed_7,arms=[NO_POSITION,CYCLIC_SHIFT,FHRR_FLAT_8,FHRR_FLAT_32,FHRR_NESTED_8x8],K_SEQ_full=[50,100,200,500,1000,2000,5000],K_SEQ_smoke=[50,200,1000,5000],N_DIM=16384,ITEM_VOCAB=10000,POSITION_NESTED=64,NOISE_SIGMA=0.05,SEED=7,mode=smoke,expected_n_full=35,expected_n_smoke=20,discriminator=fhrr_vs_cyclic_log2_delta_and_nested_vs_flat32_log2_delta,HP_FHRR_VS_CYCLIC_LOG2_DELTA=1.5,HP_CROSS_ARM_LOG2_DELTA=0.1,HP_PAIRS_DIFFER_full=9_of_10,smoke=4_of_10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v3_theta_gamma_N16384_gpu_chunked",
+  "_phase": "seed_running",
+  "_current_seed": 7,
+  "backend": "torch.cpu"
+}

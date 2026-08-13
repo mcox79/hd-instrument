@@ -1,0 +1,50 @@
+{
+  "anchor_name": "substrate_self_map_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate clusters bear no resemblance to v1 (avg_J<0.10). avg_J_vs_v1=0.087 (pass 0.50 / fail 0.10) | new_arrows=0.0 (pass 5) | recall=1.000 (pass 0.95 / fail 0.50) | cv_new_arrows=0.000 (pass 0.05) | n_llm=0 | discrim_gap_J=0.000 gap_arrows=0.0",
+  "summary": "HARD_FAIL: substrate clusters bear no resemblance to v1 (avg_J<0.10). avg_J_vs_v1=0.087 (pass 0.50 / fail 0.10) | new_arrows=0.0 (pass 5) | recall=1.000 (pass 0.95 / fail 0.50) | cv_new_arrows=0.000 (pass 0.05) | n_llm=0 | discrim_gap_J=0.000 gap_arrows=0.0",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "self_map_v2: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; N1024 max_atoms=50 n_anchors=20 n_rel_samples=8 kset=8 bands jac_pass0.50 jac_fail0.10 new_arrows>=5 recall_pass0.95 cv<=0.05",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "N": 1024,
+      "run_mode": "smoke",
+      "config_version": "self_map_v2: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; N1024 max_atoms=50 n_anchors=20 n_rel_samples=8 kset=8 bands jac_pass0.50 jac_fail0.10 new_arrows>=5 recall_pass0.95 cv<=0.05",
+      "n_chain_grade_atoms": 50,
+      "n_relation_types": 1,
+      "n_triples": 2,
+      "n_anchors": 20,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 0.1,
+      "real": {
+        "n_clusters": 1,
+        "avg_jaccard_vs_v1": 0.087,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 20,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.087
+          }
+        ],
+        "n_cross_family_arrows_total": 0,
+        "n_new_cross_family_arrows": 0,
+        "new_arrows_examples": []
+      },
+      "shuffle_control": {
+        "n_clusters": 1,
+        "avg_jaccard_vs_v1": 0.087,
+        "n_cross_family_arrows_total": 0,
+        "n_new_cross_family_arrows": 0
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782156497.0193815
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 0.6,
+  "DESIGN_NOTE": "Phase 1 substrate-native self-mapping per USER 2026-06-22 strategic vision; char_trigram_encoder + KGStore + multi_hop.iter_cleanup_chain are substrate primitives (NOT LLM forward calls). Real-arm vs random-relation-control discriminator (Fix #16). v1 (tools/substrate_relational_analysis.py) is Director-side lexical pattern-matching; v2 (this cell) does the substrate's OWN analysis. Honest scope: bag-of-trigrams atom_id encoding (no positional); 2-hop traversal only (chain-grade per r1)."
+}

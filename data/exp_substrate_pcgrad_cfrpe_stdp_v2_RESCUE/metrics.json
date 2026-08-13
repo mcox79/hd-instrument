@@ -1,0 +1,855 @@
+{
+  "anchor_name": "substrate_pcgrad_cfrpe_stdp_v2_RESCUE",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_PCGRAD_DOES_NOT_HELP: PCGRAD BPC=7.3629 >= 7.20. Gradient projection doesn't rescue hetplast collapse; H1 (gradient conflict primary cause) REFUTED; structural diagnosis stands; need cross-layer or other architectural change. uni=7.863 | CFRPE_ONLY=7.3726(drift=+0.2838,rail=False) | NAIVE=7.3901(drift=+0.1857,rail=False) | PCGRAD=7.3629(cv=0.002,lift_over_naive=+0.027,vs_cfrpe=+0.010) | GCOND=7.3910(cv=0.002,lift_over_naive=-0.001,vs_cfrpe=-0.018). grad_cosines: CFRPE_ONLY(mean_cos=0.0,frac_conflict=0.0) CFRPE_PLUS_STDP_NAIVE(mean_cos=0.6417,frac_conflict=0.0) CFRPE_PLUS_STDP_PCGRAD(mean_cos=0.6495,frac_conflict=0.0) CFRPE_PLUS_STDP_GCOND(mean_cos=0.648,frac_conflict=0.0) ",
+  "summary": "HARD_FAIL | arms=4 seeds=3 N_DIM=4096 N_TRAIN=50000 encoder=word2vec_sparse_bipolar cfrpe_lr=0.500 stdp_w=0.500 n_steps=1000",
+  "config_version": "substrate_pcgrad_cfrpe_stdp_v2_RESCUE; encoder=word2vec_sparse_bipolar_f0.050; N_DIM=4096 N_TRAIN=50000 N_HELD=10000 VOCAB_CAP=4000 arms=['ARM_CFRPE_ONLY', 'ARM_CFRPE_PLUS_STDP_NAIVE', 'ARM_CFRPE_PLUS_STDP_PCGRAD', 'ARM_CFRPE_PLUS_STDP_GCOND'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.1, 0.3, 0.5, 0.7, 1.0] cfrpe_lr=0.500 stdp_w=0.500 n_steps=1000 batch=64 cosine_stride=50",
+  "run_mode": "full",
+  "N_DIM": 4096,
+  "N_TRAIN": 50000,
+  "N_HELD": 10000,
+  "VOCAB_CAP": 4000,
+  "N_STEPS": 1000,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "COSINE_STRIDE": 50,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "ARMS": [
+    "ARM_CFRPE_ONLY",
+    "ARM_CFRPE_PLUS_STDP_NAIVE",
+    "ARM_CFRPE_PLUS_STDP_PCGRAD",
+    "ARM_CFRPE_PLUS_STDP_GCOND"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.863,
+        "bpc_std": 0.0
+      },
+      "ARM_CFRPE_ONLY": {
+        "bpc_best_mean": 7.3726,
+        "bpc_best_std": 0.0194,
+        "bpc_best_cv": 0.0026,
+        "top1_acc_mean": 0.1972,
+        "top1_acc_std": 0.0043,
+        "mrr_at_10_mean": 0.289,
+        "mrr_at_10_std": 0.0016,
+        "raw_bpc_at_T1_L1_mean": 11.6016,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false,
+        "grad_diagnostics_agg": {
+          "mean_cosine_mean": 0.0,
+          "frac_conflict_mean": 0.0,
+          "accum_mag_cf_mean": 3.3025,
+          "accum_mag_stdp_mean": 0.0
+        }
+      },
+      "ARM_CFRPE_PLUS_STDP_NAIVE": {
+        "bpc_best_mean": 7.3901,
+        "bpc_best_std": 0.0183,
+        "bpc_best_cv": 0.0025,
+        "top1_acc_mean": 0.2008,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.2945,
+        "mrr_at_10_std": 0.004,
+        "raw_bpc_at_T1_L1_mean": 11.6098,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false,
+        "grad_diagnostics_agg": {
+          "mean_cosine_mean": 0.6417,
+          "frac_conflict_mean": 0.0,
+          "accum_mag_cf_mean": 121.9655,
+          "accum_mag_stdp_mean": 176.3939
+        }
+      },
+      "ARM_CFRPE_PLUS_STDP_PCGRAD": {
+        "bpc_best_mean": 7.3629,
+        "bpc_best_std": 0.0172,
+        "bpc_best_cv": 0.0023,
+        "top1_acc_mean": 0.2021,
+        "top1_acc_std": 0.0039,
+        "mrr_at_10_mean": 0.2968,
+        "mrr_at_10_std": 0.0026,
+        "raw_bpc_at_T1_L1_mean": 11.6091,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false,
+        "grad_diagnostics_agg": {
+          "mean_cosine_mean": 0.6495,
+          "frac_conflict_mean": 0.0,
+          "accum_mag_cf_mean": 121.9107,
+          "accum_mag_stdp_mean": 176.4579,
+          "n_projected_mean": 0.0
+        }
+      },
+      "ARM_CFRPE_PLUS_STDP_GCOND": {
+        "bpc_best_mean": 7.391,
+        "bpc_best_std": 0.0114,
+        "bpc_best_cv": 0.0015,
+        "top1_acc_mean": 0.1976,
+        "top1_acc_std": 0.0041,
+        "mrr_at_10_mean": 0.2932,
+        "mrr_at_10_std": 0.0036,
+        "raw_bpc_at_T1_L1_mean": 11.605,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false,
+        "grad_diagnostics_agg": {
+          "mean_cosine_mean": 0.648,
+          "frac_conflict_mean": 0.0,
+          "accum_mag_cf_mean": 121.9371,
+          "accum_mag_stdp_mean": 176.4633,
+          "n_rescaled_mean": 0.0,
+          "mean_rescale_mean": 1.0
+        }
+      }
+    },
+    "lifts": {
+      "pcgrad_over_naive": 0.0272,
+      "gcond_over_naive": -0.0009,
+      "pcgrad_vs_cfrpe": 0.0097,
+      "gcond_vs_cfrpe": -0.0184
+    },
+    "sanity_rails": {
+      "cfrpe_ref": 7.0888,
+      "cfrpe_drift": 0.2838,
+      "cfrpe_rail_ok": false,
+      "naive_ref": 7.2044,
+      "naive_drift": 0.1857,
+      "naive_rail_ok": false,
+      "tolerance": 0.05
+    },
+    "bands": {
+      "hard_pass_bpc_ceiling": 7.05,
+      "middle_band_bpc_lower": 7.05,
+      "middle_band_bpc_upper": 7.2,
+      "hard_fail_bpc_floor": 7.2,
+      "cv_max": 0.05
+    },
+    "pcgrad_bpc": 7.3629,
+    "gcond_bpc": 7.391,
+    "pcgrad_cv": 0.0023,
+    "gcond_cv": 0.0015,
+    "n_seeds": 3,
+    "unigram_bpc": 7.863,
+    "grad_summary": "grad_cosines: CFRPE_ONLY(mean_cos=0.0,frac_conflict=0.0) CFRPE_PLUS_STDP_NAIVE(mean_cos=0.6417,frac_conflict=0.0) CFRPE_PLUS_STDP_PCGRAD(mean_cos=0.6495,frac_conflict=0.0) CFRPE_PLUS_STDP_GCOND(mean_cos=0.648,frac_conflict=0.0) ",
+    "honest_scope": "v2_RESCUE of v1 which TIMED OUT at 5400s without producing metrics. Scope reduction Option A: N_DIM=4096 (was 8192), N_TRAIN=50k (was 100k), N_HELD=10k (was 20k); N_STEPS=1000 PRESERVED to keep PCGrad/GCond projection-convergence opportunity. 4 arms x 3 seeds unchanged. Intra-cell PCGRAD-vs-NAIVE delta IS the load-bearing discriminator. Provenance rails to A1 (7.0888/7.2044) DISABLED at this scope - calibrations were at v1 scope. ANCHOR 2 of composition collapse drill: tests whether gradient conflict between cf-RPE and STDP plasticity rules (Yu PCGrad / GCond) is the first-order cause of A1's hetplast collapse. 4 arms: CFRPE_ONLY (intra-cell control), NAIVE (additive composition; reproduces A1 collapse pattern), PCGRAD (orthogonal projection of STDP onto cf-RPE complement), GCOND (accumulation-based STDP rescaling). ANCHOR 1 (MH beta-sweep) already HARD_FAIL_STRUCTURAL so MH OMITTED. WHAT_THIS_DOES_NOT_SHOW: gate training; alternative gradient-conflict resolvers (CAGrad, MGDA); shared-state architecture (H5); MH cleanup at all; absolute BPC matched to v1-scope reference points.",
+    "cites": [
+      "notes/research_composition_collapse_critical_drill_2026-06-24.md (ANCHOR 2)",
+      "experiments/exp_substrate_pcgrad_cfrpe_stdp_v1.py (TIMED OUT 5400s; rescue precursor)",
+      "data/exp_substrate_compose_fair_harness_cfrpe_hetplasticity_K2_modern_hopfield_cleanup_v1/metrics.json (A1 provenance refs)",
+      "arxiv.org/abs/2001.06782 (Yu PCGrad)",
+      "arXiv:2509.07252 (GCond)"
+    ],
+    "llm_forward_calls_total": 0,
+    "provenance_check_active": false,
+    "provenance_rails_disabled_reason": "v2_RESCUE scope (N_DIM=4096/N_TRAIN=50k) differs from v1 calibration scope (N_DIM=8192/N_TRAIN=100k); absolute reference points do not apply",
+    "verdict_tier": "HARD_FAIL_PCGRAD_DOES_NOT_HELP"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.863,
+          "top1_unigram": 0.2125,
+          "mrr_unigram": 0.2795,
+          "n_test": 3892
+        },
+        "w2v_meta": {
+          "n_hit": 3753,
+          "n_miss": 247,
+          "n_vocab": 4000,
+          "pretrain_dim": 300
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.395,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9594,
+          "top1_acc": 0.1917,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2868,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9594
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0616
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5114
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9575
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6144
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 163.22,
+          "wall_ingest_s": 134.85,
+          "wall_recall_s": 3.79,
+          "raw_bpc_at_T1_L1": 11.6061,
+          "grad_diagnostics": {
+            "n_logged": 0,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.0,
+            "median_cosine": 0.0,
+            "accum_mag_cf": 3.298,
+            "accum_mag_stdp": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_NAIVE": {
+          "bpc_best": 7.3876,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9133,
+          "top1_acc": 0.2081,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2996,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9133
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.043
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5814
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9733
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6767
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 340.24,
+          "wall_ingest_s": 312.5,
+          "wall_recall_s": 4.04,
+          "raw_bpc_at_T1_L1": 11.6128,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6393,
+            "median_cosine": 0.6447,
+            "accum_mag_cf": 122.0652,
+            "accum_mag_stdp": 176.5441
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_PCGRAD": {
+          "bpc_best": 7.3829,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9509,
+          "top1_acc": 0.1966,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2932,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9509
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0922
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.6505
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.0423
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.7627
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 349.83,
+          "wall_ingest_s": 322.31,
+          "wall_recall_s": 3.53,
+          "raw_bpc_at_T1_L1": 11.6197,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6511,
+            "median_cosine": 0.6512,
+            "accum_mag_cf": 122.0065,
+            "accum_mag_stdp": 176.6065,
+            "n_projected": 0,
+            "sum_proj_norm": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_GCOND": {
+          "bpc_best": 7.3754,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9331,
+          "top1_acc": 0.1922,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2892,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9331
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0435
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5962
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9312
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6012
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 282.09,
+          "wall_ingest_s": 261.72,
+          "wall_recall_s": 2.37,
+          "raw_bpc_at_T1_L1": 11.6041,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6493,
+            "median_cosine": 0.651,
+            "accum_mag_cf": 122.0003,
+            "accum_mag_stdp": 176.4565,
+            "n_rescaled": 0,
+            "mean_rescale": 1.0
+          }
+        }
+      },
+      "V": 4000,
+      "N_DIM": 4096,
+      "N_TRAIN": 50000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "n_hit": 3753,
+        "n_miss": 247,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "elapsed_s_seed": 1199.73
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.863,
+          "top1_unigram": 0.2125,
+          "mrr_unigram": 0.2795,
+          "n_test": 3892
+        },
+        "w2v_meta": {
+          "n_hit": 3753,
+          "n_miss": 247,
+          "n_vocab": 4000,
+          "pretrain_dim": 300
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.3476,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.928,
+          "top1_acc": 0.1978,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2896,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.928
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0143
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3489
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9159
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.5419
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 117.62,
+          "wall_ingest_s": 96.84,
+          "wall_recall_s": 2.49,
+          "raw_bpc_at_T1_L1": 11.6023,
+          "grad_diagnostics": {
+            "n_logged": 0,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.0,
+            "median_cosine": 0.0,
+            "accum_mag_cf": 3.3059,
+            "accum_mag_stdp": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_NAIVE": {
+          "bpc_best": 7.369,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9305,
+          "top1_acc": 0.1927,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2899,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9305
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0464
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5343
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.963
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6502
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 267.69,
+          "wall_ingest_s": 247.94,
+          "wall_recall_s": 2.31,
+          "raw_bpc_at_T1_L1": 11.6082,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6422,
+            "median_cosine": 0.6417,
+            "accum_mag_cf": 122.0232,
+            "accum_mag_stdp": 176.3994
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_PCGRAD": {
+          "bpc_best": 7.3649,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.948,
+          "top1_acc": 0.2055,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2994,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.948
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0505
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.6049
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9271
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.5949
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 279.24,
+          "wall_ingest_s": 258.67,
+          "wall_recall_s": 2.44,
+          "raw_bpc_at_T1_L1": 11.6005,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.651,
+            "median_cosine": 0.6501,
+            "accum_mag_cf": 121.8776,
+            "accum_mag_stdp": 176.3255,
+            "n_projected": 0,
+            "sum_proj_norm": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_GCOND": {
+          "bpc_best": 7.3951,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9501,
+          "top1_acc": 0.1984,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2924,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9501
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0655
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5804
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9685
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6568
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 305.82,
+          "wall_ingest_s": 266.81,
+          "wall_recall_s": 6.92,
+          "raw_bpc_at_T1_L1": 11.6074,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6446,
+            "median_cosine": 0.6495,
+            "accum_mag_cf": 121.9301,
+            "accum_mag_stdp": 176.4934,
+            "n_rescaled": 0,
+            "mean_rescale": 1.0
+          }
+        }
+      },
+      "V": 4000,
+      "N_DIM": 4096,
+      "N_TRAIN": 50000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "n_hit": 3753,
+        "n_miss": 247,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "elapsed_s_seed": 971.97
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.863,
+          "top1_unigram": 0.2125,
+          "mrr_unigram": 0.2795,
+          "n_test": 3892
+        },
+        "w2v_meta": {
+          "n_hit": 3753,
+          "n_miss": 247,
+          "n_vocab": 4000,
+          "pretrain_dim": 300
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.3752,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9381,
+          "top1_acc": 0.2022,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2906,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9381
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0203
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.448
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.8835
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.501
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 207.95,
+          "wall_ingest_s": 177.43,
+          "wall_recall_s": 6.06,
+          "raw_bpc_at_T1_L1": 11.5963,
+          "grad_diagnostics": {
+            "n_logged": 0,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.0,
+            "median_cosine": 0.0,
+            "accum_mag_cf": 3.3035,
+            "accum_mag_stdp": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_NAIVE": {
+          "bpc_best": 7.4137,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9914,
+          "top1_acc": 0.2017,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2939,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9914
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.1187
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.6915
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.0176
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.7403
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 416.53,
+          "wall_ingest_s": 386.1,
+          "wall_recall_s": 6.02,
+          "raw_bpc_at_T1_L1": 11.6085,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6436,
+            "median_cosine": 0.6385,
+            "accum_mag_cf": 121.808,
+            "accum_mag_stdp": 176.2382
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_PCGRAD": {
+          "bpc_best": 7.341,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9303,
+          "top1_acc": 0.2043,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2979,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9303
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.061
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5834
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9936
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.7001
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 431.45,
+          "wall_ingest_s": 397.67,
+          "wall_recall_s": 6.39,
+          "raw_bpc_at_T1_L1": 11.6071,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.6463,
+            "median_cosine": 0.6485,
+            "accum_mag_cf": 121.8481,
+            "accum_mag_stdp": 176.4417,
+            "n_projected": 0,
+            "sum_proj_norm": 0.0
+          }
+        },
+        "ARM_CFRPE_PLUS_STDP_GCOND": {
+          "bpc_best": 7.4025,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9551,
+          "top1_acc": 0.2022,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2979,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9551
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0735
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.6488
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.958
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.6573
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 410.35,
+          "wall_ingest_s": 382.32,
+          "wall_recall_s": 5.07,
+          "raw_bpc_at_T1_L1": 11.6035,
+          "grad_diagnostics": {
+            "n_logged": 20,
+            "n_conflict": 0,
+            "frac_conflict": 0.0,
+            "mean_cosine": 0.65,
+            "median_cosine": 0.6478,
+            "accum_mag_cf": 121.881,
+            "accum_mag_stdp": 176.4399,
+            "n_rescaled": 0,
+            "mean_rescale": 1.0
+          }
+        }
+      },
+      "V": 4000,
+      "N_DIM": 4096,
+      "N_TRAIN": 50000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "n_hit": 3753,
+        "n_miss": 247,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "elapsed_s_seed": 1467.27
+    }
+  ],
+  "elapsed_s": 3638.97
+}

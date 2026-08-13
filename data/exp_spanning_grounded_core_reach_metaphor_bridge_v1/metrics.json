@@ -1,0 +1,1113 @@
+{
+  "verdict": "HARD_FAIL_FAIRNESS",
+  "run_mode": "full",
+  "verdict_msg": "HARD_FAIL_FAIRNESS || fairness gate failed (scrambled_gain=True random_gain=True) -> any embodied edge inflates, the SPECIFIC metaphor mapping does no work || OP sim mech=-0.0865 baseline=-0.2440 scrambled=-0.0827 random=-0.1095 gain=0.1576 ablation=nan || source=cskg n=6000 hubs=5 ops=15",
+  "summary": "fairness gate failed (scrambled_gain=True random_gain=True) -> any embodied edge inflates, the SPECIFIC metaphor mapping does no work",
+  "elapsed_s": 40.07237700000405,
+  "reach": {
+    "verdict": "HARD_FAIL_FAIRNESS",
+    "one_line": "fairness gate failed (scrambled_gain=True random_gain=True) -> any embodied edge inflates, the SPECIFIC metaphor mapping does no work",
+    "op_sim_mech": -0.0865,
+    "op_sim_baseline": -0.244,
+    "op_sim_scrambled": -0.0827,
+    "op_sim_random": -0.1095,
+    "op_gain": 0.1576,
+    "bridge_ablation_rel": null,
+    "op_reach_mech": 0.3571,
+    "op_reach_baseline": 0.0,
+    "scramble_ok": false,
+    "random_ok": false,
+    "bands": {
+      "MATH_OP_SIM_PASS": 0.15,
+      "MIN_ABS_GAIN": 0.1,
+      "SPECIFICITY_MARGIN": 0.05,
+      "BRIDGE_ABLATION_MIN_REL": 0.5,
+      "SIM_FLOOR": 0.3
+    },
+    "meta": {
+      "source": "cskg",
+      "graph_meta": {
+        "n_edges_scanned": 1244862,
+        "n_adj_nodes": 6000,
+        "n_seed_in_graph": 1569,
+        "n_nodes": 6000,
+        "n_edges": 187913
+      },
+      "core_provenance": {
+        "n_nsm_primes": 70,
+        "n_nsm_molecules": 54,
+        "n_kernel_proxy": 1500,
+        "n_core_union": 1519,
+        "n_numeral_anchors": 24,
+        "n_schema_exemplars": 50,
+        "n_core_expanded": 1551
+      },
+      "hub_meta": {
+        "PATH": {
+          "n_exemplars_in_graph": 10,
+          "hub_node": 6000
+        },
+        "CONTAINER": {
+          "n_exemplars_in_graph": 10,
+          "hub_node": 6001
+        },
+        "FORCE": {
+          "n_exemplars_in_graph": 10,
+          "hub_node": 6002
+        },
+        "COLLECTION": {
+          "n_exemplars_in_graph": 10,
+          "hub_node": 6003
+        },
+        "MOTION": {
+          "n_exemplars_in_graph": 10,
+          "hub_node": 6004
+        }
+      },
+      "n_operation_probes": 15,
+      "metaphor_map": {
+        "multiplication": "COLLECTION",
+        "sum": "COLLECTION",
+        "division": "COLLECTION",
+        "fraction": "COLLECTION",
+        "ratio": "COLLECTION",
+        "probability": "COLLECTION",
+        "average": "PATH",
+        "integer": "PATH",
+        "infinity": "PATH",
+        "theorem": "PATH",
+        "equation": "FORCE",
+        "variable": "CONTAINER",
+        "algebra": "CONTAINER",
+        "geometry": "CONTAINER",
+        "exponent": "MOTION",
+        "angle": "MOTION"
+      },
+      "selected_channels": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa",
+        "magnitude",
+        "ordinality"
+      ],
+      "probe_coverage": {
+        "PHYSICAL": 14,
+        "ABSTRACT": 14,
+        "EMOTIONAL": 16,
+        "MATHEMATICAL": 15,
+        "SOCIAL": 16,
+        "TEMPORAL": 13,
+        "MATH_NUMERAL": 11
+      },
+      "computed_meta": {
+        "acf_used": false,
+        "acf_n": 0
+      },
+      "n_seeds": 5
+    }
+  },
+  "meta": {
+    "source": "cskg",
+    "graph_meta": {
+      "n_edges_scanned": 1244862,
+      "n_adj_nodes": 6000,
+      "n_seed_in_graph": 1569,
+      "n_nodes": 6000,
+      "n_edges": 187913
+    },
+    "core_provenance": {
+      "n_nsm_primes": 70,
+      "n_nsm_molecules": 54,
+      "n_kernel_proxy": 1500,
+      "n_core_union": 1519,
+      "n_numeral_anchors": 24,
+      "n_schema_exemplars": 50,
+      "n_core_expanded": 1551
+    },
+    "hub_meta": {
+      "PATH": {
+        "n_exemplars_in_graph": 10,
+        "hub_node": 6000
+      },
+      "CONTAINER": {
+        "n_exemplars_in_graph": 10,
+        "hub_node": 6001
+      },
+      "FORCE": {
+        "n_exemplars_in_graph": 10,
+        "hub_node": 6002
+      },
+      "COLLECTION": {
+        "n_exemplars_in_graph": 10,
+        "hub_node": 6003
+      },
+      "MOTION": {
+        "n_exemplars_in_graph": 10,
+        "hub_node": 6004
+      }
+    },
+    "n_operation_probes": 15,
+    "metaphor_map": {
+      "multiplication": "COLLECTION",
+      "sum": "COLLECTION",
+      "division": "COLLECTION",
+      "fraction": "COLLECTION",
+      "ratio": "COLLECTION",
+      "probability": "COLLECTION",
+      "average": "PATH",
+      "integer": "PATH",
+      "infinity": "PATH",
+      "theorem": "PATH",
+      "equation": "FORCE",
+      "variable": "CONTAINER",
+      "algebra": "CONTAINER",
+      "geometry": "CONTAINER",
+      "exponent": "MOTION",
+      "angle": "MOTION"
+    },
+    "selected_channels": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa",
+      "magnitude",
+      "ordinality"
+    ],
+    "probe_coverage": {
+      "PHYSICAL": 14,
+      "ABSTRACT": 14,
+      "EMOTIONAL": 16,
+      "MATHEMATICAL": 15,
+      "SOCIAL": 16,
+      "TEMPORAL": 13,
+      "MATH_NUMERAL": 11
+    },
+    "computed_meta": {
+      "acf_used": false,
+      "acf_n": 0
+    },
+    "n_seeds": 5
+  },
+  "seed_rows": [
+    {
+      "seed": 7,
+      "per_arm": {
+        "MAGNITUDE_BASELINE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761426093505194,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.09623740155200336,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103760972570595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.2440296981189791,
+            "reach": 0.0,
+            "n_probes": 14,
+            "n_reached": 0
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457654219229956,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024676768719517416,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772101659280402,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "METAPHOR_BRIDGE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761345344354466,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12081308019157999,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510428779364595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08646835279758938,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01458797429323807,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024685200982586215,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772272639133676,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "SCRAMBLED_MAPPING": {
+          "PHYSICAL": {
+            "mean_sim": 0.27616760018718123,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12289110992105323,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103793118009244,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08267528892916538,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014567189951125908,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.02456642100863518,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07721015578259104,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "RANDOM_SCHEMA": {
+          "PHYSICAL": {
+            "mean_sim": 0.27613515847687253,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.07652712494225307,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45104242999866584,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.1095345463614348,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014566990842259354,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024751070749651993,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07719627239264568,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "per_arm": {
+        "MAGNITUDE_BASELINE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761426093505194,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.09623740155200336,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103760972570595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.2440296981189791,
+            "reach": 0.0,
+            "n_probes": 14,
+            "n_reached": 0
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457654219229956,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024676768719517416,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772101659280402,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "METAPHOR_BRIDGE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761345344354466,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12081308019157999,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510428779364595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08646835279758938,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01458797429323807,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024685200982586215,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772272639133676,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "SCRAMBLED_MAPPING": {
+          "PHYSICAL": {
+            "mean_sim": 0.27615789524729634,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.07496659873454117,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103936881084705,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.09395810653263058,
+            "reach": 0.14285714285714285,
+            "n_probes": 14,
+            "n_reached": 2
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014569781399179808,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024701828568965883,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07719255921901452,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "RANDOM_SCHEMA": {
+          "PHYSICAL": {
+            "mean_sim": 0.27612690491352704,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": -0.010225746843768504,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510381471128562,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.23089190026734285,
+            "reach": 0.07142857142857142,
+            "n_probes": 14,
+            "n_reached": 1
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014594234769856669,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024747585750076906,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07721857026086819,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "per_arm": {
+        "MAGNITUDE_BASELINE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761426093505194,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.09623740155200336,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103760972570595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.2440296981189791,
+            "reach": 0.0,
+            "n_probes": 14,
+            "n_reached": 0
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457654219229956,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024676768719517416,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772101659280402,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "METAPHOR_BRIDGE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761345344354466,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12081308019157999,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510428779364595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08646835279758938,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01458797429323807,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024685200982586215,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772272639133676,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "SCRAMBLED_MAPPING": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761279230230418,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12057263113846048,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45104461390315564,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.14760692108009235,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014604098952004783,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.02474644784967427,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07719014699435378,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "RANDOM_SCHEMA": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761098566630663,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.07593111291260009,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510535296389605,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.07140119364901759,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014602210197471752,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024736775422208323,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07720502713637718,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "per_arm": {
+        "MAGNITUDE_BASELINE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761426093505194,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.09623740155200336,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103760972570595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.2440296981189791,
+            "reach": 0.0,
+            "n_probes": 14,
+            "n_reached": 0
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457654219229956,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024676768719517416,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772101659280402,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "METAPHOR_BRIDGE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761345344354466,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12081308019157999,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510428779364595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08646835279758938,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01458797429323807,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024685200982586215,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772272639133676,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "SCRAMBLED_MAPPING": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761347544922973,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.0981537480943334,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45104493158118963,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.06016046256375256,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01459065826930233,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.02472577849301356,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07719240391403855,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "RANDOM_SCHEMA": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761635754921484,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.10084991010244086,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510373322387421,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.017028458358957714,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014569115920162419,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024578125778253967,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772044027763546,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        }
+      }
+    },
+    {
+      "seed": 29,
+      "per_arm": {
+        "MAGNITUDE_BASELINE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761426093505194,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.09623740155200336,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103760972570595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.2440296981189791,
+            "reach": 0.0,
+            "n_probes": 14,
+            "n_reached": 0
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457654219229956,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024676768719517416,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772101659280402,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "METAPHOR_BRIDGE": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761345344354466,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12081308019157999,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510428779364595,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.08646835279758938,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01458797429323807,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024685200982586215,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.0772272639133676,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "SCRAMBLED_MAPPING": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761642496593266,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.12289965482800295,
+            "reach": 0.2857142857142857,
+            "n_probes": 14,
+            "n_reached": 4
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.45103880631936377,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.05085109224467276,
+            "reach": 0.35714285714285715,
+            "n_probes": 14,
+            "n_reached": 5
+          },
+          "SOCIAL": {
+            "mean_sim": 0.01457651641020763,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024701078707138096,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07718993596203076,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        },
+        "RANDOM_SCHEMA": {
+          "PHYSICAL": {
+            "mean_sim": 0.2761573659763675,
+            "reach": 0.5,
+            "n_probes": 14,
+            "n_reached": 7
+          },
+          "ABSTRACT": {
+            "mean_sim": 0.0929546219689935,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "EMOTIONAL": {
+            "mean_sim": 0.4510484276399315,
+            "reach": 0.8125,
+            "n_probes": 16,
+            "n_reached": 13
+          },
+          "MATHEMATICAL": {
+            "mean_sim": -0.1890647449771053,
+            "reach": 0.21428571428571427,
+            "n_probes": 14,
+            "n_reached": 3
+          },
+          "SOCIAL": {
+            "mean_sim": 0.014579729083002972,
+            "reach": 0.3125,
+            "n_probes": 16,
+            "n_reached": 5
+          },
+          "TEMPORAL": {
+            "mean_sim": 0.024773086295843478,
+            "reach": 0.25,
+            "n_probes": 12,
+            "n_reached": 3
+          },
+          "MATH_NUMERAL": {
+            "mean_sim": -0.07719492683116362,
+            "reach": 0.09090909090909091,
+            "n_probes": 11,
+            "n_reached": 1
+          }
+        }
+      }
+    }
+  ]
+}

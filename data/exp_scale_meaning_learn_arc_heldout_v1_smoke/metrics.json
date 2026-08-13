@@ -1,0 +1,173 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE run_mode=smoke raw=0.6118 text=0.5047 fused=0.6119 margin=0.0001 learn(txt-rand)=-0.0085 collapse=0.4945 pop=0.5008 rel_margin=0.0000 well_margin=0.0025 n_query_min=242",
+  "summary": "SMOKE run_mode=smoke raw=0.6118 text=0.5047 fused=0.6119 margin=0.0001 learn(txt-rand)=-0.0085 collapse=0.4945 pop=0.5008 rel_margin=0.0000 well_margin=0.0025 n_query_min=242",
+  "anchor_name": "scale_meaning_learn_arc_heldout_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-26T21:51:11.316107+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_seeds": 1,
+  "results_summary": {
+    "semantic_raw_grounding": 0.611845341254209,
+    "semantic_text": 0.504729331272651,
+    "semantic_fused": 0.6119138097265727,
+    "semantic_random_init": 0.513207949656556,
+    "semantic_collapse": 0.49449063089295786,
+    "semantic_popularity": 0.5007889416610629,
+    "semantic_margin_fused_minus_raw": 6.846847236374742e-05,
+    "semantic_margin_min": 6.846847236374742e-05,
+    "learning_text_minus_random": -0.008478618383905068,
+    "well_covered_margin": 0.002525509112689228,
+    "relational_raw": 0.5485461182336183,
+    "relational_fused": 0.5485461182336183,
+    "relational_collapse": 0.4771821581196581,
+    "relational_popularity": 0.49760861823361824,
+    "relational_margin": 0.0,
+    "n_query_min": 242,
+    "validity": true,
+    "trained_tokens": [
+      3155569
+    ]
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "smoke",
+      "elapsed_s": 54.915369100053795,
+      "final_mlm_loss": 7.232456684112549,
+      "trained_tokens": 3155569,
+      "corpus_stats": {
+        "n_read": 150000,
+        "n_kept": 134982,
+        "n_dup": 80,
+        "n_lowq": 14938,
+        "dup_rate": 0.0005333333333333334,
+        "total_alpha_tokens": 2389909
+      },
+      "collect_meta": {
+        "n_train_lines": 105684,
+        "n_held_lines": 29298,
+        "bpe_sample": 80000,
+        "train_tokens_available": 1717146,
+        "scrub_terms": 2011
+      },
+      "split_meta": {
+        "n_eligible": 1953,
+        "n_heldout": 250,
+        "n_train_eval": 1703,
+        "median_mentions_eligible": 15.0,
+        "median_mentions_heldout": 15.0
+      },
+      "bpe_size": 4096,
+      "n_well_covered": 34,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.611845341254209,
+        "ARM_RAW_TEXT": 0.504729331272651,
+        "ARM_FUSED": 0.6119138097265727,
+        "ARM_RANDOM_INIT": 0.513207949656556,
+        "ARM_COLLAPSE_SHUFFLE": 0.49449063089295786,
+        "ARM_POPULARITY": 0.5007889416610629,
+        "_n_query": 242,
+        "_n_concepts": 250
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.6485558205698638,
+        "ARM_RAW_TEXT": 0.4659129802344485,
+        "ARM_FUSED": 0.6510813296825531,
+        "ARM_RANDOM_INIT": 0.5696085928809789,
+        "ARM_COLLAPSE_SHUFFLE": 0.5143241422092923,
+        "ARM_POPULARITY": 0.48898816526910244,
+        "_n_query": 26,
+        "_n_concepts": 34
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5485461182336183,
+        "ARM_FUSED": 0.5485461182336183,
+        "ARM_COLLAPSE_SHUFFLE": 0.4771821581196581,
+        "ARM_POPULARITY": 0.49760861823361824,
+        "_n_query": 78,
+        "_n_shards": 6
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "8048e007ee0b8b223f19eee7735c877034412877b2fb1feb9a1ac1c18e4e310d",
+        "ARM_RAW_TEXT": "8de9bf78fc3c80a9b4e02c8a9b945a08ff6b30e873e8c8f2afd4c73c00af0e8a",
+        "ARM_RANDOM_INIT": "e4f6a8f769586c77614624c072d0183ca5abecd326d8986f957a964734a49d0c"
+      },
+      "mention_rep_coverage": 1.0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785102671.2841024
+    }
+  },
+  "bands": {
+    "hp_margin_over_raw": 0.03,
+    "raw_signal_min": 0.55,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "min_query": 120,
+    "well_covered_min": 100
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "elapsed_s": 54.915369100053795,
+  "structured_gate_claims": [
+    {
+      "gate_name": "collapse_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "collapse=0.4945 band=(0.44, 0.56)"
+    },
+    {
+      "gate_name": "popularity_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "pop=0.5008"
+    },
+    {
+      "gate_name": "raw_grounding_signal",
+      "measured": 0.611845341254209,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "raw grounding must be a real signal"
+    },
+    {
+      "gate_name": "power_min_query",
+      "measured": 242.0,
+      "threshold": 120.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out query power floor"
+    },
+    {
+      "gate_name": "fused_beats_raw_margin",
+      "measured": 6.846847236374742e-05,
+      "threshold": 0.03,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "PRIMARY: FUSED-RAW semantic"
+    },
+    {
+      "gate_name": "fused_beats_raw_per_seed_min",
+      "measured": 6.846847236374742e-05,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "per-seed min margin"
+    },
+    {
+      "gate_name": "learning_real_text_over_random",
+      "measured": -0.008478618383905068,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "RAW_TEXT - RANDOM_INIT"
+    }
+  ]
+}

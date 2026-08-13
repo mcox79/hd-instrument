@@ -1,0 +1,250 @@
+{
+  "verdict": "HARD_FAIL_DECORR_DESTROYS_GROUNDING",
+  "verdict_msg": "HARD_FAIL_DECORR_DESTROYS_GROUNDING | mode=smoke | B0_mirror corr=0.821 (fires=True spk_fail=0.482 lis_fail=0.497) | B1_crossfit corr=0.316 ground=0.504 | B2_ema corr=0.758 ground=0.515 | B3_diffalg corr=0.171 ground=0.254 | best_diff=B3_diff_algclass qualified=[] | codes_ok=True ent(B0/B1/B2/B3)=[2.74,3.05,2.99,3.24] | subgraph n=1678 E=4778",
+  "summary": "HARD_FAIL_DECORR_DESTROYS_GROUNDING | mode=smoke | B0_mirror corr=0.821 (fires=True spk_fail=0.482 lis_fail=0.497) | B1_crossfit corr=0.316 ground=0.504 | B2_ema corr=0.758 ground=0.515 | B3_diffalg c",
+  "run_mode": "smoke",
+  "elapsed_s": 55.760153799987165,
+  "anchor_name": "selfplay_differentiation_failmask_decorrelation_v1",
+  "ts_iso": "2026-07-09T13:59:13.668713+00:00",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "config": {
+    "n_nodes": 2000,
+    "seeds": [
+      7,
+      13
+    ],
+    "epochs": 100,
+    "batch": 256,
+    "code_dim": 96,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_rel": 0.05,
+    "lambda_ent": 0.1,
+    "K": 12,
+    "n_dist": 7,
+    "gumbel_tau": 2.0,
+    "gumbel_tau_end": 0.5,
+    "mlp_hidden": 128,
+    "neighbor_weight": 0.5,
+    "ema_decay": 0.95,
+    "n_eval": 800
+  },
+  "config_version": "ANCHOR=selfplay_differentiation_failmask_decorrelation_v1,arms=['B0_mirror', 'B1_crossfit', 'B2_ema_lag', 'B3_diff_algclass'],B0corr>=0.40,diffcorr<=0.20,margin>=0.20,ground>=0.50,HFb>0.35,ent>=1.00,failband=[0.05,0.95]",
+  "subgraph_meta": {
+    "n_nodes": 1678,
+    "n_edges": 4778,
+    "median_degree": 3.0
+  },
+  "gates": {
+    "b0_failmask_corr": 0.8214208745374045,
+    "screen_fires": true,
+    "b0_in_band": true,
+    "codes_ok": true,
+    "qualified_arms": [],
+    "retain_arms": [
+      "B1_crossfit",
+      "B2_ema_lag"
+    ],
+    "decorr_arms": [
+      "B3_diff_algclass"
+    ],
+    "best_diff_arm": "B3_diff_algclass",
+    "min_corr_retaining": 0.3155391779780802,
+    "per_arm": {
+      "B0_mirror": {
+        "failmask_corr": 0.8214208745374045,
+        "grounding_acc": 0.5025,
+        "speaker_fail_rate": 0.48187500000000005,
+        "listener_fail_rate": 0.4975,
+        "symbol_entropy_bits": 2.738332693923947,
+        "n_symbols_used": 11.5,
+        "any_degenerate": false
+      },
+      "B1_crossfit": {
+        "failmask_corr": 0.3155391779780802,
+        "grounding_acc": 0.504375,
+        "speaker_fail_rate": 0.4075,
+        "listener_fail_rate": 0.495625,
+        "symbol_entropy_bits": 3.052040453576688,
+        "n_symbols_used": 10.5,
+        "any_degenerate": false
+      },
+      "B2_ema_lag": {
+        "failmask_corr": 0.757755806250191,
+        "grounding_acc": 0.515,
+        "speaker_fail_rate": 0.448125,
+        "listener_fail_rate": 0.485,
+        "symbol_entropy_bits": 2.9852415809914907,
+        "n_symbols_used": 12.0,
+        "any_degenerate": false
+      },
+      "B3_diff_algclass": {
+        "failmask_corr": 0.1707828130105263,
+        "grounding_acc": 0.25375000000000003,
+        "speaker_fail_rate": 0.45625,
+        "listener_fail_rate": 0.7462500000000001,
+        "symbol_entropy_bits": 3.237293898075694,
+        "n_symbols_used": 12.0,
+        "any_degenerate": false
+      }
+    },
+    "bands": {
+      "B0_FAILMASK_CORR_MIN": 0.4,
+      "DIFF_FAILMASK_CORR_HP": 0.2,
+      "DECORR_MARGIN_HP": 0.2,
+      "GROUNDING_FLOOR": 0.5,
+      "DIFF_FAILMASK_CORR_HF": 0.35,
+      "ENTROPY_FLOOR_BITS": 1.0
+    }
+  },
+  "per_arm_agg": {
+    "B0_mirror": {
+      "failmask_corr": 0.8214208745374045,
+      "grounding_acc": 0.5025,
+      "speaker_fail_rate": 0.48187500000000005,
+      "listener_fail_rate": 0.4975,
+      "symbol_entropy_bits": 2.738332693923947,
+      "n_symbols_used": 11.5,
+      "any_degenerate": false
+    },
+    "B1_crossfit": {
+      "failmask_corr": 0.3155391779780802,
+      "grounding_acc": 0.504375,
+      "speaker_fail_rate": 0.4075,
+      "listener_fail_rate": 0.495625,
+      "symbol_entropy_bits": 3.052040453576688,
+      "n_symbols_used": 10.5,
+      "any_degenerate": false
+    },
+    "B2_ema_lag": {
+      "failmask_corr": 0.757755806250191,
+      "grounding_acc": 0.515,
+      "speaker_fail_rate": 0.448125,
+      "listener_fail_rate": 0.485,
+      "symbol_entropy_bits": 2.9852415809914907,
+      "n_symbols_used": 12.0,
+      "any_degenerate": false
+    },
+    "B3_diff_algclass": {
+      "failmask_corr": 0.1707828130105263,
+      "grounding_acc": 0.25375000000000003,
+      "speaker_fail_rate": 0.45625,
+      "listener_fail_rate": 0.7462500000000001,
+      "symbol_entropy_bits": 3.237293898075694,
+      "n_symbols_used": 12.0,
+      "any_degenerate": false
+    }
+  },
+  "discriminator_selftest": {
+    "corr_planted_high": 0.7727272727272724,
+    "corr_planted_indep": -0.06638382216308654,
+    "e2e_tied_corr": 1.0,
+    "e2e_separated_corr": -0.05426137522008722
+  },
+  "unit_failures": [],
+  "per_unit": [
+    {
+      "arm": "B0_mirror",
+      "seed": 7,
+      "failmask_corr": 0.8298983028676535,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.52,
+      "speaker_fail_rate": 0.465,
+      "listener_fail_rate": 0.48,
+      "symbol_entropy_bits": 2.8163868734194306,
+      "n_symbols_used": 12,
+      "n_eval": 800
+    },
+    {
+      "arm": "B1_crossfit",
+      "seed": 7,
+      "failmask_corr": 0.3051752448029494,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.49875,
+      "speaker_fail_rate": 0.3925,
+      "listener_fail_rate": 0.50125,
+      "symbol_entropy_bits": 3.131334712744114,
+      "n_symbols_used": 11,
+      "n_eval": 800
+    },
+    {
+      "arm": "B2_ema_lag",
+      "seed": 7,
+      "failmask_corr": 0.7201851382975982,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.51125,
+      "speaker_fail_rate": 0.44,
+      "listener_fail_rate": 0.48875,
+      "symbol_entropy_bits": 3.0347003727338633,
+      "n_symbols_used": 12,
+      "n_eval": 800
+    },
+    {
+      "arm": "B3_diff_algclass",
+      "seed": 7,
+      "failmask_corr": 0.22196496572558022,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.255,
+      "speaker_fail_rate": 0.47375,
+      "listener_fail_rate": 0.745,
+      "symbol_entropy_bits": 3.1262521153290512,
+      "n_symbols_used": 12,
+      "n_eval": 800
+    },
+    {
+      "arm": "B0_mirror",
+      "seed": 13,
+      "failmask_corr": 0.8129434462071555,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.485,
+      "speaker_fail_rate": 0.49875,
+      "listener_fail_rate": 0.515,
+      "symbol_entropy_bits": 2.6602785144284633,
+      "n_symbols_used": 11,
+      "n_eval": 800
+    },
+    {
+      "arm": "B1_crossfit",
+      "seed": 13,
+      "failmask_corr": 0.3259031111532109,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.51,
+      "speaker_fail_rate": 0.4225,
+      "listener_fail_rate": 0.49,
+      "symbol_entropy_bits": 2.972746194409263,
+      "n_symbols_used": 10,
+      "n_eval": 800
+    },
+    {
+      "arm": "B2_ema_lag",
+      "seed": 13,
+      "failmask_corr": 0.7953264742027839,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.51875,
+      "speaker_fail_rate": 0.45625,
+      "listener_fail_rate": 0.48125,
+      "symbol_entropy_bits": 2.935782789249118,
+      "n_symbols_used": 12,
+      "n_eval": 800
+    },
+    {
+      "arm": "B3_diff_algclass",
+      "seed": 13,
+      "failmask_corr": 0.1196006602954724,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.2525,
+      "speaker_fail_rate": 0.43875,
+      "listener_fail_rate": 0.7475,
+      "symbol_entropy_bits": 3.3483356808223372,
+      "n_symbols_used": 12,
+      "n_eval": 800
+    }
+  ]
+}

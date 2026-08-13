@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_seqbind_cleanup_family_phase_diagram_v1_seed_7",
+  "verdict": "SELFTEST_FAIL",
+  "verdict_msg": "cleanup outputs NOT distinct at contested input: {'modern_hopfield': '1b3008a88f0e9887', 'classical_hopfield': 'e787d6b50f7eb7b1', 'iterative_cosine': 'a3d9c79ec3514e3c', 'soft_energy_attractor': '1b3008a88f0e9887'}; some cleanups identical at beta_test=1.0",
+  "summary": "cleanup outputs NOT distinct at contested input: {'modern_hopfield': '1b3008a88f0e9887', 'classical_hopfield': 'e787d6b50f7eb7b1', 'iterative_cosine': 'a3d9c79ec3514e3c', 'soft_energy_attractor': '1b3008a88f0e9887'}; some cleanups identical at beta_test=1.0",
+  "elapsed_s": 16.55,
+  "ts_iso": "2026-06-29T08:47:38Z",
+  "pid": 10108,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_seqbind_cleanup_family_phase_diagram_v1_seed_7,cleanups=[modern_hopfield,classical_hopfield,iterative_cosine,soft_energy_attractor],encoder=bipolar_seqbind_v2_idiom,K=[20,100,500],N=[1024,4096,8192],Q_level=2,tag_density_effective=0.2,SEED=7,mode=selftest,V_items=1000,V_pos=1000,n_queries_full=100,n_queries_smoke=4,beta=8.0,alpha_soft=0.5,cleanup_iters=1,arms=[SUBSTRATE,RANDOM,SHUFFLE],expected_n_full=36,expected_n_smoke=8,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_seqbind_cleanup_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

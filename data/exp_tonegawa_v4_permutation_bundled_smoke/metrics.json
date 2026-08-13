@@ -1,0 +1,98 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | MECHANISM_NULL_at_K100: perm_recall=0.124 <= proto_recall=0.141 (permutation doesn't beat dense centroid) | K=25 perm=0.620 xor=0.058 proto=0.720 diag=0.028 | K=100 perm=0.124 xor=0.011 proto=0.141 diag=0.007 | n_seeds=2",
+  "summary": "HARD_FAIL | MECHANISM_NULL_at_K100: perm_recall=0.124 <= proto_recall=0.141 (permutation doesn't beat dense centroid) | K=25 perm=0.620 xor=0.058 proto=0.720 diag=0.028 | K=100 perm=0.124 xor=0.011 proto=0.141 diag=0.007 | n_seeds=2",
+  "verdict_reason": "MECHANISM_NULL_at_K100: perm_recall=0.124 <= proto_recall=0.141 (permutation doesn't beat dense centroid)",
+  "per_arm_per_K_recall_summary": {
+    "ARM_PROTOTYPE_CENTROID_BUNDLED": {
+      "25": {
+        "mean": 0.72,
+        "std": 0.010000000000000009,
+        "per_seed": [
+          0.71,
+          0.73
+        ]
+      },
+      "100": {
+        "mean": 0.140625,
+        "std": 0.035625,
+        "per_seed": [
+          0.105,
+          0.17625
+        ]
+      }
+    },
+    "ARM_XOR_BUNDLED_REGRESSION": {
+      "25": {
+        "mean": 0.0575,
+        "std": 0.0075,
+        "per_seed": [
+          0.05,
+          0.065
+        ]
+      },
+      "100": {
+        "mean": 0.01125,
+        "std": 0.0,
+        "per_seed": [
+          0.01125,
+          0.01125
+        ]
+      }
+    },
+    "ARM_PERMUTATION_BUNDLED": {
+      "25": {
+        "mean": 0.62,
+        "std": 0.03500000000000003,
+        "per_seed": [
+          0.585,
+          0.655
+        ]
+      },
+      "100": {
+        "mean": 0.12375,
+        "std": 0.0012500000000000011,
+        "per_seed": [
+          0.1225,
+          0.125
+        ]
+      }
+    },
+    "ARM_DIAG_RANDOM_SPARSE_BUNDLED": {
+      "25": {
+        "mean": 0.0275,
+        "std": 0.0024999999999999988,
+        "per_seed": [
+          0.03,
+          0.025
+        ]
+      },
+      "100": {
+        "mean": 0.0075,
+        "std": 0.0025,
+        "per_seed": [
+          0.005,
+          0.01
+        ]
+      }
+    }
+  },
+  "eval_K": 100,
+  "perm_recall_at_eval_K": 0.12375,
+  "xor_recall_at_eval_K": 0.01125,
+  "proto_recall_at_eval_K": 0.140625,
+  "diag_recall_at_eval_K": 0.0075,
+  "perm_minus_proto": -0.016875,
+  "perm_minus_xor": 0.1125,
+  "n_seeds_complete": 2,
+  "expected_n_units": 16,
+  "completed_units": 16,
+  "cardinality_ok": true,
+  "anchor_name": "tonegawa_v4_permutation_bundled",
+  "elapsed_s": 31.8,
+  "ts_iso": "2026-06-27T21:25:48Z",
+  "pid": 32448,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=tonegawa_v4_permutation_bundled,N=1024,KSP=16,NPC=6,BCC=0.30,WCN=0.50,K_SWEEP=[25, 100],SEEDS=[7, 17],NQPC=8,HP_perm_K500>=0.55,HP_perm-proto>=0.10,HP_perm-xor>=0.30,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v4_permutation_bundled"
+}

@@ -1,0 +1,229 @@
+{
+  "anchor_name": "substrate_activity_energy_confidence_signal_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_ACTIVITY_SIGNAL: best activity=0.644 combined=0.386 (partial evidence of substrate-activity uncertainty proxy but below HP band). | dE=0.349(cv=0.763) sJ=0.644(cv=0.263) rn=0.529(cv=0.498) cb=0.386(cv=0.716)",
+  "summary": "MIDDLE_BAND_PARTIAL_ACTIVITY_SIGNAL: best activity=0.644 combined=0.386 (partial evidence of substrate-activity uncertainty proxy but below HP band). | dE=0.349(cv=0.763) sJ=0.644(cv=0.263) rn=0.529(cv=0.498) cb=0.386(cv=0.716)",
+  "N": 4096,
+  "n_clusters": 30,
+  "per_cluster": 40,
+  "n_items": 1200,
+  "n_queries_per_seed": 200,
+  "topk": 10,
+  "beta": 8.0,
+  "intra_cos": 0.35,
+  "p_target": 0.4,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 3,
+  "n_arms": 4,
+  "arms": [
+    "ARM_DELTA_E",
+    "ARM_SIGMA_J",
+    "ARM_ABLATED_RANDOM",
+    "ARM_COMBINED"
+  ],
+  "arm_summaries": {
+    "ARM_DELTA_E": {
+      "arm": "ARM_DELTA_E",
+      "n_seeds": 3,
+      "auc_mean": 0.3493480725623583,
+      "auc_std": 0.2666328997828093,
+      "auc_cv": 0.7632299151592302,
+      "aucs": [
+        0.02040816326530612,
+        0.3541666666666667,
+        0.673469387755102
+      ]
+    },
+    "ARM_SIGMA_J": {
+      "arm": "ARM_SIGMA_J",
+      "n_seeds": 3,
+      "auc_mean": 0.6444160997732427,
+      "auc_std": 0.16926409095697867,
+      "auc_cv": 0.26266272834669924,
+      "aucs": [
+        0.7959183673469388,
+        0.7291666666666666,
+        0.40816326530612246
+      ]
+    },
+    "ARM_ABLATED_RANDOM": {
+      "arm": "ARM_ABLATED_RANDOM",
+      "n_seeds": 3,
+      "auc_mean": 0.5294607426303856,
+      "auc_std": 0.263489067375669,
+      "auc_cv": 0.4976555316767077,
+      "aucs": [
+        0.25,
+        0.4557291666666667,
+        0.8826530612244898
+      ]
+    },
+    "ARM_COMBINED": {
+      "arm": "ARM_COMBINED",
+      "n_seeds": 3,
+      "auc_mean": 0.3856292517006803,
+      "auc_std": 0.2759985855712938,
+      "auc_cv": 0.7157096728375777,
+      "aucs": [
+        0.02040816326530612,
+        0.6875,
+        0.4489795918367347
+      ]
+    }
+  },
+  "per_unit": [
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 1,
+      "auc": 0.02040816326530612,
+      "risk_hash_prefix": "3fc11ff7ead037d7",
+      "risk_mean": 0.17001348606268976,
+      "risk_std": 0.0013554705903591512,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 1,
+      "auc": 0.7959183673469388,
+      "risk_hash_prefix": "db6929bc3501bd33",
+      "risk_mean": 1.9105339687750418,
+      "risk_std": 0.0017634188643544202,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 1,
+      "auc": 0.25,
+      "risk_hash_prefix": "cdaf3fa3b31a91b9",
+      "risk_mean": 0.5181538057698699,
+      "risk_std": 0.27963383806130804,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_COMBINED",
+      "seed": 1,
+      "auc": 0.02040816326530612,
+      "risk_hash_prefix": "53446a8331762492",
+      "risk_mean": 4.2570391656227e-14,
+      "risk_std": 0.7079920393542242,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 2,
+      "auc": 0.3541666666666667,
+      "risk_hash_prefix": "7eeb78e61556a02e",
+      "risk_mean": 0.16979149436230853,
+      "risk_std": 0.0014186727979499565,
+      "contamination_rate": 0.97
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 2,
+      "auc": 0.7291666666666666,
+      "risk_hash_prefix": "cab28e088607180a",
+      "risk_mean": 1.9100114075275678,
+      "risk_std": 0.00198014373759112,
+      "contamination_rate": 0.97
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 2,
+      "auc": 0.4557291666666667,
+      "risk_hash_prefix": "841d53d595955874",
+      "risk_mean": 0.5136747812343492,
+      "risk_std": 0.29319580820958313,
+      "contamination_rate": 0.97
+    },
+    {
+      "arm": "ARM_COMBINED",
+      "seed": 2,
+      "auc": 0.6875,
+      "risk_hash_prefix": "f7ec539b68513272",
+      "risk_mean": 0.9314984979966168,
+      "risk_std": 0.023333908055086904,
+      "contamination_rate": 0.97
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 3,
+      "auc": 0.673469387755102,
+      "risk_hash_prefix": "d4a896df367c2627",
+      "risk_mean": 0.16952395830288652,
+      "risk_std": 0.0014521659565503108,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 3,
+      "auc": 0.40816326530612246,
+      "risk_hash_prefix": "09fada48fb69d1f6",
+      "risk_mean": 1.9107790577161987,
+      "risk_std": 0.0021756020666167074,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 3,
+      "auc": 0.8826530612244898,
+      "risk_hash_prefix": "533433ffd719f5b9",
+      "risk_mean": 0.5090409545919706,
+      "risk_std": 0.2949120523701906,
+      "contamination_rate": 0.99
+    },
+    {
+      "arm": "ARM_COMBINED",
+      "seed": 3,
+      "auc": 0.4489795918367347,
+      "risk_hash_prefix": "bf127679e9c26505",
+      "risk_mean": -1.4602985487499608e-13,
+      "risk_std": 0.6259495327566492,
+      "contamination_rate": 0.99
+    }
+  ],
+  "per_seed_records": [
+    {
+      "seed": 1,
+      "n_kb": 1200,
+      "n_false": 800,
+      "contamination_rate": 0.99,
+      "combiner_note": "degenerate_train_split_zscore_fallback",
+      "lr_w": [
+        0.5,
+        0.5
+      ],
+      "lr_b": 0.0
+    },
+    {
+      "seed": 2,
+      "n_kb": 1200,
+      "n_false": 800,
+      "contamination_rate": 0.97,
+      "combiner_note": "logreg_400iter_gd",
+      "lr_w": [
+        -0.22540640349627983,
+        0.10297166928213632
+      ],
+      "lr_b": 2.7126347463863465
+    },
+    {
+      "seed": 3,
+      "n_kb": 1200,
+      "n_false": 800,
+      "contamination_rate": 0.99,
+      "combiner_note": "degenerate_train_split_zscore_fallback",
+      "lr_w": [
+        0.5,
+        0.5
+      ],
+      "lr_b": 0.0
+    }
+  ],
+  "failed_units": [],
+  "elapsed_s": 1.8638503551483154,
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "observed_n_units": 12,
+  "arms_differ_verified": true
+}

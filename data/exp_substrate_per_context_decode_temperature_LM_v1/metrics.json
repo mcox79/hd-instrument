@@ -1,0 +1,240 @@
+{
+  "anchor": "substrate_per_context_decode_temperature_LM_v1",
+  "anchor_name": "substrate_per_context_decode_temperature_LM_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best per-context T lift=-0.3167 <= 0.03 threshold. Per-context T does not add meaningfully over global calibration. BPC uni=7.7378 global=7.7378 ent=8.1118(lift=-0.3740) mar=8.0544(lift=-0.3167) | best=ARM_PER_CONTEXT_T_MARGIN lift=-0.3167 bpc=8.0544 cv=0.0052 | n_seeds=3 N_DIM=8192 N_TRAIN=100000 n_llm=0",
+  "n_seeds": 3,
+  "N": 8192,
+  "N_DIM": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SPARSE_F": 0.05,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "T_LOW": 0.02,
+  "T_HIGH": 0.5,
+  "LAMBDA_PER_CONTEXT": 0.3,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_GLOBAL_T",
+    "ARM_PER_CONTEXT_T_ENTROPY",
+    "ARM_PER_CONTEXT_T_MARGIN"
+  ],
+  "run_mode": "full",
+  "config_version": "substrate_per_context_decode_temperature_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=0.30; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.737784450539358
+      },
+      "ARM_GLOBAL_T": {
+        "bpc_mean": 7.737784450539357,
+        "cv": 0.0
+      },
+      "ARM_PER_CONTEXT_T_ENTROPY": {
+        "bpc_mean": 8.111821637803283,
+        "cv": 0.007656342877828605,
+        "lift_over_global": -0.37403718726392565
+      },
+      "ARM_PER_CONTEXT_T_MARGIN": {
+        "bpc_mean": 8.054448622206607,
+        "cv": 0.005226956721791056,
+        "lift_over_global": -0.3166641716672496
+      }
+    },
+    "best_per_context_arm": "ARM_PER_CONTEXT_T_MARGIN",
+    "best_per_context_lift": -0.3166641716672496,
+    "best_per_context_bpc": 8.054448622206607,
+    "best_per_context_cv": 0.005226956721791056,
+    "global_t_bpc": 7.737784450539357,
+    "chain_grade_baseline": 7.3065,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Per-context decode temperature: ARM_GLOBAL_T (joint T+lambda sweep) vs ARM_PER_CONTEXT_T_ENTROPY (entropy-modulated T) and ARM_PER_CONTEXT_T_MARGIN (margin-modulated T). text8 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 N_DIM=8192 sparse_bipolar_f=0.050. Held split dev/test; T_base tuned on dev.",
+    "preregs": "preregs/2026-06-23_substrate_per_context_decode_temperature_LM_v1.md",
+    "brain_prior": "P_inherited=0.45 (Yu-Dayan 2005 ACh gain deflated for substrate-native LM)"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 669.0203604698181,
+      "config_version": "substrate_per_context_decode_temperature_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=0.30; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 8.149560971295015,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27667435559903003,
+          "best_T_base": 0.05,
+          "best_dev_bpc": 8.699802568791219,
+          "T_mean": 0.06296450644731522,
+          "T_std": 5.01207250636071e-06,
+          "lambda": 0.3
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 8.05873475127414,
+          "top1": 0.06137458787725082,
+          "mrr": 0.19156572426924864,
+          "best_T_base": 0.01,
+          "best_dev_bpc": 8.92195278130301,
+          "T_mean": 0.02011093497276306,
+          "T_std": 2.8777462830475997e-06,
+          "lambda": 0.3
+        }
+      },
+      "wall_ingest_s": 129.59652948379517,
+      "wall_recall_s": 38.50740838050842,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782272343.7987173
+    },
+    {
+      "seed": 17,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 733.8522806167603,
+      "config_version": "substrate_per_context_decode_temperature_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=0.30; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 8.024266417239655,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27392546163786347,
+          "best_T_base": 0.1,
+          "best_dev_bpc": 8.637750866815137,
+          "T_mean": 0.03822113573551178,
+          "T_std": 1.3035274832873256e-06,
+          "lambda": 0.3
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 8.000877268281146,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27392546163786347,
+          "best_T_base": 0.01,
+          "best_dev_bpc": 8.805570654675465,
+          "T_mean": 0.02001074329018593,
+          "T_std": 2.335053068236448e-06,
+          "lambda": 0.3
+        }
+      },
+      "wall_ingest_s": 143.35136723518372,
+      "wall_recall_s": 43.175034523010254,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782273077.98689
+    },
+    {
+      "seed": 23,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 988.678188085556,
+      "config_version": "substrate_per_context_decode_temperature_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=0.30; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 8.16163752487518,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2699071893530395,
+          "best_T_base": 0.05,
+          "best_dev_bpc": 8.706248001563406,
+          "T_mean": 0.06307271122932434,
+          "T_std": 7.233256837935187e-06,
+          "lambda": 0.3
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 8.103733847064534,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2580014210435196,
+          "best_T_base": 0.01,
+          "best_dev_bpc": 8.950424035121976,
+          "T_mean": 0.020095445215702057,
+          "T_std": 4.773338332597632e-06,
+          "lambda": 0.3
+        }
+      },
+      "wall_ingest_s": 180.5939290523529,
+      "wall_recall_s": 51.26368951797485,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782274066.909202
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_per_context_decode_temperature_LM_v1",
+  "elapsed_s": 2392.484939098358,
+  "summary": "HARD_FAIL: best per-context T lift=-0.3167 <= 0.03 threshold. Per-context T does not add meaningfully over global calibration. BPC uni=7.7378 global=7.7378 ent=8.1118(lift=-0.3740) mar=8.0544(lift=-0.3167) | best=ARM_PER_CONTEXT_T_MARGIN lift=-0.3167 bpc=8.0544 cv=0.0052 | n_seeds=3 N_DIM=8192 N_TRA"
+}

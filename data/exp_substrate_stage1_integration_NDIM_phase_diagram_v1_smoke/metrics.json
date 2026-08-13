@@ -1,0 +1,109 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "STAGE_1_INTEGRATED_CHAIN_GRADE: 5/6 tasks chain-grade at canonical_N=8192; N_DIM_SCALING_CG tasks=0/6",
+  "summary": "STAGE_1_INTEGRATED_CHAIN_GRADE: 5/6 tasks chain-grade at canonical_N=8192; N_DIM_SCALING_CG tasks=0/6",
+  "phase_diagram_per_N_per_task": {
+    "512": {
+      "T1": "chain-grade",
+      "T2": "chain-grade",
+      "T3": "partial",
+      "T4": "chain-grade",
+      "T5": "chain-grade",
+      "T6": "chain-grade"
+    }
+  },
+  "task_n_dim_scaling_count": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 0,
+    "T4": 1,
+    "T5": 1,
+    "T6": 1
+  },
+  "canonical_N": 8192,
+  "n_cg_at_canonical_N": 5,
+  "n_dim_scaling_cg": 0,
+  "raw_table": {
+    "T1_storage": {
+      "512": [
+        {
+          "top1": 1.0,
+          "M": 200,
+          "N": 512
+        }
+      ]
+    },
+    "T2_capacity": {
+      "512": [
+        {
+          "sweep": [
+            [
+              100,
+              1.0
+            ],
+            [
+              200,
+              1.0
+            ],
+            [
+              400,
+              1.0
+            ]
+          ],
+          "M_critical": 400,
+          "N": 512
+        }
+      ]
+    },
+    "T3_multihop": {
+      "512": [
+        {
+          "K20_acc": 0.6666666666666666,
+          "K50_acc": 0.6333333333333333,
+          "N": 512
+        }
+      ]
+    },
+    "T4_compositional": {
+      "512": [
+        {
+          "obj_axis_acc": 0.7416666666666667,
+          "lift_over_chance": 47.46666666666667,
+          "chance": 0.015625,
+          "N": 512
+        }
+      ]
+    },
+    "T5_cl_crispr": {
+      "512": [
+        {
+          "top1_initial_d1": 1.0,
+          "top1_after_dJ_d1": 1.0,
+          "forgetting_d1": 0.0,
+          "J": 3,
+          "D_slab": 170,
+          "M_per_domain": 66,
+          "N": 512
+        }
+      ]
+    },
+    "T6_refuse_tau": {
+      "512": [
+        {
+          "tau": 0.9280670881271362,
+          "in_dist_accept": 0.9599999785423279,
+          "ood_refuse": 1.0,
+          "refuse_acc": 0.9799999892711639,
+          "in_mean": 0.9541836380958557,
+          "ood_mean": 0.42203521728515625,
+          "N": 512
+        }
+      ]
+    }
+  },
+  "n_cells_completed": 1,
+  "n_cells_planned": 1,
+  "run_mode": "smoke",
+  "_config_version": "substrate_stage1_integration_NDIM_phase_diagram_v1; N_DIM_GRID=[512] seeds=[0] mode=smoke sparse_f=0.020 J=3 M_storage=200 M_cap=[100, 200, 400] N_mh_ent=100 N_mh_rel=4 K_set=50 beta=6.00 N_queries=30 N_refuse_in=50 N_refuse_ood=50 device=cpu; thresholds T1=0.95 T2cgM_at8192=4000 T3K20=0.85 T3K50=0.40 T4lift=5.0 T5forget=0.050 T6refuse=0.80",
+  "elapsed_s": 0.0
+}

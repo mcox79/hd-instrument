@@ -1,0 +1,849 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | @sigma=0.8: RES ho=1.000/id=1.000 FLATj ho=0.180/id=0.991 FLATf ho=0.229 SS ho=0.380 | heldout_gap(vs flat_joint)=+0.820 (vs flat_factored)=+0.771 | GEN_GAP res=+0.000 flat_joint=+0.811 flat_factored=+0.763 | indist_gap=0.009 indist_cost=-0.009 literal_designsource=HARD_PASS | pos_control(sig0 RES ho)=1.000 chance=0.250 | void=none cardinality_ok=True arms_differ=True",
+  "verdict_literal_designsource": "HARD_PASS",
+  "advantage_dominance": 0.810763888888889,
+  "indist_advantage": 0.00925925925925919,
+  "summary": "HARD_PASS: resonator-decision compgen 2-factor (heldout_gap=+0.820 @sig0.8)",
+  "elapsed_s": 245.07450609997613,
+  "run_mode": "full",
+  "anchor_name": "exp_resonator_decision_compgen_2factor_v1",
+  "ts_iso": "2026-07-21T06:56:47.907511+00:00",
+  "chance": 0.25,
+  "sigma_gate": 0.8,
+  "arm_by_sigma": {
+    "0.0": {
+      "flat_joint": {
+        "indist_mean": 1.0,
+        "heldout_mean": 0.16666666666666666,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 1.0,
+        "heldout_mean": 0.16666666666666666,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.5,
+        "heldout_mean": 0.4166666666666667,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 1.0,
+        "heldout_mean": 1.0,
+        "n_seeds": 3
+      }
+    },
+    "0.8": {
+      "flat_joint": {
+        "indist_mean": 0.9907407407407408,
+        "heldout_mean": 0.17997685185185186,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 0.9924768518518517,
+        "heldout_mean": 0.22916666666666666,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.46238425925925924,
+        "heldout_mean": 0.3796296296296296,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 1.0,
+        "heldout_mean": 1.0,
+        "n_seeds": 3
+      }
+    },
+    "1.5": {
+      "flat_joint": {
+        "indist_mean": 0.5677083333333334,
+        "heldout_mean": 0.22916666666666666,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 0.4207175925925926,
+        "heldout_mean": 0.25983796296296297,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.36284722222222215,
+        "heldout_mean": 0.35300925925925924,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 1.0,
+        "heldout_mean": 1.0,
+        "n_seeds": 3
+      }
+    },
+    "2.2": {
+      "flat_joint": {
+        "indist_mean": 0.27141203703703703,
+        "heldout_mean": 0.2476851851851852,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 0.25983796296296297,
+        "heldout_mean": 0.2511574074074074,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.3709490740740741,
+        "heldout_mean": 0.339699074074074,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 0.8807870370370371,
+        "heldout_mean": 0.873263888888889,
+        "n_seeds": 3
+      }
+    },
+    "2.8": {
+      "flat_joint": {
+        "indist_mean": 0.28125,
+        "heldout_mean": 0.23611111111111113,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 0.2586805555555555,
+        "heldout_mean": 0.2366898148148148,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.2916666666666667,
+        "heldout_mean": 0.27546296296296297,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 0.32002314814814814,
+        "heldout_mean": 0.3275462962962963,
+        "n_seeds": 3
+      }
+    },
+    "3.5": {
+      "flat_joint": {
+        "indist_mean": 0.27546296296296297,
+        "heldout_mean": 0.234375,
+        "n_seeds": 3
+      },
+      "flat_factored": {
+        "indist_mean": 0.2586805555555556,
+        "heldout_mean": 0.2517361111111111,
+        "n_seeds": 3
+      },
+      "single_shot": {
+        "indist_mean": 0.2679398148148148,
+        "heldout_mean": 0.25462962962962965,
+        "n_seeds": 3
+      },
+      "resonator_iter": {
+        "indist_mean": 0.27488425925925924,
+        "heldout_mean": 0.2604166666666667,
+        "n_seeds": 3
+      }
+    }
+  },
+  "per_unit": {
+    "flat_joint__sig0.0_seed7": {
+      "arm": "flat_joint",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.16666666666666666,
+      "gen_gap": 0.8333333333333334,
+      "failure_class": null
+    },
+    "flat_factored__sig0.0_seed7": {
+      "arm": "flat_factored",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.125,
+      "gen_gap": 0.875,
+      "failure_class": null
+    },
+    "single_shot__sig0.0_seed7": {
+      "arm": "single_shot",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 0.5,
+      "heldout_acc": 0.4166666666666667,
+      "gen_gap": 0.08333333333333331,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.0_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 0.0,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.0_seed13": {
+      "arm": "flat_joint",
+      "sigma": 0.0,
+      "seed": 13,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.125,
+      "gen_gap": 0.875,
+      "failure_class": null
+    },
+    "flat_factored__sig0.0_seed13": {
+      "arm": "flat_factored",
+      "sigma": 0.0,
+      "seed": 13,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.16666666666666666,
+      "gen_gap": 0.8333333333333334,
+      "failure_class": null
+    },
+    "single_shot__sig0.0_seed13": {
+      "arm": "single_shot",
+      "sigma": 0.0,
+      "seed": 13,
+      "indist_acc": 0.5,
+      "heldout_acc": 0.4166666666666667,
+      "gen_gap": 0.08333333333333331,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.0_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 0.0,
+      "seed": 13,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.0_seed19": {
+      "arm": "flat_joint",
+      "sigma": 0.0,
+      "seed": 19,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.20833333333333334,
+      "gen_gap": 0.7916666666666666,
+      "failure_class": null
+    },
+    "flat_factored__sig0.0_seed19": {
+      "arm": "flat_factored",
+      "sigma": 0.0,
+      "seed": 19,
+      "indist_acc": 1.0,
+      "heldout_acc": 0.20833333333333334,
+      "gen_gap": 0.7916666666666666,
+      "failure_class": null
+    },
+    "single_shot__sig0.0_seed19": {
+      "arm": "single_shot",
+      "sigma": 0.0,
+      "seed": 19,
+      "indist_acc": 0.5,
+      "heldout_acc": 0.4166666666666667,
+      "gen_gap": 0.08333333333333331,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.0_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 0.0,
+      "seed": 19,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.8_seed7": {
+      "arm": "flat_joint",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.9947916666666666,
+      "heldout_acc": 0.17881944444444445,
+      "gen_gap": 0.8159722222222222,
+      "failure_class": null
+    },
+    "flat_factored__sig0.8_seed7": {
+      "arm": "flat_factored",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.9930555555555556,
+      "heldout_acc": 0.2552083333333333,
+      "gen_gap": 0.7378472222222223,
+      "failure_class": null
+    },
+    "single_shot__sig0.8_seed7": {
+      "arm": "single_shot",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 0.4774305555555556,
+      "heldout_acc": 0.3680555555555556,
+      "gen_gap": 0.109375,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.8_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 0.8,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.8_seed13": {
+      "arm": "flat_joint",
+      "sigma": 0.8,
+      "seed": 13,
+      "indist_acc": 0.9913194444444444,
+      "heldout_acc": 0.1753472222222222,
+      "gen_gap": 0.8159722222222222,
+      "failure_class": null
+    },
+    "flat_factored__sig0.8_seed13": {
+      "arm": "flat_factored",
+      "sigma": 0.8,
+      "seed": 13,
+      "indist_acc": 0.9913194444444444,
+      "heldout_acc": 0.21180555555555555,
+      "gen_gap": 0.7795138888888888,
+      "failure_class": null
+    },
+    "single_shot__sig0.8_seed13": {
+      "arm": "single_shot",
+      "sigma": 0.8,
+      "seed": 13,
+      "indist_acc": 0.4670138888888889,
+      "heldout_acc": 0.3923611111111111,
+      "gen_gap": 0.07465277777777779,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.8_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 0.8,
+      "seed": 13,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig0.8_seed19": {
+      "arm": "flat_joint",
+      "sigma": 0.8,
+      "seed": 19,
+      "indist_acc": 0.9861111111111112,
+      "heldout_acc": 0.1857638888888889,
+      "gen_gap": 0.8003472222222223,
+      "failure_class": null
+    },
+    "flat_factored__sig0.8_seed19": {
+      "arm": "flat_factored",
+      "sigma": 0.8,
+      "seed": 19,
+      "indist_acc": 0.9930555555555556,
+      "heldout_acc": 0.2204861111111111,
+      "gen_gap": 0.7725694444444444,
+      "failure_class": null
+    },
+    "single_shot__sig0.8_seed19": {
+      "arm": "single_shot",
+      "sigma": 0.8,
+      "seed": 19,
+      "indist_acc": 0.4427083333333333,
+      "heldout_acc": 0.3784722222222222,
+      "gen_gap": 0.0642361111111111,
+      "failure_class": null
+    },
+    "resonator_iter__sig0.8_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 0.8,
+      "seed": 19,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig1.5_seed7": {
+      "arm": "flat_joint",
+      "sigma": 1.5,
+      "seed": 7,
+      "indist_acc": 0.5729166666666666,
+      "heldout_acc": 0.24479166666666666,
+      "gen_gap": 0.328125,
+      "failure_class": null
+    },
+    "flat_factored__sig1.5_seed7": {
+      "arm": "flat_factored",
+      "sigma": 1.5,
+      "seed": 7,
+      "indist_acc": 0.4461805555555556,
+      "heldout_acc": 0.2795138888888889,
+      "gen_gap": 0.16666666666666669,
+      "failure_class": null
+    },
+    "single_shot__sig1.5_seed7": {
+      "arm": "single_shot",
+      "sigma": 1.5,
+      "seed": 7,
+      "indist_acc": 0.3611111111111111,
+      "heldout_acc": 0.3402777777777778,
+      "gen_gap": 0.020833333333333315,
+      "failure_class": null
+    },
+    "resonator_iter__sig1.5_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 1.5,
+      "seed": 7,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig1.5_seed13": {
+      "arm": "flat_joint",
+      "sigma": 1.5,
+      "seed": 13,
+      "indist_acc": 0.5729166666666666,
+      "heldout_acc": 0.24479166666666666,
+      "gen_gap": 0.328125,
+      "failure_class": null
+    },
+    "flat_factored__sig1.5_seed13": {
+      "arm": "flat_factored",
+      "sigma": 1.5,
+      "seed": 13,
+      "indist_acc": 0.4149305555555556,
+      "heldout_acc": 0.2361111111111111,
+      "gen_gap": 0.17881944444444448,
+      "failure_class": null
+    },
+    "single_shot__sig1.5_seed13": {
+      "arm": "single_shot",
+      "sigma": 1.5,
+      "seed": 13,
+      "indist_acc": 0.3559027777777778,
+      "heldout_acc": 0.3454861111111111,
+      "gen_gap": 0.010416666666666685,
+      "failure_class": null
+    },
+    "resonator_iter__sig1.5_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 1.5,
+      "seed": 13,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig1.5_seed19": {
+      "arm": "flat_joint",
+      "sigma": 1.5,
+      "seed": 19,
+      "indist_acc": 0.5572916666666666,
+      "heldout_acc": 0.19791666666666666,
+      "gen_gap": 0.359375,
+      "failure_class": null
+    },
+    "flat_factored__sig1.5_seed19": {
+      "arm": "flat_factored",
+      "sigma": 1.5,
+      "seed": 19,
+      "indist_acc": 0.4010416666666667,
+      "heldout_acc": 0.2638888888888889,
+      "gen_gap": 0.1371527777777778,
+      "failure_class": null
+    },
+    "single_shot__sig1.5_seed19": {
+      "arm": "single_shot",
+      "sigma": 1.5,
+      "seed": 19,
+      "indist_acc": 0.3715277777777778,
+      "heldout_acc": 0.3732638888888889,
+      "gen_gap": -0.001736111111111105,
+      "failure_class": null
+    },
+    "resonator_iter__sig1.5_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 1.5,
+      "seed": 19,
+      "indist_acc": 1.0,
+      "heldout_acc": 1.0,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "flat_joint__sig2.2_seed7": {
+      "arm": "flat_joint",
+      "sigma": 2.2,
+      "seed": 7,
+      "indist_acc": 0.2621527777777778,
+      "heldout_acc": 0.2482638888888889,
+      "gen_gap": 0.013888888888888895,
+      "failure_class": null
+    },
+    "flat_factored__sig2.2_seed7": {
+      "arm": "flat_factored",
+      "sigma": 2.2,
+      "seed": 7,
+      "indist_acc": 0.2361111111111111,
+      "heldout_acc": 0.2586805555555556,
+      "gen_gap": -0.022569444444444475,
+      "failure_class": null
+    },
+    "single_shot__sig2.2_seed7": {
+      "arm": "single_shot",
+      "sigma": 2.2,
+      "seed": 7,
+      "indist_acc": 0.3680555555555556,
+      "heldout_acc": 0.3472222222222222,
+      "gen_gap": 0.02083333333333337,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.2_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 2.2,
+      "seed": 7,
+      "indist_acc": 0.8871527777777778,
+      "heldout_acc": 0.8767361111111112,
+      "gen_gap": 0.01041666666666663,
+      "failure_class": null
+    },
+    "flat_joint__sig2.2_seed13": {
+      "arm": "flat_joint",
+      "sigma": 2.2,
+      "seed": 13,
+      "indist_acc": 0.2743055555555556,
+      "heldout_acc": 0.25,
+      "gen_gap": 0.02430555555555558,
+      "failure_class": null
+    },
+    "flat_factored__sig2.2_seed13": {
+      "arm": "flat_factored",
+      "sigma": 2.2,
+      "seed": 13,
+      "indist_acc": 0.2673611111111111,
+      "heldout_acc": 0.265625,
+      "gen_gap": 0.001736111111111105,
+      "failure_class": null
+    },
+    "single_shot__sig2.2_seed13": {
+      "arm": "single_shot",
+      "sigma": 2.2,
+      "seed": 13,
+      "indist_acc": 0.3697916666666667,
+      "heldout_acc": 0.3298611111111111,
+      "gen_gap": 0.03993055555555558,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.2_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 2.2,
+      "seed": 13,
+      "indist_acc": 0.8697916666666666,
+      "heldout_acc": 0.8628472222222222,
+      "gen_gap": 0.00694444444444442,
+      "failure_class": null
+    },
+    "flat_joint__sig2.2_seed19": {
+      "arm": "flat_joint",
+      "sigma": 2.2,
+      "seed": 19,
+      "indist_acc": 0.2777777777777778,
+      "heldout_acc": 0.24479166666666666,
+      "gen_gap": 0.03298611111111113,
+      "failure_class": null
+    },
+    "flat_factored__sig2.2_seed19": {
+      "arm": "flat_factored",
+      "sigma": 2.2,
+      "seed": 19,
+      "indist_acc": 0.2760416666666667,
+      "heldout_acc": 0.22916666666666666,
+      "gen_gap": 0.04687500000000003,
+      "failure_class": null
+    },
+    "single_shot__sig2.2_seed19": {
+      "arm": "single_shot",
+      "sigma": 2.2,
+      "seed": 19,
+      "indist_acc": 0.375,
+      "heldout_acc": 0.3420138888888889,
+      "gen_gap": 0.032986111111111105,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.2_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 2.2,
+      "seed": 19,
+      "indist_acc": 0.8854166666666666,
+      "heldout_acc": 0.8802083333333334,
+      "gen_gap": 0.005208333333333259,
+      "failure_class": null
+    },
+    "flat_joint__sig2.8_seed7": {
+      "arm": "flat_joint",
+      "sigma": 2.8,
+      "seed": 7,
+      "indist_acc": 0.2586805555555556,
+      "heldout_acc": 0.2725694444444444,
+      "gen_gap": -0.01388888888888884,
+      "failure_class": null
+    },
+    "flat_factored__sig2.8_seed7": {
+      "arm": "flat_factored",
+      "sigma": 2.8,
+      "seed": 7,
+      "indist_acc": 0.2638888888888889,
+      "heldout_acc": 0.2482638888888889,
+      "gen_gap": 0.015625,
+      "failure_class": null
+    },
+    "single_shot__sig2.8_seed7": {
+      "arm": "single_shot",
+      "sigma": 2.8,
+      "seed": 7,
+      "indist_acc": 0.3072916666666667,
+      "heldout_acc": 0.2673611111111111,
+      "gen_gap": 0.03993055555555558,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.8_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 2.8,
+      "seed": 7,
+      "indist_acc": 0.3055555555555556,
+      "heldout_acc": 0.34375,
+      "gen_gap": -0.03819444444444442,
+      "failure_class": null
+    },
+    "flat_joint__sig2.8_seed13": {
+      "arm": "flat_joint",
+      "sigma": 2.8,
+      "seed": 13,
+      "indist_acc": 0.2986111111111111,
+      "heldout_acc": 0.24305555555555555,
+      "gen_gap": 0.05555555555555555,
+      "failure_class": null
+    },
+    "flat_factored__sig2.8_seed13": {
+      "arm": "flat_factored",
+      "sigma": 2.8,
+      "seed": 13,
+      "indist_acc": 0.2725694444444444,
+      "heldout_acc": 0.22569444444444445,
+      "gen_gap": 0.04687499999999997,
+      "failure_class": null
+    },
+    "single_shot__sig2.8_seed13": {
+      "arm": "single_shot",
+      "sigma": 2.8,
+      "seed": 13,
+      "indist_acc": 0.2621527777777778,
+      "heldout_acc": 0.2777777777777778,
+      "gen_gap": -0.015625,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.8_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 2.8,
+      "seed": 13,
+      "indist_acc": 0.3177083333333333,
+      "heldout_acc": 0.3090277777777778,
+      "gen_gap": 0.008680555555555525,
+      "failure_class": null
+    },
+    "flat_joint__sig2.8_seed19": {
+      "arm": "flat_joint",
+      "sigma": 2.8,
+      "seed": 19,
+      "indist_acc": 0.2864583333333333,
+      "heldout_acc": 0.19270833333333334,
+      "gen_gap": 0.09374999999999997,
+      "failure_class": null
+    },
+    "flat_factored__sig2.8_seed19": {
+      "arm": "flat_factored",
+      "sigma": 2.8,
+      "seed": 19,
+      "indist_acc": 0.23958333333333334,
+      "heldout_acc": 0.2361111111111111,
+      "gen_gap": 0.0034722222222222376,
+      "failure_class": null
+    },
+    "single_shot__sig2.8_seed19": {
+      "arm": "single_shot",
+      "sigma": 2.8,
+      "seed": 19,
+      "indist_acc": 0.3055555555555556,
+      "heldout_acc": 0.28125,
+      "gen_gap": 0.02430555555555558,
+      "failure_class": null
+    },
+    "resonator_iter__sig2.8_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 2.8,
+      "seed": 19,
+      "indist_acc": 0.3368055555555556,
+      "heldout_acc": 0.3298611111111111,
+      "gen_gap": 0.006944444444444475,
+      "failure_class": null
+    },
+    "flat_joint__sig3.5_seed7": {
+      "arm": "flat_joint",
+      "sigma": 3.5,
+      "seed": 7,
+      "indist_acc": 0.2725694444444444,
+      "heldout_acc": 0.24305555555555555,
+      "gen_gap": 0.029513888888888867,
+      "failure_class": null
+    },
+    "flat_factored__sig3.5_seed7": {
+      "arm": "flat_factored",
+      "sigma": 3.5,
+      "seed": 7,
+      "indist_acc": 0.24131944444444445,
+      "heldout_acc": 0.2673611111111111,
+      "gen_gap": -0.026041666666666657,
+      "failure_class": null
+    },
+    "single_shot__sig3.5_seed7": {
+      "arm": "single_shot",
+      "sigma": 3.5,
+      "seed": 7,
+      "indist_acc": 0.2604166666666667,
+      "heldout_acc": 0.22743055555555555,
+      "gen_gap": 0.03298611111111113,
+      "failure_class": null
+    },
+    "resonator_iter__sig3.5_seed7": {
+      "arm": "resonator_iter",
+      "sigma": 3.5,
+      "seed": 7,
+      "indist_acc": 0.265625,
+      "heldout_acc": 0.2586805555555556,
+      "gen_gap": 0.00694444444444442,
+      "failure_class": null
+    },
+    "flat_joint__sig3.5_seed13": {
+      "arm": "flat_joint",
+      "sigma": 3.5,
+      "seed": 13,
+      "indist_acc": 0.2795138888888889,
+      "heldout_acc": 0.2309027777777778,
+      "gen_gap": 0.048611111111111105,
+      "failure_class": null
+    },
+    "flat_factored__sig3.5_seed13": {
+      "arm": "flat_factored",
+      "sigma": 3.5,
+      "seed": 13,
+      "indist_acc": 0.2552083333333333,
+      "heldout_acc": 0.2552083333333333,
+      "gen_gap": 0.0,
+      "failure_class": null
+    },
+    "single_shot__sig3.5_seed13": {
+      "arm": "single_shot",
+      "sigma": 3.5,
+      "seed": 13,
+      "indist_acc": 0.3020833333333333,
+      "heldout_acc": 0.2934027777777778,
+      "gen_gap": 0.008680555555555525,
+      "failure_class": null
+    },
+    "resonator_iter__sig3.5_seed13": {
+      "arm": "resonator_iter",
+      "sigma": 3.5,
+      "seed": 13,
+      "indist_acc": 0.3020833333333333,
+      "heldout_acc": 0.2743055555555556,
+      "gen_gap": 0.027777777777777735,
+      "failure_class": null
+    },
+    "flat_joint__sig3.5_seed19": {
+      "arm": "flat_joint",
+      "sigma": 3.5,
+      "seed": 19,
+      "indist_acc": 0.2743055555555556,
+      "heldout_acc": 0.22916666666666666,
+      "gen_gap": 0.04513888888888892,
+      "failure_class": null
+    },
+    "flat_factored__sig3.5_seed19": {
+      "arm": "flat_factored",
+      "sigma": 3.5,
+      "seed": 19,
+      "indist_acc": 0.2795138888888889,
+      "heldout_acc": 0.2326388888888889,
+      "gen_gap": 0.046875,
+      "failure_class": null
+    },
+    "single_shot__sig3.5_seed19": {
+      "arm": "single_shot",
+      "sigma": 3.5,
+      "seed": 19,
+      "indist_acc": 0.24131944444444445,
+      "heldout_acc": 0.24305555555555555,
+      "gen_gap": -0.001736111111111105,
+      "failure_class": null
+    },
+    "resonator_iter__sig3.5_seed19": {
+      "arm": "resonator_iter",
+      "sigma": 3.5,
+      "seed": 19,
+      "indist_acc": 0.2569444444444444,
+      "heldout_acc": 0.2482638888888889,
+      "gen_gap": 0.008680555555555525,
+      "failure_class": null
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 72,
+  "n_units_done": 72,
+  "arms_differ": true,
+  "pos_control_ok": true,
+  "void_reasons": [],
+  "gate_metrics": {
+    "heldout_gap_vs_flat_joint": 0.8200231481481481,
+    "heldout_gap_vs_flat_factored": 0.7708333333333334,
+    "gen_gap_resonator": 0.0,
+    "gen_gap_flat_joint": 0.810763888888889,
+    "gen_gap_flat_factored": 0.7633101851851851,
+    "indist_gap": 0.00925925925925919,
+    "indist_cost": -0.00925925925925919,
+    "resonator_heldout": 1.0,
+    "resonator_indist": 1.0,
+    "flat_joint_heldout": 0.17997685185185186,
+    "flat_joint_indist": 0.9907407407407408,
+    "flat_factored_heldout": 0.22916666666666666,
+    "single_shot_heldout": 0.3796296296296296
+  },
+  "config": {
+    "N_DIM": 2048,
+    "N_CONSTR": 8,
+    "N_VERBCLASS": 10,
+    "N_ROLE": 4,
+    "HELD_PER_CONSTR": 3,
+    "n_train_per": 24,
+    "n_test_per": 24,
+    "sigma_sweep": [
+      0.0,
+      0.8,
+      1.5,
+      2.2,
+      2.8,
+      3.5
+    ],
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "arms": [
+      "flat_joint",
+      "flat_factored",
+      "single_shot",
+      "resonator_iter"
+    ],
+    "RES_N_ITER": 25,
+    "RES_N_RESTART": 4
+  }
+}

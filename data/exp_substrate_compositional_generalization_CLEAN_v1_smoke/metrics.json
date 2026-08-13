@@ -1,0 +1,134 @@
+{
+  "anchor_name": "substrate_compositional_generalization_CLEAN_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2 of 4 arms HARD_PASS at N_DIM=1024. Means={'ARM_TRAINED_PAIRS': 1.0, 'ARM_HELDOUT_NEW_OBJ': 1.0, 'ARM_HELDOUT_NEW_SUBJ': 0.125, 'ARM_HELDOUT_NEW_PRED': 0.875} Lifts={'ARM_HELDOUT_NEW_OBJ': 0.318, 'ARM_HELDOUT_NEW_SUBJ': 0.042, 'ARM_HELDOUT_NEW_PRED': 0.034} Passes={'ARM_TRAINED_PAIRS': True, 'ARM_HELDOUT_NEW_OBJ': True, 'ARM_HELDOUT_NEW_SUBJ': False, 'ARM_HELDOUT_NEW_PRED': False}. Partial compositional generalization.",
+  "run_mode": "smoke",
+  "N_DIM": 1024,
+  "M_TRAIN_PAIRS": 40,
+  "V_SUBJ": 12,
+  "V_PRED": 8,
+  "V_OBJ": 12,
+  "K_OBJ_SAME": 2,
+  "K_SUBJ_TRAIN": 2,
+  "K_PRED_TRAIN": 3,
+  "N_HELDOUT_TRIALS": 8,
+  "n_seeds": 1,
+  "detail": {
+    "n_seeds": 1,
+    "N_DIM": 1024,
+    "per_arm_means": {
+      "ARM_TRAINED_PAIRS": 1.0,
+      "ARM_HELDOUT_NEW_OBJ": 1.0,
+      "ARM_HELDOUT_NEW_SUBJ": 0.125,
+      "ARM_HELDOUT_NEW_PRED": 0.875
+    },
+    "per_arm_cvs": {
+      "ARM_TRAINED_PAIRS": 0.0,
+      "ARM_HELDOUT_NEW_OBJ": 0.0,
+      "ARM_HELDOUT_NEW_SUBJ": 0.0,
+      "ARM_HELDOUT_NEW_PRED": 0.0
+    },
+    "per_arm_lifts_vs_chance": {
+      "ARM_HELDOUT_NEW_OBJ": 0.31818181818181823,
+      "ARM_HELDOUT_NEW_SUBJ": 0.04166666666666667,
+      "ARM_HELDOUT_NEW_PRED": 0.03409090909090906
+    },
+    "per_arm_chance_analytic": {
+      "ARM_HELDOUT_NEW_OBJ": 0.6818181818181818,
+      "ARM_HELDOUT_NEW_SUBJ": 0.08333333333333333,
+      "ARM_HELDOUT_NEW_PRED": 0.8409090909090909
+    },
+    "per_arm_passes": {
+      "ARM_TRAINED_PAIRS": true,
+      "ARM_HELDOUT_NEW_OBJ": true,
+      "ARM_HELDOUT_NEW_SUBJ": false,
+      "ARM_HELDOUT_NEW_PRED": false
+    },
+    "n_pass": 2,
+    "sanity_floor_trained_top1": 0.7,
+    "sanity_ok": true,
+    "bands": {
+      "ARM_TRAINED_PAIRS_top1_absolute": 0.95,
+      "ARM_HELDOUT_NEW_OBJ_top5_lift": 0.2,
+      "ARM_HELDOUT_NEW_SUBJ_top1_lift": 0.3,
+      "ARM_HELDOUT_NEW_PRED_top5_lift": 0.2
+    },
+    "per_seed_arm_values": {
+      "ARM_TRAINED_PAIRS_top1": [
+        1.0
+      ],
+      "ARM_HELDOUT_NEW_OBJ_top5": [
+        1.0
+      ],
+      "ARM_HELDOUT_NEW_SUBJ_top1": [
+        0.125
+      ],
+      "ARM_HELDOUT_NEW_PRED_top5": [
+        0.875
+      ]
+    },
+    "CONFIG_VERSION": "substrate_compositional_generalization_CLEAN_v1; N_DIM=1024 M=40 V_subj=12 V_pred=8 V_obj=12 K_obj_same=2 K_subj=2 K_pred=3 trials=8 seeds=[0] mode=smoke; bands trained_top1>=0.95 obj_top5_lift>=0.20 subj_top1_lift>=0.30 pred_top5_lift>=0.20 sanity_floor>=0.70",
+    "what_this_does_not_show": "Compositional generalization on synthetic role-filler HRR triples at a single (N_DIM, M) point. Does NOT show: (1) language-task performance (no text); (2) learning / plasticity (no gradient); (3) downstream task benefit; (4) noise robustness; (5) capacity scaling (single M).",
+    "honest_scope": "Pure substrate primitives (HRR bind/unbind + Plate role-filler encoding + per-bind L2 normalization); NO learning. NumPy CPU. Replaces pair-storage protocol that hit 1/k ceiling in brain-aligned shotgun ARM 2 + native suite CG arm.",
+    "cites": [
+      "USER_compositional_generalization_CLEAN_protocol_2026-06-24",
+      "Plate_1995_HRR_role_filler",
+      "exp_substrate_compositional_generalization_K10_to_K20_v1_n4096__HARD_PASS_1.000",
+      "exp_substrate_brain_aligned_aliveness_shotgun_v1_ARM_2__holdout_0.000_pair_storage_bug",
+      "exp_substrate_compositional_generalization_CORRECTED_v1__codebook_sweep"
+    ]
+  },
+  "metrics_source": "measured_cpu_substrate_compositional_generalization_CLEAN_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_TRAINED_PAIRS": {
+          "n_triples": 40,
+          "top1": 1.0,
+          "top5": 1.0,
+          "chance_top1": 0.08333333333333333,
+          "mean_cosine_correct": 0.13296926580369473
+        },
+        "ARM_HELDOUT_NEW_OBJ": {
+          "n_trials": 8,
+          "k_obj_same": 2,
+          "top5_structural_plausibility": 1.0,
+          "chance_top5_plausibility": 0.75,
+          "chance_analytic": 0.6818181818181818
+        },
+        "ARM_HELDOUT_NEW_SUBJ": {
+          "n_trials": 8,
+          "k_subj_train": 2,
+          "top1": 0.125,
+          "chance_top1": 0.0,
+          "chance_analytic": 0.08333333333333333
+        },
+        "ARM_HELDOUT_NEW_PRED": {
+          "n_trials": 8,
+          "k_pred_train": 3,
+          "top5_structural_plausibility": 0.875,
+          "chance_top5_plausibility": 0.875,
+          "chance_analytic": 0.8409090909090909
+        }
+      },
+      "N": 1024,
+      "M_TRAIN_PAIRS": 40,
+      "V_SUBJ": 12,
+      "V_PRED": 8,
+      "V_OBJ": 12,
+      "K_OBJ_SAME": 2,
+      "K_SUBJ_TRAIN": 2,
+      "K_PRED_TRAIN": 3,
+      "N_HELDOUT_TRIALS": 8,
+      "wall_s": 0.019640207290649414,
+      "run_mode": "smoke",
+      "config_version": "substrate_compositional_generalization_CLEAN_v1; N_DIM=1024 M=40 V_subj=12 V_pred=8 V_obj=12 K_obj_same=2 K_subj=2 K_pred=3 trials=8 seeds=[0] mode=smoke; bands trained_top1>=0.95 obj_top5_lift>=0.20 subj_top1_lift>=0.30 pred_top5_lift>=0.20 sanity_floor>=0.70",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782352513.4551003
+    }
+  ],
+  "elapsed_s": 0.10468459129333496,
+  "summary": "MIDDLE_BAND: 2 of 4 arms HARD_PASS at N_DIM=1024. Means={'ARM_TRAINED_PAIRS': 1.0, 'ARM_HELDOUT_NEW_OBJ': 1.0, 'ARM_HELDOUT_NEW_SUBJ': 0.125, 'ARM_HELDOUT_NEW_PRED': 0.875} Lifts={'ARM_HELDOUT_NEW_OBJ': 0.318, 'ARM_HELDOUT_NEW_SUBJ': 0.042, 'ARM_HELDOUT_NEW_PRED': 0.034} Passes={'ARM_TRAINED_PAIRS': True, 'ARM_HELDOUT_NEW_OBJ': True, 'ARM_HELDOUT_NEW_SUBJ': False, 'ARM_HELDOUT_NEW_PRED': False}. Partial compositional generalization.",
+  "substrate_only_decode_gate": "N/A (mechanism-characterization cell, not LM cell)"
+}

@@ -1,0 +1,156 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | top1_recall K0=0.010 K1=1.000 K3=1.000 K5=0.980 K10=0.000 | RANDOM=0.000 DIAG=0.490 | K5-K0=0.970 mono=True",
+  "summary": "HARD_PASS | top1_recall K0=0.010 K1=1.000 K3=1.000 K5=0.980 K10=0.000 | RANDOM=0.000 DIAG=0.490 | K5-K0=0.970 mono=True",
+  "per_arm": {
+    "no_context": {
+      "7": {
+        "K": 0,
+        "mean_cosine": 0.027557053938508033,
+        "std_cosine": 0.004842273138470942,
+        "median_cosine": 0.02645682916045189,
+        "top1_recall": 0.0,
+        "n": 50
+      },
+      "17": {
+        "K": 0,
+        "mean_cosine": 0.027752596102654934,
+        "std_cosine": 0.005324423695373426,
+        "median_cosine": 0.026718913577497005,
+        "top1_recall": 0.02,
+        "n": 50
+      }
+    },
+    "kshot_k1": {
+      "7": {
+        "K": 1,
+        "mean_cosine": 0.7075961410999299,
+        "std_cosine": 0.005624778655337765,
+        "median_cosine": 0.7067948579788208,
+        "top1_recall": 1.0,
+        "n": 50
+      },
+      "17": {
+        "K": 1,
+        "mean_cosine": 0.7073487758636474,
+        "std_cosine": 0.005009867135974086,
+        "median_cosine": 0.7078410387039185,
+        "top1_recall": 1.0,
+        "n": 50
+      }
+    },
+    "kshot_k3": {
+      "7": {
+        "K": 3,
+        "mean_cosine": 0.5012942272424697,
+        "std_cosine": 0.007812279351890158,
+        "median_cosine": 0.5019774436950684,
+        "top1_recall": 1.0,
+        "n": 50
+      },
+      "17": {
+        "K": 3,
+        "mean_cosine": 0.49986269533634187,
+        "std_cosine": 0.00662848779248518,
+        "median_cosine": 0.49964410066604614,
+        "top1_recall": 1.0,
+        "n": 50
+      }
+    },
+    "kshot_k5": {
+      "7": {
+        "K": 5,
+        "mean_cosine": 0.4101850110292435,
+        "std_cosine": 0.04775463581375898,
+        "median_cosine": 0.40411287546157837,
+        "top1_recall": 0.96,
+        "n": 50
+      },
+      "17": {
+        "K": 5,
+        "mean_cosine": 0.41137139916419985,
+        "std_cosine": 0.034345909044330755,
+        "median_cosine": 0.4114583730697632,
+        "top1_recall": 1.0,
+        "n": 50
+      }
+    },
+    "kshot_k10": {},
+    "random_context": {},
+    "diag_full": {
+      "7": {
+        "K": 99,
+        "mean_cosine": 0.10639129489660264,
+        "std_cosine": 0.01411238873232477,
+        "median_cosine": 0.10374036431312561,
+        "top1_recall": 0.48,
+        "n": 50
+      },
+      "17": {
+        "K": 99,
+        "mean_cosine": 0.10561696618795395,
+        "std_cosine": 0.009637482551027822,
+        "median_cosine": 0.10676803439855576,
+        "top1_recall": 0.5,
+        "n": 50
+      }
+    }
+  },
+  "per_arm_summary": {
+    "no_context": {
+      "top1_recall_mean": 0.01,
+      "top1_recall_std": 0.01,
+      "mean_cosine_mean": 0.027654825020581482,
+      "n": 2
+    },
+    "kshot_k1": {
+      "top1_recall_mean": 1.0,
+      "top1_recall_std": 0.0,
+      "mean_cosine_mean": 0.7074724584817886,
+      "n": 2
+    },
+    "kshot_k3": {
+      "top1_recall_mean": 1.0,
+      "top1_recall_std": 0.0,
+      "mean_cosine_mean": 0.5005784612894058,
+      "n": 2
+    },
+    "kshot_k5": {
+      "top1_recall_mean": 0.98,
+      "top1_recall_std": 0.020000000000000018,
+      "mean_cosine_mean": 0.4107782050967217,
+      "n": 2
+    },
+    "kshot_k10": {
+      "top1_recall_mean": 0.0,
+      "top1_recall_std": 0.0,
+      "mean_cosine_mean": 0.0,
+      "n": 0
+    },
+    "random_context": {
+      "top1_recall_mean": 0.0,
+      "top1_recall_std": 0.0,
+      "mean_cosine_mean": 0.0,
+      "n": 0
+    },
+    "diag_full": {
+      "top1_recall_mean": 0.49,
+      "top1_recall_std": 0.010000000000000009,
+      "mean_cosine_mean": 0.1060041305422783,
+      "n": 2
+    }
+  },
+  "k5_minus_k0": 0.97,
+  "monotone_through_k5": true,
+  "n_seeds_complete": 2,
+  "expected_n_units": 500,
+  "completed_units": 500,
+  "cardinality_ok": true,
+  "anchor_name": "task_vector_in_context_kshot_v1",
+  "elapsed_s": 14.7,
+  "ts_iso": "2026-06-27T22:41:05Z",
+  "pid": 33684,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=task_vector_in_context_kshot_v1,N=8192,V=100,tasks=10,Q/task=5,seeds=[7, 17],arms=['no_context', 'kshot_k1', 'kshot_k3', 'kshot_k5', 'diag_full'],mode=smoke,HP_K5_recall>=0.40,HP_K5-K0>=0.30,expected_n=500,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_task_vector_kshot"
+}

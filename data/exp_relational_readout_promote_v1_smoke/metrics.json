@@ -1,0 +1,133 @@
+{
+  "verdict": "HARD_FAIL_VALIDITY_CONTROL_BREACH",
+  "verdict_msg": "At least one PRIMARY unit (mlm_v2_seed7) had SHUFFLE_CONTROL/POPULARITY_CONTROL outside [0.40,0.60] -- harness invalid at that unit, cannot trust the readout-lift reading for this diag-seed. Per-unit validity: {'mlm_v2_seed7__ds20260727': False}",
+  "summary": "At least one PRIMARY unit (mlm_v2_seed7) had SHUFFLE_CONTROL/POPULARITY_CONTROL outside [0.40,0.60] -- harness invalid at that unit, cannot trust the readout-lift reading for this diag-seed. Per-unit validity: {'mlm_v2_seed7__ds20260727': False}",
+  "anchor_name": "relational_readout_promote_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-28T15:10:44.070277+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "mlm_v2_seed7__ds20260727": {
+      "unit_key": "mlm_v2_seed7__ds20260727",
+      "ckpt_label": "mlm_v2_seed7",
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+      "diag_seed": 20260727,
+      "arm_group": "PRIMARY",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v2",
+        "w_star_semantic": 0.9,
+        "selected_arm_semantic": "ARM_FUSE_ZAVG",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "fit_pairs_meta": {
+        "n_anchors_used": 344,
+        "n_pairs": 238,
+        "n_pos": 119,
+        "n_neg": 119,
+        "leak_check": "PASS_disjoint_from_held"
+      },
+      "probe_fit": {
+        "diag_final_bce": 0.6931435465812683,
+        "diag_weight_moved": 0.9998779296875,
+        "bilinear_final_bce": 0.7458062767982483,
+        "bilinear_rank": 32,
+        "train_fit_pair_auc": {
+          "cosine": 0.5742532307040463,
+          "diag": 0.5649318550949791,
+          "bilinear": 0.8159028317209237
+        }
+      },
+      "held_out_relational_auc": {
+        "BASELINE_COSINE": 0.7765151515151515,
+        "PROBE_DIAG": 0.587121212121212,
+        "PROBE_BILINEAR": 0.47916666666666663,
+        "FUSE_ZAVG_REF": 0.8005050505050505,
+        "SHUFFLE_CONTROL": 0.356060606060606,
+        "POPULARITY_CONTROL": 0.5022095959595959,
+        "_n_query": 11
+      },
+      "validity_ok": false,
+      "n_query": 11,
+      "baseline_cosine_auc": 0.7765151515151515,
+      "probe_diag_auc": 0.587121212121212,
+      "probe_bilinear_auc": 0.47916666666666663,
+      "best_probe": "PROBE_DIAG",
+      "best_probe_auc": 0.587121212121212,
+      "margin_over_baseline": -0.18939393939393945,
+      "bootstrap_ci": {
+        "probe": "PROBE_DIAG",
+        "point_margin": -0.18939393939393945,
+        "ci95_lo": -0.5454545454545454,
+        "ci95_hi": 0.1517045454545445,
+        "ci_excludes_zero": false
+      },
+      "train_corroborates": false,
+      "arms_differ_digests": {
+        "BASELINE_COSINE": "785d7e0f2ce7e1e9c05842a2f48d0b3242ecb01e7e634e822cf5cc8ad91fadb2",
+        "PROBE_DIAG": "82562ffb0f7f81b842dd032c9cb1e7ec5c358ea288a9447153d392a34ea30bf2",
+        "PROBE_BILINEAR": "e23cb3a71a6a8b376b4a469e67de3ddd7e564869f7ff0ce5fcbfffd3b8ba4704",
+        "SHUFFLE_CONTROL": "73cbaa2a3d91417d3a3bdd5eb6c0d8ab684848b6cd8b4eca2fe3568c1bc976ed",
+        "POPULARITY_CONTROL": "aac48f8ec0429f8e313f203a08f4aff4caef90dcbde8126ef5ded8033fa8c098"
+      },
+      "unit_pass": false,
+      "failure_class": null,
+      "elapsed_s": 1.861305300029926,
+      "seed": "mlm_v2_seed7__ds20260727",
+      "_ckpt_key": "mlm_v2_seed7__ds20260727",
+      "_partial_written_at": 1785251444.0387008
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "bands": {
+    "hard_pass_margin": 0.03,
+    "validity_band": [
+      0.4,
+      0.6
+    ]
+  },
+  "hp_scope": {
+    "applies_to": [
+      "PRIMARY"
+    ],
+    "informational_only": [
+      "SECONDARY"
+    ]
+  },
+  "diag_cfg": {
+    "run_mode": "smoke",
+    "min_deg": 2,
+    "cap_eval_concepts": 500,
+    "heldout_count": 60,
+    "min_mentions_eval": 4,
+    "max_lines": 300000,
+    "dedup_cap": 350000,
+    "bpe_sample_lines": 100,
+    "cap_mentions": 8,
+    "max_len": 24,
+    "n_freq_buckets": 6,
+    "max_shards": 16,
+    "encode_batch": 256,
+    "n_anchors": 400,
+    "max_pos": 8,
+    "probe_steps": 300,
+    "bilinear_rank": 32
+  },
+  "elapsed_s_total": 24.36028769996483,
+  "wire_target": "experiments/eval_battery_relational_cloze_v7.py (relational readout arm) + the main reasoning loop's relational nearest-neighbor readout (target to be confirmed at WIRE time by whoever owns capability_registry.jsonl integration)",
+  "known_gap": "No second MLM-v2 training-seed checkpoint exists on disk; PRIMARY replication uses DIAG_SEED variation (fit/eval RNG) on the SAME ckpt_seed_7, not a second independently-trained encoder. SECONDARY relobj_v3 seed_7/seed_13 gives a genuine cross-training-seed check of the MECHANISM (learned readout beats cosine) but on a different objective, not the MLM baseline itself.",
+  "elapsed_s": 1.861305300029926
+}

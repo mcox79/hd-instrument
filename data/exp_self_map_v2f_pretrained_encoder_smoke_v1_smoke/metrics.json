@@ -1,0 +1,218 @@
+{
+  "anchor_name": "self_map_v2f_pretrained_encoder_smoke_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: self-mapping null even with semantic encoder; substrate self-mapping fundamentally hard regardless of encoder. Z(name_leak)=0.00 Z(stripped)=0.76 Z(w2v)=0.61 Z(hybrid)=0.94 | Z_w2v/Z_stripped=0.80 (pass>=2.0) Z_w2v/Z_name_leak=613.00 | recall_min=0.530 (fail<=0.50) | n_llm=0",
+  "summary": "HARD_FAIL: self-mapping null even with semantic encoder; substrate self-mapping fundamentally hard regardless of encoder. Z(name_leak)=0.00 Z(stripped)=0.76 Z(w2v)=0.61 Z(hybrid)=0.94 | Z_w2v/Z_stripped=0.80 (pass>=2.0) Z_w2v/Z_name_leak=613.00 | recall_min=0.530 (fail<=0.50) | n_llm=0",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "v2f-pretrained-encoder: 4 arms (char_trigram_name_leak / char_trigram_stripped / word2vec_keywords / hybrid) X same v2e modularity-Z (Louvain @ gamma sweep) vs degree-preserving null; KGStore + multi_hop 2-hop Jaccard adjacency; N4096 n_anchors=100 n_rel_samples=10 kset=12 n_null=30 jac_tau=0.05 gammas=[0.5, 1.0, 2.0, 4.0] arms=['ARM_CHAR_TRIGRAM_NAME_LEAK', 'ARM_CHAR_TRIGRAM_STRIPPED', 'ARM_WORD2VEC_KEYWORDS', 'ARM_HYBRID'] bands mod_Z>=3.0 w2v/stripped>=2.0 recall>=0.95",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "N": 4096,
+      "run_mode": "smoke",
+      "config_version": "v2f-pretrained-encoder: 4 arms (char_trigram_name_leak / char_trigram_stripped / word2vec_keywords / hybrid) X same v2e modularity-Z (Louvain @ gamma sweep) vs degree-preserving null; KGStore + multi_hop 2-hop Jaccard adjacency; N4096 n_anchors=100 n_rel_samples=10 kset=12 n_null=30 jac_tau=0.05 gammas=[0.5, 1.0, 2.0, 4.0] arms=['ARM_CHAR_TRIGRAM_NAME_LEAK', 'ARM_CHAR_TRIGRAM_STRIPPED', 'ARM_WORD2VEC_KEYWORDS', 'ARM_HYBRID'] bands mod_Z>=3.0 w2v/stripped>=2.0 recall>=0.95",
+      "n_chain_grade_atoms": 451,
+      "n_atoms_universe": 177350,
+      "n_relation_types": 33,
+      "n_triples": 5000,
+      "n_anchors": 100,
+      "elapsed_s": 5500.3,
+      "arms": {
+        "ARM_CHAR_TRIGRAM_NAME_LEAK": {
+          "best_gamma": 0.5,
+          "best_Z": 0.0,
+          "modularity_Z_sweep": [
+            {
+              "gamma": 0.5,
+              "Q_real": 0.5,
+              "Q_null_mean": 0.5,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 1
+            },
+            {
+              "gamma": 1.0,
+              "Q_real": 0.022,
+              "Q_null_mean": 0.0234,
+              "Q_null_std": 0.0005,
+              "Z": -2.969,
+              "n_clusters": 3
+            },
+            {
+              "gamma": 2.0,
+              "Q_real": -0.0203,
+              "Q_null_mean": -0.0203,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 100
+            },
+            {
+              "gamma": 4.0,
+              "Q_real": -0.0405,
+              "Q_null_mean": -0.0405,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 100
+            }
+          ],
+          "n_edges": 4950,
+          "atom_retrieval_recall": 1.0,
+          "t_encoding_s": 39.8,
+          "t_kg_build_s": 12.7,
+          "t_neighborhoods_s": 1736.5,
+          "t_modularity_Z_s": 309.2,
+          "t_arm_total_s": 2130.3
+        },
+        "ARM_CHAR_TRIGRAM_STRIPPED": {
+          "best_gamma": 1.0,
+          "best_Z": 0.764,
+          "modularity_Z_sweep": [
+            {
+              "gamma": 0.5,
+              "Q_real": 0.5,
+              "Q_null_mean": 0.5,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 1
+            },
+            {
+              "gamma": 1.0,
+              "Q_real": 0.0252,
+              "Q_null_mean": 0.0247,
+              "Q_null_std": 0.0006,
+              "Z": 0.764,
+              "n_clusters": 3
+            },
+            {
+              "gamma": 2.0,
+              "Q_real": -0.0203,
+              "Q_null_mean": -0.0203,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 100
+            },
+            {
+              "gamma": 4.0,
+              "Q_real": -0.0405,
+              "Q_null_mean": -0.0405,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 100
+            }
+          ],
+          "n_edges": 4950,
+          "atom_retrieval_recall": 1.0,
+          "t_encoding_s": 44.2,
+          "t_kg_build_s": 13.0,
+          "t_neighborhoods_s": 872.6,
+          "t_modularity_Z_s": 210.8,
+          "t_arm_total_s": 1171.0
+        },
+        "ARM_WORD2VEC_KEYWORDS": {
+          "best_gamma": 4.0,
+          "best_Z": 0.613,
+          "modularity_Z_sweep": [
+            {
+              "gamma": 0.5,
+              "Q_real": 0.5,
+              "Q_null_mean": 0.5,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 2
+            },
+            {
+              "gamma": 1.0,
+              "Q_real": 0.0578,
+              "Q_null_mean": 0.0578,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 3
+            },
+            {
+              "gamma": 2.0,
+              "Q_real": -0.0108,
+              "Q_null_mean": -0.0108,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 64
+            },
+            {
+              "gamma": 4.0,
+              "Q_real": -0.0491,
+              "Q_null_mean": -0.0491,
+              "Q_null_std": 0.0,
+              "Z": 0.613,
+              "n_clusters": 84
+            }
+          ],
+          "n_edges": 4762,
+          "atom_retrieval_recall": 0.53,
+          "t_encoding_s": 21.3,
+          "t_kg_build_s": 13.8,
+          "t_neighborhoods_s": 796.2,
+          "t_modularity_Z_s": 183.1,
+          "t_arm_total_s": 1031.7
+        },
+        "ARM_HYBRID": {
+          "best_gamma": 2.0,
+          "best_Z": 0.942,
+          "modularity_Z_sweep": [
+            {
+              "gamma": 0.5,
+              "Q_real": 0.5,
+              "Q_null_mean": 0.5,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 1
+            },
+            {
+              "gamma": 1.0,
+              "Q_real": 0.0684,
+              "Q_null_mean": 0.0697,
+              "Q_null_std": 0.0014,
+              "Z": -0.968,
+              "n_clusters": 3
+            },
+            {
+              "gamma": 2.0,
+              "Q_real": -0.02,
+              "Q_null_mean": -0.0201,
+              "Q_null_std": 0.0,
+              "Z": 0.942,
+              "n_clusters": 84
+            },
+            {
+              "gamma": 4.0,
+              "Q_real": -0.042,
+              "Q_null_mean": -0.042,
+              "Q_null_std": 0.0,
+              "Z": 0.0,
+              "n_clusters": 99
+            }
+          ],
+          "n_edges": 4860,
+          "atom_retrieval_recall": 1.0,
+          "t_encoding_s": 147.4,
+          "t_kg_build_s": 35.0,
+          "t_neighborhoods_s": 785.1,
+          "t_modularity_Z_s": 176.1,
+          "t_arm_total_s": 1165.2
+        }
+      },
+      "Z_name_leak": 0.0,
+      "Z_stripped": 0.764,
+      "Z_w2v": 0.613,
+      "Z_hybrid": 0.942,
+      "Z_w2v_over_stripped": 0.802,
+      "Z_hybrid_over_stripped": 1.233,
+      "Z_w2v_over_name_leak": 613.0,
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782253548.3357882
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 5504.9,
+  "DESIGN_NOTE": "v2f retry of substrate self-mapping with PRETRAINED encoder (word2vec) vs char_trigram (with and without mechanism-keyword name-leak). Per Skunkworks v2e diagnosis: encoder was the bottleneck, not the discriminator. 4 arms hold v2e modularity-Z + Louvain + degree-preserving null fixed; swap only the atom encoding. HARD_PASS = w2v breaks self-mapping; HARD_FAIL = even semantic encoder cannot rescue; substrate self-mapping fundamentally hard regardless of encoder."
+}

@@ -1,0 +1,258 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SMOKE_1seeds_N512_Mmax200_DENSE_noise1.000_cap200_pur1.000_COMP_noise0.300_cap50_pur0.633_HPnoise=True_HPcap=False_HPcluster=False_endpoint=True_elapsed_0.6s",
+  "elapsed_s": 0.6288931369781494,
+  "summary": {
+    "anchor": "sparse_engram_allocation_smoke_v1",
+    "config_version": "sparse_engram_allocation_smoke_v1: 5 arms (DENSE / K100 / K50 / K20 / K10_COMPETITIVE); N_DIM=512 M_MAX=200 N_EVAL=40 sigmas=[0.0, 0.5, 1.0, 1.5]; HP: noise-sigma=1.5 recall_floor=0.10 AND capacity-lift>=2.0x AND cluster-gap>=0.10",
+    "run_mode": "smoke",
+    "seeds": [
+      7
+    ],
+    "N_DIM": 512,
+    "M_MAX": 200,
+    "N_EVAL": 40,
+    "SIGMA_TEST": [
+      0.0,
+      0.5,
+      1.0,
+      1.5
+    ],
+    "M_SWEEP": [
+      10,
+      50,
+      100,
+      200
+    ],
+    "arms": {
+      "ARM_DENSE_BASELINE": {
+        "noise_recall_mean": 1.0,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 200.0,
+        "capacity_std": 0.0,
+        "purity_mean": 1.0,
+        "purity_std": 0.0
+      },
+      "ARM_SPARSE_K100": {
+        "noise_recall_mean": 1.0,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 200.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.7333333333333333,
+        "purity_std": 0.0
+      },
+      "ARM_SPARSE_K50": {
+        "noise_recall_mean": 0.975,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 200.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.6333333333333333,
+        "purity_std": 0.0
+      },
+      "ARM_SPARSE_K20": {
+        "noise_recall_mean": 0.65,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 200.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.43333333333333335,
+        "purity_std": 0.0
+      },
+      "ARM_SPARSE_K10_COMPETITIVE": {
+        "noise_recall_mean": 0.3,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 50.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.6333333333333333,
+        "purity_std": 0.0
+      }
+    },
+    "hp_gates": {
+      "hp_noise_ok": true,
+      "hp_cap_ok": false,
+      "hp_cluster_ok": false,
+      "endpoint_ok": true,
+      "hp_noise_floor": 0.1,
+      "hp_noise_sigma": 1.5,
+      "hp_capacity_lift_mult": 2.0,
+      "hp_cluster_gap": 0.1
+    },
+    "hf_gates": {
+      "hf_noise": true,
+      "hf_cap": true,
+      "hf_cluster": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 512,
+      "M": 200,
+      "run_mode": "smoke",
+      "arms": {
+        "ARM_DENSE_BASELINE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_50": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_200": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            }
+          },
+          "capacity_at_sigma_1p0": 200,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 1.0,
+          "arm_elapsed_s": 0.13489890098571777
+        },
+        "ARM_SPARSE_K100": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_50": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_200": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            }
+          },
+          "capacity_at_sigma_1p0": 200,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 0.7333333333333333,
+          "arm_elapsed_s": 0.11258196830749512
+        },
+        "ARM_SPARSE_K50": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_50": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.925
+            },
+            "M_200": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.975
+            }
+          },
+          "capacity_at_sigma_1p0": 200,
+          "noise_recall_sigma_1.5": 0.975,
+          "cluster_purity": 0.6333333333333333,
+          "arm_elapsed_s": 0.12609100341796875
+        },
+        "ARM_SPARSE_K20": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.9
+            },
+            "M_50": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.975,
+              "sigma_1.5": 0.825
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.925,
+              "sigma_1.5": 0.725
+            },
+            "M_200": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.975,
+              "sigma_1.5": 0.65
+            }
+          },
+          "capacity_at_sigma_1p0": 200,
+          "noise_recall_sigma_1.5": 0.65,
+          "cluster_purity": 0.43333333333333335,
+          "arm_elapsed_s": 0.12313461303710938
+        },
+        "ARM_SPARSE_K10_COMPETITIVE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.7
+            },
+            "M_50": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.825,
+              "sigma_1.5": 0.4
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.725,
+              "sigma_1.5": 0.3
+            },
+            "M_200": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.45,
+              "sigma_1.5": 0.3
+            }
+          },
+          "capacity_at_sigma_1p0": 50,
+          "noise_recall_sigma_1.5": 0.3,
+          "cluster_purity": 0.6333333333333333,
+          "arm_elapsed_s": 0.1321866512298584
+        }
+      },
+      "elapsed_s": 0.6288931369781494,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782247744.1011207
+    }
+  }
+}

@@ -1,0 +1,518 @@
+{
+  "anchor_name": "substrate_hub_spoke_E1_encoder_v1",
+  "anchor": "substrate_hub_spoke_E1_encoder_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SANITY_RAIL_MISS: ARM_BASELINE_PATH_C_SINGLE bpc=4.752 deviates 2.867 from Path C v2 reference 7.618 (tol 0.100). Hub-spoke results suspect; provenance broken. HUB_SPOKE_E1 uni=bpc4.752|top10.4494 | ARM_BASELINE_PATH_C_SINGLE=bpc4.752|cv0.000|top10.4494|mrr0.5039 | ARM_HUB_SPOKE_3SPOKE=bpc4.752|cv0.000|top10.4494|mrr0.5021 | ARM_HUB_SPOKE_5SPOKE=bpc4.752|cv0.000|top10.4494|mrr0.5044 | ARM_HUB_SPOKE_WITH_CFRPE=bpc4.752|cv0.000|top10.4494|mrr0.5021 | best_hub=ARM_HUB_SPOKE_3SPOKE bpc=4.752 cv=0.000 | sanity_rail=MISS delta=2.867 | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 256,
+  "N": 256,
+  "N_TRAIN": 1500,
+  "N_HELD": 300,
+  "VOCAB_CAP": 200,
+  "INGEST_CHUNK": 256,
+  "RECALL_BATCH": 64,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "PC_ALPHA": 0.05,
+  "PC_BETA": 2.0,
+  "PC_N_LAYERS": 3,
+  "PC_N_PASSES": 1,
+  "PC_TRAINING_TOKENS": 500,
+  "SPARSE_BIPOLAR_F": 0.02,
+  "N_SPOKES_ARM2": 3,
+  "N_SPOKES_ARM3": 5,
+  "N_SPOKES_ARM4": 3,
+  "CFRPE_ETA": 0.02,
+  "CFRPE_N_STEPS": 8,
+  "arms": [
+    "ARM_BASELINE_PATH_C_SINGLE",
+    "ARM_HUB_SPOKE_3SPOKE",
+    "ARM_HUB_SPOKE_5SPOKE",
+    "ARM_HUB_SPOKE_WITH_CFRPE"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 4.7515,
+        "bpc_std": 0.0,
+        "top1_mean": 0.4494,
+        "top1_std": 0.0,
+        "mrr_mean": 0.5044,
+        "mrr_std": 0.0
+      },
+      "ARM_BASELINE_PATH_C_SINGLE": {
+        "bpc_best_mean": 4.7515,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.4494,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.5039,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6637,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_3SPOKE": {
+        "bpc_best_mean": 4.7515,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.4494,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.5021,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6268,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_5SPOKE": {
+        "bpc_best_mean": 4.7515,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.4494,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.5044,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.9498,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_WITH_CFRPE": {
+        "bpc_best_mean": 4.7515,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.4494,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.5021,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6268,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "primary_arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+    "best_hub_arm": "ARM_HUB_SPOKE_3SPOKE",
+    "best_hub_bpc": 4.7515,
+    "best_hub_cv": 0.0,
+    "sanity_rail_ok": false,
+    "sanity_rail_delta": 2.8669,
+    "sanity_rail_ref": 7.6184,
+    "sanity_rail_tol": 0.1,
+    "degen_arms": [
+      "ARM_BASELINE_PATH_C_SINGLE",
+      "ARM_HUB_SPOKE_3SPOKE",
+      "ARM_HUB_SPOKE_5SPOKE",
+      "ARM_HUB_SPOKE_WITH_CFRPE"
+    ],
+    "vocab_entropy_uniform_bits": 7.6439,
+    "any_substrate_clears_unigram_bpc": false,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_bpc_max": 7.2,
+    "cg_bpc_max": 6.95,
+    "hf_bpc_min": 7.6,
+    "hp_bpc_cv_max": 0.05,
+    "CONFIG_VERSION": "substrate_hub_spoke_E1_encoder_v1; N_DIM=256 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=200 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=500 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=8 MRR_K=10 device=cpu; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+    "honest_scope": "Hub-and-spoke E1 federation encoder. 4 arms: single PC (baseline), 3-spoke, 5-spoke, 3-spoke+cf-RPE (primary). Sparse-bipolar f=0.020 with 1/sqrt(f) amplitude scaling per Stage-1 foundations. Hub aggregates via majority-rule (or cf-RPE-gated weighted) bundling -- no multiplicative compose. Substrate-OWNED encoders only (Lane 1; no word2vec/Pythia leakage). N_DIM=256 N_TRAIN=1500 N_HELD=300 V=200. Sanity rail: baseline within +/- 0.10 of Path C v2 ref 7.6184.",
+    "cites": [
+      "preregs/2026-06-24_substrate_hub_spoke_E1_encoder_v1.md",
+      "notes/research_optimal_substrate_encoding_design_space_2x_drill_2026-06-24.md",
+      "notes/director_stage2_preauthored_dispatch_specs_2026-06-24.md",
+      "experiments/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2.py",
+      "data/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2/metrics.json",
+      "USER_2026-06-23_Path_C_substrate_owned_encoder_is_the_answer",
+      "USER_2026-06-22_Fix24_GPU_must_use_GPU"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_hub_spoke_E1_encoder_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 4.7515,
+          "top1_unigram": 0.4494,
+          "mrr_unigram": 0.5044,
+          "n_test": 89
+        },
+        "ARM_BASELINE_PATH_C_SINGLE": {
+          "bpc_best": 4.7515,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.0732,
+          "top1_acc": 0.4494,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.5039,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.6637,
+          "raw_top1_at_T1_L1": 0.1348,
+          "n_dev": 88,
+          "n_test": 89,
+          "elapsed_s_arm": 0.05,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "arm": "ARM_BASELINE_PATH_C_SINGLE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.6006
+                  ],
+                  "L3": [
+                    16.0864
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.01,
+                "n_updates": 4,
+                "alpha": 0.05,
+                "beta": 2.0
+              }
+            ],
+            "n_spokes": 1,
+            "wall_encoder_s": 0.02
+          }
+        },
+        "ARM_HUB_SPOKE_3SPOKE": {
+          "bpc_best": 4.7515,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.0732,
+          "top1_acc": 0.4494,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.5021,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 7.6268,
+          "raw_top1_at_T1_L1": 0.1236,
+          "n_dev": 88,
+          "n_test": 89,
+          "elapsed_s_arm": 0.05,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_3SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.825
+                  ],
+                  "L3": [
+                    16.0649
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.01,
+                "n_updates": 4,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 13
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.7784
+                  ],
+                  "L3": [
+                    16.354
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 26
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.544
+                  ],
+                  "L3": [
+                    16.3876
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.01,
+                "n_updates": 4,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 39
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 0.02
+          }
+        },
+        "ARM_HUB_SPOKE_5SPOKE": {
+          "bpc_best": 4.7515,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.0732,
+          "top1_acc": 0.4494,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.5044,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.0,
+          "raw_bpc_at_T1_L1": 7.9498,
+          "raw_top1_at_T1_L1": 0.0562,
+          "n_dev": 88,
+          "n_test": 89,
+          "elapsed_s_arm": 0.06,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_5SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.825
+                  ],
+                  "L3": [
+                    16.0504
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.037500000000000006,
+                "beta": 1.75,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.037500000000000006,
+                "spoke_beta": 1.75,
+                "spoke_seed": 13
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.7784
+                  ],
+                  "L3": [
+                    16.3404
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 26
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.544
+                  ],
+                  "L3": [
+                    16.4094
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.01,
+                "n_updates": 4,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 39
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.7095
+                  ],
+                  "L3": [
+                    16.643
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 3,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 52
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.8128
+                  ],
+                  "L3": [
+                    16.5626
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.057499999999999996,
+                "beta": 2.15,
+                "spoke_idx": 4,
+                "spoke_alpha": 0.057499999999999996,
+                "spoke_beta": 2.15,
+                "spoke_seed": 65
+              }
+            ],
+            "n_spokes": 5,
+            "wall_encoder_s": 0.03
+          }
+        },
+        "ARM_HUB_SPOKE_WITH_CFRPE": {
+          "bpc_best": 4.7515,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.0732,
+          "top1_acc": 0.4494,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.5021,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 7.6268,
+          "raw_top1_at_T1_L1": 0.1236,
+          "n_dev": 88,
+          "n_test": 89,
+          "elapsed_s_arm": 0.05,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+            "cfrpe_gates": [
+              0.33399999141693115,
+              0.33329999446868896,
+              0.3327000141143799
+            ],
+            "cfrpe_gate_std_over_mean": 0.002,
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.825
+                  ],
+                  "L3": [
+                    16.0649
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.01,
+                "n_updates": 4,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 13
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.7784
+                  ],
+                  "L3": [
+                    16.354
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 26
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    19.544
+                  ],
+                  "L3": [
+                    16.3876
+                  ]
+                },
+                "n_train_tokens": 500,
+                "wall_train_s": 0.0,
+                "n_updates": 4,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 39
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 0.03
+          }
+        }
+      },
+      "V": 200,
+      "N": 256,
+      "N_DIM": 256,
+      "N_TRAIN": 1500,
+      "N_HELD": 300,
+      "VOCAB_CAP": 200,
+      "run_mode": "smoke",
+      "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=256 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=200 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=500 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=8 MRR_K=10 device=cpu; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+      "elapsed_s_seed": 0.23,
+      "device": "cpu",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782354430.840885
+    }
+  ],
+  "elapsed_s": 0.2716827392578125,
+  "summary": "SANITY_RAIL_MISS: ARM_BASELINE_PATH_C_SINGLE bpc=4.752 deviates 2.867 from Path C v2 reference 7.618 (tol 0.100). Hub-spoke results suspect; provenance broken. HUB_SPOKE_E1 uni=bpc4.752|top10.4494 | ARM_BASELINE_PATH_C_SINGLE=bpc4.752|cv0.0",
+  "substrate_only_decode_gate": "TRUE (substrate-OWNED PC encoders only; hub aggregates via majority-rule or cf-RPE-gated; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=256 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=200 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=500 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=8 MRR_K=10 device=cpu; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

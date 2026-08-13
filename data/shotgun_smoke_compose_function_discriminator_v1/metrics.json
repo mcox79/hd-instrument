@@ -1,0 +1,86 @@
+{
+  "arms": {
+    "ARM_MULTIPLICATIVE": {
+      "bpc_mean": 7.416210651397705,
+      "bpc_std": 0.001324519790780042,
+      "readout_entropy_mean": 7.972237904866536,
+      "gate_mean_mean": 0.12288818797877799,
+      "gate_std_mean": 0.1456795874555176,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.3788164546796559,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_MULTIPLICATIVE_FLOOR01": {
+      "bpc_mean": 7.41058333714803,
+      "bpc_std": 0.0014275659506278724,
+      "readout_entropy_mean": 7.972243785858154,
+      "gate_mean_mean": 0.12386895990058579,
+      "gate_std_mean": 0.14488974107315988,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.38444376892933035,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_MULTIPLICATIVE_FLOOR10": {
+      "bpc_mean": 7.242019494374593,
+      "bpc_std": 0.009556196735134394,
+      "readout_entropy_mean": 7.97301721572876,
+      "gate_mean_mean": 0.1630676733097247,
+      "gate_std_mean": 0.1208622388113157,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.5530076117027679,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_SIGMOID_ADDITIVE": {
+      "bpc_mean": 7.054003397623698,
+      "bpc_std": 0.004037117318444528,
+      "readout_entropy_mean": 7.9746599197387695,
+      "gate_mean_mean": 0.8052254189799734,
+      "gate_std_mean": 0.07691471764996283,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.741023708453663,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_LOG_ADDITIVE": {
+      "bpc_mean": 7.416209538777669,
+      "bpc_std": 0.0013243583777071848,
+      "readout_entropy_mean": 7.972237904866536,
+      "gate_mean_mean": 0.12288893112495723,
+      "gate_std_mean": 0.14568008361855397,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.3788175672996917,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_MAX_POOL": {
+      "bpc_mean": 7.081919511159261,
+      "bpc_std": 0.004082766262455512,
+      "readout_entropy_mean": 7.974442323048909,
+      "gate_mean_mean": 0.7482781292582873,
+      "gate_std_mean": 0.19432500793805033,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.7131075949180999,
+      "unigram_bpc": 7.8353136373101435
+    },
+    "ARM_CONTROL_NO_MOD": {
+      "bpc_mean": 7.049361387888591,
+      "bpc_std": 0.004176568268520676,
+      "readout_entropy_mean": 7.974712053934733,
+      "gate_mean_mean": 1.0,
+      "gate_std_mean": 0.0,
+      "collapse_any_seed": false,
+      "bpc_vs_unigram_mean": -0.7456657181887705,
+      "unigram_bpc": 7.8353136373101435
+    }
+  },
+  "config": {
+    "N_DIM": 256,
+    "N_TRAIN": 1000,
+    "SEEDS": [
+      42,
+      137,
+      999
+    ],
+    "VOCAB": 256
+  },
+  "wall_s": 8.732604503631592,
+  "purpose": "shotgun_smoke_information_acquisition_only"
+}

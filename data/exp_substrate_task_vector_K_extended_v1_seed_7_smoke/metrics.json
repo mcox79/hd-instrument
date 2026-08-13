@@ -1,0 +1,64 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SMOKE_DISCRIMINATOR_FAILED | smoke discriminator FAILED-TO-FIRE (mechanism still alive): TV(K=200)=0.870 >= floor 0.3 (mechanism not yet in cliff regime; extended-K reach premise questionable) | original_aggregate: MIDDLE_BAND | K_of_mechanism_death=None | K_alive=[200] | regime_flip_at_K=[] | K50_floor_ok=False | cv_gate_ok=True | cv_violations=[] | all_dead=False | all_saturated=False | extended-K partial: K50_ok=False K_of_mechanism_death=None cv_violations=[]",
+  "summary": "SMOKE_DISCRIMINATOR_FAILED | smoke discriminator FAILED-TO-FIRE (mechanism still alive): TV(K=200)=0.870 >= floor 0.3 (mechanism not yet in cliff regime; extended-K reach premise questionable) | original_aggregate: MIDDLE_BAND | K_of_mechanism_death=None | K_alive=[200] | regime_flip_at_K=[] | K50_floor_ok=False | cv_gate_ok=True | cv_violations=[] | all_dead=False | all_saturated=False | extended-K partial: K50_ok=False K_of_mechanism_death=None cv_violations=[]",
+  "K_of_mechanism_death": null,
+  "mechanism_alive_at_K": [
+    200
+  ],
+  "regime_flip_at_K": [],
+  "per_K_cross_seed_summary": [
+    {
+      "K": 200,
+      "TV_top1_recall_mean": 0.87,
+      "TV_top1_recall_std_across_seeds": 0.0,
+      "TV_top1_recall_cv_across_seeds": 0.0,
+      "RV_top1_recall_mean": 0.01,
+      "arms_diff_TV_minus_RV": 0.86,
+      "mechanism_alive": true,
+      "regime_flip": false,
+      "high_signal_regime": true,
+      "cv_gate_passes": true,
+      "n_seeds": 1
+    }
+  ],
+  "K50_floor_ok": false,
+  "cv_gate_ok": true,
+  "cv_violations_high_signal_K": [],
+  "all_dead": false,
+  "all_saturated_high": false,
+  "n_seeds_complete": 1,
+  "extended_K_v1_metric_constants": {
+    "K_VALUES": [
+      50,
+      100,
+      200,
+      500,
+      1000
+    ],
+    "V_TASKS": 10,
+    "OVERLAP": 0.0,
+    "V_ENTS_POOL": 1000,
+    "N_QUERIES_FULL": 100,
+    "N_DIM_FULL": 8192,
+    "HP_K50_FLOOR_RECALL": 0.85,
+    "HP_MECHANISM_FLOOR_RATIO": 0.3,
+    "HP_CV_HIGH_SIGNAL": 0.1,
+    "HP_HIGH_SIGNAL_THRESHOLD": 0.5,
+    "DISCRIMINATOR_SMOKE_FLOOR": 0.3
+  },
+  "anchor_name": "substrate_task_vector_K_extended_v1_seed_7",
+  "elapsed_s": 3.22,
+  "ts_iso": "2026-07-01T13:23:52Z",
+  "pid": 26568,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_task_vector_K_extended_v1_seed_7,N=8192,SEED=7,mode=smoke,K=[50,100,200,500,1000],V=10,ov=0.0,V_ENTS_POOL=1000,n_queries_full=100,n_queries_smoke=100,arms=[TASK_VECTOR,RANDOM_VECTOR,ORACLE],expected_n_full=1500,expected_n_smoke=300,referent=v3_task_vector_K_cliff_phase_diagram_v3_MB_2026-06-28,lever=K_axis_extended_reach_50_to_1000,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_taskvec_K_extended_chunked",
+  "backend": "numpy.cpu",
+  "seed": 7,
+  "expected_n": 300,
+  "observed_n": 300,
+  "cardinality_ok": true,
+  "smoke_discriminator_fired": false,
+  "smoke_discriminator_msg": "smoke discriminator FAILED-TO-FIRE (mechanism still alive): TV(K=200)=0.870 >= floor 0.3 (mechanism not yet in cliff regime; extended-K reach premise questionable)"
+}

@@ -1,0 +1,98 @@
+{
+  "anchor_name": "substrate_brain_word_level_prediction_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate at K=5 partially beats word-bigram. S_K5 top1=0.191 vs B2_top1=0.186 (lift 1.027x). S_K5 BPW=6.174 vs B2_BPW=6.449 (margin 0.275 bits).",
+  "run_mode": "smoke",
+  "config_version": "substrate_brain_word_level_prediction_v1; mode=smoke seeds=[0] N_TRAIN=8000 N_HELD=2000 V=400 N_DIM=512 K=[1, 5, 10] temps=[0.1, 0.5, 1.0] lambdas=[0.0, 0.5] HP_TOP1_LIFT=1.30 HP_BPW_MARGIN=0.40",
+  "n_seeds": 1,
+  "seeds": [
+    0
+  ],
+  "arms": [
+    "B1_word_unigram",
+    "B2_word_bigram",
+    "S_K1",
+    "S_K5",
+    "S_K10"
+  ],
+  "per_seed": [
+    {
+      "seed": 0,
+      "run_mode": "smoke",
+      "elapsed_s": 4.355142116546631,
+      "V": 386,
+      "N_DIM": 512,
+      "N_TRAIN": 8000,
+      "N_HELD": 2000,
+      "B1_word_unigram": {
+        "bpw": 6.173779963429277,
+        "top1": 0.19119119119119118
+      },
+      "B2_word_bigram": {
+        "bpw": 6.448543855270034,
+        "top1": 0.18618618618618618
+      },
+      "S_K1": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118,
+        "top1_raw": 0.0,
+        "T_star": 0.1,
+        "lambda_star": 0.0
+      },
+      "S_K5": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118,
+        "top1_raw": 0.003003003003003003,
+        "T_star": 0.1,
+        "lambda_star": 0.0
+      },
+      "S_K10": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118,
+        "top1_raw": 0.001001001001001001,
+        "T_star": 0.1,
+        "lambda_star": 0.0
+      },
+      "sk1_b1_top1_delta": 0.0,
+      "_ckpt_key": "0",
+      "_partial_written_at": 1782311751.2364736
+    }
+  ],
+  "honest_scope": {
+    "what_this_shows": "Whether substrate at word-grain (V=400) beats word-bigram baseline on text8 hold-out. Word-bigram is the real aliveness threshold for any LM (unigram is the trivial floor).",
+    "what_this_does_NOT_show": [
+      "Substrate behavior at V_word > 4000 (this cell caps at V=400)",
+      "Substrate with a learned encoder (frozen char-trigram-meanpool only)",
+      "Sequence > K=10 word context",
+      "Cross-corpus (text8-only; no WikiText / OpenWebText)",
+      "Brain compose stack interactions (no PC top-down, no WM register, no DA-LR)"
+    ],
+    "primary_arm": "S_K5",
+    "real_baseline": "B2_word_bigram (NOT B1_word_unigram)",
+    "arms_avg": {
+      "B1_word_unigram": {
+        "bpw": 6.173779963429277,
+        "top1": 0.19119119119119118
+      },
+      "B2_word_bigram": {
+        "bpw": 6.448543855270034,
+        "top1": 0.18618618618618618
+      },
+      "S_K1": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118
+      },
+      "S_K5": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118
+      },
+      "S_K10": {
+        "bpw": 6.1737799634292765,
+        "top1": 0.19119119119119118
+      }
+    },
+    "per_arm_metrics_path": "per_seed[*].{arm} for all arms in ARMS"
+  },
+  "elapsed_s": 4.5267322063446045,
+  "summary": "MIDDLE_BAND: substrate at K=5 partially beats word-bigram. S_K5 top1=0.191 vs B2_top1=0.186 (lift 1.027x). S_K5 BPW=6.174 vs B2_BPW=6.449 (margin 0.275 bits)."
+}

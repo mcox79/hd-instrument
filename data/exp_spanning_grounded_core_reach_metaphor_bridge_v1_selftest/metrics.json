@@ -1,0 +1,23 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS: planted metaphor bridge flips MATH-OPERATION reach positive; magnitude/base graph anti-grounds it; scrambled mapping + random schema collapse the gain; arms differ. {'op_sim_mech': 0.2917, 'op_sim_baseline': -0.0258, 'op_sim_scrambled': -0.0334, 'op_sim_random': -0.0991, 'op_gain': 0.3175, 'op_reach_mech': 0.5625, 'n_meta_correct': 32, 'n_meta_scrambled': 32, 'mech_fires': True, 'baseline_anti': True, 'scramble_fires': True, 'random_fires': True, 'reach_moves': True, 'arms_differ': True}",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.006749199936166406,
+  "mechanism_selftest": {
+    "op_sim_mech": 0.2917,
+    "op_sim_baseline": -0.0258,
+    "op_sim_scrambled": -0.0334,
+    "op_sim_random": -0.0991,
+    "op_gain": 0.3175,
+    "op_reach_mech": 0.5625,
+    "n_meta_correct": 32,
+    "n_meta_scrambled": 32,
+    "mech_fires": true,
+    "baseline_anti": true,
+    "scramble_fires": true,
+    "random_fires": true,
+    "reach_moves": true,
+    "arms_differ": true
+  }
+}

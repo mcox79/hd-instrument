@@ -1,0 +1,71 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS rule-gated compose: high-confidence rule gate admits reliable 2-hop terms that lift the additive bundle over pure ANCHOR; shuffled-rule gate + random fail; ORACLE fires; POP at floor; 8 validity-preflight checks declared (incl real_code_path + 2x signature + guard_baseline_valid)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 9.95721489994321,
+  "mechanism_selftest": {
+    "N": 810,
+    "n_heldout_entities": 121,
+    "n_support": 99,
+    "n_query": 92,
+    "n_cold": 19,
+    "n_rules_train": 3,
+    "n_2hop_cand": 63,
+    "n_2hop_admitted_gated": 11,
+    "n_2hop_admitted_shuffled": 11,
+    "n_2hop_admitted_all": 63,
+    "top_rules": [
+      {
+        "rule": "rC0(x,z) <= rA0(x,y) & rB0(y,z)",
+        "conf": 1.0,
+        "support": 58
+      },
+      {
+        "rule": "rC1(x,z) <= rA1(x,y) & rB1(y,z)",
+        "conf": 1.0,
+        "support": 50
+      },
+      {
+        "rule": "rC2(x,z) <= rA2(x,y) & rB2(y,z)",
+        "conf": 1.0,
+        "support": 58
+      }
+    ],
+    "heldout_mrr": {
+      "RULE_GATED": 0.23586,
+      "ANCHOR": 0.222266,
+      "SHUFFLED": 0.219661,
+      "ALL_2HOP": 0.190405,
+      "RANDOM": 0.007613,
+      "ORACLE": 0.667495,
+      "BASELINE_POP": 0.003555
+    },
+    "n_distinct_sigs": 7,
+    "lift": 0.013594,
+    "gate_vs_shuffle": 0.016199,
+    "anchor_vs_random": 0.214653,
+    "oracle_headroom": 0.659882,
+    "oracle_ratio": 87.68,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "gate_lifts": true,
+    "gate_selective": true,
+    "gate_fired": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "HARD_PASS_RULE_GATE_LIFTS_ADDITIVE",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path",
+      "substrate_signature(x2)",
+      "guard_baseline_valid"
+    ]
+  }
+}

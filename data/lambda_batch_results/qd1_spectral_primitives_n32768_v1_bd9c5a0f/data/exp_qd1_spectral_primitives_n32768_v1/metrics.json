@@ -1,0 +1,63 @@
+{
+  "anchor": "qd1_spectral_primitives_n32768_v1",
+  "run_mode": "full",
+  "N": 32768,
+  "alpha_grid": [
+    0.01,
+    0.02,
+    0.05
+  ],
+  "n_seeds": 5,
+  "alpha_summaries": {
+    "0.01": {
+      "seeds_hp": 0,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.005614903347551483,
+      "mean_sigma_dev": 5.749661027892716,
+      "hp_pass": false
+    },
+    "0.02": {
+      "seeds_hp": 3,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.0021267016508717965,
+      "mean_sigma_dev": 2.177742490492719,
+      "hp_pass": false
+    },
+    "0.05": {
+      "seeds_hp": 4,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.0014269606915814892,
+      "mean_sigma_dev": 1.4612077481794443,
+      "hp_pass": true
+    }
+  },
+  "qd1_v1b_summaries": {
+    "0.01": {
+      "sigma_tw_emp": 0.0017456456822908342,
+      "sigma_tw_theory": 0.0010989257812500006,
+      "rel_dev_from_theory": 0.5885018916429514,
+      "v1b_pass": false
+    },
+    "0.02": {
+      "sigma_tw_emp": 0.002057659547240505,
+      "sigma_tw_theory": 0.001183245822852926,
+      "rel_dev_from_theory": 0.738995826141417,
+      "v1b_pass": false
+    },
+    "0.05": {
+      "sigma_tw_emp": 0.002290908533059057,
+      "sigma_tw_theory": 0.0013597740662255485,
+      "rel_dev_from_theory": 0.6847714557596654,
+      "v1b_pass": false
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 5.354803800582886,
+  "thresholds": {
+    "HP_sigma": 3.0,
+    "HP_rel_err": 0.1,
+    "HF_sigma": 10.0,
+    "HF_rel_err": 0.2
+  },
+  "verdict_msg": "Tracy-Widom spectral edge at N=32768: alpha_summaries per-alpha: alpha=0.01: rel_err=0.0056 sigma_dev=5.75; alpha=0.02: rel_err=0.0021 sigma_dev=2.18; alpha=0.05: rel_err=0.0014 sigma_dev=1.46. Verdict: MIDDLE_BAND."
+}

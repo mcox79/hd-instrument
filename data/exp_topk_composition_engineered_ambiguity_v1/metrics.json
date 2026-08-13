@@ -1,0 +1,119 @@
+{
+  "anchor_name": "topk_composition_engineered_ambiguity_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: amb_frac 0.011 < 0.15 (mechanism still not exercised at engineered-ambiguity regime; by-construction-saturation persists). T1(corr=0.999); REFUSE(corr=0.989); DISJ(corr=1.000,cv=0.000,false_disj=0.000); amb_frac=0.011 amb_rec@K=2=1.000",
+  "summary": "n_seeds=3 N=2048 M=400 alpha=0.195 mode=full p_flip=0.35 near_frac=0.4",
+  "elapsed_s": 7.406240224838257,
+  "config_version": "ANCHOR=topk_composition_engineered_ambiguity_v1,N=2048,M=400,alpha=0.195,SEEDS=7-17-23,N_QUERIES=600,P_FLIP=0.35,GAP_TAU=0.1,K_DISJ=2,BETA=4.0,NEAR_FRAC=0.4,NEAR_HAM=0.12,RUN_MODE=full",
+  "N": 2048,
+  "M": 400,
+  "alpha": 0.1953125,
+  "n_seeds": 3,
+  "n_queries": 600,
+  "p_flip": 0.35,
+  "gap_tau": 0.1,
+  "k_disj": 2,
+  "beta_softmax": 4.0,
+  "engineered_near_frac": 0.4,
+  "near_hamming_frac": 0.12,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 1.6807777881622314,
+      "ambiguous_frac": 0.011666666666666667,
+      "ambiguous_recall_at_K": 1.0,
+      "arms": [
+        {
+          "arm_name": "ARM_TOP1_COMMIT_BASELINE",
+          "correctness": 0.9983333333333333,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_REFUSE_ON_SMALL_GAP",
+          "correctness": 0.9883333333333333,
+          "n_emitted": 593,
+          "n_refused": 7,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_TOPK_DISJUNCTIVE",
+          "correctness": 1.0,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 7,
+          "false_disjunction_rate": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 2.6046383380889893,
+      "ambiguous_frac": 0.008333333333333333,
+      "ambiguous_recall_at_K": 1.0,
+      "arms": [
+        {
+          "arm_name": "ARM_TOP1_COMMIT_BASELINE",
+          "correctness": 1.0,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_REFUSE_ON_SMALL_GAP",
+          "correctness": 0.9916666666666667,
+          "n_emitted": 595,
+          "n_refused": 5,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_TOPK_DISJUNCTIVE",
+          "correctness": 1.0,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 5,
+          "false_disjunction_rate": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 2.7313191890716553,
+      "ambiguous_frac": 0.011666666666666667,
+      "ambiguous_recall_at_K": 1.0,
+      "arms": [
+        {
+          "arm_name": "ARM_TOP1_COMMIT_BASELINE",
+          "correctness": 0.9983333333333333,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_REFUSE_ON_SMALL_GAP",
+          "correctness": 0.9883333333333333,
+          "n_emitted": 593,
+          "n_refused": 7,
+          "n_disjuncted": 0,
+          "false_disjunction_rate": 0.0
+        },
+        {
+          "arm_name": "ARM_TOPK_DISJUNCTIVE",
+          "correctness": 1.0,
+          "n_emitted": 600,
+          "n_refused": 0,
+          "n_disjuncted": 7,
+          "false_disjunction_rate": 0.0
+        }
+      ]
+    }
+  ]
+}

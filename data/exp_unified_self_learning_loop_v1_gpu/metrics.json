@@ -1,0 +1,905 @@
+{
+  "anchor_name": "unified_self_learning_loop_v1_gpu",
+  "run_mode": "full",
+  "ts_iso": "2026-07-27T16:39:44.207627+00:00",
+  "encoder_source": "v2_checkpoint:ckpt_seed_7.pt",
+  "device": "cuda",
+  "n_held_concepts": 677,
+  "n_cycles": 6,
+  "mentions_per_cycle": 16,
+  "corpus_stats": {
+    "n_read": 10000000,
+    "n_kept": 8923418,
+    "n_dup": 67749,
+    "n_lowq": 1008833,
+    "dup_rate": 0.0067749,
+    "total_alpha_tokens": 158090891
+  },
+  "collect_meta": {
+    "n_train_lines": 5461047,
+    "n_held_lines": 3462371,
+    "bpe_sample": 400000,
+    "train_tokens_available": 79893563,
+    "scrub_terms": 6457
+  },
+  "arms": {
+    "MAIN_read_sleep": {
+      "arm": "MAIN_read_sleep",
+      "auc_curve": [
+        0.6360965809002572,
+        0.6398314478895585,
+        0.6407201543928533,
+        0.6395578231292517,
+        0.638163893074008,
+        0.6382402120523823
+      ],
+      "sleep_log": [
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 32,
+              "coherence": 0.9794,
+              "compression_ratio": 30.2533
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 32,
+              "coherence": 0.982,
+              "compression_ratio": 30.4574
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 32,
+              "coherence": 0.977,
+              "compression_ratio": 30.0699
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 32,
+              "coherence": 0.9799,
+              "compression_ratio": 30.2911
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 32,
+              "coherence": 0.9801,
+              "compression_ratio": 30.3097
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 48,
+              "coherence": 0.9806,
+              "compression_ratio": 44.3707
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 48,
+              "coherence": 0.9828,
+              "compression_ratio": 44.7437
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 48,
+              "coherence": 0.9771,
+              "compression_ratio": 43.8002
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 48,
+              "coherence": 0.9801,
+              "compression_ratio": 44.2934
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 48,
+              "coherence": 0.9765,
+              "compression_ratio": 43.7047
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 64,
+              "coherence": 0.9803,
+              "compression_ratio": 57.6378
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 64,
+              "coherence": 0.9831,
+              "compression_ratio": 58.4467
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 64,
+              "coherence": 0.9777,
+              "compression_ratio": 56.9162
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 64,
+              "coherence": 0.9804,
+              "compression_ratio": 57.6625
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 64,
+              "coherence": 0.978,
+              "compression_ratio": 56.9989
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 80,
+              "coherence": 0.979,
+              "compression_ratio": 69.7523
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 80,
+              "coherence": 0.9816,
+              "compression_ratio": 70.8517
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 80,
+              "coherence": 0.9775,
+              "compression_ratio": 69.1259
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 80,
+              "coherence": 0.981,
+              "compression_ratio": 70.5833
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 80,
+              "coherence": 0.9778,
+              "compression_ratio": 69.2648
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 96,
+              "coherence": 0.9794,
+              "compression_ratio": 81.838
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 96,
+              "coherence": 0.9812,
+              "compression_ratio": 82.9012
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 96,
+              "coherence": 0.9783,
+              "compression_ratio": 81.2146
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 96,
+              "coherence": 0.9814,
+              "compression_ratio": 82.9712
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 96,
+              "coherence": 0.9777,
+              "compression_ratio": 80.8641
+            }
+          ]
+        }
+      ],
+      "flag_log": [
+        677,
+        677,
+        677,
+        0,
+        0,
+        0
+      ],
+      "n_query_final": 596,
+      "n_committed_final": 677,
+      "raw_grounding_auc": 0.5602857140479233,
+      "shuffle_auc": 0.48939784456847607,
+      "pop_auc": 0.5098813720818305
+    },
+    "NO_READ": {
+      "arm": "NO_READ",
+      "auc_curve": [
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572
+      ],
+      "sleep_log": [
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        }
+      ],
+      "flag_log": [
+        677,
+        677,
+        677,
+        677,
+        677,
+        677
+      ],
+      "n_query_final": 596,
+      "n_committed_final": 677,
+      "raw_grounding_auc": 0.5602857140479233,
+      "shuffle_auc": 0.49190583909738395,
+      "pop_auc": 0.5098813720818305
+    },
+    "SCRAMBLED": {
+      "arm": "SCRAMBLED",
+      "auc_curve": [
+        0.6217802332062579,
+        0.628577451814059,
+        0.6296463550464929,
+        0.6277290591851953,
+        0.6299056802530856,
+        0.6297824926950646
+      ],
+      "sleep_log": [
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9795,
+              "compression_ratio": 15.5532
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9851,
+              "compression_ratio": 15.6712
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9781,
+              "compression_ratio": 15.5255
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9859,
+              "compression_ratio": 15.6867
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9842,
+              "compression_ratio": 15.6512
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 32,
+              "coherence": 0.9812,
+              "compression_ratio": 30.3933
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 32,
+              "coherence": 0.9839,
+              "compression_ratio": 30.6132
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 32,
+              "coherence": 0.979,
+              "compression_ratio": 30.2274
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 32,
+              "coherence": 0.9826,
+              "compression_ratio": 30.5037
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 32,
+              "coherence": 0.9819,
+              "compression_ratio": 30.4534
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 48,
+              "coherence": 0.9818,
+              "compression_ratio": 44.576
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 48,
+              "coherence": 0.9842,
+              "compression_ratio": 44.9944
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 48,
+              "coherence": 0.9791,
+              "compression_ratio": 44.1233
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 48,
+              "coherence": 0.9825,
+              "compression_ratio": 44.7019
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 48,
+              "coherence": 0.9785,
+              "compression_ratio": 44.0314
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 64,
+              "coherence": 0.9818,
+              "compression_ratio": 58.0604
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 64,
+              "coherence": 0.9842,
+              "compression_ratio": 58.7573
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 64,
+              "coherence": 0.9797,
+              "compression_ratio": 57.4789
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 64,
+              "coherence": 0.9826,
+              "compression_ratio": 58.2877
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 64,
+              "coherence": 0.9796,
+              "compression_ratio": 57.4313
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 80,
+              "coherence": 0.9804,
+              "compression_ratio": 70.3564
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 80,
+              "coherence": 0.983,
+              "compression_ratio": 71.4334
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 80,
+              "coherence": 0.9797,
+              "compression_ratio": 70.0417
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 80,
+              "coherence": 0.9829,
+              "compression_ratio": 71.4173
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 80,
+              "coherence": 0.9796,
+              "compression_ratio": 69.9886
+            }
+          ]
+        },
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 96,
+              "coherence": 0.9807,
+              "compression_ratio": 82.5761
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 96,
+              "coherence": 0.9828,
+              "compression_ratio": 83.8112
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 96,
+              "coherence": 0.9803,
+              "compression_ratio": 82.3785
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 96,
+              "coherence": 0.9832,
+              "compression_ratio": 84.0445
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 96,
+              "coherence": 0.9797,
+              "compression_ratio": 82.0021
+            }
+          ]
+        }
+      ],
+      "flag_log": [
+        677,
+        677,
+        677,
+        0,
+        0,
+        0
+      ],
+      "n_query_final": 596,
+      "n_committed_final": 677,
+      "raw_grounding_auc": 0.5602857140479233,
+      "shuffle_auc": 0.4864026450904746,
+      "pop_auc": 0.5098813720818305
+    },
+    "READ_NO_SLEEP": {
+      "arm": "READ_NO_SLEEP",
+      "auc_curve": [
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572,
+        0.6360965809002572
+      ],
+      "sleep_log": [
+        {
+          "n_consolidated": 677,
+          "n_kept_episodic": 0,
+          "sample_commits": [
+            {
+              "concept_idx": 12,
+              "n_mentions": 16,
+              "coherence": 0.9773,
+              "compression_ratio": 15.5081
+            },
+            {
+              "concept_idx": 20,
+              "n_mentions": 16,
+              "coherence": 0.9834,
+              "compression_ratio": 15.6339
+            },
+            {
+              "concept_idx": 64,
+              "n_mentions": 16,
+              "coherence": 0.9749,
+              "compression_ratio": 15.4607
+            },
+            {
+              "concept_idx": 80,
+              "n_mentions": 16,
+              "coherence": 0.9843,
+              "compression_ratio": 15.6543
+            },
+            {
+              "concept_idx": 82,
+              "n_mentions": 16,
+              "coherence": 0.9828,
+              "compression_ratio": 15.6231
+            }
+          ]
+        },
+        {
+          "n_consolidated": 0,
+          "n_kept_episodic": 677,
+          "sample_commits": [],
+          "sleep_disabled": true
+        },
+        {
+          "n_consolidated": 0,
+          "n_kept_episodic": 677,
+          "sample_commits": [],
+          "sleep_disabled": true
+        },
+        {
+          "n_consolidated": 0,
+          "n_kept_episodic": 677,
+          "sample_commits": [],
+          "sleep_disabled": true
+        },
+        {
+          "n_consolidated": 0,
+          "n_kept_episodic": 677,
+          "sample_commits": [],
+          "sleep_disabled": true
+        },
+        {
+          "n_consolidated": 0,
+          "n_kept_episodic": 677,
+          "sample_commits": [],
+          "sleep_disabled": true
+        }
+      ],
+      "flag_log": [
+        677,
+        677,
+        677,
+        0,
+        0,
+        0
+      ],
+      "n_query_final": 596,
+      "n_committed_final": 677,
+      "raw_grounding_auc": 0.5602857140479233,
+      "shuffle_auc": 0.49190583909738395,
+      "pop_auc": 0.5098813720818305
+    }
+  },
+  "arm_store_digests": {
+    "MAIN_read_sleep": "c32856b4b2154401385a683ed61bbd3a0d1288653af23338118b83ed9d7955bd",
+    "NO_READ": "5e0483fba7027213baf0703ef665a412b683dd26bf09b05c8aa1e26f116fd373",
+    "SCRAMBLED": "b675cf345ea4a75d48dd71b977cb635e798dcb38190ee6b78facfc08c8444620",
+    "READ_NO_SLEEP": "5e0483fba7027213baf0703ef665a412b683dd26bf09b05c8aa1e26f116fd373"
+  },
+  "loop_cfg": {
+    "n_cycles": 6,
+    "mentions_per_cycle": 16,
+    "min_evidence_mentions": 16,
+    "concentration_thresh": 0.15,
+    "min_compression_ratio": 1.0
+  },
+  "verdict": "MIDDLE_BAND",
+  "comprehension_gap_cycle0": 0.0143,
+  "comprehension_gap_final": 0.0085,
+  "comprehension_fires": true,
+  "noread_flat": true,
+  "clarify_fired": true,
+  "gain_on_tiny_encoder": true,
+  "knowledge_gain_main": 0.0021,
+  "main_auc_cycle0": 0.6361,
+  "main_auc_final": 0.6382,
+  "main_curve": [
+    0.6361,
+    0.6398,
+    0.6407,
+    0.6396,
+    0.6382,
+    0.6382
+  ],
+  "control_finals": {
+    "NO_READ": 0.6361,
+    "SCRAMBLED": 0.6298,
+    "READ_NO_SLEEP": 0.6361
+  },
+  "controls_below_main": true,
+  "sleep_fired_every_cycle": true,
+  "retention_ok": true,
+  "retention_min": 0.6361,
+  "catastrophic_forgetting": false,
+  "monotone_ish": false,
+  "flag_population_curve": [
+    677,
+    677,
+    677,
+    0,
+    0,
+    0
+  ],
+  "flag_population_shrinks": true,
+  "n_query_final": 596,
+  "power_ok": true,
+  "raw_grounding_auc": 0.5603,
+  "shuffle_auc": 0.4894,
+  "verdict_msg": "gain=0.0021 main[0.6361->0.6382] controls_below=True sleep_every=True retention_ok=True monotone=False n_query=596",
+  "summary": "MIDDLE_BAND",
+  "elapsed_s": 787.298,
+  "VET_PENDING": true,
+  "LOCAL_ONLY_UNCOMMITTED": true
+}

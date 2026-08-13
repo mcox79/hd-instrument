@@ -1,0 +1,565 @@
+{
+  "verdict": "HARD_FAIL_AFFECT_RELABEL",
+  "run_mode": "smoke",
+  "verdict_msg": "HARD_FAIL_AFFECT_RELABEL || SOCIAL reach did not survive the affect-ablation (WITHOUT-social keeps VAD, gain collapse < 10%) -> the apparent social reach is relabeled EMOTIONAL reach, not social-relational content || SOCIAL sim with=-0.2177 without=-0.2633 scr=-0.2414 | SOCIAL_RELATIONAL sim with=0.2623 without=0.2587 scr=0.4516 || affect_kept_in_without=['arousal', 'dominance', 'valence'] corr_redundant=False new_selected=['power', 'affiliation'] || source=cn n=3000",
+  "summary": "SOCIAL reach did not survive the affect-ablation (WITHOUT-social keeps VAD, gain collapse < 10%) -> the apparent social reach is relabeled EMOTIONAL reach, not social-relational content",
+  "elapsed_s": 6.347478800045792,
+  "reach": {
+    "verdict": "HARD_FAIL_AFFECT_RELABEL",
+    "one_line": "SOCIAL reach did not survive the affect-ablation (WITHOUT-social keeps VAD, gain collapse < 10%) -> the apparent social reach is relabeled EMOTIONAL reach, not social-relational content",
+    "social_sim_with": -0.2177,
+    "social_sim_without": -0.2633,
+    "social_sim_scrambled": -0.2414,
+    "socrel_sim_with": 0.2623,
+    "socrel_sim_without": 0.2587,
+    "socrel_sim_scrambled": 0.4516,
+    "social_reach_with": 0.0667,
+    "gain_social": 0.0456,
+    "gain_socrel": 0.0036,
+    "ablation_social_rel": null,
+    "ablation_socrel_rel": 0.0137,
+    "affect_kept_in_without": [
+      "arousal",
+      "dominance",
+      "valence"
+    ],
+    "correlation_redundant": false,
+    "scramble_ok_social": true,
+    "scramble_ok_socrel": true,
+    "bands": {
+      "SOCIAL_SIM_PASS": 0.15,
+      "SCR_MAX_SIM": 0.05,
+      "ABLATION_MIN_REL": 0.5,
+      "ABLATION_MIN_FLOOR": 0.1,
+      "MIN_ABS_GAIN": 0.1,
+      "SIM_FLOOR": 0.3,
+      "REDUNDANT_R": 0.7
+    },
+    "meta": {
+      "source": "cn",
+      "graph_meta": {
+        "n_edges_scanned": 178979,
+        "n_adj_nodes": 3000,
+        "n_seed_in_graph": 516,
+        "n_nodes": 3000,
+        "n_edges": 10448
+      },
+      "core_provenance": {
+        "n_nsm_primes": 70,
+        "n_nsm_molecules": 54,
+        "n_kernel_proxy": 300,
+        "n_core_union": 385,
+        "n_social_anchors": 30,
+        "n_core_with_anchors": 413
+      },
+      "correlation_gate_raw": {
+        "per_new_channel": {
+          "power": {
+            "max_abs_r": 0.748,
+            "vs": "arousal",
+            "redundant": true,
+            "vad_r": {
+              "valence": 0.035,
+              "arousal": 0.748,
+              "dominance": 0.217
+            }
+          },
+          "affiliation": {
+            "max_abs_r": 0.869,
+            "vs": "valence",
+            "redundant": true,
+            "vad_r": {
+              "valence": 0.869,
+              "arousal": -0.264,
+              "dominance": 0.757
+            }
+          }
+        },
+        "redundant_any": true
+      },
+      "orthogonalization": {
+        "power": {
+          "residualized": true,
+          "n_fit": 29,
+          "n_applied": 74,
+          "beta_vad": [
+            0.164,
+            0.856,
+            0.07
+          ],
+          "intercept": -4.783
+        },
+        "affiliation": {
+          "residualized": true,
+          "n_fit": 29,
+          "n_applied": 74,
+          "beta_vad": [
+            0.446,
+            0.048,
+            0.107
+          ],
+          "intercept": -3.046
+        }
+      },
+      "correlation_gate": {
+        "per_new_channel": {
+          "power": {
+            "max_abs_r": 0.23,
+            "vs": "concreteness",
+            "redundant": false,
+            "vad_r": {
+              "valence": 0.0,
+              "arousal": -0.0,
+              "dominance": 0.0
+            }
+          },
+          "affiliation": {
+            "max_abs_r": -0.248,
+            "vs": "interoceptive",
+            "redundant": false,
+            "vad_r": {
+              "valence": 0.0,
+              "arousal": -0.0,
+              "dominance": -0.0
+            }
+          }
+        },
+        "redundant_any": false
+      },
+      "channels_with": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa",
+        "power",
+        "affiliation"
+      ],
+      "channels_without": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "new_selected": [
+        "power",
+        "affiliation"
+      ],
+      "vad_kept_in_without": [
+        "arousal",
+        "dominance",
+        "valence"
+      ],
+      "probe_coverage": {
+        "PHYSICAL": 17,
+        "ABSTRACT": 15,
+        "EMOTIONAL": 16,
+        "MATHEMATICAL": 16,
+        "SOCIAL": 15,
+        "TEMPORAL": 15,
+        "SOCIAL_RELATIONAL": 19
+      },
+      "computed_meta": {
+        "csv_used": false,
+        "csv_n": 0
+      },
+      "n_seeds": 2
+    }
+  },
+  "meta": {
+    "source": "cn",
+    "graph_meta": {
+      "n_edges_scanned": 178979,
+      "n_adj_nodes": 3000,
+      "n_seed_in_graph": 516,
+      "n_nodes": 3000,
+      "n_edges": 10448
+    },
+    "core_provenance": {
+      "n_nsm_primes": 70,
+      "n_nsm_molecules": 54,
+      "n_kernel_proxy": 300,
+      "n_core_union": 385,
+      "n_social_anchors": 30,
+      "n_core_with_anchors": 413
+    },
+    "correlation_gate_raw": {
+      "per_new_channel": {
+        "power": {
+          "max_abs_r": 0.748,
+          "vs": "arousal",
+          "redundant": true,
+          "vad_r": {
+            "valence": 0.035,
+            "arousal": 0.748,
+            "dominance": 0.217
+          }
+        },
+        "affiliation": {
+          "max_abs_r": 0.869,
+          "vs": "valence",
+          "redundant": true,
+          "vad_r": {
+            "valence": 0.869,
+            "arousal": -0.264,
+            "dominance": 0.757
+          }
+        }
+      },
+      "redundant_any": true
+    },
+    "orthogonalization": {
+      "power": {
+        "residualized": true,
+        "n_fit": 29,
+        "n_applied": 74,
+        "beta_vad": [
+          0.164,
+          0.856,
+          0.07
+        ],
+        "intercept": -4.783
+      },
+      "affiliation": {
+        "residualized": true,
+        "n_fit": 29,
+        "n_applied": 74,
+        "beta_vad": [
+          0.446,
+          0.048,
+          0.107
+        ],
+        "intercept": -3.046
+      }
+    },
+    "correlation_gate": {
+      "per_new_channel": {
+        "power": {
+          "max_abs_r": 0.23,
+          "vs": "concreteness",
+          "redundant": false,
+          "vad_r": {
+            "valence": 0.0,
+            "arousal": -0.0,
+            "dominance": 0.0
+          }
+        },
+        "affiliation": {
+          "max_abs_r": -0.248,
+          "vs": "interoceptive",
+          "redundant": false,
+          "vad_r": {
+            "valence": 0.0,
+            "arousal": -0.0,
+            "dominance": -0.0
+          }
+        }
+      },
+      "redundant_any": false
+    },
+    "channels_with": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa",
+      "power",
+      "affiliation"
+    ],
+    "channels_without": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa"
+    ],
+    "new_selected": [
+      "power",
+      "affiliation"
+    ],
+    "vad_kept_in_without": [
+      "arousal",
+      "dominance",
+      "valence"
+    ],
+    "probe_coverage": {
+      "PHYSICAL": 17,
+      "ABSTRACT": 15,
+      "EMOTIONAL": 16,
+      "MATHEMATICAL": 16,
+      "SOCIAL": 15,
+      "TEMPORAL": 15,
+      "SOCIAL_RELATIONAL": 19
+    },
+    "computed_meta": {
+      "csv_used": false,
+      "csv_n": 0
+    },
+    "n_seeds": 2
+  },
+  "seed_rows": [
+    {
+      "seed": 7,
+      "with_social": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5057912268553677,
+          "mean_sim_scrambled": 0.57323005710275,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.08409879258059218,
+          "mean_sim_scrambled": -0.09703706836222173,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.37135448042616614,
+          "mean_sim_scrambled": 0.3961114457879105,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.20281980395289081,
+          "mean_sim_scrambled": -0.23402285071487403,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "SOCIAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.21766092927407102,
+          "mean_sim_scrambled": -0.24126745188613147,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.057759571432511425,
+          "mean_sim_scrambled": -0.07351218182319635,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "SOCIAL_RELATIONAL": {
+          "reach": 0.42105263157894735,
+          "reach_scrambled": 0.42105263157894735,
+          "mean_sim": 0.2623147507322253,
+          "mean_sim_scrambled": 0.44993774693102573,
+          "n_probes": 19,
+          "n_reached": 8
+        }
+      },
+      "without_social": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5057912268553677,
+          "mean_sim_scrambled": 0.57323005710275,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.08409879258059218,
+          "mean_sim_scrambled": -0.09703706836222173,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.37135448042616614,
+          "mean_sim_scrambled": 0.3961114457879105,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.20281980395289081,
+          "mean_sim_scrambled": -0.23402285071487403,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "SOCIAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.26329619183347314,
+          "mean_sim_scrambled": -0.2821030626787212,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.057759571432511425,
+          "mean_sim_scrambled": -0.07351218182319635,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "SOCIAL_RELATIONAL": {
+          "reach": 0.42105263157894735,
+          "reach_scrambled": 0.42105263157894735,
+          "mean_sim": 0.2587124478334362,
+          "mean_sim_scrambled": 0.44686695534866255,
+          "n_probes": 19,
+          "n_reached": 8
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "with_social": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5057912268553677,
+          "mean_sim_scrambled": 0.57323005710275,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.08409879258059218,
+          "mean_sim_scrambled": -0.09703706836222173,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.37135448042616614,
+          "mean_sim_scrambled": 0.3961114457879105,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.20281980395289081,
+          "mean_sim_scrambled": -0.23402285071487403,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "SOCIAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.21766092927407102,
+          "mean_sim_scrambled": -0.24148009827042433,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.057759571432511425,
+          "mean_sim_scrambled": -0.07351218182319635,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "SOCIAL_RELATIONAL": {
+          "reach": 0.42105263157894735,
+          "reach_scrambled": 0.42105263157894735,
+          "mean_sim": 0.2623147507322253,
+          "mean_sim_scrambled": 0.45332212514310105,
+          "n_probes": 19,
+          "n_reached": 8
+        }
+      },
+      "without_social": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5057912268553677,
+          "mean_sim_scrambled": 0.57323005710275,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.08409879258059218,
+          "mean_sim_scrambled": -0.09703706836222173,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.37135448042616614,
+          "mean_sim_scrambled": 0.3961114457879105,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.20281980395289081,
+          "mean_sim_scrambled": -0.23402285071487403,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "SOCIAL": {
+          "reach": 0.06666666666666667,
+          "reach_scrambled": 0.06666666666666667,
+          "mean_sim": -0.26329619183347314,
+          "mean_sim_scrambled": -0.2821030626787212,
+          "n_probes": 15,
+          "n_reached": 1
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.057759571432511425,
+          "mean_sim_scrambled": -0.07351218182319635,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "SOCIAL_RELATIONAL": {
+          "reach": 0.42105263157894735,
+          "reach_scrambled": 0.42105263157894735,
+          "mean_sim": 0.2587124478334362,
+          "mean_sim_scrambled": 0.44686695534866255,
+          "n_probes": 19,
+          "n_reached": 8
+        }
+      }
+    }
+  ]
+}

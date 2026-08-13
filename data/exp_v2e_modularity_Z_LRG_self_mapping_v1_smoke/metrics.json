@@ -1,0 +1,197 @@
+{
+  "anchor_name": "v2e_modularity_Z_LRG_self_mapping_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate self-mapping null even with right discriminator (every seed best Z_real < 1.5 at every gamma). Encoder substitution indicated per 5x drill. best_Z_real_mean=0.83 (pass 3.0 fail 1.5) | best_Z_shuf_mean=0.83 | Z_ratio_mean=1.00 (pass 2.0 fail 1.1) | LRG_n_above_mean=1.0 (pass 2) LRG_mean_ari=0.500 | recall=1.000 | n_llm=0",
+  "summary": "HARD_FAIL: substrate self-mapping null even with right discriminator (every seed best Z_real < 1.5 at every gamma). Encoder substitution indicated per 5x drill. best_Z_real_mean=0.83 (pass 3.0 fail 1.5) | best_Z_shuf_mean=0.83 | Z_ratio_mean=1.00 (pass 2.0 fail 1.1) | LRG_n_above_mean=1.0 (pass 2) LRG_mean_ari=0.500 | recall=1.000 | n_llm=0",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "v2e-modularity-Z-LRG: char_trigram + KGStore + 2hop-Jaccard adjacency + modularity-Z (Louvain @ gamma sweep) vs degree-preserving null + Laplacian-RG tau-sweep stability + sparse-ensemble allocation (Tonegawa analog); N4096 n_anchors=30 n_rel_samples=10 kset=12 n_null=50 jac_tau=0.05 gammas=[0.5, 1.0, 2.0, 4.0] taus=[0.1, 1.0, 10.0] bands mod_Z>=3.0 ratio>=2.0 lrg_stab>=0.50 recall>=0.95",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "N": 4096,
+      "run_mode": "smoke",
+      "config_version": "v2e-modularity-Z-LRG: char_trigram + KGStore + 2hop-Jaccard adjacency + modularity-Z (Louvain @ gamma sweep) vs degree-preserving null + Laplacian-RG tau-sweep stability + sparse-ensemble allocation (Tonegawa analog); N4096 n_anchors=30 n_rel_samples=10 kset=12 n_null=50 jac_tau=0.05 gammas=[0.5, 1.0, 2.0, 4.0] taus=[0.1, 1.0, 10.0] bands mod_Z>=3.0 ratio>=2.0 lrg_stab>=0.50 recall>=0.95",
+      "n_chain_grade_atoms": 451,
+      "n_atoms_universe": 177347,
+      "n_relation_types": 33,
+      "n_triples": 5000,
+      "n_anchors": 30,
+      "n_real_edges": 435,
+      "n_shuf_edges": 435,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 353.4,
+      "t_encoding_s": 33.8,
+      "t_kg_build_s": 4.9,
+      "t_neighborhoods_s": 224.5,
+      "t_modularity_Z_s": 36.5,
+      "t_lrg_s": 0.1,
+      "t_alloc_s": 0.0,
+      "best_gamma": 1.0,
+      "best_Z_real": 0.828,
+      "best_Z_shuf": 0.828,
+      "Z_ratio_real_over_shuf": 1.0,
+      "modularity_Z_real_sweep": [
+        {
+          "gamma": 0.5,
+          "Q_real": 0.5,
+          "Q_null_mean": 0.5,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 1
+        },
+        {
+          "gamma": 1.0,
+          "Q_real": 0.0148,
+          "Q_null_mean": 0.014,
+          "Q_null_std": 0.001,
+          "Z": 0.828,
+          "n_clusters": 2
+        },
+        {
+          "gamma": 2.0,
+          "Q_real": -0.0679,
+          "Q_null_mean": -0.0679,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 30
+        },
+        {
+          "gamma": 4.0,
+          "Q_real": -0.1357,
+          "Q_null_mean": -0.1357,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 30
+        }
+      ],
+      "modularity_Z_shuf_sweep": [
+        {
+          "gamma": 0.5,
+          "Q_real": 0.5,
+          "Q_null_mean": 0.5,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 1
+        },
+        {
+          "gamma": 1.0,
+          "Q_real": 0.0148,
+          "Q_null_mean": 0.014,
+          "Q_null_std": 0.001,
+          "Z": 0.828,
+          "n_clusters": 2
+        },
+        {
+          "gamma": 2.0,
+          "Q_real": -0.0679,
+          "Q_null_mean": -0.0679,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 30
+        },
+        {
+          "gamma": 4.0,
+          "Q_real": -0.1357,
+          "Q_null_mean": -0.1357,
+          "Q_null_std": 0.0,
+          "Z": 0.0,
+          "n_clusters": 30
+        }
+      ],
+      "lrg_real": {
+        "taus": [
+          0.1,
+          1.0,
+          10.0
+        ],
+        "pair_aris": [
+          {
+            "tau_a": 0.1,
+            "tau_b": 1.0,
+            "ari": 1.0,
+            "n_clusters_a": 2,
+            "n_clusters_b": 2
+          },
+          {
+            "tau_a": 1.0,
+            "tau_b": 10.0,
+            "ari": 0.0,
+            "n_clusters_a": 2,
+            "n_clusters_b": 1
+          }
+        ],
+        "n_pairs_above_threshold": 1,
+        "mean_pair_ari": 0.5
+      },
+      "lrg_shuf": {
+        "taus": [
+          0.1,
+          1.0,
+          10.0
+        ],
+        "pair_aris": [
+          {
+            "tau_a": 0.1,
+            "tau_b": 1.0,
+            "ari": 1.0,
+            "n_clusters_a": 2,
+            "n_clusters_b": 2
+          },
+          {
+            "tau_a": 1.0,
+            "tau_b": 10.0,
+            "ari": 0.0,
+            "n_clusters_a": 2,
+            "n_clusters_b": 1
+          }
+        ],
+        "n_pairs_above_threshold": 1,
+        "mean_pair_ari": 0.5
+      },
+      "allocation_diag": {
+        "converged": false,
+        "final_labels": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "ari_init_vs_final": 0.0,
+        "n_iters": 20
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782237841.6007407
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 10.2,
+  "DESIGN_NOTE": "v2e intrinsic multi-scale discriminator (modularity-Z vs degree-preserving null + Laplacian-RG tau-sweep stability + sparse-ensemble allocation). Abandons external lexical ground truth per 5x drill conclusion that v1 families are structurally degenerate (~2/20 anchors matched at smoke). Two arms: REAL substrate adjacency vs SHUF degree-preserved rewire. HARD_PASS = real exhibits multi-scale community structure; HARD_FAIL = substrate self-mapping null even under right discriminator (forces encoder substitution per drill, not another discriminator attempt)."
+}

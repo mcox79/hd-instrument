@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_higher_order_tom_recursive_v5_d5_isolated",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: cells=2 max_hrr=0.800 max_tensor=1.000 max_bow=0.800 arms_distinct_cells=2",
+  "summary": "SELFTEST_OK: cells=2 max_hrr=0.800 max_tensor=1.000 max_bow=0.800 arms_distinct_cells=2",
+  "elapsed_s": 0.7,
+  "ts_iso": "2026-06-30T18:21:08Z",
+  "pid": 22156,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_higher_order_tom_recursive_v5_d5_isolated,depths=[1, 5],N_dims=[4096],n_trials=10,seeds=[7],mode=smoke,n_objects=4,n_locations=32,n_agents_max=16,distractor_scaling=depth,HP_dv_min=0.050,HP_se_max=0.030,HP_bow_margin=0.030,HP_pc_hrr=0.65,HP_pc_tensor=0.65,HP_pc_bow=0.40,HP_monotonic_min=0.30,HF_flat_var_max=0.020,HF_bow_var_max=0.10,HF_arms_id_max=0.10,expected_n=60,arms=['ARM_HRR_RECURSIVE', 'ARM_TENSOR_RANK2', 'ARM_NESTED_BOW'],v5_drill=D5_ISOLATED_DEPTHS_1_AND_5_NO_INTERMEDIATE_DILUTION",
+  "_hardening_marker": "v5_d5_isolated",
+  "_phase": "selftest_done",
+  "n_cells_tested": 2,
+  "max_hrr_acc": 0.8,
+  "max_tensor_acc": 1.0,
+  "max_bow_acc": 0.8,
+  "arms_distinct_cells": 2
+}

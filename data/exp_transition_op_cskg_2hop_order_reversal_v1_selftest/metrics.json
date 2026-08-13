@@ -1,0 +1,28 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "anchor_name": "transition_op_cskg_2hop_order_reversal_v1",
+  "verdict_msg": "SELFTEST_PASS: additive commutative (maxabs=0.0<=1e-4), transition non-commutative (maxabs=27.430429>=1e-2), real fit_kge_anchor1 exercised, arms distinct (6), baseline in band, deterministic",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 4.10827149997931,
+  "mechanism_selftest": {
+    "vp_ok": true,
+    "add_commutative_maxabs": 0.0,
+    "trans_order_maxabs": 27.430429,
+    "add_commutative": true,
+    "trans_noncommutative": true,
+    "arms_differ": true,
+    "n_distinct": 6,
+    "arena_learnable": true,
+    "discriminator_fires": true,
+    "add_mrr": 0.07494,
+    "chance_mrr": 0.0613,
+    "trans_mrr": 0.8068,
+    "deterministic": true,
+    "os_trans_mrr": 0.80663,
+    "os_add_mrr": 0.07446,
+    "n_test": 442,
+    "n_order_sensitive": 406,
+    "elapsed_s": 4.11
+  }
+}

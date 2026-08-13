@@ -1,0 +1,49 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "real KGStore+HDFactStore+Library+TierState+ScriptLibrary+RelationRegister+ThreeTierLoop fixture: arm A combined-promotes the 3-member cluster, arm B resolves nothing, arm C middle-only never foundation, scramble collapses",
+  "summary": "SELF_TEST_PASS",
+  "elapsed_s": 0.15510410000570118,
+  "ts_iso": "2026-08-11T19:06:45.442056+00:00",
+  "anchor_name": "three_tier_loop_real_corpus_gap_stream_v1",
+  "run_mode": "self_test",
+  "result": {
+    "positive_control_recovery": 1.0,
+    "novelty_thresh": 0.2909033005591482,
+    "arm_a_final": {
+      "checkpoint": 12,
+      "n_foundation": 3,
+      "n_middle": 2,
+      "n_total_resolved": 5,
+      "n_combined_promoted_this_pass": 0,
+      "n_clusters_eligible_size": 1,
+      "n_banked_pos_this_pass": 0
+    },
+    "arm_b_final": {
+      "checkpoint": 12,
+      "n_foundation": 0,
+      "n_middle": 0,
+      "n_total_resolved": 0,
+      "n_combined_promoted_this_pass": 0,
+      "n_clusters_eligible_size": 0,
+      "n_banked_pos_this_pass": 0
+    },
+    "arm_c_final": {
+      "checkpoint": 12,
+      "n_foundation": 0,
+      "n_middle": 5,
+      "n_total_resolved": 5,
+      "n_combined_promoted_this_pass": 0,
+      "n_clusters_eligible_size": 1,
+      "n_banked_pos_this_pass": 0
+    },
+    "arm_scramble_final": {
+      "checkpoint": 12,
+      "n_foundation": 0,
+      "n_middle": 1,
+      "n_total_resolved": 1,
+      "n_combined_promoted_this_pass": 0,
+      "n_clusters_eligible_size": 0,
+      "n_banked_pos_this_pass": 0
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "verdict": "REINDEX_ORGAN_NECESSARY_AND_READS_ROLE_POSITION_DECORRELATED",
+  "verdict_msg": "band=HARD_PASS | REVISION held STRAIGHT=0.998 SWAP=1.000 acc=0.999 consistency=0.998 (trained STR=0.982 SWP=1.000 cons=0.982) | POSITIONAL FLOORS: FF acc=0.508 cons=0.457 | FF_FROZEN acc=0.509 | NOCUE acc=0.506 SWAP=0.652 | ff_floors=True (need acc<=0.62 + static-inverts; cons diagnostic) | beats_floors=True (rev_acc-floor_max=0.490 need>=0.15) reanalysis_fired=True (REV swap 1.000 - NOCUE swap 0.652 = 0.348 need>=0.15) memorized=False | static-readout linprobe ap=0.001 pa=0.000 (premise_ok=True <=0.55) | gate g_STRAIGHT=0.079 g_SWAP=0.973",
+  "summary": "REINDEX_ORGAN_NECESSARY_AND_READS_ROLE_POSITION_DECORRELATED | chance=0.50 | band=HARD_PASS | REVISION held STRAIGHT=0.998 SWAP=1.000 acc=0.999 consistency=0.998 (trained STR=0.982 SWP=1.000 cons=0.982) | POSITIONAL FLOORS: FF acc=0.508 ",
+  "run_mode": "lite",
+  "elapsed_s": 206.52517889998853,
+  "ts_iso": "2026-07-31T02:58:50.858175+00:00",
+  "anchor_name": "reindex_role_swap_cue_falsifiable_v1",
+  "chance": 0.5,
+  "arms": {
+    "ARM_FF": {
+      "held": {
+        "active": 0.4272727370262146,
+        "passive": 0.5886363387107849,
+        "xvoice_consistency": 0.45681819319725037
+      },
+      "trained": {
+        "active": 0.4909090995788574,
+        "passive": 0.5113636255264282,
+        "xvoice_consistency": 0.5181818008422852
+      },
+      "digest": "0a0f6faa67f96ffee262b2564c931c419414865315f9c4b419a910077ffb730f"
+    },
+    "ARM_FF_FROZEN": {
+      "held": {
+        "active": 0.3659090995788574,
+        "_g_active": 0.0,
+        "passive": 0.6522727012634277,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.4727272689342499
+      },
+      "trained": {
+        "active": 0.5295454263687134,
+        "passive": 0.5022727251052856,
+        "xvoice_consistency": 0.5181818008422852
+      },
+      "digest": "459552d6e174b77fc7a8d2b324e65969bf38f1d36dca185dbeeff0bef6ae6117"
+    },
+    "ARM_REVISION": {
+      "held": {
+        "active": 0.9977272748947144,
+        "_g_active": 0.07868394255638123,
+        "passive": 1.0,
+        "_g_passive": 0.9727247953414917,
+        "xvoice_consistency": 0.9977272748947144
+      },
+      "trained": {
+        "active": 0.9818181991577148,
+        "passive": 1.0,
+        "xvoice_consistency": 0.9818181991577148
+      },
+      "digest": "055dc50ecf604bb9ef16680794920b1b562a124364780b2e55190578b7912d5a"
+    },
+    "ARM_REVISION_NOCUE": {
+      "held": {
+        "active": 0.3590908944606781,
+        "_g_active": 0.0,
+        "passive": 0.6522727012634277,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.4840908944606781
+      },
+      "trained": {
+        "active": 0.5249999761581421,
+        "passive": 0.5090909004211426,
+        "xvoice_consistency": 0.5113636255264282
+      },
+      "digest": "2e8f6271417758829f6dc759086a19bbfab24c35f8462f72d999633a75a0a999"
+    },
+    "ARM_ENCODER_LINPROBE": {
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.0011363636363636363,
+        "passive_to_active": 0.0,
+        "within_probe_sanity": 0.9977272727272727
+      },
+      "digest": "1f32b7ed58f3464456d1dac8f9c7f7ef75a52a2878346053b01e7ca599b127c0"
+    }
+  },
+  "positional_floors": {
+    "ff_acc": 0.5079545378684998,
+    "ff_consistency": 0.45681819319725037,
+    "ff_frozen_acc": 0.5090909004211426,
+    "nocue_acc": 0.5056817978620529,
+    "nocue_swap": 0.6522727012634277
+  },
+  "smoke_falsifiability_gate": null,
+  "fhrr_slot_demo": {
+    "agent_recovered": true,
+    "patient_recovered": true
+  },
+  "bands": {
+    "pass_min": 0.7,
+    "fail_max": 0.55,
+    "cons_pass": 0.7,
+    "ff_floor_acc_max": 0.62,
+    "ff_floor_cons_max": 0.6,
+    "discrim_margin": 0.15,
+    "reanalysis_margin": 0.15,
+    "linprobe_max": 0.55
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "ARM_FF": "0a0f6faa67f96ffee262b2564c931c419414865315f9c4b419a910077ffb730f",
+    "ARM_FF_FROZEN": "459552d6e174b77fc7a8d2b324e65969bf38f1d36dca185dbeeff0bef6ae6117",
+    "ARM_REVISION": "055dc50ecf604bb9ef16680794920b1b562a124364780b2e55190578b7912d5a",
+    "ARM_REVISION_NOCUE": "2e8f6271417758829f6dc759086a19bbfab24c35f8462f72d999633a75a0a999",
+    "ARM_ENCODER_LINPROBE": "1f32b7ed58f3464456d1dac8f9c7f7ef75a52a2878346053b01e7ca599b127c0"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units_done": 5,
+  "params": {
+    "arm_units": [
+      "ARM_FF",
+      "ARM_FF_FROZEN",
+      "ARM_REVISION",
+      "ARM_REVISION_NOCUE",
+      "ARM_ENCODER_LINPROBE"
+    ],
+    "floor_arms": [
+      "ARM_FF",
+      "ARM_FF_FROZEN",
+      "ARM_REVISION_NOCUE"
+    ],
+    "seed": 7,
+    "vocab_size": 54,
+    "max_len": 12,
+    "cue_straight": "by",
+    "cue_swap": "was",
+    "train_nouns": [
+      "dog",
+      "cat",
+      "bird",
+      "fish",
+      "horse",
+      "cow",
+      "sheep",
+      "goat",
+      "lion",
+      "tiger",
+      "bear",
+      "wolf",
+      "fox",
+      "deer",
+      "mouse",
+      "frog"
+    ],
+    "heldout_nouns": [
+      "duck",
+      "hawk",
+      "seal",
+      "crab",
+      "whale",
+      "shark",
+      "snake",
+      "owl"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "heldout_verbs": [
+      "pushed",
+      "pulled",
+      "carried",
+      "called",
+      "touched",
+      "kicked",
+      "licked",
+      "hugged"
+    ],
+    "d_model": 96,
+    "n_layers": 2,
+    "enc_steps": 2000,
+    "dec_steps": 1500,
+    "relax_iters": 4,
+    "sink_temp": 0.5,
+    "n_dec_train": 2200
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "argmax/closed-form role readout on frozen latents; discriminator = pre-registered bands + falsifiability gate",
+  "calibration_check": "default_ok_for_this_regime: fixed HYPOTHESIZED thresholds set before running; chance=0.50 exact-by-construction (position-decorrelated 2-mention/2-role)."
+}

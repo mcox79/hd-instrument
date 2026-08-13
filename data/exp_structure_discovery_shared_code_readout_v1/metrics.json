@@ -1,0 +1,848 @@
+{
+  "verdict": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES",
+  "verdict_msg": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES || chance=1/L=0.0156 | F1_CYCLIC: DISC=0.4275 MEMO=0.0001 adv=0.4274 FREQ=0.0000 FPE=1.0000 | F2_XOR: DISC=0.4123 MEMO=0.0003 adv=0.4119 FREQ=0.0000 FPE=1.0000 | F4_ARB(must-fail): DISC=0.0140 lift=-0.0017(<=0.05=True breach>=0.15=False) MEMO=0.0149 | F3_ASYM(bound): DISC=0.0320 MEMO=0.0044 | F1_NOISY: DISC=0.3438 MEMO=0.0006 || HP1_abs=True HP2_adv=True HP3_arb=True HP4_null=True | RF1_tie=False RF2_integrity=False",
+  "summary": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES || chance=1/L=0.0156 | F1_CYCLIC: DISC=0.4275 MEMO=0.0001 adv=0.4274 FREQ=0.0000 FPE=1.0000 | F2_XOR: DISC=0.4123 MEMO=0.0003 adv",
+  "run_mode": "full",
+  "elapsed_s": 57.210335699957795,
+  "anchor_name": "structure_discovery_shared_code_readout_v1",
+  "ts_iso": "2026-07-14T23:41:43.151163+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "L": 64,
+    "n_dim": 128,
+    "coverage": 0.3,
+    "steps": 800,
+    "disc_lr": 0.05,
+    "memo_h": 96,
+    "memo_lr": 0.01,
+    "noise_eps": 0.15,
+    "c1": 1,
+    "c2": 2,
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "min_novel": 300
+  },
+  "gates": {
+    "verdict": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES",
+    "chance": 0.015625,
+    "f1_cyclic": {
+      "discovery": 0.427508,
+      "memorize": 0.000116,
+      "advantage": 0.427392,
+      "freq_null": 0.0,
+      "fpe_ceiling": 1.0
+    },
+    "f2_xor": {
+      "discovery": 0.412278,
+      "memorize": 0.000349,
+      "advantage": 0.411929,
+      "freq_null": 0.0,
+      "fpe_ceiling": 1.0
+    },
+    "f3_asym_bound": {
+      "discovery": 0.031973,
+      "memorize": 0.004418
+    },
+    "f4_arbitrary": {
+      "discovery": 0.013952,
+      "lift_over_chance": -0.001673,
+      "memorize": 0.014882
+    },
+    "f1_noisy": {
+      "discovery": 0.343797,
+      "memorize": 0.000581
+    },
+    "hard_pass_gates": {
+      "HP1_disc_abs": true,
+      "HP2_arch_adv": true,
+      "HP3_arb_mustfail": true,
+      "HP4_null_fails": true
+    },
+    "hard_fail_gates": {
+      "RF1_no_advantage": false,
+      "RF2_integrity_breach": false
+    },
+    "bands": {
+      "HP_DISC_ABS": 0.3,
+      "HP_ARCH_ADV": 0.25,
+      "MUSTFAIL_TOL": 0.05,
+      "HP_NULL_FAILS": 0.2,
+      "REFUTE_TOL": 0.1,
+      "INTEGRITY_BREACH": 0.15
+    },
+    "cited_prototype": {
+      "disc_add": 0.789,
+      "memo_add": 0.11,
+      "disc_arb": 0.032
+    }
+  },
+  "mechanism_selftest": {
+    "homomorphism_ok": true,
+    "homomorphism_pred": [
+      8,
+      9,
+      4
+    ],
+    "homomorphism_expect": [
+      8,
+      9,
+      4
+    ],
+    "f1_discovery_novel": 0.69608,
+    "f1_memorize_novel": 0.0,
+    "f1_advantage": 0.69608,
+    "f1_fpe_novel": 1.0,
+    "f1_discovery_seen": 1.0,
+    "arb_discovery_novel": 0.06863,
+    "arb_lift": 0.00613,
+    "chance": 0.0625,
+    "n_distinct_sigs": 4,
+    "n_novel": 102,
+    "n_leaked": 0,
+    "disc_learns": true,
+    "arch_adv": true,
+    "fpe_ceiling_ok": true,
+    "arb_mustfail": true,
+    "disc_fits": true,
+    "arms_differ": true,
+    "novel_ok": true,
+    "decisive_selftest_verdict": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ]
+  },
+  "unit_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "L": 64,
+      "chance": 0.015625,
+      "families": {
+        "F1_CYCLIC": {
+          "family": "F1_CYCLIC",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.41192884548308334,
+              "train_loss": 4.926000110572204e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0,
+              "train_loss": 7.945774996187538e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.188,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "1b17c2b2eb174070",
+            "MEMORIZE": "28c0c8ab1288f4dd",
+            "FPE": "e809c0413cac13dc",
+            "FREQ_NULL": "c3ae5e718d64e309"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F2_XOR": {
+          "family": "F2_XOR",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.4115800488315312,
+              "train_loss": 5.6524964747950435e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0006975933031042902,
+              "train_loss": 7.280155114131048e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.156,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "c5276a870883a352",
+            "MEMORIZE": "3be5efccc02385d9",
+            "FPE": "f344068ef828ea1c",
+            "FREQ_NULL": "e6854c0629c086cb"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F3_ASYM": {
+          "family": "F3_ASYM",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.84,
+              "novel": 0.029647715381932335,
+              "train_loss": 0.1901622861623764,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0055807464248343215,
+              "train_loss": 8.010400051716715e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.014,
+              "novel": 0.016044645971398673
+            },
+            "FREQ_NULL": {
+              "seen": 0.268,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "2fbb422e7d87101e",
+            "MEMORIZE": "835aae33d6e63cc4",
+            "FPE": "e809c0413cac13dc",
+            "FREQ_NULL": "e4c7857a887b937d"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F4_ARBITRARY": {
+          "family": "F4_ARBITRARY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.876,
+              "novel": 0.01709103592605511,
+              "train_loss": 0.19360917806625366,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.01499825601674224,
+              "train_loss": 7.750191434752196e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.016,
+              "novel": 0.01569584931984653
+            },
+            "FREQ_NULL": {
+              "seen": 0.338,
+              "novel": 0.01569584931984653
+            },
+            "ORACLE": {
+              "novel": 0.015625
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "c42e0d45194f957f",
+            "MEMORIZE": "5a751598ec416bfb",
+            "FPE": "e809c0413cac13dc",
+            "FREQ_NULL": "4183a8ee35119bda"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F1_NOISY": {
+          "family": "F1_NOISY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.898,
+              "novel": 0.33589117544471575,
+              "train_loss": 0.037417471408843994,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 0.876,
+              "novel": 0.0006975933031042902,
+              "train_loss": 8.021820394787937e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.15,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "d849b5a7327c02de",
+            "MEMORIZE": "6885a468c91bdd6c",
+            "FPE": "e809c0413cac13dc",
+            "FREQ_NULL": "20b98dadceb7edc9"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 157,
+          "memo_params": 37024,
+          "disc_params": 8192
+        }
+      },
+      "n_novel": 2867,
+      "n_seen": 500
+    },
+    {
+      "seed": 13,
+      "L": 64,
+      "chance": 0.015625,
+      "families": {
+        "F1_CYCLIC": {
+          "family": "F1_CYCLIC",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.4192535751656784,
+              "train_loss": 3.789626498473808e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0003487966515521451,
+              "train_loss": 7.91391430539079e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.182,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "1c81397b620f64cf",
+            "MEMORIZE": "dc04fd3fd3a24ff6",
+            "FPE": "60aff89e9a3e0c5f",
+            "FREQ_NULL": "7032a247274a6996"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F2_XOR": {
+          "family": "F2_XOR",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.40495291245204046,
+              "train_loss": 4.825552969123237e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0,
+              "train_loss": 7.78253233875148e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.154,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "0c8108203012ab05",
+            "MEMORIZE": "965e05d960018006",
+            "FPE": "b7c9c4b83f8d5b32",
+            "FREQ_NULL": "98748b325c72ab50"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F3_ASYM": {
+          "family": "F3_ASYM",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.852,
+              "novel": 0.03627485176142309,
+              "train_loss": 0.21270960569381714,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.004185559818625741,
+              "train_loss": 8.106857421807945e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.016,
+              "novel": 0.016742239274502965
+            },
+            "FREQ_NULL": {
+              "seen": 0.256,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "21f388f80080e7ad",
+            "MEMORIZE": "c0e8f2669761cfcd",
+            "FPE": "60aff89e9a3e0c5f",
+            "FREQ_NULL": "c7bc24a0a9f895c7"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F4_ARBITRARY": {
+          "family": "F4_ARBITRARY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.848,
+              "novel": 0.009766306243460064,
+              "train_loss": 0.21425455808639526,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.013254272758981514,
+              "train_loss": 7.979734073160216e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.008,
+              "novel": 0.009766306243460064
+            },
+            "FREQ_NULL": {
+              "seen": 0.282,
+              "novel": 0.013603069410533658
+            },
+            "ORACLE": {
+              "novel": 0.015625
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "6d167e34a6d88a78",
+            "MEMORIZE": "d222bf270012dfa8",
+            "FPE": "60aff89e9a3e0c5f",
+            "FREQ_NULL": "2dee8f5e748d0517"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F1_NOISY": {
+          "family": "F1_NOISY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.884,
+              "novel": 0.33693756539937214,
+              "train_loss": 0.049763649702072144,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 0.852,
+              "novel": 0.0003487966515521451,
+              "train_loss": 7.925647514639422e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.134,
+              "novel": 0.0003487966515521451
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "2dfced8db34dc3c5",
+            "MEMORIZE": "c6bd99ce50162ab0",
+            "FPE": "60aff89e9a3e0c5f",
+            "FREQ_NULL": "bc8761986c5ff365"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 173,
+          "memo_params": 37024,
+          "disc_params": 8192
+        }
+      },
+      "n_novel": 2867,
+      "n_seen": 500
+    },
+    {
+      "seed": 17,
+      "L": 64,
+      "chance": 0.015625,
+      "families": {
+        "F1_CYCLIC": {
+          "family": "F1_CYCLIC",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.45134286710847576,
+              "train_loss": 3.683565591927618e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0,
+              "train_loss": 8.006082498468459e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.192,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "8d5d4abef0ed497a",
+            "MEMORIZE": "41ee4693d529e673",
+            "FPE": "df3e09f91e48edb8",
+            "FREQ_NULL": "4b4147edc545fb56"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F2_XOR": {
+          "family": "F2_XOR",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 1.0,
+              "novel": 0.42029996512033485,
+              "train_loss": 5.458310624817386e-05,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.0003487966515521451,
+              "train_loss": 7.303349411813542e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.18,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "105f097185799da1",
+            "MEMORIZE": "3cf31f8ab8e05834",
+            "FPE": "bf4b083441ab998f",
+            "FREQ_NULL": "3858b4c38159eb05"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F3_ASYM": {
+          "family": "F3_ASYM",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.876,
+              "novel": 0.02999651203348448,
+              "train_loss": 0.18553516268730164,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.003487966515521451,
+              "train_loss": 8.021340909181163e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.012,
+              "novel": 0.01709103592605511
+            },
+            "FREQ_NULL": {
+              "seen": 0.218,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "0ea49fe2ab58ebd0",
+            "MEMORIZE": "0d5ef5335f074c71",
+            "FPE": "df3e09f91e48edb8",
+            "FREQ_NULL": "569c6f2539b621d0"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F4_ARBITRARY": {
+          "family": "F4_ARBITRARY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.882,
+              "novel": 0.01499825601674224,
+              "train_loss": 0.1848958432674408,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 1.0,
+              "novel": 0.01639344262295082,
+              "train_loss": 7.908388215582818e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 0.024,
+              "novel": 0.019532612486920127
+            },
+            "FREQ_NULL": {
+              "seen": 0.292,
+              "novel": 0.013254272758981514
+            },
+            "ORACLE": {
+              "novel": 0.015625
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "c3f67344b7a90604",
+            "MEMORIZE": "8271fceda22d5222",
+            "FPE": "df3e09f91e48edb8",
+            "FREQ_NULL": "58abc52459002c90"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 0,
+          "memo_params": 37024,
+          "disc_params": 8192
+        },
+        "F1_NOISY": {
+          "family": "F1_NOISY",
+          "L": 64,
+          "chance": 0.015625,
+          "arms": {
+            "DISCOVERY": {
+              "seen": 0.896,
+              "novel": 0.35856295779560515,
+              "train_loss": 0.04636070504784584,
+              "n_params": 8192
+            },
+            "MEMORIZE": {
+              "seen": 0.87,
+              "novel": 0.0006975933031042902,
+              "train_loss": 8.113630610750988e-05,
+              "n_params": 37024
+            },
+            "FPE": {
+              "seen": 1.0,
+              "novel": 1.0
+            },
+            "FREQ_NULL": {
+              "seen": 0.14,
+              "novel": 0.0
+            },
+            "ORACLE": {
+              "novel": 1.0
+            }
+          },
+          "sigs": {
+            "DISCOVERY": "508939c85e337126",
+            "MEMORIZE": "598b6a8142bd16a8",
+            "FPE": "df3e09f91e48edb8",
+            "FREQ_NULL": "5baf5bea34740fa3"
+          },
+          "n_train": 1229,
+          "n_novel": 2867,
+          "n_seen": 500,
+          "missing_a": 0,
+          "missing_b": 0,
+          "missing_y": 0,
+          "n_leaked": 0,
+          "n_flipped": 173,
+          "memo_params": 37024,
+          "disc_params": 8192
+        }
+      },
+      "n_novel": 2867,
+      "n_seen": 500
+    }
+  ]
+}

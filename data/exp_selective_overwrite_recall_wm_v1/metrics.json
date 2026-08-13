@@ -1,0 +1,18 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (real WM objects + overwrite unit + determinism)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 11.914852200075984,
+  "ts_iso": "2026-07-30T09:24:55.129717+00:00",
+  "anchor_name": "selective_overwrite_recall_wm_v1",
+  "chance": 0.05,
+  "selftest": {
+    "tiny": {
+      "learned_wm": 0.014999999664723873,
+      "random_init_wm_mean": 0.0616666649778684,
+      "gap": -0.04666666531314453,
+      "arms_differ": true
+    }
+  }
+}

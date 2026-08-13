@@ -1,0 +1,9 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (position-decorrelated corpus + DEPHEAD + all arms + FHRR slot)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-07-31T02:50:21.487555+00:00",
+  "anchor_name": "reindex_role_swap_cue_falsifiable_v1"
+}

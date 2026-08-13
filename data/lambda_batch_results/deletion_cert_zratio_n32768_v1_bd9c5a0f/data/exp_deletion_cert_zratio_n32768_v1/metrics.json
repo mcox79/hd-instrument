@@ -1,0 +1,56 @@
+{
+  "anchor": "deletion_cert_zratio_n32768_v1",
+  "run_mode": "full",
+  "N": 32768,
+  "M": 1638,
+  "alpha": 0.05,
+  "n_seeds": 5,
+  "n_null_probes": 20,
+  "per_seed_results": [
+    {
+      "seed": 7,
+      "signal_mean": 181.0193328857422,
+      "null_mean": 41.26810417175293,
+      "null_std": 0.7924092224408421,
+      "z_ratio": 176.3624460143414,
+      "elapsed_s": 0.7981617450714111
+    },
+    {
+      "seed": 17,
+      "signal_mean": 181.0193328857422,
+      "null_mean": 41.67652893066406,
+      "null_std": 0.8943213064152821,
+      "z_ratio": 155.8084359117054,
+      "elapsed_s": 0.848541259765625
+    },
+    {
+      "seed": 23,
+      "signal_mean": 181.0193328857422,
+      "null_mean": 41.57079849243164,
+      "null_std": 0.786550649616067,
+      "z_ratio": 177.2912328803981,
+      "elapsed_s": 0.8196418285369873
+    },
+    {
+      "seed": 31,
+      "signal_mean": 181.0193328857422,
+      "null_mean": 41.46991806030273,
+      "null_std": 0.6277373746638812,
+      "z_ratio": 222.30541060289815,
+      "elapsed_s": 0.8510487079620361
+    },
+    {
+      "seed": 41,
+      "signal_mean": 181.0193328857422,
+      "null_mean": 41.37658519744873,
+      "null_std": 0.6270175831819527,
+      "z_ratio": 222.70946052205187,
+      "elapsed_s": 0.903174877166748
+    }
+  ],
+  "z_mean": 190.89539718627898,
+  "z_min": 155.8084359117054,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 4.22565221786499,
+  "verdict_msg": "Deletion-cert Z-ratio at N=32768 alpha=0.05: Z_mean=190.90, Z_min=155.81 across 5 seeds. Verdict: HARD_PASS."
+}

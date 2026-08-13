@@ -1,0 +1,150 @@
+{
+  "anchor_name": "substrate_NESS_envelope_alpha_high_extension_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_ALPHA_EXTENSION: NESS envelope chain-grades at af=0.85 (ratio>=2.0 AND ext_hopfrac>=0.95 cv<=0.05); chain-grade set=[0.7, 0.85, 0.95] | af=0.70[K_obs=27.2 K_eq=3.07 ratio=8.85 ext_hf=1.000 cv=0.000 ext_gen=True] | af=0.85[K_obs=16.8 K_eq=0.63 ratio=26.54 ext_hf=1.000 cv=0.000 ext_gen=True] | af=0.95[K_obs=15.2 K_eq=0.06 ratio=241.54 ext_hf=1.000 cv=0.000 ext_gen=True] | [Q-DISCIPLINE: ext_hopfrac >= 0.995 at af=[0.7, 0.85, 0.95]; suspect saturation]",
+  "run_mode": "smoke",
+  "n_units": 3,
+  "config_version": "substrateNessEnvelopeAlphaHigh-v1: N=1024 N_CHAINS=8 K_GRID=[3, 6, 12, 24, 40] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995",
+  "per_unit": [
+    {
+      "alpha_frac": 0.7,
+      "alpha": 0.0966,
+      "seed": 11,
+      "k_obs": 27.2,
+      "ctrl_k_obs": 13.92,
+      "cleanup_boost": 1.954,
+      "k_eq": 3.0745,
+      "ratio_to_eq": 8.847,
+      "ctrl_ratio_to_eq": 4.528,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 1.0,
+        "40": 0.5
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.375,
+        "40": 0.5
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 1.0,
+        "40": 0.0281
+      },
+      "deep_K": 24,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "config_version": "substrateNessEnvelopeAlphaHigh-v1: N=1024 N_CHAINS=8 K_GRID=[3, 6, 12, 24, 40] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "af0p70_s11",
+      "_partial_written_at": 1782442203.2310007
+    },
+    {
+      "alpha_frac": 0.85,
+      "alpha": 0.1173,
+      "seed": 11,
+      "k_obs": 16.8,
+      "ctrl_k_obs": 13.6,
+      "cleanup_boost": 1.235,
+      "k_eq": 0.633,
+      "ratio_to_eq": 26.541,
+      "ctrl_ratio_to_eq": 21.485,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.75
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.25
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.6458
+      },
+      "deep_K": 12,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "config_version": "substrateNessEnvelopeAlphaHigh-v1: N=1024 N_CHAINS=8 K_GRID=[3, 6, 12, 24, 40] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "af0p85_s11",
+      "_partial_written_at": 1782442205.5959017
+    },
+    {
+      "alpha_frac": 0.95,
+      "alpha": 0.1311,
+      "seed": 11,
+      "k_obs": 15.2,
+      "ctrl_k_obs": 14.4,
+      "cleanup_boost": 1.056,
+      "k_eq": 0.0629,
+      "ratio_to_eq": 241.542,
+      "ctrl_ratio_to_eq": 228.829,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.625
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.5
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.3385
+      },
+      "deep_K": 12,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "config_version": "substrateNessEnvelopeAlphaHigh-v1: N=1024 N_CHAINS=8 K_GRID=[3, 6, 12, 24, 40] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "af0p95_s11",
+      "_partial_written_at": 1782442208.1845865
+    }
+  ],
+  "elapsed_s": 10.4,
+  "summary": "HARD_PASS_ALPHA_EXTENSION: NESS envelope chain-grades at af=0.85 (ratio>=2.0 AND ext_hopfrac>=0.95 cv<=0.05); chain-grade set=[0.7, 0.85, 0.95] | af=0.70[K_obs=27.2 K_eq=3.07 ratio=8.85 ext_hf=1.000 cv=0.000 ext_gen=True] | af=0.85[K_obs=16.8 K_eq=0.63 ratio=26.54 ext_hf=1.000 cv=0.000 ext_gen=True] | af=0.95[K_obs=15.2 K_eq=0.06 ratio=241.54 ext_hf=1.000 cv=0.000 ext_gen=True] | [Q-DISCIPLINE: ext_hopfrac >= 0.995 at af=[0.7, 0.85, 0.95]; suspect saturation]",
+  "_llm_forward_calls_at_inference": 0,
+  "ALPHA_FRACS": [
+    0.7,
+    0.85,
+    0.95
+  ],
+  "seeds": [
+    11
+  ],
+  "K_GRID": [
+    3,
+    6,
+    12,
+    24,
+    40
+  ],
+  "N": 1024,
+  "DESIGN_NOTE": "NESS envelope alpha-high extension from reference cell's chain-grade rail [0.3, 0.7]. Sweeps alpha_frac in {0.7,0.8,0.85,0.9,0.95} to identify the cliff. Per Research drill, lift cand/eq is monotonically increasing through 0.7 (2.12 -> 12.27); extension likely to chain-grade up to ~0.85-0.90 before Hatano-Sasa concentration-ceiling cliff. Pre-reg per preregs/2026-06-25_substrate_NESS_envelope_alpha_high_extension_v1.md."
+}

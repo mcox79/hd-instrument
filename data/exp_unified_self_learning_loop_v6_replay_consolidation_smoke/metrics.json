@@ -1,0 +1,110 @@
+{
+  "anchor_name": "unified_self_learning_loop_v6_replay_consolidation",
+  "run_mode": "smoke_primary_only",
+  "ts_iso": "2026-07-28T05:49:32.550185+00:00",
+  "primary": {
+    "skipped": false,
+    "n_old": 6,
+    "n_new": 6,
+    "chance_level": 0.0833,
+    "results": {
+      "AVERAGING_NAIVE": {
+        "old_retention": 0.1667,
+        "new_acquisition": 0.0,
+        "n_old_query": 6,
+        "n_new_query": 6,
+        "budget_respected": true,
+        "per_phase_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "REPLAY_SCHEMA_GATED": {
+        "old_retention": 0.1667,
+        "new_acquisition": 0.0,
+        "n_old_query": 6,
+        "n_new_query": 6,
+        "budget_respected": true,
+        "per_phase_counts": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      "REPLAY_UNIFORM": {
+        "old_retention": 0.1667,
+        "new_acquisition": 0.0,
+        "n_old_query": 6,
+        "n_new_query": 6,
+        "budget_respected": true,
+        "per_phase_counts": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      "NO_CLEANUP": {
+        "old_retention": 0.1667,
+        "new_acquisition": 0.0,
+        "n_old_query": 6,
+        "n_new_query": 6,
+        "budget_respected": true,
+        "per_phase_counts": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      }
+    },
+    "arm_digests": {
+      "AVERAGING_NAIVE": "9e69bc0d1aed446dd3447d1046590219b19f20ec8a9d4af5a2d03436919dd21a",
+      "REPLAY_SCHEMA_GATED": "d246e227ac27d47bfd75f6bf2c438f531fcbf1c5b27805d69a80e5d83e919b3c",
+      "REPLAY_UNIFORM": "28444b4d63c9f9a978623e670a78a1afd5cbdf752846cae89e1390ce2171c7b9",
+      "NO_CLEANUP": "c9dd64b68fee2a8375291de4e5f616410e3e2e1aff30bc4684bd04ede9baa839"
+    },
+    "cfg": {
+      "old_n": 6,
+      "new_n": 6,
+      "n_phase_old": 3,
+      "n_phase_new": 3,
+      "mentions_per_phase": 2,
+      "budget_b_primary": 6
+    }
+  },
+  "primary_verdict": "HARD_FAIL",
+  "primary_verdict_msg": "HARD_FAIL_PRIMARY: replay no better than averaging-family proxy. REPLAY_SCHEMA_GATED old=0.167 new=0.000 | AVERAGING_NAIVE old=0.167 | REPLAY_UNIFORM old=0.167 new=0.000 | NO_CLEANUP old=0.1667 | gap=0.000 chance=0.083 budget_ok=True refine=False",
+  "primary_detail": {
+    "full_old": 0.1667,
+    "full_new": 0.0,
+    "naive_old": 0.1667,
+    "unif_old": 0.1667,
+    "unif_new": 0.0,
+    "nc_old": 0.1667,
+    "gap": 0.0,
+    "budget_ok": true,
+    "refinement_helps": false,
+    "chance_level": 0.0833,
+    "n_old": 6,
+    "n_new": 6
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "PRIMARY-ONLY reduced smoke: HARD_FAIL_PRIMARY: replay no better than averaging-family proxy. REPLAY_SCHEMA_GATED old=0.167 new=0.000 | AVERAGING_NAIVE old=0.167 | REPLAY_UNIFORM old=0.167 new=0.000 | NO_CLEANUP old=0.1667 | gap=0.000 chance=0.083 budget_ok=True refine=False",
+  "summary": "HARD_FAIL",
+  "note": "SECONDARY skipped under concurrent-encoder-job CPU contention; PRIMARY is the gated metric",
+  "elapsed_s": 90.697,
+  "VET_PENDING": true,
+  "LOCAL_ONLY_UNCOMMITTED": true
+}

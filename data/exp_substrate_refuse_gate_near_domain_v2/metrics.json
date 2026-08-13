@@ -1,0 +1,407 @@
+{
+  "anchor_name": "substrate_refuse_gate_near_domain_v2",
+  "verdict": "HARD_PASS_BOTH_WORK",
+  "verdict_msg": "HARD_PASS_BOTH_WORK: AUDIT_RELATION_CHECK NEAR_refuse=1.000 >= 0.70 AND AUDIT_NAIVE_PLUS_INTENT NEAR_refuse=0.987 >= 0.70 (rel_cv=0.000 aipi_cv=0.019) | ARM_AUDIT_NAIVE_ALONE[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=0.000 cv=0.000] ARM_AUDIT_RELATION_CHECK[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=1.000 cv=0.000] ARM_INTENT_ALONE[PURE_IN_answer=1.000 PURE_OUT_refuse=0.993 NEAR_refuse=0.987 cv=0.019] ARM_AUDIT_NAIVE_PLUS_INTENT[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=0.987 cv=0.019] | MEDQA_FAILURE_REPRODUCED: AUDIT_NAIVE_ALONE NEAR refuse=0.000 < 0.50",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateRefuseGateNearDomain-v2: N=8192 V_C_IN=600 V_C_OUT=600 V_rel_in=8 V_rel_out=8 N_QUERIES_PER_CATEGORY=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full sanity_pure_in>=0.85 sanity_pure_out>=0.85 HP_near>=0.70 MEDQA_audit_refuse<0.50 HP_deep_fail<0.50 cv<=0.07 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "V_C_OUT": 600,
+      "V_relations_in": 8,
+      "V_relations_out": 8,
+      "n_queries_per_category": 100,
+      "config_version": "substrateRefuseGateNearDomain-v2: N=8192 V_C_IN=600 V_C_OUT=600 V_rel_in=8 V_rel_out=8 N_QUERIES_PER_CATEGORY=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full sanity_pure_in>=0.85 sanity_pure_out>=0.85 HP_near>=0.70 MEDQA_audit_refuse<0.50 HP_deep_fail<0.50 cv<=0.07 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.21
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.2
+      },
+      "arm_intent_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.2
+      },
+      "elapsed_s": 0.8,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782418890.953834
+    },
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "V_C_OUT": 600,
+      "V_relations_in": 8,
+      "V_relations_out": 8,
+      "n_queries_per_category": 100,
+      "config_version": "substrateRefuseGateNearDomain-v2: N=8192 V_C_IN=600 V_C_OUT=600 V_rel_in=8 V_rel_out=8 N_QUERIES_PER_CATEGORY=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full sanity_pure_in>=0.85 sanity_pure_out>=0.85 HP_near>=0.70 MEDQA_audit_refuse<0.50 HP_deep_fail<0.50 cv<=0.07 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.22
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.18
+      },
+      "arm_intent_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 0.98,
+            "answer_rate": 0.02,
+            "f1": 0.9899,
+            "n_refused": 98,
+            "n_answered": 2,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.96,
+            "answer_rate": 0.04,
+            "f1": 0.9796,
+            "n_refused": 96,
+            "n_answered": 4,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.96,
+            "answer_rate": 0.04,
+            "f1": 0.9796,
+            "n_refused": 96,
+            "n_answered": 4,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.23
+      },
+      "elapsed_s": 0.8,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782418891.7598011
+    },
+    {
+      "seed": 19,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "V_C_OUT": 600,
+      "V_relations_in": 8,
+      "V_relations_out": 8,
+      "n_queries_per_category": 100,
+      "config_version": "substrateRefuseGateNearDomain-v2: N=8192 V_C_IN=600 V_C_OUT=600 V_rel_in=8 V_rel_out=8 N_QUERIES_PER_CATEGORY=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full sanity_pure_in>=0.85 sanity_pure_out>=0.85 HP_near>=0.70 MEDQA_audit_refuse<0.50 HP_deep_fail<0.50 cv<=0.07 subject_thr=0.40 relation_thr=0.40 intent_thr=0.03",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.23
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.2
+      },
+      "arm_intent_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_naive_plus_intent": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "f1": 0.0,
+            "n_refused": 0,
+            "n_answered": 100,
+            "n_total": 100
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "f1": 1.0,
+            "n_refused": 100,
+            "n_answered": 0,
+            "n_total": 100
+          }
+        },
+        "elapsed_s_arm": 0.2
+      },
+      "elapsed_s": 0.8,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782418892.5894752
+    }
+  ],
+  "elapsed_s": 2.5,
+  "summary": "HARD_PASS_BOTH_WORK: AUDIT_RELATION_CHECK NEAR_refuse=1.000 >= 0.70 AND AUDIT_NAIVE_PLUS_INTENT NEAR_refuse=0.987 >= 0.70 (rel_cv=0.000 aipi_cv=0.019) | ARM_AUDIT_NAIVE_ALONE[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=0.000 cv=0.000] ARM_AUDIT_RELATION_CHECK[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=1.000 cv=0.000] ARM_INTENT_ALONE[PURE_IN_answer=1.000 PURE_OUT_refuse=0.993 NEAR_refuse=0.987 cv=0.019] ARM_AUDIT_NAIVE_PLUS_INTENT[PURE_IN_answer=1.000 PURE_OUT_refuse=1.000 NEAR_refuse=0.987 cv=0.019] | MEDQA_FAILURE_REPRODUCED: AUDIT_NAIVE_ALONE NEAR refuse=0.000 < 0.50",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "NEAR-DOMAIN-MIXED refuse-gate. Corpus-design fix of v1 saturation. Tests whether smarter audit alone (subject+relation check) OR audit+intent composition closes the medqa-style refuse-gate failure mode. Pre-reg per preregs/2026-06-25_substrate_refuse_gate_near_domain_v2.md."
+}

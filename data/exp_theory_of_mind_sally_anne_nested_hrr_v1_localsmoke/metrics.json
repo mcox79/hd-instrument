@@ -1,0 +1,281 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | TOM_PRIMITIVE_LOAD_BEARING: Sally-Anne nested HRR + agent partition validates | Q2_full=0.900 Q1_full=0.900 Q3_full=0.875 Q2_base=0.175 gap=0.725 oracle_avg=1.000 diag_5a=0.350 diag_5b=1.000 cv_Q2=0.056 arms_distinct=True baseline_in_band=True cardinality_ok=True n_seeds=2",
+  "summary": "HARD_PASS | TOM_PRIMITIVE_LOAD_BEARING: Sally-Anne nested HRR + agent partition validates | Q2_full=0.900 Q1_full=0.900 Q3_full=0.875 Q2_base=0.175 gap=0.725 oracle_avg=1.000 diag_5a=0.350 diag_5b=1.000 cv_Q2=0.056 arms_distinct=True baseline_in_band=True cardinality_ok=True n_seeds=2",
+  "verdict_reason": "TOM_PRIMITIVE_LOAD_BEARING: Sally-Anne nested HRR + agent partition validates",
+  "per_arm": {
+    "no_partition_baseline": {
+      "7": {
+        "Q1_world": 0.55,
+        "Q2_false_belief": 0.2,
+        "Q3_second_order": 0.2,
+        "Q4_refuse_control": 0.0,
+        "n_queries": 80
+      },
+      "17": {
+        "Q1_world": 0.6,
+        "Q2_false_belief": 0.15,
+        "Q3_second_order": 0.15,
+        "Q4_refuse_control": 0.0,
+        "n_queries": 80
+      }
+    },
+    "partition_no_refuse": {
+      "7": {
+        "Q1_world": 0.85,
+        "Q2_false_belief": 0.0,
+        "Q3_second_order": 0.05,
+        "Q4_refuse_control": 0.0,
+        "n_queries": 80
+      },
+      "17": {
+        "Q1_world": 0.8,
+        "Q2_false_belief": 0.0,
+        "Q3_second_order": 0.15,
+        "Q4_refuse_control": 0.0,
+        "n_queries": 80
+      }
+    },
+    "full_tom": {
+      "7": {
+        "Q1_world": 0.95,
+        "Q2_false_belief": 0.85,
+        "Q3_second_order": 0.9,
+        "Q4_refuse_control": 0.45,
+        "n_queries": 80
+      },
+      "17": {
+        "Q1_world": 0.85,
+        "Q2_false_belief": 0.95,
+        "Q3_second_order": 0.85,
+        "Q4_refuse_control": 0.7,
+        "n_queries": 80
+      }
+    },
+    "ground_truth_oracle": {
+      "7": {
+        "Q1_world": 1.0,
+        "Q2_false_belief": 1.0,
+        "Q3_second_order": 1.0,
+        "Q4_refuse_control": 1.0,
+        "n_queries": 80
+      },
+      "17": {
+        "Q1_world": 1.0,
+        "Q2_false_belief": 1.0,
+        "Q3_second_order": 1.0,
+        "Q4_refuse_control": 1.0,
+        "n_queries": 80
+      }
+    },
+    "diag_tom_lite": {
+      "7": {
+        "5a_no_partition_recall": 0.35,
+        "5b_agent_partition_recall": 1.0,
+        "n_queries": 40
+      },
+      "17": {
+        "5a_no_partition_recall": 0.35,
+        "5b_agent_partition_recall": 1.0,
+        "n_queries": 40
+      }
+    }
+  },
+  "per_arm_summary": {
+    "no_partition_baseline": {
+      "Q1_world_mean": 0.575,
+      "Q1_world_std": 0.024999999999999967,
+      "Q1_world_cv": 0.04347826086956516,
+      "Q2_false_belief_mean": 0.175,
+      "Q2_false_belief_std": 0.02500000000000001,
+      "Q2_false_belief_cv": 0.1428571428571429,
+      "Q3_second_order_mean": 0.175,
+      "Q3_second_order_std": 0.02500000000000001,
+      "Q3_second_order_cv": 0.1428571428571429,
+      "Q4_refuse_control_mean": 0.0,
+      "Q4_refuse_control_std": 0.0,
+      "Q4_refuse_control_cv": 0.0,
+      "n_seeds": 2
+    },
+    "partition_no_refuse": {
+      "Q1_world_mean": 0.825,
+      "Q1_world_std": 0.024999999999999967,
+      "Q1_world_cv": 0.030303030303030266,
+      "Q2_false_belief_mean": 0.0,
+      "Q2_false_belief_std": 0.0,
+      "Q2_false_belief_cv": 0.0,
+      "Q3_second_order_mean": 0.1,
+      "Q3_second_order_std": 0.049999999999999996,
+      "Q3_second_order_cv": 0.49999999999999994,
+      "Q4_refuse_control_mean": 0.0,
+      "Q4_refuse_control_std": 0.0,
+      "Q4_refuse_control_cv": 0.0,
+      "n_seeds": 2
+    },
+    "full_tom": {
+      "Q1_world_mean": 0.8999999999999999,
+      "Q1_world_std": 0.04999999999999999,
+      "Q1_world_cv": 0.055555555555555546,
+      "Q2_false_belief_mean": 0.8999999999999999,
+      "Q2_false_belief_std": 0.04999999999999999,
+      "Q2_false_belief_cv": 0.055555555555555546,
+      "Q3_second_order_mean": 0.875,
+      "Q3_second_order_std": 0.025000000000000022,
+      "Q3_second_order_cv": 0.0285714285714286,
+      "Q4_refuse_control_mean": 0.575,
+      "Q4_refuse_control_std": 0.12499999999999997,
+      "Q4_refuse_control_cv": 0.21739130434782605,
+      "n_seeds": 2
+    },
+    "ground_truth_oracle": {
+      "Q1_world_mean": 1.0,
+      "Q1_world_std": 0.0,
+      "Q1_world_cv": 0.0,
+      "Q2_false_belief_mean": 1.0,
+      "Q2_false_belief_std": 0.0,
+      "Q2_false_belief_cv": 0.0,
+      "Q3_second_order_mean": 1.0,
+      "Q3_second_order_std": 0.0,
+      "Q3_second_order_cv": 0.0,
+      "Q4_refuse_control_mean": 1.0,
+      "Q4_refuse_control_std": 0.0,
+      "Q4_refuse_control_cv": 0.0,
+      "n_seeds": 2
+    },
+    "diag_tom_lite": {
+      "5a_no_partition_mean": 0.35,
+      "5b_agent_partition_mean": 1.0,
+      "n_seeds": 2
+    }
+  },
+  "arms_distinct_all_seeds": true,
+  "arms_distinct_diag_first_seed": {
+    "digests": {
+      "no_partition_baseline": "90f2f306b5cb5ed6",
+      "partition_no_refuse": "1250b2bab982a266",
+      "full_tom": "b8b766665f7c72ce",
+      "ground_truth_oracle": "46a96dba2b66912d",
+      "diag_tom_lite": "1a533d836cbd851b"
+    },
+    "pairs": [
+      {
+        "arm_a": "diag_tom_lite",
+        "arm_b": "full_tom",
+        "disagreement": -1.0,
+        "pass": true,
+        "note": "length_mismatch_different_test_classes_skipped"
+      },
+      {
+        "arm_a": "diag_tom_lite",
+        "arm_b": "ground_truth_oracle",
+        "disagreement": -1.0,
+        "pass": true,
+        "note": "length_mismatch_different_test_classes_skipped"
+      },
+      {
+        "arm_a": "diag_tom_lite",
+        "arm_b": "no_partition_baseline",
+        "disagreement": -1.0,
+        "pass": true,
+        "note": "length_mismatch_different_test_classes_skipped"
+      },
+      {
+        "arm_a": "diag_tom_lite",
+        "arm_b": "partition_no_refuse",
+        "disagreement": -1.0,
+        "pass": true,
+        "note": "length_mismatch_different_test_classes_skipped"
+      },
+      {
+        "arm_a": "full_tom",
+        "arm_b": "ground_truth_oracle",
+        "digest_a": "b8b766665f7c",
+        "digest_b": "46a96dba2b66",
+        "disagreement": 0.2125,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      },
+      {
+        "arm_a": "full_tom",
+        "arm_b": "no_partition_baseline",
+        "digest_a": "b8b766665f7c",
+        "digest_b": "90f2f306b5cb",
+        "disagreement": 0.7375,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      },
+      {
+        "arm_a": "full_tom",
+        "arm_b": "partition_no_refuse",
+        "digest_a": "b8b766665f7c",
+        "digest_b": "1250b2bab982",
+        "disagreement": 0.7375,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      },
+      {
+        "arm_a": "ground_truth_oracle",
+        "arm_b": "no_partition_baseline",
+        "digest_a": "46a96dba2b66",
+        "digest_b": "90f2f306b5cb",
+        "disagreement": 0.7625,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      },
+      {
+        "arm_a": "ground_truth_oracle",
+        "arm_b": "partition_no_refuse",
+        "digest_a": "46a96dba2b66",
+        "digest_b": "1250b2bab982",
+        "disagreement": 0.775,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      },
+      {
+        "arm_a": "no_partition_baseline",
+        "arm_b": "partition_no_refuse",
+        "digest_a": "90f2f306b5cb",
+        "digest_b": "1250b2bab982",
+        "disagreement": 0.625,
+        "both_oracle": false,
+        "pass": true,
+        "note": ""
+      }
+    ],
+    "oracle_recall_floor": 0.99,
+    "all_pairs_pass": true
+  },
+  "suspect_1000": false,
+  "Q2_full": 0.8999999999999999,
+  "Q1_full": 0.8999999999999999,
+  "Q3_full": 0.875,
+  "Q2_baseline": 0.175,
+  "gap_Q2_over_baseline": 0.7249999999999999,
+  "oracle_avg": 1.0,
+  "diag_5a_mean": 0.35,
+  "diag_5b_mean": 1.0,
+  "Q2_cv": 0.055555555555555546,
+  "baseline_in_band": true,
+  "n_seeds_complete": 2,
+  "expected_n_units": 720,
+  "completed_units": 720,
+  "cardinality_ok": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_verified": true,
+  "crlb_floor_computed": 0.522,
+  "crlb_formula_reference": "cosine_after_depth_k_bind = base_cosine^k; SNR = cos/(1/sqrt(N))",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "anchor_name": "theory_of_mind_sally_anne_nested_hrr_v1",
+  "elapsed_s": 0.4,
+  "ts_iso": "2026-06-28T00:18:57Z",
+  "pid": 26168,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=theory_of_mind_sally_anne_nested_hrr_v1,N=2048,V_REL=128,n_agents=3,n_objects=4,n_locs=4,n_trials=20,n_goals_diag=3,n_interference=6,seeds=[7, 17],mode=smoke,HP_Q2>=0.65,HP_Q1>=0.65,HP_Q3>=0.50,HP_gap>=0.40,HP_oracle>=0.95,HP_diag5b>=0.80,HP_diag_gap>=0.30,HF_Q2<0.30,HF_oracle<0.90,chance=0.25,expected_n=720,baseline_band=[0.05,0.50],hardening=L1early+L2perseed+L3outertry+L4importsentinel+META_RULE_AF+META_RULE_AH+META_RULE_AG",
+  "_hardening_marker": "v1_sally_anne_nested_hrr"
+}

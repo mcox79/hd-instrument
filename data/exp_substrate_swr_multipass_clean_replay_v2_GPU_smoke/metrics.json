@@ -1,0 +1,137 @@
+{
+  "anchor_name": "substrate_swr_multipass_clean_replay_v2_GPU",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (SWR_MULTIPASS_CEILING_CONFIRMED): all N_REPLAY arms >= 0.9 (clean replay reaches near-DIRECT). M=512 N_h=2048 N_c=512 alpha_simple=0.250 mode=smoke ARM_REPLAY_1=1.000 ARM_REPLAY_2=1.000 ARM_REPLAY_5=1.000 ARM_REPLAY_10=1.000 ARM_REPLAY_20=1.000 | best_arm=ARM_REPLAY_1 best_recall=1.000 best_lift=+0.000 R_REPLAY_1=1.000",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 N_replay=(1, 2, 5, 10, 20) mode=smoke device=cpu swr_multipass_clean_replay",
+  "elapsed_s": 0.23902106285095215,
+  "config_version": "ANCHOR=substrate_swr_multipass_clean_replay_v2_GPU,M=512,N_h=2048,N_c=512,alpha_simple=0.250,N_REPLAY=(1, 2, 5, 10, 20),SEEDS=7,RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+METARULE_AH+METARULE_H+SWR_MULTIPASS_CLEAN",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "backend": "torch",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "N_replay_values": [
+    1,
+    2,
+    5,
+    10,
+    20
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_REPLAY_1",
+      "N_replay": 1,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_REPLAY_2",
+      "N_replay": 2,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_REPLAY_5",
+      "N_replay": 5,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_REPLAY_10",
+      "N_replay": 10,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_REPLAY_20",
+      "N_replay": 20,
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.2102222442626953,
+      "arms": [
+        {
+          "arm_name": "ARM_REPLAY_1",
+          "N_replay": 1,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 0.11360737681388855,
+          "n_total_writes": 512,
+          "arm_hash": "d7207af667d1f35a",
+          "alpha_simple": 0.25,
+          "wall_s": 0.042230844497680664,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_2",
+          "N_replay": 2,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 0.2272147387266159,
+          "n_total_writes": 1024,
+          "arm_hash": "ef77f2b6b91313f9",
+          "alpha_simple": 0.25,
+          "wall_s": 0.03064441680908203,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_5",
+          "N_replay": 5,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 0.5680369138717651,
+          "n_total_writes": 2560,
+          "arm_hash": "ddb77cf35c690e1b",
+          "alpha_simple": 0.25,
+          "wall_s": 0.03145027160644531,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_10",
+          "N_replay": 10,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 1.1360738277435303,
+          "n_total_writes": 5120,
+          "arm_hash": "75c4fd8fd435c823",
+          "alpha_simple": 0.25,
+          "wall_s": 0.03754997253417969,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_20",
+          "N_replay": 20,
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 2.2721476554870605,
+          "n_total_writes": 10240,
+          "arm_hash": "47dbb3b0b84288c4",
+          "alpha_simple": 0.25,
+          "wall_s": 0.055162668228149414,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "anchor": "substrate_synaptic_homeostasis_global_downscale_v1",
+  "anchor_name": "substrate_synaptic_homeostasis_global_downscale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 0.5333 > baseline 0.4000 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.4000+/-0.0000 min_integ=0.8013 | ARM_DOWNSCALE_0_99_EVERY_100=fin_forget=0.5333+/-0.0000 min_integ=0.7867 | ARM_DOWNSCALE_0_95_EVERY_500=fin_forget=0.4000+/-0.0000 min_integ=0.8013 | ARM_DOWNSCALE_0_999_EVERY_50=fin_forget=0.4667+/-0.0000 min_integ=0.7978",
+  "headline": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 0.5333 > baseline 0.4000 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.4000+/-0.0000 min_integ=0.8013 | ARM_DOWNSCALE_0_99_EVERY_100=fin_forget=0.5333+/-0.0000 min_integ=0.7867 | ARM_DOWNSCALE_0_95_EVERY_500=fin_forget=0.4000+/-0.0000 min_integ=0.8013 | ARM_DOWNSCALE_0_999_EVERY_50=fin_forget=0.4667+/-0.0000 min_integ=0.7978",
+  "n_seeds": 1,
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_cycles": 500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_DOWNSCALE",
+    "ARM_DOWNSCALE_0_99_EVERY_100",
+    "ARM_DOWNSCALE_0_95_EVERY_500",
+    "ARM_DOWNSCALE_0_999_EVERY_50"
+  ],
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_DOWNSCALE": {
+        "mean_final_forget": 0.4,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.8013020833333333,
+        "per_seed_forget": [
+          0.4
+        ],
+        "per_seed_min_integ": [
+          0.8013020833333333
+        ]
+      },
+      "ARM_DOWNSCALE_0_99_EVERY_100": {
+        "mean_final_forget": 0.5333333333333333,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.78671875,
+        "per_seed_forget": [
+          0.5333333333333333
+        ],
+        "per_seed_min_integ": [
+          0.78671875
+        ]
+      },
+      "ARM_DOWNSCALE_0_95_EVERY_500": {
+        "mean_final_forget": 0.4,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.8013020833333333,
+        "per_seed_forget": [
+          0.4
+        ],
+        "per_seed_min_integ": [
+          0.8013020833333333
+        ]
+      },
+      "ARM_DOWNSCALE_0_999_EVERY_50": {
+        "mean_final_forget": 0.4666666666666667,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.7977864583333333,
+        "per_seed_forget": [
+          0.4666666666666667
+        ],
+        "per_seed_min_integ": [
+          0.7977864583333333
+        ]
+      }
+    },
+    "best_downscale_arm": "ARM_DOWNSCALE_0_95_EVERY_500",
+    "drift_reduction_abs": 0.0,
+    "worst_arm_overage_vs_baseline": 0.1333333333333333,
+    "honest_scope": "REM-homeostasis primitive over 500 cycles N=1024; 4 arms (factor, interval); forget on first 30 atoms"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 1024,
+      "run_mode": "smoke",
+      "n_cycles": 500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "factor": 1.0,
+          "interval": null,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9982421875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9571614583333333,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8818359375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.7333333333333333,
+              "cleanup_integrity": 0.8272786458333333,
+              "forget": 0.2666666666666667
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6,
+              "cleanup_integrity": 0.8013020833333333,
+              "forget": 0.4
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6,
+          "final_forget": 0.4,
+          "final_integrity": 0.8013020833333333,
+          "min_integrity": 0.8013020833333333,
+          "elapsed_s": 4.5468199253082275
+        },
+        "ARM_DOWNSCALE_0_99_EVERY_100": {
+          "arm": "ARM_DOWNSCALE_0_99_EVERY_100",
+          "factor": 0.99,
+          "interval": 100,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9982421875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9555989583333333,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 0.9666666666666667,
+              "cleanup_integrity": 0.8727213541666666,
+              "forget": 0.033333333333333326
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.5666666666666667,
+              "cleanup_integrity": 0.8180989583333333,
+              "forget": 0.43333333333333335
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.4666666666666667,
+              "cleanup_integrity": 0.78671875,
+              "forget": 0.5333333333333333
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.4666666666666667,
+          "final_forget": 0.5333333333333333,
+          "final_integrity": 0.78671875,
+          "min_integrity": 0.78671875,
+          "elapsed_s": 4.761021137237549
+        },
+        "ARM_DOWNSCALE_0_95_EVERY_500": {
+          "arm": "ARM_DOWNSCALE_0_95_EVERY_500",
+          "factor": 0.95,
+          "interval": 500,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9982421875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9571614583333333,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8818359375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.7333333333333333,
+              "cleanup_integrity": 0.8272786458333333,
+              "forget": 0.2666666666666667
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6,
+              "cleanup_integrity": 0.8013020833333333,
+              "forget": 0.4
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6,
+          "final_forget": 0.4,
+          "final_integrity": 0.8013020833333333,
+          "min_integrity": 0.8013020833333333,
+          "elapsed_s": 4.716052055358887
+        },
+        "ARM_DOWNSCALE_0_999_EVERY_50": {
+          "arm": "ARM_DOWNSCALE_0_999_EVERY_50",
+          "factor": 0.999,
+          "interval": 50,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9981119791666667,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9569661458333333,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8807942708333333,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.6666666666666666,
+              "cleanup_integrity": 0.8251302083333333,
+              "forget": 0.33333333333333337
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.5333333333333333,
+              "cleanup_integrity": 0.7977864583333333,
+              "forget": 0.4666666666666667
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.5333333333333333,
+          "final_forget": 0.4666666666666667,
+          "final_integrity": 0.7977864583333333,
+          "min_integrity": 0.7977864583333333,
+          "elapsed_s": 5.338951826095581
+        }
+      },
+      "elapsed_s": 19.365594625473022,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782446731.7644272
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_REM_homeostasis_4arm_continual_writes",
+  "elapsed_s": 19.447800159454346,
+  "summary": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 0.5333 > baseline 0.4000 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=",
+  "honest_scope": "REM-homeostasis primitive over 500 cycles N=1024; 4 arms (factor, interval); forget on first 30 atoms",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls)"
+}

@@ -1,0 +1,249 @@
+{
+  "anchor_name": "resonator_dg_frontend_ksweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: expansion did NOT rescue K5 (oracle_any=0.000 < 0.70) despite the disentangler proving expansion lowers ORACLE crosstalk_std ~1.96x -- crosstalk fell but BASIN reachability did not recover, sharpening the basin-count-vs-crosstalk distinction (informative negative). Vanilla K5=0.000. vanilla[K5=0.000] expansion[K5=0.000] sparsify[K5=0.000]",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by": {
+        "vanilla_K5": {
+          "arm": "vanilla",
+          "K": 5,
+          "seed": 3,
+          "N": 4096,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "bea7d3cdf14a071e70519730a21242e16ee1dfb8896141280c8866d835014ef4"
+        },
+        "expansion_K5": {
+          "arm": "expansion",
+          "K": 5,
+          "seed": 3,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "4dbe5662e628da0f3e8d7edf088f018f6d4a8881700e77cac394b5228772f909"
+        },
+        "sparsify_K5": {
+          "arm": "sparsify",
+          "K": 5,
+          "seed": 3,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+        }
+      },
+      "hashes": {
+        "vanilla_K5": "bea7d3cdf14a071e70519730a21242e16ee1dfb8896141280c8866d835014ef4",
+        "expansion_K5": "4dbe5662e628da0f3e8d7edf088f018f6d4a8881700e77cac394b5228772f909",
+        "sparsify_K5": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+      },
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_dg_frontend_ksweep_v1,Nbase=4096,Nexp=16384,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783487203.660917
+    },
+    {
+      "seed": 7,
+      "by": {
+        "vanilla_K5": {
+          "arm": "vanilla",
+          "K": 5,
+          "seed": 7,
+          "N": 4096,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "ee8315fe0162c287d2b2d780e9ff6096dc247043538da5d38a34799a412b7f5a"
+        },
+        "expansion_K5": {
+          "arm": "expansion",
+          "K": 5,
+          "seed": 7,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "271b756af1f4a0cb73d8202d23d8b13b6ac85066e343395146021f489c0643cf"
+        },
+        "sparsify_K5": {
+          "arm": "sparsify",
+          "K": 5,
+          "seed": 7,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+        }
+      },
+      "hashes": {
+        "vanilla_K5": "ee8315fe0162c287d2b2d780e9ff6096dc247043538da5d38a34799a412b7f5a",
+        "expansion_K5": "271b756af1f4a0cb73d8202d23d8b13b6ac85066e343395146021f489c0643cf",
+        "sparsify_K5": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+      },
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_dg_frontend_ksweep_v1,Nbase=4096,Nexp=16384,M=30",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783487513.5904114
+    },
+    {
+      "seed": 13,
+      "by": {
+        "vanilla_K5": {
+          "arm": "vanilla",
+          "K": 5,
+          "seed": 13,
+          "N": 4096,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "31e401d9105f1dd98c25f9f095b3899991d3fb0cd0d7317a53161da4257739e4"
+        },
+        "expansion_K5": {
+          "arm": "expansion",
+          "K": 5,
+          "seed": 13,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "093d433ef631d3c08c5fe8da1195d04f00e58b2e9b27d7fbbc36c8a3121b254c"
+        },
+        "sparsify_K5": {
+          "arm": "sparsify",
+          "K": 5,
+          "seed": 13,
+          "N": 16384,
+          "oracle_any": 0.0,
+          "verifier": 0.0,
+          "plurality": 0.0,
+          "best_T0": 0.2,
+          "ver_le_oracle_viol": 0,
+          "reach_hash": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+        }
+      },
+      "hashes": {
+        "vanilla_K5": "31e401d9105f1dd98c25f9f095b3899991d3fb0cd0d7317a53161da4257739e4",
+        "expansion_K5": "093d433ef631d3c08c5fe8da1195d04f00e58b2e9b27d7fbbc36c8a3121b254c",
+        "sparsify_K5": "599e176734bd8242b6ac553475e7292f57ce7f83b5c0143221a784f18af4557b"
+      },
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_dg_frontend_ksweep_v1,Nbase=4096,Nexp=16384,M=30",
+      "_ckpt_key": "13",
+      "_partial_written_at": 1783487743.0189817
+    }
+  ],
+  "detail": {
+    "oracle_any": {
+      "vanilla": {
+        "5": 0.0
+      },
+      "expansion": {
+        "5": 0.0
+      },
+      "sparsify": {
+        "5": 0.0
+      }
+    },
+    "verifier": {
+      "vanilla": {
+        "5": 0.0
+      },
+      "expansion": {
+        "5": 0.0
+      },
+      "sparsify": {
+        "5": 0.0
+      }
+    },
+    "plurality": {
+      "vanilla": {
+        "5": 0.0
+      },
+      "expansion": {
+        "5": 0.0
+      },
+      "sparsify": {
+        "5": 0.0
+      }
+    },
+    "invariant_violations": 0,
+    "bands": {
+      "HP_K5": 0.7,
+      "HP_K6": 0.4,
+      "vanilla_crater_ceil": 0.3,
+      "K3_band": [
+        0.95,
+        1.0
+      ],
+      "K4_band": [
+        0.72,
+        0.9
+      ]
+    },
+    "capacity_math": {
+      "K5_ratio_base": 1.4483928680419922,
+      "K5_ratio_exp": 0.09052455425262451,
+      "K6_ratio_exp": 2.7157366275787354
+    },
+    "arms_differ_verified": true,
+    "sparsify_crater_confirmed": true,
+    "smoke_boundary_k": 5,
+    "smoke_expansion_lift": 0.0,
+    "smoke_discriminator_fired": false
+  },
+  "config": {
+    "N_BASE": 4096,
+    "N_EXP": 16384,
+    "R_EXPAND": 4,
+    "M": 30,
+    "MAXIT": 40,
+    "R": 10,
+    "TR": 24,
+    "T0_GRID": [
+      0.2,
+      0.35,
+      0.5
+    ],
+    "K_GRID": [
+      5
+    ],
+    "ARMS": [
+      "vanilla",
+      "expansion",
+      "sparsify"
+    ],
+    "SEEDS": [
+      3,
+      7,
+      13
+    ],
+    "SPARSITY": 0.02,
+    "EXPECTED_N_UNITS": 9
+  },
+  "elapsed_s": 783.5872000999952,
+  "summary": "HARD_FAIL: expansion did NOT rescue K5 (oracle_any=0.000 < 0.70) despite the disentangler proving expansion lowers ORACLE crosstalk_std ~1.96x -- crosstalk fell but BASIN reachability did not recover, sharpening the basin-count-vs-crosstalk distinction (informative negative). Vanilla K5=0.000. vanilla[K5=0.000] expansion[K5=0.000] sparsify[K5=0.000]"
+}

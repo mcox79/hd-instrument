@@ -1,0 +1,198 @@
+{
+  "anchor": "substrate_native_qa_hotpotqa_v2_composition_drill",
+  "anchor_name": "substrate_native_qa_hotpotqa_v2_composition_drill",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: composition-fix lift confirmed. best_alpha=0.0 em=0.2200 >= 0.20 AND lift=0.0800 >= 0.05 AND cv=0.0000 <= 0.10 AND harness reproduced (delta=0.0180). harness_em=0.1400 (v1=0.1223 delta=0.0180 tol=0.100) best_alpha=0.0 best_alpha_em=0.2200 lift=0.0800 cv_best=0.0000 n_llm=0",
+  "n_seeds": 1,
+  "N": 2048,
+  "N_DIM": 2048,
+  "N_Q": 50,
+  "TOP_K": 5,
+  "GEN_DEPTH": 3,
+  "alpha_grid": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "c_arms": [
+    "FREQ_BIAS",
+    "SUBSTRING_OVERLAP",
+    "QUESTION_TYPE_SPLIT",
+    "START_ENTITY_LEAK",
+    "RANDOM_SEED_CONTROL"
+  ],
+  "harness_arm": "GENERATION_ONLY_REPRO",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=2048 N_Q=50 TOP_K=5 GEN_DEPTH=3 sigma=0.100 run_mode=smoke device=cpu alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.100 cv_max=0.10",
+  "corpus_provenance": "hotpotqa_distractor_dev_1k_jsonl",
+  "allow_synthetic": false,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_harness_em": 0.14,
+    "v1_anchor_em": 0.122,
+    "harness_delta_abs": 0.018000000000000016,
+    "harness_tol": 0.1,
+    "harness_within_tol": true,
+    "cv_harness": 0.0,
+    "mean_b_by_alpha": {
+      "0.0": 0.22,
+      "0.2": 0.14,
+      "0.4": 0.14,
+      "0.6": 0.14,
+      "0.8": 0.02,
+      "1.0": 0.0
+    },
+    "cv_b_by_alpha": {
+      "0.0": 0.0,
+      "0.2": 0.0,
+      "0.4": 0.0,
+      "0.6": 0.0,
+      "0.8": 0.0,
+      "1.0": 0.0
+    },
+    "best_alpha": 0.0,
+    "best_alpha_em": 0.22,
+    "composed_lift_vs_harness": 0.07999999999999999,
+    "cv_best_alpha": 0.0,
+    "c_aggregate": {
+      "FREQ_BIAS": {
+        "em_mean": 0.42,
+        "n_candidates_mean": 42.0
+      },
+      "SUBSTRING_OVERLAP": {
+        "em_generation_only_mean": 0.22,
+        "n_substring_mean": 2.0,
+        "em_when_substring_mean": 0.0,
+        "n_not_substring_mean": 48.0,
+        "em_when_not_substring_mean": 0.22916666666666666,
+        "substring_overlap_rate_mean": 0.04
+      },
+      "QUESTION_TYPE_SPLIT": {
+        "per_type_em_mean": {
+          "comparison": 0.07142857142857142,
+          "bridge": 0.2777777777777778
+        },
+        "per_type_n_mean": {
+          "comparison": 14.0,
+          "bridge": 36.0
+        }
+      },
+      "START_ENTITY_LEAK": {
+        "leak_rate_mean": 0.0,
+        "n_seed_not_in_sf_mean": 14.0,
+        "em_seed_in_supporting_facts_mean": 0.3055555555555556,
+        "n_seed_in_sf_mean": 36.0,
+        "em_seed_NOT_in_supporting_facts_mean": 0.0
+      },
+      "RANDOM_SEED_CONTROL": {
+        "em_mean": 0.08
+      }
+    },
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Composition fix drill on HotpotQA-distractor 1k-dev (N_Q=50), N_DIM=2048, GEN_DEPTH=3, TOP_K=5. 11 arms (1 harness + 6 B alpha-sweep + 5 C characterization). Substrate-only-decode gate enforced (n_llm=0). Score-fusion replaces v1's mode-aggregation composition (per Research 2x-revival drill 2026-06-22). Builds on CERT 587 (g1b) + CERT 588 (h_hotpotqa KG) + char_trigram_encoder."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 2048,
+      "M": 50,
+      "run_mode": "smoke",
+      "config_version": "substrate-native-qa-hotpotqa-v2-composition-drill: N_DIM=2048 N_Q=50 TOP_K=5 GEN_DEPTH=3 sigma=0.100 run_mode=smoke device=cpu alpha_grid=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0] c_arms=5; bands HP_composed_em=0.20 HP_lift=0.05 HP_harness_tol=0.100 cv_max=0.10",
+      "harness_em": 0.14,
+      "b_arms": [
+        {
+          "arm": "COMPOSED_alpha_0.0",
+          "alpha": 0.0,
+          "em": 0.22
+        },
+        {
+          "arm": "COMPOSED_alpha_0.2",
+          "alpha": 0.2,
+          "em": 0.14
+        },
+        {
+          "arm": "COMPOSED_alpha_0.4",
+          "alpha": 0.4,
+          "em": 0.14
+        },
+        {
+          "arm": "COMPOSED_alpha_0.6",
+          "alpha": 0.6,
+          "em": 0.14
+        },
+        {
+          "arm": "COMPOSED_alpha_0.8",
+          "alpha": 0.8,
+          "em": 0.02
+        },
+        {
+          "arm": "COMPOSED_alpha_1.0",
+          "alpha": 1.0,
+          "em": 0.0
+        }
+      ],
+      "c_arms": [
+        {
+          "arm": "FREQ_BIAS",
+          "em": 0.42,
+          "n_candidates": 42,
+          "n_q": 50,
+          "note": "predict restricted to top-100 most-frequent answer entities"
+        },
+        {
+          "arm": "SUBSTRING_OVERLAP",
+          "em_generation_only": 0.22,
+          "substring_overlap_rate": 0.04,
+          "em_when_substring": 0.0,
+          "em_when_not_substring": 0.22916666666666666,
+          "n_substring": 2,
+          "n_not_substring": 48,
+          "n_q": 50
+        },
+        {
+          "arm": "QUESTION_TYPE_SPLIT",
+          "n_q": 50,
+          "per_type": {
+            "comparison": {
+              "em": 0.07142857142857142,
+              "n": 14
+            },
+            "bridge": {
+              "em": 0.2777777777777778,
+              "n": 36
+            }
+          }
+        },
+        {
+          "arm": "START_ENTITY_LEAK",
+          "leak_rate": 0.0,
+          "n_q": 50,
+          "em_seed_in_supporting_facts": 0.3055555555555556,
+          "em_seed_NOT_in_supporting_facts": 0.0,
+          "n_seed_in_sf": 36,
+          "n_seed_not_in_sf": 14
+        },
+        {
+          "arm": "RANDOM_SEED_CONTROL",
+          "em": 0.08,
+          "n_q": 50,
+          "note": "generation seeded from RANDOM entity (not nearest)"
+        }
+      ],
+      "elapsed_s": 0.8715362548828125,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782185223.7389
+    }
+  ],
+  "metrics_source": "measured_substrate_native_qa_hotpotqa_v2_composition_drill",
+  "elapsed_s": 0.9263734817504883,
+  "summary": "HARD_PASS: composition-fix lift confirmed. best_alpha=0.0 em=0.2200 >= 0.20 AND lift=0.0800 >= 0.05 AND cv=0.0000 <= 0.10 AND harness reproduced (delta=0.0180). harness_em=0.1400 (v1=0.1223 delta=0.01"
+}

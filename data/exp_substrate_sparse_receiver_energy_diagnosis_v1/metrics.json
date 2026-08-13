@@ -1,0 +1,185 @@
+{
+  "anchor_name": "substrate_sparse_receiver_energy_diagnosis_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Pearson r=0.7995 in [0.50, 0.85) -- matched-filter-energy partial explanation. Another mechanism contributes. B=0.040 C=0.100 D=0.250 cv_r=0.1449",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "config": {
+    "N_DIM": 512,
+    "M": 50,
+    "N_EVAL": 50,
+    "F_GRID": [
+      0.02,
+      0.5
+    ],
+    "SIGMA_GRID": [
+      16.0,
+      64.0
+    ]
+  },
+  "pearson_r_sparse_raw": 0.7995131773841628,
+  "pearson_p_sparse_raw": 0.017238553984205634,
+  "pearson_r_sparse_ampl": 0.3417973878735307,
+  "pearson_p_sparse_ampl": 0.40729384868543483,
+  "cv_pearson_r_across_seeds": 0.1449468334120455,
+  "cv_pass": false,
+  "criterion_b_val": 0.04,
+  "criterion_b_pass": false,
+  "criterion_c_val": 0.1,
+  "criterion_c_pass": false,
+  "criterion_d_val": 0.25,
+  "criterion_d_pass": false,
+  "summary": {
+    "ARM_DENSE_BASELINE": {
+      "f_0.02": {
+        "sigma_16.0": 0.16,
+        "sigma_64.0": 0.04
+      },
+      "f_0.5": {
+        "sigma_16.0": 0.16,
+        "sigma_64.0": 0.04
+      }
+    },
+    "ARM_SPARSE_RAW": {
+      "f_0.02": {
+        "sigma_16.0": 0.04,
+        "sigma_64.0": 0.02
+      },
+      "f_0.5": {
+        "sigma_16.0": 0.1,
+        "sigma_64.0": 0.01
+      }
+    },
+    "ARM_SPARSE_AMPLIFIED": {
+      "f_0.02": {
+        "sigma_16.0": 0.25,
+        "sigma_64.0": 0.05
+      },
+      "f_0.5": {
+        "sigma_16.0": 0.18,
+        "sigma_64.0": 0.04
+      }
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 512,
+      "M": 50,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_DENSE_BASELINE": {
+          "f_0.02": {
+            "sigma_16.0": 0.18,
+            "sigma_64.0": 0.02
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.18,
+            "sigma_64.0": 0.02
+          }
+        },
+        "ARM_SPARSE_RAW": {
+          "f_0.02": {
+            "sigma_16.0": 0.04,
+            "sigma_64.0": 0.02
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.14,
+            "sigma_64.0": 0.02
+          }
+        },
+        "ARM_SPARSE_AMPLIFIED": {
+          "f_0.02": {
+            "sigma_16.0": 0.28,
+            "sigma_64.0": 0.04
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.22,
+            "sigma_64.0": 0.0
+          }
+        }
+      },
+      "pearson_r_sparse_raw": 0.9756376989491822,
+      "pearson_r_sparse_ampl": 0.4351115270076674,
+      "pearson_p_sparse_raw": 0.024362301050817825,
+      "pearson_p_sparse_ampl": 0.5648884729923327,
+      "snr_pred_vec": [
+        0.2,
+        0.05,
+        1.0,
+        0.25
+      ],
+      "recall_raw_vec": [
+        0.04,
+        0.02,
+        0.14,
+        0.02
+      ],
+      "elapsed_s": 0.13286161422729492,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782272077.648155
+    },
+    "17": {
+      "seed": 17,
+      "N": 512,
+      "M": 50,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_DENSE_BASELINE": {
+          "f_0.02": {
+            "sigma_16.0": 0.14,
+            "sigma_64.0": 0.06
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.14,
+            "sigma_64.0": 0.06
+          }
+        },
+        "ARM_SPARSE_RAW": {
+          "f_0.02": {
+            "sigma_16.0": 0.04,
+            "sigma_64.0": 0.02
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.06,
+            "sigma_64.0": 0.0
+          }
+        },
+        "ARM_SPARSE_AMPLIFIED": {
+          "f_0.02": {
+            "sigma_16.0": 0.22,
+            "sigma_64.0": 0.06
+          },
+          "f_0.5": {
+            "sigma_16.0": 0.14,
+            "sigma_64.0": 0.08
+          }
+        }
+      },
+      "pearson_r_sparse_raw": 0.7286120888626995,
+      "pearson_r_sparse_ampl": 0.21265171570588493,
+      "pearson_p_sparse_raw": 0.27138791113730054,
+      "pearson_p_sparse_ampl": 0.7873482842941151,
+      "snr_pred_vec": [
+        0.2,
+        0.05,
+        1.0,
+        0.25
+      ],
+      "recall_raw_vec": [
+        0.04,
+        0.02,
+        0.06,
+        0.0
+      ],
+      "elapsed_s": 0.20568633079528809,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782272077.9034173
+    }
+  },
+  "elapsed_s": 0.493694543838501
+}

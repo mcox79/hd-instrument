@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_sequence_binding_K_cliff_phase_diagram_v1_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: SUBSTRATE(K=10,N=16384,tag=0.1)=0.500, RANDOM=0.000, backend=torch.cpu, elapsed=0.7s",
+  "summary": "selftest OK: SUBSTRATE(K=10,N=16384,tag=0.1)=0.500, RANDOM=0.000, backend=torch.cpu, elapsed=0.7s",
+  "elapsed_s": 9.08,
+  "ts_iso": "2026-06-28T17:31:50Z",
+  "pid": 33564,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_sequence_binding_K_cliff_phase_diagram_v1_seed_19,SEED=19,mode=selftest,K=[10,20,50,100,200,500,1000],N=[2048,4096,8192,16384],tag=[0.1,0.3,0.5],arms=[SUBSTRATE,RANDOM,SHUFFLE],V_ITEMS=1024,V_POS=1024,expected_n_full=2520,expected_n_smoke=36,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED+PROT021",
+  "_hardening_marker": "v1_seqbind_Kcliff_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

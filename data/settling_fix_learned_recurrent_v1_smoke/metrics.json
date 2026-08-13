@@ -1,0 +1,255 @@
+{
+  "verdict": "HARD_FAIL_1_RESIDUAL_PINNED_AT_NOISE_FLOOR_CODEBOOK_GEOMETRY_FORCES_COLLAPSE",
+  "verdict_msg": "fitted_beta=12.0 (grid=[0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 20.0], fit_acc=0.833) | oom_above_floor: B=0.23 C=-0.35 D=1.18 (floor_variance(A,full)=1.426e-07, hist_ref=1.479e-05) | EVAL acc: A=0.500 B=0.667 C=0.833 D=0.833 G3=0.667 | EVAL rho vs gold: A=0.314 B=0.200 C=0.200 D=0.771 | C convergence-class (full, pooled n=24): 1-2step=0 multi-step=11 nonconv=13 | must_fail_D_fires=False | HP={1:False,2:True,3:False,4:True} HF={1:True,2:True,3:False,4:False} | cardinality_ok=True arms_differ=True",
+  "summary": "HARD_FAIL_1_RESIDUAL_PINNED_AT_NOISE_FLOOR_CODEBOOK_GEOMETRY_FORCES_COLLAPSE: fitted_beta=12.0 (grid=[0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 20.0], fit_acc=0.833) | oom_above_floor: B=0.23 C=-0.35 D=1.18 (floor_variance(A,full)=1.426e-07, hist_ref=1.479e-05) | EVAL acc: A=0.500 B=",
+  "elapsed_s": 19.074692700000014,
+  "anchor_name": "settling_fix_learned_recurrent_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-20T14:24:07.274584+00:00",
+  "config": {
+    "vocab_size": 3000,
+    "V": 3000,
+    "n_dim": 256,
+    "min_count": 5,
+    "n_tokens": 8000000,
+    "seed": 7,
+    "n_per_class": 6,
+    "n_items": 12,
+    "beta_high": 20.0,
+    "t_max_a": 6,
+    "t_max_fix": 8,
+    "alpha_damping": 0.25,
+    "beta_grid": [
+      0.5,
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      20.0
+    ],
+    "tail_k": 2,
+    "conv_rel_thresh": 0.05
+  },
+  "item_meta": {
+    "n_v_avail": 7,
+    "n_n_avail": 36,
+    "n_v_used": 6,
+    "n_n_used": 6
+  },
+  "fit_eval_split": {
+    "n_fit": 6,
+    "n_eval": 6,
+    "fit_keys": [
+      "awarded_account_to_office",
+      "closed_share_in_trading",
+      "met_press_for_time",
+      "represents_workers_at_unit",
+      "said_member_of_club",
+      "think_lot_of_people"
+    ],
+    "eval_keys": [
+      "are_date_as_average",
+      "called_attention_to_matter",
+      "identify_dialects_over_telephone",
+      "is_amount_of_space",
+      "is_type_of_bus",
+      "received_contract_for_engines"
+    ]
+  },
+  "fitted_beta": 12.0,
+  "fit_acc": 0.8333333333333334,
+  "fit_grid_results": {
+    "0.5": 0.8333333333333334,
+    "1.0": 0.8333333333333334,
+    "2.0": 0.8333333333333334,
+    "3.0": 0.8333333333333334,
+    "5.0": 0.8333333333333334,
+    "8.0": 0.8333333333333334,
+    "12.0": 0.8333333333333334,
+    "20.0": 0.6666666666666666
+  },
+  "fit_grid_margins": {
+    "0.5": 7.547934850056966e-05,
+    "1.0": 7.741649945576985e-05,
+    "2.0": 8.157392342885335e-05,
+    "3.0": 8.599460124969482e-05,
+    "5.0": 9.568532307942708e-05,
+    "8.0": 0.00011246403058369954,
+    "12.0": 0.00013911227385203043,
+    "20.0": 0.0002432316541671753
+  },
+  "g3_baseline": {
+    "acc_full": 0.5,
+    "acc_eval": 0.6666666666666666
+  },
+  "agg_full": {
+    "A": {
+      "n_items": 12,
+      "acc": 0.5833333333333334,
+      "rho": 0.46153846153846156,
+      "variance": 1.4261293856954183e-07,
+      "mean_residual": 0.0004210472106933594,
+      "mean_iters": 3.4166666666666665,
+      "n_1_2_step": 0,
+      "n_multi_step": 24,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 7,
+        "spurious": 5,
+        "non_convergent": 0
+      }
+    },
+    "B": {
+      "n_items": 12,
+      "acc": 0.6666666666666666,
+      "rho": 0.6083916083916086,
+      "variance": 2.4289892222121673e-07,
+      "mean_residual": 0.0016997940838336945,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 24,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 12
+      }
+    },
+    "C": {
+      "n_items": 12,
+      "acc": 0.8333333333333334,
+      "rho": 0.6153846153846154,
+      "variance": 6.31852513767307e-08,
+      "mean_residual": 0.001258676250775655,
+      "mean_iters": 8.541666666666666,
+      "n_1_2_step": 0,
+      "n_multi_step": 11,
+      "n_nonconvergent": 13,
+      "breakdown": {
+        "correct": 4,
+        "spurious": 2,
+        "non_convergent": 6
+      }
+    },
+    "D": {
+      "n_items": 12,
+      "acc": 0.6666666666666666,
+      "rho": 0.3846153846153847,
+      "variance": 2.1748989487131566e-06,
+      "mean_residual": 0.051400101433197655,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 24,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 12
+      }
+    }
+  },
+  "agg_eval": {
+    "A": {
+      "n_items": 6,
+      "acc": 0.5,
+      "rho": 0.3142857142857143,
+      "variance": 4.060186033062586e-09,
+      "mean_residual": 0.00021567692359288534,
+      "mean_iters": 3.25,
+      "n_1_2_step": 0,
+      "n_multi_step": 12,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 3,
+        "spurious": 3,
+        "non_convergent": 0
+      }
+    },
+    "B": {
+      "n_items": 6,
+      "acc": 0.6666666666666666,
+      "rho": 0.2,
+      "variance": 6.793198973712815e-08,
+      "mean_residual": 0.0015081018209457397,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 12,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 6
+      }
+    },
+    "C": {
+      "n_items": 6,
+      "acc": 0.8333333333333334,
+      "rho": 0.2,
+      "variance": 2.1082977357749716e-08,
+      "mean_residual": 0.0011589402953783672,
+      "mean_iters": 8.416666666666666,
+      "n_1_2_step": 0,
+      "n_multi_step": 7,
+      "n_nonconvergent": 5,
+      "breakdown": {
+        "correct": 3,
+        "spurious": 1,
+        "non_convergent": 2
+      }
+    },
+    "D": {
+      "n_items": 6,
+      "acc": 0.8333333333333334,
+      "rho": 0.7714285714285715,
+      "variance": 2.3998114243954185e-06,
+      "mean_residual": 0.05140501260757446,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 12,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 6
+      }
+    }
+  },
+  "orders_of_magnitude_above_floor_full": {
+    "B": 0.2312666590772212,
+    "C": -0.35354321107217185,
+    "D": 1.1832801546404452
+  },
+  "floor_variance_measured_this_run": 1.4261293856954183e-07,
+  "noise_floor_historical_reference": 1.4789402484893799e-05,
+  "must_fail_D_fires": false,
+  "hard_pass_gates": {
+    "HP1_oom_ge_3": false,
+    "HP2_rho_or_beats_g3": true,
+    "HP3_beats_A_and_D": false,
+    "HP4_beta_below_ceiling_and_multistep": true
+  },
+  "hard_fail_gates": {
+    "HF1_pinned_at_floor": true,
+    "HF2_does_not_beat_D": true,
+    "HF3_graded_not_meaningful": false,
+    "HF4_beta_refits_to_ceiling": false
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 48,
+  "n_units_done": 48,
+  "per_unit_failures": {},
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "A_vs_B": true,
+    "A_vs_C": true,
+    "A_vs_D": true,
+    "B_vs_C": true,
+    "B_vs_D": true,
+    "C_vs_D": true
+  },
+  "arms_differ_hash_basis": "raw_residual_trajectories_not_predictions_only",
+  "crlb_n/a": "residual/coherence discrimination test; no argmax-capacity noise floor of the CRLB form; this cell's floor is empirically measured fresh from variant A each run.",
+  "prior_art": "Rabovsky/Hansen/McClelland2018 settling residual; Ramsauer2021 inverse-temp fixed-point-class; arXiv:2311.18434 fittable beta_c; arXiv:2506.05178 Hopfield/EBM/diffusion zero-noise-limit unification; reuses exp_settling_parse_selector_richness_v1 codebook/item/role/settle machinery verbatim"
+}

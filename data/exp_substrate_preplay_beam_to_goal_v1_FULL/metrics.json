@@ -1,0 +1,168 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | GREEDY=0.290 K4=0.053 K64=0.423 K64+GG=0.763 RANDOM=0.013 | K64-K4=0.370 K64-GREEDY=0.133 GG_gap_close=0.590 plan_ratio=1.08",
+  "summary": "MIDDLE_BAND | GREEDY=0.290 K4=0.053 K64=0.423 K64+GG=0.763 RANDOM=0.013 | K64-K4=0.370 K64-GREEDY=0.133 GG_gap_close=0.590 plan_ratio=1.08",
+  "per_arm": {
+    "greedy_1step": {
+      "7": {
+        "solve_rate": 0.24,
+        "n_solved": 24,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      },
+      "17": {
+        "solve_rate": 0.28,
+        "n_solved": 28,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      },
+      "23": {
+        "solve_rate": 0.35,
+        "n_solved": 35,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      }
+    },
+    "preplay_k4": {
+      "7": {
+        "solve_rate": 0.04,
+        "n_solved": 4,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.3333333333333333
+      },
+      "17": {
+        "solve_rate": 0.07,
+        "n_solved": 7,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.3333333333333333
+      },
+      "23": {
+        "solve_rate": 0.05,
+        "n_solved": 5,
+        "n_goals": 100,
+        "median_plan_len": 5.0,
+        "median_plan_ratio_vs_optimal": 1.25
+      }
+    },
+    "preplay_k64": {
+      "7": {
+        "solve_rate": 0.38,
+        "n_solved": 38,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      },
+      "17": {
+        "solve_rate": 0.46,
+        "n_solved": 46,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.25
+      },
+      "23": {
+        "solve_rate": 0.43,
+        "n_solved": 43,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      }
+    },
+    "preplay_k64_with_goal_gate": {
+      "7": {
+        "solve_rate": 0.76,
+        "n_solved": 76,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      },
+      "17": {
+        "solve_rate": 0.72,
+        "n_solved": 72,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      },
+      "23": {
+        "solve_rate": 0.81,
+        "n_solved": 81,
+        "n_goals": 100,
+        "median_plan_len": 4.0,
+        "median_plan_ratio_vs_optimal": 1.0
+      }
+    },
+    "random_control": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 100,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity
+      },
+      "17": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 100,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity
+      },
+      "23": {
+        "solve_rate": 0.04,
+        "n_solved": 4,
+        "n_goals": 100,
+        "median_plan_len": 5.5,
+        "median_plan_ratio_vs_optimal": 1.2916666666666665
+      }
+    }
+  },
+  "per_arm_summary": {
+    "greedy_1step": {
+      "solve_rate_mean": 0.29,
+      "solve_rate_std": 0.04546060565661951,
+      "median_plan_ratio_mean": 1.0,
+      "n": 3
+    },
+    "preplay_k4": {
+      "solve_rate_mean": 0.053333333333333344,
+      "solve_rate_std": 0.012472191289246475,
+      "median_plan_ratio_mean": 1.3055555555555556,
+      "n": 3
+    },
+    "preplay_k64": {
+      "solve_rate_mean": 0.42333333333333334,
+      "solve_rate_std": 0.032998316455372226,
+      "median_plan_ratio_mean": 1.0833333333333333,
+      "n": 3
+    },
+    "preplay_k64_with_goal_gate": {
+      "solve_rate_mean": 0.7633333333333333,
+      "solve_rate_std": 0.0368178700572909,
+      "median_plan_ratio_mean": 1.0,
+      "n": 3
+    },
+    "random_control": {
+      "solve_rate_mean": 0.013333333333333334,
+      "solve_rate_std": 0.018856180831641266,
+      "median_plan_ratio_mean": 1.2916666666666665,
+      "n": 3
+    }
+  },
+  "k64_minus_k4": 0.37,
+  "k64_minus_greedy": 0.13333333333333336,
+  "goal_gate_gap_close": 0.5895953757225433,
+  "n_seeds_complete": 3,
+  "expected_n_units": 1500,
+  "completed_units": 1500,
+  "cardinality_ok": true,
+  "anchor_name": "substrate_preplay_beam_to_goal_v1",
+  "elapsed_s": 100.4,
+  "ts_iso": "2026-06-28T02:15:06Z",
+  "pid": 1600,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_preplay_beam_to_goal_v1,N=2048,blocks=4,actions=6,goals=100,depth=6,K={'k4': 4, 'k64': 64},seeds=[7, 17, 23],mode=full,HP_solve>=0.70,HP_K64-K4>=0.10,expected_n=1500,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_substrate_preplay_beam"
+}

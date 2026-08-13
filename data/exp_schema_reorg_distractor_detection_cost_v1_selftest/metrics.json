@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: exhaustive strawman did NOT grow: 34.1->54.4",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_distractor_detection_cost_v1.py\", line 834, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_distractor_detection_cost_v1.py\", line 755, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_distractor_detection_cost_v1.py\", line 713, in self_test\n    assert hi[\"exhaustive_ops_per_write\"] >= 2.0 * lo[\"exhaustive_ops_per_write\"], \\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: exhaustive strawman did NOT grow: 34.1->54.4\n",
+  "ts_iso": "2026-07-17T02:35:18.305330+00:00",
+  "pid": 15216,
+  "anchor_name": "schema_reorg_distractor_detection_cost_v1"
+}

@@ -1,0 +1,33 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS reach: planted SPANNING core reaches all 6 domains; planted NARROW (physical-only) core FAILS abstract/emotional/math (must-fail control fires) + reaches physical; SCRAMBLED core does not ground; arms differ. {'span_aggregate': 0.9583, 'span_per_domain': {'PHYSICAL': 1.0, 'ABSTRACT': 1.0, 'EMOTIONAL': 0.938, 'MATHEMATICAL': 1.0, 'SOCIAL': 1.0, 'TEMPORAL': 0.812}, 'narrow_per_domain': {'PHYSICAL': 0.938, 'ABSTRACT': 0.0, 'EMOTIONAL': 0.0, 'MATHEMATICAL': 0.0, 'SOCIAL': 0.0, 'TEMPORAL': 0.0}, 'narrow_aggregate': 0.1562, 'scrambled_aggregate': 0.2812, 'span_reaches_all': True, 'narrow_missing_fail': True, 'narrow_phys_ok': True, 'scramble_collapses': True, 'arms_differ': True}",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.020553200040012598,
+  "mechanism_selftest": {
+    "span_aggregate": 0.9583,
+    "span_per_domain": {
+      "PHYSICAL": 1.0,
+      "ABSTRACT": 1.0,
+      "EMOTIONAL": 0.938,
+      "MATHEMATICAL": 1.0,
+      "SOCIAL": 1.0,
+      "TEMPORAL": 0.812
+    },
+    "narrow_per_domain": {
+      "PHYSICAL": 0.938,
+      "ABSTRACT": 0.0,
+      "EMOTIONAL": 0.0,
+      "MATHEMATICAL": 0.0,
+      "SOCIAL": 0.0,
+      "TEMPORAL": 0.0
+    },
+    "narrow_aggregate": 0.1562,
+    "scrambled_aggregate": 0.2812,
+    "span_reaches_all": true,
+    "narrow_missing_fail": true,
+    "narrow_phys_ok": true,
+    "scramble_collapses": true,
+    "arms_differ": true
+  }
+}

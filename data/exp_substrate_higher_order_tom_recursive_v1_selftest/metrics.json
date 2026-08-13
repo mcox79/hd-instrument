@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_higher_order_tom_recursive_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: arms_distinct=True sub_d2=0.750",
+  "summary": "SELFTEST_OK: arms_distinct=True sub_d2=0.750",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-28T17:33:05Z",
+  "pid": 37820,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_higher_order_tom_recursive_v1,N=1024,V_REL=128,n_agents_max=12,n_objects=3,n_locs=3,n_trials_per_depth=8,n_interference=4,per_level_distractors=2,depths=[2, 3],seeds=[7],mode=smoke,HP_d2>=0.85,HP_d3>=0.60,HP_d4>=0.40,HP_d5>=0.20,HP_discrim_d3>=0.25,HP_mech_d3>=0.20,HP_cv_max<0.15,random_band=[0.10,0.45],expected_n=64,hardening=L1early+L2perseed+L3outertry+L4importsentinel+META_RULE_AF+META_RULE_AH+META_RULE_AG+META_RULE_AN",
+  "_hardening_marker": "v1_higher_order_tom_recursive",
+  "_phase": "selftest_done",
+  "arms_distinct_pass": true,
+  "active_depths": [
+    2,
+    3
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "verdict": "HARD_FAIL_ENTITY_KB",
+  "verdict_msg": "[HARD_FAIL_ENTITY_KB] WordNet noun-semantics KB entity-selectional gate | POOLED N=90 base=0.7889(71/90) kb=0.8222(74/90) delta=0.0333 (boot90 [0.0111,0.0667]) | UD N=52 base=0.7692 kb=0.7885 (d=0.0193) | McGuffey N=38 base=0.8158 kb=0.8684 (d=0.0526) | rescued: UD=['u10'] McG=['h17', 'h20'] broken: UD=[] McG=[] | SCRAMBLE(must-fail) mean_delta=0.0167 max=0.0333 collapses=False | store_fidelity_min=1.0 | arms_differ=True no_regression=True baseline_in_band=True kb_nouns=325",
+  "summary": "HARD_FAIL_ENTITY_KB",
+  "elapsed_s": 6.77,
+  "run_mode": "smoke",
+  "anchor_name": "wordnet_noun_semantics_kb_who_affected_v1",
+  "ts_iso": "2026-07-21T21:22:48.848291+00:00",
+  "is_probe_flag": true,
+  "note": "WordNet noun-semantics KB (dominant-sense lexname + hypernym-closure animacy) wired into the who-affected gate's selectional decision, generalizing the hardcoded-met object-animacy path to a KB-backed for-any-verb rule. KB arm = BASE arm + Pareto force-none override when the object's KB feature-set selects a not-affecting frame-compatible sense. Runtime = KB lookup + VerbNet selrestr match, NO external LLM. Gold-independent -> leak-clean. LOCAL-only; no push/remote-persist; no hdlab mutation; no atom bank.",
+  "kb": {
+    "n_nouns": 325,
+    "artifact_path": "data\\wordnet_noun_semantics_kb_v1\\kb.json",
+    "spot_check": {
+      "man": {
+        "animate": true,
+        "sem_type": "person"
+      },
+      "box": {
+        "animate": false,
+        "sem_type": "artifact"
+      },
+      "hen": {
+        "animate": true,
+        "sem_type": "animal"
+      },
+      "duck": {
+        "animate": true,
+        "sem_type": "animal"
+      },
+      "fox": {
+        "animate": true,
+        "sem_type": "animal"
+      },
+      "moon": {
+        "animate": false,
+        "sem_type": "object"
+      },
+      "house": {
+        "animate": false,
+        "sem_type": "artifact"
+      },
+      "letter": {
+        "animate": false,
+        "sem_type": "communication"
+      },
+      "nest": {
+        "animate": false,
+        "sem_type": "object"
+      },
+      "step": {
+        "animate": false,
+        "sem_type": "abstract"
+      },
+      "president": {
+        "animate": true,
+        "sem_type": "person"
+      },
+      "hostage": {
+        "animate": true,
+        "sem_type": "person"
+      },
+      "embassy": {
+        "animate": false,
+        "sem_type": "artifact"
+      },
+      "song": {
+        "animate": false,
+        "sem_type": "communication"
+      },
+      "milk": {
+        "animate": false,
+        "sem_type": "food"
+      },
+      "grass": {
+        "animate": true,
+        "sem_type": "plant"
+      },
+      "hat": {
+        "animate": false,
+        "sem_type": "artifact"
+      }
+    },
+    "vocab_candidates": 524,
+    "coverage_note": "OOV gold-object nouns fall back to live WordNet (self-test asserts cache==live)."
+  },
+  "pooled": {
+    "n": 90,
+    "base_acc": 0.7889,
+    "kb_acc": 0.8222,
+    "base_correct": 71,
+    "kb_correct": 74,
+    "delta": 0.0333,
+    "bootstrap_90ci": {
+      "mean": 0.0327,
+      "lo": 0.0111,
+      "hi": 0.0667
+    },
+    "baseline_in_band": true
+  },
+  "ud_ewt": {
+    "n": 52,
+    "base_acc": 0.7692,
+    "kb_acc": 0.7885,
+    "delta": 0.0193,
+    "rescued": [
+      {
+        "id": "u10",
+        "verb": "met",
+        "type": "target_not_affected",
+        "kb_src": "kb_kb_selectional_none",
+        "obj_feats": [
+          "animate",
+          "human",
+          "organism"
+        ]
+      }
+    ],
+    "broken": []
+  },
+  "mcguffey_heldout": {
+    "n": 38,
+    "base_acc": 0.8158,
+    "kb_acc": 0.8684,
+    "delta": 0.0526,
+    "rescued": [
+      {
+        "id": "h17",
+        "verb": "met",
+        "type": "target_not_affected",
+        "kb_src": "kb_kb_selectional_none",
+        "obj_feats": [
+          "animate",
+          "human",
+          "organism"
+        ]
+      },
+      {
+        "id": "h20",
+        "verb": "met",
+        "type": "target_not_affected",
+        "kb_src": "kb_kb_selectional_none",
+        "obj_feats": [
+          "animate",
+          "human",
+          "organism"
+        ]
+      }
+    ],
+    "broken": []
+  },
+  "flips": [
+    {
+      "id": "u10",
+      "verb": "met",
+      "type": "target_not_affected",
+      "base_fn": false,
+      "kb_fn": true,
+      "kb_src": "kb_kb_selectional_none",
+      "obj_feats": [
+        "animate",
+        "human",
+        "organism"
+      ]
+    },
+    {
+      "id": "h17",
+      "verb": "met",
+      "type": "target_not_affected",
+      "base_fn": false,
+      "kb_fn": true,
+      "kb_src": "kb_kb_selectional_none",
+      "obj_feats": [
+        "animate",
+        "human",
+        "organism"
+      ]
+    },
+    {
+      "id": "h20",
+      "verb": "met",
+      "type": "target_not_affected",
+      "base_fn": false,
+      "kb_fn": true,
+      "kb_src": "kb_kb_selectional_none",
+      "obj_feats": [
+        "animate",
+        "human",
+        "organism"
+      ]
+    }
+  ],
+  "must_fail_scramble": {
+    "seeds": [
+      7,
+      13
+    ],
+    "runs": [
+      {
+        "seed": 7,
+        "scramble_pooled_delta": 0.0333,
+        "n_flips": 3
+      },
+      {
+        "seed": 13,
+        "scramble_pooled_delta": 0.0,
+        "n_flips": 0
+      }
+    ],
+    "mean_pooled_delta": 0.0167,
+    "max_pooled_delta": 0.0333,
+    "collapses": false,
+    "interpretation": "permuting the noun->feature map must destroy the lift (mean delta ~0) => the animacy/type SIGNAL is load-bearing, not a base-rate artifact"
+  },
+  "store_partition": {
+    "runs": [
+      {
+        "seed": 7,
+        "store_fidelity": 1.0,
+        "n_nouns": 325
+      },
+      {
+        "seed": 13,
+        "store_fidelity": 1.0,
+        "n_nouns": 325
+      }
+    ],
+    "fidelity_min": 1.0,
+    "N": 1024,
+    "note": "sharded additive-map (noun (x) sem_type); retrieve==dict => fidelity 1.0"
+  },
+  "arms_differ_verified": true,
+  "arm_decision_digests": {
+    "base": "e9a00140d32a109b998310b7144de0e2951ec1aed0319038a386f8f4341abd8f",
+    "kb": "6b6a119d0f771afe29e463c5fceea057c67b854442be5762bfd057422247c3a0"
+  },
+  "cardinality": {
+    "expected_scramble_runs": 2,
+    "actual_scramble_runs": 2,
+    "expected_store_runs": 2,
+    "actual_store_runs": 2,
+    "cardinality_ok": true
+  },
+  "design_gate": {
+    "real_baseline": "v2 verb-affectedness gate (full_gate baseline), no noun KB; 0.769 on UD",
+    "one_variable": "the KB selectional override (base=modal; kb=+object-type selrestr match)",
+    "can_fail": "narrow lever (only meet/reach-class polysemy with a discriminating object type; hunt/watch/look already force-none at base) -> could give 0 lift; or regress on a spurious selectional match; or the scramble must-fail could fail to collapse",
+    "difficulty_on": "real UD-EWT web-text (blind annotator) + archaic McGuffey; predicted parse; verb/noun disjoint from tuning",
+    "leak_clean": "gate = verb-lemma + parse-frame + KB-noun-type, gold-independent; mutation-probe permutes gold labels + re-derives -> KB decision vector byte-identical",
+    "deployable_regime": "PREDICTED POS/parse from the trained front-end (not gold-oracle)",
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n/a": "accuracy on labeled gold, no noise floor",
+    "calibration_check": "default_ok_for_this_regime (VN_GRADED_THRESHOLD 0.35 inherited; selrestr = exact VerbNet strings)"
+  },
+  "prereg": "preregs/2026-07-21_wordnet_noun_semantics_kb_who_affected_v1.md",
+  "credit": "WordNet (Fellbaum 1998); VerbNet (Kipper-Schuler 2005); Levin 1993; Dowty 1991; Beavers 2011; Paczynski-Kuperberg 2012; v1 hand-lexicon + v2 gate + WSD frame_selectional_v1.",
+  "leak_clean": true
+}

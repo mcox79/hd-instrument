@@ -1,0 +1,88 @@
+{
+  "anchor_name": "wave14c_r7_surprise_closedloop_replay_v1",
+  "elapsed_s": 401.96,
+  "ts_iso": "2026-07-18T03:57:25.818001+00:00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config": {
+    "N": 2048,
+    "MAX_EPOCHS": 6,
+    "seeds": [
+      17
+    ],
+    "REPLAY_FRACTION": 0.5,
+    "PER_ALPHA": 0.6,
+    "PER_EPS": 0.01,
+    "selections": [
+      "no_replay",
+      "random_replay",
+      "surprise_closedloop",
+      "surprise_static"
+    ]
+  },
+  "bands": {
+    "HARD_PASS_DELTA": 0.1,
+    "HARD_FAIL_DELTA": 0.02,
+    "FORGET_MIN": 0.1,
+    "SURPRISE_STD_MIN": 0.02
+  },
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "bpc/BWT has no closed-form noise floor; bands anchored to R7 measured random recovery",
+  "verdict": "SMOKE_GATE_PASS",
+  "verdict_msg": "smoke(n=1) delta_cl_vs_random mean=-0.0136 | gate valid=True (forget=1/1 headroom=1/1 nonuniform=1/1 arms_differ=True)",
+  "summary": "SMOKE_GATE_PASS | delta_cl_vs_random mean=-0.0136 | delta_cl_vs_static mean=+0.0149 | delta_static_vs_random mean=-0.0285",
+  "mean_delta_cl_vs_random": -0.013583169273766238,
+  "mean_delta_cl_vs_static": 0.014914953173824408,
+  "mean_delta_static_vs_random": -0.028498122447590646,
+  "n_pass": 0,
+  "n_fail": 1,
+  "gate_valid": true,
+  "gate": {
+    "forgetting_ok": 1,
+    "headroom_ok": 1,
+    "nonuniform_ok": 1,
+    "arms_differ": true
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "n": 2048,
+      "max_epochs": 6,
+      "bpc_a_initial": 3.211531976418495,
+      "bpc_a_post": {
+        "no_replay": 4.591855371177275,
+        "random_replay": 4.185370189203147,
+        "surprise_closedloop": 4.198953358476913,
+        "surprise_static": 4.213868311650738
+      },
+      "bwt": {
+        "no_replay": -1.3803233947587805,
+        "random_replay": -0.9738382127846523,
+        "surprise_closedloop": -0.9874213820584186,
+        "surprise_static": -1.002336335232243
+      },
+      "recovery": {
+        "no_replay": 0.0,
+        "random_replay": 0.4064851819741282,
+        "surprise_closedloop": 0.39290201270036196,
+        "surprise_static": 0.37798705952653755
+      },
+      "delta_cl_vs_random": -0.013583169273766238,
+      "delta_cl_vs_static": 0.014914953173824408,
+      "delta_static_vs_random": -0.028498122447590646,
+      "surprise_std": 0.19104090332984924,
+      "surprise_mean": 0.06116200238466263,
+      "tv_surprise_cl_from_uniform": 0.33784669637680054,
+      "tv_random_from_uniform": 0.03266376256942749,
+      "w_hashes": {
+        "no_replay": "4f39f6fd12a99d05",
+        "random_replay": "dc2252ad438325b4",
+        "surprise_closedloop": "2030686776165cea",
+        "surprise_static": "6ba5d65267ea62f1"
+      },
+      "forgetting_bwt_no": -1.3803233947587805,
+      "recovery_random": 0.4064851819741282
+    }
+  ]
+}

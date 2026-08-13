@@ -1,0 +1,1100 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL_RULE_TRANSFER",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_RULE_TRANSFER || HELD-OUT MRR [nq=3000]: INDUCT=0.0248 SHUFFLE=0.0006 RANDOM=0.0004 ORACLE=0.0265 POP=0.0253 || reach@2: INDUCT=0.0203 SHUFFLE=0.0002 ORACLE=0.0213 || real-vs-shuffled margin(mrr)=0.0242 (HARD_PASS>=0.05 HARD_FAIL<=0.02) vs-random=0.0244 (>=0.05) | ORACLE H=0.0261 ratio=65.6854x fires=True | shuffle_controlled=True broken=False | fair_lowmid_margin=0.0149 (>0) | frac_of_H=0.9250 | REF additive=0.1282 oracle_ref=0.1373 | seeds=3",
+  "summary": "MIDDLE_BAND_PARTIAL_RULE_TRANSFER || HELD-OUT MRR [nq=3000]: INDUCT=0.0248 SHUFFLE=0.0006 RANDOM=0.0004 ORACLE=0.0265 POP=0.0253 || reach@2: INDUCT=0.0203 SHUFFLE=0.0002 ORACLE=0.0213 || real-vs-shuff",
+  "run_mode": "full",
+  "elapsed_s": 158.80990560003556,
+  "anchor_name": "rule_induction_heldout_entity_cskg_v1",
+  "ts_iso": "2026-07-14T03:43:50.782016+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "planted": false,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "heldout_entity_frac": 0.15,
+    "support_frac": 0.5,
+    "n_heldout_eval": 3000,
+    "min_heldout": 20,
+    "seeds": [
+      7,
+      13,
+      17
+    ]
+  },
+  "gates": {
+    "verdict": "MIDDLE_BAND_PARTIAL_RULE_TRANSFER",
+    "ceil_metric": "mrr",
+    "heldout_metric_spectrum": {
+      "RULE_INDUCT": {
+        "hits@1": 0.017222,
+        "hits@2": 0.020333,
+        "hits@3": 0.023889,
+        "hits@10": 0.033111,
+        "hits@100": 0.126667,
+        "mrr": 0.024786
+      },
+      "RULE_SHUFFLE": {
+        "hits@1": 0.000222,
+        "hits@2": 0.000222,
+        "hits@3": 0.000222,
+        "hits@10": 0.000444,
+        "hits@100": 0.005889,
+        "mrr": 0.000634
+      },
+      "RANDOM": {
+        "hits@1": 0.000111,
+        "hits@2": 0.000111,
+        "hits@3": 0.000111,
+        "hits@10": 0.000222,
+        "hits@100": 0.002667,
+        "mrr": 0.000404
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.004445,
+        "hits@2": 0.006889,
+        "hits@3": 0.012778,
+        "hits@10": 0.055778,
+        "hits@100": 0.331334,
+        "mrr": 0.025341
+      },
+      "RULE_ORACLE": {
+        "hits@1": 0.017333,
+        "hits@2": 0.021333,
+        "hits@3": 0.025,
+        "hits@10": 0.037111,
+        "hits@100": 0.144222,
+        "mrr": 0.026515
+      }
+    },
+    "heldout_mrr": {
+      "RULE_INDUCT": 0.024786,
+      "RULE_SHUFFLE": 0.000634,
+      "RANDOM": 0.000404,
+      "BASELINE_POP": 0.025341,
+      "RULE_ORACLE": 0.026515
+    },
+    "heldout_reach_at_2": {
+      "RULE_INDUCT": 0.020333,
+      "RULE_SHUFFLE": 0.000222,
+      "RANDOM": 0.000111,
+      "BASELINE_POP": 0.006889,
+      "RULE_ORACLE": 0.021333
+    },
+    "heldout_hits_at_10": {
+      "RULE_INDUCT": 0.03311,
+      "RULE_SHUFFLE": 0.00044,
+      "RANDOM": 0.00022,
+      "BASELINE_POP": 0.05578,
+      "RULE_ORACLE": 0.03711
+    },
+    "real_vs_shuffled_mrr_margin": 0.024152,
+    "induct_vs_random_mrr_margin": 0.024382,
+    "real_vs_shuffled_reach2_margin": 0.020111,
+    "oracle_headroom": 0.026111,
+    "oracle_ratio": 65.69,
+    "real_vs_shuffled_frac_of_oracle_H": 0.924962,
+    "degree_stratified_real_vs_shuffled_mrr": {
+      "low": 0.01052,
+      "mid": 0.019425,
+      "high": 0.04291,
+      "low_mid": 0.01492
+    },
+    "reference_lines": {
+      "additive_anchor_compose_mrr": 0.12821,
+      "oracle_additive_mrr": 0.13729,
+      "random_codes_mrr": 0.00048
+    },
+    "bands": {
+      "HARD_PASS_MARGIN": 0.05,
+      "HARD_FAIL_MARGIN": 0.02,
+      "ORACLE_FIRE_RATIO": 3.0,
+      "ORACLE_FIRE_ABS": 0.003,
+      "SHUFFLE_CTRL_EPS": 0.005,
+      "MIN_HELDOUT": 20,
+      "MIN_SUPPORT": 3,
+      "MIN_CONF": 0.05,
+      "MAX_RULES_PER_HEAD": 50
+    },
+    "n_query_scored": 3000,
+    "n_rules_train": 210,
+    "enough_heldout": true,
+    "oracle_fires": true,
+    "shuffle_controlled": true,
+    "broken": false,
+    "fair_holds": true,
+    "hard_pass": false,
+    "hard_fail": false,
+    "middle": true,
+    "top_rules": [
+      {
+        "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+        "kind": "L2",
+        "conf": 0.4154,
+        "support": 1858
+      },
+      {
+        "rule": "hasprerequisite(x,z) <= hasfirstsubevent(x,z)",
+        "kind": "L1F",
+        "conf": 0.334,
+        "support": 176
+      },
+      {
+        "rule": "mannerof(x,z) <= entails(x,y) & entails(y,z)",
+        "kind": "L2",
+        "conf": 0.3333,
+        "support": 4
+      },
+      {
+        "rule": "locatednear(x,z) <= locatednear(z,x)",
+        "kind": "L1I",
+        "conf": 0.2594,
+        "support": 20466
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+        "kind": "L2",
+        "conf": 0.2147,
+        "support": 35
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+        "kind": "L2",
+        "conf": 0.2107,
+        "support": 9420
+      },
+      {
+        "rule": "xreact(x,z) <= oreact(x,z)",
+        "kind": "L1F",
+        "conf": 0.2097,
+        "support": 3288
+      },
+      {
+        "rule": "locatednear(x,z) <= receivesaction(x,y) & locatednear(y,z)",
+        "kind": "L2",
+        "conf": 0.2095,
+        "support": 31
+      },
+      {
+        "rule": "hassubevent(x,z) <= hasfirstsubevent(x,z)",
+        "kind": "L1F",
+        "conf": 0.1935,
+        "support": 102
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & motivatedbygoal(y,z)",
+        "kind": "L2",
+        "conf": 0.1915,
+        "support": 77
+      },
+      {
+        "rule": "locatednear(x,z) <= mannerof(x,y) & madeof(y,z)",
+        "kind": "L2",
+        "conf": 0.1875,
+        "support": 3
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+        "kind": "L2",
+        "conf": 0.1874,
+        "support": 558
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+        "kind": "L2",
+        "conf": 0.1871,
+        "support": 17665
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & hasproperty(y,z)",
+        "kind": "L2",
+        "conf": 0.1844,
+        "support": 1284
+      },
+      {
+        "rule": "xreact(x,z) <= xattr(x,y) & xreact(y,z)",
+        "kind": "L2",
+        "conf": 0.1765,
+        "support": 3
+      }
+    ]
+  },
+  "mechanism_selftest": {
+    "N": 280,
+    "n_heldout_entities": 42,
+    "n_support": 99,
+    "n_query": 97,
+    "n_cold": 3,
+    "n_rules_train": 2,
+    "top_rules": [
+      {
+        "rule": "rC(x,z) <= rA(x,y) & rB(y,z)",
+        "kind": "L2",
+        "conf": 1.0,
+        "support": 221
+      },
+      {
+        "rule": "rF(x,z) <= rD(x,y) & rE(y,z)",
+        "kind": "L2",
+        "conf": 1.0,
+        "support": 242
+      }
+    ],
+    "heldout_mrr": {
+      "RULE_INDUCT": 0.262252,
+      "RULE_SHUFFLE": 0.013372,
+      "RANDOM": 0.037754,
+      "BASELINE_POP": 0.023173,
+      "RULE_ORACLE": 0.448818
+    },
+    "heldout_reach_at_2": {
+      "RULE_INDUCT": 0.247423,
+      "RULE_SHUFFLE": 0.0,
+      "RANDOM": 0.020619,
+      "BASELINE_POP": 0.0,
+      "RULE_ORACLE": 0.443299
+    },
+    "n_distinct_sigs": 5,
+    "induct_vs_shuffle": 0.24888,
+    "induct_vs_random": 0.224498,
+    "oracle_headroom": 0.411064,
+    "oracle_ratio": 11.89,
+    "induct_recovers": true,
+    "beats_shuffle": true,
+    "beats_random": true,
+    "oracle_fires": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "HARD_PASS_RULE_INDUCTION_GENERALIZES",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path",
+      "guard_baseline_valid"
+    ]
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 359692,
+      "n_heldout_entities": 3862,
+      "n_support": 36254,
+      "n_query_total": 36333,
+      "n_query_scored": 3000,
+      "n_cold": 154,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_INDUCT": {
+          "hits@1": 0.022,
+          "hits@2": 0.025333,
+          "hits@3": 0.029667,
+          "hits@10": 0.041333,
+          "hits@100": 0.121667,
+          "mrr": 0.030016
+        },
+        "RULE_SHUFFLE": {
+          "hits@1": 0.000333,
+          "hits@2": 0.000333,
+          "hits@3": 0.000333,
+          "hits@10": 0.000333,
+          "hits@100": 0.004,
+          "mrr": 0.000647
+        },
+        "RANDOM": {
+          "hits@1": 0.0,
+          "hits@2": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.002,
+          "mrr": 0.000252
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.012667,
+          "hits@2": 0.014667,
+          "hits@3": 0.024333,
+          "hits@10": 0.116333,
+          "hits@100": 0.394667,
+          "mrr": 0.043451
+        },
+        "RULE_ORACLE": {
+          "hits@1": 0.020667,
+          "hits@2": 0.025667,
+          "hits@3": 0.031,
+          "hits@10": 0.047333,
+          "hits@100": 0.148333,
+          "mrr": 0.031711
+        }
+      },
+      "arm_n": {
+        "RULE_INDUCT": 3000,
+        "RULE_SHUFFLE": 3000,
+        "RANDOM": 3000,
+        "BASELINE_POP": 3000,
+        "RULE_ORACLE": 3000
+      },
+      "arm_sigs": {
+        "RULE_INDUCT": "de0733dbf0864af6",
+        "RULE_SHUFFLE": "a44792b7515e806c",
+        "RULE_ORACLE": "81f1cc2311e33518",
+        "RANDOM": "17efb2c020798ea0",
+        "BASELINE_POP": "83d3f45d27f30e38"
+      },
+      "arm_strata": {
+        "RULE_INDUCT": {
+          "low": {
+            "mrr": 0.014967,
+            "hits@2": 0.012846,
+            "n": 1012
+          },
+          "mid": {
+            "mrr": 0.023781,
+            "hits@2": 0.02004,
+            "n": 998
+          },
+          "high": {
+            "mrr": 0.051684,
+            "hits@2": 0.043434,
+            "n": 990
+          },
+          "low_mid": {
+            "mrr": 0.019344,
+            "hits@2": 0.016418,
+            "n": 2010
+          }
+        },
+        "RULE_SHUFFLE": {
+          "low": {
+            "mrr": 0.001251,
+            "hits@2": 0.000988,
+            "n": 1012
+          },
+          "mid": {
+            "mrr": 0.000309,
+            "hits@2": 0.0,
+            "n": 998
+          },
+          "high": {
+            "mrr": 0.00037,
+            "hits@2": 0.0,
+            "n": 990
+          },
+          "low_mid": {
+            "mrr": 0.000783,
+            "hits@2": 0.000498,
+            "n": 2010
+          }
+        },
+        "RULE_ORACLE": {
+          "low": {
+            "mrr": 0.013927,
+            "hits@2": 0.012846,
+            "n": 1012
+          },
+          "mid": {
+            "mrr": 0.024416,
+            "hits@2": 0.017034,
+            "n": 998
+          },
+          "high": {
+            "mrr": 0.057245,
+            "hits@2": 0.047475,
+            "n": 990
+          },
+          "low_mid": {
+            "mrr": 0.019135,
+            "hits@2": 0.014925,
+            "n": 2010
+          }
+        },
+        "RANDOM": {
+          "low": {
+            "mrr": 0.000258,
+            "hits@2": 0.0,
+            "n": 1012
+          },
+          "mid": {
+            "mrr": 0.00027,
+            "hits@2": 0.0,
+            "n": 998
+          },
+          "high": {
+            "mrr": 0.000227,
+            "hits@2": 0.0,
+            "n": 990
+          },
+          "low_mid": {
+            "mrr": 0.000264,
+            "hits@2": 0.0,
+            "n": 2010
+          }
+        }
+      },
+      "degree_tertile_bounds": [
+        38.0,
+        162.0
+      ],
+      "n_rules_train": 190,
+      "n_rules_oracle": 181,
+      "hub_skipped": 64,
+      "top_rules": [
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "kind": "L2",
+          "conf": 0.4154,
+          "support": 1858
+        },
+        {
+          "rule": "hasprerequisite(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.334,
+          "support": 176
+        },
+        {
+          "rule": "mannerof(x,z) <= entails(x,y) & entails(y,z)",
+          "kind": "L2",
+          "conf": 0.3333,
+          "support": 4
+        },
+        {
+          "rule": "locatednear(x,z) <= locatednear(z,x)",
+          "kind": "L1I",
+          "conf": 0.2594,
+          "support": 20466
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+          "kind": "L2",
+          "conf": 0.2147,
+          "support": 35
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2107,
+          "support": 9420
+        },
+        {
+          "rule": "xreact(x,z) <= oreact(x,z)",
+          "kind": "L1F",
+          "conf": 0.2097,
+          "support": 3288
+        },
+        {
+          "rule": "locatednear(x,z) <= receivesaction(x,y) & locatednear(y,z)",
+          "kind": "L2",
+          "conf": 0.2095,
+          "support": 31
+        },
+        {
+          "rule": "hassubevent(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.1935,
+          "support": 102
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & motivatedbygoal(y,z)",
+          "kind": "L2",
+          "conf": 0.1915,
+          "support": 77
+        },
+        {
+          "rule": "locatednear(x,z) <= mannerof(x,y) & madeof(y,z)",
+          "kind": "L2",
+          "conf": 0.1875,
+          "support": 3
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1874,
+          "support": 558
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1871,
+          "support": 17665
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & hasproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1844,
+          "support": 1284
+        },
+        {
+          "rule": "xreact(x,z) <= xattr(x,y) & xreact(y,z)",
+          "kind": "L2",
+          "conf": 0.1765,
+          "support": 3
+        }
+      ],
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 13,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 375272,
+      "n_heldout_entities": 3862,
+      "n_support": 28420,
+      "n_query_total": 28532,
+      "n_query_scored": 3000,
+      "n_cold": 180,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_INDUCT": {
+          "hits@1": 0.013667,
+          "hits@2": 0.017333,
+          "hits@3": 0.02,
+          "hits@10": 0.027333,
+          "hits@100": 0.122333,
+          "mrr": 0.020764
+        },
+        "RULE_SHUFFLE": {
+          "hits@1": 0.0,
+          "hits@2": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000333,
+          "hits@100": 0.003667,
+          "mrr": 0.000372
+        },
+        "RANDOM": {
+          "hits@1": 0.0,
+          "hits@2": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.000333,
+          "hits@100": 0.002667,
+          "mrr": 0.000314
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@2": 0.001333,
+          "hits@3": 0.001333,
+          "hits@10": 0.015667,
+          "hits@100": 0.293667,
+          "mrr": 0.013265
+        },
+        "RULE_ORACLE": {
+          "hits@1": 0.013333,
+          "hits@2": 0.018,
+          "hits@3": 0.020333,
+          "hits@10": 0.029,
+          "hits@100": 0.137667,
+          "mrr": 0.02162
+        }
+      },
+      "arm_n": {
+        "RULE_INDUCT": 3000,
+        "RULE_SHUFFLE": 3000,
+        "RANDOM": 3000,
+        "BASELINE_POP": 3000,
+        "RULE_ORACLE": 3000
+      },
+      "arm_sigs": {
+        "RULE_INDUCT": "54b9c7dd66ead492",
+        "RULE_SHUFFLE": "698369b54e1f9560",
+        "RULE_ORACLE": "059bb1634b21bccf",
+        "RANDOM": "9330cb648aeb234b",
+        "BASELINE_POP": "8a447dc4d0617ad1"
+      },
+      "arm_strata": {
+        "RULE_INDUCT": {
+          "low": {
+            "mrr": 0.009892,
+            "hits@2": 0.010649,
+            "n": 1033
+          },
+          "mid": {
+            "mrr": 0.020435,
+            "hits@2": 0.016277,
+            "n": 983
+          },
+          "high": {
+            "mrr": 0.032506,
+            "hits@2": 0.025407,
+            "n": 984
+          },
+          "low_mid": {
+            "mrr": 0.015033,
+            "hits@2": 0.013393,
+            "n": 2016
+          }
+        },
+        "RULE_SHUFFLE": {
+          "low": {
+            "mrr": 0.000426,
+            "hits@2": 0.0,
+            "n": 1033
+          },
+          "mid": {
+            "mrr": 0.000453,
+            "hits@2": 0.0,
+            "n": 983
+          },
+          "high": {
+            "mrr": 0.000235,
+            "hits@2": 0.0,
+            "n": 984
+          },
+          "low_mid": {
+            "mrr": 0.000439,
+            "hits@2": 0.0,
+            "n": 2016
+          }
+        },
+        "RULE_ORACLE": {
+          "low": {
+            "mrr": 0.00885,
+            "hits@2": 0.010649,
+            "n": 1033
+          },
+          "mid": {
+            "mrr": 0.020432,
+            "hits@2": 0.016277,
+            "n": 983
+          },
+          "high": {
+            "mrr": 0.036214,
+            "hits@2": 0.027439,
+            "n": 984
+          },
+          "low_mid": {
+            "mrr": 0.014497,
+            "hits@2": 0.013393,
+            "n": 2016
+          }
+        },
+        "RANDOM": {
+          "low": {
+            "mrr": 0.00031,
+            "hits@2": 0.0,
+            "n": 1033
+          },
+          "mid": {
+            "mrr": 0.000403,
+            "hits@2": 0.0,
+            "n": 983
+          },
+          "high": {
+            "mrr": 0.000229,
+            "hits@2": 0.0,
+            "n": 984
+          },
+          "low_mid": {
+            "mrr": 0.000355,
+            "hits@2": 0.0,
+            "n": 2016
+          }
+        }
+      },
+      "degree_tertile_bounds": [
+        25.0,
+        92.0
+      ],
+      "n_rules_train": 217,
+      "n_rules_oracle": 207,
+      "hub_skipped": 65,
+      "top_rules": [
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "kind": "L2",
+          "conf": 0.4281,
+          "support": 1903
+        },
+        {
+          "rule": "hasprerequisite(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.3519,
+          "support": 177
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & locatednear(y,z)",
+          "kind": "L2",
+          "conf": 0.2972,
+          "support": 709
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & atlocation(y,z)",
+          "kind": "L2",
+          "conf": 0.2578,
+          "support": 132
+        },
+        {
+          "rule": "locatednear(x,z) <= locatednear(z,x)",
+          "kind": "L1I",
+          "conf": 0.2551,
+          "support": 20614
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2362,
+          "support": 338
+        },
+        {
+          "rule": "oreact(x,z) <= oreact(x,y) & xreact(y,z)",
+          "kind": "L2",
+          "conf": 0.2143,
+          "support": 3
+        },
+        {
+          "rule": "hasa(x,z) <= usedfor(x,y) & hasa(y,z)",
+          "kind": "L2",
+          "conf": 0.2118,
+          "support": 846
+        },
+        {
+          "rule": "xreact(x,z) <= oreact(x,z)",
+          "kind": "L1F",
+          "conf": 0.2118,
+          "support": 3487
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2094,
+          "support": 10718
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & hasproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2013,
+          "support": 31
+        },
+        {
+          "rule": "capableof(x,z) <= desires(x,y) & capableof(y,z)",
+          "kind": "L2",
+          "conf": 0.1984,
+          "support": 51
+        },
+        {
+          "rule": "hassubevent(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.1948,
+          "support": 98
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+          "kind": "L2",
+          "conf": 0.1897,
+          "support": 33
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1877,
+          "support": 18123
+        }
+      ],
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 371254,
+      "n_heldout_entities": 3862,
+      "n_support": 31133,
+      "n_query_total": 31232,
+      "n_query_scored": 3000,
+      "n_cold": 155,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_INDUCT": {
+          "hits@1": 0.016,
+          "hits@2": 0.018333,
+          "hits@3": 0.022,
+          "hits@10": 0.030667,
+          "hits@100": 0.136,
+          "mrr": 0.023577
+        },
+        "RULE_SHUFFLE": {
+          "hits@1": 0.000333,
+          "hits@2": 0.000333,
+          "hits@3": 0.000333,
+          "hits@10": 0.000667,
+          "hits@100": 0.01,
+          "mrr": 0.000882
+        },
+        "RANDOM": {
+          "hits@1": 0.000333,
+          "hits@2": 0.000333,
+          "hits@3": 0.000333,
+          "hits@10": 0.000333,
+          "hits@100": 0.003333,
+          "mrr": 0.000645
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.000667,
+          "hits@2": 0.004667,
+          "hits@3": 0.012667,
+          "hits@10": 0.035333,
+          "hits@100": 0.305667,
+          "mrr": 0.019306
+        },
+        "RULE_ORACLE": {
+          "hits@1": 0.018,
+          "hits@2": 0.020333,
+          "hits@3": 0.023667,
+          "hits@10": 0.035,
+          "hits@100": 0.146667,
+          "mrr": 0.026214
+        }
+      },
+      "arm_n": {
+        "RULE_INDUCT": 3000,
+        "RULE_SHUFFLE": 3000,
+        "RANDOM": 3000,
+        "BASELINE_POP": 3000,
+        "RULE_ORACLE": 3000
+      },
+      "arm_sigs": {
+        "RULE_INDUCT": "47962de3aa928e81",
+        "RULE_SHUFFLE": "e51b45560e3828ce",
+        "RULE_ORACLE": "55d800ff832fbafa",
+        "RANDOM": "650a1a59982de744",
+        "BASELINE_POP": "1406fd3ee664bed6"
+      },
+      "arm_strata": {
+        "RULE_INDUCT": {
+          "low": {
+            "mrr": 0.008678,
+            "hits@2": 0.006986,
+            "n": 1002
+          },
+          "mid": {
+            "mrr": 0.015563,
+            "hits@2": 0.010934,
+            "n": 1006
+          },
+          "high": {
+            "mrr": 0.046754,
+            "hits@2": 0.037298,
+            "n": 992
+          },
+          "low_mid": {
+            "mrr": 0.012127,
+            "hits@2": 0.008964,
+            "n": 2008
+          }
+        },
+        "RULE_SHUFFLE": {
+          "low": {
+            "mrr": 0.000301,
+            "hits@2": 0.0,
+            "n": 1002
+          },
+          "mid": {
+            "mrr": 0.000743,
+            "hits@2": 0.0,
+            "n": 1006
+          },
+          "high": {
+            "mrr": 0.001608,
+            "hits@2": 0.001008,
+            "n": 992
+          },
+          "low_mid": {
+            "mrr": 0.000523,
+            "hits@2": 0.0,
+            "n": 2008
+          }
+        },
+        "RULE_ORACLE": {
+          "low": {
+            "mrr": 0.008538,
+            "hits@2": 0.006986,
+            "n": 1002
+          },
+          "mid": {
+            "mrr": 0.019072,
+            "hits@2": 0.013917,
+            "n": 1006
+          },
+          "high": {
+            "mrr": 0.051312,
+            "hits@2": 0.040323,
+            "n": 992
+          },
+          "low_mid": {
+            "mrr": 0.013815,
+            "hits@2": 0.010458,
+            "n": 2008
+          }
+        },
+        "RANDOM": {
+          "low": {
+            "mrr": 0.001274,
+            "hits@2": 0.000998,
+            "n": 1002
+          },
+          "mid": {
+            "mrr": 0.000348,
+            "hits@2": 0.0,
+            "n": 1006
+          },
+          "high": {
+            "mrr": 0.00031,
+            "hits@2": 0.0,
+            "n": 992
+          },
+          "low_mid": {
+            "mrr": 0.00081,
+            "hits@2": 0.000498,
+            "n": 2008
+          }
+        }
+      },
+      "degree_tertile_bounds": [
+        24.0,
+        122.0
+      ],
+      "n_rules_train": 223,
+      "n_rules_oracle": 216,
+      "hub_skipped": 65,
+      "top_rules": [
+        {
+          "rule": "hasprerequisite(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.3346,
+          "support": 177
+        },
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "kind": "L2",
+          "conf": 0.3303,
+          "support": 918
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & locatednear(y,z)",
+          "kind": "L2",
+          "conf": 0.2794,
+          "support": 803
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= receivesaction(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2778,
+          "support": 5
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & xreact(y,z)",
+          "kind": "L2",
+          "conf": 0.2727,
+          "support": 3
+        },
+        {
+          "rule": "locatednear(x,z) <= locatednear(z,x)",
+          "kind": "L1I",
+          "conf": 0.259,
+          "support": 20868
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & atlocation(y,z)",
+          "kind": "L2",
+          "conf": 0.2524,
+          "support": 158
+        },
+        {
+          "rule": "desires(x,z) <= desires(x,y) & createdby(y,z)",
+          "kind": "L2",
+          "conf": 0.25,
+          "support": 3
+        },
+        {
+          "rule": "hassubevent(x,z) <= hasfirstsubevent(x,z)",
+          "kind": "L1F",
+          "conf": 0.225,
+          "support": 119
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2208,
+          "support": 371
+        },
+        {
+          "rule": "xreact(x,z) <= oreact(x,z)",
+          "kind": "L1F",
+          "conf": 0.21,
+          "support": 3470
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.2032,
+          "support": 9242
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1821,
+          "support": 582
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "kind": "L2",
+          "conf": 0.1815,
+          "support": 18019
+        },
+        {
+          "rule": "locatednear(x,z) <= capableof(x,y) & locatednear(y,z)",
+          "kind": "L2",
+          "conf": 0.1688,
+          "support": 17200
+        }
+      ],
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    }
+  ]
+}

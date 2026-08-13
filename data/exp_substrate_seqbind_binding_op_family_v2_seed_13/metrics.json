@@ -1,0 +1,663 @@
+{
+  "phase_map": [
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "K_SEQ": 50,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 94.9,
+      "elapsed_per_point_s": 0.319,
+      "bundle_hash": "6629806b4bcea9137a5331112d50b77e8a23ea0821946dd0a798a6aa3831deed",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "K_SEQ": 100,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 99.1,
+      "elapsed_per_point_s": 0.254,
+      "bundle_hash": "de77f2c83772bcca9b5bcfdbf8ee1675d82a1683f6e622b34198ea702fe35ed5",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "K_SEQ": 200,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 108.9,
+      "elapsed_per_point_s": 0.258,
+      "bundle_hash": "2f990e2bdf8c4f4b05b5cce6c533209bea5f49b44c0199cb58e587c7fed148cc",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "K_SEQ": 500,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.76,
+      "top1_random": 0.0,
+      "discriminator": 0.76,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": 138.6,
+      "elapsed_per_point_s": 0.256,
+      "bundle_hash": "eec1d80609e4d2db913546125e3906e59229510662bb9a0d1e98c3fbe6805ab4",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "K_SEQ": 1000,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.32,
+      "top1_random": 0.0,
+      "discriminator": 0.32,
+      "band": "MB",
+      "suspect_saturation": false,
+      "peak_mem_mb": 188.9,
+      "elapsed_per_point_s": 0.265,
+      "bundle_hash": "ad701d39f2ff7ddea2e9f52ca4cca6af69cd497a9e912ca2b5bbd939aec5f212",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "K_SEQ": 50,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 102.3,
+      "elapsed_per_point_s": 0.389,
+      "bundle_hash": "57a4bdfc0ce3324aa7726a402f38eb142b8088874bb664dc0125eccab42616fa",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "K_SEQ": 100,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 115.4,
+      "elapsed_per_point_s": 0.379,
+      "bundle_hash": "eacd114c9a2cc46960e6e1a1ff7f2fdf943e0c2f4d68869a78f42e467620263b",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "K_SEQ": 200,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 141.6,
+      "elapsed_per_point_s": 0.383,
+      "bundle_hash": "f6599ae4b4279bd655d24eba5b1a51177d3cba4a2f3793b3fcfb180cd5edd057",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "K_SEQ": 500,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.78,
+      "top1_random": 0.0,
+      "discriminator": 0.78,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": 222.4,
+      "elapsed_per_point_s": 0.407,
+      "bundle_hash": "3acfb03c975c053911b7c01b1feaa7e563ee3b30f8d058cd4f688925fb24f747",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "K_SEQ": 1000,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.22,
+      "top1_random": 0.0,
+      "discriminator": 0.22,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": 356.6,
+      "elapsed_per_point_s": 0.398,
+      "bundle_hash": "9647e6496b6e07ba602643cb15c92f1e9d17c54c3b4e3becc24c04f48071c772",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "TENSOR_PRODUCT",
+      "encoder_family": "binary_bipolar_outer",
+      "K_SEQ": 50,
+      "N_DIM": 8192,
+      "code_dim": 91,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.08,
+      "discriminator": 0.92,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 11.1,
+      "elapsed_per_point_s": 0.088,
+      "bundle_hash": "14da03bcf3b34a63c1f8b55e64e36ccd4938270b3ba244cee7f0ea670b1b52cd",
+      "bundle_shape": [
+        8281
+      ]
+    },
+    {
+      "binding_operation": "TENSOR_PRODUCT",
+      "encoder_family": "binary_bipolar_outer",
+      "K_SEQ": 100,
+      "N_DIM": 8192,
+      "code_dim": 91,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": 12.8,
+      "elapsed_per_point_s": 0.071,
+      "bundle_hash": "5f00a313611c42e43ed24df2d3ce217b0eedca06203af20b6586b664ec9581e1",
+      "bundle_shape": [
+        8281
+      ]
+    },
+    {
+      "binding_operation": "TENSOR_PRODUCT",
+      "encoder_family": "binary_bipolar_outer",
+      "K_SEQ": 200,
+      "N_DIM": 8192,
+      "code_dim": 91,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.96,
+      "top1_random": 0.0,
+      "discriminator": 0.96,
+      "band": "SAT",
+      "suspect_saturation": false,
+      "peak_mem_mb": 17.1,
+      "elapsed_per_point_s": 0.067,
+      "bundle_hash": "161f5a11c6591023c518241d41759c377c8be4190a60cc0d14b0a7fddc31323b",
+      "bundle_shape": [
+        8281
+      ]
+    },
+    {
+      "binding_operation": "TENSOR_PRODUCT",
+      "encoder_family": "binary_bipolar_outer",
+      "K_SEQ": 500,
+      "N_DIM": 8192,
+      "code_dim": 91,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.6,
+      "top1_random": 0.0,
+      "discriminator": 0.6,
+      "band": "MB",
+      "suspect_saturation": false,
+      "peak_mem_mb": 26.6,
+      "elapsed_per_point_s": 0.069,
+      "bundle_hash": "837c116fe4fafa72565a320fccd9ae28ee73b08166efe10ab06ef5148897ece0",
+      "bundle_shape": [
+        8281
+      ]
+    },
+    {
+      "binding_operation": "TENSOR_PRODUCT",
+      "encoder_family": "binary_bipolar_outer",
+      "K_SEQ": 1000,
+      "N_DIM": 8192,
+      "code_dim": 91,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.24,
+      "top1_random": 0.0,
+      "discriminator": 0.24,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": 43.7,
+      "elapsed_per_point_s": 0.067,
+      "bundle_hash": "dffca5d9dab4aaa1f6b329889a44555eb5fa38224952271676d46f6f448589e7",
+      "bundle_shape": [
+        8281
+      ]
+    },
+    {
+      "binding_operation": "XOR_BSC",
+      "encoder_family": "binary_01",
+      "K_SEQ": 50,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.08,
+      "top1_random": 0.0,
+      "discriminator": 0.08,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 95.0,
+      "elapsed_per_point_s": 0.211,
+      "bundle_hash": "2a2765b326a9fb3e3ba76db3bfd85aefa43a4bb17b046807c76deb22245bb3b8",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "XOR_BSC",
+      "encoder_family": "binary_01",
+      "K_SEQ": 100,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 102.3,
+      "elapsed_per_point_s": 0.198,
+      "bundle_hash": "b75c071f7c7d81895807e6518e22d24c68ff7b866d787944e6017aabf2dbbe46",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "XOR_BSC",
+      "encoder_family": "binary_01",
+      "K_SEQ": 200,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 115.4,
+      "elapsed_per_point_s": 0.194,
+      "bundle_hash": "3078b697b5a0ada6ce054b790011aa5008da693966e5911a92134cfab3609228",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "XOR_BSC",
+      "encoder_family": "binary_01",
+      "K_SEQ": 500,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.02,
+      "discriminator": -0.02,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 155.3,
+      "elapsed_per_point_s": 0.188,
+      "bundle_hash": "9c8bb72b61a95c625516a78963b933defc86abc6397f91adeba817ac5258a38e",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "XOR_BSC",
+      "encoder_family": "binary_01",
+      "K_SEQ": 1000,
+      "N_DIM": 8192,
+      "code_dim": 8192,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 222.4,
+      "elapsed_per_point_s": 0.208,
+      "bundle_hash": "856fefc148ca820efd2fb64ee1240725766ba3ac68d4f10b6403b2adcf08bc04",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "SUM_MOD_N",
+      "encoder_family": "integer_mod_N",
+      "K_SEQ": 50,
+      "N_DIM": 8192,
+      "code_dim": 1,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 8.6,
+      "elapsed_per_point_s": 0.078,
+      "bundle_hash": "eea629e0a84a2e8f04ebb01b0c55f05d518e1fa5f7f875baae36de84b03f520b",
+      "bundle_shape": [
+        1
+      ]
+    },
+    {
+      "binding_operation": "SUM_MOD_N",
+      "encoder_family": "integer_mod_N",
+      "K_SEQ": 100,
+      "N_DIM": 8192,
+      "code_dim": 1,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 8.6,
+      "elapsed_per_point_s": 0.067,
+      "bundle_hash": "c47cd3ef901d5ad0d23ce385632af0c362274ef205d79470b23c64fa9dbad93a",
+      "bundle_shape": [
+        1
+      ]
+    },
+    {
+      "binding_operation": "SUM_MOD_N",
+      "encoder_family": "integer_mod_N",
+      "K_SEQ": 200,
+      "N_DIM": 8192,
+      "code_dim": 1,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 8.6,
+      "elapsed_per_point_s": 0.068,
+      "bundle_hash": "8f6dd6853aebe69753398e557f27faae9206ae82fe7afdbd6a7322b7da61b0d9",
+      "bundle_shape": [
+        1
+      ]
+    },
+    {
+      "binding_operation": "SUM_MOD_N",
+      "encoder_family": "integer_mod_N",
+      "K_SEQ": 500,
+      "N_DIM": 8192,
+      "code_dim": 1,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 8.6,
+      "elapsed_per_point_s": 0.067,
+      "bundle_hash": "3c55d496897b00a5293d646440de7b90edf1b03ce488239ce554d4c3165680da",
+      "bundle_shape": [
+        1
+      ]
+    },
+    {
+      "binding_operation": "SUM_MOD_N",
+      "encoder_family": "integer_mod_N",
+      "K_SEQ": 1000,
+      "N_DIM": 8192,
+      "code_dim": 1,
+      "n_queries": 50,
+      "seed": 13,
+      "top1_substrate": 0.0,
+      "top1_random": 0.02,
+      "discriminator": -0.02,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": 8.6,
+      "elapsed_per_point_s": 0.068,
+      "bundle_hash": "db8cef8b2e92c33404824226b18a25a5caf3a3f3e9f4c980ba75422cf946119b",
+      "bundle_shape": [
+        1
+      ]
+    }
+  ],
+  "per_op_summary": {
+    "HADAMARD_BIND": {
+      "encoder_family": "binary_bipolar",
+      "top1_sub_mean": 0.816,
+      "top1_rand_mean": 0.0,
+      "K_cliff": 500,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 1
+      },
+      "cv_across_K": 0.3246,
+      "mechanism_hash_prefix": "6629806b4bcea913"
+    },
+    "CIRCULAR_CONV_HRR": {
+      "encoder_family": "hrr_real",
+      "top1_sub_mean": 0.8,
+      "top1_rand_mean": 0.0,
+      "K_cliff": 500,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 0,
+        "FLOOR": 0,
+        "TRANSITION": 2
+      },
+      "cv_across_K": 0.3778,
+      "mechanism_hash_prefix": "57a4bdfc0ce3324a"
+    },
+    "TENSOR_PRODUCT": {
+      "encoder_family": "binary_bipolar_outer",
+      "top1_sub_mean": 0.76,
+      "top1_rand_mean": 0.016,
+      "K_cliff": 500,
+      "band_counts": {
+        "SAT": 3,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 1
+      },
+      "cv_across_K": 0.3953,
+      "mechanism_hash_prefix": "14da03bcf3b34a63"
+    },
+    "XOR_BSC": {
+      "encoder_family": "binary_01",
+      "top1_sub_mean": 0.016,
+      "top1_rand_mean": 0.004,
+      "K_cliff": 50,
+      "band_counts": {
+        "SAT": 0,
+        "MB": 0,
+        "FLOOR": 5,
+        "TRANSITION": 0
+      },
+      "cv_across_K": 2.0,
+      "mechanism_hash_prefix": "2a2765b326a9fb3e"
+    },
+    "SUM_MOD_N": {
+      "encoder_family": "integer_mod_N",
+      "top1_sub_mean": 0.0,
+      "top1_rand_mean": 0.004,
+      "K_cliff": 50,
+      "band_counts": {
+        "SAT": 0,
+        "MB": 0,
+        "FLOOR": 5,
+        "TRANSITION": 0
+      },
+      "cv_across_K": 0.0,
+      "mechanism_hash_prefix": "eea629e0a84a2e8f"
+    }
+  },
+  "K_cliff_per_op": {
+    "HADAMARD_BIND": 500,
+    "CIRCULAR_CONV_HRR": 500,
+    "TENSOR_PRODUCT": 500,
+    "XOR_BSC": 50,
+    "SUM_MOD_N": 50
+  },
+  "K_cliff_log2_sep_pairs": {
+    "HADAMARD_BIND_vs_CIRCULAR_CONV_HRR": 0.0,
+    "HADAMARD_BIND_vs_TENSOR_PRODUCT": 0.0,
+    "HADAMARD_BIND_vs_XOR_BSC": 3.322,
+    "HADAMARD_BIND_vs_SUM_MOD_N": 3.322,
+    "CIRCULAR_CONV_HRR_vs_TENSOR_PRODUCT": 0.0,
+    "CIRCULAR_CONV_HRR_vs_XOR_BSC": 3.322,
+    "CIRCULAR_CONV_HRR_vs_SUM_MOD_N": 3.322,
+    "TENSOR_PRODUCT_vs_XOR_BSC": 3.322,
+    "TENSOR_PRODUCT_vs_SUM_MOD_N": 3.322,
+    "XOR_BSC_vs_SUM_MOD_N": 0.0
+  },
+  "n_distinct_cliff_ops": 0,
+  "distinct_cliff_ops": [],
+  "op_pair_distinctness": {
+    "HADAMARD_BIND_vs_CIRCULAR_CONV_HRR": true,
+    "HADAMARD_BIND_vs_TENSOR_PRODUCT": true,
+    "HADAMARD_BIND_vs_XOR_BSC": true,
+    "HADAMARD_BIND_vs_SUM_MOD_N": true,
+    "CIRCULAR_CONV_HRR_vs_TENSOR_PRODUCT": true,
+    "CIRCULAR_CONV_HRR_vs_XOR_BSC": true,
+    "CIRCULAR_CONV_HRR_vs_SUM_MOD_N": true,
+    "TENSOR_PRODUCT_vs_XOR_BSC": true,
+    "TENSOR_PRODUCT_vs_SUM_MOD_N": true,
+    "XOR_BSC_vs_SUM_MOD_N": true
+  },
+  "n_pairs_differ": 10,
+  "op_mech_hashes": {
+    "HADAMARD_BIND": "6629806b4bcea9137a5331112d50b77e8a23ea0821946dd0a798a6aa3831deed",
+    "CIRCULAR_CONV_HRR": "57a4bdfc0ce3324aa7726a402f38eb142b8088874bb664dc0125eccab42616fa",
+    "TENSOR_PRODUCT": "14da03bcf3b34a63c1f8b55e64e36ccd4938270b3ba244cee7f0ea670b1b52cd",
+    "XOR_BSC": "2a2765b326a9fb3e3ba76db3bfd85aefa43a4bb17b046807c76deb22245bb3b8",
+    "SUM_MOD_N": "eea629e0a84a2e8f04ebb01b0c55f05d518e1fa5f7f875baae36de84b03f520b"
+  },
+  "cv_per_op": {
+    "HADAMARD_BIND": 0.3246,
+    "CIRCULAR_CONV_HRR": 0.3778,
+    "TENSOR_PRODUCT": 0.3953,
+    "XOR_BSC": 2.0,
+    "SUM_MOD_N": 0.0
+  },
+  "max_cv": 2.0,
+  "n_suspect_saturation": 8,
+  "positive_control_result": {
+    "binding_operation": "HADAMARD_BIND",
+    "K_SEQ": 50,
+    "top1_floor_required": 0.8,
+    "measured_top1": 1.0,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 25,
+  "observed_n_units": 25,
+  "tier_counts": {
+    "SAT": 9,
+    "MB": 2,
+    "FLOOR": 10,
+    "TRANSITION": 4
+  },
+  "gpu_util_estimate": 0.95,
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "beta": 8.0,
+  "regime": "sequence_binding_K_SEQ_sweep_N8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_BINDING_INVARIANT_ACROSS_REGIMES: only 0/5 ops differentiate; K_cliff_per_op={'HADAMARD_BIND': 500, 'CIRCULAR_CONV_HRR': 500, 'TENSOR_PRODUCT': 500, 'XOR_BSC': 50, 'SUM_MOD_N': 50}; max_log2_sep=3.322; binding op is SUBSTRATE-INVARIANT across PC + sequence-binding; substantive negative finding (substrate-uniform binding discriminator)",
+  "summary": "HARD_FAIL_BINDING_INVARIANT_ACROSS_REGIMES: only 0/5 ops differentiate; K_cliff_per_op={'HADAMARD_BIND': 500, 'CIRCULAR_CONV_HRR': 500, 'TENSOR_PRODUCT': 500, 'XOR_BSC': 50, 'SUM_MOD_N': 50}; max_log2_sep=3.322; binding op is SUBSTRATE-INVARIANT across PC + sequence-binding; substantive negative finding (substrate-uniform binding discriminator)",
+  "anchor_name": "substrate_seqbind_binding_operation_family_phase_diagram_v2_seed_13",
+  "elapsed_s": 5.05,
+  "ts_iso": "2026-06-30T21:44:18Z",
+  "pid": 35400,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_seqbind_binding_operation_family_phase_diagram_v2_seed_13,bindings=[HADAMARD_BIND,CIRCULAR_CONV_HRR,TENSOR_PRODUCT,XOR_BSC,SUM_MOD_N],N_DIM=8192,SEED=13,mode=full,K_SEQ_FULL=[50,100,200,500,1000],K_SEQ_SMOKE=[50,200,1000],n_q_full=50,n_q_smoke=5,V_ITEMS=1200,V_POS=1200,beta=8.0,expected_n_full=25,expected_n_smoke=15,discriminator=K_cliff_log2_sep_min0.3,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_seqbind_binding_op_family_phase_diagram_chunked",
+  "backend": "torch.cuda",
+  "seed": 13,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_5_binding_op_family_seqbind_v2_2x_drill_PC_v1",
+  "n_llm_calls": 0,
+  "drill_lineage": "2x_drill_of_substrate_pc_binding_operation_family_phase_diagram_v1_MB"
+}

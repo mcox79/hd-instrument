@@ -1,0 +1,280 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HYBRID frame=0.933 slot=1.000; M19_ROUNDTRIP intent=0.913 slot=1.000; lift_vs_template=0.956; SHUFFLED_slot=0.061; hyb_cv=0.000",
+  "summary": "HARD_PASS",
+  "elapsed_s": 6.408306299999822,
+  "anchor_name": "substrate_response_planner_frame_slot_composition_v1",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "N_INTENTS": 50,
+  "N_ROLES": 5,
+  "ROLE_NAMES": [
+    "SUBJECT",
+    "OBJECT",
+    "ATTRIBUTE",
+    "TIME",
+    "LOCATION"
+  ],
+  "SLOT_DICT_SIZE_PER_ROLE": 20,
+  "N_FRAMES": 25,
+  "INTENT_WEIGHT": 8.0,
+  "n_test": 50,
+  "seeds_run": [
+    11,
+    17,
+    23
+  ],
+  "expected_n_units": 15,
+  "n_units_observed": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "storage_strategy": "sharded",
+  "per_arm_per_seed": {
+    "ARM_TEMPLATE_ONLY": {
+      "11": {
+        "frame_match": 1.0,
+        "slot_fill": 0.052,
+        "slot_fill_per_role": [
+          0.02,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ],
+        "intent_recovered": 0.0,
+        "roundtrip_intent": 0.0,
+        "roundtrip_slot_fill": 0.052
+      },
+      "17": {
+        "frame_match": 1.0,
+        "slot_fill": 0.048,
+        "slot_fill_per_role": [
+          0.04,
+          0.08,
+          0.04,
+          0.06,
+          0.02
+        ],
+        "intent_recovered": 0.06,
+        "roundtrip_intent": 0.06,
+        "roundtrip_slot_fill": 0.048
+      },
+      "23": {
+        "frame_match": 1.0,
+        "slot_fill": 0.032,
+        "slot_fill_per_role": [
+          0.02,
+          0.02,
+          0.06,
+          0.02,
+          0.04
+        ],
+        "intent_recovered": 0.08,
+        "roundtrip_intent": 0.08,
+        "roundtrip_slot_fill": 0.032
+      }
+    },
+    "ARM_COMPOSE_ONLY": {
+      "11": {
+        "frame_match": 0.04,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "17": {
+        "frame_match": 0.06,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "23": {
+        "frame_match": 0.02,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.9,
+        "roundtrip_intent": 0.9,
+        "roundtrip_slot_fill": 1.0
+      }
+    },
+    "ARM_HYBRID": {
+      "11": {
+        "frame_match": 0.92,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "17": {
+        "frame_match": 0.98,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "23": {
+        "frame_match": 0.9,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.9,
+        "roundtrip_intent": 0.9,
+        "roundtrip_slot_fill": 1.0
+      }
+    },
+    "ARM_SHUFFLED_RESPONSE_ROLE_KEYS": {
+      "11": {
+        "frame_match": 0.98,
+        "slot_fill": 0.076,
+        "slot_fill_per_role": [
+          0.14,
+          0.02,
+          0.04,
+          0.16,
+          0.02
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 0.076
+      },
+      "17": {
+        "frame_match": 0.9,
+        "slot_fill": 0.056,
+        "slot_fill_per_role": [
+          0.14,
+          0.04,
+          0.02,
+          0.02,
+          0.06
+        ],
+        "intent_recovered": 0.9,
+        "roundtrip_intent": 0.9,
+        "roundtrip_slot_fill": 0.056
+      },
+      "23": {
+        "frame_match": 0.9,
+        "slot_fill": 0.052,
+        "slot_fill_per_role": [
+          0.06,
+          0.08,
+          0.08,
+          0.04,
+          0.0
+        ],
+        "intent_recovered": 0.84,
+        "roundtrip_intent": 0.84,
+        "roundtrip_slot_fill": 0.052
+      }
+    },
+    "ARM_M19_ROUNDTRIP": {
+      "11": {
+        "frame_match": 0.92,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "17": {
+        "frame_match": 0.98,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.92,
+        "roundtrip_intent": 0.92,
+        "roundtrip_slot_fill": 1.0
+      },
+      "23": {
+        "frame_match": 0.9,
+        "slot_fill": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intent_recovered": 0.9,
+        "roundtrip_intent": 0.9,
+        "roundtrip_slot_fill": 1.0
+      }
+    }
+  },
+  "per_seed_digests": {
+    "11": {
+      "ARM_TEMPLATE_ONLY": "e1b787ede969096d9dc6dbdd9d28767f16b9ff123e4d92b99e7be15f114b9e28",
+      "ARM_COMPOSE_ONLY": "0791a786c02299ca57d423c51e1c9fc4474a8e3cf4c3a76727a4c90dcf5722a9",
+      "ARM_HYBRID": "3de07196b54db964a7cb50f8697ceed0a33c9176c6351b3bbb12cd97c621f0e0",
+      "ARM_SHUFFLED_RESPONSE_ROLE_KEYS": "d3442fcf0d264c7c8e58ceab00e87637ccb3fb1da46f565608abc5ae6bab470d",
+      "ARM_M19_ROUNDTRIP": "4d97d122f3f2f69b9ac145ea27d261dd5ba87a4b6e3e89d504612420d5c8aa36"
+    },
+    "17": {
+      "ARM_TEMPLATE_ONLY": "abfe90dbb0dabada9ff407a45c681558955b0ae2d3a47e1d88586d35a44d8b57",
+      "ARM_COMPOSE_ONLY": "4c5a8ce9af3d6259297b055c073b15c0a33d139a52845391144a49152889c74f",
+      "ARM_HYBRID": "4935297c72f5fc7576df5e870ff009e94508d9c860114cc83205b8221ab70c33",
+      "ARM_SHUFFLED_RESPONSE_ROLE_KEYS": "96c779335e2995f2e2848ec5334a2d4b280312ac662626a7ae353f255882eb2a",
+      "ARM_M19_ROUNDTRIP": "d837225f8a783834d752982d3551e0062866ec0a7dcd4c1a665e1320fac4174d"
+    },
+    "23": {
+      "ARM_TEMPLATE_ONLY": "79c238bf54fc55ff1f6e12dcf6ced6f1a287da7517b51723aab0f98cabf2cdfb",
+      "ARM_COMPOSE_ONLY": "494bad518dfa6079d1781e10af73f177f9a7f9ab4072232265a934eb72e06610",
+      "ARM_HYBRID": "2dca34c4085dd2982060d1a0a9ebb8a80be6fa5134678a0a4765a5136515b752",
+      "ARM_SHUFFLED_RESPONSE_ROLE_KEYS": "fc94326dcc9955e03b6c0a46eb7b450e513296f4c43392098efdd0bb7fe4d2ee",
+      "ARM_M19_ROUNDTRIP": "4aec92b569cad55d909b92eca0e1f7557d4777e4452f193e0946c2f2137d256e"
+    }
+  },
+  "ts_iso": "2026-07-02T21:53:26.836308+00:00"
+}

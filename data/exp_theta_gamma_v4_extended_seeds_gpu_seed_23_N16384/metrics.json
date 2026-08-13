@@ -1,0 +1,257 @@
+{
+  "per_seed_summaries": [
+    {
+      "seed": 23,
+      "cardinality_ok": true,
+      "observed_n_units": 55,
+      "expected_n_units": 55,
+      "n_pairs_differ": 10,
+      "n_pairs_total": 10,
+      "max_fhrr_vs_cyclic_log2_delta": 4.3219,
+      "nested_vs_flat32_log2_delta": 1.3219,
+      "min_cross_arm_log2_delta": 1.3219,
+      "cliff_log2_K_per_arm": {
+        "NO_POSITION": -1.0,
+        "CYCLIC_SHIFT": 9.9658,
+        "FHRR_FLAT_PHASE_8": -1.0,
+        "FHRR_FLAT_PHASE_32": 5.6439,
+        "FHRR_NESTED_THETA_GAMMA": 6.9658
+      },
+      "per_arm_summary": {
+        "NO_POSITION": {
+          "n_K_points": 11,
+          "K_values": [
+            50,
+            75,
+            100,
+            125,
+            150,
+            175,
+            200,
+            500,
+            1000,
+            2000,
+            5000
+          ],
+          "accs": [
+            0.0,
+            0.04,
+            0.0,
+            0.0,
+            0.0,
+            0.04,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cliff_K": 0,
+          "log2_cliff_K": -1.0,
+          "acc_at_K50": 0.0,
+          "max_acc": 0.04,
+          "mean_acc": 0.0073
+        },
+        "CYCLIC_SHIFT": {
+          "n_K_points": 11,
+          "K_values": [
+            50,
+            75,
+            100,
+            125,
+            150,
+            175,
+            200,
+            500,
+            1000,
+            2000,
+            5000
+          ],
+          "accs": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.96,
+            0.58,
+            0.24,
+            0.0
+          ],
+          "cliff_K": 1000,
+          "log2_cliff_K": 9.9658,
+          "acc_at_K50": 1.0,
+          "max_acc": 1.0,
+          "mean_acc": 0.7982
+        },
+        "FHRR_FLAT_PHASE_8": {
+          "n_K_points": 11,
+          "K_values": [
+            50,
+            75,
+            100,
+            125,
+            150,
+            175,
+            200,
+            500,
+            1000,
+            2000,
+            5000
+          ],
+          "accs": [
+            0.2,
+            0.14,
+            0.1,
+            0.08,
+            0.1,
+            0.08,
+            0.1,
+            0.04,
+            0.0,
+            0.04,
+            0.02
+          ],
+          "cliff_K": 0,
+          "log2_cliff_K": -1.0,
+          "acc_at_K50": 0.2,
+          "max_acc": 0.2,
+          "mean_acc": 0.0818
+        },
+        "FHRR_FLAT_PHASE_32": {
+          "n_K_points": 11,
+          "K_values": [
+            50,
+            75,
+            100,
+            125,
+            150,
+            175,
+            200,
+            500,
+            1000,
+            2000,
+            5000
+          ],
+          "accs": [
+            0.74,
+            0.38,
+            0.3,
+            0.3,
+            0.18,
+            0.16,
+            0.16,
+            0.08,
+            0.0,
+            0.06,
+            0.0
+          ],
+          "cliff_K": 50,
+          "log2_cliff_K": 5.6439,
+          "acc_at_K50": 0.74,
+          "max_acc": 0.74,
+          "mean_acc": 0.2145
+        },
+        "FHRR_NESTED_THETA_GAMMA": {
+          "n_K_points": 11,
+          "K_values": [
+            50,
+            75,
+            100,
+            125,
+            150,
+            175,
+            200,
+            500,
+            1000,
+            2000,
+            5000
+          ],
+          "accs": [
+            1.0,
+            0.86,
+            0.76,
+            0.62,
+            0.44,
+            0.4,
+            0.36,
+            0.14,
+            0.04,
+            0.08,
+            0.0
+          ],
+          "cliff_K": 125,
+          "log2_cliff_K": 6.9658,
+          "acc_at_K50": 1.0,
+          "max_acc": 1.0,
+          "mean_acc": 0.4273
+        }
+      },
+      "arms_saturating_at_K50": [
+        "CYCLIC_SHIFT",
+        "FHRR_NESTED_THETA_GAMMA"
+      ],
+      "no_position_saturates_K50": false,
+      "no_position_acc_K50": 0.0
+    }
+  ],
+  "n_seeds_observed": 1,
+  "seeds_primary_ok": 1,
+  "seeds_nested_vs_flat32_ok": 1,
+  "flat32_cliff_distribution": {
+    "cliffs_per_seed": [
+      50
+    ],
+    "mean": 50.0,
+    "std": 0.0,
+    "cv": 0.0,
+    "histogram": {
+      "50": 1
+    },
+    "modes_desc": [
+      [
+        50,
+        1
+      ]
+    ],
+    "is_bimodal": false,
+    "cv_tight": true,
+    "characterized": true
+  },
+  "nested_cliff_distribution": {
+    "cliffs_per_seed": [
+      125
+    ],
+    "mean": 125.0,
+    "std": 0.0,
+    "cv": 0.0
+  },
+  "cyclic_cliff_distribution": {
+    "cliffs_per_seed": [
+      1000
+    ],
+    "mean": 1000.0,
+    "std": 0.0,
+    "cv": 0.0
+  },
+  "hp_all_seeds_primary": true,
+  "hp_nested_vs_flat32_majority": false,
+  "hp_flat_32_cliff_characterized": true,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_THETA_GAMMA_v4_PARTIAL: primary_ok=1/1 (all_seeds_required); nested_vs_flat32_ok=1/1 (majority>=5 required); flat32_cliff_characterized=True; flat32 cv=0.0000 hist={50: 1}",
+  "summary": "MIDDLE_BAND_THETA_GAMMA_v4_PARTIAL: primary_ok=1/1 (all_seeds_required); nested_vs_flat32_ok=1/1 (majority>=5 required); flat32_cliff_characterized=True; flat32 cv=0.0000 hist={50: 1}",
+  "anchor_name": "theta_gamma_v4_extended_seeds_gpu_seed_23_N16384",
+  "elapsed_s": 0.02,
+  "ts_iso": "2026-07-01T18:46:43Z",
+  "pid": 33280,
+  "run_mode": "full",
+  "config_version": "ANCHOR=theta_gamma_v4_extended_seeds_gpu_seed_23_N16384,arms=[NO_POSITION,CYCLIC_SHIFT,FHRR_FLAT_8,FHRR_FLAT_32,FHRR_NESTED_8x8],K_SEQ_full=[50,75,100,125,150,175,200,500,1000,2000,5000],K_SEQ_smoke=[50,100,200],N_DIM=16384,ITEM_VOCAB=10000,POSITION_NESTED=64,NOISE_SIGMA=0.05,SEED=23,mode=full,expected_n_full=55,expected_n_smoke=15,discriminator=fhrr_vs_cyclic_and_nested_vs_flat32_and_flat32_cliff_dist_across_7_seeds,HP_FHRR_VS_CYCLIC_LOG2_DELTA=1.5,HP_CROSS_ARM_LOG2_DELTA=0.1,HP_NESTED_VS_FLAT32_MAJORITY=5_of_7,HP_FLAT_32_CV_TIGHT=0.15,HP_PAIRS_DIFFER_full=9_of_10,smoke=4_of_10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED,revival_of=theta_gamma_v3_N16384_gpu",
+  "_hardening_marker": "v4_theta_gamma_extended_seeds_gpu_chunked",
+  "backend": "torch.cuda:NVIDIA GeForce RTX 4060 Ti",
+  "seed": 23,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_theta_gamma_v4_extended_seeds_gpu_K_SEQ_phase_diagram",
+  "n_llm_calls": 0
+}

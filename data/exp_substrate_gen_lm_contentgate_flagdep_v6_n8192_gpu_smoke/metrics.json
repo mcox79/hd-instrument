@@ -1,0 +1,308 @@
+{
+  "anchor_name": "substrate_gen_lm_contentgate_flagdep_v6_n8192_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS[CONTENT_GATE]: content-addressed (query-key) admission gate exceeds the 1/(K-1) content-blind cap -- CONTENT=1.000>=0.70, RECENCY=0.232<=0.30 (near analytic cap=0.200), scramble_sep=0.937>=0.30. Content-dependent gating is the lever; recency provably fails when the informative slot's position is uniform. @K6: RAW=0.244 RECENCY=0.232 CONTENT=1.000 SCRAMBLE=0.063 | cap=1/(K-1)=0.200 chance=1/|Vsub|=0.062 | lift_vs_recency=+0.768 lift_vs_raw=+0.756 scramble_sep=+0.937 | curves: RAW={4: 0.476, 6: 0.244, 8: 0.151} RECENCY_GATE={4: 0.357, 6: 0.232, 8: 0.154} CONTENT_GATE={4: 1.0, 6: 1.0, 8: 1.0} CONTENT_GATE_SCRAMBLED={4: 0.072, 6: 0.063, 8: 0.075}",
+  "N": 1024,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 1,
+  "headline_K": 6,
+  "v_sub": 16,
+  "flag_id": 69,
+  "gate_tau": 0.05,
+  "expected_n_units": 12,
+  "arm_digests": {
+    "RAW": "586ca156788fb9f32c6cd0651325bb096fc028853c14c89f4e60c71cd961f270",
+    "RECENCY_GATE": "0c196fab04df433a096320f07b25763e36644bce2226149389a8690aad4bc1cd",
+    "CONTENT_GATE": "43b10f77e53d2cf6908bd34566ab5ce59b3e399c1c0858820531db95eff6d127",
+    "CONTENT_GATE_SCRAMBLED": "710216382b719b91efc9399c60a7d0fdd3ce51175645be588cb670b56c0bd3df"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "per_unit": [
+        {
+          "top1": 0.47600001096725464,
+          "top1_vsub": 0.47600001096725464,
+          "bpc_nats": 1.926568627357483,
+          "bpc_bits": 2.7794510046208982,
+          "perplexity": 6.865910277908964,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 4,
+          "N": 1024
+        },
+        {
+          "top1": 0.3569999933242798,
+          "top1_vsub": 0.3569999933242798,
+          "bpc_nats": 2.223403215408325,
+          "bpc_bits": 3.2076927927661667,
+          "perplexity": 9.23871877576962,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 4,
+          "N": 1024
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.004397427197545767,
+          "bpc_bits": 0.00634414641056953,
+          "perplexity": 1.004407110068562,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 4,
+          "N": 1024
+        },
+        {
+          "top1": 0.07199999690055847,
+          "top1_vsub": 0.07199999690055847,
+          "bpc_nats": 3.5554981231689453,
+          "bpc_bits": 5.1294995101858545,
+          "perplexity": 35.0052525528772,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 4,
+          "N": 1024
+        },
+        {
+          "top1": 0.24400000274181366,
+          "top1_vsub": 0.24400000274181366,
+          "bpc_nats": 2.5267527103424072,
+          "bpc_bits": 3.6453336047637386,
+          "perplexity": 12.512807382110129,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 6,
+          "N": 1024
+        },
+        {
+          "top1": 0.23199999332427979,
+          "top1_vsub": 0.23199999332427979,
+          "bpc_nats": 2.497378349304199,
+          "bpc_bits": 3.6029553597646338,
+          "perplexity": 12.150597545832735,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 6,
+          "N": 1024
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.005680242087692022,
+          "bpc_bits": 0.008194857090962054,
+          "perplexity": 1.0056964052518493,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 6,
+          "N": 1024
+        },
+        {
+          "top1": 0.06300000101327896,
+          "top1_vsub": 0.06300000101327896,
+          "bpc_nats": 3.6606900691986084,
+          "bpc_bits": 5.281259409064309,
+          "perplexity": 38.88816914199153,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 6,
+          "N": 1024
+        },
+        {
+          "top1": 0.1509999930858612,
+          "top1_vsub": 0.1509999930858612,
+          "bpc_nats": 2.8242685794830322,
+          "bpc_bits": 4.074558273758688,
+          "perplexity": 16.84861705399157,
+          "distinct_token_rate": 0.21428571428571427,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 8,
+          "N": 1024
+        },
+        {
+          "top1": 0.15399999916553497,
+          "top1_vsub": 0.15399999916553497,
+          "bpc_nats": 2.8197953701019287,
+          "bpc_bits": 4.068104796767712,
+          "perplexity": 16.77341797812477,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 8,
+          "N": 1024
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0070317029021680355,
+          "bpc_bits": 0.010144602905962356,
+          "perplexity": 1.0070564833739408,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 8,
+          "N": 1024
+        },
+        {
+          "top1": 0.07500000298023224,
+          "top1_vsub": 0.07699999958276749,
+          "bpc_nats": 3.5976288318634033,
+          "bpc_bits": 5.190281274688487,
+          "perplexity": 36.511556680696,
+          "distinct_token_rate": 0.24285714285714285,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 8,
+          "N": 1024
+        }
+      ],
+      "gate_log": {
+        "K4": {
+          "recency_gate": [
+            0.0731,
+            0.302,
+            0.4097,
+            0.2151
+          ],
+          "recency_relevance": [
+            0.2776,
+            0.4194,
+            0.4499,
+            0.3855
+          ],
+          "scramble_perm": [
+            2,
+            3,
+            1,
+            0
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.3333
+        },
+        "K6": {
+          "recency_gate": [
+            0.1254,
+            0.1636,
+            0.1956,
+            0.1633,
+            0.1856,
+            0.1664
+          ],
+          "recency_relevance": [
+            0.2832,
+            0.3098,
+            0.3277,
+            0.3096,
+            0.3224,
+            0.3115
+          ],
+          "scramble_perm": [
+            3,
+            5,
+            4,
+            2,
+            1,
+            0
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.2
+        },
+        "K8": {
+          "recency_gate": [
+            0.1122,
+            0.1329,
+            0.1312,
+            0.1353,
+            0.1236,
+            0.1196,
+            0.1239,
+            0.1214
+          ],
+          "recency_relevance": [
+            0.2802,
+            0.2971,
+            0.2959,
+            0.2989,
+            0.2899,
+            0.2866,
+            0.2901,
+            0.2881
+          ],
+          "scramble_perm": [
+            1,
+            4,
+            0,
+            6,
+            2,
+            3,
+            7,
+            5
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.1429
+        }
+      },
+      "peak_gpu_gb": 0.0,
+      "elapsed_s": 2.190117120742798,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783491406.237687
+    }
+  ],
+  "curves": {
+    "RAW": {
+      "4": 0.47600001096725464,
+      "6": 0.24400000274181366,
+      "8": 0.1509999930858612
+    },
+    "RECENCY_GATE": {
+      "4": 0.3569999933242798,
+      "6": 0.23199999332427979,
+      "8": 0.15399999916553497
+    },
+    "CONTENT_GATE": {
+      "4": 1.0,
+      "6": 1.0,
+      "8": 1.0
+    },
+    "CONTENT_GATE_SCRAMBLED": {
+      "4": 0.07199999690055847,
+      "6": 0.06300000101327896,
+      "8": 0.07500000298023224
+    }
+  },
+  "curves_bpc": {
+    "RAW": {
+      "4": 2.7794510046208982,
+      "6": 3.6453336047637386,
+      "8": 4.074558273758688
+    },
+    "RECENCY_GATE": {
+      "4": 3.2076927927661667,
+      "6": 3.6029553597646338,
+      "8": 4.068104796767712
+    },
+    "CONTENT_GATE": {
+      "4": 0.00634414641056953,
+      "6": 0.008194857090962054,
+      "8": 0.010144602905962356
+    },
+    "CONTENT_GATE_SCRAMBLED": {
+      "4": 5.1294995101858545,
+      "6": 5.281259409064309,
+      "8": 5.190281274688487
+    }
+  },
+  "elapsed_s": 2.190117120742798,
+  "summary": "HARD_PASS[CONTENT_GATE]: content-addressed (query-key) admission gate exceeds the 1/(K-1) content-blind cap -- CONTENT=1.000>=0.70, RECENCY=0.232<=0.30 (near analytic cap=0.200), scramble_sep=0.937>=0.30. Content-dependent gating is the lever; recency provably fails when the informative slot's position is uniform. @K6: RAW=0.244 RECENCY=0.232 CONTENT=1.000 SCRAMBLE=0.063 | cap=1/(K-1)=0.200 chance=1/|Vsub|=0.062 | lift_vs_recency=+0.768 lift_vs_raw=+0.756 scramble_sep=+0.937 | curves: RAW={4: 0.476, 6: 0.244, 8: 0.151} RECENCY_GATE={4: 0.357, 6: 0.232, 8: 0.154} CONTENT_GATE={4: 1.0, 6: 1.0, 8: 1.0} CONTENT_GATE_SCRAMBLED={4: 0.072, 6: 0.063, 8: 0.075}"
+}

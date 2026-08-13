@@ -1,0 +1,175 @@
+{
+  "anchor_name": "substrate_gap2_stride_sweep_confirm_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_KNN_SENTINEL_REGRESSION: knn@stride=16=0.103 < 0.80 -> keys themselves corrupted; any recall lift is artifact. s1: knn=0.045 route=0.913 recall=0.045 r10=0.238 delta=0.001 | s4: knn=0.152 route=0.957 recall=0.151 r10=0.439 delta=0.001 | s8: knn=0.125 route=0.935 recall=0.119 r10=0.359 delta=0.001 | s16: knn=0.103 route=0.938 recall=0.099 r10=0.310 delta=0.001 | mono=False cv16=nan",
+  "summary": "HARD_FAIL_KNN_SENTINEL_REGRESSION: knn@stride=16=0.103 < 0.80 -> keys themselves corrupted; any recall lift is artifact. s1: knn=0.045 route=0.913 recall=0.045 r10=0.238 delta=0.001 | s4: knn=0.152 route=0.957 recall=0.151 r10=0.439 delta=0.001 | s8: knn=0.125 route=0.935 recall=0.119 r10=0.359 delta=0.001 | s16: knn=0.103 route=0.938 recall=0.099 r10=0.310 delta=0.001 | mono=False cv16=nan",
+  "headline": "HARD_FAIL_KNN_SENTINEL_REGRESSION: knn@stride=16=0.103 < 0.80 -> keys themselves corrupted; any recall lift is artifact. s1: knn=0.045 route=0.913 recall=0.045 r10=0.238 delta=0.001 | s4: knn=0.152 route=0.957 recall=0.151 r10=0.439 delta=0.001 | s8: knn=0.125 route=0.935 recall=0.119 r10=0.359 delta=0.001 | s16: knn=0.103 route=0.938 recall=0.099 r10=0.310 delta=0.001 | mono=False cv16=nan",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "M": 2000,
+  "STRIDES": [
+    1,
+    4,
+    8,
+    16
+  ],
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "window_tokens": 16,
+  "cue_shift": 1,
+  "detail": {
+    "STRIDES": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "per_stride_recall_at_1_median": {
+      "s1": 0.0447,
+      "s4": 0.1507,
+      "s8": 0.1193,
+      "s16": 0.0987
+    },
+    "per_stride_recall_at_10_median": {
+      "s1": 0.238,
+      "s4": 0.4393,
+      "s8": 0.3593,
+      "s16": 0.31
+    },
+    "per_stride_knn_recall_at_1_median": {
+      "s1": 0.0453,
+      "s4": 0.152,
+      "s8": 0.1247,
+      "s16": 0.1033
+    },
+    "per_stride_route_acc_median": {
+      "s1": 0.9133,
+      "s4": 0.9573,
+      "s8": 0.9347,
+      "s16": 0.938
+    },
+    "per_stride_top1_top2_delta_median": {
+      "s1": 0.0006,
+      "s4": 0.001,
+      "s8": 0.0009,
+      "s16": 0.0009
+    },
+    "per_stride_recall_at_1_cv": {
+      "s1": null,
+      "s4": null,
+      "s8": null,
+      "s16": null
+    },
+    "monotone_non_decreasing": false,
+    "monotone_violations": [
+      "s8(0.119) < s4(0.151)-tol",
+      "s16(0.099) < s8(0.119)-tol"
+    ],
+    "n_seeds": 1,
+    "M": 2000,
+    "bands": {
+      "HP_STRIDE16_RECALL": 0.9,
+      "HP_STRIDE8_RECALL": 0.7,
+      "MIDDLE_STRIDE16_RECALL": 0.7,
+      "HF_STRIDE16_RECALL": 0.7,
+      "KNN_SENTINEL_STRIDE16": 0.8,
+      "CV_HP": 0.05,
+      "Q_SATURATION": 0.995,
+      "MONOTONE_TOL": 0.02
+    },
+    "CONFIG_VERSION": "gap2_stride_sweep_v1 (strides=[1, 4, 8, 16]; prose=text8) | proj=768 part_target=2000 km_iters=25 sigma=0.10 window=16t cue_shift=1 | seeds=[11] M=2000 encoder=EleutherAI/pythia-160m | CPU_numpy",
+    "cites": [
+      "research_gap2_capacity_side_analysis_NOT_geometry_2026-06-26",
+      "exp_dev_handoff_research_gap2_capacity_side_analysis_2026-06-26",
+      "substrate_partition_routing_anisotropic_scann_quantizer_v1_smoke",
+      "substrate_partition_routing_hierarchical_2level_v1",
+      "Geifman_El-Yaniv_2017_selective_classification"
+    ]
+  },
+  "metrics_source": "measured_cpu_stride_sweep_iso_kmeans_partition_routing_v1",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_stride": {
+        "s1": {
+          "stride": 1,
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.0453,
+          "route_acc": 0.9133,
+          "recall_at_1": 0.0447,
+          "recall_at_10": 0.238,
+          "quant_err_l2": 0.073439,
+          "top1_top2_delta_median": 0.0006,
+          "top1_top2_delta_p25": 0.0002,
+          "top1_top2_delta_p75": 0.0011,
+          "elapsed_s": 5.57,
+          "encode_elapsed_s": 40.13
+        },
+        "s4": {
+          "stride": 4,
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.152,
+          "route_acc": 0.9573,
+          "recall_at_1": 0.1507,
+          "recall_at_10": 0.4393,
+          "quant_err_l2": 0.180363,
+          "top1_top2_delta_median": 0.001,
+          "top1_top2_delta_p25": 0.0004,
+          "top1_top2_delta_p75": 0.0022,
+          "elapsed_s": 9.04,
+          "encode_elapsed_s": 44.81
+        },
+        "s8": {
+          "stride": 8,
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.1247,
+          "route_acc": 0.9347,
+          "recall_at_1": 0.1193,
+          "recall_at_10": 0.3593,
+          "quant_err_l2": 0.159753,
+          "top1_top2_delta_median": 0.0009,
+          "top1_top2_delta_p25": 0.0004,
+          "top1_top2_delta_p75": 0.0019,
+          "elapsed_s": 6.55,
+          "encode_elapsed_s": 42.13
+        },
+        "s16": {
+          "stride": 16,
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.1033,
+          "route_acc": 0.938,
+          "recall_at_1": 0.0987,
+          "recall_at_10": 0.31,
+          "quant_err_l2": 0.103073,
+          "top1_top2_delta_median": 0.0009,
+          "top1_top2_delta_p25": 0.0004,
+          "top1_top2_delta_p75": 0.0018,
+          "elapsed_s": 8.9,
+          "encode_elapsed_s": 43.15
+        }
+      },
+      "train_W_elapsed_s": 36.91,
+      "total_encoder_elapsed_s": 170.22,
+      "run_mode": "smoke",
+      "STRIDES": [
+        1,
+        4,
+        8,
+        16
+      ],
+      "N": 768,
+      "M": 2000,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782465801.1346
+    }
+  ],
+  "elapsed_s": 247.70079278945923,
+  "config_version": "gap2_stride_sweep_v1 (strides=[1, 4, 8, 16]; prose=text8) | proj=768 part_target=2000 km_iters=25 sigma=0.10 window=16t cue_shift=1 | seeds=[11] M=2000 encoder=EleutherAI/pythia-160m | CPU_numpy"
+}

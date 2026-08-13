@@ -1,0 +1,1719 @@
+{
+  "anchor": "schema_relation_TEM_structural_content_binding_v1",
+  "anchor_name": "schema_relation_TEM_structural_content_binding_v1",
+  "run_mode": "full",
+  "N": 8192,
+  "N_DIM": 8192,
+  "V": 100,
+  "relations": [
+    "AtLocation",
+    "CausesDesire",
+    "CapableOf",
+    "DerivedFrom"
+  ],
+  "semantic_relations": [
+    "AtLocation",
+    "CausesDesire",
+    "CapableOf"
+  ],
+  "content_encodings": [
+    "bge_semantic",
+    "gsbc"
+  ],
+  "mech_slots": [
+    "GLOBAL",
+    "TEM_K5",
+    "TEM_K10",
+    "TEM_K20",
+    "SCORER"
+  ],
+  "mech_families": [
+    "TEM_STRUCTURAL_BINDING",
+    "ENTITY_FEATURE_SCORER"
+  ],
+  "arms": [
+    "REAL",
+    "SHUFFLED"
+  ],
+  "eval_modes": [
+    "inductive",
+    "transductive"
+  ],
+  "tem_k_sweep": [
+    5,
+    10,
+    20
+  ],
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "M_OP": 200,
+  "scorer_steps": 300,
+  "scorer_df": 96,
+  "scorer_lr": 1.0,
+  "scorer_tau": 0.05,
+  "expected_n_units": 528,
+  "n_units_counted": 528,
+  "n_units_failed": 0,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "GLOBAL_REAL": "c1c8c1c770cf953d4684f51064878807f738cace546e2af6fecc9e8ce1aa74e6",
+    "TEM_REAL": "f96ec7bcf0e460ab61838f2b6e5eb1943833e0ec43b5dedb8a2da66531906327",
+    "MEAN_OBJECT": "be1c814c1da98530242751ca939d9dd480ab45cd37baaded3ef5f0339b252c7d",
+    "SCORER_REAL": "ed114ccfb692ef2aa541d1840f00b5012c46850434359a98a2ec03bbe78a1d86",
+    "SCORER_SHUF": "b4dcf1672e363ee47526343def6a84ae5297c865939f9759d3733494872beb87"
+  },
+  "bind_roundtrip": 1.0000000596046463,
+  "synth_rot_clean": {
+    "GLOBAL": 1.0
+  },
+  "synth_type_hard": {
+    "GLOBAL": 0.6608333333333333,
+    "TEM_best": 0.7749999999999999,
+    "tem_adv": 0.11416666666666664
+  },
+  "synth_content_map": {
+    "GLOBAL": 0.034999999999999996,
+    "SCORER": 0.20666666666666667,
+    "scorer_adv": 0.17166666666666663
+  },
+  "discriminator_fires_tem": true,
+  "discriminator_fires_scorer": true,
+  "both_discriminators_fire": true,
+  "randenc_floor": 0.010555555555555556,
+  "enc_unavailable": {},
+  "bge_missing_total": 0,
+  "gsbc_missing_total": 0,
+  "hp_scope": {
+    "TEM_SCORER_REAL_inductive": [
+      "HARD_PASS",
+      "HARD_FAIL"
+    ],
+    "GLOBAL": [
+      "reference_baseline_not_a_win"
+    ],
+    "SHUFFLED": [],
+    "MEAN_OBJECT": [],
+    "RANDENC": [],
+    "SYNTH": []
+  },
+  "bands": {
+    "HP_REAL_GAIN_MIN": 0.2075,
+    "HP_RMS_MIN": 0.2075,
+    "HP_RMM_MIN": 0.05,
+    "RMS_SIGNAL_MIN": 0.05,
+    "TEM_ADV_MIN": 0.04,
+    "SCORER_ADV_MIN": 0.05,
+    "SYNTH_CLEAN_MIN": 0.9,
+    "BIND_ROUNDTRIP_MIN": 0.9
+  },
+  "cells_aggregate": {
+    "AtLocation|bge_semantic|GLOBAL|REAL|inductive": {
+      "mean": 0.1711111111111111,
+      "std": 0.036717136981907345,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|GLOBAL|REAL|transductive": {
+      "mean": 0.12444444444444445,
+      "std": 0.03288588574877498,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.17333333333333334,
+      "std": 0.04000000000000001,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.11777777777777777,
+      "std": 0.03288588574877498,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K5|REAL|inductive": {
+      "mean": 0.18444444444444444,
+      "std": 0.01924500897298752,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K5|REAL|transductive": {
+      "mean": 0.11555555555555556,
+      "std": 0.025239592648001217,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.13777777777777778,
+      "std": 0.03849001794597505,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.11555555555555556,
+      "std": 0.025239592648001217,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K10|REAL|inductive": {
+      "mean": 0.16888888888888887,
+      "std": 0.02143033502442879,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K10|REAL|transductive": {
+      "mean": 0.09555555555555556,
+      "std": 0.015396007178390014,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.13333333333333333,
+      "std": 0.017638342073763944,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.08666666666666667,
+      "std": 0.013333333333333336,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K20|REAL|inductive": {
+      "mean": 0.14888888888888888,
+      "std": 0.05347204184673762,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K20|REAL|transductive": {
+      "mean": 0.11555555555555556,
+      "std": 0.02036700308869262,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.11555555555555556,
+      "std": 0.030061665018819295,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.07555555555555556,
+      "std": 0.021430335024428794,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|SCORER|REAL|inductive": {
+      "mean": 0.07777777777777778,
+      "std": 0.0038490017945975057,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|SCORER|REAL|transductive": {
+      "mean": 0.04666666666666667,
+      "std": 0.0,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|SCORER|SHUFFLED|inductive": {
+      "mean": 0.015555555555555557,
+      "std": 0.01539600717839002,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|SCORER|SHUFFLED|transductive": {
+      "mean": 0.013333333333333334,
+      "std": 0.017638342073763937,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|MEAN_OBJECT|inductive": {
+      "mean": 0.02,
+      "std": 0.011547005383792516,
+      "n": 3
+    },
+    "AtLocation|bge_semantic|MEAN_OBJECT|transductive": {
+      "mean": 0.022222222222222223,
+      "std": 0.019245008972987525,
+      "n": 3
+    },
+    "AtLocation|gsbc|GLOBAL|REAL|inductive": {
+      "mean": 0.1511111111111111,
+      "std": 0.03355481971231445,
+      "n": 3
+    },
+    "AtLocation|gsbc|GLOBAL|REAL|transductive": {
+      "mean": 0.09999999999999999,
+      "std": 0.017638342073763934,
+      "n": 3
+    },
+    "AtLocation|gsbc|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.14888888888888888,
+      "std": 0.03421067626297923,
+      "n": 3
+    },
+    "AtLocation|gsbc|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.09777777777777778,
+      "std": 0.021430335024428787,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K5|REAL|inductive": {
+      "mean": 0.16,
+      "std": 0.02905932629027115,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K5|REAL|transductive": {
+      "mean": 0.09333333333333334,
+      "std": 0.02403700850309326,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.13555555555555554,
+      "std": 0.03150543750835072,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.09777777777777778,
+      "std": 0.016777409856157218,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K10|REAL|inductive": {
+      "mean": 0.13999999999999999,
+      "std": 0.05456901847914967,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K10|REAL|transductive": {
+      "mean": 0.08222222222222222,
+      "std": 0.025239592648001217,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.11333333333333334,
+      "std": 0.01763834207376394,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.08,
+      "std": 0.011547005383792518,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K20|REAL|inductive": {
+      "mean": 0.16222222222222224,
+      "std": 0.05347204184673762,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K20|REAL|transductive": {
+      "mean": 0.1111111111111111,
+      "std": 0.010183501544346305,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.08,
+      "std": 0.011547005383792516,
+      "n": 3
+    },
+    "AtLocation|gsbc|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.06888888888888889,
+      "std": 0.03150543750835073,
+      "n": 3
+    },
+    "AtLocation|gsbc|SCORER|REAL|inductive": {
+      "mean": 0.05555555555555556,
+      "std": 0.03288588574877498,
+      "n": 3
+    },
+    "AtLocation|gsbc|SCORER|REAL|transductive": {
+      "mean": 0.05333333333333332,
+      "std": 0.017638342073763937,
+      "n": 3
+    },
+    "AtLocation|gsbc|SCORER|SHUFFLED|inductive": {
+      "mean": 0.006666666666666667,
+      "std": 0.011547005383792516,
+      "n": 3
+    },
+    "AtLocation|gsbc|SCORER|SHUFFLED|transductive": {
+      "mean": 0.011111111111111112,
+      "std": 0.01387777332977422,
+      "n": 3
+    },
+    "AtLocation|gsbc|MEAN_OBJECT|inductive": {
+      "mean": 0.024444444444444446,
+      "std": 0.01677740985615722,
+      "n": 3
+    },
+    "AtLocation|gsbc|MEAN_OBJECT|transductive": {
+      "mean": 0.011111111111111112,
+      "std": 0.007698003589195011,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|GLOBAL|REAL|inductive": {
+      "mean": 0.18666666666666668,
+      "std": 0.057735026918962595,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|GLOBAL|REAL|transductive": {
+      "mean": 0.08541941150636802,
+      "std": 0.053899147378592416,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.19111111111111112,
+      "std": 0.05975257626555002,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.08036890645586298,
+      "std": 0.047008070553125884,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K5|REAL|inductive": {
+      "mean": 0.19777777777777775,
+      "std": 0.048227854253801584,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K5|REAL|transductive": {
+      "mean": 0.09025032938076416,
+      "std": 0.04644619166553971,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.18000000000000002,
+      "std": 0.05773502691896258,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.08014931927975406,
+      "std": 0.03905257762699469,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K10|REAL|inductive": {
+      "mean": 0.17111111111111113,
+      "std": 0.04337604732431808,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K10|REAL|transductive": {
+      "mean": 0.09486166007905139,
+      "std": 0.024613361913398423,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.16,
+      "std": 0.04163331998932265,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.09486166007905139,
+      "std": 0.01939714343127201,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K20|REAL|inductive": {
+      "mean": 0.16222222222222224,
+      "std": 0.04073400617738524,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K20|REAL|transductive": {
+      "mean": 0.07004830917874395,
+      "std": 0.024225352488884813,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.15333333333333335,
+      "std": 0.04055175020198813,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.04984628897672375,
+      "std": 0.009370482342271353,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|SCORER|REAL|inductive": {
+      "mean": 0.12000000000000001,
+      "std": 0.03464101615137755,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|SCORER|REAL|transductive": {
+      "mean": 0.07004830917874395,
+      "std": 0.024225352488884813,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|SCORER|SHUFFLED|inductive": {
+      "mean": 0.02666666666666667,
+      "std": 0.01763834207376394,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|SCORER|SHUFFLED|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|MEAN_OBJECT|inductive": {
+      "mean": 0.006666666666666667,
+      "std": 0.011547005383792516,
+      "n": 3
+    },
+    "CausesDesire|bge_semantic|MEAN_OBJECT|transductive": {
+      "mean": 0.014712340799297322,
+      "std": 0.014497743381856885,
+      "n": 3
+    },
+    "CausesDesire|gsbc|GLOBAL|REAL|inductive": {
+      "mean": 0.21999999999999997,
+      "std": 0.013333333333333336,
+      "n": 3
+    },
+    "CausesDesire|gsbc|GLOBAL|REAL|transductive": {
+      "mean": 0.11923583662714098,
+      "std": 0.01230668095669921,
+      "n": 3
+    },
+    "CausesDesire|gsbc|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.2111111111111111,
+      "std": 0.01924500897298752,
+      "n": 3
+    },
+    "CausesDesire|gsbc|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.11418533157663592,
+      "std": 0.02067853731575503,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K5|REAL|inductive": {
+      "mean": 0.2111111111111111,
+      "std": 0.030792014356780046,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K5|REAL|transductive": {
+      "mean": 0.11396574440052702,
+      "std": 0.02786335439072016,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.17333333333333334,
+      "std": 0.006666666666666668,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.08454106280193237,
+      "std": 0.007859257869202144,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K10|REAL|inductive": {
+      "mean": 0.2066666666666667,
+      "std": 0.02403700850309326,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K10|REAL|transductive": {
+      "mean": 0.09442248572683355,
+      "std": 0.006085378331379457,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.17333333333333334,
+      "std": 0.0,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.0849802371541502,
+      "std": 0.024586900667353785,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K20|REAL|inductive": {
+      "mean": 0.1977777777777778,
+      "std": 0.01924500897298752,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K20|REAL|transductive": {
+      "mean": 0.05950812472551603,
+      "std": 0.02534591579258385,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.14222222222222222,
+      "std": 0.02143033502442878,
+      "n": 3
+    },
+    "CausesDesire|gsbc|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.054677206851119896,
+      "std": 0.008094997185404814,
+      "n": 3
+    },
+    "CausesDesire|gsbc|SCORER|REAL|inductive": {
+      "mean": 0.09555555555555556,
+      "std": 0.027755546659548443,
+      "n": 3
+    },
+    "CausesDesire|gsbc|SCORER|REAL|transductive": {
+      "mean": 0.05950812472551603,
+      "std": 0.013538043602809269,
+      "n": 3
+    },
+    "CausesDesire|gsbc|SCORER|SHUFFLED|inductive": {
+      "mean": 0.04222222222222222,
+      "std": 0.023412563895228305,
+      "n": 3
+    },
+    "CausesDesire|gsbc|SCORER|SHUFFLED|transductive": {
+      "mean": 0.02503293807641634,
+      "std": 0.009128067497069181,
+      "n": 3
+    },
+    "CausesDesire|gsbc|MEAN_OBJECT|inductive": {
+      "mean": 0.031111111111111114,
+      "std": 0.021430335024428787,
+      "n": 3
+    },
+    "CausesDesire|gsbc|MEAN_OBJECT|transductive": {
+      "mean": 0.015151515151515152,
+      "std": 0.015151515151515152,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|GLOBAL|REAL|inductive": {
+      "mean": 0.18666666666666668,
+      "std": 0.03333333333333334,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|GLOBAL|REAL|transductive": {
+      "mean": 0.08909204830257463,
+      "std": 0.016268807141040547,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.18444444444444444,
+      "std": 0.03355481971231445,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.08909204830257463,
+      "std": 0.016268807141040547,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K5|REAL|inductive": {
+      "mean": 0.2111111111111111,
+      "std": 0.032885885748774976,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K5|REAL|transductive": {
+      "mean": 0.07718348902559428,
+      "std": 0.019620750970481934,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.16666666666666666,
+      "std": 0.05456901847914966,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.10695298853193591,
+      "std": 0.015949810922588768,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K10|REAL|inductive": {
+      "mean": 0.19111111111111112,
+      "std": 0.026943012562182532,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K10|REAL|transductive": {
+      "mean": 0.10089238247132985,
+      "std": 0.025618285177547877,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.14888888888888888,
+      "std": 0.01387777332977422,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.09526087947140578,
+      "std": 0.020727930427115966,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K20|REAL|inductive": {
+      "mean": 0.21999999999999997,
+      "std": 0.050332229568471665,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K20|REAL|transductive": {
+      "mean": 0.07133553580922002,
+      "std": 0.017399160349350594,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.11333333333333333,
+      "std": 0.041633319989322654,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.059322548796233,
+      "std": 0.019892871349793617,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|SCORER|REAL|inductive": {
+      "mean": 0.17111111111111113,
+      "std": 0.04822785425380156,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|SCORER|REAL|transductive": {
+      "mean": 0.02976570213412319,
+      "std": 0.020618831348508213,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|SCORER|SHUFFLED|inductive": {
+      "mean": 0.011111111111111112,
+      "std": 0.01387777332977422,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|SCORER|SHUFFLED|transductive": {
+      "mean": 0.011908559276980328,
+      "std": 0.010318046608364172,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|MEAN_OBJECT|inductive": {
+      "mean": 0.015555555555555557,
+      "std": 0.010183501544346312,
+      "n": 3
+    },
+    "CapableOf|bge_semantic|MEAN_OBJECT|transductive": {
+      "mean": 0.029665071770334926,
+      "std": 0.026947613091538227,
+      "n": 3
+    },
+    "CapableOf|gsbc|GLOBAL|REAL|inductive": {
+      "mean": 0.17777777777777778,
+      "std": 0.003849001794597498,
+      "n": 3
+    },
+    "CapableOf|gsbc|GLOBAL|REAL|transductive": {
+      "mean": 0.10694919115971746,
+      "std": 0.03509532308208714,
+      "n": 3
+    },
+    "CapableOf|gsbc|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.17777777777777778,
+      "std": 0.003849001794597498,
+      "n": 3
+    },
+    "CapableOf|gsbc|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.10716184400394928,
+      "std": 0.030954151005529052,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K5|REAL|inductive": {
+      "mean": 0.20222222222222222,
+      "std": 0.013877773329774218,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K5|REAL|transductive": {
+      "mean": 0.11279714437609174,
+      "std": 0.03612060134790411,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.13555555555555554,
+      "std": 0.010183501544346307,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.09525708209918737,
+      "std": 0.010416209992148547,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K10|REAL|inductive": {
+      "mean": 0.19111111111111112,
+      "std": 0.030061665018819295,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K10|REAL|transductive": {
+      "mean": 0.10078415736310474,
+      "std": 0.04005890065525342,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.13777777777777778,
+      "std": 0.013877773329774207,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.09504822662717399,
+      "std": 0.025938109311877903,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K20|REAL|inductive": {
+      "mean": 0.20444444444444446,
+      "std": 0.015396007178390023,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K20|REAL|transductive": {
+      "mean": 0.118645097592466,
+      "std": 0.039785742699587234,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.10888888888888888,
+      "std": 0.007698003589195004,
+      "n": 3
+    },
+    "CapableOf|gsbc|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.07718348902559428,
+      "std": 0.019620750970481934,
+      "n": 3
+    },
+    "CapableOf|gsbc|SCORER|REAL|inductive": {
+      "mean": 0.0911111111111111,
+      "std": 0.021430335024428794,
+      "n": 3
+    },
+    "CapableOf|gsbc|SCORER|REAL|transductive": {
+      "mean": 0.02955684666210982,
+      "std": 0.01998396372204173,
+      "n": 3
+    },
+    "CapableOf|gsbc|SCORER|SHUFFLED|inductive": {
+      "mean": 0.011111111111111112,
+      "std": 0.007698003589195011,
+      "n": 3
+    },
+    "CapableOf|gsbc|SCORER|SHUFFLED|transductive": {
+      "mean": 0.011904761904761904,
+      "std": 0.020619652471058063,
+      "n": 3
+    },
+    "CapableOf|gsbc|MEAN_OBJECT|inductive": {
+      "mean": 0.02,
+      "std": 0.023094010767585032,
+      "n": 3
+    },
+    "CapableOf|gsbc|MEAN_OBJECT|transductive": {
+      "mean": 0.012121212121212121,
+      "std": 0.020994555243259116,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|GLOBAL|REAL|inductive": {
+      "mean": 0.84,
+      "std": 0.006666666666666654,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|GLOBAL|REAL|transductive": {
+      "mean": 0.8893229974160207,
+      "std": 0.01406225766082389,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.8444444444444444,
+      "std": 0.010183501544346317,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.8919069767441861,
+      "std": 0.010689177616538221,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K5|REAL|inductive": {
+      "mean": 0.8555555555555556,
+      "std": 0.003849001794597466,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K5|REAL|transductive": {
+      "mean": 0.8944909560723514,
+      "std": 0.008416153558884202,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.8133333333333334,
+      "std": 0.035276684147527874,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.8758242894056848,
+      "std": 0.01413005711636484,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K10|REAL|inductive": {
+      "mean": 0.8555555555555555,
+      "std": 0.013877773329774246,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K10|REAL|transductive": {
+      "mean": 0.8944909560723514,
+      "std": 0.008416153558884202,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.7644444444444444,
+      "std": 0.053472041846737574,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.8204031007751938,
+      "std": 0.018863623933756405,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K20|REAL|inductive": {
+      "mean": 0.851111111111111,
+      "std": 0.0214303350244288,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K20|REAL|transductive": {
+      "mean": 0.8892403100775194,
+      "std": 0.01291695263615701,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.6644444444444444,
+      "std": 0.06158402871356003,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.7204754521963824,
+      "std": 0.03455222798817435,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|SCORER|REAL|inductive": {
+      "mean": 0.648888888888889,
+      "std": 0.0214303350244288,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|SCORER|REAL|transductive": {
+      "mean": 0.5878036175710595,
+      "std": 0.0481572782672897,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|SCORER|SHUFFLED|inductive": {
+      "mean": 0.024444444444444446,
+      "std": 0.0038490017945975057,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|SCORER|SHUFFLED|transductive": {
+      "mean": 0.015834625322997415,
+      "std": 0.01600256374308133,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|MEAN_OBJECT|inductive": {
+      "mean": 0.022222222222222223,
+      "std": 0.026943012562182535,
+      "n": 3
+    },
+    "DerivedFrom|bge_semantic|MEAN_OBJECT|transductive": {
+      "mean": 0.018666666666666668,
+      "std": 0.020132891827388668,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|GLOBAL|REAL|inductive": {
+      "mean": 0.7600000000000001,
+      "std": 0.024037008503093246,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|GLOBAL|REAL|transductive": {
+      "mean": 0.7284754521963824,
+      "std": 0.028256779827743984,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|GLOBAL|SHUFFLED|inductive": {
+      "mean": 0.7533333333333333,
+      "std": 0.020000000000000018,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|GLOBAL|SHUFFLED|transductive": {
+      "mean": 0.7152248062015504,
+      "std": 0.019365228596663793,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K5|REAL|inductive": {
+      "mean": 0.7555555555555555,
+      "std": 0.019245008972987587,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K5|REAL|transductive": {
+      "mean": 0.7200620155038759,
+      "std": 0.028921906127488108,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K5|SHUFFLED|inductive": {
+      "mean": 0.6844444444444444,
+      "std": 0.0667776853391854,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K5|SHUFFLED|transductive": {
+      "mean": 0.6755555555555555,
+      "std": 0.02520435000668055,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K10|REAL|inductive": {
+      "mean": 0.7777777777777778,
+      "std": 0.013877773329774202,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K10|REAL|transductive": {
+      "mean": 0.7569819121447029,
+      "std": 0.032887537590983444,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K10|SHUFFLED|inductive": {
+      "mean": 0.6333333333333333,
+      "std": 0.053333333333333344,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K10|SHUFFLED|transductive": {
+      "mean": 0.6329715762273902,
+      "std": 0.030079650421322747,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K20|REAL|inductive": {
+      "mean": 0.7533333333333334,
+      "std": 0.013333333333333364,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K20|REAL|transductive": {
+      "mean": 0.7467286821705427,
+      "std": 0.02808645130789025,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K20|SHUFFLED|inductive": {
+      "mean": 0.56,
+      "std": 0.03999999999999998,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|TEM_K20|SHUFFLED|transductive": {
+      "mean": 0.5699638242894057,
+      "std": 0.05211945926977027,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|SCORER|REAL|inductive": {
+      "mean": 0.2511111111111111,
+      "std": 0.021430335024428798,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|SCORER|REAL|transductive": {
+      "mean": 0.26902325581395353,
+      "std": 0.011819445711083601,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|SCORER|SHUFFLED|inductive": {
+      "mean": 0.02888888888888889,
+      "std": 0.0038490017945975036,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|SCORER|SHUFFLED|transductive": {
+      "mean": 0.005333333333333333,
+      "std": 0.004618802153517006,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|MEAN_OBJECT|inductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.024037008503093264,
+      "n": 3
+    },
+    "DerivedFrom|gsbc|MEAN_OBJECT|transductive": {
+      "mean": 0.026418604651162792,
+      "std": 0.012308632488947417,
+      "n": 3
+    }
+  },
+  "chance_by_rel": {
+    "AtLocation": 0.01,
+    "CausesDesire": 0.01,
+    "CapableOf": 0.01,
+    "DerivedFrom": 0.01
+  },
+  "gate_diagnostics": {
+    "M_OP": 200,
+    "bind_roundtrip": 1.0000000596046463,
+    "arms_differ_ok": true,
+    "good_units": 528,
+    "expected_n_units": 528,
+    "synth_rot_clean": {
+      "GLOBAL": 1.0
+    },
+    "synth_type_hard": {
+      "GLOBAL": 0.6608333333333333,
+      "TEM_best": 0.7749999999999999,
+      "tem_adv": 0.11416666666666664
+    },
+    "synth_content_map": {
+      "GLOBAL": 0.034999999999999996,
+      "SCORER": 0.20666666666666667,
+      "scorer_adv": 0.17166666666666663
+    },
+    "discriminator_fires_tem": true,
+    "discriminator_fires_scorer": true,
+    "both_discriminators_fire": true,
+    "cell_verdicts": {
+      "AtLocation|bge_semantic|GLOBAL": "AT_FLOOR",
+      "AtLocation|bge_semantic|TEM_K5": "AT_FLOOR",
+      "AtLocation|bge_semantic|TEM_K10": "AT_FLOOR",
+      "AtLocation|bge_semantic|TEM_K20": "AT_FLOOR",
+      "AtLocation|bge_semantic|SCORER": "MIDDLE_BAND",
+      "AtLocation|gsbc|GLOBAL": "AT_FLOOR",
+      "AtLocation|gsbc|TEM_K5": "AT_FLOOR",
+      "AtLocation|gsbc|TEM_K10": "AT_FLOOR",
+      "AtLocation|gsbc|TEM_K20": "MIDDLE_BAND",
+      "AtLocation|gsbc|SCORER": "AT_FLOOR",
+      "CausesDesire|bge_semantic|GLOBAL": "AT_FLOOR",
+      "CausesDesire|bge_semantic|TEM_K5": "AT_FLOOR",
+      "CausesDesire|bge_semantic|TEM_K10": "AT_FLOOR",
+      "CausesDesire|bge_semantic|TEM_K20": "AT_FLOOR",
+      "CausesDesire|bge_semantic|SCORER": "MIDDLE_BAND",
+      "CausesDesire|gsbc|GLOBAL": "AT_FLOOR",
+      "CausesDesire|gsbc|TEM_K5": "AT_FLOOR",
+      "CausesDesire|gsbc|TEM_K10": "AT_FLOOR",
+      "CausesDesire|gsbc|TEM_K20": "MIDDLE_BAND",
+      "CausesDesire|gsbc|SCORER": "MIDDLE_BAND",
+      "CapableOf|bge_semantic|GLOBAL": "AT_FLOOR",
+      "CapableOf|bge_semantic|TEM_K5": "AT_FLOOR",
+      "CapableOf|bge_semantic|TEM_K10": "AT_FLOOR",
+      "CapableOf|bge_semantic|TEM_K20": "MIDDLE_BAND",
+      "CapableOf|bge_semantic|SCORER": "MIDDLE_BAND",
+      "CapableOf|gsbc|GLOBAL": "AT_FLOOR",
+      "CapableOf|gsbc|TEM_K5": "MIDDLE_BAND",
+      "CapableOf|gsbc|TEM_K10": "MIDDLE_BAND",
+      "CapableOf|gsbc|TEM_K20": "MIDDLE_BAND",
+      "CapableOf|gsbc|SCORER": "MIDDLE_BAND",
+      "DerivedFrom|bge_semantic|GLOBAL": "AT_FLOOR",
+      "DerivedFrom|bge_semantic|TEM_K5": "AT_FLOOR",
+      "DerivedFrom|bge_semantic|TEM_K10": "MIDDLE_BAND",
+      "DerivedFrom|bge_semantic|TEM_K20": "MIDDLE_BAND",
+      "DerivedFrom|bge_semantic|SCORER": "HARD_PASS",
+      "DerivedFrom|gsbc|GLOBAL": "AT_FLOOR",
+      "DerivedFrom|gsbc|TEM_K5": "MIDDLE_BAND",
+      "DerivedFrom|gsbc|TEM_K10": "MIDDLE_BAND",
+      "DerivedFrom|gsbc|TEM_K20": "MIDDLE_BAND",
+      "DerivedFrom|gsbc|SCORER": "HARD_PASS"
+    },
+    "cell_diag": {
+      "AtLocation|bge_semantic|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.1711111111111111,
+        "real_trans": 0.12444444444444445,
+        "shuf_ind": 0.17333333333333334,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.1611111111111111,
+        "real_minus_shuf": -0.0022222222222222365,
+        "real_minus_meanobj": 0.1511111111111111,
+        "ind_trans_gap": -0.04666666666666665
+      },
+      "AtLocation|bge_semantic|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.18444444444444444,
+        "real_trans": 0.11555555555555556,
+        "shuf_ind": 0.13777777777777778,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.17444444444444443,
+        "real_minus_shuf": 0.04666666666666666,
+        "real_minus_meanobj": 0.16444444444444445,
+        "ind_trans_gap": -0.06888888888888887
+      },
+      "AtLocation|bge_semantic|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.16888888888888887,
+        "real_trans": 0.09555555555555556,
+        "shuf_ind": 0.13333333333333333,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.15888888888888886,
+        "real_minus_shuf": 0.035555555555555535,
+        "real_minus_meanobj": 0.14888888888888888,
+        "ind_trans_gap": -0.0733333333333333
+      },
+      "AtLocation|bge_semantic|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.14888888888888888,
+        "real_trans": 0.11555555555555556,
+        "shuf_ind": 0.11555555555555556,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.13888888888888887,
+        "real_minus_shuf": 0.03333333333333331,
+        "real_minus_meanobj": 0.1288888888888889,
+        "ind_trans_gap": -0.03333333333333331
+      },
+      "AtLocation|bge_semantic|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.07777777777777778,
+        "real_trans": 0.04666666666666667,
+        "shuf_ind": 0.015555555555555557,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.06777777777777778,
+        "real_minus_shuf": 0.06222222222222222,
+        "real_minus_meanobj": 0.057777777777777775,
+        "ind_trans_gap": -0.03111111111111111
+      },
+      "AtLocation|gsbc|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.1511111111111111,
+        "real_trans": 0.09999999999999999,
+        "shuf_ind": 0.14888888888888888,
+        "meanobj_ind": 0.024444444444444446,
+        "real_gain": 0.1411111111111111,
+        "real_minus_shuf": 0.0022222222222222365,
+        "real_minus_meanobj": 0.12666666666666668,
+        "ind_trans_gap": -0.05111111111111112
+      },
+      "AtLocation|gsbc|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.16,
+        "real_trans": 0.09333333333333334,
+        "shuf_ind": 0.13555555555555554,
+        "meanobj_ind": 0.024444444444444446,
+        "real_gain": 0.15,
+        "real_minus_shuf": 0.024444444444444463,
+        "real_minus_meanobj": 0.13555555555555557,
+        "ind_trans_gap": -0.06666666666666667
+      },
+      "AtLocation|gsbc|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.13999999999999999,
+        "real_trans": 0.08222222222222222,
+        "shuf_ind": 0.11333333333333334,
+        "meanobj_ind": 0.024444444444444446,
+        "real_gain": 0.12999999999999998,
+        "real_minus_shuf": 0.026666666666666644,
+        "real_minus_meanobj": 0.11555555555555554,
+        "ind_trans_gap": -0.05777777777777776
+      },
+      "AtLocation|gsbc|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.16222222222222224,
+        "real_trans": 0.1111111111111111,
+        "shuf_ind": 0.08,
+        "meanobj_ind": 0.024444444444444446,
+        "real_gain": 0.15222222222222223,
+        "real_minus_shuf": 0.08222222222222224,
+        "real_minus_meanobj": 0.1377777777777778,
+        "ind_trans_gap": -0.051111111111111135
+      },
+      "AtLocation|gsbc|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.05555555555555556,
+        "real_trans": 0.05333333333333332,
+        "shuf_ind": 0.006666666666666667,
+        "meanobj_ind": 0.024444444444444446,
+        "real_gain": 0.04555555555555556,
+        "real_minus_shuf": 0.04888888888888889,
+        "real_minus_meanobj": 0.031111111111111114,
+        "ind_trans_gap": -0.0022222222222222365
+      },
+      "CausesDesire|bge_semantic|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.18666666666666668,
+        "real_trans": 0.08541941150636802,
+        "shuf_ind": 0.19111111111111112,
+        "meanobj_ind": 0.006666666666666667,
+        "real_gain": 0.17666666666666667,
+        "real_minus_shuf": -0.004444444444444445,
+        "real_minus_meanobj": 0.18000000000000002,
+        "ind_trans_gap": -0.10124725516029866
+      },
+      "CausesDesire|bge_semantic|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.19777777777777775,
+        "real_trans": 0.09025032938076416,
+        "shuf_ind": 0.18000000000000002,
+        "meanobj_ind": 0.006666666666666667,
+        "real_gain": 0.18777777777777774,
+        "real_minus_shuf": 0.017777777777777726,
+        "real_minus_meanobj": 0.1911111111111111,
+        "ind_trans_gap": -0.10752744839701359
+      },
+      "CausesDesire|bge_semantic|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.17111111111111113,
+        "real_trans": 0.09486166007905139,
+        "shuf_ind": 0.16,
+        "meanobj_ind": 0.006666666666666667,
+        "real_gain": 0.16111111111111112,
+        "real_minus_shuf": 0.011111111111111127,
+        "real_minus_meanobj": 0.16444444444444448,
+        "ind_trans_gap": -0.07624945103205974
+      },
+      "CausesDesire|bge_semantic|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.16222222222222224,
+        "real_trans": 0.07004830917874395,
+        "shuf_ind": 0.15333333333333335,
+        "meanobj_ind": 0.006666666666666667,
+        "real_gain": 0.15222222222222223,
+        "real_minus_shuf": 0.00888888888888889,
+        "real_minus_meanobj": 0.15555555555555559,
+        "ind_trans_gap": -0.09217391304347829
+      },
+      "CausesDesire|bge_semantic|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.12000000000000001,
+        "real_trans": 0.07004830917874395,
+        "shuf_ind": 0.02666666666666667,
+        "meanobj_ind": 0.006666666666666667,
+        "real_gain": 0.11000000000000001,
+        "real_minus_shuf": 0.09333333333333334,
+        "real_minus_meanobj": 0.11333333333333334,
+        "ind_trans_gap": -0.049951690821256056
+      },
+      "CausesDesire|gsbc|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.21999999999999997,
+        "real_trans": 0.11923583662714098,
+        "shuf_ind": 0.2111111111111111,
+        "meanobj_ind": 0.031111111111111114,
+        "real_gain": 0.20999999999999996,
+        "real_minus_shuf": 0.008888888888888863,
+        "real_minus_meanobj": 0.18888888888888886,
+        "ind_trans_gap": -0.100764163372859
+      },
+      "CausesDesire|gsbc|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.2111111111111111,
+        "real_trans": 0.11396574440052702,
+        "shuf_ind": 0.17333333333333334,
+        "meanobj_ind": 0.031111111111111114,
+        "real_gain": 0.2011111111111111,
+        "real_minus_shuf": 0.03777777777777777,
+        "real_minus_meanobj": 0.18,
+        "ind_trans_gap": -0.09714536671058409
+      },
+      "CausesDesire|gsbc|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.2066666666666667,
+        "real_trans": 0.09442248572683355,
+        "shuf_ind": 0.17333333333333334,
+        "meanobj_ind": 0.031111111111111114,
+        "real_gain": 0.19666666666666668,
+        "real_minus_shuf": 0.033333333333333354,
+        "real_minus_meanobj": 0.17555555555555558,
+        "ind_trans_gap": -0.11224418093983314
+      },
+      "CausesDesire|gsbc|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.1977777777777778,
+        "real_trans": 0.05950812472551603,
+        "shuf_ind": 0.14222222222222222,
+        "meanobj_ind": 0.031111111111111114,
+        "real_gain": 0.1877777777777778,
+        "real_minus_shuf": 0.05555555555555558,
+        "real_minus_meanobj": 0.16666666666666669,
+        "ind_trans_gap": -0.13826965305226177
+      },
+      "CausesDesire|gsbc|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.09555555555555556,
+        "real_trans": 0.05950812472551603,
+        "shuf_ind": 0.04222222222222222,
+        "meanobj_ind": 0.031111111111111114,
+        "real_gain": 0.08555555555555557,
+        "real_minus_shuf": 0.053333333333333344,
+        "real_minus_meanobj": 0.06444444444444444,
+        "ind_trans_gap": -0.03604743083003953
+      },
+      "CapableOf|bge_semantic|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.18666666666666668,
+        "real_trans": 0.08909204830257463,
+        "shuf_ind": 0.18444444444444444,
+        "meanobj_ind": 0.015555555555555557,
+        "real_gain": 0.17666666666666667,
+        "real_minus_shuf": 0.0022222222222222365,
+        "real_minus_meanobj": 0.17111111111111113,
+        "ind_trans_gap": -0.09757461836409205
+      },
+      "CapableOf|bge_semantic|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.2111111111111111,
+        "real_trans": 0.07718348902559428,
+        "shuf_ind": 0.16666666666666666,
+        "meanobj_ind": 0.015555555555555557,
+        "real_gain": 0.2011111111111111,
+        "real_minus_shuf": 0.04444444444444445,
+        "real_minus_meanobj": 0.19555555555555557,
+        "ind_trans_gap": -0.13392762208551684
+      },
+      "CapableOf|bge_semantic|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.19111111111111112,
+        "real_trans": 0.10089238247132985,
+        "shuf_ind": 0.14888888888888888,
+        "meanobj_ind": 0.015555555555555557,
+        "real_gain": 0.1811111111111111,
+        "real_minus_shuf": 0.042222222222222244,
+        "real_minus_meanobj": 0.17555555555555558,
+        "ind_trans_gap": -0.09021872863978127
+      },
+      "CapableOf|bge_semantic|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.21999999999999997,
+        "real_trans": 0.07133553580922002,
+        "shuf_ind": 0.11333333333333333,
+        "meanobj_ind": 0.015555555555555557,
+        "real_gain": 0.20999999999999996,
+        "real_minus_shuf": 0.10666666666666665,
+        "real_minus_meanobj": 0.20444444444444443,
+        "ind_trans_gap": -0.14866446419077994
+      },
+      "CapableOf|bge_semantic|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.17111111111111113,
+        "real_trans": 0.02976570213412319,
+        "shuf_ind": 0.011111111111111112,
+        "meanobj_ind": 0.015555555555555557,
+        "real_gain": 0.16111111111111112,
+        "real_minus_shuf": 0.16000000000000003,
+        "real_minus_meanobj": 0.15555555555555559,
+        "ind_trans_gap": -0.14134540897698794
+      },
+      "CapableOf|gsbc|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.17777777777777778,
+        "real_trans": 0.10694919115971746,
+        "shuf_ind": 0.17777777777777778,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.16777777777777778,
+        "real_minus_shuf": 0.0,
+        "real_minus_meanobj": 0.1577777777777778,
+        "ind_trans_gap": -0.07082858661806032
+      },
+      "CapableOf|gsbc|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.20222222222222222,
+        "real_trans": 0.11279714437609174,
+        "shuf_ind": 0.13555555555555554,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.1922222222222222,
+        "real_minus_shuf": 0.06666666666666668,
+        "real_minus_meanobj": 0.18222222222222223,
+        "ind_trans_gap": -0.08942507784613048
+      },
+      "CapableOf|gsbc|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.19111111111111112,
+        "real_trans": 0.10078415736310474,
+        "shuf_ind": 0.13777777777777778,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.1811111111111111,
+        "real_minus_shuf": 0.053333333333333344,
+        "real_minus_meanobj": 0.17111111111111113,
+        "ind_trans_gap": -0.09032695374800638
+      },
+      "CapableOf|gsbc|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.20444444444444446,
+        "real_trans": 0.118645097592466,
+        "shuf_ind": 0.10888888888888888,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.19444444444444445,
+        "real_minus_shuf": 0.09555555555555557,
+        "real_minus_meanobj": 0.18444444444444447,
+        "ind_trans_gap": -0.08579934685197846
+      },
+      "CapableOf|gsbc|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.0911111111111111,
+        "real_trans": 0.02955684666210982,
+        "shuf_ind": 0.011111111111111112,
+        "meanobj_ind": 0.02,
+        "real_gain": 0.0811111111111111,
+        "real_minus_shuf": 0.07999999999999999,
+        "real_minus_meanobj": 0.0711111111111111,
+        "ind_trans_gap": -0.06155426444900128
+      },
+      "DerivedFrom|bge_semantic|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.84,
+        "real_trans": 0.8893229974160207,
+        "shuf_ind": 0.8444444444444444,
+        "meanobj_ind": 0.022222222222222223,
+        "real_gain": 0.83,
+        "real_minus_shuf": -0.004444444444444473,
+        "real_minus_meanobj": 0.8177777777777777,
+        "ind_trans_gap": 0.04932299741602075
+      },
+      "DerivedFrom|bge_semantic|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.8555555555555556,
+        "real_trans": 0.8944909560723514,
+        "shuf_ind": 0.8133333333333334,
+        "meanobj_ind": 0.022222222222222223,
+        "real_gain": 0.8455555555555556,
+        "real_minus_shuf": 0.04222222222222227,
+        "real_minus_meanobj": 0.8333333333333334,
+        "ind_trans_gap": 0.03893540051679578
+      },
+      "DerivedFrom|bge_semantic|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.8555555555555555,
+        "real_trans": 0.8944909560723514,
+        "shuf_ind": 0.7644444444444444,
+        "meanobj_ind": 0.022222222222222223,
+        "real_gain": 0.8455555555555555,
+        "real_minus_shuf": 0.09111111111111114,
+        "real_minus_meanobj": 0.8333333333333333,
+        "ind_trans_gap": 0.03893540051679589
+      },
+      "DerivedFrom|bge_semantic|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.851111111111111,
+        "real_trans": 0.8892403100775194,
+        "shuf_ind": 0.6644444444444444,
+        "meanobj_ind": 0.022222222222222223,
+        "real_gain": 0.841111111111111,
+        "real_minus_shuf": 0.18666666666666665,
+        "real_minus_meanobj": 0.8288888888888888,
+        "ind_trans_gap": 0.03812919896640832
+      },
+      "DerivedFrom|bge_semantic|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.648888888888889,
+        "real_trans": 0.5878036175710595,
+        "shuf_ind": 0.024444444444444446,
+        "meanobj_ind": 0.022222222222222223,
+        "real_gain": 0.638888888888889,
+        "real_minus_shuf": 0.6244444444444445,
+        "real_minus_meanobj": 0.6266666666666667,
+        "ind_trans_gap": -0.06108527131782948
+      },
+      "DerivedFrom|gsbc|GLOBAL": {
+        "chance": 0.01,
+        "real_ind": 0.7600000000000001,
+        "real_trans": 0.7284754521963824,
+        "shuf_ind": 0.7533333333333333,
+        "meanobj_ind": 0.03333333333333333,
+        "real_gain": 0.7500000000000001,
+        "real_minus_shuf": 0.006666666666666821,
+        "real_minus_meanobj": 0.7266666666666668,
+        "ind_trans_gap": -0.031524547803617686
+      },
+      "DerivedFrom|gsbc|TEM_K5": {
+        "chance": 0.01,
+        "real_ind": 0.7555555555555555,
+        "real_trans": 0.7200620155038759,
+        "shuf_ind": 0.6844444444444444,
+        "meanobj_ind": 0.03333333333333333,
+        "real_gain": 0.7455555555555555,
+        "real_minus_shuf": 0.07111111111111112,
+        "real_minus_meanobj": 0.7222222222222222,
+        "ind_trans_gap": -0.035493540051679595
+      },
+      "DerivedFrom|gsbc|TEM_K10": {
+        "chance": 0.01,
+        "real_ind": 0.7777777777777778,
+        "real_trans": 0.7569819121447029,
+        "shuf_ind": 0.6333333333333333,
+        "meanobj_ind": 0.03333333333333333,
+        "real_gain": 0.7677777777777778,
+        "real_minus_shuf": 0.1444444444444445,
+        "real_minus_meanobj": 0.7444444444444445,
+        "ind_trans_gap": -0.020795865633074895
+      },
+      "DerivedFrom|gsbc|TEM_K20": {
+        "chance": 0.01,
+        "real_ind": 0.7533333333333334,
+        "real_trans": 0.7467286821705427,
+        "shuf_ind": 0.56,
+        "meanobj_ind": 0.03333333333333333,
+        "real_gain": 0.7433333333333334,
+        "real_minus_shuf": 0.19333333333333336,
+        "real_minus_meanobj": 0.7200000000000001,
+        "ind_trans_gap": -0.006604651162790742
+      },
+      "DerivedFrom|gsbc|SCORER": {
+        "chance": 0.01,
+        "real_ind": 0.2511111111111111,
+        "real_trans": 0.26902325581395353,
+        "shuf_ind": 0.02888888888888889,
+        "meanobj_ind": 0.03333333333333333,
+        "real_gain": 0.2411111111111111,
+        "real_minus_shuf": 0.22222222222222224,
+        "real_minus_meanobj": 0.2177777777777778,
+        "ind_trans_gap": 0.017912144702842414
+      }
+    },
+    "best_of_mechanism": {
+      "AtLocation|bge_semantic|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K5",
+        "rms": 0.04666666666666666,
+        "real_gain": 0.17444444444444443,
+        "real_minus_meanobj": 0.16444444444444445,
+        "trustworthy": true,
+        "verdict": "AT_FLOOR"
+      },
+      "AtLocation|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.06222222222222222,
+        "real_gain": 0.06777777777777778,
+        "real_minus_meanobj": 0.057777777777777775,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "AtLocation|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.08222222222222224,
+        "real_gain": 0.15222222222222223,
+        "real_minus_meanobj": 0.1377777777777778,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "AtLocation|gsbc|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.04888888888888889,
+        "real_gain": 0.04555555555555556,
+        "real_minus_meanobj": 0.031111111111111114,
+        "trustworthy": true,
+        "verdict": "AT_FLOOR"
+      },
+      "CausesDesire|bge_semantic|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K5",
+        "rms": 0.017777777777777726,
+        "real_gain": 0.18777777777777774,
+        "real_minus_meanobj": 0.1911111111111111,
+        "trustworthy": true,
+        "verdict": "AT_FLOOR"
+      },
+      "CausesDesire|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.09333333333333334,
+        "real_gain": 0.11000000000000001,
+        "real_minus_meanobj": 0.11333333333333334,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CausesDesire|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.05555555555555558,
+        "real_gain": 0.1877777777777778,
+        "real_minus_meanobj": 0.16666666666666669,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CausesDesire|gsbc|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.053333333333333344,
+        "real_gain": 0.08555555555555557,
+        "real_minus_meanobj": 0.06444444444444444,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|bge_semantic|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.10666666666666665,
+        "real_gain": 0.20999999999999996,
+        "real_minus_meanobj": 0.20444444444444443,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.16000000000000003,
+        "real_gain": 0.16111111111111112,
+        "real_minus_meanobj": 0.15555555555555559,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.09555555555555557,
+        "real_gain": 0.19444444444444445,
+        "real_minus_meanobj": 0.18444444444444447,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|gsbc|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.07999999999999999,
+        "real_gain": 0.0811111111111111,
+        "real_minus_meanobj": 0.0711111111111111,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      }
+    },
+    "hp_wins": {},
+    "mb_signals": {
+      "AtLocation|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.06222222222222222,
+        "real_gain": 0.06777777777777778,
+        "real_minus_meanobj": 0.057777777777777775,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "AtLocation|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.08222222222222224,
+        "real_gain": 0.15222222222222223,
+        "real_minus_meanobj": 0.1377777777777778,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CausesDesire|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.09333333333333334,
+        "real_gain": 0.11000000000000001,
+        "real_minus_meanobj": 0.11333333333333334,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CausesDesire|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.05555555555555558,
+        "real_gain": 0.1877777777777778,
+        "real_minus_meanobj": 0.16666666666666669,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CausesDesire|gsbc|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.053333333333333344,
+        "real_gain": 0.08555555555555557,
+        "real_minus_meanobj": 0.06444444444444444,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|bge_semantic|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.10666666666666665,
+        "real_gain": 0.20999999999999996,
+        "real_minus_meanobj": 0.20444444444444443,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|bge_semantic|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.16000000000000003,
+        "real_gain": 0.16111111111111112,
+        "real_minus_meanobj": 0.15555555555555559,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|gsbc|TEM_STRUCTURAL_BINDING": {
+        "family": "TEM_STRUCTURAL_BINDING",
+        "slot": "TEM_K20",
+        "rms": 0.09555555555555557,
+        "real_gain": 0.19444444444444445,
+        "real_minus_meanobj": 0.18444444444444447,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      },
+      "CapableOf|gsbc|ENTITY_FEATURE_SCORER": {
+        "family": "ENTITY_FEATURE_SCORER",
+        "slot": "SCORER",
+        "rms": 0.07999999999999999,
+        "real_gain": 0.0811111111111111,
+        "real_minus_meanobj": 0.0711111111111111,
+        "trustworthy": true,
+        "verdict": "MIDDLE_BAND"
+      }
+    },
+    "randenc_floor": 0.010555555555555556,
+    "enc_unavailable": {},
+    "gsbc_missing_total": 0,
+    "bge_missing_total": 0
+  },
+  "corpus_provenance": "conceptnet5_en_100k_real_triples",
+  "encoding_provenance": {
+    "bge_semantic": "BAAI/bge-small-en-v1.5_bounded_cache_centered_projected_phasor",
+    "gsbc": "bge-large-en-v1.5->GSBC_EXPAND2X_student_global_top192_sparse_code_cache"
+  },
+  "allow_synthetic": false,
+  "n_generative_llm_calls": 0,
+  "metrics_source": "measured_cpu_fhrr_TEM_structural_content_binding_inductive_transfer",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: nonzero inductive real_minus_shuf (>0.05) from a trustworthy mechanism on ['AtLocation|bge_semantic|ENTITY_FEATURE_SCORER', 'AtLocation|gsbc|TEM_STRUCTURAL_BINDING', 'CausesDesire|bge_semantic|ENTITY_FEATURE_SCORER', 'CausesDesire|gsbc|TEM_STRUCTURAL_BINDING', 'CausesDesire|gsbc|ENTITY_FEATURE_SCORER', 'CapableOf|bge_semantic|TEM_STRUCTURAL_BINDING', 'CapableOf|bge_semantic|ENTITY_FEATURE_SCORER', 'CapableOf|gsbc|TEM_STRUCTURAL_BINDING', 'CapableOf|gsbc|ENTITY_FEATURE_SCORER'] but below HARD_PASS; directionally right, under-parameterized / K-or-encoder-sensitive. synthCLEAN(G=1.00) synthTYPE(G=0.66,TEM=0.77,adv=+0.11,fires=True) synthCONTENT(G=0.03,SC=0.21,adv=+0.17,fires=True) | AtLocation|bge_semantic|TEM_STRUCTURAL_BINDING best=TEM_K5(TEM) rms=+0.047 gain=+0.174 r-mean=+0.164 [AT_FLOOR] || AtLocation|bge_semantic|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.062 gain=+0.068 r-mean=+0.058 [MIDDLE_BAND] || AtLocation|gsbc|TEM_STRUCTURAL_BINDING best=TEM_K20(TEM) rms=+0.082 gain=+0.152 r-mean=+0.138 [MIDDLE_BAND] || AtLocation|gsbc|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.049 gain=+0.046 r-mean=+0.031 [AT_FLOOR] || CausesDesire|bge_semantic|TEM_STRUCTURAL_BINDING best=TEM_K5(TEM) rms=+0.018 gain=+0.188 r-mean=+0.191 [AT_FLOOR] || CausesDesire|bge_semantic|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.093 gain=+0.110 r-mean=+0.113 [MIDDLE_BAND] || CausesDesire|gsbc|TEM_STRUCTURAL_BINDING best=TEM_K20(TEM) rms=+0.056 gain=+0.188 r-mean=+0.167 [MIDDLE_BAND] || CausesDesire|gsbc|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.053 gain=+0.086 r-mean=+0.064 [MIDDLE_BAND] || CapableOf|bge_semantic|TEM_STRUCTURAL_BINDING best=TEM_K20(TEM) rms=+0.107 gain=+0.210 r-mean=+0.204 [MIDDLE_BAND] || CapableOf|bge_semantic|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.160 gain=+0.161 r-mean=+0.156 [MIDDLE_BAND] || CapableOf|gsbc|TEM_STRUCTURAL_BINDING best=TEM_K20(TEM) rms=+0.096 gain=+0.194 r-mean=+0.184 [MIDDLE_BAND] || CapableOf|gsbc|ENTITY_FEATURE_SCORER best=SCORER(ENT) rms=+0.080 gain=+0.081 r-mean=+0.071 [MIDDLE_BAND]",
+  "summary": "MIDDLE_BAND: hp_wins=[]",
+  "elapsed_s": 69.84838271141052
+}

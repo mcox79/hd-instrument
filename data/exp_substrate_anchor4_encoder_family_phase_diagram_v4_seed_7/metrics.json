@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_anchor4_encoder_family_phase_diagram_v4_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=180 SMOKE=90; preflight_distinct(dim=1024): {'binary_bipolar': 'a13e95ce5a485d62', 'hrr_real': 'f93b6505cab23411', 'fhrr': 'cd3ab81454583d04', 'sparse_bipolar': '10ecef9e47ecf299', 'sparse_real': '00d30e37ae0be7b1'}; preflight_distinct(dim=4096): {'binary_bipolar': 'ea1f2eba8fa3605b', 'hrr_real': 'da8f0253b0420d68', 'fhrr': '64b688662f72f520', 'sparse_bipolar': 'aa22efa35e89c763', 'sparse_real': 'dd38e4adf38202a6'}; recency_decode_acc per encoder(dim=4096, noise=0): {'binary_bipolar': 0.995, 'hrr_real': 0.965, 'fhrr': 1.0, 'sparse_bipolar': 0.78, 'sparse_real': 0.855}; positive_control v4: binary_bipolar @ (dr=60, ld=8.0, N=4096, noise=0.1, bundle) pareto=TD_DOMINATES td.ws=0.913 rec=0.893 saturated=False; pareto_dominance unit-tests pass",
+  "summary": "cardinality FULL=180 SMOKE=90; preflight_distinct(dim=1024): {'binary_bipolar': 'a13e95ce5a485d62', 'hrr_real': 'f93b6505cab23411', 'fhrr': 'cd3ab81454583d04', 'sparse_bipolar': '10ecef9e47ecf299', 'sparse_real': '00d30e37ae0be7b1'}; preflight_distinct(dim=4096): {'binary_bipolar': 'ea1f2eba8fa3605b', 'hrr_real': 'da8f0253b0420d68', 'fhrr': '64b688662f72f520', 'sparse_bipolar': 'aa22efa35e89c763', 'sparse_real': 'dd38e4adf38202a6'}; recency_decode_acc per encoder(dim=4096, noise=0): {'binary_bipolar': 0.995, 'hrr_real': 0.965, 'fhrr': 1.0, 'sparse_bipolar': 0.78, 'sparse_real': 0.855}; positive_control v4: binary_bipolar @ (dr=60, ld=8.0, N=4096, noise=0.1, bundle) pareto=TD_DOMINATES td.ws=0.913 rec=0.893 saturated=False; pareto_dominance unit-tests pass",
+  "elapsed_s": 0.51,
+  "ts_iso": "2026-06-30T19:34:14Z",
+  "pid": 14248,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_anchor4_encoder_family_phase_diagram_v4_seed_7,encoders=[binary_bipolar,hrr_real,fhrr,sparse_bipolar,sparse_real],N_DIM_sweep_full=[2048,4096,8192],N_DIM_sweep_smoke=[2048,4096,8192],R_BUCKETS=128,n_atoms=1500,n_days=365,decay_full=[30,60,180],load_full=[2.0,4.0,8.0,12.0],decay_smoke=[30,180],load_smoke=[2.0,8.0,12.0],NOISE_SIGMA=0.1,SEED=7,mode=selftest,arms=[TIME_DECAY,RANDOM],expected_n_full=180,expected_n_smoke=90,discriminator=per_encoder_pareto_dominance_v4_AY_preflight_gate,HP_min_pairs_differ=5_of_10,HP_readout_floor=0.30,META_AY_HARD_FAIL_FRAC=0.50,META_AY_MM_DEMOTE_FRAC=0.10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v4_anchor4_encoder_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

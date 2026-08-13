@@ -1,0 +1,418 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | mode=smoke | B0_mirror corr=0.792 (fires=True spk_fail=0.368 lis_fail=0.390) | B1_crossfit corr=0.327 ground=0.468 (reproduces=True) | B1_EXOG corr=0.366 ground=0.439 | improve(B1-EXOG)=-0.039 | perturb_ratio(EXOG=3.78 B1=3.73) | anchor_fired=True gain=0.225 | codes_ok=True ent(B0/B1/EXOG)=[3.25,2.84,2.88] | subgraph n=1237 E=3372",
+  "summary": "MIDDLE_BAND | mode=smoke | B0_mirror corr=0.792 (fires=True spk_fail=0.368 lis_fail=0.390) | B1_crossfit corr=0.327 ground=0.468 (reproduces=True) | B1_EXOG corr=0.366 ground=0.439 | improve(B1-EXOG)=",
+  "run_mode": "smoke",
+  "elapsed_s": 205.60864219997893,
+  "anchor_name": "selfplay_b1_exog_predictive_anchor_v1",
+  "ts_iso": "2026-07-09T16:41:29.475204+00:00",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "n_nodes": 1500,
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "epochs": 80,
+    "batch": 256,
+    "code_dim": 96,
+    "feat_dim": 4096,
+    "temp": 0.15,
+    "lr": 0.01,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "lambda_rel": 0.05,
+    "lambda_ent": 0.1,
+    "lambda_exog": 0.5,
+    "exog_batch": 256,
+    "K": 12,
+    "n_dist": 7,
+    "gumbel_tau": 2.0,
+    "gumbel_tau_end": 0.5,
+    "neighbor_weight": 0.5,
+    "n_eval": 700,
+    "n_perturb_eval": 400,
+    "n_ground_seeds": 30,
+    "diffuse_steps": 10,
+    "n_sources": 25,
+    "ridge_lambda": 1.0,
+    "k_labelprop": 7,
+    "n_pairs_per_bin": 4000
+  },
+  "config_version": "ANCHOR=selfplay_b1_exog_predictive_anchor_v1,arms=['B0_mirror', 'B1_crossfit', 'B1_EXOG'],B0corr>=0.40,EXOGcorr<=0.20,margin>=0.10,ground>=0.50,ratio>=2.00,HFa>=0.35,HFratio<1.30,HFb_ground<0.40,B1contrast=[0.30,0.50],ent>=1.00,failband=[0.05,0.95]",
+  "subgraph_meta": {
+    "n_nodes": 1237,
+    "n_edges": 3372,
+    "median_degree": 3.0
+  },
+  "gates": {
+    "b0_failmask_corr": 0.7919261213315093,
+    "b1_failmask_corr": 0.326888660988754,
+    "exog_failmask_corr": 0.36565803484074366,
+    "exog_grounding": 0.4385714285714286,
+    "exog_improvement_over_b1": -0.03876937385198964,
+    "exog_perturb_ratio": 3.7773365449097454,
+    "b1_perturb_ratio": 3.7283102979724525,
+    "screen_fires": true,
+    "b0_in_band": true,
+    "b1_reproduces": true,
+    "codes_ok": true,
+    "anchor_fired": true,
+    "anchor_gain_mean": 0.22544753494821634,
+    "hard_pass": false,
+    "per_arm": {
+      "B0_mirror": {
+        "failmask_corr": 0.7919261213315093,
+        "grounding_acc": 0.61,
+        "speaker_fail_rate": 0.36761904761904757,
+        "listener_fail_rate": 0.38999999999999996,
+        "symbol_entropy_bits": 3.2545324340783086,
+        "n_symbols_used": 12.0,
+        "perturb_ratio": 2.7640905237713276,
+        "sens_content": 0.5851774215698242,
+        "sens_relation": 0.21172563234965006,
+        "any_degenerate": false
+      },
+      "B1_crossfit": {
+        "failmask_corr": 0.326888660988754,
+        "grounding_acc": 0.4676190476190476,
+        "speaker_fail_rate": 0.4228571428571428,
+        "listener_fail_rate": 0.5323809523809524,
+        "symbol_entropy_bits": 2.8441274844803845,
+        "n_symbols_used": 10.666666666666666,
+        "perturb_ratio": 3.7283102979724525,
+        "sens_content": 0.6686870257059733,
+        "sens_relation": 0.17977276941140494,
+        "any_degenerate": false
+      },
+      "B1_EXOG": {
+        "failmask_corr": 0.36565803484074366,
+        "grounding_acc": 0.4385714285714286,
+        "speaker_fail_rate": 0.44857142857142857,
+        "listener_fail_rate": 0.5614285714285714,
+        "symbol_entropy_bits": 2.8776787047042993,
+        "n_symbols_used": 11.333333333333334,
+        "perturb_ratio": 3.7773365449097454,
+        "sens_content": 0.6763117710749308,
+        "sens_relation": 0.17913730442523956,
+        "any_degenerate": false
+      }
+    },
+    "transitive_companion": {
+      "B0_mirror": {
+        "near_acc": 0.5658390229669147,
+        "far_acc": 0.49798787831499514,
+        "decay": 0.06785114465191956
+      },
+      "B1_crossfit": {
+        "near_acc": 0.5174736916490497,
+        "far_acc": 0.5065300040648922,
+        "decay": 0.010943687584157332
+      },
+      "B1_EXOG": {
+        "near_acc": 0.5073407800375429,
+        "far_acc": 0.4953116773994086,
+        "decay": 0.0120291026381343
+      },
+      "attr_assort_smooth": 0.7623266826601206,
+      "n_ground_seeds": 30
+    },
+    "bands": {
+      "B0_FAILMASK_CORR_MIN": 0.4,
+      "EXOG_FAILMASK_CORR_HP": 0.2,
+      "EXOG_IMPROVE_MARGIN": 0.1,
+      "GROUNDING_FLOOR": 0.5,
+      "PERTURB_RATIO_HP": 2.0,
+      "EXOG_FAILMASK_CORR_HF_A": 0.35,
+      "PERTURB_RATIO_HF": 1.3,
+      "GROUNDING_DESTROYED": 0.4,
+      "B1_CONTRAST_LO": 0.3,
+      "B1_CONTRAST_HI": 0.5,
+      "ANCHOR_FIRE_MIN_GAIN": 0.03
+    }
+  },
+  "per_arm_agg": {
+    "B0_mirror": {
+      "failmask_corr": 0.7919261213315093,
+      "grounding_acc": 0.61,
+      "speaker_fail_rate": 0.36761904761904757,
+      "listener_fail_rate": 0.38999999999999996,
+      "symbol_entropy_bits": 3.2545324340783086,
+      "n_symbols_used": 12.0,
+      "perturb_ratio": 2.7640905237713276,
+      "sens_content": 0.5851774215698242,
+      "sens_relation": 0.21172563234965006,
+      "any_degenerate": false
+    },
+    "B1_crossfit": {
+      "failmask_corr": 0.326888660988754,
+      "grounding_acc": 0.4676190476190476,
+      "speaker_fail_rate": 0.4228571428571428,
+      "listener_fail_rate": 0.5323809523809524,
+      "symbol_entropy_bits": 2.8441274844803845,
+      "n_symbols_used": 10.666666666666666,
+      "perturb_ratio": 3.7283102979724525,
+      "sens_content": 0.6686870257059733,
+      "sens_relation": 0.17977276941140494,
+      "any_degenerate": false
+    },
+    "B1_EXOG": {
+      "failmask_corr": 0.36565803484074366,
+      "grounding_acc": 0.4385714285714286,
+      "speaker_fail_rate": 0.44857142857142857,
+      "listener_fail_rate": 0.5614285714285714,
+      "symbol_entropy_bits": 2.8776787047042993,
+      "n_symbols_used": 11.333333333333334,
+      "perturb_ratio": 3.7773365449097454,
+      "sens_content": 0.6763117710749308,
+      "sens_relation": 0.17913730442523956,
+      "any_degenerate": false
+    }
+  },
+  "discriminator_selftest": {
+    "corr_planted_high": 0.8290845622819132,
+    "corr_planted_indep": 0.008117565704510183,
+    "precision_gate_lib_match": true,
+    "perturb_ratio_content_encoder": 1389.5642823576068,
+    "perturb_ratio_relation_encoder": 0.008759950887299956
+  },
+  "unit_failures": [],
+  "per_unit": [
+    {
+      "arm": "B0_mirror",
+      "seed": 7,
+      "failmask_corr": 0.8118803372521733,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.6014285714285714,
+      "speaker_fail_rate": 0.36,
+      "listener_fail_rate": 0.3985714285714286,
+      "symbol_entropy_bits": 3.2047980720154663,
+      "n_symbols_used": 12,
+      "n_eval": 700,
+      "perturb_ratio": 2.784950853758561,
+      "sens_content": 0.5870172381401062,
+      "sens_relation": 0.21078190207481384,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_crossfit",
+      "seed": 7,
+      "failmask_corr": 0.3499502955493867,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.48,
+      "speaker_fail_rate": 0.3985714285714286,
+      "listener_fail_rate": 0.52,
+      "symbol_entropy_bits": 2.9708977432136123,
+      "n_symbols_used": 12,
+      "n_eval": 700,
+      "perturb_ratio": 3.814390036322549,
+      "sens_content": 0.6769950985908508,
+      "sens_relation": 0.17748449742794037,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_EXOG",
+      "seed": 7,
+      "failmask_corr": 0.3350430624169487,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.44857142857142857,
+      "speaker_fail_rate": 0.4257142857142857,
+      "listener_fail_rate": 0.5514285714285714,
+      "symbol_entropy_bits": 2.975838918785226,
+      "n_symbols_used": 11,
+      "n_eval": 700,
+      "perturb_ratio": 3.726408801924119,
+      "sens_content": 0.6781593561172485,
+      "sens_relation": 0.18198737502098083,
+      "n_perturb": 400,
+      "anchor_diag": {
+        "recon_cos_trained": 0.2264472022652626,
+        "recon_cos_untrained": 0.0011438198271207511,
+        "anchor_gain": 0.22530338243814185
+      }
+    },
+    {
+      "arm": "B0_mirror",
+      "seed": 13,
+      "failmask_corr": 0.808394442243769,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.62,
+      "speaker_fail_rate": 0.37285714285714283,
+      "listener_fail_rate": 0.38,
+      "symbol_entropy_bits": 3.3112572399868223,
+      "n_symbols_used": 12,
+      "n_eval": 700,
+      "perturb_ratio": 2.723752832022965,
+      "sens_content": 0.5836495161056519,
+      "sens_relation": 0.2142813801765442,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_crossfit",
+      "seed": 13,
+      "failmask_corr": 0.2926957105438009,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.47,
+      "speaker_fail_rate": 0.44,
+      "listener_fail_rate": 0.53,
+      "symbol_entropy_bits": 2.835993632845939,
+      "n_symbols_used": 11,
+      "n_eval": 700,
+      "perturb_ratio": 3.5220536660225923,
+      "sens_content": 0.684559166431427,
+      "sens_relation": 0.19436363875865936,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_EXOG",
+      "seed": 13,
+      "failmask_corr": 0.3866751442774185,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.47285714285714286,
+      "speaker_fail_rate": 0.4157142857142857,
+      "listener_fail_rate": 0.5271428571428571,
+      "symbol_entropy_bits": 2.860895971494949,
+      "n_symbols_used": 12,
+      "n_eval": 700,
+      "perturb_ratio": 3.6623566999645445,
+      "sens_content": 0.6617019176483154,
+      "sens_relation": 0.18067653477191925,
+      "n_perturb": 400,
+      "anchor_diag": {
+        "recon_cos_trained": 0.23314433172345161,
+        "recon_cos_untrained": 0.0009727639844641089,
+        "anchor_gain": 0.2321715677389875
+      }
+    },
+    {
+      "arm": "B0_mirror",
+      "seed": 17,
+      "failmask_corr": 0.7555035844985857,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.6085714285714285,
+      "speaker_fail_rate": 0.37,
+      "listener_fail_rate": 0.3914285714285714,
+      "symbol_entropy_bits": 3.2475419902326372,
+      "n_symbols_used": 12,
+      "n_eval": 700,
+      "perturb_ratio": 2.783567885532456,
+      "sens_content": 0.5848655104637146,
+      "sens_relation": 0.21011361479759216,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_crossfit",
+      "seed": 17,
+      "failmask_corr": 0.3380199768730745,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.45285714285714285,
+      "speaker_fail_rate": 0.43,
+      "listener_fail_rate": 0.5471428571428572,
+      "symbol_entropy_bits": 2.725491077381601,
+      "n_symbols_used": 9,
+      "n_eval": 700,
+      "perturb_ratio": 3.848487191572217,
+      "sens_content": 0.6445068120956421,
+      "sens_relation": 0.16747017204761505,
+      "n_perturb": 400,
+      "anchor_diag": null
+    },
+    {
+      "arm": "B1_EXOG",
+      "seed": 17,
+      "failmask_corr": 0.3752558978278637,
+      "failmask_degenerate": false,
+      "grounding_acc": 0.3942857142857143,
+      "speaker_fail_rate": 0.5042857142857143,
+      "listener_fail_rate": 0.6057142857142858,
+      "symbol_entropy_bits": 2.7963012238327227,
+      "n_symbols_used": 11,
+      "n_eval": 700,
+      "perturb_ratio": 3.943244132840573,
+      "sens_content": 0.6890740394592285,
+      "sens_relation": 0.1747480034828186,
+      "n_perturb": 400,
+      "anchor_diag": {
+        "recon_cos_trained": 0.21956602111458778,
+        "recon_cos_untrained": 0.0006983664470681106,
+        "anchor_gain": 0.21886765466751967
+      }
+    }
+  ],
+  "transitive_companion_rows": [
+    {
+      "seed": 7,
+      "arm": "B0_mirror",
+      "near_acc": 0.6085427135678392,
+      "far_acc": 0.4978670012547051,
+      "decay": 0.11067571231313406
+    },
+    {
+      "seed": 7,
+      "arm": "B1_crossfit",
+      "near_acc": 0.5329145728643216,
+      "far_acc": 0.5244667503136763,
+      "decay": 0.008447822550645356
+    },
+    {
+      "seed": 7,
+      "arm": "B1_EXOG",
+      "near_acc": 0.5344221105527638,
+      "far_acc": 0.5051442910915934,
+      "decay": 0.029277819461170362
+    },
+    {
+      "seed": 13,
+      "arm": "B0_mirror",
+      "near_acc": 0.5598591549295775,
+      "far_acc": 0.5183049147442327,
+      "decay": 0.041554240185344815
+    },
+    {
+      "seed": 13,
+      "arm": "B1_crossfit",
+      "near_acc": 0.5130784708249497,
+      "far_acc": 0.47793380140421265,
+      "decay": 0.035144669420737074
+    },
+    {
+      "seed": 13,
+      "arm": "B1_EXOG",
+      "near_acc": 0.46554325955734405,
+      "far_acc": 0.5162988966900702,
+      "decay": -0.050755637132726183
+    },
+    {
+      "seed": 17,
+      "arm": "B0_mirror",
+      "near_acc": 0.5291152004033275,
+      "far_acc": 0.47779171894604766,
+      "decay": 0.05132348145727983
+    },
+    {
+      "seed": 17,
+      "arm": "B1_crossfit",
+      "near_acc": 0.5064280312578775,
+      "far_acc": 0.5171894604767879,
+      "decay": -0.010761429218910434
+    },
+    {
+      "seed": 17,
+      "arm": "B1_EXOG",
+      "near_acc": 0.5220569700025208,
+      "far_acc": 0.4644918444165621,
+      "decay": 0.05756512558595872
+    }
+  ]
+}

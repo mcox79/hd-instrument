@@ -1,0 +1,240 @@
+{
+  "anchor_name": "substrate_adaptive_cfrpe_x_k2_compose_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ARM_K2_ADAPTIVE_CFRPE BPC=4.8466 >= 6.99 (no compose benefit). Even ADAPTIVE primitives DO NOT compose K=2; sub-additivity is mechanistic not LR-specific. compose_lift=-0.0059. uni=5.523 | HEB_K1=4.9905(drift=-2.3160) | ADAPT_K1=4.8407(drift=-2.1513) | HEB_K2=5.1147(drift=-2.2178) | ADAPT_K2=4.8466(compose_lift=-0.0059, cv=0.0000) | rails=False",
+  "summary": "HARD_FAIL | arms=4 seeds=1 N_DIM=1024 N_TRAIN=2000 encoder=word2vec_sparse_bipolar",
+  "config_version": "substrate_adaptive_cfrpe_x_k2_compose_v1; encoder=word2vec_sparse_bipolar; N_DIM_TOTAL=1024 K_BANKS=2 N_DIM_PER_BANK=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 cfrpe_lr=0.500 adapt_floor=0.25 adapt_ceil=4.00 gate_temp=0.500 n_steps=80 batch=64 device=cpu",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "N_DIM_TOTAL": 1024,
+  "N_DIM_PER_BANK": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "N_STEPS": 80,
+  "K_BANKS": 2,
+  "GATE_TEMP": 0.5,
+  "CFRPE_LR": 0.5,
+  "ADAPT_LR_FLOOR": 0.25,
+  "ADAPT_LR_CEIL": 4.0,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    0
+  ],
+  "ARMS": [
+    "ARM_BASELINE_RANK1_K1_HEBBIAN",
+    "ARM_ADAPTIVE_CFRPE_K1",
+    "ARM_K2_RANK1_HEBBIAN",
+    "ARM_K2_ADAPTIVE_CFRPE"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0
+      },
+      "ARM_BASELINE_RANK1_K1_HEBBIAN": {
+        "bpc_best_mean": 4.9905,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "mrr_at_10_mean": 0.3936,
+        "raw_bpc_at_T1_L1_mean": 7.725,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_ADAPTIVE_CFRPE_K1": {
+        "bpc_best_mean": 4.8407,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3223,
+        "mrr_at_10_mean": 0.4264,
+        "raw_bpc_at_T1_L1_mean": 7.7054,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_K2_RANK1_HEBBIAN": {
+        "bpc_best_mean": 5.1147,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4056,
+        "raw_bpc_at_T1_L1_mean": 7.9708,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_K2_ADAPTIVE_CFRPE": {
+        "bpc_best_mean": 4.8466,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.314,
+        "mrr_at_10_mean": 0.4013,
+        "raw_bpc_at_T1_L1_mean": 7.9224,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      }
+    },
+    "compose_lift_adaptive_k2_over_k1": -0.0059,
+    "sanity_rails": {
+      "heb_k1_drift": 2.316,
+      "adaptive_k1_drift": 2.1513,
+      "heb_k2_drift": 2.2178,
+      "tol": 0.05,
+      "all_ok": false
+    },
+    "refs": {
+      "heb_k1": 7.3065,
+      "adaptive_k1": 6.992,
+      "heb_k2": 7.3325
+    },
+    "hard_pass_bpc_bar": 6.8,
+    "hard_pass_lift_over_adaptive_k1": 0.1,
+    "middle_band_bpc_low": 6.8,
+    "middle_band_bpc_high": 6.95,
+    "hard_fail_bpc_floor": 6.99,
+    "cv_max": 0.05,
+    "all_cv_ok": true,
+    "ad_k2_cv": 0.0,
+    "unigram_bpc": 5.5226,
+    "n_seeds": 1,
+    "honest_scope": "ADAPTIVE cf-RPE x K=2 multi-bank compose at production scale (N_DIM_TOTAL=8192, 4096/bank, N_TRAIN=100k text8, V=4000, word2vec sparse-bipolar f=0.05). HARD_PASS: ARM_K2_ADAPTIVE_CFRPE BPC <= 6.80 AND beats ARM_ADAPTIVE_CFRPE_K1 by >= +0.10. MIDDLE_BAND: BPC in [6.80, 6.95]. HARD_FAIL: BPC >= 6.99. cv <= 0.05. Sanity rails (Fix #28): heb_k1=7.3065 ad_k1=6.9920 heb_k2=7.3325, tol +/-0.05. WHAT_THIS_DOES_NOT_SHOW: K>2; STDP composition; soft-gate end-to-end training; alternative LR schedules. Strategic question: does per-token ADAPTIVE LR rescue the K=2 compose-sub-additivity observed with UNIFORM cf-RPE in A1?",
+    "cites": [
+      "preregs/2026-06-24_substrate_adaptive_cfrpe_x_k2_compose_v1.md",
+      "experiments/exp_substrate_cfrpe_per_token_adaptive_lr_v1.py",
+      "experiments/exp_substrate_K2_x_cfrpe_compose_word2vec_v2.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json"
+    ],
+    "llm_forward_calls_total": 0,
+    "provenance_check_active": false,
+    "verdict_tier": "NO_COMPOSE_BENEFIT"
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "w2v_meta": {
+          "n_hit": 282,
+          "n_miss": 18,
+          "n_vocab": 300,
+          "pretrain_dim": 300,
+          "encoder_class": "word2vec_gaussian_projected"
+        },
+        "ARM_BASELINE_RANK1_K1_HEBBIAN": {
+          "bpc_best": 4.9905,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.9332,
+          "top1_acc": 0.3058,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3936,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.5,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.55,
+          "wall_ingest_s": 0.09,
+          "wall_recall_s": 0.04,
+          "raw_bpc_at_T1_L1": 7.725,
+          "rule_class": "hebbian_k1"
+        },
+        "ARM_ADAPTIVE_CFRPE_K1": {
+          "bpc_best": 4.8407,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.7218,
+          "top1_acc": 0.3223,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.4264,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 1.31,
+          "wall_ingest_s": 0.84,
+          "wall_recall_s": 0.03,
+          "raw_bpc_at_T1_L1": 7.7054,
+          "rule_class": "adaptive_cfrpe_k1",
+          "per_token_lr_max_min_ratio_max": 1.5394,
+          "n_clamped_steps": 0,
+          "final_batch_mean_err": 0.029271
+        },
+        "ARM_K2_RANK1_HEBBIAN": {
+          "bpc_best": 5.1147,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 4.9897,
+          "top1_acc": 0.3306,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.4056,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.3,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.55,
+          "wall_ingest_s": 0.07,
+          "wall_recall_s": 0.04,
+          "raw_bpc_at_T1_L1": 7.9708,
+          "rule_class": "hebbian_k2"
+        },
+        "ARM_K2_ADAPTIVE_CFRPE": {
+          "bpc_best": 4.8466,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.7303,
+          "top1_acc": 0.314,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.4013,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.7,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 1.35,
+          "wall_ingest_s": 0.91,
+          "wall_recall_s": 0.03,
+          "raw_bpc_at_T1_L1": 7.9224,
+          "rule_class": "adaptive_cfrpe_k2",
+          "bank_0_max_min_ratio_max": 1.8582,
+          "bank_0_n_clamped_steps": 0,
+          "bank_0_final_batch_mean_err": 0.033553,
+          "bank_1_max_min_ratio_max": 5.2359,
+          "bank_1_n_clamped_steps": 80,
+          "bank_1_final_batch_mean_err": 0.022771
+        }
+      },
+      "V": 300,
+      "N_DIM_TOTAL": 1024,
+      "N_TRAIN": 2000,
+      "llm_forward_calls_at_inference": 0,
+      "elapsed_s_seed": 159.78
+    }
+  ],
+  "elapsed_s": 159.78
+}

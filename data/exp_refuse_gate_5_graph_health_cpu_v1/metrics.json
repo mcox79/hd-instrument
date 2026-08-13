@@ -1,0 +1,297 @@
+{
+  "anchor_name": "refuse_gate_5_graph_health_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (safety-capability; data-decides -> Skunkworks rules): graph-health REFUSES overload (>=0.95) + ACCEPTS storable (false-refuse<=0.05), the health-boundary COINCIDES with the accuracy-cliff, AND the FIXED-E test proves health reads substrate-STATE (at equal E, the concentrated/less-storable structure has higher health + lower accuracy) -- NOT E-counting-in-disguise. Substrate detects its own graph-overload before fabricating. acc_cliff_E=0.15 c=0.09871 separates=True predicts_cliff=True | false_refuse=0.00 refuse_unstore=1.00 | per_E={'E0.05N': {'acc': 0.989, 'health': 0.05387, 'storable': True}, 'E0.15N': {'acc': 0.91, 'health': 0.14356, 'storable': False}, 'E0.25N': {'acc': 0.844, 'health': 0.25109, 'storable': False}, 'E0.50N': {'acc': 0.762, 'health': 0.49647, 'storable': False}, 'E1.00N': {'acc': 0.701, 'health': 0.96341, 'storable': False}} | fixed_E_test=reads_state | RESIDUAL1 seed_cv: refuse_arm_worst_cv=0.040 (robust) accept_arm_worst_cv=0.148 fixed_e_gap_cv=0.101 | RESIDUAL2 storable_accept: all_accepted=True -- global threshold ACCEPTS all storable -> false-refuse=0 generalizes (deployable global gate)",
+  "run_mode": "full",
+  "N": 4096,
+  "V": 128,
+  "E_fracs": [
+    0.05,
+    0.15,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "per_e_frac": {
+      "E0.05N": {
+        "acc": 0.989,
+        "health": 0.05387,
+        "storable": true
+      },
+      "E0.15N": {
+        "acc": 0.91,
+        "health": 0.14356,
+        "storable": false
+      },
+      "E0.25N": {
+        "acc": 0.844,
+        "health": 0.25109,
+        "storable": false
+      },
+      "E0.50N": {
+        "acc": 0.762,
+        "health": 0.49647,
+        "storable": false
+      },
+      "E1.00N": {
+        "acc": 0.701,
+        "health": 0.96341,
+        "storable": false
+      }
+    },
+    "fixed_e_test": {
+      "E": 614,
+      "spread_acc": 0.908,
+      "conc_acc": 0.583,
+      "spread_health": 0.1485,
+      "conc_health": 6.35368,
+      "acc_gap": 0.325,
+      "health_gap": 6.20517,
+      "storability_gap_constructed": true,
+      "status": "reads_state",
+      "reads_substrate_state_not_Ecount": true
+    },
+    "accuracy_cliff_E": 0.15,
+    "health_threshold_c": 0.09871,
+    "clean_separator": true,
+    "health_predicts_cliff": true,
+    "false_refuse_rate_storable": 0.0,
+    "refuse_rate_unstorable": 1.0,
+    "honest_claim": "Graph-level health (non-edge score variance) as the refuse signal for graph-adjacency overload: accuracy-cliff at E=0.15; health separates storable/unstorable=True; health predicts the cliff (not just E)=True; false-refuse(storable)=0.00 refuse(unstorable)=1.00. data-decides (don't force; per-query was confidently-wrong).",
+    "fixed_e_raw_per_seed": [
+      {
+        "seed": 1,
+        "E": 614,
+        "spread_acc": 0.9186,
+        "spread_health": 0.13933,
+        "conc_acc": 0.5863,
+        "conc_health": 5.66725,
+        "acc_gap": 0.3322,
+        "health_gap": 5.52791
+      },
+      {
+        "seed": 2,
+        "E": 614,
+        "spread_acc": 0.899,
+        "spread_health": 0.14395,
+        "conc_acc": 0.5782,
+        "conc_health": 7.18076,
+        "acc_gap": 0.3208,
+        "health_gap": 7.0368
+      },
+      {
+        "seed": 3,
+        "E": 614,
+        "spread_acc": 0.9072,
+        "spread_health": 0.16222,
+        "conc_acc": 0.5855,
+        "conc_health": 6.21302,
+        "acc_gap": 0.3217,
+        "health_gap": 6.0508
+      }
+    ],
+    "seed_cv": {
+      "n_seeds": 3,
+      "fixed_e_gap_cv": 0.1008,
+      "fixed_e_conc_health_cv": 0.0985,
+      "e_sweep_worst_health_cv_ALL": 0.1476,
+      "refuse_arm_worst_health_cv": 0.0395,
+      "accept_arm_worst_health_cv": 0.1476,
+      "robust_on_refuse_arm": true,
+      "arm_note": "seed-robust on the UNSTORABLE/REFUSE arm (worst health-CV 0.040 -- the load-bearing safety direction); the storable/ACCEPT arm has higher CV 0.148, consistent with + mitigated by the thin-boundary deployment threshold-margin caveat."
+    },
+    "storable_accept_test": {
+      "points": [
+        {
+          "e_frac": 0.05,
+          "acc": 0.992,
+          "health": 0.06048,
+          "storable_ge_0p95": true,
+          "accepted_by_c": true
+        },
+        {
+          "e_frac": 0.08,
+          "acc": 0.97,
+          "health": 0.08368,
+          "storable_ge_0p95": true,
+          "accepted_by_c": true
+        },
+        {
+          "e_frac": 0.1,
+          "acc": 0.95,
+          "health": 0.09852,
+          "storable_ge_0p95": true,
+          "accepted_by_c": true
+        },
+        {
+          "e_frac": 0.12,
+          "acc": 0.931,
+          "health": 0.12258,
+          "storable_ge_0p95": false,
+          "accepted_by_c": false
+        }
+      ],
+      "n_storable_tested": 3,
+      "all_storable_accepted_global_c": true,
+      "storable_but_REFUSED_efracs": [],
+      "interpretation": "global threshold ACCEPTS all storable -> false-refuse=0 generalizes (deployable global gate)"
+    }
+  },
+  "metrics_source": "measured_cpu_refuse_gate_graph_health_variance",
+  "per_unit": [
+    {
+      "e_frac": 0.05,
+      "seed": 1,
+      "accuracy": 0.9926,
+      "health": 0.05415,
+      "storable": true,
+      "run_mode": "full",
+      "_ckpt_key": "E0p05_s1",
+      "_partial_written_at": 1781996636.3563976
+    },
+    {
+      "e_frac": 0.05,
+      "seed": 2,
+      "accuracy": 0.9926,
+      "health": 0.04399,
+      "storable": true,
+      "run_mode": "full",
+      "_ckpt_key": "E0p05_s2",
+      "_partial_written_at": 1781995943.576806
+    },
+    {
+      "e_frac": 0.05,
+      "seed": 3,
+      "accuracy": 0.9804,
+      "health": 0.06346,
+      "storable": true,
+      "run_mode": "full",
+      "_ckpt_key": "E0p05_s3",
+      "_partial_written_at": 1781995943.6662302
+    },
+    {
+      "e_frac": 0.15,
+      "seed": 1,
+      "accuracy": 0.9096,
+      "health": 0.15121,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p15_s1",
+      "_partial_written_at": 1781996636.4773307
+    },
+    {
+      "e_frac": 0.15,
+      "seed": 2,
+      "accuracy": 0.9153,
+      "health": 0.14182,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p15_s2",
+      "_partial_written_at": 1781995943.959739
+    },
+    {
+      "e_frac": 0.15,
+      "seed": 3,
+      "accuracy": 0.9039,
+      "health": 0.13765,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p15_s3",
+      "_partial_written_at": 1781995944.0714977
+    },
+    {
+      "e_frac": 0.25,
+      "seed": 1,
+      "accuracy": 0.8452,
+      "health": 0.24673,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p25_s1",
+      "_partial_written_at": 1781996636.6164644
+    },
+    {
+      "e_frac": 0.25,
+      "seed": 2,
+      "accuracy": 0.8423,
+      "health": 0.26122,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p25_s2",
+      "_partial_written_at": 1781995944.357189
+    },
+    {
+      "e_frac": 0.25,
+      "seed": 3,
+      "accuracy": 0.8438,
+      "health": 0.24532,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p25_s3",
+      "_partial_written_at": 1781995944.4850607
+    },
+    {
+      "e_frac": 0.5,
+      "seed": 1,
+      "accuracy": 0.7512,
+      "health": 0.49583,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p50_s1",
+      "_partial_written_at": 1781996636.799906
+    },
+    {
+      "e_frac": 0.5,
+      "seed": 2,
+      "accuracy": 0.7661,
+      "health": 0.50804,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p50_s2",
+      "_partial_written_at": 1781995945.0400448
+    },
+    {
+      "e_frac": 0.5,
+      "seed": 3,
+      "accuracy": 0.7693,
+      "health": 0.48554,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E0p50_s3",
+      "_partial_written_at": 1781995945.4097805
+    },
+    {
+      "e_frac": 1.0,
+      "seed": 1,
+      "accuracy": 0.7094,
+      "health": 0.96957,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E1p00_s1",
+      "_partial_written_at": 1781996637.1251845
+    },
+    {
+      "e_frac": 1.0,
+      "seed": 2,
+      "accuracy": 0.7083,
+      "health": 0.98882,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E1p00_s2",
+      "_partial_written_at": 1781995946.4126825
+    },
+    {
+      "e_frac": 1.0,
+      "seed": 3,
+      "accuracy": 0.6844,
+      "health": 0.93185,
+      "storable": false,
+      "run_mode": "full",
+      "_ckpt_key": "E1p00_s3",
+      "_partial_written_at": 1781995946.9475152
+    }
+  ],
+  "elapsed_s": 1.6757426261901855,
+  "summary": "HARD_PASS (safety-capability; data-decides -> Skunkworks rules): graph-health REFUSES overload (>=0.95) + ACCEPTS storable (false-refuse<=0.05), the health-boundary COINCIDES with the accuracy-cliff, AND the FIXED-E test proves health reads substrate-STATE (at equal E, the concentrated/less-storable structure has higher health + lower accuracy) -- NOT E-counting-in-disguise. Substrate detects its own graph-overload before fabricating. acc_cliff_E=0.15 c=0.09871 separates=True predicts_cliff=True | false_refuse=0.00 refuse_unstore=1.00 | per_E={'E0.05N': {'acc': 0.989, 'health': 0.05387, 'storable': True}, 'E0.15N': {'acc': 0.91, 'health': 0.14356, 'storable': False}, 'E0.25N': {'acc': 0.844, 'health': 0.25109, 'storable': False}, 'E0.50N': {'acc': 0.762, 'health': 0.49647, 'storable': False}, 'E1.00N': {'acc': 0.701, 'health': 0.96341, 'storable': False}} | fixed_E_test=reads_state | RESIDUAL1 seed_cv: refuse_arm_worst_cv=0.040 (robust) accept_arm_worst_cv=0.148 fixed_e_gap_cv=0.101 | RESIDUAL2 storable_accept: all_accepted=True -- global threshold ACCEPTS all storable -> false-refuse=0 generalizes (deployable global gate)"
+}

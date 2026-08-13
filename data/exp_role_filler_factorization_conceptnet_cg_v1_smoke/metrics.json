@@ -1,0 +1,314 @@
+{
+  "anchor_name": "role_filler_factorization_conceptnet_cg_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_READING_AXIS_FIRST_CG",
+  "verdict_msg": "HARD_PASS_READING_AXIS_FIRST_CG | headlineN=48 m=6 chance=0.062 | CTRL(Gate-D) F=0.948 gap=0.915 | REAL F=0.885 FLAT=0.007 gap=0.878 rng=0.030 corr=0.166 gcos=0.918 realcost=+0.062 | posctrl=True mustfail=True realgen=True realbreak=False unsat=True | V=300 slots=15",
+  "summary": "HARD_PASS_READING_AXIS_FIRST_CG | headlineN=48 m=6 chance=0.062 | CTRL(Gate-D) F=0.948 gap=0.915 | REAL F=0.885 FLAT=0.007 gap=0.878 rng=0.030 corr=0.166 gcos=0.918 realcost=+0.062 | posctrl=True mustfail=True realgen=True realbreak=False unsat=True | V=300 slots=15",
+  "elapsed_s": 11.090520700003253,
+  "ts_iso": "2026-07-19T05:01:43.821507+00:00",
+  "config": {
+    "cap_dims": [
+      48,
+      96,
+      256
+    ],
+    "m": 6,
+    "knn": 10,
+    "t_primary": 24,
+    "t_curve": [
+      6,
+      24
+    ],
+    "vocab_cap": 300,
+    "min_slots": 2,
+    "min_slot_fillers": 8,
+    "held_per_concept": 1,
+    "min_train_fillers": 6,
+    "n_test": 200,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "chance": 0.0625,
+  "headline_dim": 48,
+  "aggregate": {
+    "verdict": "HARD_PASS_READING_AXIS_FIRST_CG",
+    "chance": 0.0625,
+    "headline_dim": 48,
+    "per_condition": {
+      "control_synthetic": {
+        "capacity": [
+          {
+            "n_dim": 48,
+            "factored": 0.9475,
+            "flat": 0.0325,
+            "g_hat_cos": 0.9436512589454651,
+            "factored_range": 0.02499999999999991
+          },
+          {
+            "n_dim": 96,
+            "factored": 1.0,
+            "flat": 0.005,
+            "g_hat_cos": 0.9433435499668121,
+            "factored_range": 0.0
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.01,
+            "g_hat_cos": 0.9410424828529358,
+            "factored_range": 0.0
+          }
+        ],
+        "curve": [
+          {
+            "t": 6,
+            "factored": 0.8,
+            "flat": 0.015,
+            "g_hat_cos": 0.7463213503360748
+          },
+          {
+            "t": 24,
+            "factored": 0.9475,
+            "flat": 0.0325,
+            "g_hat_cos": 0.9436512589454651
+          }
+        ],
+        "per_pred_heldout": {
+          "Antonym": {
+            "factored": 0.9272486772486772,
+            "flat": 0.017857142857142856,
+            "n_mean": 27.5
+          },
+          "AtLocation": {
+            "factored": 0.9473684210526315,
+            "flat": 0.05263157894736842,
+            "n_mean": 19
+          },
+          "CapableOf": {
+            "factored": 0.9326599326599327,
+            "flat": 0.06397306397306397,
+            "n_mean": 30
+          },
+          "Causes": {
+            "factored": 0.9464285714285714,
+            "flat": 0.0,
+            "n_mean": 28
+          },
+          "CausesDesire": {
+            "factored": 0.9351395730706076,
+            "flat": 0.0,
+            "n_mean": 25
+          },
+          "CreatedBy": {
+            "factored": 0.9498847926267281,
+            "flat": 0.0,
+            "n_mean": 29.5
+          },
+          "DefinedAs": {
+            "factored": 1.0,
+            "flat": 0.09498834498834499,
+            "n_mean": 29.5
+          },
+          "DerivedFrom": {
+            "factored": 0.9285714285714286,
+            "flat": 0.0,
+            "n_mean": 11.5
+          }
+        },
+        "content_cos_mean": 0.00020167741604382172,
+        "factored_headline": 0.9475,
+        "flat_headline": 0.0325,
+        "gap_headline": 0.915,
+        "factored_headline_range": 0.02499999999999991,
+        "g_hat_cos_headline": 0.9436512589454651
+      },
+      "real_conceptnet": {
+        "capacity": [
+          {
+            "n_dim": 48,
+            "factored": 0.885,
+            "flat": 0.0075,
+            "g_hat_cos": 0.9176945984363556,
+            "factored_range": 0.030000000000000027
+          },
+          {
+            "n_dim": 96,
+            "factored": 0.99,
+            "flat": 0.005,
+            "g_hat_cos": 0.9228543341159821,
+            "factored_range": 0.010000000000000009
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.005,
+            "g_hat_cos": 0.9232308268547058,
+            "factored_range": 0.0
+          }
+        ],
+        "curve": [
+          {
+            "t": 6,
+            "factored": 0.7475,
+            "flat": 0.0025,
+            "g_hat_cos": 0.7343034744262695
+          },
+          {
+            "t": 24,
+            "factored": 0.885,
+            "flat": 0.0075,
+            "g_hat_cos": 0.9176945984363556
+          }
+        ],
+        "per_pred_heldout": {
+          "Antonym": {
+            "factored": 0.8558201058201058,
+            "flat": 0.0,
+            "n_mean": 27.5
+          },
+          "AtLocation": {
+            "factored": 0.8421052631578947,
+            "flat": 0.02631578947368421,
+            "n_mean": 19
+          },
+          "CapableOf": {
+            "factored": 0.9107744107744108,
+            "flat": 0.0,
+            "n_mean": 30
+          },
+          "Causes": {
+            "factored": 0.9107142857142858,
+            "flat": 0.0,
+            "n_mean": 28
+          },
+          "CausesDesire": {
+            "factored": 0.9827586206896552,
+            "flat": 0.0,
+            "n_mean": 25
+          },
+          "CreatedBy": {
+            "factored": 0.8496543778801844,
+            "flat": 0.0,
+            "n_mean": 29.5
+          },
+          "DefinedAs": {
+            "factored": 0.8927738927738929,
+            "flat": 0.030303030303030304,
+            "n_mean": 29.5
+          },
+          "DerivedFrom": {
+            "factored": 0.746031746031746,
+            "flat": 0.0,
+            "n_mean": 11.5
+          }
+        },
+        "content_cos_mean": 0.16579076647758484,
+        "factored_headline": 0.885,
+        "flat_headline": 0.0075,
+        "gap_headline": 0.8775000000000001,
+        "factored_headline_range": 0.030000000000000027,
+        "g_hat_cos_headline": 0.9176945984363556
+      }
+    },
+    "positive_control_reproduces": true,
+    "real_must_fail_control_fired": true,
+    "real_generalizes": true,
+    "real_breaks": false,
+    "real_unsaturated_headroom": true,
+    "real_content_cost_headline": 0.0625,
+    "can_fail_both_ways": true
+  },
+  "data_meta": {
+    "n_vocab": 300,
+    "n_slots": 15,
+    "headline_dim": 48,
+    "slot_ids": [
+      "Antonym:H",
+      "Antonym:T",
+      "AtLocation:H",
+      "AtLocation:T",
+      "CapableOf:H",
+      "CapableOf:T",
+      "Causes:H",
+      "Causes:T",
+      "CausesDesire:H",
+      "CausesDesire:T",
+      "CreatedBy:H",
+      "CreatedBy:T",
+      "DefinedAs:H",
+      "DefinedAs:T",
+      "DerivedFrom:T"
+    ],
+    "rel_type_counts": {
+      "Antonym": 19066,
+      "AtLocation": 27797,
+      "CapableOf": 22677,
+      "Causes": 16801,
+      "CausesDesire": 4688,
+      "CreatedBy": 263,
+      "DefinedAs": 2173,
+      "DerivedFrom": 6535
+    },
+    "slot_filler_counts": {
+      "Antonym:H": 266,
+      "Antonym:T": 266,
+      "AtLocation:H": 240,
+      "AtLocation:T": 168,
+      "CapableOf:H": 259,
+      "CapableOf:T": 92,
+      "Causes:H": 93,
+      "Causes:T": 149,
+      "CausesDesire:H": 131,
+      "CausesDesire:T": 29,
+      "CreatedBy:H": 69,
+      "CreatedBy:T": 29,
+      "DefinedAs:H": 154,
+      "DefinedAs:T": 25,
+      "DerivedFrom:T": 127
+    },
+    "vocab_sample": [
+      "work",
+      "heat",
+      "death",
+      "war",
+      "book",
+      "love",
+      "money",
+      "life",
+      "car",
+      "fire",
+      "pain",
+      "food",
+      "sun",
+      "fear",
+      "rain",
+      "sleep",
+      "land",
+      "sound",
+      "game",
+      "person",
+      "human",
+      "happiness",
+      "ground",
+      "music"
+    ]
+  },
+  "arms_differ_hashes": {
+    "real_conceptnet_factored_pred_hash": "58e3388070db2efb",
+    "real_conceptnet_flat_pred_hash": "f1f3bf75ed273672"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "factored_pred": "dog",
+    "flat_pred": "cat",
+    "dog_cat_cos": 0.471,
+    "dog_car_cos": 0.234,
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "content_source": "REAL GloVe-wiki-gigaword-300 (Pennington 2014) FHRR-encoded",
+  "relation_source": "REAL ConceptNet5 en-100k (Speer 2017); slot=(predicate,arg-role)",
+  "notes": "FULL-CHAIN-GRADE gate: structure-content factorization on REAL EXTRACTED ConceptNet relations. HARD_PASS_READING_AXIS_FIRST_CG = un-saturated (capacity-edge) compositional generalization on real extracted relations where flat fails (brain-faithful native bind). Remaining step: relations extracted by OUR reader on real narrative (couples reader extraction noise). CLAIM-VET-pending; VET adjudicates CG vs CG-candidate."
+}

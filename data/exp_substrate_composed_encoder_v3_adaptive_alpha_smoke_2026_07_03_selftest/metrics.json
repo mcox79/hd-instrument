@@ -1,0 +1,217 @@
+{
+  "anchor_name": "substrate_composed_encoder_v3_adaptive_alpha_smoke_2026_07_03",
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST: arms_differ=True no_leakage=True fit_alpha=0.00 adaptive_test_r5=0.600 v3eq_r5=0.500 ppmi_r5=0.450 vwfa_r5=0.400 tri_r5=0.450 verdict_probe=HARD_FAIL [N=20 1seed n_dim=1024]",
+  "summary": "SELFTEST: arms_differ=True no_leakage=True fit_alpha=0.00 adaptive_test_r5=0.600 v3eq_r5=0.500 ppmi_r5=0.450 vwfa_r5=0.400 tri_r5=0.450 verdict_probe=HARD_FAIL [N=20 1seed n_dim=1024]",
+  "elapsed_s": 2.94,
+  "run_mode": "self_test",
+  "ts_iso": "2026-07-03T02:03:55.426894+00:00",
+  "config": {
+    "n_dim": 2048,
+    "k_sparsity": 0.02,
+    "max_pos": 24,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "val_frac": 0.5,
+    "alpha_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "hp_bands": {
+      "HP1_adaptive_r5_lift": 0.35,
+      "HP2_adaptive_recover_margin": 0.01,
+      "REG_TOL": 0.02,
+      "HP3_v3_equal_measured": 0.333,
+      "HP4_ppmi_measured": 0.34,
+      "HP5_vwfa_measured": 0.24,
+      "HP6_trigram_measured": 0.28,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_v3_adaptive_alpha_test_recall_at_1_mean": 0.5,
+    "arm_v3_adaptive_alpha_test_recall_at_5_mean": 0.6,
+    "arm_v3_adaptive_alpha_test_recall_at_10_mean": 0.7,
+    "arm_v3_adaptive_alpha_full100_recall_at_1_mean": 0.3,
+    "arm_v3_adaptive_alpha_full100_recall_at_5_mean": 0.45,
+    "arm_v3_adaptive_alpha_full100_recall_at_10_mean": 0.65,
+    "arm_v3_equal_alpha_recall_at_1_mean": 0.2,
+    "arm_v3_equal_alpha_recall_at_5_mean": 0.5,
+    "arm_v3_equal_alpha_recall_at_10_mean": 0.7,
+    "arm_ppmi_alone_recall_at_1_mean": 0.3,
+    "arm_ppmi_alone_recall_at_5_mean": 0.45,
+    "arm_ppmi_alone_recall_at_10_mean": 0.65,
+    "arm_vwfa_alone_recall_at_1_mean": 0.1,
+    "arm_vwfa_alone_recall_at_5_mean": 0.4,
+    "arm_vwfa_alone_recall_at_10_mean": 0.65,
+    "arm_char_trigram_unsup_reference_recall_at_1_mean": 0.3,
+    "arm_char_trigram_unsup_reference_recall_at_5_mean": 0.45,
+    "arm_char_trigram_unsup_reference_recall_at_10_mean": 0.75,
+    "fitted_alpha_v3_mean": 0.0,
+    "fitted_alpha_v3_per_seed": [
+      0.0
+    ],
+    "fitted_beta_v3_per_seed": [
+      1.0
+    ],
+    "val_r1_at_fitted_alpha_mean": 0.1
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 20,
+      "n_dim": 1024,
+      "n_train_sentences": 79,
+      "n_queries": 20,
+      "n_val": 10,
+      "n_test": 10,
+      "fitted_alpha_v3": 0.0,
+      "fitted_beta_v3": 1.0,
+      "val_r1_at_fitted_alpha": 0.1,
+      "arm_v3_adaptive_alpha_test": {
+        "recall_at_1": 0.5,
+        "recall_at_5": 0.6,
+        "recall_at_10": 0.7
+      },
+      "arm_v3_adaptive_alpha_full100": {
+        "recall_at_1": 0.3,
+        "recall_at_5": 0.45,
+        "recall_at_10": 0.65
+      },
+      "arm_v3_equal_alpha": {
+        "recall_at_1": 0.2,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.7
+      },
+      "arm_ppmi_alone": {
+        "recall_at_1": 0.3,
+        "recall_at_5": 0.45,
+        "recall_at_10": 0.65
+      },
+      "arm_vwfa_alone": {
+        "recall_at_1": 0.1,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.65
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.3,
+        "recall_at_5": 0.45,
+        "recall_at_10": 0.75
+      },
+      "arm_walls_s": {
+        "adaptive_alpha_fit_and_eval": 0.035,
+        "v3_equal_alpha": 0.032,
+        "ppmi_alone": 0.032,
+        "vwfa_alone": 0.034,
+        "char_trigram": 0.021,
+        "v3_fit": 0.388
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V3_ADAPTIVE_ALPHA": "daa1f3a7dfdad109388339c4e61c118880ef9d2f6a88c1a8b38e312bf8b2bad3",
+        "ARM_V3_EQUAL_ALPHA": "ac3b6ae3d4d90006415cf285fee39ba825920167cd0748219f096de7b503a07b",
+        "ARM_PPMI_ALONE": "8c6e51cd7001f83572564544d01735439cc8496558563670cd906d4042ef15ea",
+        "ARM_VWFA_ALONE": "5ed50c3ec029f2808d805621dad5ce364c44c19a132e527aac37219034a5b0a8",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "cf2d65199c3ba2e3e50cad530832007618a8db13d03a824eedbfcc038693d258"
+      },
+      "no_leakage_verified": true,
+      "val_query_ids": [
+        16,
+        15,
+        12,
+        6,
+        13,
+        4,
+        11,
+        10,
+        5,
+        14
+      ],
+      "test_query_ids": [
+        8,
+        18,
+        3,
+        7,
+        1,
+        9,
+        19,
+        0,
+        17,
+        2
+      ],
+      "wall_s": 0.982
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "landed_n_units": 5,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": true,
+  "arms_differ_verified": true,
+  "no_leakage_verified_all_seeds": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_prototype_hds_composed_v3",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "self_test path; N=20 atoms 1 seed n_dim=1024; sanity only",
+  "prereg_path": "preregs/2026-07-03_substrate_composed_encoder_v3_adaptive_alpha_smoke.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "AC_hypothesized_vs_measured",
+    "run_mode_verification_16",
+    "sec15D_positive_control_reproduce",
+    "sec15E_functional_decomposition"
+  ],
+  "hp_scope": {
+    "ARM_V3_ADAPTIVE_ALPHA": [
+      "HP1",
+      "HP2",
+      "HP7",
+      "HP8"
+    ],
+    "ARM_V3_EQUAL_ALPHA": [
+      "HP3",
+      "HP8"
+    ],
+    "ARM_PPMI_ALONE": [
+      "HP4",
+      "HP8"
+    ],
+    "ARM_VWFA_ALONE": [
+      "HP5",
+      "HP8"
+    ],
+    "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": [
+      "HP6",
+      "HP8"
+    ]
+  }
+}

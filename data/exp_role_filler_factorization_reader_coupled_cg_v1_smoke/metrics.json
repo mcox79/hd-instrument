@@ -1,0 +1,486 @@
+{
+  "anchor_name": "role_filler_factorization_reader_coupled_cg_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_READING_AXIS_FIRST_CG",
+  "verdict_msg": "HARD_PASS_READING_AXIS_FIRST_CG | headlineN=48 m=6 chance=0.062 | CTRL(Gate-D) F=0.968 gap=0.960 | REAL F=0.880 FLAT=0.005 gap=0.875 rng=0.040 realcost=+0.088 capNOTnoise=False | GATED F=0.895 gate_effect=+0.015 drop=0.1635 | posctrl=True mustfail=True realgen=True realbreak=False unsat=True | V=238 slots=93",
+  "summary": "HARD_PASS_READING_AXIS_FIRST_CG | headlineN=48 m=6 chance=0.062 | CTRL(Gate-D) F=0.968 gap=0.960 | REAL F=0.880 FLAT=0.005 gap=0.875 rng=0.040 realcost=+0.088 capNOTnoise=False | GATED F=0.895 gate_effect=+0.015 drop=0.1635 | posctrl=True mustfail=True realgen=True realbreak=False unsat=True | V=238 slots=93",
+  "elapsed_s": 15.551667600026121,
+  "ts_iso": "2026-07-19T06:36:09.348173+00:00",
+  "config": {
+    "cap_dims": [
+      48,
+      96,
+      256
+    ],
+    "m": 6,
+    "knn": 10,
+    "t_primary": 24,
+    "vocab_cap": 400,
+    "min_slots": 2,
+    "min_slot_fillers": 6,
+    "held_per_concept": 1,
+    "min_train_fillers": 5,
+    "n_test": 200,
+    "gate_drop_frac": 0.25,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "chance": 0.0625,
+  "headline_dim": 48,
+  "aggregate": {
+    "verdict": "HARD_PASS_READING_AXIS_FIRST_CG",
+    "chance": 0.0625,
+    "headline_dim": 48,
+    "per_condition": {
+      "control_synthetic": {
+        "capacity": [
+          {
+            "n_dim": 48,
+            "factored": 0.9675,
+            "flat": 0.0075,
+            "g_hat_cos": 0.9416667819023132,
+            "factored_range": 0.015000000000000013
+          },
+          {
+            "n_dim": 96,
+            "factored": 1.0,
+            "flat": 0.0075,
+            "g_hat_cos": 0.9399743378162384,
+            "factored_range": 0.0
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.02,
+            "g_hat_cos": 0.9393249750137329,
+            "factored_range": 0.0
+          }
+        ],
+        "per_pred_heldout": {
+          "recip:AGT": {
+            "factored": 0.8333333333333333,
+            "flat": 0.0,
+            "n_mean": 2.5
+          },
+          "recip:RECIP": {
+            "factored": 1.0,
+            "flat": 0.0,
+            "n_mean": 3.5
+          },
+          "svo:OBJ": {
+            "factored": 0.9567982456140351,
+            "flat": 0.004166666666666667,
+            "n_mean": 117
+          },
+          "svo:SUBJ": {
+            "factored": 0.986977845425334,
+            "flat": 0.0136986301369863,
+            "n_mean": 77
+          }
+        },
+        "content_cos_mean": 0.0007358710718108341,
+        "factored_headline": 0.9675,
+        "flat_headline": 0.0075,
+        "gap_headline": 0.9600000000000001,
+        "factored_headline_range": 0.015000000000000013,
+        "g_hat_cos_headline": 0.9416667819023132
+      },
+      "real_reader": {
+        "capacity": [
+          {
+            "n_dim": 48,
+            "factored": 0.88,
+            "flat": 0.005,
+            "g_hat_cos": 0.9331852495670319,
+            "factored_range": 0.040000000000000036
+          },
+          {
+            "n_dim": 96,
+            "factored": 0.995,
+            "flat": 0.0,
+            "g_hat_cos": 0.9335693717002869,
+            "factored_range": 0.0
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.0,
+            "g_hat_cos": 0.9331395328044891,
+            "factored_range": 0.0
+          }
+        ],
+        "per_pred_heldout": {
+          "recip:AGT": {
+            "factored": 1.0,
+            "flat": 0.0,
+            "n_mean": 2.5
+          },
+          "recip:RECIP": {
+            "factored": 0.875,
+            "flat": 0.0,
+            "n_mean": 3.5
+          },
+          "svo:OBJ": {
+            "factored": 0.868421052631579,
+            "flat": 0.0043859649122807015,
+            "n_mean": 117
+          },
+          "svo:SUBJ": {
+            "factored": 0.8964992389649924,
+            "flat": 0.00684931506849315,
+            "n_mean": 77
+          }
+        },
+        "content_cos_mean": 0.15379031002521515,
+        "factored_headline": 0.88,
+        "flat_headline": 0.005,
+        "gap_headline": 0.875,
+        "factored_headline_range": 0.040000000000000036,
+        "g_hat_cos_headline": 0.9331852495670319
+      },
+      "real_reader_gated": {
+        "capacity": [
+          {
+            "n_dim": 48,
+            "factored": 0.895,
+            "flat": 0.01,
+            "g_hat_cos": 0.9319847226142883,
+            "factored_range": 0.030000000000000027
+          },
+          {
+            "n_dim": 96,
+            "factored": 0.9924999999999999,
+            "flat": 0.0,
+            "g_hat_cos": 0.9312072992324829,
+            "factored_range": 0.0050000000000000044
+          },
+          {
+            "n_dim": 256,
+            "factored": 1.0,
+            "flat": 0.0,
+            "g_hat_cos": 0.9324048757553101,
+            "factored_range": 0.0
+          }
+        ],
+        "per_pred_heldout": {
+          "recip:AGT": {
+            "factored": 1.0,
+            "flat": 0.0,
+            "n_mean": 2.5
+          },
+          "recip:RECIP": {
+            "factored": 0.875,
+            "flat": 0.0,
+            "n_mean": 3.5
+          },
+          "svo:OBJ": {
+            "factored": 0.880701754385965,
+            "flat": 0.008333333333333333,
+            "n_mean": 117
+          },
+          "svo:SUBJ": {
+            "factored": 0.9150177574835109,
+            "flat": 0.0136986301369863,
+            "n_mean": 77
+          }
+        },
+        "content_cos_mean": 0.15379031002521515,
+        "factored_headline": 0.895,
+        "flat_headline": 0.01,
+        "gap_headline": 0.885,
+        "factored_headline_range": 0.030000000000000027,
+        "g_hat_cos_headline": 0.9319847226142883
+      }
+    },
+    "positive_control_reproduces": true,
+    "real_must_fail_control_fired": true,
+    "real_generalizes": true,
+    "real_breaks": false,
+    "real_unsaturated_headroom": true,
+    "real_content_cost_headline": 0.08750000000000002,
+    "difficulty_is_capacity_not_noise": false,
+    "coherence_gate_effect_headline": 0.015000000000000013,
+    "can_fail_both_ways": true
+  },
+  "data_meta": {
+    "n_vocab": 238,
+    "n_slots": 93,
+    "headline_dim": 48,
+    "slot_ids": [
+      "asked|svo:OBJ",
+      "began|svo:OBJ",
+      "began|svo:SUBJ",
+      "brought|svo:OBJ",
+      "called|svo:OBJ",
+      "called|svo:SUBJ",
+      "came|svo:OBJ",
+      "came|svo:SUBJ",
+      "come|svo:OBJ",
+      "come|svo:SUBJ",
+      "cried|svo:OBJ",
+      "cried|svo:SUBJ",
+      "done|svo:OBJ",
+      "find|svo:OBJ",
+      "find|svo:SUBJ",
+      "found|recip:AGT",
+      "found|svo:OBJ",
+      "found|svo:SUBJ",
+      "gave|svo:OBJ",
+      "gave|svo:SUBJ",
+      "get|svo:OBJ",
+      "get|svo:SUBJ",
+      "give|svo:OBJ",
+      "given|svo:OBJ",
+      "gives|svo:OBJ",
+      "go|svo:OBJ",
+      "go|svo:SUBJ",
+      "got|svo:OBJ",
+      "got|svo:SUBJ",
+      "hear|svo:OBJ",
+      "heard|svo:OBJ",
+      "heard|svo:SUBJ",
+      "kept|svo:OBJ",
+      "knew|svo:OBJ",
+      "know|svo:OBJ",
+      "left|svo:OBJ",
+      "left|svo:SUBJ",
+      "like|svo:OBJ",
+      "like|svo:SUBJ",
+      "lived|svo:OBJ"
+    ],
+    "slot_filler_counts_top": [
+      71,
+      39,
+      29,
+      28,
+      28,
+      24,
+      23,
+      20,
+      19,
+      19,
+      19,
+      19,
+      18,
+      18,
+      17,
+      16
+    ],
+    "vocab_sample": [
+      "you",
+      "man",
+      "boy",
+      "mother",
+      "will",
+      "james",
+      "father",
+      "birds",
+      "john",
+      "george",
+      "girl",
+      "out",
+      "boys",
+      "susie",
+      "willie",
+      "down",
+      "day",
+      "grandmother",
+      "we",
+      "robert",
+      "children",
+      "way",
+      "rob",
+      "god"
+    ],
+    "reader_meta": {
+      "corpus": "mcguffey_third_reader.clean.txt (PG#14766, PD)",
+      "reader": "exp_read_nested_clause_relative_third_reader_v1 (nest ON) @ argstruct/deixis reader chain",
+      "n_reader_tuples": 3823,
+      "tuple_kinds": {
+        "poss": 728,
+        "svo": 2355,
+        "loc": 416,
+        "nest": 73,
+        "recipient": 190,
+        "pred": 28,
+        "goal": 33
+      },
+      "extraction_precision_cited": "0.40-0.60 CITED@drill_2026-07-18"
+    },
+    "gate_stats": [
+      {
+        "n_dropped": 137,
+        "n_total": 838,
+        "drop_thr": 0.2873,
+        "drop_frac_effective": 0.1635,
+        "dropped_examples": [
+          [
+            0,
+            130,
+            0.284
+          ],
+          [
+            4,
+            199,
+            0.284
+          ],
+          [
+            6,
+            133,
+            0.272
+          ],
+          [
+            6,
+            163,
+            0.144
+          ],
+          [
+            6,
+            13,
+            -0.02
+          ],
+          [
+            7,
+            7,
+            0.229
+          ],
+          [
+            7,
+            62,
+            0.159
+          ],
+          [
+            7,
+            46,
+            0.107
+          ],
+          [
+            7,
+            41,
+            0.107
+          ],
+          [
+            8,
+            69,
+            0.147
+          ],
+          [
+            10,
+            163,
+            0.099
+          ],
+          [
+            11,
+            170,
+            -0.099
+          ]
+        ]
+      },
+      {
+        "n_dropped": 138,
+        "n_total": 838,
+        "drop_thr": 0.2825,
+        "drop_frac_effective": 0.1647,
+        "dropped_examples": [
+          [
+            1,
+            161,
+            0.009
+          ],
+          [
+            4,
+            41,
+            0.086
+          ],
+          [
+            5,
+            14,
+            0.255
+          ],
+          [
+            6,
+            52,
+            0.264
+          ],
+          [
+            6,
+            224,
+            0.012
+          ],
+          [
+            6,
+            13,
+            -0.016
+          ],
+          [
+            7,
+            84,
+            0.269
+          ],
+          [
+            7,
+            62,
+            0.209
+          ],
+          [
+            7,
+            7,
+            0.197
+          ],
+          [
+            7,
+            46,
+            0.113
+          ],
+          [
+            7,
+            33,
+            0.048
+          ],
+          [
+            10,
+            46,
+            0.14
+          ]
+        ]
+      }
+    ]
+  },
+  "arms_differ_hashes": {
+    "real_reader_factored_pred_hash": "34a1c8f4aa936c70",
+    "real_reader_flat_pred_hash": "45ab999b69b729a6"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "reader_svo_sample": [
+      [
+        "svo",
+        "caught",
+        "boy",
+        "ball"
+      ],
+      [
+        "svo",
+        "chased",
+        "dog",
+        "cat"
+      ]
+    ],
+    "n_reader_svo": 2,
+    "factored_pred": "cat",
+    "flat_pred": "boy",
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "content_source": "REAL GloVe-wiki-gigaword-300 (Pennington 2014) FHRR-encoded",
+  "relation_source": "REAL reader extractions on McGuffey Third Reader (our reader exp_read_nested_clause_relative_third_reader_v1, nest ON); noisy, NOT cleaned",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "aggregate",
+    "scaffold_free_witness",
+    "data_meta"
+  ],
+  "notes": "READER-COUPLED chain-grade gate: structure-content factorization on relations OUR reader extracted from real narrative (with real extraction noise). HARD_PASS_READING_AXIS_FIRST_CG = un-saturated real-difficulty compositional generalization where flat fails. HARD_FAIL_READER_NOISE_BREAKS = coherence-gate needed (next component). MIDDLE_BAND w/ difficulty_is_capacity=True = generalizes but headroom is capacity not real-difficulty (honest CG-candidate). CLAIM-VET-pending; VET adjudicates CG vs CG-candidate."
+}

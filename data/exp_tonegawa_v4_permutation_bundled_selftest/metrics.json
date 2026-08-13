@@ -1,0 +1,12 @@
+{
+  "anchor_name": "tonegawa_v4_permutation_bundled",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: 4-arm perm-bundled K-sweep structured perm=0.520 diag=0.027",
+  "summary": "SELFTEST_OK: 4-arm perm-bundled K-sweep structured perm=0.520 diag=0.027",
+  "elapsed_s": 0.6,
+  "ts_iso": "2026-06-27T21:24:25Z",
+  "pid": 26812,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=tonegawa_v4_permutation_bundled,N=512,KSP=10,NPC=4,BCC=0.30,WCN=0.50,K_SWEEP=[25],SEEDS=[7],NQPC=3,HP_perm_K500>=0.55,HP_perm-proto>=0.10,HP_perm-xor>=0.30,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v4_permutation_bundled"
+}

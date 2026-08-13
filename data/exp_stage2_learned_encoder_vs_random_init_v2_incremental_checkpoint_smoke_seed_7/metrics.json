@@ -1,0 +1,400 @@
+{
+  "verdict": "MIDDLE_BAND_ARMS_INDISTINGUISHABLE",
+  "verdict_msg": "SMOKE_MIDDLE_BAND: RANDOM and LEARNED indistinguishable at (M=4000, f=0.0) N=4096: cap_delta=0.000 maxc_delta=0.004; below-wall smoke expected result",
+  "summary": "SMOKE_MIDDLE_BAND: RANDOM and LEARNED indistinguishable at (M=4000, f=0.0) N=4096: cap_delta=0.000 maxc_delta=0.004; below-wall smoke expected result",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "arms": [
+    "RANDOM_INIT",
+    "LEARNED_CONTRASTIVE"
+  ],
+  "N_fixed": 4096,
+  "M_sweep": [
+    4000
+  ],
+  "noise_sweep": [
+    0.0
+  ],
+  "metric_gates": [
+    "top1",
+    "top5",
+    "top10",
+    "top50",
+    "cos05",
+    "cos08"
+  ],
+  "hp_learned_higher_capacity": false,
+  "hp_orthogonality": true,
+  "hf_learned_worse": false,
+  "hf_learned_equivalent": true,
+  "cap_delta": 0.0,
+  "cap_random_cos05": 1.0,
+  "cap_learned_cos05": 1.0,
+  "max_learned_cos_key": 0.08203125,
+  "learned_worse_count": 0,
+  "learned_equivalent_count": 6,
+  "hf_learned_worse_threshold": 4,
+  "total_gate_pairs": 6,
+  "per_gate_deltas": [
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top1",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top5",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top10",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top50",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "cos05",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "cos08",
+      "RANDOM": 0.0,
+      "LEARNED": 0.0,
+      "delta": 0.0
+    }
+  ],
+  "arms_differ_details": {
+    "M4000_f0.00": {
+      "RANDOM_top1": 1.0,
+      "LEARNED_top1": 1.0,
+      "differ": false
+    }
+  },
+  "baseline_in_band": false,
+  "baseline_details": {
+    "M4000_f0.00_cos05": 1.0
+  },
+  "max_cv_across_arms": 0.0,
+  "stats_cross_seed": {
+    "RANDOM_INIT__M4000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.0859375,
+      "n_seeds": 1
+    },
+    "LEARNED_CONTRASTIVE__M4000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.08203125,
+      "n_seeds": 1
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 2,
+  "observed_n_units_per_seed": [
+    2
+  ],
+  "mechanism_hashes_distinct": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "per_unit": {
+        "RANDOM_INIT__M4000__f0.00__N4096": {
+          "arm": "RANDOM_INIT",
+          "alpha": 0.9765625,
+          "M": 4000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.0859375,
+          "mean_pairwise_cos_key": 0.012463926337659359,
+          "encoder_wall_s": 0.066,
+          "seed": 7,
+          "mechanism_hash": "5ef97668080fdda8a5254904184d26b383e358420e4aef289ac832a8b2b8cf6f",
+          "train_diag": {}
+        },
+        "LEARNED_CONTRASTIVE__M4000__f0.00__N4096": {
+          "arm": "LEARNED_CONTRASTIVE",
+          "alpha": 0.9765625,
+          "M": 4000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.08203125,
+          "mean_pairwise_cos_key": 0.012464162893593311,
+          "encoder_wall_s": 159.116,
+          "seed": 7,
+          "mechanism_hash": "ce3ab19404ab119b25c3fa32409628e4ea14891dadf92438b9a3be8be2f30c05",
+          "train_diag": {
+            "n_steps": 100,
+            "lr": 0.02,
+            "margin": 0.05,
+            "lambda_pos": 0.5,
+            "aug_flip_frac": 0.01,
+            "losses_by_step": [
+              [
+                0,
+                2.8445581392588792e-06
+              ],
+              [
+                5,
+                2.8445581392588792e-06
+              ],
+              [
+                10,
+                2.8445581392588792e-06
+              ],
+              [
+                15,
+                2.8445581392588792e-06
+              ],
+              [
+                20,
+                2.8445581392588792e-06
+              ],
+              [
+                25,
+                2.8445581392588792e-06
+              ],
+              [
+                30,
+                2.8445581392588792e-06
+              ],
+              [
+                35,
+                2.8445581392588792e-06
+              ],
+              [
+                40,
+                2.8445581392588792e-06
+              ],
+              [
+                45,
+                2.8445581392588792e-06
+              ],
+              [
+                50,
+                2.8445581392588792e-06
+              ],
+              [
+                55,
+                2.8445581392588792e-06
+              ],
+              [
+                60,
+                2.8445581392588792e-06
+              ],
+              [
+                65,
+                2.8445581392588792e-06
+              ],
+              [
+                70,
+                2.8445581392588792e-06
+              ],
+              [
+                75,
+                2.8445581392588792e-06
+              ],
+              [
+                80,
+                2.8445581392588792e-06
+              ],
+              [
+                85,
+                2.8445581392588792e-06
+              ],
+              [
+                90,
+                2.8445581392588792e-06
+              ],
+              [
+                95,
+                2.8445581392588792e-06
+              ],
+              [
+                99,
+                2.8445581392588792e-06
+              ]
+            ],
+            "max_cos_by_step": [
+              [
+                0,
+                0.08203125
+              ],
+              [
+                5,
+                0.08203125
+              ],
+              [
+                10,
+                0.08203125
+              ],
+              [
+                15,
+                0.08203125
+              ],
+              [
+                20,
+                0.08203125
+              ],
+              [
+                25,
+                0.08203125
+              ],
+              [
+                30,
+                0.08203125
+              ],
+              [
+                35,
+                0.08203125
+              ],
+              [
+                40,
+                0.08203125
+              ],
+              [
+                45,
+                0.08203125
+              ],
+              [
+                50,
+                0.08203125
+              ],
+              [
+                55,
+                0.08203125
+              ],
+              [
+                60,
+                0.08203125
+              ],
+              [
+                65,
+                0.08203125
+              ],
+              [
+                70,
+                0.08203125
+              ],
+              [
+                75,
+                0.08203125
+              ],
+              [
+                80,
+                0.08203125
+              ],
+              [
+                85,
+                0.08203125
+              ],
+              [
+                90,
+                0.08203125
+              ],
+              [
+                95,
+                0.08203125
+              ],
+              [
+                99,
+                0.08203125
+              ]
+            ],
+            "final_max_pairwise_cos": 0.08203125,
+            "final_mean_pairwise_cos": 0.012464162893593311,
+            "train_wall_s": 157.492
+          }
+        }
+      },
+      "N_fixed": 4096,
+      "M_sweep": [
+        4000
+      ],
+      "noise_sweep": [
+        0.0
+      ],
+      "arms": [
+        "RANDOM_INIT",
+        "LEARNED_CONTRASTIVE"
+      ],
+      "n_steps_learned": 100,
+      "anchor_name": "stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_7",
+      "config_version": "ANCHOR=stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_7,arms=[RANDOM_INIT,LEARNED_CONTRASTIVE],M_sweep_full=[4000,8000,12000],M_sweep_smoke=[4000],noise_sweep_full=[0.0],noise_sweep_smoke=[0.0],N_full=4096,N_smoke=4096,discriminator_metric=cos05_at_M12000_f0.00,SEED=7,mode=smoke,learned_n_steps_full=200,learned_n_steps_smoke=100,learned_lr=0.02,learned_margin=0.05,learned_lambda_pos=0.5,HP_LEARNED_HIGHER_CAPACITY_DELTA=0.10,HP_ORTHOGONALITY_MAX_COS=0.20,HF_LEARNED_WORSE_GATE_COUNT=4/6,HF_LEARNED_EQUIVALENT_DELTA=0.03,cv_hp=0.10,cv_mb=0.15,hardening=L1startmarker+L2crashdiag+CHUNKED_PER_SEED+FIX1_per_arm_incremental_checkpoint+FIX2_reduced_grid+FIX3_200_sgd_steps+FIX4_14400s_timeout"
+    }
+  ],
+  "HP_LEARNED_HIGHER_CAPACITY_DELTA": 0.1,
+  "HP_ORTHOGONALITY_MAX_COS": 0.2,
+  "HF_LEARNED_WORSE_GATE_COUNT": 4,
+  "HF_LEARNED_EQUIVALENT_DELTA": 0.03,
+  "CROSS_SEED_CV_MAX_HP": 0.1,
+  "CROSS_SEED_CV_MAX_MB": 0.15,
+  "anchor_name": "stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_7",
+  "elapsed_s": 163.06,
+  "ts_iso": "2026-07-02T10:49:40Z",
+  "pid": 23236,
+  "config_version": "ANCHOR=stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_7,arms=[RANDOM_INIT,LEARNED_CONTRASTIVE],M_sweep_full=[4000,8000,12000],M_sweep_smoke=[4000],noise_sweep_full=[0.0],noise_sweep_smoke=[0.0],N_full=4096,N_smoke=4096,discriminator_metric=cos05_at_M12000_f0.00,SEED=7,mode=smoke,learned_n_steps_full=200,learned_n_steps_smoke=100,learned_lr=0.02,learned_margin=0.05,learned_lambda_pos=0.5,HP_LEARNED_HIGHER_CAPACITY_DELTA=0.10,HP_ORTHOGONALITY_MAX_COS=0.20,HF_LEARNED_WORSE_GATE_COUNT=4/6,HF_LEARNED_EQUIVALENT_DELTA=0.03,cv_hp=0.10,cv_mb=0.15,hardening=L1startmarker+L2crashdiag+CHUNKED_PER_SEED+FIX1_per_arm_incremental_checkpoint+FIX2_reduced_grid+FIX3_200_sgd_steps+FIX4_14400s_timeout",
+  "_hardening_marker": "v2_incremental_checkpoint_final_complete",
+  "backend": "cpu",
+  "seed": 7,
+  "cell_version": "v2_incremental_checkpoint",
+  "checkpoint_kind": "final_complete",
+  "corpus_provenance": "synthetic_bipolar_M_sweep_N4096_v2_M_sweep_4000_8000_12000_noise_0.0_arms_RANDOM_INIT_and_LEARNED_CONTRASTIVE_encoder_only"
+}

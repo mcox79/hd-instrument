@@ -1,0 +1,213 @@
+{
+  "anchor_name": "substrate_k_module_compose_RESCUE_v1",
+  "anchor": "substrate_k_module_compose_RESCUE_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: lift=+0.0000 <= 0.10; K-module compose still not beating baseline",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 3000,
+  "N_HELD": 600,
+  "VOCAB_CAP": 400,
+  "n_seeds": 1,
+  "K_BANKS": 2,
+  "N_PER_BANK": 256,
+  "SPARSE_BIPOLAR_F": 0.02,
+  "AMPLITUDE_SCALE": 7.071068,
+  "CFRPE_LR": 0.01,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 4.9666,
+        "bpc_std": 0.0
+      },
+      "ARM_BASELINE": {
+        "bpc_best_mean": 4.9666,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.483,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.531,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_SPARSE_BIPOLAR_AMPLITUDE_CORRECT": {
+        "bpc_best_mean": 4.9666,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.483,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.531,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_K2_MODULES": {
+        "bpc_best_mean": 4.9666,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.483,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.531,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_K2_PLUS_CFRPE": {
+        "bpc_best_mean": 4.9666,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.483,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.531,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_K2_PLUS_CFRPE_PLUS_SIGMOID_ADDITIVE_COMPOSE": {
+        "bpc_best_mean": 4.9666,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.483,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.531,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "HP_BPC_LIFT_threshold": 0.3,
+    "CHAIN_GRADE_BONUS_LIFT_threshold": 0.5,
+    "HARD_FAIL_LIFT_threshold": 0.1,
+    "CV_MAX_threshold": 0.05,
+    "BASELINE_BPC_REF": 7.3065,
+    "BASELINE_TOLERANCE": 0.005,
+    "vocab_entropy_uniform_bits": 8.6439,
+    "zero_llm_calls_at_inference": true,
+    "unigram_bpc_ref": 7.738,
+    "n_seeds": 1
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 4.9666,
+          "top1_unigram": 0.483,
+          "mrr_unigram": 0.531,
+          "n_test": 176
+        },
+        "ARM_BASELINE": {
+          "bpc_best": 4.9666,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.483,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.531,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.0,
+          "raw_bpc_at_T1_L1": 8.6471,
+          "elapsed_s_arm": 0.14
+        },
+        "ARM_SPARSE_BIPOLAR_AMPLITUDE_CORRECT": {
+          "bpc_best": 4.9666,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.483,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.531,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.0,
+          "raw_bpc_at_T1_L1": 8.6471,
+          "elapsed_s_arm": 0.14,
+          "note": "alias for ARM_BASELINE; verifies f=0.02 amplitude-scaling reproduces 7.3065"
+        },
+        "ARM_K2_MODULES": {
+          "bpc_best": 4.9666,
+          "best_gate_alpha": 0.5,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.483,
+          "mrr_at_10": 0.531,
+          "gate_mean_dev": 0.5319,
+          "gate_std_dev": 0.319,
+          "elapsed_s_arm": 0.18,
+          "bank_A_raw_bpc": 13.5919
+        },
+        "ARM_K2_PLUS_CFRPE": {
+          "bpc_best": 4.9666,
+          "best_gate_alpha": 0.5,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.483,
+          "mrr_at_10": 0.531,
+          "gate_mean_dev": 0.5319,
+          "gate_std_dev": 0.319,
+          "elapsed_s_arm": 0.17
+        },
+        "ARM_K2_PLUS_CFRPE_PLUS_SIGMOID_ADDITIVE_COMPOSE": {
+          "bpc_best": 4.9666,
+          "best_gate_alpha": 0.5,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.483,
+          "mrr_at_10": 0.531,
+          "gate_mean_dev": 0.5,
+          "gate_std_dev": 0.0,
+          "elapsed_s_arm": 0.14,
+          "gate_sigmoid_mean": 0.5,
+          "gate_sigmoid_std": 0.0
+        }
+      },
+      "V": 400,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 3000,
+      "N_HELD": 600,
+      "VOCAB_CAP": 400,
+      "run_mode": "smoke",
+      "config_version": "substrate_k_module_compose_RESCUE_v1; N_DIM=512 N_TRAIN=3000 N_HELD=600 VOCAB_CAP=400 mode=smoke seeds=[7] sparse_f=0.020 ampl_scale=7.0711 K=2 N_per=256 cfrpe_lr=0.0100 gate_alpha=2.0 gate_beta=2.0 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cpu",
+      "elapsed_s_seed": 0.83,
+      "device": "cpu",
+      "encoder_meta": {
+        "fallback_to_char_trigram": true,
+        "load_error": "ModuleNotFoundError: No module named 'gensim'"
+      },
+      "n_llm_calls": 0,
+      "instrumentation_suspects": [],
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782277093.1350918
+    }
+  ],
+  "elapsed_s": 0.83,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "config_version": "substrate_k_module_compose_RESCUE_v1; N_DIM=512 N_TRAIN=3000 N_HELD=600 VOCAB_CAP=400 mode=smoke seeds=[7] sparse_f=0.020 ampl_scale=7.0711 K=2 N_per=256 cfrpe_lr=0.0100 gate_alpha=2.0 gate_beta=2.0 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cpu",
+  "honest_scope": "RESCUE cell for substrate_k_module_heterogeneous_compose_LM_v1 (INSTR_SUSPECT). 5 arms: ARM_BASELINE + ARM_SPARSE_BIPOLAR_AMPLITUDE_CORRECT + ARM_K2_MODULES + ARM_K2_PLUS_CFRPE + ARM_K2_PLUS_CFRPE_PLUS_SIGMOID_ADDITIVE_COMPOSE. HP = load-bearing arm BPC lift >= +0.30 bits vs ARM_BASELINE AND cv<=0.05. HF = lift <= +0.10 OR any arm collapses to unigram BPC. WHAT_THIS_DOES_NOT_SHOW: not testing K>2; not testing N_DIM>8192 (GPU memory budget); not testing super-additivity beyond K=2.",
+  "prereg_bands": {
+    "HARD_PASS_lift_bits": 0.3,
+    "CHAIN_GRADE_BONUS_lift_bits": 0.5,
+    "MIDDLE_BAND_lower_bits": 0.1,
+    "HARD_FAIL_lift_bits_or_below": 0.1,
+    "cv_max": 0.05,
+    "baseline_tolerance_bits": 0.005
+  },
+  "rescue_fixes": [
+    "Fix1: amplitude_scale=1/sqrt(f)=7.0711 applied to ALL sparse-bipolar entries",
+    "Fix2: sigmoid-additive compose (NOT multiplicative) -- gate in [0.5, 0.95]",
+    "Fix3: K=2 banks with feature-gated routing (K-bank shotgun K*=2)",
+    "Fix4: cf-RPE delta rule per bank (dopamine-gated writes on positive surprise)",
+    "Fix5: logit copy-through guard (INSTR_SUSPECT if cos(logits_k, logits_m1)>0.9999)"
+  ],
+  "cites": [
+    "data/exp_substrate_k_module_heterogeneous_compose_LM_v1/metrics.json",
+    "notes/substrate_viability_shotgun_LIVE_DEAD_map_2026-06-23.md",
+    "notes/shotgun_smoke_compose_function_discriminator_2026-06-23.md",
+    "notes/shotgun_smoke_K_bank_count_sweep_2026-06-23.md",
+    "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+    "notes/research_rank1_hebbian_brain_escape_mechanisms_2026-06-23.md"
+  ],
+  "summary": "HARD_FAIL: lift=+0.0000 <= 0.10; K-module compose still not beating baseline"
+}

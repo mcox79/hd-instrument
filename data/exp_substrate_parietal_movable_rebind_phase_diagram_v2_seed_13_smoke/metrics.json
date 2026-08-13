@@ -1,0 +1,84 @@
+{
+  "anchor_name": "substrate_parietal_movable_rebind_phase_diagram_v2_seed_13",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_PASS | n_sat=2 n_floor=1 n_strong=2 arms_distinct=True",
+  "summary": "SMOKE_PASS | n_sat=2 n_floor=1 n_strong=2 arms_distinct=True",
+  "elapsed_s": 20.89,
+  "ts_iso": "2026-06-29T08:48:11Z",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seed": 13,
+  "config_version": "ANCHOR=substrate_parietal_movable_rebind_phase_diagram_v2_seed_13,N_DIMS=[512, 1024, 2048],grids=[16, 32],n_objs=[50, 100, 200, 400],move_freqs=[0.0, 0.2, 0.5, 0.8],pos_noise=0.05,n_scenes=20,mode=smoke,n_points=4,HP_sat=0.90,HP_strong=0.60,HP_cliff=0.40,HP_floor=0.10,HP_lift_static=0.30,HP_frac_lift=0.30,HP_pareto_auc_min=0.20,META_AM_tol=0.02,arms=['substrate_hrr', 'random', 'static_binding'],hardening=META_AC_CRLB+AE_smoke_gate+AF_arms_differ+AG_atomic_write+AH_main_guard+AM_no_trivial+AN_complete+H_cardinality_ok",
+  "phase_map": [
+    {
+      "n_dim": 2048,
+      "grid": 16,
+      "n_obj": 50,
+      "move_freq": 0.5,
+      "n_pos": 256,
+      "n_scenes": 20,
+      "substrate_recall": 1.0,
+      "random_recall": 0.05,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 0.95,
+      "substrate_lift_over_static": 1.0,
+      "n_queries": 20
+    },
+    {
+      "n_dim": 1024,
+      "grid": 16,
+      "n_obj": 50,
+      "move_freq": 0.5,
+      "n_pos": 256,
+      "n_scenes": 20,
+      "substrate_recall": 1.0,
+      "random_recall": 0.0,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 1.0,
+      "substrate_lift_over_static": 1.0,
+      "n_queries": 20
+    },
+    {
+      "n_dim": 1024,
+      "grid": 32,
+      "n_obj": 200,
+      "move_freq": 0.5,
+      "n_pos": 1024,
+      "n_scenes": 20,
+      "substrate_recall": 0.15,
+      "random_recall": 0.0,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 0.15,
+      "substrate_lift_over_static": 0.15,
+      "n_queries": 20
+    },
+    {
+      "n_dim": 512,
+      "grid": 32,
+      "n_obj": 400,
+      "move_freq": 0.5,
+      "n_pos": 1024,
+      "n_scenes": 20,
+      "substrate_recall": 0.0,
+      "random_recall": 0.0,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 0.0,
+      "substrate_lift_over_static": 0.0,
+      "n_queries": 20
+    }
+  ],
+  "extra": {
+    "cardinality_ok": true,
+    "n_points": 4,
+    "arms_distinct": true,
+    "arms_hashes": {
+      "substrate": "2cfd79e94d50e96c8abb39ecf7cce79563c8f82da56577c428506ba065a2eb89",
+      "random": "53f0d6d0da3e2cc2666806e3914533164e20c6901f7481a84a6213b23ce2db9e",
+      "static": "ea0aa0fab1782be735ebf57c5c1d12a5edc7ad392c9bafb08fdcae015a014d21"
+    },
+    "META_AM_breaches": [],
+    "n_saturated": 2,
+    "n_floor": 1,
+    "n_strong_discriminator": 2
+  }
+}

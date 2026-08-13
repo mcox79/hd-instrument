@@ -1,0 +1,461 @@
+{
+  "verdict": "MIDDLE_BAND_PARTIAL",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL | SELF-MANAGER FUSION margin-gated depth dial (ACC/EVC over combinedgate margin -> retained-trace coarse/fine). accpc[SHALLOW=0.3981 DEEP=0.3950 GATED=0.4506 RANDOM=0.3950 SCR=0.3950 ORACLE=0.4934] | gated_vs_shallow=+0.132(>= 0.1) gated_vs_deep=+0.141(>= 0.1) gated_vs_random=+0.141(>= 0.1) scramble_gap=0.123(>= 0.15) closure=0.551 | margin_recall_corr=+0.598(>= 0.3) depth_spread=0.480 | acc[shallow=0.398 deep=0.790 gap=+0.392(>= 0.08)] theta*=0.450 shortlist_hit=0.893 | baseline_band=True pressure=True af_collision=False n_seeds=3 cache=random_near_orthogonal_store. INTERPRETATION: MARGIN_GATED beats the fixed frontier but misses a 1.10x gate or the corr band; report the curve.",
+  "summary": "MIDDLE_BAND_PARTIAL: self-manager fusion margin-gated depth dial (smoke)",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "elapsed_s": 8.005864000006113,
+  "ts_iso": "2026-07-08T18:09:44.797845+00:00",
+  "anchor_name": "self_manager_fusion_margin_gated_depth_v1",
+  "cache_source": "random_near_orthogonal_store",
+  "cardinality_ok": true,
+  "expected_n_units": 18,
+  "n_units": 18,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "fatal": null,
+  "classification": {
+    "gated_vs_shallow_rel": 0.13181772548439818,
+    "gated_vs_deep_rel": 0.14083830745028436,
+    "gated_vs_random_rel": 0.1407765297017627,
+    "scramble_rel_gap": 0.12335856560134695,
+    "closure": 0.5510859112463731,
+    "margin_recall_corr": 0.5978521924891761,
+    "depth_spread": 0.47962962962962963,
+    "shallow_acc": 0.3981481481481482,
+    "deep_acc": 0.79,
+    "depth_gap": 0.39185185185185184,
+    "baseline_in_band": true,
+    "gap_ok": true,
+    "pressure_ok": true,
+    "spread_ok": true,
+    "af_collision": false,
+    "best_fixed_accpc": 0.3981481481481482,
+    "accpc": {
+      "shallow": 0.3981481481481482,
+      "deep": 0.395,
+      "gated": 0.4506311314428623,
+      "random": 0.3950213908772057,
+      "scrambled": 0.3950419214527588,
+      "oracle": 0.49338372253620516
+    }
+  },
+  "agg": {
+    "n_seeds": 3,
+    "arm_means": {
+      "FIXED_SHALLOW": {
+        "acc": 0.3981481481481482,
+        "mean_cost": 1.0,
+        "accpc": 0.3981481481481482,
+        "p_deep": 0.0
+      },
+      "FIXED_DEEP": {
+        "acc": 0.79,
+        "mean_cost": 2.0,
+        "accpc": 0.395,
+        "p_deep": 1.0
+      },
+      "MARGIN_GATED": {
+        "acc": 0.6666666666666666,
+        "mean_cost": 1.4796296296296296,
+        "accpc": 0.4506311314428623,
+        "p_deep": 0.47962962962962963
+      },
+      "RANDOM_DEPTH_MATCHED": {
+        "acc": 0.581111111111111,
+        "mean_cost": 1.471111111111111,
+        "accpc": 0.3950213908772057,
+        "p_deep": 0.4711111111111111
+      },
+      "SCRAMBLED_MARGIN": {
+        "acc": 0.5840740740740741,
+        "mean_cost": 1.4796296296296296,
+        "accpc": 0.3950419214527588,
+        "p_deep": 0.47962962962962963
+      },
+      "ORACLE_GATED": {
+        "acc": 0.79,
+        "mean_cost": 1.6018518518518519,
+        "accpc": 0.49338372253620516,
+        "p_deep": 0.6018518518518517
+      }
+    },
+    "margin_recall_corr": 0.5978521924891761,
+    "shortlist_hit_rate": 0.8933333333333332,
+    "depth_spread": 0.47962962962962963,
+    "theta_star_mean": 0.44963355859120685,
+    "shallow_acc": 0.3981481481481482,
+    "deep_acc": 0.79
+  },
+  "operating_points": {
+    "GATE_TAU": 0.05,
+    "RECENCY_GAP_TARGET": 3.0,
+    "RECENT_FRAC": 0.12,
+    "D_COARSE_BASE": 256,
+    "V_REF": 8000,
+    "D_COARSE_regime": 256,
+    "TARGET_CDCS": 2.0,
+    "kfrac_regime": 0.0625,
+    "CS": 1.0,
+    "CD": 2.0,
+    "CUE_LO": 0.12,
+    "CUE_HI": 0.47,
+    "THETA_PCTLS": [
+      10,
+      25,
+      40,
+      55,
+      70,
+      85
+    ]
+  },
+  "bands": {
+    "HP_VS_SHALLOW": 0.1,
+    "HP_VS_DEEP": 0.1,
+    "HP_VS_RANDOM": 0.1,
+    "HP_SCRAMBLE_GAP": 0.15,
+    "HP_CORR": 0.3,
+    "DEPTH_LO": 0.05,
+    "DEPTH_HI": 0.95,
+    "GAP_MIN": 0.08,
+    "PRESSURE_MARGIN": 1.1,
+    "MB_CORR_LO": 0.15,
+    "NO_COUPLING_FLOOR": 0.1,
+    "TAUT_SCRAMBLE_FLOOR": 0.05,
+    "HF_INERT": 0.05
+  },
+  "regime": {
+    "N": 4096,
+    "V": 8000,
+    "nq_train": 900,
+    "nq_test": 900
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "V": 8000,
+      "N": 4096,
+      "k_shortlist": 500,
+      "cd_cost": 2.0,
+      "D_COARSE": 256,
+      "theta_star": 0.2828056216239929,
+      "theta_curve": [
+        {
+          "theta": 0.05796413496136665,
+          "acc": 0.47,
+          "mean_cost": 1.1,
+          "accpc": 0.4272727272727272,
+          "p_deep": 0.1
+        },
+        {
+          "theta": 0.16734719276428223,
+          "acc": 0.5622222222222222,
+          "mean_cost": 1.25,
+          "accpc": 0.4497777777777777,
+          "p_deep": 0.25
+        },
+        {
+          "theta": 0.2828056216239929,
+          "acc": 0.6466666666666666,
+          "mean_cost": 1.4,
+          "accpc": 0.4619047619047619,
+          "p_deep": 0.4
+        },
+        {
+          "theta": 0.5466091632843018,
+          "acc": 0.7077777777777777,
+          "mean_cost": 1.55,
+          "accpc": 0.4566308243727598,
+          "p_deep": 0.55
+        },
+        {
+          "theta": 1.0266180038452148,
+          "acc": 0.7666666666666667,
+          "mean_cost": 1.7,
+          "accpc": 0.4509803921568628,
+          "p_deep": 0.7
+        },
+        {
+          "theta": 2.012953519821167,
+          "acc": 0.79,
+          "mean_cost": 1.85,
+          "accpc": 0.42702702702702705,
+          "p_deep": 0.85
+        }
+      ],
+      "p_deep_gated": 0.3466666666666667,
+      "arms": {
+        "FIXED_SHALLOW": {
+          "acc": 0.3977777777777778,
+          "mean_cost": 1.0,
+          "accpc": 0.3977777777777778,
+          "p_deep": 0.0
+        },
+        "FIXED_DEEP": {
+          "acc": 0.7877777777777778,
+          "mean_cost": 2.0,
+          "accpc": 0.3938888888888889,
+          "p_deep": 1.0
+        },
+        "MARGIN_GATED": {
+          "acc": 0.6055555555555555,
+          "mean_cost": 1.3466666666666667,
+          "accpc": 0.44966996699669964,
+          "p_deep": 0.3466666666666667
+        },
+        "RANDOM_DEPTH_MATCHED": {
+          "acc": 0.5288888888888889,
+          "mean_cost": 1.3388888888888888,
+          "accpc": 0.3950207468879668,
+          "p_deep": 0.3388888888888889
+        },
+        "SCRAMBLED_MARGIN": {
+          "acc": 0.5388888888888889,
+          "mean_cost": 1.3466666666666667,
+          "accpc": 0.40016501650165015,
+          "p_deep": 0.3466666666666667
+        },
+        "ORACLE_GATED": {
+          "acc": 0.7877777777777778,
+          "mean_cost": 1.6022222222222222,
+          "accpc": 0.49167822468793343,
+          "p_deep": 0.6022222222222222
+        }
+      },
+      "trace_hashes": {
+        "FIXED_SHALLOW": "9b641614ca38beea",
+        "FIXED_DEEP": "7f0b82e0b70ac6ea",
+        "MARGIN_GATED": "bf68210a18e210be",
+        "RANDOM_DEPTH_MATCHED": "c5a91df1ea3e29ae",
+        "SCRAMBLED_MARGIN": "17e81954be437e88",
+        "ORACLE_GATED": "05d7a7ded82a68e7"
+      },
+      "margin_recall_corr": 0.5999773574863136,
+      "shortlist_hit_rate": 0.8933333333333333,
+      "shallow_acc": 0.3977777777777778,
+      "deep_acc": 0.7877777777777778,
+      "M_train_mean": 0.9369440078735352,
+      "M_test_mean": 0.8713959455490112,
+      "elapsed_s": 1.9488814000214916
+    },
+    "13": {
+      "seed": 13,
+      "V": 8000,
+      "N": 4096,
+      "k_shortlist": 500,
+      "cd_cost": 2.0,
+      "D_COARSE": 256,
+      "theta_star": 0.5303875803947449,
+      "theta_curve": [
+        {
+          "theta": 0.052010249346494675,
+          "acc": 0.4255555555555556,
+          "mean_cost": 1.1,
+          "accpc": 0.38686868686868686,
+          "p_deep": 0.1
+        },
+        {
+          "theta": 0.15547454357147217,
+          "acc": 0.5111111111111111,
+          "mean_cost": 1.25,
+          "accpc": 0.40888888888888886,
+          "p_deep": 0.25
+        },
+        {
+          "theta": 0.30412644147872925,
+          "acc": 0.5977777777777777,
+          "mean_cost": 1.4,
+          "accpc": 0.42698412698412697,
+          "p_deep": 0.4
+        },
+        {
+          "theta": 0.5303875803947449,
+          "acc": 0.6788888888888889,
+          "mean_cost": 1.55,
+          "accpc": 0.4379928315412186,
+          "p_deep": 0.55
+        },
+        {
+          "theta": 0.9319345951080322,
+          "acc": 0.7444444444444445,
+          "mean_cost": 1.7,
+          "accpc": 0.43790849673202614,
+          "p_deep": 0.7
+        },
+        {
+          "theta": 1.9317195415496826,
+          "acc": 0.7755555555555556,
+          "mean_cost": 1.85,
+          "accpc": 0.4192192192192192,
+          "p_deep": 0.85
+        }
+      ],
+      "p_deep_gated": 0.5366666666666666,
+      "arms": {
+        "FIXED_SHALLOW": {
+          "acc": 0.4222222222222222,
+          "mean_cost": 1.0,
+          "accpc": 0.4222222222222222,
+          "p_deep": 0.0
+        },
+        "FIXED_DEEP": {
+          "acc": 0.8122222222222222,
+          "mean_cost": 2.0,
+          "accpc": 0.4061111111111111,
+          "p_deep": 1.0
+        },
+        "MARGIN_GATED": {
+          "acc": 0.7333333333333333,
+          "mean_cost": 1.5366666666666666,
+          "accpc": 0.47722342733188716,
+          "p_deep": 0.5366666666666666
+        },
+        "RANDOM_DEPTH_MATCHED": {
+          "acc": 0.6455555555555555,
+          "mean_cost": 1.5366666666666666,
+          "accpc": 0.4201012292118583,
+          "p_deep": 0.5366666666666666
+        },
+        "SCRAMBLED_MARGIN": {
+          "acc": 0.6277777777777778,
+          "mean_cost": 1.5366666666666666,
+          "accpc": 0.40853217642805495,
+          "p_deep": 0.5366666666666666
+        },
+        "ORACLE_GATED": {
+          "acc": 0.8122222222222222,
+          "mean_cost": 1.5777777777777777,
+          "accpc": 0.5147887323943662,
+          "p_deep": 0.5777777777777777
+        }
+      },
+      "trace_hashes": {
+        "FIXED_SHALLOW": "156378fa9051ba02",
+        "FIXED_DEEP": "2a0658db014433f6",
+        "MARGIN_GATED": "e6bff362ffcdefc2",
+        "RANDOM_DEPTH_MATCHED": "c551d06a10cbf157",
+        "SCRAMBLED_MARGIN": "21fde8fc1e218624",
+        "ORACLE_GATED": "09369ad8bfa4f980"
+      },
+      "margin_recall_corr": 0.6112541298327503,
+      "shortlist_hit_rate": 0.8955555555555555,
+      "shallow_acc": 0.4222222222222222,
+      "deep_acc": 0.8122222222222222,
+      "M_train_mean": 0.9314393997192383,
+      "M_test_mean": 0.9466683864593506,
+      "elapsed_s": 1.9754458999959752
+    },
+    "19": {
+      "seed": 19,
+      "V": 8000,
+      "N": 4096,
+      "k_shortlist": 500,
+      "cd_cost": 2.0,
+      "D_COARSE": 256,
+      "theta_star": 0.5357074737548828,
+      "theta_curve": [
+        {
+          "theta": 0.06569571793079376,
+          "acc": 0.44222222222222224,
+          "mean_cost": 1.1,
+          "accpc": 0.402020202020202,
+          "p_deep": 0.1
+        },
+        {
+          "theta": 0.1760730743408203,
+          "acc": 0.53,
+          "mean_cost": 1.25,
+          "accpc": 0.42400000000000004,
+          "p_deep": 0.25
+        },
+        {
+          "theta": 0.3282626271247864,
+          "acc": 0.6122222222222222,
+          "mean_cost": 1.4,
+          "accpc": 0.4373015873015873,
+          "p_deep": 0.4
+        },
+        {
+          "theta": 0.5357074737548828,
+          "acc": 0.6811111111111111,
+          "mean_cost": 1.55,
+          "accpc": 0.43942652329749105,
+          "p_deep": 0.55
+        },
+        {
+          "theta": 0.9519549608230591,
+          "acc": 0.74,
+          "mean_cost": 1.7,
+          "accpc": 0.43529411764705883,
+          "p_deep": 0.7
+        },
+        {
+          "theta": 1.8970842361450195,
+          "acc": 0.7677777777777778,
+          "mean_cost": 1.85,
+          "accpc": 0.415015015015015,
+          "p_deep": 0.85
+        }
+      ],
+      "p_deep_gated": 0.5555555555555556,
+      "arms": {
+        "FIXED_SHALLOW": {
+          "acc": 0.37444444444444447,
+          "mean_cost": 1.0,
+          "accpc": 0.37444444444444447,
+          "p_deep": 0.0
+        },
+        "FIXED_DEEP": {
+          "acc": 0.77,
+          "mean_cost": 2.0,
+          "accpc": 0.385,
+          "p_deep": 1.0
+        },
+        "MARGIN_GATED": {
+          "acc": 0.6611111111111111,
+          "mean_cost": 1.5555555555555556,
+          "accpc": 0.425,
+          "p_deep": 0.5555555555555556
+        },
+        "RANDOM_DEPTH_MATCHED": {
+          "acc": 0.5688888888888889,
+          "mean_cost": 1.5377777777777777,
+          "accpc": 0.36994219653179194,
+          "p_deep": 0.5377777777777778
+        },
+        "SCRAMBLED_MARGIN": {
+          "acc": 0.5855555555555556,
+          "mean_cost": 1.5555555555555556,
+          "accpc": 0.37642857142857145,
+          "p_deep": 0.5555555555555556
+        },
+        "ORACLE_GATED": {
+          "acc": 0.77,
+          "mean_cost": 1.6255555555555556,
+          "accpc": 0.47368421052631576,
+          "p_deep": 0.6255555555555555
+        }
+      },
+      "trace_hashes": {
+        "FIXED_SHALLOW": "1a3dae5f1211c98a",
+        "FIXED_DEEP": "b06df3219fb95239",
+        "MARGIN_GATED": "70863a1f67106f9e",
+        "RANDOM_DEPTH_MATCHED": "bed1734579e2968d",
+        "SCRAMBLED_MARGIN": "8663794ba823cd6b",
+        "ORACLE_GATED": "54f33d8fdff05035"
+      },
+      "margin_recall_corr": 0.5823250901484645,
+      "shortlist_hit_rate": 0.8911111111111111,
+      "shallow_acc": 0.37444444444444447,
+      "deep_acc": 0.77,
+      "M_train_mean": 0.8924999833106995,
+      "M_test_mean": 0.8629135489463806,
+      "elapsed_s": 1.9293630000029225
+    }
+  }
+}

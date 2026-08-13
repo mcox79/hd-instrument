@@ -1,0 +1,267 @@
+{
+  "anchor": "substrate_per_context_decode_temperature_LM_v2",
+  "anchor_name": "substrate_per_context_decode_temperature_LM_v2",
+  "verdict": "READOUT_DEGENERATE",
+  "verdict_msg": "READOUT_DEGENERATE: ARM_GLOBAL_T BPC=7.5710 failed sanity gate (expected 7.3065 +/- 0.050). Encoder mismatch or methodology error. Do NOT classify per-context arms. BPC uni=7.7378 global=7.5710 ent=7.7378(lift=-0.1668) mar=7.7378(lift=-0.1668) | best=ARM_PER_CONTEXT_T_ENTROPY lift=-0.1668 bpc=7.7378 cv=0.0000 | n_seeds=3 N_DIM=8192 N_TRAIN=100000 n_llm=0 sanity_ok=False",
+  "n_seeds": 3,
+  "N": 8192,
+  "N_DIM": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SPARSE_F": 0.05,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "T_LOW": 0.02,
+  "T_HIGH": 0.5,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_GLOBAL_T",
+    "ARM_PER_CONTEXT_T_ENTROPY",
+    "ARM_PER_CONTEXT_T_MARGIN"
+  ],
+  "run_mode": "full",
+  "config_version": "substrate_per_context_decode_temperature_LM_v2; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 encoder=word2vec-projected-OOV-chartrigram; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05 sanity_gate=ARM_GLOBAL_T_BPC_within_0.05_of_7.3065",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "encoder": "word2vec-google-news-300-projected + OOV-chartrigram + sparse-bipolar-f0.05",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.737784450539358
+      },
+      "ARM_GLOBAL_T": {
+        "bpc_mean": 7.570969930532517,
+        "cv": 0.0001451530913080227
+      },
+      "ARM_PER_CONTEXT_T_ENTROPY": {
+        "bpc_mean": 7.737784450539357,
+        "cv": 0.0,
+        "lift_over_global": -0.16681452000684072
+      },
+      "ARM_PER_CONTEXT_T_MARGIN": {
+        "bpc_mean": 7.737784450539357,
+        "cv": 0.0,
+        "lift_over_global": -0.16681452000684072
+      }
+    },
+    "best_per_context_arm": "ARM_PER_CONTEXT_T_ENTROPY",
+    "best_per_context_lift": -0.16681452000684072,
+    "best_per_context_bpc": 7.737784450539357,
+    "best_per_context_cv": 0.0,
+    "global_t_bpc": 7.570969930532517,
+    "global_t_sanity_ok": false,
+    "global_t_sanity_fraction": 0.0,
+    "chain_grade_baseline": 7.3065,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "encoder": "word2vec-google-news-300-projected + OOV-chartrigram + sparse-bipolar-f0.05",
+    "honest_scope": "RESCUE v2: word2vec-projected encoder (NOT v1 char-trigram). ARM_GLOBAL_T (joint T+lambda sweep) vs ARM_PER_CONTEXT_T_ENTROPY and ARM_PER_CONTEXT_T_MARGIN (T+lambda jointly swept on dev). text8 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 N_DIM=8192 sparse_f=0.050. Sanity gate: ARM_GLOBAL_T BPC must be within 0.05 of 7.3065.",
+    "prereg": "preregs/2026-06-23_substrate_per_context_decode_temperature_LM_v2.md",
+    "v1_bug": "v1 encoder was hash-bucket char-trigram (NOT word2vec); ARM_GLOBAL_T collapsed to unigram BPC=7.7378"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 410.7356746196747,
+      "config_version": "substrate_per_context_decode_temperature_LM_v2; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 encoder=word2vec-projected-OOV-chartrigram; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05 sanity_gate=ARM_GLOBAL_T_BPC_within_0.05_of_7.3065",
+      "n_llm_calls": 0,
+      "global_t_sanity_ok": false,
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "wall_ingest_s": 54.70010018348694,
+      "wall_recall_s": 25.04578471183777,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.5708649646017925,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27740334488685836,
+          "best_T": 1.0,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.27674487859018,
+          "sanity_ok": false
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.4836875796318054,
+          "T_std": 0.018383154645562172
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.04545251652598381,
+          "T_std": 0.05594684183597565
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782288306.628656
+    },
+    {
+      "seed": 17,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 393.2118601799011,
+      "config_version": "substrate_per_context_decode_temperature_LM_v2; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 encoder=word2vec-projected-OOV-chartrigram; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05 sanity_gate=ARM_GLOBAL_T_BPC_within_0.05_of_7.3065",
+      "n_llm_calls": 0,
+      "global_t_sanity_ok": false,
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "wall_ingest_s": 53.33953404426575,
+      "wall_recall_s": 25.16924214363098,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.572365273224546,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27773611262071657,
+          "best_T": 1.0,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.280168979359383,
+          "sanity_ok": false
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.4936493933200836,
+          "T_std": 0.011545059271156788
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.05288367345929146,
+          "T_std": 0.07586178928613663
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782288699.9385774
+    },
+    {
+      "seed": 23,
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "n_dev": 7885,
+      "n_test": 7886,
+      "elapsed_s": 395.1871838569641,
+      "config_version": "substrate_per_context_decode_temperature_LM_v2; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T', 'ARM_PER_CONTEXT_T_ENTROPY', 'ARM_PER_CONTEXT_T_MARGIN'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 encoder=word2vec-projected-OOV-chartrigram; bands HP_lift>=0.10 CG_lift>=0.20 MID_low=0.03 HF_lift<=0.03 cv_max=0.05 sanity_gate=ARM_GLOBAL_T_BPC_within_0.05_of_7.3065",
+      "n_llm_calls": 0,
+      "global_t_sanity_ok": false,
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "wall_ingest_s": 50.70078897476196,
+      "wall_recall_s": 24.45965051651001,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 7.737784450539358,
+          "top1": 0.21709358356581282,
+          "mrr": 0.27607846334070024
+        },
+        "ARM_GLOBAL_T": {
+          "bpc": 7.569679553771212,
+          "top1": 0.21582551356834898,
+          "mrr": 0.2777190037397981,
+          "best_T": 1.0,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.274965917854184,
+          "sanity_ok": false
+        },
+        "ARM_PER_CONTEXT_T_ENTROPY": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.47814053297042847,
+          "T_std": 0.021816741675138474
+        },
+        "ARM_PER_CONTEXT_T_MARGIN": {
+          "bpc": 7.737784450539357,
+          "top1": 0.21709358356581282,
+          "mrr": 0.2760784633406985,
+          "best_T_base": 0.01,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314025614927868,
+          "T_mean": 0.05305750295519829,
+          "T_std": 0.08482884615659714
+        }
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782289095.2177582
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_per_context_decode_temperature_LM_v2",
+  "elapsed_s": 1199.4614832401276,
+  "summary": "READOUT_DEGENERATE: ARM_GLOBAL_T BPC=7.5710 failed sanity gate (expected 7.3065 +/- 0.050). Encoder mismatch or methodology error. Do NOT classify per-context arms. BPC uni=7.7378 global=7.5710 ent=7.7378(lift=-0.1668) mar=7.7378(lift=-0.1668) | best=ARM_PER_CONTEXT_T_ENTROPY lift=-0.1668 bpc=7.7378"
+}

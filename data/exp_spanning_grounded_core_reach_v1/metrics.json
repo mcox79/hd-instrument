@@ -1,0 +1,1613 @@
+{
+  "verdict": "SPAN_FAIL_MECHANISM",
+  "run_mode": "full",
+  "verdict_msg": "SPAN_FAIL_MECHANISM || reach uniformly low across 5/6 domains -> mechanism/decoder bottleneck (matches loop-closer grounding-doesnt-chain), not a core-span gap; pause core-expansion || span_per_domain={'PHYSICAL': 0.5, 'ABSTRACT': 0.2143, 'EMOTIONAL': 0.8125, 'MATHEMATICAL': 0.0, 'SOCIAL': 0.3125, 'TEMPORAL': 0.25} agg=0.3482 || narrow_per_domain={'PHYSICAL': 0.8571, 'ABSTRACT': 0.0, 'EMOTIONAL': 0.0625, 'MATHEMATICAL': 0.0, 'SOCIAL': 0.0, 'TEMPORAL': 0.0} || control_fires=True || core=1441 grounded=99.7% n=6000",
+  "summary": "reach uniformly low across 5/6 domains -> mechanism/decoder bottleneck (matches loop-closer grounding-doesnt-chain), not a core-span gap; pause core-expansion",
+  "elapsed_s": 40.25273579999339,
+  "reach": {
+    "verdict": "SPAN_FAIL_MECHANISM",
+    "one_line": "reach uniformly low across 5/6 domains -> mechanism/decoder bottleneck (matches loop-closer grounding-doesnt-chain), not a core-span gap; pause core-expansion",
+    "spanning_per_domain": {
+      "PHYSICAL": 0.5,
+      "ABSTRACT": 0.2143,
+      "EMOTIONAL": 0.8125,
+      "MATHEMATICAL": 0.0,
+      "SOCIAL": 0.3125,
+      "TEMPORAL": 0.25
+    },
+    "spanning_aggregate": 0.3482,
+    "spanning_aggregate_scrambled": 0.0969,
+    "narrow_per_domain": {
+      "PHYSICAL": 0.8571,
+      "ABSTRACT": 0.0,
+      "EMOTIONAL": 0.0625,
+      "MATHEMATICAL": 0.0,
+      "SOCIAL": 0.0,
+      "TEMPORAL": 0.0
+    },
+    "narrow_aggregate": 0.1533,
+    "domains_passing": [
+      "EMOTIONAL"
+    ],
+    "domains_failing": [
+      "PHYSICAL",
+      "ABSTRACT",
+      "MATHEMATICAL",
+      "SOCIAL",
+      "TEMPORAL"
+    ],
+    "control_fires": true,
+    "narrow_collapses": true,
+    "narrow_physical_ok": true,
+    "scramble_ok": true,
+    "bands": {
+      "REACH_FLOOR": 0.6,
+      "AGG_FLOOR": 0.7,
+      "NARROW_COLLAPSE": 0.4,
+      "SIM_FLOOR": 0.3,
+      "SCRAMBLE_MAX": 0.4
+    },
+    "meta": {
+      "source": "cskg",
+      "graph_meta": {
+        "n_edges_scanned": 1244862,
+        "n_adj_nodes": 6000,
+        "n_seed_in_graph": 1529,
+        "n_nodes": 6000,
+        "n_edges": 187696
+      },
+      "core_provenance": {
+        "n_nsm_primes": 70,
+        "n_nsm_molecules": 54,
+        "n_kernel_proxy": 1500,
+        "n_core_union": 1519
+      },
+      "n_core_in_graph": 1441,
+      "grounded_fraction": 0.9965,
+      "n_narrow_in_graph": 877,
+      "probe_coverage": {
+        "PHYSICAL": 14,
+        "ABSTRACT": 14,
+        "EMOTIONAL": 16,
+        "MATHEMATICAL": 15,
+        "SOCIAL": 16,
+        "TEMPORAL": 13
+      },
+      "independence": {
+        "corr_matrix": [
+          [
+            1.0,
+            0.11,
+            -0.198,
+            0.014,
+            0.593,
+            0.528,
+            -0.208,
+            0.176,
+            0.242,
+            -0.439,
+            -0.106
+          ],
+          [
+            0.11,
+            1.0,
+            -0.107,
+            0.622,
+            0.133,
+            0.036,
+            0.05,
+            0.213,
+            0.174,
+            -0.148,
+            -0.139
+          ],
+          [
+            -0.198,
+            -0.107,
+            1.0,
+            -0.114,
+            -0.127,
+            -0.171,
+            0.268,
+            0.014,
+            0.028,
+            0.331,
+            0.054
+          ],
+          [
+            0.014,
+            0.622,
+            -0.114,
+            1.0,
+            0.028,
+            0.103,
+            -0.037,
+            0.145,
+            0.09,
+            -0.075,
+            -0.101
+          ],
+          [
+            0.593,
+            0.133,
+            -0.127,
+            0.028,
+            1.0,
+            0.41,
+            -0.187,
+            0.029,
+            0.154,
+            -0.379,
+            -0.079
+          ],
+          [
+            0.528,
+            0.036,
+            -0.171,
+            0.103,
+            0.41,
+            1.0,
+            -0.305,
+            0.159,
+            0.225,
+            -0.123,
+            -0.086
+          ],
+          [
+            -0.208,
+            0.05,
+            0.268,
+            -0.037,
+            -0.187,
+            -0.305,
+            1.0,
+            -0.192,
+            -0.063,
+            0.176,
+            -0.062
+          ],
+          [
+            0.176,
+            0.213,
+            0.014,
+            0.145,
+            0.029,
+            0.159,
+            -0.192,
+            1.0,
+            0.697,
+            0.063,
+            -0.059
+          ],
+          [
+            0.242,
+            0.174,
+            0.028,
+            0.09,
+            0.154,
+            0.225,
+            -0.063,
+            0.697,
+            1.0,
+            0.027,
+            -0.094
+          ],
+          [
+            -0.439,
+            -0.148,
+            0.331,
+            -0.075,
+            -0.379,
+            -0.123,
+            0.176,
+            0.063,
+            0.027,
+            1.0,
+            -0.075
+          ],
+          [
+            -0.106,
+            -0.139,
+            0.054,
+            -0.101,
+            -0.079,
+            -0.086,
+            -0.062,
+            -0.059,
+            -0.094,
+            -0.075,
+            1.0
+          ]
+        ],
+        "attr_names": [
+          "concreteness",
+          "valence",
+          "arousal",
+          "dominance",
+          "visual",
+          "haptic",
+          "auditory",
+          "gustatory",
+          "olfactory",
+          "interoceptive",
+          "aoa"
+        ],
+        "selection_audit": [
+          {
+            "attr": "valence",
+            "max_r_selected": 0.11,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "arousal",
+            "max_r_selected": 0.198,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "dominance",
+            "max_r_selected": 0.622,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "visual",
+            "max_r_selected": 0.593,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "haptic",
+            "max_r_selected": 0.528,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "auditory",
+            "max_r_selected": 0.305,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "gustatory",
+            "max_r_selected": 0.213,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "olfactory",
+            "max_r_selected": 0.697,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "interoceptive",
+            "max_r_selected": 0.439,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          },
+          {
+            "attr": "aoa",
+            "max_r_selected": 0.139,
+            "has_var": true,
+            "redundant": false,
+            "selected": true
+          }
+        ],
+        "selected": [
+          "concreteness",
+          "valence",
+          "arousal",
+          "dominance",
+          "visual",
+          "haptic",
+          "auditory",
+          "gustatory",
+          "olfactory",
+          "interoceptive",
+          "aoa"
+        ],
+        "n_selected": 11
+      },
+      "selected_channels": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "n_seeds": 5
+    }
+  },
+  "meta": {
+    "source": "cskg",
+    "graph_meta": {
+      "n_edges_scanned": 1244862,
+      "n_adj_nodes": 6000,
+      "n_seed_in_graph": 1529,
+      "n_nodes": 6000,
+      "n_edges": 187696
+    },
+    "core_provenance": {
+      "n_nsm_primes": 70,
+      "n_nsm_molecules": 54,
+      "n_kernel_proxy": 1500,
+      "n_core_union": 1519
+    },
+    "n_core_in_graph": 1441,
+    "grounded_fraction": 0.9965,
+    "n_narrow_in_graph": 877,
+    "probe_coverage": {
+      "PHYSICAL": 14,
+      "ABSTRACT": 14,
+      "EMOTIONAL": 16,
+      "MATHEMATICAL": 15,
+      "SOCIAL": 16,
+      "TEMPORAL": 13
+    },
+    "independence": {
+      "corr_matrix": [
+        [
+          1.0,
+          0.11,
+          -0.198,
+          0.014,
+          0.593,
+          0.528,
+          -0.208,
+          0.176,
+          0.242,
+          -0.439,
+          -0.106
+        ],
+        [
+          0.11,
+          1.0,
+          -0.107,
+          0.622,
+          0.133,
+          0.036,
+          0.05,
+          0.213,
+          0.174,
+          -0.148,
+          -0.139
+        ],
+        [
+          -0.198,
+          -0.107,
+          1.0,
+          -0.114,
+          -0.127,
+          -0.171,
+          0.268,
+          0.014,
+          0.028,
+          0.331,
+          0.054
+        ],
+        [
+          0.014,
+          0.622,
+          -0.114,
+          1.0,
+          0.028,
+          0.103,
+          -0.037,
+          0.145,
+          0.09,
+          -0.075,
+          -0.101
+        ],
+        [
+          0.593,
+          0.133,
+          -0.127,
+          0.028,
+          1.0,
+          0.41,
+          -0.187,
+          0.029,
+          0.154,
+          -0.379,
+          -0.079
+        ],
+        [
+          0.528,
+          0.036,
+          -0.171,
+          0.103,
+          0.41,
+          1.0,
+          -0.305,
+          0.159,
+          0.225,
+          -0.123,
+          -0.086
+        ],
+        [
+          -0.208,
+          0.05,
+          0.268,
+          -0.037,
+          -0.187,
+          -0.305,
+          1.0,
+          -0.192,
+          -0.063,
+          0.176,
+          -0.062
+        ],
+        [
+          0.176,
+          0.213,
+          0.014,
+          0.145,
+          0.029,
+          0.159,
+          -0.192,
+          1.0,
+          0.697,
+          0.063,
+          -0.059
+        ],
+        [
+          0.242,
+          0.174,
+          0.028,
+          0.09,
+          0.154,
+          0.225,
+          -0.063,
+          0.697,
+          1.0,
+          0.027,
+          -0.094
+        ],
+        [
+          -0.439,
+          -0.148,
+          0.331,
+          -0.075,
+          -0.379,
+          -0.123,
+          0.176,
+          0.063,
+          0.027,
+          1.0,
+          -0.075
+        ],
+        [
+          -0.106,
+          -0.139,
+          0.054,
+          -0.101,
+          -0.079,
+          -0.086,
+          -0.062,
+          -0.059,
+          -0.094,
+          -0.075,
+          1.0
+        ]
+      ],
+      "attr_names": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "selection_audit": [
+        {
+          "attr": "valence",
+          "max_r_selected": 0.11,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "arousal",
+          "max_r_selected": 0.198,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "dominance",
+          "max_r_selected": 0.622,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "visual",
+          "max_r_selected": 0.593,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "haptic",
+          "max_r_selected": 0.528,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "auditory",
+          "max_r_selected": 0.305,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "gustatory",
+          "max_r_selected": 0.213,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "olfactory",
+          "max_r_selected": 0.697,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "interoceptive",
+          "max_r_selected": 0.439,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        },
+        {
+          "attr": "aoa",
+          "max_r_selected": 0.139,
+          "has_var": true,
+          "redundant": false,
+          "selected": true
+        }
+      ],
+      "selected": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "n_selected": 11
+    },
+    "selected_channels": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa"
+    ],
+    "n_seeds": 5
+  },
+  "spanning_seedruns": [
+    {
+      "PHYSICAL": {
+        "reach": 0.5,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 7
+      },
+      "ABSTRACT": {
+        "reach": 0.21428571428571427,
+        "reach_scrambled": 0.14285714285714285,
+        "n_probes": 14,
+        "n_reached": 3
+      },
+      "EMOTIONAL": {
+        "reach": 0.8125,
+        "reach_scrambled": 0.125,
+        "n_probes": 16,
+        "n_reached": 13
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.3125,
+        "reach_scrambled": 0.0625,
+        "n_probes": 16,
+        "n_reached": 5
+      },
+      "TEMPORAL": {
+        "reach": 0.25,
+        "reach_scrambled": 0.08333333333333333,
+        "n_probes": 12,
+        "n_reached": 3
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.5,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 7
+      },
+      "ABSTRACT": {
+        "reach": 0.21428571428571427,
+        "reach_scrambled": 0.14285714285714285,
+        "n_probes": 14,
+        "n_reached": 3
+      },
+      "EMOTIONAL": {
+        "reach": 0.8125,
+        "reach_scrambled": 0.0625,
+        "n_probes": 16,
+        "n_reached": 13
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.3125,
+        "reach_scrambled": 0.125,
+        "n_probes": 16,
+        "n_reached": 5
+      },
+      "TEMPORAL": {
+        "reach": 0.25,
+        "reach_scrambled": 0.16666666666666666,
+        "n_probes": 12,
+        "n_reached": 3
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.5,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 7
+      },
+      "ABSTRACT": {
+        "reach": 0.21428571428571427,
+        "reach_scrambled": 0.07142857142857142,
+        "n_probes": 14,
+        "n_reached": 3
+      },
+      "EMOTIONAL": {
+        "reach": 0.8125,
+        "reach_scrambled": 0.25,
+        "n_probes": 16,
+        "n_reached": 13
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.3125,
+        "reach_scrambled": 0.125,
+        "n_probes": 16,
+        "n_reached": 5
+      },
+      "TEMPORAL": {
+        "reach": 0.25,
+        "reach_scrambled": 0.08333333333333333,
+        "n_probes": 12,
+        "n_reached": 3
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.5,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 7
+      },
+      "ABSTRACT": {
+        "reach": 0.21428571428571427,
+        "reach_scrambled": 0.2857142857142857,
+        "n_probes": 14,
+        "n_reached": 3
+      },
+      "EMOTIONAL": {
+        "reach": 0.8125,
+        "reach_scrambled": 0.25,
+        "n_probes": 16,
+        "n_reached": 13
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.3125,
+        "reach_scrambled": 0.125,
+        "n_probes": 16,
+        "n_reached": 5
+      },
+      "TEMPORAL": {
+        "reach": 0.25,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 3
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.5,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 7
+      },
+      "ABSTRACT": {
+        "reach": 0.21428571428571427,
+        "reach_scrambled": 0.21428571428571427,
+        "n_probes": 14,
+        "n_reached": 3
+      },
+      "EMOTIONAL": {
+        "reach": 0.8125,
+        "reach_scrambled": 0.3125,
+        "n_probes": 16,
+        "n_reached": 13
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.07142857142857142,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.3125,
+        "reach_scrambled": 0.125,
+        "n_probes": 16,
+        "n_reached": 5
+      },
+      "TEMPORAL": {
+        "reach": 0.25,
+        "reach_scrambled": 0.08333333333333333,
+        "n_probes": 12,
+        "n_reached": 3
+      }
+    }
+  ],
+  "narrow_seedruns": [
+    {
+      "PHYSICAL": {
+        "reach": 0.8571428571428571,
+        "reach_scrambled": 0.5,
+        "n_probes": 14,
+        "n_reached": 12
+      },
+      "ABSTRACT": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "EMOTIONAL": {
+        "reach": 0.0625,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 1
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 0
+      },
+      "TEMPORAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 0
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.8571428571428571,
+        "reach_scrambled": 0.5714285714285714,
+        "n_probes": 14,
+        "n_reached": 12
+      },
+      "ABSTRACT": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "EMOTIONAL": {
+        "reach": 0.0625,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 1
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 0
+      },
+      "TEMPORAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 0
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.8571428571428571,
+        "reach_scrambled": 0.5,
+        "n_probes": 14,
+        "n_reached": 12
+      },
+      "ABSTRACT": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "EMOTIONAL": {
+        "reach": 0.0625,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 1
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 0
+      },
+      "TEMPORAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 0
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.8571428571428571,
+        "reach_scrambled": 0.5,
+        "n_probes": 14,
+        "n_reached": 12
+      },
+      "ABSTRACT": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "EMOTIONAL": {
+        "reach": 0.0625,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 1
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 0
+      },
+      "TEMPORAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 0
+      }
+    },
+    {
+      "PHYSICAL": {
+        "reach": 0.8571428571428571,
+        "reach_scrambled": 0.5,
+        "n_probes": 14,
+        "n_reached": 12
+      },
+      "ABSTRACT": {
+        "reach": 0.0,
+        "reach_scrambled": 0.07142857142857142,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "EMOTIONAL": {
+        "reach": 0.0625,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 1
+      },
+      "MATHEMATICAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 14,
+        "n_reached": 0
+      },
+      "SOCIAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 16,
+        "n_reached": 0
+      },
+      "TEMPORAL": {
+        "reach": 0.0,
+        "reach_scrambled": 0.0,
+        "n_probes": 12,
+        "n_reached": 0
+      }
+    }
+  ],
+  "probe_records": [
+    {
+      "word": "brick",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.3163,
+      "sim_scr": -0.325,
+      "reached": true
+    },
+    {
+      "word": "concrete",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.2703,
+      "sim_scr": -0.3979,
+      "reached": false
+    },
+    {
+      "word": "foam",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.2831,
+      "sim_scr": -0.2345,
+      "reached": false
+    },
+    {
+      "word": "granite",
+      "domain": "PHYSICAL",
+      "sim_mech": -0.4195,
+      "sim_scr": -0.8866,
+      "reached": false
+    },
+    {
+      "word": "gravel",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.2266,
+      "sim_scr": -0.246,
+      "reached": false
+    },
+    {
+      "word": "leather",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.4229,
+      "sim_scr": -0.0143,
+      "reached": true
+    },
+    {
+      "word": "marble",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.3419,
+      "sim_scr": -0.357,
+      "reached": true
+    },
+    {
+      "word": "pebble",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.485,
+      "sim_scr": -0.1631,
+      "reached": true
+    },
+    {
+      "word": "plywood",
+      "domain": "PHYSICAL",
+      "sim_mech": -0.0222,
+      "sim_scr": -0.5344,
+      "reached": false
+    },
+    {
+      "word": "rubber",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.2604,
+      "sim_scr": -0.1856,
+      "reached": false
+    },
+    {
+      "word": "sandpaper",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.2902,
+      "sim_scr": -0.2617,
+      "reached": false
+    },
+    {
+      "word": "silk",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.5461,
+      "sim_scr": -0.19,
+      "reached": true
+    },
+    {
+      "word": "velvet",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.3157,
+      "sim_scr": -0.1128,
+      "reached": true
+    },
+    {
+      "word": "wax",
+      "domain": "PHYSICAL",
+      "sim_mech": 0.5049,
+      "sim_scr": -0.0529,
+      "reached": true
+    },
+    {
+      "word": "abstraction",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.0506,
+      "sim_scr": -0.2568,
+      "reached": false
+    },
+    {
+      "word": "concept",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "essence",
+      "domain": "ABSTRACT",
+      "sim_mech": -0.4933,
+      "sim_scr": -0.2312,
+      "reached": false
+    },
+    {
+      "word": "existence",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.1355,
+      "sim_scr": -0.1178,
+      "reached": false
+    },
+    {
+      "word": "freedom",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.5536,
+      "sim_scr": 0.3865,
+      "reached": true
+    },
+    {
+      "word": "hypothesis",
+      "domain": "ABSTRACT",
+      "sim_mech": -0.0537,
+      "sim_scr": -0.2324,
+      "reached": false
+    },
+    {
+      "word": "ideology",
+      "domain": "ABSTRACT",
+      "sim_mech": -0.4211,
+      "sim_scr": -0.5586,
+      "reached": false
+    },
+    {
+      "word": "meaning",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.5572,
+      "sim_scr": 0.3694,
+      "reached": true
+    },
+    {
+      "word": "paradigm",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "principle",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "purpose",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.0892,
+      "sim_scr": 0.1065,
+      "reached": false
+    },
+    {
+      "word": "quality",
+      "domain": "ABSTRACT",
+      "sim_mech": -0.0747,
+      "sim_scr": -0.1743,
+      "reached": false
+    },
+    {
+      "word": "theory",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.2604,
+      "sim_scr": 0.0943,
+      "reached": false
+    },
+    {
+      "word": "virtue",
+      "domain": "ABSTRACT",
+      "sim_mech": 0.5207,
+      "sim_scr": 0.1193,
+      "reached": true
+    },
+    {
+      "word": "anxiety",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.4784,
+      "sim_scr": 0.1748,
+      "reached": true
+    },
+    {
+      "word": "contentment",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.5045,
+      "sim_scr": 0.1711,
+      "reached": true
+    },
+    {
+      "word": "despair",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.4837,
+      "sim_scr": 0.0654,
+      "reached": true
+    },
+    {
+      "word": "dread",
+      "domain": "EMOTIONAL",
+      "sim_mech": -0.633,
+      "sim_scr": -0.0667,
+      "reached": false
+    },
+    {
+      "word": "elation",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.4682,
+      "sim_scr": -0.1583,
+      "reached": true
+    },
+    {
+      "word": "envy",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.3649,
+      "sim_scr": 0.0331,
+      "reached": true
+    },
+    {
+      "word": "gratitude",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.7857,
+      "sim_scr": 0.1681,
+      "reached": true
+    },
+    {
+      "word": "grief",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.8069,
+      "sim_scr": -0.0418,
+      "reached": true
+    },
+    {
+      "word": "joy",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.7983,
+      "sim_scr": 0.4064,
+      "reached": true
+    },
+    {
+      "word": "loneliness",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.2804,
+      "sim_scr": -0.0449,
+      "reached": false
+    },
+    {
+      "word": "melancholy",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "nostalgia",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.4197,
+      "sim_scr": -0.1394,
+      "reached": true
+    },
+    {
+      "word": "pride",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.6248,
+      "sim_scr": 0.2062,
+      "reached": true
+    },
+    {
+      "word": "relief",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.7869,
+      "sim_scr": 0.409,
+      "reached": true
+    },
+    {
+      "word": "resentment",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.4351,
+      "sim_scr": -0.0683,
+      "reached": true
+    },
+    {
+      "word": "shame",
+      "domain": "EMOTIONAL",
+      "sim_mech": 0.5429,
+      "sim_scr": 0.2858,
+      "reached": true
+    },
+    {
+      "word": "algebra",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.7256,
+      "sim_scr": -0.4988,
+      "reached": false
+    },
+    {
+      "word": "angle",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.445,
+      "sim_scr": -0.46,
+      "reached": false
+    },
+    {
+      "word": "average",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.733,
+      "sim_scr": -0.1104,
+      "reached": false
+    },
+    {
+      "word": "division",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.091,
+      "sim_scr": -0.3701,
+      "reached": false
+    },
+    {
+      "word": "equation",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0544,
+      "sim_scr": -0.2466,
+      "reached": false
+    },
+    {
+      "word": "fraction",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.7206,
+      "sim_scr": -0.4843,
+      "reached": false
+    },
+    {
+      "word": "geometry",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.4629,
+      "sim_scr": -0.3001,
+      "reached": false
+    },
+    {
+      "word": "infinity",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "integer",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "multiplication",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "probability",
+      "domain": "MATHEMATICAL",
+      "sim_mech": -0.5297,
+      "sim_scr": -0.1936,
+      "reached": false
+    },
+    {
+      "word": "ratio",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "sum",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "variable",
+      "domain": "MATHEMATICAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "alliance",
+      "domain": "SOCIAL",
+      "sim_mech": -0.5624,
+      "sim_scr": -0.1723,
+      "reached": false
+    },
+    {
+      "word": "authority",
+      "domain": "SOCIAL",
+      "sim_mech": 0.642,
+      "sim_scr": -0.4538,
+      "reached": true
+    },
+    {
+      "word": "bureaucracy",
+      "domain": "SOCIAL",
+      "sim_mech": -0.4785,
+      "sim_scr": -0.3235,
+      "reached": false
+    },
+    {
+      "word": "citizenship",
+      "domain": "SOCIAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "committee",
+      "domain": "SOCIAL",
+      "sim_mech": -0.1579,
+      "sim_scr": -0.2185,
+      "reached": false
+    },
+    {
+      "word": "contract",
+      "domain": "SOCIAL",
+      "sim_mech": -0.3401,
+      "sim_scr": -0.4928,
+      "reached": false
+    },
+    {
+      "word": "debt",
+      "domain": "SOCIAL",
+      "sim_mech": -0.1202,
+      "sim_scr": -0.4336,
+      "reached": false
+    },
+    {
+      "word": "etiquette",
+      "domain": "SOCIAL",
+      "sim_mech": -0.6095,
+      "sim_scr": -0.1117,
+      "reached": false
+    },
+    {
+      "word": "hierarchy",
+      "domain": "SOCIAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "justice",
+      "domain": "SOCIAL",
+      "sim_mech": 0.0622,
+      "sim_scr": -0.1364,
+      "reached": false
+    },
+    {
+      "word": "loyalty",
+      "domain": "SOCIAL",
+      "sim_mech": 0.3065,
+      "sim_scr": 0.0979,
+      "reached": true
+    },
+    {
+      "word": "marriage",
+      "domain": "SOCIAL",
+      "sim_mech": 0.667,
+      "sim_scr": 0.1136,
+      "reached": true
+    },
+    {
+      "word": "ownership",
+      "domain": "SOCIAL",
+      "sim_mech": 0.1501,
+      "sim_scr": -0.0242,
+      "reached": false
+    },
+    {
+      "word": "rank",
+      "domain": "SOCIAL",
+      "sim_mech": 0.3632,
+      "sim_scr": -0.117,
+      "reached": true
+    },
+    {
+      "word": "reputation",
+      "domain": "SOCIAL",
+      "sim_mech": 0.6638,
+      "sim_scr": 0.0595,
+      "reached": true
+    },
+    {
+      "word": "tradition",
+      "domain": "SOCIAL",
+      "sim_mech": -0.3772,
+      "sim_scr": 0.381,
+      "reached": false
+    },
+    {
+      "word": "century",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "deadline",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "delay",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.3309,
+      "sim_scr": 0.0624,
+      "reached": true
+    },
+    {
+      "word": "duration",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.0177,
+      "sim_scr": 0.129,
+      "reached": false
+    },
+    {
+      "word": "eventually",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.0,
+      "sim_scr": null,
+      "reached": false
+    },
+    {
+      "word": "frequency",
+      "domain": "TEMPORAL",
+      "sim_mech": -0.0488,
+      "sim_scr": -0.1106,
+      "reached": false
+    },
+    {
+      "word": "interruption",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.2204,
+      "sim_scr": -0.0361,
+      "reached": false
+    },
+    {
+      "word": "interval",
+      "domain": "TEMPORAL",
+      "sim_mech": -0.2234,
+      "sim_scr": -0.2971,
+      "reached": false
+    },
+    {
+      "word": "pause",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.5107,
+      "sim_scr": 0.365,
+      "reached": true
+    },
+    {
+      "word": "rhythm",
+      "domain": "TEMPORAL",
+      "sim_mech": 0.4598,
+      "sim_scr": 0.2155,
+      "reached": true
+    },
+    {
+      "word": "schedule",
+      "domain": "TEMPORAL",
+      "sim_mech": -0.2091,
+      "sim_scr": -0.0197,
+      "reached": false
+    },
+    {
+      "word": "sequence",
+      "domain": "TEMPORAL",
+      "sim_mech": -0.6247,
+      "sim_scr": -0.2941,
+      "reached": false
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator + gloss-bag + end-to-end held-out eval exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 13.396757500013337,
+  "discriminator_selftest": {
+    "auc_struct": 1.0,
+    "auc_rand": 0.5159291666666667,
+    "auc_label_shuffle": 0.49755667277929666,
+    "prec_struct": 1.0,
+    "base_rate": 0.1666666666666666,
+    "n_query": 60
+  },
+  "gloss_bag_selftest": {
+    "sim_animal_animal": 0.6604949831962585,
+    "sim_animal_number": 0.13728129863739014,
+    "vocab": 2048
+  },
+  "data_meta": {
+    "n_grounded_total": 24938,
+    "n_induced_pairs_total": 188720,
+    "n_kept_concepts": 400,
+    "n_kept_pairs": 38837,
+    "min_deg": 2,
+    "cap_nodes": 400,
+    "top_rels": [
+      "/r/LocatedNear",
+      "mw:MayHaveProperty",
+      "/r/CapableOf",
+      "/r/AtLocation",
+      "/r/PartOf",
+      "/r/MannerOf",
+      "/r/UsedFor",
+      "/r/HasProperty"
+    ],
+    "n_rel_slots": 9,
+    "n_lexnames": 33,
+    "gloss_vocab": 512,
+    "n_gloss_nonempty": 400,
+    "gloss_coverage": 1.0
+  },
+  "split_meta": {
+    "n_train": 309,
+    "n_heldout": 91,
+    "mean_train_ctx_neigh": 158.7766990291262,
+    "mean_held_ctx_neigh": 165.17582417582418,
+    "n_rel_slots": 9
+  },
+  "self_teacher_same_lex_auc": 0.6194469703351136,
+  "raw_grounding_same_lex_auc": 0.6326039943668245,
+  "raw_gloss_same_lex_auc": 0.6206395851297827,
+  "collapse_shuffle_same_lex_auc": 0.48563505643447574
+}

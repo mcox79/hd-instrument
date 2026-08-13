@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: SMOKE_FAIL: designed curved mock did not reach HARD_PASS (got MIDDLE_BAND)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_reasoning_depth_mech_survival_abserr_vs_quad_v2.py\", line 945, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_reasoning_depth_mech_survival_abserr_vs_quad_v2.py\", line 935, in main\n    assert verdict == \"HARD_PASS\", \"SMOKE_FAIL: designed curved mock did not reach HARD_PASS (got %s)\" % verdict\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: SMOKE_FAIL: designed curved mock did not reach HARD_PASS (got MIDDLE_BAND)\n",
+  "ts_iso": "2026-07-08T08:12:21.231474+00:00",
+  "pid": 26428,
+  "anchor_name": "reasoning_depth_mech_survival_abserr_vs_quad_v2"
+}

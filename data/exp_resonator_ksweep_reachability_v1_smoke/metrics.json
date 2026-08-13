@@ -1,0 +1,377 @@
+{
+  "anchor_name": "resonator_ksweep_reachability_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "WALL_FUNDAMENTAL (HARD_FAIL): p_basin(K6)=0.0000 < 0.01 (or oracle_any=0.000 < 0.10) -- basin measure craters toward the clustering/condensation regime; no realistic R rescues it (R_to_95=inf). CONFIRMS the CG_META basin-proliferation algorithmic wall at K*<=6. Honest negative. traj: K3(orc=1.000,p=1.0000,R95=1) K4(orc=0.867,p=0.1825,R95=15) K5(orc=0.000,p=0.0000,R95=inf) K6(orc=0.000,p=0.0000,R95=inf)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.6,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_verifier_T000_R10": {
+          "plurality": 0.7,
+          "verifier": 0.7666666666666667,
+          "oracle_any": 0.7666666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.1666666666666667,
+          "distinct_wrong_configs": 12,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_verifier_T100_R10": {
+          "plurality": 0.9333333333333333,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.8333333333333335,
+          "distinct_wrong_configs": 55,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_verifier_T200_R10": {
+          "plurality": 1.0,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.6666666666666665,
+          "distinct_wrong_configs": 50,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_verifier_T350_R10": {
+          "plurality": 1.0,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.8666666666666667,
+          "distinct_wrong_configs": 56,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_verifier_T500_R10": {
+          "plurality": 0.9666666666666667,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 3.033333333333333,
+          "distinct_wrong_configs": 61,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.03333333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_verifier_T000_R10": {
+          "plurality": 0.16666666666666666,
+          "verifier": 0.26666666666666666,
+          "oracle_any": 0.26666666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.9666666666666666,
+          "distinct_wrong_configs": 51,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_verifier_T100_R10": {
+          "plurality": 0.5,
+          "verifier": 0.8666666666666667,
+          "oracle_any": 0.8666666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.1,
+          "distinct_wrong_configs": 247,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_verifier_T200_R10": {
+          "plurality": 0.4,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.533333333333333,
+          "distinct_wrong_configs": 261,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_verifier_T350_R10": {
+          "plurality": 0.5333333333333333,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 8.833333333333334,
+          "distinct_wrong_configs": 241,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_verifier_T500_R10": {
+          "plurality": 0.43333333333333335,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.0,
+          "distinct_wrong_configs": 246,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K5_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K5_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 60,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K5_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K5_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K5_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K5_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K6_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K6_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 60,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K6_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K6_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K6_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K6_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 300,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "b7f013b750f3198faf6fb13b03be8f39875e572d3d8422cb22b4d91d8520f7e2",
+        "K3_verifier_T000_R10": "c663cdb3740ec719094516685cb7a5c761ab29214e1ed2251686cd0de71ccb15",
+        "K3_verifier_T000_R10_plurality": "f638e4e13eda65848d099940350dba774ca43b83d8bba0c61e3661dc981c2426",
+        "K3_verifier_T100_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T100_R10_plurality": "18c621122de37e1da15464bb41159d72fd68a2d6168321f9981a3a098190b183",
+        "K3_verifier_T200_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T200_R10_plurality": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T350_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T350_R10_plurality": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T500_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T500_R10_plurality": "ea4e883e8773b10009e5f817c158aca2f04bec57984399ba1caa26839467629b",
+        "K4_baseline_T0_R1": "1657b51d3b0cb20975f7bbc43d0cfcb1cb147e9719c804e827a7d3c8bf3906f5",
+        "K4_verifier_T000_R10": "c26c2ec96496f4a9be9bda7c423b7b5546e3a0d6727b53d27e05473bea1fe6a2",
+        "K4_verifier_T000_R10_plurality": "2e8c79fc46c37540f257f91bc4bc20811ae7691d0c3636323cd3c2ff3c7c1be8",
+        "K4_verifier_T100_R10": "05265cd3744b5002cc29bc6572ca0eeea8cb99a135c50870a14eb18a96782d0e",
+        "K4_verifier_T100_R10_plurality": "96aeaa9e1d4e63484ce1c9a9710bf7692f1f865ec3bda33476bce1e414f3cf5f",
+        "K4_verifier_T200_R10": "9c8b203e76d035941dfffa2b312edffe2af1cb5411ade041c3c70d03cb882876",
+        "K4_verifier_T200_R10_plurality": "b210814bd3bc7f91807a8e6b752a373a876dfd5af96f25a648bdff09bff3b889",
+        "K4_verifier_T350_R10": "e63c0746be28f5d26bd3f0f2835675c159928a0d2ed9269e66b0b49d3a636bb4",
+        "K4_verifier_T350_R10_plurality": "e9bb55a59ab237ec8a40fefdac59b3b39f8b4a0b68a928b0a6f1386f0bde4ea2",
+        "K4_verifier_T500_R10": "47a549a602dc77943918155703c3eece6a967efa206dd45cb20d1af4eebc6c57",
+        "K4_verifier_T500_R10_plurality": "6aa38d4e7bf3966c28f1f2352a59c7fe0f4fc1a8fcf93388b569e74692dfb1f8",
+        "K5_baseline_T0_R1": "5366876b5e6b67c8e935c3aeea29047f454209e0dbb102d8858f4e952b22d0d3",
+        "K5_verifier_T000_R10": "3ed9635aeffef4fd6f4d4d906e42661387f04eebe30bfe8d94dea71dda5e24d4",
+        "K5_verifier_T000_R10_plurality": "44e31fef37e70895021d369820deb09250547874973458d011b877b434c24389",
+        "K5_verifier_T100_R10": "e009d83bb2f8fe67d09041b9d92f3dee71aaf6d3cfa19ec3414355c0dab9b0c5",
+        "K5_verifier_T100_R10_plurality": "2a4f3e146227b6877308a9c0bfbb9b56293a4f2a5fa1ad3f2d74549de2efc908",
+        "K5_verifier_T200_R10": "769ab8701dfa2de6f73704a4d1c423830ed2cfcdc165844b8e4ec7dae4651d25",
+        "K5_verifier_T200_R10_plurality": "2589355b8961b2de7603b1520ade0f3ef520f30f3753b9bec89d8b62e415bb3c",
+        "K5_verifier_T350_R10": "d50245da9d392b2342cf76599111a03a60b9e7103c5ead10a4819f49eb3c318c",
+        "K5_verifier_T350_R10_plurality": "d555809d68df63d36184b50265afb372aedf0793d359141778f1ef9d0fc75020",
+        "K5_verifier_T500_R10": "8e7f0bd6c808a3442606817e96503f1e8d3d9f8ffcc9124dd900285fad24b1eb",
+        "K5_verifier_T500_R10_plurality": "df7256d174edfe9a15b0efac2387290f5d0dc27dad829456bb9f63349f5a7269",
+        "K6_baseline_T0_R1": "d139e93a5614cebdfea272b64ac27dc7e08373b3d8a769c1672843f5419e6b87",
+        "K6_verifier_T000_R10": "195455f8778e42baad45b5d6640e039ade81632a203a36358a59e65890a65c09",
+        "K6_verifier_T000_R10_plurality": "128fadb14e1facee19abf4d5edabce55b7d5d5b9a26d8e400fe185d96486516b",
+        "K6_verifier_T100_R10": "ce6cfded869c82763fe3c78f185e809c39b131aeb557e7737fb97ceebf34ccc4",
+        "K6_verifier_T100_R10_plurality": "b1a86cd338da467dd1dc1586fdb34e3d19259d0a0f95e5c1416067d5e7569894",
+        "K6_verifier_T200_R10": "b3946ad5630565ebcbe7232fb358c0114f93016f63d72cff7e72ddb55826b824",
+        "K6_verifier_T200_R10_plurality": "9370220a249f1e0caef7a069ff66e8fe039821ce5f068f7a24b9d631dcfb1e3d",
+        "K6_verifier_T350_R10": "9414e2791bbf442c24f8b180343cd862ecdad67b7792231e1e4727bac81a5204",
+        "K6_verifier_T350_R10_plurality": "438b09f7aa0218e8ed66a834ccdcd58666725df5b5e42990aad788e4cfdd2b9c",
+        "K6_verifier_T500_R10": "f2d5f78cc0273d89900055ab6f34ff67c57f41390bb70b6d33dfcbabeca1a0a4",
+        "K6_verifier_T500_R10_plurality": "8ba14509cb44c66a6b192ddb9b3ee0d6b2deb3e9d7fb34f4263e02d740ab7ca2"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_ksweep_reachability_v1,N=4096,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783477431.9074051
+    }
+  ],
+  "detail": {
+    "trajectory": {
+      "3": {
+        "best_t0": 0.1,
+        "oracle_any_best": 1.0,
+        "p_basin": 1.0,
+        "R_to_95": 1.0
+      },
+      "4": {
+        "best_t0": 0.1,
+        "oracle_any_best": 0.8666666666666667,
+        "p_basin": 0.18248849429609315,
+        "R_to_95": 15.0
+      },
+      "5": {
+        "best_t0": 0.1,
+        "oracle_any_best": 0.0,
+        "p_basin": 0.0,
+        "R_to_95": Infinity
+      },
+      "6": {
+        "best_t0": 0.1,
+        "oracle_any_best": 0.0,
+        "p_basin": 0.0,
+        "R_to_95": Infinity
+      }
+    },
+    "baseline_by_K": {
+      "3": 0.6,
+      "4": 0.03333333333333333,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "p_basin_decline_ratios": {
+      "K4/K3": 0.18248849429609315,
+      "K5/K4": 0.0,
+      "K6/K5": Infinity
+    },
+    "verifier_le_oracle_invariant_violations": 0,
+    "R_fixed": 10,
+    "bands": {
+      "budget_floor": 0.05,
+      "wall_ceil": 0.01,
+      "oracle_crater": 0.1
+    },
+    "positive_control_ok": true,
+    "positive_control": {
+      "K3_oracle": 1.0,
+      "K3_band": [
+        0.95,
+        1.0
+      ],
+      "K3_ok": true,
+      "K4_oracle": 0.8666666666666667,
+      "K4_band": [
+        0.72,
+        0.9
+      ],
+      "K4_ok": true
+    },
+    "arms_differ_verified": true,
+    "smoke_discriminator_spread": 1.0,
+    "smoke_discriminator_declines": true,
+    "smoke_discriminator_fired": true
+  },
+  "config": {
+    "N": 4096,
+    "M": 30,
+    "MAXIT": 60,
+    "R": 10,
+    "TR": 30,
+    "T0_GRID": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "K_GRID": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "SEEDS": [
+      3
+    ],
+    "EXPECTED_N_UNITS": 20
+  },
+  "elapsed_s": 735.4482685999974,
+  "summary": "WALL_FUNDAMENTAL (HARD_FAIL): p_basin(K6)=0.0000 < 0.01 (or oracle_any=0.000 < 0.10) -- basin measure craters toward the clustering/condensation regime; no realistic R rescues it (R_to_95=inf). CONFIRMS the CG_META basin-proliferation algorithmic wall at K*<=6. Honest negative. traj: K3(orc=1.000,p=1.0000,R95=1) K4(orc=0.867,p=0.1825,R95=15) K5(orc=0.000,p=0.0000,R95=inf) K6(orc=0.000,p=0.0000,R95=inf)"
+}

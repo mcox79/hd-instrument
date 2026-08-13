@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_sequence_binding_K_cliff_phase_diagram_full_v2_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: SAT(K=20,N=16384,Q=1) SUBSTRATE=1.000 RANDOM=0.000 SHUFFLE=0.000; FLOOR(K=1000,N=2048,Q=4) SUBSTRATE=0.000; backend=torch.cpu; elapsed=1.8s",
+  "summary": "selftest OK: SAT(K=20,N=16384,Q=1) SUBSTRATE=1.000 RANDOM=0.000 SHUFFLE=0.000; FLOOR(K=1000,N=2048,Q=4) SUBSTRATE=0.000; backend=torch.cpu; elapsed=1.8s",
+  "elapsed_s": 4.18,
+  "ts_iso": "2026-06-28T20:02:29Z",
+  "pid": 24904,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_sequence_binding_K_cliff_phase_diagram_full_v2_seed_19,SEED=19,mode=selftest,K=[20,50,100,200,500,1000],N=[2048,4096,8192,16384],Q=[1,2,4],arms=[SUBSTRATE,RANDOM,SHUFFLE],V_ITEMS=1200,V_POS=1200,n_queries_full=100,n_queries_smoke=4,expected_n_full=72,expected_n_smoke=6,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_seqbind_Kcliff_phase_diagram_full_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

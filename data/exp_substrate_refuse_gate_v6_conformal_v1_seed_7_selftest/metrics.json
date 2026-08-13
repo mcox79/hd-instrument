@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_refuse_gate_v6_conformal_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL_units=36 records=2160 SMOKE_units=36 records=720; noise_floor FULL=0.0395 (pred sqrt(2*ln(600)/8192)); mechanism_hash: 4/4 distinct; conformal_tau synthetic P10=0.6564 P20=0.7103 (monotone); FIXED @ small_substrate clean+ood refuse=1.000",
+  "summary": "cardinality FULL_units=36 records=2160 SMOKE_units=36 records=720; noise_floor FULL=0.0395 (pred sqrt(2*ln(600)/8192)); mechanism_hash: 4/4 distinct; conformal_tau synthetic P10=0.6564 P20=0.7103 (monotone); FIXED @ small_substrate clean+ood refuse=1.000",
+  "elapsed_s": 0.16,
+  "ts_iso": "2026-07-01T16:26:24Z",
+  "pid": 11152,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_refuse_gate_v6_conformal_v1_seed_7,arms=[FIXED_BASELINE,CONFORMAL_10,CONFORMAL_20,CONFORMAL_REGIME],regimes=[clean,moderate,heavy],bands=[in_kb,borderline,ood],cal_size=50(25in+25ood),V_REL=256,SEED=7,mode=selftest,N=8192(smoke==full,CheckA),V_C_per_cat=200,V_C_IN=600,n_queries_per_unit=[20|60],expected_units=36,expected_records_full=2160,expected_records_smoke=720,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v6_refuse_gate_conformal_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

@@ -1,0 +1,64 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS rule-induction held-out probe: mined Horn rules recover planted held-out tails via forward-chaining; shuffled-rule + random fail; ORACLE fires; POP at floor; 6 validity-preflight checks declared (incl real_code_path + guard_baseline_valid)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.09215279994532466,
+  "mechanism_selftest": {
+    "N": 280,
+    "n_heldout_entities": 42,
+    "n_support": 99,
+    "n_query": 97,
+    "n_cold": 3,
+    "n_rules_train": 2,
+    "top_rules": [
+      {
+        "rule": "rC(x,z) <= rA(x,y) & rB(y,z)",
+        "kind": "L2",
+        "conf": 1.0,
+        "support": 221
+      },
+      {
+        "rule": "rF(x,z) <= rD(x,y) & rE(y,z)",
+        "kind": "L2",
+        "conf": 1.0,
+        "support": 242
+      }
+    ],
+    "heldout_mrr": {
+      "RULE_INDUCT": 0.262252,
+      "RULE_SHUFFLE": 0.013372,
+      "RANDOM": 0.037754,
+      "BASELINE_POP": 0.023173,
+      "RULE_ORACLE": 0.448818
+    },
+    "heldout_reach_at_2": {
+      "RULE_INDUCT": 0.247423,
+      "RULE_SHUFFLE": 0.0,
+      "RANDOM": 0.020619,
+      "BASELINE_POP": 0.0,
+      "RULE_ORACLE": 0.443299
+    },
+    "n_distinct_sigs": 5,
+    "induct_vs_shuffle": 0.24888,
+    "induct_vs_random": 0.224498,
+    "oracle_headroom": 0.411064,
+    "oracle_ratio": 11.89,
+    "induct_recovers": true,
+    "beats_shuffle": true,
+    "beats_random": true,
+    "oracle_fires": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "HARD_PASS_RULE_INDUCTION_GENERALIZES",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path",
+      "guard_baseline_valid"
+    ]
+  }
+}

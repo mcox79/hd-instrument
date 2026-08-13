@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_binding_op_x_capacity_v1_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=9 SMOKE=3; alpha_sweep alpha=[0.1, 0.5, 0.9] M_per_bank=[150, 750, 1350]; round_trip HADAMARD_BIND: M=1 argmax=0 OK; round_trip CIRCULAR_CONV_HRR: M=1 argmax=0 OK; round_trip FHRR_COMPLEX_MUL: M=1 argmax=0 OK; arms_differ_hashes: {'HADAMARD_BIND': '7cff657142e68c86', 'CIRCULAR_CONV_HRR': 'c962417bd163a44e', 'FHRR_COMPLEX_MUL': '9a083e18c5c1feaa'}",
+  "summary": "cardinality FULL=9 SMOKE=3; alpha_sweep alpha=[0.1, 0.5, 0.9] M_per_bank=[150, 750, 1350]; round_trip HADAMARD_BIND: M=1 argmax=0 OK; round_trip CIRCULAR_CONV_HRR: M=1 argmax=0 OK; round_trip FHRR_COMPLEX_MUL: M=1 argmax=0 OK; arms_differ_hashes: {'HADAMARD_BIND': '7cff657142e68c86', 'CIRCULAR_CONV_HRR': 'c962417bd163a44e', 'FHRR_COMPLEX_MUL': '9a083e18c5c1feaa'}",
+  "elapsed_s": 0.16,
+  "ts_iso": "2026-07-01T04:15:45Z",
+  "pid": 9560,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_binding_op_x_capacity_v1_seed_19,bindings=[HADAMARD_BIND,CIRCULAR_CONV_HRR,FHRR_COMPLEX_MUL],N_DIM=8192,B_BANKS=16,SEED=19,mode=selftest,K_CLIFF_HADAMARD_REF=1500,ALPHA_FULL=[0.1,0.5,0.9],ALPHA_SMOKE=[0.5],n_q_full=30,n_q_smoke=20,V_ITEMS=8000,V_POS=8000,beta=8.0,expected_n_full=9,expected_n_smoke=3,discriminator=K_cliff_shift_ge_15pct_from_hadamard_at_alpha_0p5,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_binding_op_x_capacity_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

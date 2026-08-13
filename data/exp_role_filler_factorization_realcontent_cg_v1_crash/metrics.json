@@ -1,0 +1,9 @@
+{
+  "anchor_name": "role_filler_factorization_realcontent_cg_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "ValueError: too many values to unpack (expected 2)",
+  "summary": "CELL_CRASHED: ValueError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_realcontent_cg_v1.py\", line 829, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_realcontent_cg_v1.py\", line 819, in main\n    run_mode(\"smoke\")\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_realcontent_cg_v1.py\", line 736, in run_mode\n    sweep = correlation_sweep(**sweep_cfg)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_realcontent_cg_v1.py\", line 511, in correlation_sweep\n    acc, _ = evaluate(th, g_true, g_hat, proto, x, n_fillers)\n    ^^^^^^\nValueError: too many values to unpack (expected 2)\n",
+  "ts_iso": "2026-07-19T03:56:03.108825+00:00"
+}

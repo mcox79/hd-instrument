@@ -1,0 +1,138 @@
+{
+  "anchor_name": "self_explanation_richness_v3_K_sweep",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS self_explanation_richness_v3_K_sweep: best_K=K=1 TRUE=0.647 gap=0.554 cv=0.000 | arms_distinct=True | cardinality_ok=True (1500/1500) | smoke_gate=PASS K=1 TRUE=0.647 >= 0.30 (dispatch full) | K=1: TRUE=+0.647 COS=+0.093 RAND=-0.006 gap=+0.554 cv=0.000",
+  "summary": "HARD_PASS self_explanation_richness_v3_K_sweep: best_K=K=1 TRUE=0.647 gap=0.554 cv=0.000 | arms_distinct=True | cardinality_ok=True (1500/1500) | smoke_gate=PASS K=1 TRUE=0.647 >= 0.30 (dispatch full) | K=1: TRUE=+0.647 COS=+0.093 RAND=-0.006 gap=+0.554 cv=0.000",
+  "elapsed_s": 17.4,
+  "ts_iso": "2026-07-01T12:08:53Z",
+  "pid": 37532,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N": 2048,
+  "M_BINDS": 128,
+  "K_TRACE_SETTINGS": [
+    1
+  ],
+  "N_QUERIES": 500,
+  "arms_tested": [
+    "ARM_TRUE_TRACE",
+    "ARM_RANDOM_TRACE",
+    "ARM_COSINE_TRACE"
+  ],
+  "config_version": "ANCHOR=self_explanation_richness_v3_K_sweep,N=2048,M=128,K_settings=[1],queries=500,seeds=[7],mode=smoke,HP_bestK_true>=0.40,HP_gap>=0.20,HP_cv<=0.10,expected_n=1500,hardening=L1early+L2perarm+L3outertry+L4importsentinel,forkof=v1",
+  "per_K_summary": {
+    "K=1": {
+      "K_TRACE": 1,
+      "arms_stats": {
+        "ARM_TRUE_TRACE": {
+          "spearman_rho_flat_mean": 0.647497533990136,
+          "spearman_rho_flat_std": 0.0,
+          "spearman_rho_flat_cv": 0.0,
+          "n_seeds": 1
+        },
+        "ARM_RANDOM_TRACE": {
+          "spearman_rho_flat_mean": -0.006362329449317797,
+          "spearman_rho_flat_std": 0.0,
+          "spearman_rho_flat_cv": 0.0,
+          "n_seeds": 1
+        },
+        "ARM_COSINE_TRACE": {
+          "spearman_rho_flat_mean": 0.09347259789039156,
+          "spearman_rho_flat_std": 0.0,
+          "spearman_rho_flat_cv": 0.0,
+          "n_seeds": 1
+        }
+      },
+      "true_rho": 0.647497533990136,
+      "cosine_rho": 0.09347259789039156,
+      "random_rho": -0.006362329449317797,
+      "true_minus_cosine": 0.5540249360997445,
+      "true_minus_random": 0.6538598634394538,
+      "true_cv": 0.0,
+      "n_seeds": 1
+    }
+  },
+  "best_K": "K=1",
+  "best_true_rho": 0.647497533990136,
+  "best_gap": 0.5540249360997445,
+  "best_cv": 0.0,
+  "best_random_rho": -0.006362329449317797,
+  "hp_conds": {
+    "best_K_TRUE_rho>=0.40": true,
+    "best_K_TRUE-COSINE>=0.20": true,
+    "best_K_TRUE_cv<=0.10": true,
+    "best_K_RANDOM_in_band": true,
+    "arms_distinct": true,
+    "cardinality_ok": true,
+    "not_suspect_Q": true,
+    "smoke_gate_ok": true
+  },
+  "hf_conds": {
+    "no_K_TRUE>=0.30": false,
+    "all_K_TRUE<=COSINE": false,
+    "arms_NOT_distinct": false,
+    "cardinality_breach": false,
+    "suspect_Q": false
+  },
+  "arms_distinct": true,
+  "distinct_per_seed_K": [
+    true
+  ],
+  "cardinality_ok": true,
+  "total_events": 1500,
+  "expected_n_units": 1500,
+  "smoke_gate_ok": true,
+  "smoke_gate_msg": "PASS K=1 TRUE=0.647 >= 0.30 (dispatch full)",
+  "any_K_TRUE_ge_MB": true,
+  "all_K_TRUE_lt_COSINE": false,
+  "per_seed_K": [
+    {
+      "seed": 7,
+      "K_TRACE": 1,
+      "K_effective": 1,
+      "N": 2048,
+      "M_BINDS": 128,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_TRUE_TRACE": {
+          "spearman_rho_flat": 0.647497533990136,
+          "spearman_rho_per_query_mean": 0.0,
+          "spearman_rho_per_query_std": 0.0,
+          "n_queries": 500,
+          "n_units_arm": 500,
+          "K_effective": 1,
+          "scores_mean": 2.356949806213379,
+          "deltas_mean": 0.00599261187016964
+        },
+        "ARM_RANDOM_TRACE": {
+          "spearman_rho_flat": -0.006362329449317797,
+          "spearman_rho_per_query_mean": 0.0,
+          "spearman_rho_per_query_std": 0.0,
+          "n_queries": 500,
+          "n_units_arm": 500,
+          "K_effective": 1,
+          "scores_mean": 0.992914080619812,
+          "deltas_mean": 0.003759042825549841
+        },
+        "ARM_COSINE_TRACE": {
+          "spearman_rho_flat": 0.09347259789039156,
+          "spearman_rho_per_query_mean": 0.0,
+          "spearman_rho_per_query_std": 0.0,
+          "n_queries": 500,
+          "n_units_arm": 500,
+          "K_effective": 1,
+          "scores_mean": 1.0000001192092896,
+          "deltas_mean": 0.007560518104583025
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_TRUE_TRACE": "438a5d6eb23940c5",
+        "ARM_RANDOM_TRACE": "b7a39cba71a8c855",
+        "ARM_COSINE_TRACE": "8158a8c3e357fb30"
+      },
+      "n_queries": 500,
+      "n_units_seed_K": 1500
+    }
+  ],
+  "_hardening_marker": "v3_k_sweep_self_explanation_richness"
+}

@@ -1,0 +1,139 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 6/6 pts; sat=3 hp=0 mb=0 floor=2 fail=1; arms_differ=True; gpu_util~0.00; reason=smoke_gate_pass: cardinality_ok + arms_differ + 0.43_sat + 0.52_floor + 0.48_edge + 1_transition_pts",
+  "summary": "HARD_PASS_SMOKE: 6/6 pts; sat=3 hp=0 mb=0 floor=2 fail=1; arms_differ=True; gpu_util~0.00; reason=smoke_gate_pass: cardinality_ok + arms_differ + 0.43_sat + 0.52_floor + 0.48_edge + 1_transition_pts",
+  "phase_map": [
+    {
+      "N": 2048,
+      "corruption_frac": 0.43,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.005,
+      "discriminator": 0.995,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.052,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 2048,
+      "corruption_frac": 0.48,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 0.2,
+      "top1_random": 0.0,
+      "discriminator": 0.2,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.045,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 2048,
+      "corruption_frac": 0.52,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 0.0,
+      "top1_random": 0.01,
+      "discriminator": -0.01,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.068,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.43,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.01,
+      "discriminator": 0.99,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.328,
+      "crlb_1step_cliff_prediction": 0.4873
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.48,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 0.985,
+      "top1_random": 0.005,
+      "discriminator": 0.98,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.307,
+      "crlb_1step_cliff_prediction": 0.4873
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.52,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 19,
+      "top1_substrate": 0.0,
+      "top1_random": 0.005,
+      "discriminator": -0.005,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.293,
+      "crlb_1step_cliff_prediction": 0.4873
+    }
+  ],
+  "cliff_locator": {
+    "iters_5": {
+      "N_2048": 0.48,
+      "N_16384": 0.52
+    }
+  },
+  "arms_differ_sha256": {
+    "substrate_hash": "96b9692211564128d6a469d135a6dad1a3d4e4a22380b562a477748ba41cd531",
+    "random_hash": "18b77b9260fad1190ae645d5b30a094e8603bff3531d413405816d7696bcb746",
+    "differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "observed_n_units": 6,
+  "tier_counts": {
+    "SATURATED": 3,
+    "HARD_PASS": 0,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 2,
+    "HARD_FAIL": 1
+  },
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + arms_differ + 0.43_sat + 0.52_floor + 0.48_edge + 1_transition_pts",
+  "crlb_predictions_1step": {
+    "2048": 0.464,
+    "16384": 0.4873
+  },
+  "gpu_util_estimate": 0.0,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "anchor_name": "substrate_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid_seed_19",
+  "elapsed_s": 1.18,
+  "ts_iso": "2026-06-28T20:22:52Z",
+  "pid": 39096,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid_seed_19,N=[2048,4096,8192,16384],SEED=19,mode=smoke,corruption=[0.43,0.44,0.45,0.455,0.46,0.465,0.47,0.475,0.48,0.485,0.49,0.495,0.50,0.51,0.52],iters=[1,5,20],M=500,beta=8.0,arms=[SUBSTRATE,RANDOM_FLOOR],expected_n_full=180,expected_n_smoke=6,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2p2_pc_corruption_cliff_dense_chunked",
+  "backend": "torch.cpu",
+  "seed": 19,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid",
+  "n_llm_calls": 0
+}

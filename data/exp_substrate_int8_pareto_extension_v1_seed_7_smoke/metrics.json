@@ -1,0 +1,149 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: INT8 Pareto-dominates at only 1/1 M regime (partial extension of E v5 finding). per_M_gate={40000: {'pareto_winner_majority': 'INT8_DENSE', 'winners_by_N': ['INT8_DENSE'], 'discriminating_at_M': True, 'int8_cv_max': 0.0, 'bfloat_cv_max': 0.0, 'binary_cv_max': 0.0, 'int8_dominates_M_hp': True}}",
+  "summary": "MIDDLE_BAND: INT8 Pareto-dominates at only 1/1 M regime (partial extension of E v5 finding). per_M_gate={40000: {'pareto_winner_majority': 'INT8_DENSE', 'winners_by_N': ['INT8_DENSE'], 'discriminating_at_M': True, 'int8_cv_max': 0.0, 'bfloat_cv_max': 0.0, 'binary_cv_max': 0.0, 'int8_dominates_M_hp': True}}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "arms": [
+    "INT8_DENSE",
+    "BFLOAT16_DENSE",
+    "BINARY_DENSE"
+  ],
+  "M_sweep": [
+    40000
+  ],
+  "N_sweep": [
+    4096
+  ],
+  "per_M_gate": {
+    "40000": {
+      "pareto_winner_majority": "INT8_DENSE",
+      "winners_by_N": [
+        "INT8_DENSE"
+      ],
+      "discriminating_at_M": true,
+      "int8_cv_max": 0.0,
+      "bfloat_cv_max": 0.0,
+      "binary_cv_max": 0.0,
+      "int8_dominates_M_hp": true
+    }
+  },
+  "stats_cross_seed": {
+    "INT8_DENSE__M40000__N4096": {
+      "recall_mean": 0.9832500219345093,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 942.59,
+      "n_seeds": 1
+    },
+    "BFLOAT16_DENSE__M40000__N4096": {
+      "recall_mean": 0.9832500219345093,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1883.3408,
+      "n_seeds": 1
+    },
+    "BINARY_DENSE__M40000__N4096": {
+      "recall_mean": 0.9262499809265137,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 117.7088,
+      "n_seeds": 1
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 3,
+  "observed_n_units_per_seed": [
+    3
+  ],
+  "mechanism_hashes_distinct": true,
+  "int8_dominates_count": 1,
+  "crossover_present": false,
+  "q_saturation_breach_all_M": false,
+  "any_cv_breach": false,
+  "seen_winners": [
+    "INT8_DENSE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "per_unit": {
+        "INT8_DENSE__M40000__N4096": {
+          "arm": "INT8_DENSE",
+          "M": 40000,
+          "N": 4096,
+          "recall": 0.9832500219345093,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 942.59,
+          "elapsed_s": 6.496,
+          "mechanism_hash": "243dfb099f36ea3307fc53b5af8cb7c861352cbc894c73d694481c755892b009",
+          "seed": 7
+        },
+        "BFLOAT16_DENSE__M40000__N4096": {
+          "arm": "BFLOAT16_DENSE",
+          "M": 40000,
+          "N": 4096,
+          "recall": 0.9832500219345093,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 1883.3408,
+          "elapsed_s": 6.563,
+          "mechanism_hash": "8d47419463e0f5406858b15bdf79243cc44496410b22abde5e535d06d59c4d4b",
+          "seed": 7
+        },
+        "BINARY_DENSE__M40000__N4096": {
+          "arm": "BINARY_DENSE",
+          "M": 40000,
+          "N": 4096,
+          "recall": 0.9262499809265137,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 4708352,
+          "bytes_per_fact": 117.7088,
+          "elapsed_s": 6.931,
+          "mechanism_hash": "9462d716ecadb6683503632b747af75a2de41676e1da50be364d38c68d0815e1",
+          "seed": 7
+        }
+      },
+      "M_sweep": [
+        40000
+      ],
+      "N_sweep": [
+        4096
+      ],
+      "arms": [
+        "INT8_DENSE",
+        "BFLOAT16_DENSE",
+        "BINARY_DENSE"
+      ],
+      "anchor_name": "substrate_int8_pareto_extension_v1_seed_7",
+      "config_version": "ANCHOR=substrate_int8_pareto_extension_v1_seed_7,arms=[INT8_DENSE,BFLOAT16_DENSE,BINARY_DENSE],M_sweep_full=[10000,20000,40000],M_sweep_smoke=[40000],N_sweep_full=[2048,4096,8192],N_sweep_smoke=[4096],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=INT8_Pareto_dominance_ge2_of_3_M+META_RULE_Q+cv_lt_0p08,cv_hp=0.08,cv_mb=0.10,saturation_ceil=0.95,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab),hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782902365.9536145
+    }
+  ],
+  "topK": 1,
+  "INT8_LEAD_TOLERANCE": 0.005,
+  "CROSS_SEED_CV_MAX_HP": 0.08,
+  "CROSS_SEED_CV_MAX_MB": 0.1,
+  "SATURATION_RECALL_CEIL": 0.95,
+  "anchor_name": "substrate_int8_pareto_extension_v1_seed_7",
+  "elapsed_s": 20.89,
+  "ts_iso": "2026-07-01T10:39:26Z",
+  "pid": 12680,
+  "config_version": "ANCHOR=substrate_int8_pareto_extension_v1_seed_7,arms=[INT8_DENSE,BFLOAT16_DENSE,BINARY_DENSE],M_sweep_full=[10000,20000,40000],M_sweep_smoke=[40000],N_sweep_full=[2048,4096,8192],N_sweep_smoke=[4096],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=INT8_Pareto_dominance_ge2_of_3_M+META_RULE_Q+cv_lt_0p08,cv_hp=0.08,cv_mb=0.10,saturation_ceil=0.95,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab),hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_int8_pareto_extension_chunked",
+  "backend": "cpu",
+  "seed": 7,
+  "corpus_provenance": "synthetic_uniform_KG_5000ent_100rel_M_sweep_10k_20k_40k_N_sweep_2048_4096_8192_holdout_10pct_queries"
+}

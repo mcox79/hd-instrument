@@ -1,0 +1,98 @@
+{
+  "verdict": "RESERVOIR_FAILING_VALID",
+  "verdict_msg": "all can-fail arms < 0.100 (worst 0.054) AND gated headroom >= 0.50 (min 1.000), both seeds; chance=0.0500 -> the construction separates learned content-gated maintenance from structure-alone.",
+  "summary": "RESERVOIR_FAILING_VALID | chance=0.0500 | all can-fail arms < 0.100 (worst 0.054) AND gated headroom >= 0.50 (min 1.000), both seeds; chance=0.0500 -> the constru",
+  "run_mode": "full",
+  "elapsed_s": 21.982124500209466,
+  "ts_iso": "2026-07-30T07:02:40.812380+00:00",
+  "anchor_name": "selective_overwrite_recall_calib_v1",
+  "chance": 0.05,
+  "bands": {
+    "chance": 0.05,
+    "near_chance_bar": 0.1,
+    "headroom_min": 0.5,
+    "worst_canfail_acc": 0.054,
+    "min_gated_headroom_acc": 1.0
+  },
+  "params": {
+    "V_FILL": 20,
+    "S_TARGET": 6,
+    "N_DISTRACT_SLOTS": 24,
+    "N_DISTRACT_EVENTS": 60,
+    "WRITES": [
+      2,
+      4
+    ],
+    "TAIL_MIN": 8,
+    "D_EMB": 64,
+    "D_RES": 128,
+    "RHO": 0.9,
+    "train_n": 3000,
+    "eval_n": 1500,
+    "seeds": [
+      7,
+      13
+    ]
+  },
+  "construction_selftest": {
+    "shortcut_accs": {
+      "globally_last": 0.04,
+      "first_occurrence": 0.0475,
+      "most_frequent": 0.04125,
+      "fixed_position_0": 0.035,
+      "fixed_position_5": 0.04,
+      "fixed_position_10": 0.04625,
+      "fixed_position_20": 0.0575,
+      "fixed_position_-1": 0.04
+    },
+    "label_max_share": 0.0625,
+    "keep_last": 1.0,
+    "split_overlap": 0,
+    "chance": 0.05,
+    "fails": []
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_n": 3000,
+      "eval_n": 1500,
+      "d_res": 128,
+      "arms": {
+        "reservoir_esn_linear": 0.04933333333333333,
+        "reservoir_esn_mlp": 0.04133333333333333,
+        "shortcut_globally_last": 0.038,
+        "shortcut_first_occurrence": 0.035333333333333335,
+        "shortcut_most_frequent": 0.048666666666666664,
+        "shortcut_fixed_position": 0.05333333333333334,
+        "gated_reservoir_at_lastwrite": 1.0,
+        "oracle_keep_last": 1.0
+      },
+      "train_accs": {
+        "reservoir_esn_linear": 0.30366666666666664,
+        "reservoir_esn_mlp": 1.0,
+        "gated_reservoir_at_lastwrite": 1.0
+      }
+    },
+    {
+      "seed": 13,
+      "train_n": 3000,
+      "eval_n": 1500,
+      "d_res": 128,
+      "arms": {
+        "reservoir_esn_linear": 0.054,
+        "reservoir_esn_mlp": 0.04466666666666667,
+        "shortcut_globally_last": 0.03333333333333333,
+        "shortcut_first_occurrence": 0.03866666666666667,
+        "shortcut_most_frequent": 0.050666666666666665,
+        "shortcut_fixed_position": 0.04733333333333333,
+        "gated_reservoir_at_lastwrite": 1.0,
+        "oracle_keep_last": 1.0
+      },
+      "train_accs": {
+        "reservoir_esn_linear": 0.30766666666666664,
+        "reservoir_esn_mlp": 1.0,
+        "gated_reservoir_at_lastwrite": 1.0
+      }
+    }
+  ]
+}

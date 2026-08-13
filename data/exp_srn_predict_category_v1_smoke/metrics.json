@@ -1,0 +1,157 @@
+{
+  "verdict": "INVALID_REGIME",
+  "verdict_msg": "regime invalid: ami_random_mean=0.010 (must|.|<0.03, fires=True), ami_static_mean=0.017 (must in (0.03,0.95), in_band=False)",
+  "summary": "INVALID_REGIME: regime invalid: ami_random_mean=0.010 (must|.|<0.03, fires=True), ami_static_mean=0.017 (must in (0.03,0.95), in_band=Fa",
+  "elapsed_s": 7.52,
+  "ts_iso": "2026-07-18T04:34:55.792146+00:00",
+  "anchor_name": "srn_predict_category_v1",
+  "mode": "smoke",
+  "config": {
+    "n_sents": 500,
+    "vocab_size": 180,
+    "min_count": 3,
+    "d": 64,
+    "k": 4,
+    "epochs": 4,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7
+    ],
+    "kmeans_seeds": [
+      0
+    ],
+    "min_members": 5
+  },
+  "corpus": {
+    "n_sentences": 500,
+    "n_sequences": 455,
+    "n_tokens": 5772,
+    "vocab_size": 180,
+    "n_gold_words": 174,
+    "n_categories": 8,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT"
+    ],
+    "category_member_counts": {
+      "NOUN": 76,
+      "VERB": 31,
+      "ADJ": 15,
+      "ADV": 7,
+      "DET": 15,
+      "ADP": 19,
+      "PRON": 6,
+      "PRT": 5
+    }
+  },
+  "arms": [
+    "LEARNER",
+    "STATIC_PPMI",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "learner_ce": 4.1441,
+      "ami_learner": 0.0562,
+      "ami_static": 0.0172,
+      "ami_random": 0.0098,
+      "nmi_learner": 0.1344,
+      "nmi_static": 0.1025,
+      "nmi_random": 0.0954,
+      "ari_learner": 0.0127,
+      "ari_static": -0.0044,
+      "purity_learner": 0.4655,
+      "purity_static": 0.4425,
+      "delta_ami": 0.039,
+      "delta_nmi": 0.0319
+    }
+  ],
+  "aggregate": {
+    "ami_learner_mean": 0.0562,
+    "ami_static_mean": 0.0172,
+    "ami_random_mean": 0.0098,
+    "delta_ami_mean": 0.039,
+    "nmi_learner_mean": 0.1344,
+    "nmi_static_mean": 0.1025,
+    "hp_seeds": 1,
+    "hf_seeds": 0,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": false,
+    "arms_differ_verified": true
+  },
+  "example_clusters_learner": [
+    {
+      "cluster": 0,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.727,
+      "example_words": [
+        "medical",
+        "united",
+        "dallas",
+        "time",
+        "funds",
+        "grants",
+        "years",
+        "republican"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.583,
+      "example_words": [
+        "which",
+        "year",
+        "texas",
+        "new",
+        "law",
+        "local",
+        "can",
+        "party"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.571,
+      "example_words": [
+        "the",
+        "that",
+        "he",
+        "said",
+        "it",
+        "his",
+        "there",
+        "city"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.326,
+      "example_words": [
+        "a",
+        "be",
+        "was",
+        "as",
+        "this",
+        "with",
+        "been",
+        "who"
+      ]
+    }
+  ],
+  "secondary_nextword": null
+}

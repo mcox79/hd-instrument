@@ -1,0 +1,138 @@
+{
+  "anchor_name": "substrate_partition_routing_hierarchical_2level_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "M=10M not in sweep",
+  "summary": "M=10M not in sweep",
+  "headline": "M=10M not in sweep",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "100000": {
+      "arm_single_level": {
+        "recall_mean": 0.95,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.95
+        ]
+      },
+      "arm_2level_hierarchical": {
+        "recall_mean": 0.95,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.95
+        ]
+      },
+      "arm_flat_kv_reference": {
+        "recall_mean": 0.7,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.7
+        ]
+      }
+    },
+    "1000000": {
+      "arm_single_level": {
+        "recall_mean": 0.9667,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.9667
+        ]
+      },
+      "arm_2level_hierarchical": {
+        "recall_mean": 0.9833,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.9833
+        ]
+      },
+      "arm_flat_kv_reference": {
+        "recall_mean": 0.5,
+        "recall_cv": 0.0,
+        "per_seed_recall": [
+          0.5
+        ]
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 1024,
+      "n_sweep_M": [
+        100000,
+        1000000
+      ],
+      "part_size_single": 2000,
+      "part_size_fine": 1000,
+      "n_coarse": 10,
+      "target_cos": 0.133,
+      "cat_cos": 0.7,
+      "cat_cos_coarse": 0.8,
+      "per_M": {
+        "100000": {
+          "M": 100000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.95,
+            "route_acc": 1.0,
+            "P_single": 50,
+            "elapsed_s": 0.71
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.95,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 10,
+            "elapsed_s": 0.35
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.7,
+            "elapsed_s": 0.73
+          }
+        },
+        "1000000": {
+          "M": 1000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.9667,
+            "route_acc": 1.0,
+            "P_single": 500,
+            "elapsed_s": 0.78
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.9833,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 100,
+            "elapsed_s": 0.39
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.5,
+            "elapsed_s": 6.15
+          }
+        }
+      },
+      "elapsed_s_seed": 9.2,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782435408.5564573
+    }
+  ],
+  "elapsed_s": 9.232694625854492,
+  "gpu_available": false,
+  "gpu_name": "cpu",
+  "bands": {
+    "HARD_PASS_M10M_2LEVEL": 0.8,
+    "HARD_PASS_M10M_SINGLE_CLIFF": 0.5,
+    "HARD_PASS_M10M_FLAT_COLLAPSE": 0.1,
+    "CHAIN_GRADE_M10M_2LEVEL": 0.7,
+    "HARD_FAIL_M10M_2LEVEL": 0.5,
+    "HARD_PASS_CV": 0.05,
+    "Q_SUSPECT_SATURATION": 0.995
+  },
+  "config_version": "v1_2level_hierarchical_n_coarse_10_part_fine_1000_seeds_11_13_19",
+  "DESIGN_NOTE": "Hierarchical 2-level partition routing for M=10M. 3 arms: SINGLE_LEVEL (Cell 1's flat 5000 partitions at M=10M; predicted to cliff via FHRR pair-space at N=8192), 2LEVEL_HIERARCHICAL (10 coarse * 1000 fine = 10000 partitions of 1000 each), FLAT_KV_REFERENCE (flat scan all N; predicted to collapse). Brain analog: hippocampal indexing into cortical regions (Goyal/Buzsaki 2021)."
+}

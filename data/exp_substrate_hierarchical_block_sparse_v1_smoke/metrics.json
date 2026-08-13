@@ -1,0 +1,130 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | BLOCK_SPARSE_NO_RESCUE (opts=0.100 <= 0.10; encoding-axis test negative; closure clause activates if Drill A also HARD_FAILs) | BS_OPTS=0.100 NBA=0.050 DB=0.000 POL=0.050 RB=0.200 RAND=0.050 | OPTS-RB=-0.100 OPTS-DB=0.100 OPTS-NBA=0.050 OPTS-RAND=0.050 cv=0.000 arms_distinct=True chance_floor=2.143e-05 sbc_cap=310.5",
+  "summary": "HARD_FAIL | BLOCK_SPARSE_NO_RESCUE (opts=0.100 <= 0.10; encoding-axis test negative; closure clause activates if Drill A also HARD_FAILs) | BS_OPTS=0.100 NBA=0.050 DB=0.000 POL=0.050 RB=0.200 RAND=0.050 | OPTS-RB=-0.100 OPTS-DB=0.100 OPTS-NBA=0.050 OPTS-RAND=0.050 cv=0.000 arms_distinct=True chance_floor=2.143e-05 sbc_cap=310.5",
+  "per_arm": {
+    "block_sparse_options_full": {
+      "7": {
+        "solve_rate": 0.1,
+        "n_solved": 2,
+        "n_goals": 20,
+        "median_plan_len": 7.5,
+        "median_plan_ratio_vs_optimal": 1.875,
+        "_seq_hash": "c02d9940e99e71ff"
+      }
+    },
+    "no_block_assignment": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 21.0,
+        "median_plan_ratio_vs_optimal": 5.25,
+        "_seq_hash": "8824524fcc027717"
+      }
+    },
+    "dense_baseline": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "a8026aa0beb09995"
+      }
+    },
+    "policy_only": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 17.0,
+        "median_plan_ratio_vs_optimal": 4.25,
+        "_seq_hash": "41bb56b17ba419e5"
+      }
+    },
+    "random_blocks": {
+      "7": {
+        "solve_rate": 0.2,
+        "n_solved": 4,
+        "n_goals": 20,
+        "median_plan_len": 9.0,
+        "median_plan_ratio_vs_optimal": 2.25,
+        "_seq_hash": "3869a29406bb875c"
+      }
+    },
+    "random": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": 1.5,
+        "_seq_hash": "696fbfb74877fc0f"
+      }
+    }
+  },
+  "per_arm_summary": {
+    "block_sparse_options_full": {
+      "solve_rate_mean": 0.1,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 1.875,
+      "n": 1
+    },
+    "no_block_assignment": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 5.25,
+      "n": 1
+    },
+    "dense_baseline": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "policy_only": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 4.25,
+      "n": 1
+    },
+    "random_blocks": {
+      "solve_rate_mean": 0.2,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 2.25,
+      "n": 1
+    },
+    "random": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 1.5,
+      "n": 1
+    }
+  },
+  "lift_options_minus_random_blocks": -0.1,
+  "lift_options_minus_dense_baseline": 0.1,
+  "lift_options_minus_no_block_assignment": 0.05,
+  "lift_options_minus_random": 0.05,
+  "arms_distinct": true,
+  "n_seeds_complete": 1,
+  "expected_n_units": 120,
+  "completed_units": 120,
+  "cardinality_ok": true,
+  "chance_random_floor": 2.143347050754458e-05,
+  "chance_random_rerank_ub": 0.04137174211248285,
+  "sbc_capacity_theoretical": 310.5299368908555,
+  "anchor_name": "substrate_hierarchical_block_sparse_v1",
+  "elapsed_s": 19.2,
+  "ts_iso": "2026-06-28T15:46:55Z",
+  "pid": 37400,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_block_sparse_v1,N=8192,L=64,B=128,blocks_per_opt=16,state_blocks=16,k_per_block=8,domain_blocks=4,pos=3,actions=6,options=3,K_anchor=32,goals=20,depth=6,max_total=24,seeds=[7],mode=smoke,HP_opts>=0.30,HP_lift_rb>=0.15,HP_lift_db>=0.25,db_max=0.20,unsat_hi=0.95,expected_n=120,sbc_cap=310.5,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AC+META_AF+META_AG+META_AH+META_AL+META_AN+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_block_sparse"
+}

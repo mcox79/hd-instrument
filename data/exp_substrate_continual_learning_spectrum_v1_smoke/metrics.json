@@ -1,0 +1,233 @@
+{
+  "anchor": "substrate_continual_learning_spectrum_v1",
+  "anchor_name": "substrate_continual_learning_spectrum_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_DIM": 4096,
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "J_phases": 3,
+  "m_per_phase": 200,
+  "arms": [
+    "ARM_BASELINE_STATIC",
+    "ARM_DISCRETE_ADD",
+    "ARM_CFRPE_ONLINE",
+    "ARM_CLS_REPLAY",
+    "ARM_FULL_CL_SYSTEM"
+  ],
+  "config_version": "cl-spectrum-v1: N_DIM=4096 J=3 M=200 alpha_fast=1.0 alpha_slow=0.1 alpha_cfrpe=0.05 K_BANKS=2 gate_beta=4.0 n_replay_passes=5 n_cfrpe_passes=3 noise_frac=0.2 retrieve_steps=5 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_atoms_per_domain_permutation",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_synthetic_bipolar_cl_spectrum_5arm",
+  "per_arm_aggregate": {
+    "ARM_BASELINE_STATIC": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.5,
+      "mean_flops": 6727663616.0,
+      "mean_compute_per_update": 33638318.08,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_DISCRETE_ADD": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 20182990848.0,
+      "mean_compute_per_update": 33638318.08,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    "ARM_CFRPE_ONLINE": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.225,
+      "std_forgetting_p1": 0.10606601717798218,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.2,
+      "mean_flops": 120946950144.0,
+      "mean_compute_per_update": 201578250.24,
+      "phase_recalls_per_seed": [
+        [
+          [
+            0.6
+          ],
+          [
+            0.45,
+            0.0
+          ],
+          [
+            0.45,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.65
+          ],
+          [
+            0.35,
+            0.0
+          ],
+          [
+            0.35,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_CLS_REPLAY": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 242044895232.0,
+      "mean_compute_per_update": 403408158.72,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    "ARM_FULL_CL_SYSTEM": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.825,
+      "std_transfer_final": 0.03535533905932733,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 307929022464.0,
+      "mean_compute_per_update": 513215037.44,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            0.8
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            0.85
+          ]
+        ]
+      ]
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CL spectrum characterized but no chain-grade point: hp_a=True hp_b=True hp_c=False. FULL_CL forgetting=0.000 transfer=0.825 vs DISCRETE forgetting=0.000 (delta=0.000); CLS_REPLAY forgetting=0.000; CFRPE_ONLINE forgetting=0.225; BASELINE_static p1_initial_recall=1.000",
+  "summary": "MIDDLE_BAND: FULL_CL forgetting_p1=0.000 transfer=0.825 compute_per_update=5.13e+08 flops/atom | DISCRETE_baseline forgetting=0.000",
+  "elapsed_s": 175.103089094162
+}

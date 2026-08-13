@@ -1,0 +1,190 @@
+{
+  "verdict": "REINDEX_DECODER_MIDDLE_OFF_INVERSION",
+  "verdict_msg": "band=MIDDLE | ARM_REVISION held act=1.000 pas=1.000 xvoice_consistency=1.000 (trained act=1.000 pas=1.000 cons=1.000) | STEP1 feedforward floor: ARM_FF consistency=0.997 (per-voice act=0.875 pas=0.638) ARM_FF_FROZEN consistency=0.897 | beats_step1=False reanalysis_fired=False (REVISION pas 1.000 - NOCUE pas 1.000 = 0.000) memorized=False | inverted control ARM_ENCODER_LINPROBE ap=0.027 pa=0.218 (premise_ok=True <= 0.40) | gate g_active=0.084 g_passive=0.953",
+  "summary": "REINDEX_DECODER_MIDDLE_OFF_INVERSION | chance=0.50 | band=MIDDLE | ARM_REVISION held act=1.000 pas=1.000 xvoice_consistency=1.000 (trained act=1.000 pas=1.000 cons=1.000) | STEP1 feedforward floor: ARM_FF consiste",
+  "run_mode": "smoke",
+  "elapsed_s": 15.268750199815258,
+  "ts_iso": "2026-07-31T02:26:36.706488+00:00",
+  "anchor_name": "reindex_voice_invariant_role_decoder_v1",
+  "chance": 0.5,
+  "arms": {
+    "ARM_FF": {
+      "held": {
+        "active": 0.875,
+        "passive": 0.6383333206176758,
+        "xvoice_consistency": 0.996666669845581
+      },
+      "trained": {
+        "active": 0.7900000214576721,
+        "passive": 0.6899999976158142,
+        "xvoice_consistency": 1.0
+      },
+      "digest": "31997658f0f08c9c411d21bc7e23b02895afd758b9e9585f85f801c70b503c10"
+    },
+    "ARM_FF_FROZEN": {
+      "held": {
+        "active": 0.8966666460037231,
+        "_g_active": 0.0,
+        "passive": 1.0,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.8966666460037231
+      },
+      "trained": {
+        "active": 1.0,
+        "passive": 1.0,
+        "xvoice_consistency": 1.0
+      },
+      "digest": "492384e09b00ed9c7d79f0fa4f74ef2863e4d267758e5fa14bc9659aa87d255a"
+    },
+    "ARM_REVISION": {
+      "held": {
+        "active": 1.0,
+        "_g_active": 0.08368746936321259,
+        "passive": 1.0,
+        "_g_passive": 0.9529438018798828,
+        "xvoice_consistency": 1.0
+      },
+      "trained": {
+        "active": 1.0,
+        "passive": 1.0,
+        "xvoice_consistency": 1.0
+      },
+      "digest": "7858203147ad58e3731632f2c726c1867072290f75f38d10f50ffb98ab45c1dc"
+    },
+    "ARM_REVISION_NOCUE": {
+      "held": {
+        "active": 0.9666666388511658,
+        "_g_active": 0.0,
+        "passive": 1.0,
+        "_g_passive": 0.0,
+        "xvoice_consistency": 0.9666666388511658
+      },
+      "trained": {
+        "active": 1.0,
+        "passive": 1.0,
+        "xvoice_consistency": 1.0
+      },
+      "digest": "af5d1f6408cabec5bd53115e75fc24684e94bb558e9b9aeb4d4d437702bc9e66"
+    },
+    "ARM_ENCODER_LINPROBE": {
+      "linear_probe_xvoice_held": {
+        "active_to_passive": 0.02666666666666667,
+        "passive_to_active": 0.21833333333333332
+      },
+      "digest": "a238660f3a21668bfb1427bb247507bd383c1fb1f023bd99b599962485e61173"
+    }
+  },
+  "step1_feedforward_floor": {
+    "arm_ff_xvoice_consistency": 0.996666669845581,
+    "arm_ff_per_voice": {
+      "active": 0.875,
+      "passive": 0.6383333206176758
+    },
+    "arm_ff_frozen_xvoice_consistency": 0.8966666460037231
+  },
+  "smoke_discriminator_fires": {
+    "revision_trained_passive": 1.0,
+    "nocue_trained_passive": 1.0,
+    "margin": 0.0,
+    "required": 0.15,
+    "fired": false
+  },
+  "fhrr_slot_demo": {
+    "agent_recovered": true,
+    "patient_recovered": true
+  },
+  "bands": {
+    "pass_min": 0.7,
+    "fail_max": 0.55,
+    "cons_pass": 0.7,
+    "linprobe_invert_max": 0.4,
+    "step1_beat_margin": 0.05,
+    "reanalysis_margin": 0.1
+  },
+  "arms_differ_verified": true,
+  "digests": {
+    "ARM_FF": "31997658f0f08c9c411d21bc7e23b02895afd758b9e9585f85f801c70b503c10",
+    "ARM_FF_FROZEN": "492384e09b00ed9c7d79f0fa4f74ef2863e4d267758e5fa14bc9659aa87d255a",
+    "ARM_REVISION": "7858203147ad58e3731632f2c726c1867072290f75f38d10f50ffb98ab45c1dc",
+    "ARM_REVISION_NOCUE": "af5d1f6408cabec5bd53115e75fc24684e94bb558e9b9aeb4d4d437702bc9e66",
+    "ARM_ENCODER_LINPROBE": "a238660f3a21668bfb1427bb247507bd383c1fb1f023bd99b599962485e61173"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units_done": 5,
+  "params": {
+    "arm_units": [
+      "ARM_FF",
+      "ARM_FF_FROZEN",
+      "ARM_REVISION",
+      "ARM_REVISION_NOCUE",
+      "ARM_ENCODER_LINPROBE"
+    ],
+    "seed": 7,
+    "vocab_size": 54,
+    "max_len": 12,
+    "train_nouns": [
+      "dog",
+      "cat",
+      "bird",
+      "fish",
+      "horse",
+      "cow",
+      "sheep",
+      "goat",
+      "lion",
+      "tiger",
+      "bear",
+      "wolf",
+      "fox",
+      "deer",
+      "mouse",
+      "frog"
+    ],
+    "heldout_nouns": [
+      "duck",
+      "hawk",
+      "seal",
+      "crab",
+      "whale",
+      "shark",
+      "snake",
+      "owl"
+    ],
+    "train_verbs": [
+      "helped",
+      "chased",
+      "greeted",
+      "followed",
+      "warned",
+      "thanked",
+      "noticed",
+      "watched"
+    ],
+    "heldout_verbs": [
+      "pushed",
+      "pulled",
+      "carried",
+      "called",
+      "touched",
+      "kicked",
+      "licked",
+      "hugged"
+    ],
+    "d_model": 48,
+    "n_layers": 2,
+    "enc_steps": 400,
+    "dec_steps": 400,
+    "relax_iters": 3,
+    "sink_temp": 0.5,
+    "n_dec_train": 1000
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "cell_chunked": false,
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "argmax/closed-form role readout on frozen latents; discriminator = pre-registered bands",
+  "calibration_check": "default_ok_for_this_regime: fixed HYPOTHESIZED thresholds set before running; chance=0.50 exact-by-construction."
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_multihop_brain_pushback_composition_v2_hardened",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "CRASHED: RuntimeError: BLOCKING make_deep_chains: only 0/200 generated for V=200 disallow|=200 max_depth=8",
+  "summary": "CRASHED: RuntimeError: BLOCKING make_deep_chains: only 0/200 generated for V=200 disallow|=200 max_depth=8",
+  "elapsed_s": 2.2,
+  "ts_iso": "2026-06-27T16:50:48Z",
+  "pid": 34796,
+  "run_mode": "full",
+  "config_version": "brainPushbackComp-v2-hardened: N=8192 V_C=200 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7, 17, 23] depths=[2, 3, 5, 8] mode=full R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.20] expected_arms=5 expected_n_units=60 hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v2_hardened",
+  "_exception_class": "RuntimeError",
+  "_exception_message": "BLOCKING make_deep_chains: only 0/200 generated for V=200 disallow|=200 max_depth=8",
+  "_exception_traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_substrate_multihop_brain_pushback_composition_v2_hardened.py\", line 1081, in <module>\n    _rc = _main_inner()\n          ^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_substrate_multihop_brain_pushback_composition_v2_hardened.py\", line 1030, in _main_inner\n    rec = run_seed(s, progress_writer=_progress_writer)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_substrate_multihop_brain_pushback_composition_v2_hardened.py\", line 769, in run_seed\n    test_triples, test_chains = make_deep_chains(\n                                ^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_substrate_multihop_brain_pushback_composition_v2_hardened.py\", line 304, in make_deep_chains\n    raise RuntimeError(\nRuntimeError: BLOCKING make_deep_chains: only 0/200 generated for V=200 disallow|=200 max_depth=8\n"
+}

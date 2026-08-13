@@ -1,0 +1,76 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_3_arms_ok; full_elapsed_s=3.92 <= 900; coverage=1.0 >= 0.95; avg_chunks/file=7.55 >= 2.0; reingest_det_w_l2=0.0 < 1e-06",
+  "elapsed_s": 14.03,
+  "summary": {
+    "anchor": "substrate_director_kb_content_chunk_ingest_v1",
+    "smoke": true,
+    "N_DIM": 2048,
+    "seed": 17,
+    "max_files_per_class": 50,
+    "schema_version": "v1",
+    "schema_hash": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+    "kb_version": "v1",
+    "chunk_ingest_version": "v1",
+    "arms": [
+      {
+        "arm": "ARM_CHUNK_SMOKE_NOTES_ONLY",
+        "ok": true,
+        "elapsed_s": 2.289,
+        "n_discovered": 50,
+        "n_chunks": 472,
+        "n_triples": 1413,
+        "n_entities": 1069,
+        "avg_chunks_per_file": 9.44,
+        "coverage_ratio": 1.0,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v1_smoke\\_arm_smoke_notes_only\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_FULL",
+        "ok": true,
+        "elapsed_s": 3.92,
+        "n_discovered": 152,
+        "per_class_discovered": {
+          "note": 50,
+          "memory": 50,
+          "prereg": 50,
+          "director_plan": 1,
+          "fleet_state": 1
+        },
+        "n_chunks": 1147,
+        "n_triples": 3227,
+        "n_entities": 2627,
+        "n_relations": 67,
+        "avg_chunks_per_file": 7.55,
+        "coverage_ratio": 1.0,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v1_smoke\\_arm_full\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_REINGEST_DET",
+        "ok": true,
+        "elapsed_s": 7.082,
+        "t_run_a_s": 3.508,
+        "t_run_b_s": 3.574,
+        "entities_byte_equal": true,
+        "relations_byte_equal": true,
+        "atoms_byte_equal": true,
+        "w_l2_diff": 0.0,
+        "w_within_tolerance": true,
+        "w_tolerance": 1e-06,
+        "n_chunks_a": 1147,
+        "n_chunks_b": 1147
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_3_arms_ok; full_elapsed_s=3.92 <= 900; coverage=1.0 >= 0.95; avg_chunks/file=7.55 >= 2.0; reingest_det_w_l2=0.0 < 1e-06",
+    "elapsed_s": 14.03,
+    "envelope_hp_max_full_elapsed_s": 900,
+    "envelope_hf_max_full_elapsed_s": 1800,
+    "envelope_hp_min_coverage": 0.95,
+    "envelope_hf_min_coverage": 0.8,
+    "envelope_hp_min_avg_chunks_per_file": 2.0,
+    "envelope_hf_min_avg_chunks_per_file": 1.2,
+    "envelope_hp_max_w_l2": 1e-06,
+    "cardinality_ok": true
+  }
+}

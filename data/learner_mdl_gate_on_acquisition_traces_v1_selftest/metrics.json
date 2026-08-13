@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: MANDATORY PRE-CHECK FAILED: per_cluster_gate did not fire True on a hand-constructed maximally-compressible (perfectly-separable, non-degenerate-entropy) trace set: {'chosen': 'KEEP_EPISODIC', 'compression_ratio': 1.0, 'null_bits': 8.0, 'description_bits': 8.0, 'is_episodic': True, 'n_rules': 0}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_learner_mdl_gate_on_acquisition_traces_v1.py\", line 565, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_learner_mdl_gate_on_acquisition_traces_v1.py\", line 551, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_learner_mdl_gate_on_acquisition_traces_v1.py\", line 492, in self_test\n    precheck = precheck_maximally_compressible()\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_learner_mdl_gate_on_acquisition_traces_v1.py\", line 191, in precheck_maximally_compressible\n    assert gate is True, (\n           ^^^^^^^^^^^^\nAssertionError: MANDATORY PRE-CHECK FAILED: per_cluster_gate did not fire True on a hand-constructed maximally-compressible (perfectly-separable, non-degenerate-entropy) trace set: {'chosen': 'KEEP_EPISODIC', 'compression_ratio': 1.0, 'null_bits': 8.0, 'description_bits': 8.0, 'is_episodic': True, 'n_rules': 0}\n",
+  "ts_iso": "2026-08-09T19:16:28.673565+00:00",
+  "pid": 11392,
+  "anchor_name": "learner_mdl_gate_on_acquisition_traces_v1"
+}

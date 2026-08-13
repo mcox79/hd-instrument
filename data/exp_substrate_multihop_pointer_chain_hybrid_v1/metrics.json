@@ -1,0 +1,215 @@
+{
+  "anchor_name": "substrate_multihop_pointer_chain_hybrid_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_POINTER_NO_LIFT: BASELINE=0.3950 POINTER_2HOP=0.3950 (cv=0.047) HYBRID=0.3950 (cv=0.047) POINTER_2HOP=0.3950 POINTER_5HOP=0.1150 POINTER_10HOP=0.0217 | rails=['BASELINE_OUT_OF_BAND(0.395 not in [0.62,0.68])'] | bands: HP_break=False cv_ok=True depth_ret=False (deep_results=[(2, 0.395), (5, 0.115), (10, 0.021666666666666667)])",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "pointerChainHybrid-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=300 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "config_version": "pointerChainHybrid-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=300 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.415,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 14.62
+      },
+      "arm_pointer_chain_2hop": {
+        "top1": 0.415,
+        "per_step_acc": [
+          0.695,
+          0.415
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 17.15
+      },
+      "arm_pointer_chain_5hop": {
+        "top1": 0.145,
+        "per_step_acc": [
+          0.695,
+          0.415,
+          0.26,
+          0.2,
+          0.145
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 33.02
+      },
+      "arm_pointer_chain_10hop": {
+        "top1": 0.035,
+        "per_step_acc": [
+          0.695,
+          0.415,
+          0.26,
+          0.2,
+          0.145,
+          0.11,
+          0.07,
+          0.05,
+          0.03,
+          0.035
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "elapsed_s_arm": 64.46
+      },
+      "arm_pointer_hrr_hybrid": {
+        "top1": 0.415,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 16.72
+      },
+      "elapsed_s": 146.5,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782412500.8500063
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "config_version": "pointerChainHybrid-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=300 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.4,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 18.42
+      },
+      "arm_pointer_chain_2hop": {
+        "top1": 0.4,
+        "per_step_acc": [
+          0.625,
+          0.4
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 16.65
+      },
+      "arm_pointer_chain_5hop": {
+        "top1": 0.12,
+        "per_step_acc": [
+          0.625,
+          0.4,
+          0.25,
+          0.155,
+          0.12
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 32.66
+      },
+      "arm_pointer_chain_10hop": {
+        "top1": 0.015,
+        "per_step_acc": [
+          0.625,
+          0.4,
+          0.25,
+          0.155,
+          0.12,
+          0.08,
+          0.045,
+          0.03,
+          0.025,
+          0.015
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "elapsed_s_arm": 71.73
+      },
+      "arm_pointer_hrr_hybrid": {
+        "top1": 0.4,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 12.93
+      },
+      "elapsed_s": 153.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782412654.0678325
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "V_P": 10,
+      "K_SET": 20,
+      "n_chains": 200,
+      "config_version": "pointerChainHybrid-v1: N=8192 V_C=200 V_P=10 K_SET=20 n_chains=300 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.37,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 18.53
+      },
+      "arm_pointer_chain_2hop": {
+        "top1": 0.37,
+        "per_step_acc": [
+          0.565,
+          0.37
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 47.33
+      },
+      "arm_pointer_chain_5hop": {
+        "top1": 0.08,
+        "per_step_acc": [
+          0.565,
+          0.37,
+          0.225,
+          0.135,
+          0.08
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 108.65
+      },
+      "arm_pointer_chain_10hop": {
+        "top1": 0.015,
+        "per_step_acc": [
+          0.565,
+          0.37,
+          0.225,
+          0.135,
+          0.08,
+          0.045,
+          0.02,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "elapsed_s_arm": 59.43
+      },
+      "arm_pointer_hrr_hybrid": {
+        "top1": 0.37,
+        "n_queries": 200,
+        "depth": 2,
+        "elapsed_s_arm": 12.62
+      },
+      "elapsed_s": 247.3,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782412901.3812106
+    }
+  ],
+  "elapsed_s": 547.6,
+  "summary": "HARD_FAIL_POINTER_NO_LIFT: BASELINE=0.3950 POINTER_2HOP=0.3950 (cv=0.047) HYBRID=0.3950 (cv=0.047) POINTER_2HOP=0.3950 POINTER_5HOP=0.1150 POINTER_10HOP=0.0217 | rails=['BASELINE_OUT_OF_BAND(0.395 not in [0.62,0.68])'] | bands: HP_break=False cv_ok=True depth_ret=False (deep_results=[(2, 0.395), (5, 0.115), (10, 0.021666666666666667)])",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Director Barrier-1 cell: pointer-chain hybrid as non-compositional escape hatch for multi-hop. Substrate-native: pointer index = single W matrix + HRR cleanup at each step (not Python dict). ARM_POINTER_CHAIN_*HOP arms test depth retention; ARM_POINTER_HRR_HYBRID adds per-step nearest-atom cleanup for substrate-product mode. Apples-to-apples baseline = ARM_BASELINE_HRR_2HOP must reproduce ~0.65."
+}

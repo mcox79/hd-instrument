@@ -1,0 +1,404 @@
+{
+  "anchor_name": "substrate_stage1_definitive_validation_v1",
+  "verdict": "STAGE_1_CHAIN_GRADE_ALIVE",
+  "verdict_msg": "STAGE_1_CHAIN_GRADE_ALIVE: 5 of 8 arms HARD_PASS. [CORE=PASS CAP=PASS MH=FAIL COMP_OBJ=FAIL COMP_CROSS=PASS CL=PASS NOISE=PASS REFUSE=FAIL] ARM_CORE top1=1.000 (>=0.95 cv=0.000) | ARM_CAP m_cliff_min=25000 mean=25000 | ARM_MH K20=0.203 K50=0.202 (floors 0.85/0.40) | ARM_COMP_OBJ lift=0.367 (>=0.50) | ARM_COMP_CROSS lift=0.980 (expected FAIL; edge) | ARM_CL forget=0.0000 (<0.050) | ARM_NOISE sigma_cliff=8.00 (>=1.0) | ARM_REFUSE refuse=1.000 ret=0.000 (>=0.80/0.95)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "stage1-defv1: sparse-bipolar f=0.020 amp=1/sqrt(fN) + rank1-Hebbian-W + HRR-bind; N=8192 V_C=200 V_P=10 ARM_CORE_M=2000 CAP_grid=[500, 2000, 10000, 25000] MH_K=[1, 5, 10, 20, 50] CL_phases=5 CL_m_per_phase=200 NOISE_sigma=[0.5, 1.0, 2.0, 4.0, 8.0] COMP_train=100 COMP_holdout=80 REFUSE_train=500; bands core>=0.95 mh_K20>=0.85 mh_K50>=0.40 comp_lift>=0.50 cl_forget<=0.050 refuse>=0.80 ret>=0.95 cell_pass>=5 cv<=0.10",
+  "per_seed": [
+    {
+      "seed": 7,
+      "config_version": "stage1-defv1: sparse-bipolar f=0.020 amp=1/sqrt(fN) + rank1-Hebbian-W + HRR-bind; N=8192 V_C=200 V_P=10 ARM_CORE_M=2000 CAP_grid=[500, 2000, 10000, 25000] MH_K=[1, 5, 10, 20, 50] CL_phases=5 CL_m_per_phase=200 NOISE_sigma=[0.5, 1.0, 2.0, 4.0, 8.0] COMP_train=100 COMP_holdout=80 REFUSE_train=500; bands core>=0.95 mh_K20>=0.85 mh_K50>=0.40 comp_lift>=0.50 cl_forget<=0.050 refuse>=0.80 ret>=0.95 cell_pass>=5 cv<=0.10",
+      "N_DIM": 8192,
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "sparse_f": 0.02,
+      "run_mode": "full",
+      "arm_core_storage_retrieval": {
+        "M_taught": 1277,
+        "top1": 1.0,
+        "n_query": 400,
+        "chance_top1": 0.005
+      },
+      "arm_capacity_edge_sweep": {
+        "curve": {
+          "500": {
+            "top1": 1.0,
+            "M_unique": 436,
+            "n_query": 200
+          },
+          "2000": {
+            "top1": 1.0,
+            "M_unique": 1273,
+            "n_query": 200
+          },
+          "10000": {
+            "top1": 1.0,
+            "M_unique": 1984,
+            "n_query": 200
+          },
+          "25000": {
+            "top1": 1.0,
+            "M_unique": 2000,
+            "n_query": 200
+          }
+        },
+        "m_cliff_at_95pct": 25000,
+        "m_grid": [
+          500,
+          2000,
+          10000,
+          25000
+        ]
+      },
+      "arm_multihop_wave14r_k50": {
+        "per_K_acc": {
+          "1": 0.5856,
+          "5": 0.2592,
+          "10": 0.2136,
+          "20": 0.202,
+          "50": 0.2032
+        },
+        "k_grid": [
+          1,
+          5,
+          10,
+          20,
+          50
+        ],
+        "n_trials": 50,
+        "chance_top1": 0.005
+      },
+      "arm_compositional_gen_obj_axis": {
+        "top5": 0.5,
+        "chance_top5": 0.1,
+        "lift_over_chance": 0.4,
+        "n_query": 80,
+        "n_train": 100,
+        "K_objs_per_sp": 3
+      },
+      "arm_compositional_gen_cross_slot": {
+        "top1": 1.0,
+        "chance_top1": 0.02,
+        "lift_over_chance": 0.98,
+        "n_query": 80,
+        "K_subjs_trained": 5,
+        "edge_note": "expected HARD_FAIL per CLEAN_v1 cell (substrate doesn't extrapolate across slots)"
+      },
+      "arm_cl_append_only_5_domains": {
+        "j_phases": 5,
+        "m_per_phase": 200,
+        "p1_recall_after_all_phases": 0.91,
+        "p1_recall_baseline_after_phase1": 0.91,
+        "forget": 0.0,
+        "capacity_ratio_vs_baseline": 5,
+        "d_slab": 1638
+      },
+      "arm_noise_robustness_sigma_sweep": {
+        "per_sigma_top1": {
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "2.0": 1.0,
+          "4.0": 1.0,
+          "8.0": 1.0
+        },
+        "sigma_grid": [
+          0.5,
+          1.0,
+          2.0,
+          4.0,
+          8.0
+        ],
+        "sigma_cliff_at_80pct": 8.0,
+        "n_query": 100,
+        "noise_scaling": "relative_to_key_norm; sigma=1.0 means noise_norm == key_norm"
+      },
+      "arm_refuse_gate_hard_discriminator": {
+        "refuse_acc_unknown": 1.0,
+        "retention_known": 0.0,
+        "tau_star": 0.05,
+        "top1_known_atoms": 1.0,
+        "joint_iters_used": 5,
+        "n_test_known": 150,
+        "n_test_unknown": 100
+      },
+      "wall_s": 397.8
+    },
+    {
+      "seed": 17,
+      "config_version": "stage1-defv1: sparse-bipolar f=0.020 amp=1/sqrt(fN) + rank1-Hebbian-W + HRR-bind; N=8192 V_C=200 V_P=10 ARM_CORE_M=2000 CAP_grid=[500, 2000, 10000, 25000] MH_K=[1, 5, 10, 20, 50] CL_phases=5 CL_m_per_phase=200 NOISE_sigma=[0.5, 1.0, 2.0, 4.0, 8.0] COMP_train=100 COMP_holdout=80 REFUSE_train=500; bands core>=0.95 mh_K20>=0.85 mh_K50>=0.40 comp_lift>=0.50 cl_forget<=0.050 refuse>=0.80 ret>=0.95 cell_pass>=5 cv<=0.10",
+      "N_DIM": 8192,
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "sparse_f": 0.02,
+      "run_mode": "full",
+      "arm_core_storage_retrieval": {
+        "M_taught": 1242,
+        "top1": 1.0,
+        "n_query": 400,
+        "chance_top1": 0.005
+      },
+      "arm_capacity_edge_sweep": {
+        "curve": {
+          "500": {
+            "top1": 1.0,
+            "M_unique": 431,
+            "n_query": 200
+          },
+          "2000": {
+            "top1": 1.0,
+            "M_unique": 1238,
+            "n_query": 200
+          },
+          "10000": {
+            "top1": 1.0,
+            "M_unique": 1985,
+            "n_query": 200
+          },
+          "25000": {
+            "top1": 1.0,
+            "M_unique": 2000,
+            "n_query": 200
+          }
+        },
+        "m_cliff_at_95pct": 25000,
+        "m_grid": [
+          500,
+          2000,
+          10000,
+          25000
+        ]
+      },
+      "arm_multihop_wave14r_k50": {
+        "per_K_acc": {
+          "1": 0.5792,
+          "5": 0.256,
+          "10": 0.2112,
+          "20": 0.2028,
+          "50": 0.2016
+        },
+        "k_grid": [
+          1,
+          5,
+          10,
+          20,
+          50
+        ],
+        "n_trials": 50,
+        "chance_top1": 0.005
+      },
+      "arm_compositional_gen_obj_axis": {
+        "top5": 0.4375,
+        "chance_top5": 0.1,
+        "lift_over_chance": 0.3375,
+        "n_query": 80,
+        "n_train": 100,
+        "K_objs_per_sp": 3
+      },
+      "arm_compositional_gen_cross_slot": {
+        "top1": 1.0,
+        "chance_top1": 0.02,
+        "lift_over_chance": 0.98,
+        "n_query": 80,
+        "K_subjs_trained": 5,
+        "edge_note": "expected HARD_FAIL per CLEAN_v1 cell (substrate doesn't extrapolate across slots)"
+      },
+      "arm_cl_append_only_5_domains": {
+        "j_phases": 5,
+        "m_per_phase": 200,
+        "p1_recall_after_all_phases": 0.9,
+        "p1_recall_baseline_after_phase1": 0.9,
+        "forget": 0.0,
+        "capacity_ratio_vs_baseline": 5,
+        "d_slab": 1638
+      },
+      "arm_noise_robustness_sigma_sweep": {
+        "per_sigma_top1": {
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "2.0": 1.0,
+          "4.0": 1.0,
+          "8.0": 1.0
+        },
+        "sigma_grid": [
+          0.5,
+          1.0,
+          2.0,
+          4.0,
+          8.0
+        ],
+        "sigma_cliff_at_80pct": 8.0,
+        "n_query": 100,
+        "noise_scaling": "relative_to_key_norm; sigma=1.0 means noise_norm == key_norm"
+      },
+      "arm_refuse_gate_hard_discriminator": {
+        "refuse_acc_unknown": 1.0,
+        "retention_known": 0.0,
+        "tau_star": 0.05,
+        "top1_known_atoms": 1.0,
+        "joint_iters_used": 5,
+        "n_test_known": 150,
+        "n_test_unknown": 100
+      },
+      "wall_s": 402.6
+    },
+    {
+      "seed": 23,
+      "config_version": "stage1-defv1: sparse-bipolar f=0.020 amp=1/sqrt(fN) + rank1-Hebbian-W + HRR-bind; N=8192 V_C=200 V_P=10 ARM_CORE_M=2000 CAP_grid=[500, 2000, 10000, 25000] MH_K=[1, 5, 10, 20, 50] CL_phases=5 CL_m_per_phase=200 NOISE_sigma=[0.5, 1.0, 2.0, 4.0, 8.0] COMP_train=100 COMP_holdout=80 REFUSE_train=500; bands core>=0.95 mh_K20>=0.85 mh_K50>=0.40 comp_lift>=0.50 cl_forget<=0.050 refuse>=0.80 ret>=0.95 cell_pass>=5 cv<=0.10",
+      "N_DIM": 8192,
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "sparse_f": 0.02,
+      "run_mode": "full",
+      "arm_core_storage_retrieval": {
+        "M_taught": 1280,
+        "top1": 1.0,
+        "n_query": 400,
+        "chance_top1": 0.005
+      },
+      "arm_capacity_edge_sweep": {
+        "curve": {
+          "500": {
+            "top1": 1.0,
+            "M_unique": 446,
+            "n_query": 200
+          },
+          "2000": {
+            "top1": 1.0,
+            "M_unique": 1276,
+            "n_query": 200
+          },
+          "10000": {
+            "top1": 1.0,
+            "M_unique": 1987,
+            "n_query": 200
+          },
+          "25000": {
+            "top1": 1.0,
+            "M_unique": 2000,
+            "n_query": 200
+          }
+        },
+        "m_cliff_at_95pct": 25000,
+        "m_grid": [
+          500,
+          2000,
+          10000,
+          25000
+        ]
+      },
+      "arm_multihop_wave14r_k50": {
+        "per_K_acc": {
+          "1": 0.5896,
+          "5": 0.2608,
+          "10": 0.212,
+          "20": 0.2032,
+          "50": 0.2024
+        },
+        "k_grid": [
+          1,
+          5,
+          10,
+          20,
+          50
+        ],
+        "n_trials": 50,
+        "chance_top1": 0.005
+      },
+      "arm_compositional_gen_obj_axis": {
+        "top5": 0.4625,
+        "chance_top5": 0.1,
+        "lift_over_chance": 0.3625,
+        "n_query": 80,
+        "n_train": 100,
+        "K_objs_per_sp": 3
+      },
+      "arm_compositional_gen_cross_slot": {
+        "top1": 1.0,
+        "chance_top1": 0.02,
+        "lift_over_chance": 0.98,
+        "n_query": 80,
+        "K_subjs_trained": 5,
+        "edge_note": "expected HARD_FAIL per CLEAN_v1 cell (substrate doesn't extrapolate across slots)"
+      },
+      "arm_cl_append_only_5_domains": {
+        "j_phases": 5,
+        "m_per_phase": 200,
+        "p1_recall_after_all_phases": 0.945,
+        "p1_recall_baseline_after_phase1": 0.945,
+        "forget": 0.0,
+        "capacity_ratio_vs_baseline": 5,
+        "d_slab": 1638
+      },
+      "arm_noise_robustness_sigma_sweep": {
+        "per_sigma_top1": {
+          "0.5": 1.0,
+          "1.0": 1.0,
+          "2.0": 1.0,
+          "4.0": 1.0,
+          "8.0": 0.99
+        },
+        "sigma_grid": [
+          0.5,
+          1.0,
+          2.0,
+          4.0,
+          8.0
+        ],
+        "sigma_cliff_at_80pct": 8.0,
+        "n_query": 100,
+        "noise_scaling": "relative_to_key_norm; sigma=1.0 means noise_norm == key_norm"
+      },
+      "arm_refuse_gate_hard_discriminator": {
+        "refuse_acc_unknown": 1.0,
+        "retention_known": 0.0,
+        "tau_star": 0.05,
+        "top1_known_atoms": 1.0,
+        "joint_iters_used": 5,
+        "n_test_known": 150,
+        "n_test_unknown": 100
+      },
+      "wall_s": 411.4
+    }
+  ],
+  "elapsed_s": 1212.0,
+  "summary": "STAGE_1_CHAIN_GRADE_ALIVE: 5 of 8 arms HARD_PASS. [CORE=PASS CAP=PASS MH=FAIL COMP_OBJ=FAIL COMP_CROSS=PASS CL=PASS NOISE=PASS REFUSE=FAIL] ARM_CORE top1=1.000 (>=0.95 cv=0.000) | ARM_CAP m_cliff_min=25000 mean=25000 | ARM_MH K20=0.203 K50=0.202 (floors 0.85/0.40) | ARM_COMP_OBJ lift=0.367 (>=0.50) | ARM_COMP_CROSS lift=0.980 (expected FAIL; edge) | ARM_CL forget=0.0000 (<0.050) | ARM_NOISE sigma_cliff=8.00 (>=1.0) | ARM_REFUSE refuse=1.000 ret=0.000 (>=0.80/0.95)",
+  "DESIGN_NOTE": "USER directive 2026-06-24: 'one final battery of tests to show definitively that these settings / what you've landed on work like you expect AND test around the edges.' Stage 1 substrate INTEGRATION: 8 arms at production scale N=8192 on substrate-native synthetic data (no encoder leakage). Per-arm pre-reg HARD-PASS floors; cell-level CHAIN_GRADE = >=5 of 8 arms PASS.",
+  "config": {
+    "N_DIM": 8192,
+    "V_CONCEPTS": 200,
+    "V_PREDICATES": 10,
+    "SPARSE_F": 0.02,
+    "ARM_CORE_M": 2000,
+    "ARM_CAP_M_GRID": [
+      500,
+      2000,
+      10000,
+      25000
+    ],
+    "ARM_MULTIHOP_K_GRID": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ],
+    "ARM_CL_PHASES": 5,
+    "ARM_CL_M_PER_PHASE": 200,
+    "ARM_NOISE_SIGMA_GRID": [
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0
+    ],
+    "ARM_COMP_N_TRAIN": 100,
+    "ARM_COMP_N_HELDOUT": 80,
+    "SEEDS": [
+      7,
+      17,
+      23
+    ],
+    "run_mode": "full"
+  }
+}

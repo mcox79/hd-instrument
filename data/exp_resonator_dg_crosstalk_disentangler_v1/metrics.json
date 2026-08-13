@@ -1,0 +1,226 @@
+{
+  "anchor_name": "resonator_dg_crosstalk_disentangler_v1",
+  "verdict": "GATE_CLEAR_EXPANSION",
+  "verdict_msg": "GATE_CLEAR: expansion lowers crosstalk_std 0.0106->0.0054 (ratio 1.96x >= 1.30) and raises oracle margin 0.977->0.989 -- Tsodyks-Feigelman SNR reading CONFIRMED; expansion is a real lever. Sparsify arm=COLLAPSE (margin 0.002). Decorr port gap=0.272 (ports). PROCEED to escape smoke; primary rescue arm = expansion-ALONE; sparsify ablation expected=informative-crater.",
+  "run_mode": "full",
+  "per_config": [
+    {
+      "K": 4,
+      "seed": 3,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.02500739098500505,
+        "crosstalk_std_mean": 0.010543113614818252,
+        "margin_mean": 0.9749926090149948,
+        "margin_min": 0.9534313129972939,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.01121989491003938,
+        "crosstalk_std_mean": 0.005574496935672007,
+        "margin_mean": 0.9887801050899605,
+        "margin_min": 0.9839616623170323,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.004999999999986948,
+        "best_wrong_mean": 0.0,
+        "crosstalk_std_mean": 0.0007498441416472931,
+        "margin_mean": 0.004999999999986948,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.005
+      }
+    },
+    {
+      "K": 4,
+      "seed": 7,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.023156340903357064,
+        "crosstalk_std_mean": 0.010896846883783912,
+        "margin_mean": 0.976843659096643,
+        "margin_min": 0.9665390682927267,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.011773479649906495,
+        "crosstalk_std_mean": 0.00564546023742091,
+        "margin_mean": 0.9882265203500935,
+        "margin_min": 0.9824046410310743,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.0,
+        "best_wrong_mean": 0.0,
+        "crosstalk_std_mean": 0.0,
+        "margin_mean": 0.0,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.0
+      }
+    },
+    {
+      "K": 4,
+      "seed": 13,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.02247919499345431,
+        "crosstalk_std_mean": 0.010669632555574071,
+        "margin_mean": 0.9775208050065457,
+        "margin_min": 0.9697951777931292,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.011244329462176832,
+        "crosstalk_std_mean": 0.005438062295067212,
+        "margin_mean": 0.9887556705378231,
+        "margin_min": 0.9850632666633788,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.004999999999987479,
+        "best_wrong_mean": 0.0009305126685087542,
+        "crosstalk_std_mean": 0.00016978655949443085,
+        "margin_mean": 0.004069487331478725,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.005
+      }
+    },
+    {
+      "K": 5,
+      "seed": 3,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.021697181558968444,
+        "crosstalk_std_mean": 0.01021816014174505,
+        "margin_mean": 0.9783028184410315,
+        "margin_min": 0.9699461846989942,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.01191533474330394,
+        "crosstalk_std_mean": 0.0053656993015543065,
+        "margin_mean": 0.9880846652566961,
+        "margin_min": 0.9825306367863496,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.0,
+        "best_wrong_mean": 0.0,
+        "crosstalk_std_mean": 0.0,
+        "margin_mean": 0.0,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.0
+      }
+    },
+    {
+      "K": 5,
+      "seed": 7,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.02210682647824782,
+        "crosstalk_std_mean": 0.010302608944039735,
+        "margin_mean": 0.977893173521752,
+        "margin_min": 0.9697194797130356,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.010330741238692267,
+        "crosstalk_std_mean": 0.005102486394576231,
+        "margin_mean": 0.9896692587613077,
+        "margin_min": 0.9845771842848153,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.0,
+        "best_wrong_mean": 0.0,
+        "crosstalk_std_mean": 0.0,
+        "margin_mean": 0.0,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.0
+      }
+    },
+    {
+      "K": 5,
+      "seed": 13,
+      "dense_N4096": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.020875360070744673,
+        "crosstalk_std_mean": 0.010804924474674009,
+        "margin_mean": 0.9791246399292552,
+        "margin_min": 0.970011531741659,
+        "oracle_recover_rate": 1.0
+      },
+      "dense_Nexp": {
+        "true_score_mean": 1.0,
+        "best_wrong_mean": 0.010813539227308003,
+        "crosstalk_std_mean": 0.005183364043025782,
+        "margin_mean": 0.989186460772692,
+        "margin_min": 0.9820566344126308,
+        "oracle_recover_rate": 1.0
+      },
+      "sparse_Nexp": {
+        "true_score_mean": 0.0,
+        "best_wrong_mean": 0.0,
+        "crosstalk_std_mean": 0.0,
+        "margin_mean": 0.0,
+        "margin_min": 0.0,
+        "oracle_recover_rate": 0.0
+      }
+    }
+  ],
+  "detail": {
+    "aggregate": {
+      "crosstalk_std": {
+        "dense_N4096": 0.010572547769105838,
+        "dense_Nexp": 0.005384928201219407,
+        "sparse_Nexp": 0.00015327178352362065
+      },
+      "oracle_margin": {
+        "dense_N4096": 0.9774462841683703,
+        "dense_Nexp": 0.9887837801280955,
+        "sparse_Nexp": 0.0015115812219109453
+      },
+      "expansion_snr_ratio": 1.9633590967307055
+    },
+    "decorrelation_port": {
+      "input_cos": 0.9575620208829411,
+      "code_cos": 0.6856298550109038,
+      "gap": 0.2719321658720373,
+      "ports": true
+    },
+    "expansion_confirmed": true,
+    "sparsify_state": "COLLAPSE",
+    "decorr_ports": true,
+    "arms_differ_verified": true,
+    "bands": {
+      "expansion_snr_ratio_min": 1.3,
+      "decorr_gap_min": 0.15,
+      "sparsify_viable_margin": 0.3,
+      "sparsify_collapse_margin": 0.1
+    },
+    "config": {
+      "N_BASE": 4096,
+      "N_EXP": 16384,
+      "R_EXPAND": 4,
+      "M": 30,
+      "SPARSITY": 0.02,
+      "K_PROBE": [
+        4,
+        5
+      ],
+      "N_TRIALS": 200,
+      "SEEDS": [
+        3,
+        7,
+        13
+      ]
+    }
+  },
+  "elapsed_s": 12.432752699998673,
+  "summary": "GATE_CLEAR: expansion lowers crosstalk_std 0.0106->0.0054 (ratio 1.96x >= 1.30) and raises oracle margin 0.977->0.989 -- Tsodyks-Feigelman SNR reading CONFIRMED; expansion is a real lever. Sparsify arm=COLLAPSE (margin 0.002). Decorr port gap=0.272 (ports). PROCEED to escape smoke; primary rescue arm = expansion-ALONE; sparsify ablation expected=informative-crater."
+}

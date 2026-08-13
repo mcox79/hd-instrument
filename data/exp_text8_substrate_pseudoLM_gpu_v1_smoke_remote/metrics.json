@@ -1,0 +1,108 @@
+{
+  "anchor": "text8_substrate_pseudoLM_gpu_v1",
+  "anchor_name": "text8_substrate_pseudoLM_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate BPC 9.371 >= unigram BPC 8.024; fails to improve over unigram. BPC sub=9.371 uni=8.024 bigram=8.330 backoff=9.290 | acc sub=0.1984 bigram=0.2131 | cv_sub=0.000 n_llm=0 (n_seeds=1, V_DIM=4096, N_TRAIN=100000, N_HELD=5000)",
+  "n_seeds": 1,
+  "N": 4096,
+  "N_DIM": 4096,
+  "N_TRAIN": 100000,
+  "N_HELD": 5000,
+  "VOCAB_CAP": 4000,
+  "INGEST_CHUNK": 8192,
+  "RECALL_BATCH": 1024,
+  "BACKOFF_THRESH": 0.05,
+  "arms": [
+    "SUBSTRATE_LM_HEBBIAN",
+    "UNIGRAM_BASELINE",
+    "WORD_BIGRAM_BASELINE",
+    "SUBSTRATE_HEBBIAN_BIGRAM_BACKOFF"
+  ],
+  "run_mode": "smoke",
+  "device": "cuda",
+  "config_version": "text8-substrate-pseudoLM-gpu-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=5000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 BACKOFF_THRESH=0.050 run_mode=smoke device=cuda; bands HP_cv=0.10 HF_need_beat_unigram=True",
+  "allow_synthetic": false,
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_bpc_substrate": 9.371199918353165,
+    "mean_bpc_unigram": 8.024253077884207,
+    "mean_bpc_bigram": 8.330053215341573,
+    "mean_bpc_backoff": 9.29047342062316,
+    "cv_bpc_substrate": 0.0,
+    "mean_acc_substrate": 0.19840279510856001,
+    "mean_acc_bigram": 0.21312702770152234,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Path A pseudo-LM at GPU-class scale. text8 corpus, N_TRAIN=100000 N_HELD=5000 VOCAB_CAP=4000 N_DIM=4096. 4-arm discriminator: SUBSTRATE_LM_HEBBIAN vs UNIGRAM_BASELINE (CAN-FAIL floor) vs WORD_BIGRAM_BASELINE (HARD bar) vs SUBSTRATE_HEBBIAN_BIGRAM_BACKOFF (composition arm). Pure Hebbian W += sum outer(E[w_t+1], E[w_t]); single NEXT_TOKEN relation; substrate-only-decode (n_llm=0). Composes substrate_as_llm_scaling capacity finding + B2 TinyStories mechanism. text8 word-bigram bar ~3.84 BPC (L2 MVP frontier reference)."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "V": 4000,
+      "N": 4096,
+      "M": 100000,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 5000,
+      "VOCAB_CAP": 4000,
+      "n_eval": 4007,
+      "run_mode": "smoke",
+      "config_version": "text8-substrate-pseudoLM-gpu-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=5000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 BACKOFF_THRESH=0.050 run_mode=smoke device=cuda; bands HP_cv=0.10 HF_need_beat_unigram=True",
+      "ppl_substrate": 662.2352145847359,
+      "ppl_unigram": 260.3399812546321,
+      "ppl_bigram": 321.8072938630971,
+      "ppl_backoff": 626.1972752091867,
+      "bpc_substrate": 9.371199918353165,
+      "bpc_unigram": 8.024253077884207,
+      "bpc_bigram": 8.330053215341573,
+      "bpc_backoff": 9.29047342062316,
+      "acc_substrate": 0.19840279510856001,
+      "acc_unigram": 0.19316196655852258,
+      "acc_bigram": 0.21312702770152234,
+      "acc_backoff": 0.2073870726229099,
+      "backoff_frac_substrate": 0.6960319440978288,
+      "elapsed_s": 1.1948351860046387,
+      "n_llm_calls": 0,
+      "wall_ingest_s": 0.3401036262512207,
+      "wall_recall_s": 0.1462240219116211,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782186642.4463873,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_LM_HEBBIAN",
+          "ppl": 662.2352145847359,
+          "bpc": 9.371199918353165,
+          "acc": 0.19840279510856001,
+          "wall_s": 0.4863276481628418
+        },
+        {
+          "arm": "UNIGRAM_BASELINE",
+          "ppl": 260.3399812546321,
+          "bpc": 8.024253077884207,
+          "acc": 0.19316196655852258,
+          "wall_s": 0.0005300045013427734
+        },
+        {
+          "arm": "WORD_BIGRAM_BASELINE",
+          "ppl": 321.8072938630971,
+          "bpc": 8.330053215341573,
+          "acc": 0.21312702770152234,
+          "wall_s": 0.18380236625671387
+        },
+        {
+          "arm": "SUBSTRATE_HEBBIAN_BIGRAM_BACKOFF",
+          "ppl": 626.1972752091867,
+          "bpc": 9.29047342062316,
+          "acc": 0.2073870726229099,
+          "wall_s": 0.0005314350128173828,
+          "frac_substrate": 0.6960319440978288
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_text8_substrate_pseudoLM_gpu_4arm",
+  "elapsed_s": 1.226740837097168,
+  "summary": "HARD_FAIL: substrate BPC 9.371 >= unigram BPC 8.024; fails to improve over unigram. BPC sub=9.371 uni=8.024 bigram=8.330 backoff=9.290 | acc sub=0.1984 bigram=0.2131 | cv_sub=0.000 n_llm=0 (n_seeds=1,"
+}

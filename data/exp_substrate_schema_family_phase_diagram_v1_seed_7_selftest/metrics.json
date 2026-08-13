@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_schema_family_phase_diagram_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: EB=0.800 PROTO=1.000 HYBRID=0.800 BWP=0.800 (distinct_pairs=3/6) chance=0.020 rand=0.000 backend=numpy.cpu elapsed=0.5s",
+  "summary": "selftest OK: EB=0.800 PROTO=1.000 HYBRID=0.800 BWP=0.800 (distinct_pairs=3/6) chance=0.020 rand=0.000 backend=numpy.cpu elapsed=0.5s",
+  "elapsed_s": 5.01,
+  "ts_iso": "2026-06-29T02:10:31Z",
+  "pid": 9868,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_schema_family_phase_diagram_v1_seed_7,SEED=7,mode=selftest,families=[EXEMPLAR_BAYES,PROTOTYPE_BASED,HYBRID,BAYESIAN_WITH_PRIORS],alpha=[0.01,0.1,1.0,10.0],n_schemas=[10,50,200],N=4096,expected_n_full=48,expected_n_smoke=6,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED+PROT021",
+  "_hardening_marker": "v1_schema_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

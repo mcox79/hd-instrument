@@ -1,0 +1,9 @@
+{
+  "anchor_name": "structured_fhrr_role_event_carry_ccl_step1_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "NameError: name 'gap1_min' is not defined",
+  "summary": "CELL_CRASHED: NameError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_structured_fhrr_role_event_carry_ccl_step1_v1.py\", line 1158, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_structured_fhrr_role_event_carry_ccl_step1_v1.py\", line 1150, in main\n    run_mode(\"smoke\"); return\n    ^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_structured_fhrr_role_event_carry_ccl_step1_v1.py\", line 970, in run_mode\n    f\"shifts_C={per_seed_res[0]['C_struct_compressed']['n_shifts']} gap1_min={gap1_min:.3f} \"\n                                                                              ^^^^^^^^\nNameError: name 'gap1_min' is not defined\n",
+  "ts_iso": "2026-07-19T16:43:11.486580+00:00"
+}

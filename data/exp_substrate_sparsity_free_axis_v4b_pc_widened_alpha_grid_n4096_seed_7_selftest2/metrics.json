@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_sparsity_free_axis_v4b_pc_widened_alpha_grid_n4096_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=35 SMOKE=35; PC pred_top1 M=2000 alpha=0.10 c=0.60: 0.0866 (v4 MEASURED=0.507); REVIVAL EMPIRICAL CITE: v4 MEASURED PC top1 at M=2000 alpha=0.10 = mean(0.507, 0.5075, 0.5075) = 0.507 in [0.30, 0.90] band; CRLB monotone: alpha=0.05 -> 0.3638, alpha=0.25 -> 0.4391; widened-alpha formula check 7 points spans [0.05, 0.25] clean; formula preds at M=1500 across 7 alphas: [0.057 ... 0.128]; 3 hrr_real x sparsity codebooks distinct at seed=7; calibration hrr_real c=0.30 alpha=0.10: cos=0.4086 (target=0.4000); c=0.6 regime validated via v4 MEASURED cite; mechanism sanity T=1: c=0.30 M=100 N=2048 alpha=0.10 top1=1.000; arms-differ META_RULE_AF pass (M=200 alpha=0.10 mech/rnd distinct); widened-grid rho impact: single-swap 7pt = -0.928 vs 3pt = -0.5; gate -0.6: 3pt fails, 7pt passes with margin",
+  "summary": "cardinality FULL=35 SMOKE=35; PC pred_top1 M=2000 alpha=0.10 c=0.60: 0.0866 (v4 MEASURED=0.507); REVIVAL EMPIRICAL CITE: v4 MEASURED PC top1 at M=2000 alpha=0.10 = mean(0.507, 0.5075, 0.5075) = 0.507 in [0.30, 0.90] band; CRLB monotone: alpha=0.05 -> 0.3638, alpha=0.25 -> 0.4391; widened-alpha formula check 7 points spans [0.05, 0.25] clean; formula preds at M=1500 across 7 alphas: [0.057 ... 0.128]; 3 hrr_real x sparsity codebooks distinct at seed=7; calibration hrr_real c=0.30 alpha=0.10: cos=0.4086 (target=0.4000); c=0.6 regime validated via v4 MEASURED cite; mechanism sanity T=1: c=0.30 M=100 N=2048 alpha=0.10 top1=1.000; arms-differ META_RULE_AF pass (M=200 alpha=0.10 mech/rnd distinct); widened-grid rho impact: single-swap 7pt = -0.928 vs 3pt = -0.5; gate -0.6: 3pt fails, 7pt passes with margin",
+  "elapsed_s": 0.77,
+  "ts_iso": "2026-07-02T01:21:49Z",
+  "pid": 13108,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_sparsity_free_axis_v4b_pc_widened_alpha_grid_n4096_seed_7,encoder=hrr_real,sparsity=[0.05,0.08,0.10,0.12,0.15,0.20,0.25],M=[800,1000,1500,2000,2500],regimes=[PC],N=4096,SEED=7,mode=selftest,pc_c=0.60,pc_T=1,beta=8.0,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=35,expected_n_smoke=35,design_kind=SPARSITY_FREE_AXIS_V4B_PC_WIDENED_ALPHA_GRID,parent_refs=[v4_pc_only_HP2_MB1_seed19_breach,v5_wm_fixed_CG],BREACH_HYPOTHESIS=statistical_noise_at_3pt_grid_widen_smooths,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v4b_sparsity_free_axis_pc_widened_alpha_grid_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

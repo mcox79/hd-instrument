@@ -1,0 +1,11 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: synthesizer produced too few: 3",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_substrate_stage1_apply_exp2c_ppr_walk_synthesized_wikidata_bridges_smoke_2026_07_03.py\", line 965, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_substrate_stage1_apply_exp2c_ppr_walk_synthesized_wikidata_bridges_smoke_2026_07_03.py\", line 852, in main\n    selftest()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_substrate_stage1_apply_exp2c_ppr_walk_synthesized_wikidata_bridges_smoke_2026_07_03.py\", line 719, in selftest\n    assert len(queries) >= 10, \"synthesizer produced too few: %d\" % len(queries)\n           ^^^^^^^^^^^^^^^^^^\nAssertionError: synthesizer produced too few: 3\n",
+  "ts_iso": "2026-07-03T14:34:43.564102+00:00",
+  "pid": 18572,
+  "anchor_name": "substrate_stage1_apply_exp2c_ppr_walk_synthesized_wikidata_bridges_smoke_2026_07_03",
+  "run_mode": "self_test"
+}

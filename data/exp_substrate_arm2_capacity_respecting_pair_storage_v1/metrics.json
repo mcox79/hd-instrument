@@ -1,0 +1,376 @@
+{
+  "anchor_name": "substrate_arm2_capacity_respecting_pair_storage_v1",
+  "verdict": "DIAGNOSTIC_PASS",
+  "verdict_msg": "DIAGNOSTIC_PASS (by-construction): in_dist top-1 = 1.000 across 3 seeds (CV 0.00e+00 < 0.001). M=20 << capacity at D=8192 with f=0.050; crosstalk estimate ~6.10e-06 is far below the 1/n_obj=0.050 discrimination floor. HRR primitive ALIVE at canonical 1-to-1 regime; this is by construction, NOT chain-grade. Confirms shotgun ARM 2 failure (M=200 super-saturated) was a SATURATION issue, not primitive collapse. Capacity ceiling probe is the natural follow-up.",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "SPARSE_F": 0.05,
+  "N_SUBJ": 20,
+  "N_OBJ": 20,
+  "M_PAIRS": 20,
+  "n_seeds": 3,
+  "detail": {
+    "n_seeds": 3,
+    "in_distribution_top1_mean": 1.0,
+    "in_distribution_top1_cv": 0.0,
+    "in_distribution_top1_per_seed": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bank_l2_mean": 1845.6317138671875,
+    "bank_l2_per_seed": [
+      1849.6534423828125,
+      1838.226806640625,
+      1849.014892578125
+    ],
+    "mean_cosine_correct_per_seed": [
+      0.22068276330828668,
+      0.2186034768819809,
+      0.22043593525886535
+    ],
+    "mean_cosine_correct_mean": 0.21990739181637764,
+    "chance_top1": 0.05,
+    "crosstalk_estimate": 6.103515625000001e-06,
+    "is_exact_recovery": true,
+    "is_low_cv": true,
+    "CONFIG_VERSION": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[7, 17, 23] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+    "band_definition": {
+      "HARD_PASS": "in_dist >= 0.95 AND CV >= 0.001",
+      "DIAGNOSTIC_PASS": "in_dist == 1.000 AND CV < 0.001 (by-construction)",
+      "MIDDLE_BAND": "0.80 <= in_dist < 0.95",
+      "HARD_FAIL": "in_dist < 0.80"
+    },
+    "what_this_does_not_show": "In-distribution storage at canonical 1-to-1 regime ONLY. Does NOT test: (1) holdout / compositional generalization (separate follow-up cell); (2) capacity ceiling above M=vocab (capacity-sweep cell); (3) learning, plasticity, or gradient updates (pure substrate primitives); (4) chain-grade integration with substrate KG. DIAGNOSTIC_PASS tier reflects by-construction-saturation: at M=20 / D=8192 / f=0.05, crosstalk M*f^2/D ~ 6e-6 is far below the 1/n_obj=0.05 discrimination floor, so perfect recovery is mathematically expected, not informative.",
+    "honest_scope": "Pure substrate primitives (HRR bind/unbind + sparse-bipolar codebook). NumPy CPU. Per USER 2026-06-24 compositional-drill ANCHOR 1.",
+    "cites": [
+      "USER_compositional_drill_handoff_ANCHOR_1_2026-06-24",
+      "exp_substrate_brain_aligned_aliveness_shotgun_v1_ARM2_super_saturation_2026-06-24",
+      "by_construction_saturation_tiering_Skunkworks_2026-06-22",
+      "operational_findings_2026-06-23_HRR_involutive",
+      "operational_findings_2026-06-23_sparse_bipolar_20_300x_bundle_lift"
+    ]
+  },
+  "metrics_source": "measured_cpu_capacity_respecting_pair_storage",
+  "per_unit": [
+    {
+      "seed": 7,
+      "pair_storage": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "m_pairs": 20,
+        "in_distribution_top1": 1.0,
+        "chance_top1": 0.05,
+        "bank_l2": 1849.6534423828125,
+        "mean_cosine_correct": 0.22068276330828668,
+        "mean_cosine_top1": 0.22068276330828668,
+        "crosstalk_estimate": 6.103515625000001e-06,
+        "train_pairs": [
+          [
+            0,
+            15
+          ],
+          [
+            1,
+            13
+          ],
+          [
+            2,
+            19
+          ],
+          [
+            3,
+            16
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            7
+          ],
+          [
+            11,
+            5
+          ],
+          [
+            12,
+            3
+          ],
+          [
+            13,
+            17
+          ],
+          [
+            14,
+            12
+          ],
+          [
+            15,
+            10
+          ],
+          [
+            16,
+            18
+          ],
+          [
+            17,
+            14
+          ],
+          [
+            18,
+            2
+          ],
+          [
+            19,
+            8
+          ]
+        ],
+        "N": 8192,
+        "M": 20
+      },
+      "wall_s": 0.031656503677368164,
+      "run_mode": "full",
+      "config_version": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[7, 17, 23] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+      "N": 8192,
+      "M": 20,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782315429.6007285
+    },
+    {
+      "seed": 17,
+      "pair_storage": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "m_pairs": 20,
+        "in_distribution_top1": 1.0,
+        "chance_top1": 0.05,
+        "bank_l2": 1838.226806640625,
+        "mean_cosine_correct": 0.2186034768819809,
+        "mean_cosine_top1": 0.2186034768819809,
+        "crosstalk_estimate": 6.103515625000001e-06,
+        "train_pairs": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            18
+          ],
+          [
+            2,
+            19
+          ],
+          [
+            3,
+            16
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            15
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            14
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            11,
+            1
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            13,
+            11
+          ],
+          [
+            14,
+            2
+          ],
+          [
+            15,
+            7
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            17,
+            6
+          ],
+          [
+            18,
+            9
+          ],
+          [
+            19,
+            12
+          ]
+        ],
+        "N": 8192,
+        "M": 20
+      },
+      "wall_s": 0.03165435791015625,
+      "run_mode": "full",
+      "config_version": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[7, 17, 23] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+      "N": 8192,
+      "M": 20,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782315429.7119715
+    },
+    {
+      "seed": 23,
+      "pair_storage": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "m_pairs": 20,
+        "in_distribution_top1": 1.0,
+        "chance_top1": 0.05,
+        "bank_l2": 1849.014892578125,
+        "mean_cosine_correct": 0.22043593525886535,
+        "mean_cosine_top1": 0.22043593525886535,
+        "crosstalk_estimate": 6.103515625000001e-06,
+        "train_pairs": [
+          [
+            0,
+            18
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            9
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            19
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            7,
+            14
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            17
+          ],
+          [
+            11,
+            13
+          ],
+          [
+            12,
+            11
+          ],
+          [
+            13,
+            8
+          ],
+          [
+            14,
+            0
+          ],
+          [
+            15,
+            6
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            17,
+            16
+          ],
+          [
+            18,
+            15
+          ],
+          [
+            19,
+            7
+          ]
+        ],
+        "N": 8192,
+        "M": 20
+      },
+      "wall_s": 0.03222036361694336,
+      "run_mode": "full",
+      "config_version": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[7, 17, 23] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+      "N": 8192,
+      "M": 20,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782315429.8502805
+    }
+  ],
+  "elapsed_s": 0.34668970108032227,
+  "summary": "DIAGNOSTIC_PASS (by-construction): in_dist top-1 = 1.000 across 3 seeds (CV 0.00e+00 < 0.001). M=20 << capacity at D=8192 with f=0.050; crosstalk estimate ~6.10e-06 is far below the 1/n_obj=0.050 discrimination floor. HRR primitive ALIVE at canonical 1-to-1 regime; this is by construction, NOT chain-grade. Confirms shotgun ARM 2 failure (M=200 super-saturated) was a SATURATION issue, not primitive collapse. Capacity ceiling probe is the natural follow-up.",
+  "substrate_only_decode_gate": "N/A (mechanism-characterization cell, not LM cell)",
+  "CONFIG_VERSION": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[7, 17, 23] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)"
+}

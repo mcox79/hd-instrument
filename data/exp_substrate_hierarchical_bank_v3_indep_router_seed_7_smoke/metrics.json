@@ -1,0 +1,263 @@
+{
+  "phase_map": [
+    {
+      "codebook_structure": "flat",
+      "M": 200,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 200,
+      "N": 8192,
+      "recall": 0.995,
+      "routing_acc": 1.0,
+      "routing_label": "flat_no_routing_direct_cue",
+      "mech_output_hash": "18a6ac2c39cdfcc9",
+      "pred_pattern_hash": "18a6ac2c39cdfcc9",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "snr_matched_filter": 6.4161,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 2.338
+    },
+    {
+      "codebook_structure": "flat",
+      "M": 1000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 1000,
+      "N": 8192,
+      "recall": 0.196,
+      "routing_acc": 1.0,
+      "routing_label": "flat_no_routing_direct_cue",
+      "mech_output_hash": "38275d7ab9341d11",
+      "pred_pattern_hash": "38275d7ab9341d11",
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "snr_matched_filter": 2.8636,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 3.975
+    },
+    {
+      "codebook_structure": "flat",
+      "M": 4000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 4000,
+      "N": 8192,
+      "recall": 0.0065,
+      "routing_acc": 1.0,
+      "routing_label": "flat_no_routing_direct_cue",
+      "mech_output_hash": "d259497b5542696b",
+      "pred_pattern_hash": "2789ab28da9c789e",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "snr_matched_filter": 1.4313,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 19.125
+    },
+    {
+      "codebook_structure": "partition_by_source",
+      "M": 200,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 6,
+      "N": 8192,
+      "recall": 1.0,
+      "routing_acc": 1.0,
+      "routing_label": "oracle_partition_by_source_S32_per_bank_bundled_workspace",
+      "mech_output_hash": "de663cfb3b82787e",
+      "pred_pattern_hash": "de663cfb3b82787e",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "snr_matched_filter": 40.4772,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 0.144
+    },
+    {
+      "codebook_structure": "partition_by_source",
+      "M": 1000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 31,
+      "N": 8192,
+      "recall": 1.0,
+      "routing_acc": 1.0,
+      "routing_label": "oracle_partition_by_source_S32_per_bank_bundled_workspace",
+      "mech_output_hash": "702746827e553786",
+      "pred_pattern_hash": "702746827e553786",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "snr_matched_filter": 16.5247,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 0.587
+    },
+    {
+      "codebook_structure": "partition_by_source",
+      "M": 4000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 125,
+      "N": 8192,
+      "recall": 0.9998,
+      "routing_acc": 1.0,
+      "routing_label": "oracle_partition_by_source_S32_per_bank_bundled_workspace",
+      "mech_output_hash": "2f88e9ce00d238e7",
+      "pred_pattern_hash": "1a49b5235ed033b7",
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "snr_matched_filter": 8.128,
+      "router_snr_predicted": null,
+      "elapsed_per_point_s": 2.291
+    },
+    {
+      "codebook_structure": "hierarchical_S32_indep",
+      "M": 200,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 6,
+      "N": 8192,
+      "recall": 0.945,
+      "routing_acc": 0.945,
+      "routing_label": "hierarchical_S32_indep_router_anchors_per_bank_bundled_readout_v3_REVIVAL_path_b",
+      "mech_output_hash": "02371dc6deb13c2b",
+      "pred_pattern_hash": "02371dc6deb13c2b",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "snr_matched_filter": 40.4772,
+      "router_snr_predicted": 4.1,
+      "elapsed_per_point_s": 0.221
+    },
+    {
+      "codebook_structure": "hierarchical_S32_indep",
+      "M": 1000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 31,
+      "N": 8192,
+      "recall": 0.964,
+      "routing_acc": 0.964,
+      "routing_label": "hierarchical_S32_indep_router_anchors_per_bank_bundled_readout_v3_REVIVAL_path_b",
+      "mech_output_hash": "6d1b572cd7e68c19",
+      "pred_pattern_hash": "6d1b572cd7e68c19",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "snr_matched_filter": 16.5247,
+      "router_snr_predicted": 4.1,
+      "elapsed_per_point_s": 1.015
+    },
+    {
+      "codebook_structure": "hierarchical_S32_indep",
+      "M": 4000,
+      "n_super_banks": 32,
+      "M_effective_per_bank": 125,
+      "N": 8192,
+      "recall": 0.9627,
+      "routing_acc": 0.963,
+      "routing_label": "hierarchical_S32_indep_router_anchors_per_bank_bundled_readout_v3_REVIVAL_path_b",
+      "mech_output_hash": "52124207027cf648",
+      "pred_pattern_hash": "532e9aa9de8d3a35",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "snr_matched_filter": 8.128,
+      "router_snr_predicted": 4.1,
+      "elapsed_per_point_s": 4.244
+    }
+  ],
+  "per_structure_summary": {
+    "flat": {
+      "recall_mean": 0.3992,
+      "routing_acc_mean": 1.0,
+      "capacity_per_slot_at_M_max": 0.0065,
+      "routing_acc_at_M_max": 1.0,
+      "recall_per_M": {
+        "200": 0.995,
+        "1000": 0.196,
+        "4000": 0.0065
+      },
+      "routing_acc_per_M": {
+        "200": 1.0,
+        "1000": 1.0,
+        "4000": 1.0
+      }
+    },
+    "partition_by_source": {
+      "recall_mean": 0.9999,
+      "routing_acc_mean": 1.0,
+      "capacity_per_slot_at_M_max": 0.9998,
+      "routing_acc_at_M_max": 1.0,
+      "recall_per_M": {
+        "200": 1.0,
+        "1000": 1.0,
+        "4000": 0.9998
+      },
+      "routing_acc_per_M": {
+        "200": 1.0,
+        "1000": 1.0,
+        "4000": 1.0
+      }
+    },
+    "hierarchical_S32_indep": {
+      "recall_mean": 0.9572,
+      "routing_acc_mean": 0.9573,
+      "capacity_per_slot_at_M_max": 0.9627,
+      "routing_acc_at_M_max": 0.963,
+      "recall_per_M": {
+        "200": 0.945,
+        "1000": 0.964,
+        "4000": 0.9627
+      },
+      "routing_acc_per_M": {
+        "200": 0.945,
+        "1000": 0.964,
+        "4000": 0.963
+      }
+    }
+  },
+  "structure_pair_pred_distinctness": {
+    "flat_vs_partition_by_source": true,
+    "flat_vs_hierarchical_S32_indep": true,
+    "partition_by_source_vs_hierarchical_S32_indep": true
+  },
+  "structure_pair_mech_distinctness": {
+    "flat_vs_partition_by_source": true,
+    "flat_vs_hierarchical_S32_indep": true,
+    "partition_by_source_vs_hierarchical_S32_indep": true
+  },
+  "n_pairs_pred_differ": 3,
+  "n_pairs_mech_differ": 3,
+  "distinctness_self_report_pass": true,
+  "capacity_lift_hier_vs_flat_at_M_max": 148.1077,
+  "capacity_lift_hier_vs_partition_at_M_max": 0.9629,
+  "hier_routing_acc_at_M_max": 0.963,
+  "positive_control_result": {
+    "target": {
+      "codebook_structure": "flat",
+      "M": 200,
+      "recall_floor": 0.8
+    },
+    "measured_recall": 0.995,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 9,
+  "observed_n_units": 9,
+  "tier_counts": {
+    "SATURATED": 4,
+    "HARD_PASS": 3,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 1,
+    "HARD_FAIL": 1
+  },
+  "n_discriminating": 3,
+  "M_max_measured": 4000,
+  "n_super_banks": 32,
+  "device": "cpu",
+  "backend": "numpy.cpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE_v3_INDEP_ROUTER: discriminator_fires; sat=4 hp=3 mb=0 floor=1 fail=1; pc=0.995; hier_route=0.963; lift=148.108",
+  "summary": "HARD_PASS_SMOKE_v3_INDEP_ROUTER: discriminator_fires; sat=4 hp=3 mb=0 floor=1 fail=1; pc=0.995; hier_route=0.963; lift=148.108",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass_v3: pc_verified(flat@M=200=0.995) + distinct pred=3/3 + router_HP(0.95<=0.963<0.995) + lift_vs_flat=148.108 @ M=4000 (flat=0.006 part=1.000 hier=0.963)",
+  "anchor_name": "substrate_hierarchical_bank_v3_indep_router_seed_7",
+  "elapsed_s": 43.29,
+  "ts_iso": "2026-07-01T12:01:14Z",
+  "pid": 34268,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_bank_v3_indep_router_seed_7,structures=[flat,partition_by_source,hierarchical_S32_indep],encoder=bipolar_numpy,N=8192,SEED=7,mode=smoke,M_full=[200,1000,4000,16000,64000],M_smoke=[200,1000,4000],n_super_banks=32,CUE_COS=0.85,CUE_ROUTE_COS=0.85,cue_gen=direct_not_bundled,router=S_INDEP_anchors,expected_n_full=15,expected_n_smoke=9,HP_CAP_LIFT=1.20,HP_ROUTE_MIN=0.95,HP_ROUTE_MAX=0.995,HF_ROUTE_MIN=0.85,MB_LIFT_SMOKE=1.10,REVIVAL_from=hierarchical_bank_v2_S32_HARD_FAIL_PC_broken,REVIVAL_criterion=drill_2026-07-01_path_c_then_path_b,gate_order=PC_first_then_distinctness_then_router_then_lift,META_RULE_AX_AY_AR_Q_AT_AG,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat",
+  "_hardening_marker": "v3_indep_router_hierarchical_bank_numpy",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_S32_indep_router",
+  "n_llm_calls": 0
+}

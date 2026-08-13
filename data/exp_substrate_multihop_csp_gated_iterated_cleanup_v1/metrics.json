@@ -1,0 +1,269 @@
+{
+  "anchor_name": "substrate_multihop_csp_gated_iterated_cleanup_v1",
+  "verdict": "HARD_FAIL_CSP_DOESNT_HELP",
+  "verdict_msg": "HARD_FAIL_CSP_GATED_SAME_REGIME_AS_POINTER_AND_WM_SCAFFOLD: BASELINE=0.6500 (sanity_breach=1/3 in [0.62,0.68]) CSP_2HOP=0.2117 (cv=0.099) CSP_5HOP=0.0300 (cv=0.624 refuse=0.415 iters=0.59 conf=0.423) CSP_10HOP=0.0050 (cv=0.816) | pointer_v2_5hop=0.122 WM_scaffold_5hop=0.122 (reference)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateMultihopCspGatedIter-v1: N=8192 V_C=200 BASELINE_V_P=2 (p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 CSP_V_P=10 CSP_N=200 K_SET=20 CSP_THR=0.050 N_ITER=3 ITER_NOISE_FRAC=0.050 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_refuse_in=[0.10,0.90] HP_partial_5hop>=0.30 mid_5hop=[0.20,0.30] HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "csp_n_chains": 200,
+      "max_depth": 10,
+      "csp_threshold": 0.05,
+      "n_iter_max": 3,
+      "iter_noise_frac": 0.05,
+      "config_version": "substrateMultihopCspGatedIter-v1: N=8192 V_C=200 BASELINE_V_P=2 (p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 CSP_V_P=10 CSP_N=200 K_SET=20 CSP_THR=0.050 N_ITER=3 ITER_NOISE_FRAC=0.050 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_refuse_in=[0.10,0.90] HP_partial_5hop>=0.30 mid_5hop=[0.20,0.30] HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.605,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 6.87
+      },
+      "baseline_sanity_ok": false,
+      "arm_csp_gated_iter_2hop": {
+        "top1": 0.24,
+        "per_step_acc": [
+          0.54,
+          0.24
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "refuse_rate": 0.22,
+        "mean_iters_per_hop": 0.647,
+        "mean_csp_conf": 0.4195,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 10.59
+      },
+      "arm_csp_gated_iter_5hop": {
+        "top1": 0.055,
+        "per_step_acc": [
+          0.535,
+          0.245,
+          0.115,
+          0.08,
+          0.055
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "refuse_rate": 0.37,
+        "mean_iters_per_hop": 0.528,
+        "mean_csp_conf": 0.4458,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 23.32
+      },
+      "arm_csp_gated_iter_10hop": {
+        "top1": 0.0,
+        "per_step_acc": [
+          0.535,
+          0.24,
+          0.1,
+          0.085,
+          0.045,
+          0.02,
+          0.01,
+          0.005,
+          0.01,
+          0.0
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "refuse_rate": 0.61,
+        "mean_iters_per_hop": 0.529,
+        "mean_csp_conf": 0.4294,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 37.95
+      },
+      "elapsed_s": 82.1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782435574.6220446
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "csp_n_chains": 200,
+      "max_depth": 10,
+      "csp_threshold": 0.05,
+      "n_iter_max": 3,
+      "iter_noise_frac": 0.05,
+      "config_version": "substrateMultihopCspGatedIter-v1: N=8192 V_C=200 BASELINE_V_P=2 (p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 CSP_V_P=10 CSP_N=200 K_SET=20 CSP_THR=0.050 N_ITER=3 ITER_NOISE_FRAC=0.050 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_refuse_in=[0.10,0.90] HP_partial_5hop>=0.30 mid_5hop=[0.20,0.30] HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.67,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.88
+      },
+      "baseline_sanity_ok": true,
+      "arm_csp_gated_iter_2hop": {
+        "top1": 0.19,
+        "per_step_acc": [
+          0.455,
+          0.19
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "refuse_rate": 0.285,
+        "mean_iters_per_hop": 0.771,
+        "mean_csp_conf": 0.3949,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 12.19
+      },
+      "arm_csp_gated_iter_5hop": {
+        "top1": 0.025,
+        "per_step_acc": [
+          0.455,
+          0.195,
+          0.105,
+          0.04,
+          0.025
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "refuse_rate": 0.47,
+        "mean_iters_per_hop": 0.649,
+        "mean_csp_conf": 0.4082,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 24.05
+      },
+      "arm_csp_gated_iter_10hop": {
+        "top1": 0.005,
+        "per_step_acc": [
+          0.45,
+          0.185,
+          0.095,
+          0.045,
+          0.02,
+          0.01,
+          0.005,
+          0.005,
+          0.0,
+          0.005
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "refuse_rate": 0.655,
+        "mean_iters_per_hop": 0.592,
+        "mean_csp_conf": 0.4085,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 36.87
+      },
+      "elapsed_s": 85.5,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782435660.2120101
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "csp_n_chains": 200,
+      "max_depth": 10,
+      "csp_threshold": 0.05,
+      "n_iter_max": 3,
+      "iter_noise_frac": 0.05,
+      "config_version": "substrateMultihopCspGatedIter-v1: N=8192 V_C=200 BASELINE_V_P=2 (p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 CSP_V_P=10 CSP_N=200 K_SET=20 CSP_THR=0.050 N_ITER=3 ITER_NOISE_FRAC=0.050 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_refuse_in=[0.10,0.90] HP_partial_5hop>=0.30 mid_5hop=[0.20,0.30] HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.675,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.81
+      },
+      "baseline_sanity_ok": true,
+      "arm_csp_gated_iter_2hop": {
+        "top1": 0.205,
+        "per_step_acc": [
+          0.46,
+          0.205
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "refuse_rate": 0.22,
+        "mean_iters_per_hop": 0.697,
+        "mean_csp_conf": 0.4223,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 12.0
+      },
+      "arm_csp_gated_iter_5hop": {
+        "top1": 0.01,
+        "per_step_acc": [
+          0.465,
+          0.21,
+          0.085,
+          0.03,
+          0.01
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "refuse_rate": 0.405,
+        "mean_iters_per_hop": 0.58,
+        "mean_csp_conf": 0.416,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 24.23
+      },
+      "arm_csp_gated_iter_10hop": {
+        "top1": 0.01,
+        "per_step_acc": [
+          0.46,
+          0.205,
+          0.08,
+          0.04,
+          0.015,
+          0.015,
+          0.005,
+          0.005,
+          0.01,
+          0.01
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "refuse_rate": 0.63,
+        "mean_iters_per_hop": 0.559,
+        "mean_csp_conf": 0.409,
+        "csp_threshold": 0.05,
+        "n_iter_max": 3,
+        "mechanism": "csp_gated_iterated_cleanup_wm_scaffold",
+        "elapsed_s_arm": 42.54
+      },
+      "elapsed_s": 91.0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782435751.2816823
+    }
+  ],
+  "elapsed_s": 258.9,
+  "summary": "HARD_FAIL_CSP_GATED_SAME_REGIME_AS_POINTER_AND_WM_SCAFFOLD: BASELINE=0.6500 (sanity_breach=1/3 in [0.62,0.68]) CSP_2HOP=0.2117 (cv=0.099) CSP_5HOP=0.0300 (cv=0.624 refuse=0.415 iters=0.59 conf=0.423) CSP_10HOP=0.0050 (cv=0.816) | pointer_v2_5hop=0.122 WM_scaffold_5hop=0.122 (reference)",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Barrier-1 4th attempt: CSP-gated iterated-cleanup composes WM scaffold (PFC) + Hebbian-bound W cleanup (hippocampus) + CSP confidence thresholding (ACC). Each hop reads cleaned WM-held intermediate; looks up W; computes top1-top2 cosine separation as CSP confidence; if conf < threshold, iterates cleanup (theta-gamma analog) up to N_ITER=3 times; refuses if still below threshold. Brain analog: PFC + hippocampus + ACC composition that 3 prior attempts (pointer-chain v1/v2; WM-scaffold v1) lacked. Pre-reg per preregs/2026-06-25_substrate_multihop_csp_gated_iterated_cleanup_v1.md."
+}

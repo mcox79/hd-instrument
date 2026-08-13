@@ -1,0 +1,48 @@
+{
+  "anchor_name": "substrate_intent_classifier_v2_production_scale_100plus_intents",
+  "verdict": "CHAIN_GRADE_AT_CLIFF_X",
+  "verdict_msg": "CHAIN_GRADE_AT_CLIFF_100_INTENTS: n=50 SUB=1.0000 (cv=0.000) RAND=0.0232 MAJ=0.0200 p95=0.78ms | n=100 SUB=1.0000 (cv=0.000) RAND=0.0072 MAJ=0.0100 p95=1.07ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateIntentClassifierV2ProductionScale: N_DIM=2048 n_intents_sweep=[50, 100] N_TRAIN_PER_INTENT=20 N_TEST_PER_INTENT=25 seeds=[11] mode=smoke; bands HP_acc_500>=0.65 HP_p95_ms<=5.0 cv<=0.07 HF_cliff_100<0.55 sanity_50=[0.65,0.85]",
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 2048,
+      "run_mode": "smoke",
+      "config_version": "substrateIntentClassifierV2ProductionScale: N_DIM=2048 n_intents_sweep=[50, 100] N_TRAIN_PER_INTENT=20 N_TEST_PER_INTENT=25 seeds=[11] mode=smoke; bands HP_acc_500>=0.65 HP_p95_ms<=5.0 cv<=0.07 HF_cliff_100<0.55 sanity_50=[0.65,0.85]",
+      "per_n_intents": {
+        "50": {
+          "n_intents": 50,
+          "n_train": 1000,
+          "n_test": 1250,
+          "substrate_acc": 1.0,
+          "random_acc": 0.0232,
+          "majority_acc": 0.02,
+          "p95_latency_ms": 0.784684979589656,
+          "encode_s": 0.10166400001617149,
+          "train_s": 0.02950750000309199
+        },
+        "100": {
+          "n_intents": 100,
+          "n_train": 2000,
+          "n_test": 2500,
+          "substrate_acc": 1.0,
+          "random_acc": 0.0072,
+          "majority_acc": 0.01,
+          "p95_latency_ms": 1.069754996569827,
+          "encode_s": 0.17380670001148246,
+          "train_s": 0.04963809999753721
+        }
+      },
+      "elapsed_s": 3.04,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782435379.4634938
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "CHAIN_GRADE_AT_CLIFF_100_INTENTS: n=50 SUB=1.0000 (cv=0.000) RAND=0.0232 MAJ=0.0200 p95=0.78ms | n=100 SUB=1.0000 (cv=0.000) RAND=0.0072 MAJ=0.0100 p95=1.07ms",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "EXT-3 intent classifier scaling 50 -> 1000 intents on the SAME substrate Hebbian-bound prototype-bundle classifier at N=8192. Procedural action-object intent corpus; held-out test paraphrases (disjoint templates from train). Per n_intents: substrate / random / majority arms; per-arm acc + p95 latency + cv reported. Char-trigram encoder; zero LLM forward calls."
+}

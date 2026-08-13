@@ -1,0 +1,490 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "extrap fold V=177899: miss>2steps=False no_controls=True (correct=True beats_both=True C1=False C2=False)",
+  "summary": "HARD_FAIL | C1=False C2=False | proposal m*=8 (V=177899) band=[7, 10]",
+  "elapsed_s": 1.0714235000050394,
+  "run_mode": "full",
+  "anchor_name": "self_improvement_monitor_loop_density_v1",
+  "data_source": "real_marginpush_landed",
+  "seed": 20260707,
+  "grid": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    12
+  ],
+  "scales": [
+    50000,
+    100000,
+    177899
+  ],
+  "n_units": 3,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "arms_differ_verified": false,
+  "arms_differ_exempted": "data_driven_grid_density_collision_legit: proposal arms are discrete grid densities; a flat operating point across scales makes real_law/constant/lookup coincide, which the firing controls catch (C1 will not fire) - not an implementation bug (META_RULE_AF)",
+  "arms_identical_pairs": [
+    [
+      "nearest_lookup",
+      "real_law"
+    ]
+  ],
+  "arm_digests": {
+    "real_law": "3a1294b245338826d36191e41953207cace2d1b6b5edf4ae5235e8baf1ee27da",
+    "constant": "754a62bc4e4de47f900d98765eeaec72e52d2a0ad0494718e6b96c6994ce93f7",
+    "nearest_lookup": "3a1294b245338826d36191e41953207cace2d1b6b5edf4ae5235e8baf1ee27da"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "monitor_proposal": {
+    "predicted_m_star": 8,
+    "V_target": 177899,
+    "confidence_band": [
+      7,
+      10
+    ],
+    "law_used": "JL_LarsenNelson_a+b*ln(V_eff)",
+    "law_coeffs": {
+      "a": 8.000000000000037,
+      "b": -3.604684720854715e-15
+    },
+    "fit_scales": [
+      50000,
+      100000
+    ],
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. The substrate never applies this itself (USER-LOCKED)."
+  },
+  "control2_scramble_cv": {
+    "T_real": 1.0,
+    "null_p90": 1.0,
+    "null_mean": 1.0,
+    "real_outside_null": false,
+    "T_scrambled": 0.5,
+    "scrambled_inside_null": true,
+    "n_perm": 2000
+  },
+  "control2_scramble_cv_fires": false,
+  "folds": [
+    {
+      "held_out_V": 50000,
+      "train_scales": [
+        100000,
+        177899
+      ],
+      "law_a": 8.00000000000002,
+      "law_b": -1.6493039117684345e-15,
+      "m_continuous": 8.000000000000002,
+      "m_proposed": 8,
+      "m_actual": 8,
+      "idx_proposed": 5,
+      "idx_actual": 5,
+      "m_constant_baseline": 7,
+      "m_nearest_lookup_baseline": 8,
+      "min_ret_proposed": 0.51146,
+      "min_ret_constant": 0.2496,
+      "min_ret_lookup": 0.51146,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": false,
+      "control1_detail": {
+        "m_real": 8,
+        "real_score": 0.51146,
+        "scrambled_mean": 0.5114599999999998,
+        "scrambled_p90": 0.51146,
+        "chance_mean": 0.35027,
+        "real_beats_scrambled_margin": false,
+        "scrambled_collapsed_to_chance": false,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 100000,
+      "train_scales": [
+        50000,
+        177899
+      ],
+      "law_a": 7.9999999999999885,
+      "law_b": 8.759278274579125e-16,
+      "m_continuous": 7.999999999999998,
+      "m_proposed": 8,
+      "m_actual": 8,
+      "idx_proposed": 5,
+      "idx_actual": 5,
+      "m_constant_baseline": 7,
+      "m_nearest_lookup_baseline": 8,
+      "min_ret_proposed": 0.47889,
+      "min_ret_constant": 0.2125,
+      "min_ret_lookup": 0.47889,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": false,
+      "control1_detail": {
+        "m_real": 8,
+        "real_score": 0.47889,
+        "scrambled_mean": 0.47888999999999987,
+        "scrambled_p90": 0.47889,
+        "chance_mean": 0.31705,
+        "real_beats_scrambled_margin": false,
+        "scrambled_collapsed_to_chance": false,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 177899,
+      "train_scales": [
+        50000,
+        100000
+      ],
+      "law_a": 8.000000000000037,
+      "law_b": -3.604684720854715e-15,
+      "m_continuous": 7.999999999999994,
+      "m_proposed": 8,
+      "m_actual": 8,
+      "idx_proposed": 5,
+      "idx_actual": 5,
+      "m_constant_baseline": 7,
+      "m_nearest_lookup_baseline": 8,
+      "min_ret_proposed": 0.45378302417088245,
+      "min_ret_constant": 0.1914671163575042,
+      "min_ret_lookup": 0.45378302417088245,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": false,
+      "control1_detail": {
+        "m_real": 8,
+        "real_score": 0.45378302417088245,
+        "scrambled_mean": 0.45378302417088257,
+        "scrambled_p90": 0.45378302417088245,
+        "chance_mean": 0.29894041596402476,
+        "real_beats_scrambled_margin": false,
+        "scrambled_collapsed_to_chance": false,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": true
+    }
+  ],
+  "observed": {
+    "50000": {
+      "min_ret": {
+        "3": 0.31146,
+        "4": 0.43955999999999995,
+        "5": 0.47238,
+        "6": 0.27874,
+        "7": 0.2496,
+        "8": 0.51146,
+        "10": 0.18182000000000004,
+        "12": 0.35714000000000007
+      },
+      "cv": {
+        "3": 0.15673613931589303,
+        "4": 0.03178747354593582,
+        "5": 0.022754816052603863,
+        "6": 0.30802106812590585,
+        "7": 0.3873171390573026,
+        "8": 0.06699435417534953,
+        "10": 0.3033122704964629,
+        "12": 0.29800770320904785
+      },
+      "argmax_min_m": 8,
+      "cv_onset_m": 5
+    },
+    "100000": {
+      "min_ret": {
+        "3": 0.27505,
+        "4": 0.40693,
+        "5": 0.446,
+        "6": 0.24356000000000003,
+        "7": 0.2125,
+        "8": 0.47889,
+        "10": 0.15056000000000003,
+        "12": 0.32291000000000003
+      },
+      "cv": {
+        "3": 0.17560126016925454,
+        "4": 0.04453149212995825,
+        "5": 0.02448064034975021,
+        "6": 0.34516533382234366,
+        "7": 0.4330230569658316,
+        "8": 0.07942615590533338,
+        "10": 0.33418737206747384,
+        "12": 0.34192555859325796
+      },
+      "argmax_min_m": 8,
+      "cv_onset_m": 5
+    },
+    "177899": {
+      "min_ret": {
+        "3": 0.256840921866217,
+        "4": 0.3956098931984261,
+        "5": 0.4322990444069702,
+        "6": 0.22707700955593033,
+        "7": 0.1914671163575042,
+        "8": 0.45378302417088245,
+        "10": 0.1331309724564362,
+        "12": 0.30131534569983137
+      },
+      "cv": {
+        "3": 0.17816719393183564,
+        "4": 0.036662839019756886,
+        "5": 0.01783729309586916,
+        "6": 0.35833601119527103,
+        "7": 0.46066344989980995,
+        "8": 0.10485082634496688,
+        "10": 0.34690462580629033,
+        "12": 0.3665607216241172
+      },
+      "argmax_min_m": 8,
+      "cv_onset_m": 5
+    }
+  },
+  "provenance": [
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed13",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        5,
+        8
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed13_dense",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed13_v050k",
+      "status": "OK",
+      "V": 50000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed13_v100k",
+      "status": "OK",
+      "V": 100000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed19",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        5,
+        8
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed19_dense",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed19_v050k",
+      "status": "OK",
+      "V": 50000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed19_v100k",
+      "status": "OK",
+      "V": 100000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed23",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        5,
+        8
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed29",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        5,
+        8
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed7",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        5,
+        8
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_dense",
+      "status": "OK",
+      "V": 177899,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_v050k",
+      "status": "OK",
+      "V": 50000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "dir": "D:\\AI\\hd-instrument\\data\\exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_v100k",
+      "status": "OK",
+      "V": 100000,
+      "grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "verdict": "HARD_PASS"
+    },
+    {
+      "status": "GRID_SELECTION",
+      "chosen_grid": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "candidates": {
+        "[3, 5, 8]": {
+          "usable_scales": [
+            177899
+          ],
+          "n_densities": 3
+        },
+        "[3, 4, 5, 6, 7, 8, 10, 12]": {
+          "usable_scales": [
+            50000,
+            100000,
+            177899
+          ],
+          "n_densities": 8
+        }
+      }
+    }
+  ],
+  "crlb_n/a": "monitor/analysis cell; no matmul noise floor to bound",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "fast_cpu_analysis_no_long_loop_heartbeat_exempt",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "DENSITY-ONLY instance (n=1 of a 2-regime pattern). Proves the loop WORKS in one regime, NOT that self-improvement is universal. Resonator instance (n=2) shares the shape; its Control-2 analogue is still to build.",
+  "ts_iso": "2026-07-08T01:27:52.448805+00:00"
+}

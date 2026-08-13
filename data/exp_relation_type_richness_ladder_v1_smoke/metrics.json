@@ -1,0 +1,378 @@
+{
+  "verdict": "MIDDLE_BAND_RICHNESS_LADDER",
+  "verdict_msg": "MIDDLE_BAND_RICHNESS_LADDER || rungs k=[2, 5, 10, 16] best_inductive=[0.656,0.640,0.650,0.666] (slope k2->k16=0.010 mono=False) | ORACLE_PA=[0.638,0.618,0.620,0.654] (range_rel=0.057 flat<=0.10:True) | mean_deg=[3.658,3.429,3.365,3.392] (range_rel=0.085 flat<=0.10:True) | code=[0.656,0.640,0.650,0.666] | type_entropy=[0.654,1.135,1.340,1.404] n_types_used=[2,5,10,16] n_ho=[687, 644, 632, 637] || RICHNESS_RISES(slope>=0.05)=False DEGREE_CONTROL_HELD=True(oracle_flat=True,deg_flat=True) || seeds=1",
+  "summary": "MIDDLE_BAND_RICHNESS_LADDER || rungs k=[2, 5, 10, 16] best_inductive=[0.656,0.640,0.650,0.666] (slope k2->k16=0.010 mono=False) | ORACLE_PA=[0.638,0.618,0.620,0.654] (range_rel=0.057 flat<=0.10:True) ",
+  "run_mode": "smoke",
+  "elapsed_s": 24.67504669999471,
+  "anchor_name": "relation_type_richness_ladder_v1",
+  "ts_iso": "2026-07-10T02:57:27.769855+00:00",
+  "device": "cpu",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "n_common_nodes": 1253,
+  "config": {
+    "seeds": [
+      7
+    ],
+    "n_nodes": 1800,
+    "rung_ks": [
+      2,
+      5,
+      10,
+      16
+    ],
+    "gcn_epochs": 120,
+    "enc": {
+      "epochs": 40,
+      "batch": 256,
+      "code_dim": 256,
+      "feat_dim": 2048,
+      "temp": 0.15,
+      "lr": 0.01,
+      "lambda_cov": 1.0,
+      "lambda_var": 1.0,
+      "lambda_bind": 1.0
+    }
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 1525,
+    "n_edges": 4262,
+    "median_degree": 3.0,
+    "mean_degree": 5.589508196721312,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 4262
+  },
+  "relation_pool_audit": {
+    "n_relation_types": 16,
+    "per_type_edge_count": {
+      "CN_ANTONYM": 19,
+      "CN_AT_LOCATION": 519,
+      "CN_CAPABLE_OF": 119,
+      "CN_CAUSES": 15,
+      "CN_DERIVED_FROM": 13,
+      "CN_HAS_A": 56,
+      "CN_HAS_PROPERTY": 35,
+      "CN_MADE_OF": 3,
+      "CN_MANNER_OF": 333,
+      "CN_MOTIVATED_BY_GOAL": 24,
+      "CN_RECEIVES_ACTION": 2,
+      "CN_RELATED_TO": 829,
+      "CN_SYNONYM": 495,
+      "CN_USED_FOR": 130,
+      "IS_A": 1463,
+      "PART_OF": 207
+    },
+    "ranked_types_by_mass": [
+      "IS_A",
+      "CN_RELATED_TO",
+      "CN_AT_LOCATION",
+      "CN_SYNONYM",
+      "CN_MANNER_OF",
+      "PART_OF",
+      "CN_USED_FOR",
+      "CN_CAPABLE_OF",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_ANTONYM",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_MADE_OF",
+      "CN_RECEIVES_ACTION"
+    ]
+  },
+  "gates": {
+    "verdict": "MIDDLE_BAND_RICHNESS_LADDER",
+    "rung_ks": [
+      2,
+      5,
+      10,
+      16
+    ],
+    "best_inductive_per_rung": [
+      0.6560218997434154,
+      0.6403832799660507,
+      0.649645489504887,
+      0.6663742178431571
+    ],
+    "oracle_pa_per_rung": [
+      0.6377728198250309,
+      0.6177363431194784,
+      0.620276948806281,
+      0.6535344001143508
+    ],
+    "mean_degree_per_rung": [
+      3.658419792498005,
+      3.4285714285714284,
+      3.3647246608140464,
+      3.3918595371109337
+    ],
+    "code_auc_per_rung": [
+      0.6560218997434154,
+      0.6403832799660507,
+      0.649645489504887,
+      0.6663742178431571
+    ],
+    "type_entropy_per_rung": [
+      0.654385982154176,
+      1.1351233036421207,
+      1.3399872796115748,
+      1.4035638827680577
+    ],
+    "n_types_used_per_rung": [
+      2.0,
+      5.0,
+      10.0,
+      16.0
+    ],
+    "n_heldout_per_rung": [
+      687,
+      644,
+      632,
+      637
+    ],
+    "richness_slope": 0.010352318099741686,
+    "richness_monotonic": false,
+    "oracle_range_rel": 0.056612923236801796,
+    "degree_range_rel": 0.0848610630692955,
+    "oracle_flat": true,
+    "degree_flat": true,
+    "degree_tight": false,
+    "degree_control_failed": false,
+    "richness_rises": false,
+    "richness_flat": true,
+    "enough_heldout": true,
+    "bands": {
+      "RICHNESS_SLOPE_HP": 0.05,
+      "RICHNESS_SLOPE_FLAT": 0.05,
+      "ORACLE_FLAT_REL": 0.1,
+      "ORACLE_FAIL_REL": 0.15,
+      "DEGREE_FLAT_REL": 0.1,
+      "DEGREE_TIGHT_REL": 0.05,
+      "RUNG_KS": [
+        2,
+        5,
+        10,
+        16
+      ]
+    }
+  },
+  "mechanism_selftest": {
+    "pos_best": [
+      0.5650793650793651,
+      0.5901267714441306,
+      0.7117093461947734
+    ],
+    "pos_oracle": [
+      0.518442932728647,
+      0.5627081723889008,
+      0.5997636848578655
+    ],
+    "pos_slope": 0.14662998111540837,
+    "pos_oracle_range_rel": 0.1451365990752059,
+    "null_best": [
+      0.5821529745042493,
+      0.5730994152046783,
+      0.5734260384703652
+    ],
+    "null_slope": -0.00872693603388408,
+    "degree_probe_oracle": [
+      0.3562995446112329,
+      0.6940866760647614,
+      0.8308351657410543
+    ],
+    "degree_probe_range": 0.4745356211298214,
+    "pos_rises": true,
+    "null_flat": true,
+    "pos_oracle_flat": false,
+    "degree_probe_moves": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "rungs": [
+        {
+          "k": 2,
+          "too_few": false,
+          "best_inductive": 0.6560218997434154,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6377728198250309,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5851528384279476
+            },
+            "AA": {
+              "auc_far": 0.5851528384279476
+            },
+            "RA": {
+              "auc_far": 0.5851528384279476
+            },
+            "JC": {
+              "auc_far": 0.5851528384279476
+            },
+            "PA": {
+              "auc_far": 0.6377728198250309
+            },
+            "GCN": {
+              "auc_far": 0.598287175640773
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6560218997434154
+            }
+          },
+          "code_auc": 0.6560218997434154,
+          "n_heldout": 687,
+          "mean_degree": 3.658419792498005,
+          "mean_clustering": 0.09676246120192467,
+          "type_entropy": 0.654385982154176,
+          "n_types_used": 2,
+          "n_edges": 2292,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 5,
+          "too_few": false,
+          "best_inductive": 0.6403832799660507,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6177363431194784,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5652173913043478
+            },
+            "AA": {
+              "auc_far": 0.5652173913043478
+            },
+            "RA": {
+              "auc_far": 0.5652173913043478
+            },
+            "JC": {
+              "auc_far": 0.5652173913043478
+            },
+            "PA": {
+              "auc_far": 0.6177363431194784
+            },
+            "GCN": {
+              "auc_far": 0.5466827090004244
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6403832799660507
+            }
+          },
+          "code_auc": 0.6403832799660507,
+          "n_heldout": 644,
+          "mean_degree": 3.4285714285714284,
+          "mean_clustering": 0.08247807803578559,
+          "type_entropy": 1.1351233036421207,
+          "n_types_used": 5,
+          "n_edges": 2148,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 10,
+          "too_few": false,
+          "best_inductive": 0.649645489504887,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.620276948806281,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5680379746835443
+            },
+            "AA": {
+              "auc_far": 0.5680379746835443
+            },
+            "RA": {
+              "auc_far": 0.5680379746835443
+            },
+            "JC": {
+              "auc_far": 0.5680379746835443
+            },
+            "PA": {
+              "auc_far": 0.620276948806281
+            },
+            "GCN": {
+              "auc_far": 0.557858315975004
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.649645489504887
+            }
+          },
+          "code_auc": 0.649645489504887,
+          "n_heldout": 632,
+          "mean_degree": 3.3647246608140464,
+          "mean_clustering": 0.07064428560607283,
+          "type_entropy": 1.3399872796115748,
+          "n_types_used": 10,
+          "n_edges": 2108,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 16,
+          "too_few": false,
+          "best_inductive": 0.6663742178431571,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6535344001143508,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5682888540031397
+            },
+            "AA": {
+              "auc_far": 0.5682888540031397
+            },
+            "RA": {
+              "auc_far": 0.5682888540031397
+            },
+            "JC": {
+              "auc_far": 0.5682888540031397
+            },
+            "PA": {
+              "auc_far": 0.6535344001143508
+            },
+            "GCN": {
+              "auc_far": 0.5794380546567135
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6663742178431571
+            }
+          },
+          "code_auc": 0.6663742178431571,
+          "n_heldout": 637,
+          "mean_degree": 3.3918595371109337,
+          "mean_clustering": 0.06325701694473078,
+          "type_entropy": 1.4035638827680577,
+          "n_types_used": 16,
+          "n_edges": 2125,
+          "n_distinct_sigs": 6,
+          "failures": []
+        }
+      ],
+      "D_star_mean": 3.658419792498005
+    }
+  ]
+}

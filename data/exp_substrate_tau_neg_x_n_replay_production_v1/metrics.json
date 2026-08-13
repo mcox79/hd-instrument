@@ -1,0 +1,287 @@
+{
+  "anchor_name": "substrate_tau_neg_x_n_replay_production_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: TAU_NEG=10 partially improves (lift=0.120 in [0.05,0.20)). TAU_NEG_X_N_REPLAY: lift_t10_vs_current=0.120 cv_ok=True best_t10=ARM_T10_R30 best_overall=ARM_T50_R30(lift_vs_harness=2.179) | ARM_VEHICLE=5.523(cv0.000) | ARM_T50_R1=5.247(cv0.000) | ARM_T50_R10=5.131(cv0.000) | ARM_T50_R30=5.127(cv0.000) | ARM_T50_R100=5.153(cv0.000) | ARM_T10_R1=5.247(cv0.000) | ARM_T10_R10=5.130(cv0.000) | ARM_T10_R30=5.127(cv0.000) | ARM_T10_R100=5.153(cv0.000) | UNI=bpc5.523",
+  "summary": "MIDDLE_BAND: TAU_NEG=10 partially improves (lift=0.120 in [0.05,0.20)). TAU_NEG_X_N_REPLAY: lift_t10_vs_current=0.120 cv_ok=True best_t10=ARM_T10_R30 best_overall=ARM_T50_R30(lift_vs_harness=2.179) | ARM_VEHICLE=5.523(cv0.000) | ARM_T50_R1=5.247(cv0.000) | ARM_T50_R10=5.131(cv0.000) | ARM_T50_R30=5.127(cv0.000) | ARM_T50_R100=5.153(cv0.000) | ARM_T10_R1=5.247(cv0.000) | ARM_T10_R10=5.130(cv0.000) | ARM_T10_R30=5.127(cv0.000) | ARM_T10_R100=5.153(cv0.000) | UNI=bpc5.523",
+  "run_mode": "smoke",
+  "N_DIM": 256,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "SPARSE_BIPOLAR_F": 0.02,
+  "TAU_POS": 5,
+  "SEEDS": [
+    0
+  ],
+  "ARM_NAMES": [
+    "ARM_VEHICLE",
+    "ARM_T50_R1",
+    "ARM_T50_R10",
+    "ARM_T50_R30",
+    "ARM_T50_R100",
+    "ARM_T10_R1",
+    "ARM_T10_R10",
+    "ARM_T10_R30",
+    "ARM_T10_R100"
+  ],
+  "elapsed_s": 94.91,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_VEHICLE": {
+        "bpc_best_mean": 5.5226,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4002,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T50_R1": {
+        "bpc_best_mean": 5.2473,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4009,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T50_R10": {
+        "bpc_best_mean": 5.1312,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.314,
+        "mrr_at_10_mean": 0.4005,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T50_R30": {
+        "bpc_best_mean": 5.1272,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "mrr_at_10_mean": 0.4007,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T50_R100": {
+        "bpc_best_mean": 5.1529,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2893,
+        "mrr_at_10_mean": 0.3888,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T10_R1": {
+        "bpc_best_mean": 5.2465,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4009,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T10_R10": {
+        "bpc_best_mean": 5.1304,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.314,
+        "mrr_at_10_mean": 0.4005,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T10_R30": {
+        "bpc_best_mean": 5.1272,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "mrr_at_10_mean": 0.4007,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_T10_R100": {
+        "bpc_best_mean": 5.1529,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2893,
+        "mrr_at_10_mean": 0.3888,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0
+      }
+    },
+    "current_arm": "ARM_T50_R1",
+    "current_bpc": 5.2473,
+    "best_t10_arm": "ARM_T10_R30",
+    "best_t10_bpc": 5.1272,
+    "lift_t10_vs_current_bpc": 0.1201,
+    "best_overall_arm": "ARM_T50_R30",
+    "best_overall_bpc": 5.1272,
+    "lift_vs_harness_bpc": 2.1793,
+    "best_t10_cv": 0.0,
+    "cv_ok": true,
+    "hard_pass_lift": 0.2,
+    "chain_grade_lift": 0.3,
+    "chain_grade_harness": 7.3065,
+    "middle_band_low": 0.05,
+    "hard_fail_tol": 0.05,
+    "n_seeds": 1,
+    "honest_scope": "2x4 factorial: TAU_NEG in {50,10} x N_REPLAY in {1,10,30,100} + VEHICLE. Primary comparison: best TAU_NEG=10 arm vs ARM_T50_R1 (current default). HARD_PASS: lift >= 0.20 BPC. MIDDLE_BAND: lift in [0.05, 0.20). HARD_FAIL: lift <= 0.05 BPC. CHAIN_GRADE bonus: HARD_PASS AND beats fair_harness 7.3065 by >= 0.20 BPC. N_DIM=256 N_TRAIN=2000 TAU_POS=5 f=0.02.",
+    "cites": [
+      "notes/exp_dev_handoff_research_substrate_brain_timescale_ratio_2026-06-23.md",
+      "notes/research_substrate_brain_timescale_ratio_2x_drill_2026-06-23.md",
+      "notes/shotgun_smoke_tau_neg_x_n_replay_2x4_2026-06-23.md",
+      "experiments/exp_substrate_dual_trace_sequential_neuromod_LM_v1.py",
+      "Brzosko et al. 2017 eLife 27756",
+      "Song-Abbott 2000 Neuron (tau_LTD/tau_LTP brain 2-3x)",
+      "Buzsaki + Wilson-McNaughton (SWR 10^4-10^5 per night)"
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_VEHICLE": {
+          "bpc_best": 5.5226,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4002,
+          "raw_bpc_at_T1_L1": 8.0496,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.09,
+          "wall_ingest_s": 0.01,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T50_R1": {
+          "bpc_best": 5.2473,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4009,
+          "raw_bpc_at_T1_L1": 7.7851,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.08,
+          "wall_ingest_s": 0.02,
+          "wall_recall_s": 0.01
+        },
+        "ARM_T50_R10": {
+          "bpc_best": 5.1312,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.314,
+          "mrr_at_10": 0.4005,
+          "raw_bpc_at_T1_L1": 7.7243,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.1,
+          "wall_ingest_s": 0.05,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T50_R30": {
+          "bpc_best": 5.1272,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.3058,
+          "mrr_at_10": 0.4007,
+          "raw_bpc_at_T1_L1": 7.7465,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.18,
+          "wall_ingest_s": 0.11,
+          "wall_recall_s": 0.01
+        },
+        "ARM_T50_R100": {
+          "bpc_best": 5.1529,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.2893,
+          "mrr_at_10": 0.3888,
+          "raw_bpc_at_T1_L1": 7.8033,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.27,
+          "wall_ingest_s": 0.19,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T10_R1": {
+          "bpc_best": 5.2465,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4009,
+          "raw_bpc_at_T1_L1": 7.7844,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.07,
+          "wall_ingest_s": 0.02,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T10_R10": {
+          "bpc_best": 5.1304,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.314,
+          "mrr_at_10": 0.4005,
+          "raw_bpc_at_T1_L1": 7.7238,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.09,
+          "wall_ingest_s": 0.04,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T10_R30": {
+          "bpc_best": 5.1272,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.3058,
+          "mrr_at_10": 0.4007,
+          "raw_bpc_at_T1_L1": 7.7466,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.11,
+          "wall_ingest_s": 0.06,
+          "wall_recall_s": 0.0
+        },
+        "ARM_T10_R100": {
+          "bpc_best": 5.1529,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "top1_acc": 0.2893,
+          "mrr_at_10": 0.3888,
+          "raw_bpc_at_T1_L1": 7.8033,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.25,
+          "wall_ingest_s": 0.18,
+          "wall_recall_s": 0.02
+        }
+      },
+      "V": 300,
+      "N": 256,
+      "N_DIM": 256,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 300,
+      "run_mode": "smoke",
+      "elapsed_s_seed": 94.74,
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300
+      }
+    }
+  ]
+}

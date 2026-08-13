@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_three_tier_generational_v1_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "[selftest] PASS: 7 formula tests + bands lock + arm schema + AX + AT",
+  "summary": "[selftest] PASS: 7 formula tests + bands lock + arm schema + AX + AT",
+  "elapsed_s": 0.31,
+  "ts_iso": "2026-07-01T07:54:02Z",
+  "pid": 29648,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_three_tier_generational_v1_seed_19,structures=[TWO_TIER,THREE_TIER],N=8192,SEED=19,mode=selftest,M_atoms_full=200,M_atoms_smoke=40,T_list_full=[10,50,100],T_list_smoke=[100],expected_n_full=6,expected_n_smoke=2,discriminator=three_tier_retention_delta_ge_0p05_at_t100_cv_le_0p10,bands=HP_delta0.05_HP_cv0.10_HP_itm_util0.05_HF_tol0.02,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_three_tier_generational_chunked",
+  "_phase": "selftest_done",
+  "core_stdout_tail": "hen_empty acc=1.0000 == 1.0000 PASS\n[selftest T3] staged_promotion+decay STM 1188.7472->1069.8725 (gamma=0.9); ITM 0->451.7521 PASS\n[selftest T4] bands LOCKED HP_delta=0.05 HP_cv=0.1 HP_itm=0.05 HF_tol=0.02 PASS\n[selftest T5] ARMS schema PASS (n=6, T_LIST=[10, 50, 100])\n[selftest T6] mechanism_hash distinct STM=a151b48cc8043557 ITM=e3b04fb0681f866d LTM=53e18a765034ccd2 PASS\n[selftest T7] NREM-compose smoke-safe cos=1.0000 PASS\n[selftest] PASS: 7 formula tests + bands lock + arm schema + AX + AT\n"
+}

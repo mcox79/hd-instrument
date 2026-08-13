@@ -1,0 +1,7 @@
+{
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest",
+  "_config_version": "substrate_stage1_integration_NDIM_phase_diagram_v1; N_DIM_GRID=[512] seeds=[0] mode=smoke sparse_f=0.020 J=3 M_storage=200 M_cap=[100, 200, 400] N_mh_ent=100 N_mh_rel=4 K_set=50 beta=6.00 N_queries=30 N_refuse_in=50 N_refuse_ood=50 device=cpu; thresholds T1=0.95 T2cgM_at8192=4000 T3K20=0.85 T3K50=0.40 T4lift=5.0 T5forget=0.050 T6refuse=0.80",
+  "elapsed_s": 0.1,
+  "summary": "selftest"
+}

@@ -1,0 +1,407 @@
+{
+  "anchor_name": "substrate_concept_encoder_spoke3_dg_ca3_marr_cls_replay_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MARR imm=1.000 after=0.000 pat=1.000 intf=0.000 sparse=0.0104; CORTEX imm=0.000; DG_ONLY pat=0.705; DENSE_HOPF imm=1.000; NO_CONSOL after=0.000; NAIVE_WTA imm=0.100",
+  "summary": "HARD_PASS n_seeds=3 n_arms=6 n_dim=1024 n_base=20 n_oneshot=5 n_consol=20",
+  "elapsed_s": 4.1750202999974135,
+  "ts_iso": "2026-07-02T23:46:48.010941+00:00",
+  "pid": 23980,
+  "host": "FrameworkMPC",
+  "config": {
+    "n_dim": 1024,
+    "expansion_factor": 2,
+    "dg_target_sparse_rate": 0.01,
+    "cortex_target_sparse_rate": 0.02,
+    "n_base_clusters": 20,
+    "n_oneshot_clusters": 5,
+    "base_exposures": 4,
+    "consolidation_cycles": 20,
+    "seeds": [
+      11,
+      17,
+      23
+    ],
+    "max_pos": 24
+  },
+  "cardinality": {
+    "expected_n_units": 18,
+    "actual_n_units": 18,
+    "cardinality_ok": true
+  },
+  "arm_summary": {
+    "ARM_CORTEX_ONLY": {
+      "one_shot_top1_immediate_mean": 0.0,
+      "one_shot_top1_immediate_std": 0.0,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.0,
+      "pattern_completion_from_partial_std": 0.0,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 0.0,
+      "dg_sparse_rate_std": 0.0
+    },
+    "ARM_DG_CA3_MARR": {
+      "one_shot_top1_immediate_mean": 1.0,
+      "one_shot_top1_immediate_std": 0.0,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.99999995873769,
+      "pattern_completion_from_partial_std": 1.7906052867532057e-09,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 0.0103515625,
+      "dg_sparse_rate_std": 7.973599423122297e-05
+    },
+    "ARM_DG_ONLY_NO_CA3": {
+      "one_shot_top1_immediate_mean": 1.0,
+      "one_shot_top1_immediate_std": 0.0,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.7047124029473307,
+      "pattern_completion_from_partial_std": 0.0015652487501953978,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 0.0103515625,
+      "dg_sparse_rate_std": 7.973599423122297e-05
+    },
+    "ARM_CA3_DENSE_HOPFIELD": {
+      "one_shot_top1_immediate_mean": 1.0,
+      "one_shot_top1_immediate_std": 0.0,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.0,
+      "pattern_completion_from_partial_std": 0.0,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 1.0,
+      "dg_sparse_rate_std": 0.0
+    },
+    "ARM_NO_CONSOLIDATION": {
+      "one_shot_top1_immediate_mean": 1.0,
+      "one_shot_top1_immediate_std": 0.0,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.99999995873769,
+      "pattern_completion_from_partial_std": 1.7906052867532057e-09,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 0.0103515625,
+      "dg_sparse_rate_std": 7.973599423122297e-05
+    },
+    "ARM_NAIVE_WTA_COLLISION_CONTROL": {
+      "one_shot_top1_immediate_mean": 0.10000000000000002,
+      "one_shot_top1_immediate_std": 1.3877787807814457e-17,
+      "one_shot_top1_after_consolidation_mean": 0.0,
+      "one_shot_top1_after_consolidation_std": 0.0,
+      "pattern_completion_from_partial_mean": 0.999999970635589,
+      "pattern_completion_from_partial_std": 1.1102230246251565e-16,
+      "cortex_interference_mean": 0.0,
+      "cortex_interference_std": 0.0,
+      "dg_sparse_rate_mean": 0.009765625,
+      "dg_sparse_rate_std": 0.0
+    }
+  },
+  "hp_checks": {
+    "MARR_oneshot_immediate_at_or_above_floor": true,
+    "NAIVE_WTA_oneshot_at_or_below_ceiling": true,
+    "MARR_dg_sparse_rate_in_target": true
+  },
+  "hf_reasons": [],
+  "load_bearing": {
+    "marr_oneshot_immediate": 1.0,
+    "marr_oneshot_after_consolidation": 0.0,
+    "marr_pattern_completion": 0.99999995873769,
+    "marr_cortex_interference": 0.0,
+    "marr_dg_sparse_rate": 0.0103515625,
+    "cortex_only_oneshot_immediate": 0.0,
+    "no_consolidation_after": 0.0,
+    "dg_only_pattern_completion": 0.7047124029473307,
+    "dense_hopfield_oneshot_immediate": 1.0,
+    "naive_wta_oneshot_immediate": 0.10000000000000002,
+    "marr_minus_cortex_immediate": 1.0,
+    "marr_minus_naive_wta_immediate": 0.9,
+    "marr_minus_no_consol_after": 0.0,
+    "marr_minus_dg_only_completion": 0.29528755579035926
+  },
+  "per_unit": [
+    {
+      "arm": "ARM_CORTEX_ONLY",
+      "seed": 11,
+      "one_shot_top1_immediate": 0.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0,
+      "n_stored_episodes": 0,
+      "arm_digest": "31f399edcc40892517eb2b6dc0436946",
+      "elapsed_s": 0.19963190000271425
+    },
+    {
+      "arm": "ARM_DG_CA3_MARR",
+      "seed": 11,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999562232986,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01044921875,
+      "n_stored_episodes": 10,
+      "arm_digest": "cb6eaba9507c993fa86917263584292e",
+      "elapsed_s": 0.26158599999325816
+    },
+    {
+      "arm": "ARM_DG_ONLY_NO_CA3",
+      "seed": 11,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.7036985150360696,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01044921875,
+      "n_stored_episodes": 10,
+      "arm_digest": "0bcd53a1e79f1a1e5a551558cdb59b56",
+      "elapsed_s": 0.2106389999971725
+    },
+    {
+      "arm": "ARM_CA3_DENSE_HOPFIELD",
+      "seed": 11,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 1.0,
+      "n_stored_episodes": 10,
+      "arm_digest": "31316bc8f49abbaa86911ba6d6581ab2",
+      "elapsed_s": 0.22976159999961965
+    },
+    {
+      "arm": "ARM_NO_CONSOLIDATION",
+      "seed": 11,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999562232986,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01044921875,
+      "n_stored_episodes": 10,
+      "arm_digest": "d7a30a4bfa621ae75cb1ef251d199951",
+      "elapsed_s": 0.23001069999008905
+    },
+    {
+      "arm": "ARM_NAIVE_WTA_COLLISION_CONTROL",
+      "seed": 11,
+      "one_shot_top1_immediate": 0.1,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999706355889,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.009765625,
+      "n_stored_episodes": 10,
+      "arm_digest": "5b08bfc8415505fbda8742cca518fdb3",
+      "elapsed_s": 0.2124276000104146
+    },
+    {
+      "arm": "ARM_CORTEX_ONLY",
+      "seed": 17,
+      "one_shot_top1_immediate": 0.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0,
+      "n_stored_episodes": 0,
+      "arm_digest": "bc6bf316d7f057fce7d38c5f3b6602ee",
+      "elapsed_s": 0.19641629999387078
+    },
+    {
+      "arm": "ARM_DG_CA3_MARR",
+      "seed": 17,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999602552277,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0103515625,
+      "n_stored_episodes": 10,
+      "arm_digest": "dc9189a82477761ae940b0e2c21009c7",
+      "elapsed_s": 0.23386710000340827
+    },
+    {
+      "arm": "ARM_DG_ONLY_NO_CA3",
+      "seed": 17,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.7069234680701707,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0103515625,
+      "n_stored_episodes": 10,
+      "arm_digest": "b43186633a5614dbaab8826f72f81e0d",
+      "elapsed_s": 0.20894400001270697
+    },
+    {
+      "arm": "ARM_CA3_DENSE_HOPFIELD",
+      "seed": 17,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 1.0,
+      "n_stored_episodes": 10,
+      "arm_digest": "d7d4151bf7342a17603d778c20c00308",
+      "elapsed_s": 0.2148041999898851
+    },
+    {
+      "arm": "ARM_NO_CONSOLIDATION",
+      "seed": 17,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999602552277,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0103515625,
+      "n_stored_episodes": 10,
+      "arm_digest": "6ea16a482cb72e3301e8b0f08ae50423",
+      "elapsed_s": 0.273428899992723
+    },
+    {
+      "arm": "ARM_NAIVE_WTA_COLLISION_CONTROL",
+      "seed": 17,
+      "one_shot_top1_immediate": 0.1,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999706355889,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.009765625,
+      "n_stored_episodes": 10,
+      "arm_digest": "424c017c8180c953e9a4668cc809ab1b",
+      "elapsed_s": 0.2320418999879621
+    },
+    {
+      "arm": "ARM_CORTEX_ONLY",
+      "seed": 23,
+      "one_shot_top1_immediate": 0.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.0,
+      "n_stored_episodes": 0,
+      "arm_digest": "9af8f08cbda0929616bfb44adba1eb0d",
+      "elapsed_s": 0.19001389999175444
+    },
+    {
+      "arm": "ARM_DG_CA3_MARR",
+      "seed": 23,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999597345436,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01025390625,
+      "n_stored_episodes": 10,
+      "arm_digest": "73d6e283fd60b83b13aa2ab9ae6c4f07",
+      "elapsed_s": 0.22007470000244211
+    },
+    {
+      "arm": "ARM_DG_ONLY_NO_CA3",
+      "seed": 23,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.7035152257357518,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01025390625,
+      "n_stored_episodes": 10,
+      "arm_digest": "0f68f2e71607fc369cef56de5bf71589",
+      "elapsed_s": 0.2108505999931367
+    },
+    {
+      "arm": "ARM_CA3_DENSE_HOPFIELD",
+      "seed": 23,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.0,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 1.0,
+      "n_stored_episodes": 10,
+      "arm_digest": "b13a755c8e3b8df89aa92196a21f8527",
+      "elapsed_s": 0.20435519999591634
+    },
+    {
+      "arm": "ARM_NO_CONSOLIDATION",
+      "seed": 23,
+      "one_shot_top1_immediate": 1.0,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999597345436,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.01025390625,
+      "n_stored_episodes": 10,
+      "arm_digest": "b11053276b06588e2ea001187441c806",
+      "elapsed_s": 0.23081570000795182
+    },
+    {
+      "arm": "ARM_NAIVE_WTA_COLLISION_CONTROL",
+      "seed": 23,
+      "one_shot_top1_immediate": 0.1,
+      "one_shot_top1_after_consolidation": 0.0,
+      "pattern_completion_from_partial": 0.9999999706355889,
+      "cortex_interference": 0.0,
+      "dg_sparse_rate": 0.009765625,
+      "n_stored_episodes": 10,
+      "arm_digest": "75cf1bd21926ed29f6e305e6a07d39c0",
+      "elapsed_s": 0.22601939999731258
+    }
+  ],
+  "per_seed_arm_digests": {
+    "11": {
+      "ARM_CORTEX_ONLY": "31f399edcc40892517eb2b6dc0436946",
+      "ARM_DG_CA3_MARR": "cb6eaba9507c993fa86917263584292e",
+      "ARM_DG_ONLY_NO_CA3": "0bcd53a1e79f1a1e5a551558cdb59b56",
+      "ARM_CA3_DENSE_HOPFIELD": "31316bc8f49abbaa86911ba6d6581ab2",
+      "ARM_NO_CONSOLIDATION": "d7a30a4bfa621ae75cb1ef251d199951",
+      "ARM_NAIVE_WTA_COLLISION_CONTROL": "5b08bfc8415505fbda8742cca518fdb3"
+    },
+    "17": {
+      "ARM_CORTEX_ONLY": "bc6bf316d7f057fce7d38c5f3b6602ee",
+      "ARM_DG_CA3_MARR": "dc9189a82477761ae940b0e2c21009c7",
+      "ARM_DG_ONLY_NO_CA3": "b43186633a5614dbaab8826f72f81e0d",
+      "ARM_CA3_DENSE_HOPFIELD": "d7d4151bf7342a17603d778c20c00308",
+      "ARM_NO_CONSOLIDATION": "6ea16a482cb72e3301e8b0f08ae50423",
+      "ARM_NAIVE_WTA_COLLISION_CONTROL": "424c017c8180c953e9a4668cc809ab1b"
+    },
+    "23": {
+      "ARM_CORTEX_ONLY": "9af8f08cbda0929616bfb44adba1eb0d",
+      "ARM_DG_CA3_MARR": "73d6e283fd60b83b13aa2ab9ae6c4f07",
+      "ARM_DG_ONLY_NO_CA3": "0f68f2e71607fc369cef56de5bf71589",
+      "ARM_CA3_DENSE_HOPFIELD": "b13a755c8e3b8df89aa92196a21f8527",
+      "ARM_NO_CONSOLIDATION": "b11053276b06588e2ea001187441c806",
+      "ARM_NAIVE_WTA_COLLISION_CONTROL": "75cf1bd21926ed29f6e305e6a07d39c0"
+    }
+  },
+  "cell_template_compliance": {
+    "arms_differ_verified": true,
+    "final_metrics_atomicity": "tmp_replace",
+    "cardinality_ok": true,
+    "except_systemexit_before_exception": true,
+    "start_marker_written": true,
+    "crash_diagnostic_present": true,
+    "hp_scope": {
+      "ARM_DG_CA3_MARR": [
+        "MARR_oneshot_immediate_at_or_above_floor",
+        "MARR_dg_sparse_rate_in_target",
+        "MARR_oneshot_after_consol_at_or_above_floor",
+        "MARR_pattern_completion_at_or_above_floor",
+        "MARR_cortex_interference_at_or_below_ceiling",
+        "MARR_beats_CORTEX_ONLY_oneshot",
+        "MARR_beats_NO_CONSOL_after",
+        "MARR_beats_DG_ONLY_pattern_completion"
+      ],
+      "ARM_NAIVE_WTA_COLLISION_CONTROL": [
+        "NAIVE_WTA_oneshot_at_or_below_ceiling"
+      ],
+      "ARM_CORTEX_ONLY": [],
+      "ARM_DG_ONLY_NO_CA3": [],
+      "ARM_CA3_DENSE_HOPFIELD": [],
+      "ARM_NO_CONSOLIDATION": []
+    },
+    "storage_strategy": "sharded_dg_ca3_codes_plus_sharded_cortex_hds",
+    "compute_architecture": "sequential_cpu_numpy_per_seed",
+    "progress_logging": "line_buffered_stdout",
+    "calibration_check": "default_ok_for_this_regime",
+    "crlb_n/a": "emergent-representation cell; sparsity is architectural via top-K quantile mask + Marr auto-associator capacity, not a noise-floor CRLB regime",
+    "scale_sentinel_probe": "selftest runs all 6 arms at N=4096 (DG 8192); asserts NaN-free + dg_sparse in HF band + arms_differ",
+    "spokes12_placeholder": "cortex encoder = char+positional + per-concept competitive Hebbian (Spoke 1 v3-D style; Spokes 1+2 hdlab extraction pending post-Spoke-1-CG + Spoke-2-CG). Will replace with hdlab.concept_encoder.CortexEncoder post-extraction.",
+    "cell_chunked": false
+  }
+}

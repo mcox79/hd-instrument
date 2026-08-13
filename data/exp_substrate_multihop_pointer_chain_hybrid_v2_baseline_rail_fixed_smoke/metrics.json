@@ -1,0 +1,66 @@
+{
+  "anchor_name": "substrate_multihop_pointer_chain_hybrid_v2_baseline_rail_fixed",
+  "verdict": "HARD_PASS_BREAK_CEILING",
+  "verdict_msg": "HARD_PASS_BREAK_CEILING: BASELINE=0.6450 (sanity_breach_seeds=0/1) POINTER_2HOP=0.9800 (cv=nan) HYBRID=0.9800 (cv=nan) POINTER_2HOP=0.9800 POINTER_5HOP=0.7800 | rails=[] | bands: HP_break=True cv_ok=True depth_ret=False (deep_results=[(2, 0.98), (5, 0.78)])",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "pointerChainHybrid-v2-baselineRailFixed: N=2048 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; verbatim beta-sweep regime) BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 seeds=[7] mode=smoke hop_depths=[2, 5] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "pointer_n_chains": 50,
+      "max_depth": 5,
+      "config_version": "pointerChainHybrid-v2-baselineRailFixed: N=2048 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; verbatim beta-sweep regime) BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 seeds=[7] mode=smoke hop_depths=[2, 5] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.645,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 0.83
+      },
+      "baseline_sanity_ok": true,
+      "arm_pointer_chain_2hop": {
+        "top1": 0.98,
+        "per_step_acc": [
+          1.0,
+          0.98
+        ],
+        "n_queries": 50,
+        "depth": 2,
+        "elapsed_s_arm": 0.18
+      },
+      "arm_pointer_chain_5hop": {
+        "top1": 0.78,
+        "per_step_acc": [
+          1.0,
+          0.98,
+          0.94,
+          0.88,
+          0.78
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "elapsed_s_arm": 0.39
+      },
+      "arm_pointer_hrr_hybrid": {
+        "top1": 0.98,
+        "n_queries": 50,
+        "depth": 2,
+        "elapsed_s_arm": 0.16
+      },
+      "elapsed_s": 1.7,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782414440.9839227
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS_BREAK_CEILING: BASELINE=0.6450 (sanity_breach_seeds=0/1) POINTER_2HOP=0.9800 (cv=nan) HYBRID=0.9800 (cv=nan) POINTER_2HOP=0.9800 POINTER_5HOP=0.7800 | rails=[] | bands: HP_break=True cv_ok=True depth_ret=False (deep_results=[(2, 0.98), (5, 0.78)])",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "V2 BASELINE_RAIL_FIXED: v1's baseline reached only 0.395 because (a) it used make_chains with V_P=10 random predicates + max_depth=10 (3000 W bindings; high crosstalk); (b) it used cleanup-between-hops _retrieve_1hop mechanism. Beta-sweep's regime: V_P=2 fixed-pair + 2-hop chains (400 W bindings) + noisy-state chain_naive_hard mechanism. V2 baseline arm uses beta-sweep's EXACT regime + EXACT mechanism (verbatim from L171-192 + L136-142). Pointer arms use their own deep-chain set + W; the apples-to-apples is encoder/atoms/primitives, not W. SACRED SANITY RAIL: cell verdict = SANITY_BREACH if baseline out of [0.62, 0.68] on majority of seeds."
+}

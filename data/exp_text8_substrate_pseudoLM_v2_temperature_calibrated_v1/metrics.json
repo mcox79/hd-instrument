@@ -1,0 +1,260 @@
+{
+  "anchor": "text8_substrate_pseudoLM_v2_temperature_calibrated_v1",
+  "anchor_name": "text8_substrate_pseudoLM_v2_temperature_calibrated_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best calibrated BPC 7.864 in (7.50, 8.024) -- improvement but below HARD_PASS bar. BPC raw=11.614 temp_calibrated=11.266 log_linear=7.864 unigram=7.738 | best=SUBSTRATE_LOG_LINEAR_UNIGRAM bpc=7.864 cv=0.000 n_llm=0 (n_seeds=3 V_DIM=4096 N_TRAIN=100000)",
+  "n_seeds": 3,
+  "N": 4096,
+  "N_DIM": 4096,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "INGEST_CHUNK": 8192,
+  "RECALL_BATCH": 1024,
+  "TEMP_GRID": [
+    0.5,
+    1.0,
+    2.0,
+    5.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "arms": [
+    "SUBSTRATE_HEBBIAN_BPC_RAW",
+    "SUBSTRATE_HEBBIAN_TEMP_CALIBRATED",
+    "SUBSTRATE_LOG_LINEAR_UNIGRAM",
+    "UNIGRAM_BASELINE"
+  ],
+  "run_mode": "full",
+  "device": "cuda",
+  "config_version": "text8-substrate-pseudoLM-v2-temperature-calibrated-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 temp_grid=[0.5, 1.0, 2.0, 5.0] lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0] run_mode=full device=cuda; bands HP_BPC<=7.50 HF_BPC>=8.024 cv_max=0.10",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_raw_bpc": 11.614439940279249,
+    "mean_temp_calibrated_bpc": 11.265730290473632,
+    "mean_log_linear_bpc": 7.86393738461734,
+    "mean_unigram_bpc": 7.737784450539358,
+    "best_calibrated_arm": "SUBSTRATE_LOG_LINEAR_UNIGRAM",
+    "best_calibrated_bpc": 7.86393738461734,
+    "best_calibrated_cv": 6.049819988867544e-05,
+    "cv_raw": 0.0007736937905723344,
+    "cv_temp": 0.0016005467029230381,
+    "cv_log_linear": 6.049819988867544e-05,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Calibration REVIVAL of v1 HARD_FAIL. text8 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 N_DIM=4096. 3 calibration arms vs unigram baseline. Held split into dev/test; best T and best lambda chosen on dev, BPC reported on test."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 4000,
+      "N": 4096,
+      "M": 100000,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "n_dev": 7885,
+      "n_test": 7886,
+      "run_mode": "full",
+      "config_version": "text8-substrate-pseudoLM-v2-temperature-calibrated-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 temp_grid=[0.5, 1.0, 2.0, 5.0] lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0] run_mode=full device=cuda; bands HP_BPC<=7.50 HF_BPC>=8.024 cv_max=0.10",
+      "raw_bpc": 11.608590959266774,
+      "raw_acc": 0.22482881055034237,
+      "best_T": 0.5,
+      "temp_dev_bpc": {
+        "0.5": 11.36286216569287,
+        "1.0": 11.663050441949858,
+        "2.0": 11.814134065056505,
+        "5.0": 11.905059787808757
+      },
+      "temp_test_bpc": 11.253972123568541,
+      "temp_test_acc": 0.22482881055034237,
+      "best_lambda": 0.1,
+      "log_linear_dev_bpc": {
+        "0.1": 8.387927089718202,
+        "0.3": 8.779192684228521,
+        "0.5": 9.429037225473413,
+        "0.7": 10.248446131267427,
+        "1.0": 11.663050441949858
+      },
+      "log_linear_test_bpc": 7.86367616093895,
+      "log_linear_test_acc": 0.21709358356581282,
+      "unigram_test_bpc": 7.737784450539358,
+      "unigram_test_acc": 0.21709358356581282,
+      "elapsed_s": 21.136096954345703,
+      "n_llm_calls": 0,
+      "wall_ingest_s": 0.43872857093811035,
+      "wall_recall_s": 0.4620950222015381,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782195899.8966546,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_HEBBIAN_BPC_RAW",
+          "bpc": 11.608590959266774,
+          "acc": 0.22482881055034237
+        },
+        {
+          "arm": "SUBSTRATE_HEBBIAN_TEMP_CALIBRATED",
+          "bpc": 11.253972123568541,
+          "acc": 0.22482881055034237,
+          "best_T": 0.5
+        },
+        {
+          "arm": "SUBSTRATE_LOG_LINEAR_UNIGRAM",
+          "bpc": 7.86367616093895,
+          "acc": 0.21709358356581282,
+          "best_lambda": 0.1
+        },
+        {
+          "arm": "UNIGRAM_BASELINE",
+          "bpc": 7.737784450539358,
+          "acc": 0.21709358356581282
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "V": 4000,
+      "N": 4096,
+      "M": 100000,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "n_dev": 7885,
+      "n_test": 7886,
+      "run_mode": "full",
+      "config_version": "text8-substrate-pseudoLM-v2-temperature-calibrated-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 temp_grid=[0.5, 1.0, 2.0, 5.0] lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0] run_mode=full device=cuda; bands HP_BPC<=7.50 HF_BPC>=8.024 cv_max=0.10",
+      "raw_bpc": 11.627135044926343,
+      "raw_acc": 0.22229267055541466,
+      "best_T": 0.5,
+      "temp_dev_bpc": {
+        "0.5": 11.376438345363772,
+        "1.0": 11.66973655407609,
+        "2.0": 11.817448053432017,
+        "5.0": 11.906377910241273
+      },
+      "temp_test_bpc": 11.291205350270863,
+      "temp_test_acc": 0.22229267055541466,
+      "best_lambda": 0.1,
+      "log_linear_dev_bpc": {
+        "0.1": 8.388046018713526,
+        "0.3": 8.780324407487143,
+        "0.5": 9.431680408639483,
+        "0.7": 10.252718245444829,
+        "1.0": 11.66973655407609
+      },
+      "log_linear_test_bpc": 7.86460496435577,
+      "log_linear_test_acc": 0.21709358356581282,
+      "unigram_test_bpc": 7.737784450539358,
+      "unigram_test_acc": 0.21709358356581282,
+      "elapsed_s": 21.36138129234314,
+      "n_llm_calls": 0,
+      "wall_ingest_s": 0.43977904319763184,
+      "wall_recall_s": 0.36753201484680176,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782195921.3360357,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_HEBBIAN_BPC_RAW",
+          "bpc": 11.627135044926343,
+          "acc": 0.22229267055541466
+        },
+        {
+          "arm": "SUBSTRATE_HEBBIAN_TEMP_CALIBRATED",
+          "bpc": 11.291205350270863,
+          "acc": 0.22229267055541466,
+          "best_T": 0.5
+        },
+        {
+          "arm": "SUBSTRATE_LOG_LINEAR_UNIGRAM",
+          "bpc": 7.86460496435577,
+          "acc": 0.21709358356581282,
+          "best_lambda": 0.1
+        },
+        {
+          "arm": "UNIGRAM_BASELINE",
+          "bpc": 7.737784450539358,
+          "acc": 0.21709358356581282
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "V": 4000,
+      "N": 4096,
+      "M": 100000,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "n_dev": 7885,
+      "n_test": 7886,
+      "run_mode": "full",
+      "config_version": "text8-substrate-pseudoLM-v2-temperature-calibrated-v1: N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 INGEST_CHUNK=8192 RECALL_BATCH=1024 temp_grid=[0.5, 1.0, 2.0, 5.0] lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0] run_mode=full device=cuda; bands HP_BPC<=7.50 HF_BPC>=8.024 cv_max=0.10",
+      "raw_bpc": 11.607593816644627,
+      "raw_acc": 0.2273649505452701,
+      "best_T": 0.5,
+      "temp_dev_bpc": {
+        "0.5": 11.359682963360585,
+        "1.0": 11.661441565523786,
+        "2.0": 11.81332520366999,
+        "5.0": 11.904735239621118
+      },
+      "temp_test_bpc": 11.252013397581493,
+      "temp_test_acc": 0.2273649505452701,
+      "best_lambda": 0.1,
+      "log_linear_dev_bpc": {
+        "0.1": 8.387757842331556,
+        "0.3": 8.778675314106101,
+        "0.5": 9.428202777056438,
+        "0.7": 10.247312810687834,
+        "1.0": 11.661441565523786
+      },
+      "log_linear_test_bpc": 7.863531028557295,
+      "log_linear_test_acc": 0.21709358356581282,
+      "unigram_test_bpc": 7.737784450539358,
+      "unigram_test_acc": 0.21709358356581282,
+      "elapsed_s": 21.809563159942627,
+      "n_llm_calls": 0,
+      "wall_ingest_s": 0.41751933097839355,
+      "wall_recall_s": 0.41193127632141113,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782195943.2212758,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_HEBBIAN_BPC_RAW",
+          "bpc": 11.607593816644627,
+          "acc": 0.2273649505452701
+        },
+        {
+          "arm": "SUBSTRATE_HEBBIAN_TEMP_CALIBRATED",
+          "bpc": 11.252013397581493,
+          "acc": 0.2273649505452701,
+          "best_T": 0.5
+        },
+        {
+          "arm": "SUBSTRATE_LOG_LINEAR_UNIGRAM",
+          "bpc": 7.863531028557295,
+          "acc": 0.21709358356581282,
+          "best_lambda": 0.1
+        },
+        {
+          "arm": "UNIGRAM_BASELINE",
+          "bpc": 7.737784450539358,
+          "acc": 0.21709358356581282
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_text8_substrate_pseudoLM_v2_calibrated",
+  "elapsed_s": 64.58929204940796,
+  "summary": "MIDDLE_BAND: best calibrated BPC 7.864 in (7.50, 8.024) -- improvement but below HARD_PASS bar. BPC raw=11.614 temp_calibrated=11.266 log_linear=7.864 unigram=7.738 | best=SUBSTRATE_LOG_LINEAR_UNIGRAM"
+}

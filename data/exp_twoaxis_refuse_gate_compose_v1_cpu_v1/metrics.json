@@ -1,0 +1,255 @@
+{
+  "anchor_name": "twoaxis_refuse_gate_compose_v1_cpu_v1",
+  "verdict": "MEASURED_MECHANISM",
+  "verdict_msg": "MEASURED_MECHANISM: joint does not robustly beat both single-axis gates (workload may not exercise both OOE axes). joint vs load_only=0.0613 depth_only=-0.0984 always=-0.037 | robust_beats: load_only=False depth_only=False | never_worse=False n_overloaded=3",
+  "run_mode": "full",
+  "N": 4096,
+  "V": 128,
+  "loads": [
+    0.05,
+    1.0
+  ],
+  "cal_seeds": [
+    101,
+    102
+  ],
+  "test_seeds": [
+    1,
+    2,
+    3
+  ],
+  "detail": {
+    "per_unit_util": [
+      {
+        "load": 0.05,
+        "seed": 1,
+        "joint": 0.985,
+        "load_only": 0.985,
+        "depth_only": 0.985,
+        "always": 0.985,
+        "overloaded": false,
+        "kmax": 9
+      },
+      {
+        "load": 0.05,
+        "seed": 2,
+        "joint": 0.993,
+        "load_only": 0.993,
+        "depth_only": 0.993,
+        "always": 0.993,
+        "overloaded": false,
+        "kmax": 9
+      },
+      {
+        "load": 0.05,
+        "seed": 3,
+        "joint": 0.988,
+        "load_only": 0.988,
+        "depth_only": 0.988,
+        "always": 0.988,
+        "overloaded": false,
+        "kmax": 9
+      },
+      {
+        "load": 1.0,
+        "seed": 1,
+        "joint": 0.2768,
+        "load_only": 0.1559,
+        "depth_only": 0.4926,
+        "always": 0.3717,
+        "overloaded": true,
+        "kmax": 5
+      },
+      {
+        "load": 1.0,
+        "seed": 2,
+        "joint": 0.2778,
+        "load_only": 0.1549,
+        "depth_only": 0.4751,
+        "always": 0.3523,
+        "overloaded": true,
+        "kmax": 5
+      },
+      {
+        "load": 1.0,
+        "seed": 3,
+        "joint": 0.2768,
+        "load_only": 0.1525,
+        "depth_only": 0.4539,
+        "always": 0.3296,
+        "overloaded": true,
+        "kmax": 5
+      }
+    ],
+    "joint_vs_load_only_mean": 0.0613,
+    "joint_vs_depth_only_mean": -0.0984,
+    "joint_vs_always_mean": -0.037,
+    "joint_ROBUST_beats_load_only": false,
+    "joint_ROBUST_beats_depth_only": false,
+    "joint_beats_always": false,
+    "joint_never_worse_than_either_single": false,
+    "n_overloaded_units": 3,
+    "honest_claim": "2-axis refuse-gate composition (#5b load-axis adjacency + #4 depth-axis traversal): on a mixed adjacency+traversal workload the JOINT gate beats BOTH single-axis gates -- each single axis is blind to the OTHER query type and fabricates on it (load-only fabricates deep traversal; depth-only fabricates overloaded adjacency). Neither single axis suffices for a 2-operation substrate; the composition is necessary."
+  },
+  "metrics_source": "measured_cpu_2axis_refuse_gate_composition",
+  "per_unit": [
+    {
+      "load": 0.05,
+      "seed": 1,
+      "adj_acc": 0.985,
+      "health": 0.04801,
+      "c": 0.52771,
+      "load_overloaded": false,
+      "kmax": 9,
+      "util_always_answer": 0.985,
+      "util_load_only": 0.985,
+      "util_depth_only": 0.985,
+      "util_joint": 0.985,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0
+      },
+      "_ckpt_key": "a0p05_s1",
+      "_partial_written_at": 1782010929.2415001
+    },
+    {
+      "load": 0.05,
+      "seed": 2,
+      "adj_acc": 0.993,
+      "health": 0.0479,
+      "c": 0.52771,
+      "load_overloaded": false,
+      "kmax": 9,
+      "util_always_answer": 0.993,
+      "util_load_only": 0.993,
+      "util_depth_only": 0.993,
+      "util_joint": 0.993,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0
+      },
+      "_ckpt_key": "a0p05_s2",
+      "_partial_written_at": 1782010939.6693642
+    },
+    {
+      "load": 0.05,
+      "seed": 3,
+      "adj_acc": 0.988,
+      "health": 0.04889,
+      "c": 0.52771,
+      "load_overloaded": false,
+      "kmax": 9,
+      "util_always_answer": 0.988,
+      "util_load_only": 0.988,
+      "util_depth_only": 0.988,
+      "util_joint": 0.988,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0,
+        "9": 1.0
+      },
+      "_ckpt_key": "a0p05_s3",
+      "_partial_written_at": 1782010949.7727034
+    },
+    {
+      "load": 1.0,
+      "seed": 1,
+      "adj_acc": 0.716,
+      "health": 0.96425,
+      "c": 0.52771,
+      "load_overloaded": true,
+      "kmax": 5,
+      "util_always_answer": 0.3717,
+      "util_load_only": 0.1559,
+      "util_depth_only": 0.4926,
+      "util_joint": 0.2768,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 0.991,
+        "6": 0.684,
+        "7": 0.182,
+        "8": 0.044,
+        "9": 0.002
+      },
+      "_ckpt_key": "a1p00_s1",
+      "_partial_written_at": 1782011186.4692962
+    },
+    {
+      "load": 1.0,
+      "seed": 2,
+      "adj_acc": 0.697,
+      "health": 1.02218,
+      "c": 0.52771,
+      "load_overloaded": true,
+      "kmax": 5,
+      "util_always_answer": 0.3523,
+      "util_load_only": 0.1549,
+      "util_depth_only": 0.4751,
+      "util_joint": 0.2778,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 0.697,
+        "7": 0.178,
+        "8": 0.018,
+        "9": 0.002
+      },
+      "_ckpt_key": "a1p00_s2",
+      "_partial_written_at": 1782011415.3038697
+    },
+    {
+      "load": 1.0,
+      "seed": 3,
+      "adj_acc": 0.677,
+      "health": 1.00091,
+      "c": 0.52771,
+      "load_overloaded": true,
+      "kmax": 5,
+      "util_always_answer": 0.3296,
+      "util_load_only": 0.1525,
+      "util_depth_only": 0.4539,
+      "util_joint": 0.2768,
+      "trav_acc_by_K": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 0.991,
+        "6": 0.677,
+        "7": 0.176,
+        "8": 0.02,
+        "9": 0.009
+      },
+      "_ckpt_key": "a1p00_s3",
+      "_partial_written_at": 1782011635.6299345
+    }
+  ],
+  "elapsed_s": 1103.6681320667267,
+  "summary": "MEASURED_MECHANISM: joint does not robustly beat both single-axis gates (workload may not exercise both OOE axes). joint vs load_only=0.0613 depth_only=-0.0984 always=-0.037 | robust_beats: load_only=False depth_only=False | never_worse=False n_overloaded=3"
+}

@@ -1,0 +1,788 @@
+{
+  "anchor_name": "substrate_gen_lm_contentgate_flagdep_v6_n8192_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS[CONTENT_GATE]: content-addressed (query-key) admission gate exceeds the 1/(K-1) content-blind cap -- CONTENT=1.000>=0.70, RECENCY=0.272<=0.30 (near analytic cap=0.200), scramble_sep=0.931>=0.30. Content-dependent gating is the lever; recency provably fails when the informative slot's position is uniform. @K6: RAW=0.265 RECENCY=0.272 CONTENT=1.000 SCRAMBLE=0.069 | cap=1/(K-1)=0.200 chance=1/|Vsub|=0.062 | lift_vs_recency=+0.728 lift_vs_raw=+0.735 scramble_sep=+0.931 | curves: RAW={4: 0.47, 6: 0.265, 8: 0.176} RECENCY_GATE={4: 0.511, 6: 0.272, 8: 0.176} CONTENT_GATE={4: 1.0, 6: 1.0, 8: 1.0} CONTENT_GATE_SCRAMBLED={4: 0.068, 6: 0.069, 8: 0.067}",
+  "N": 8192,
+  "run_mode": "full",
+  "device": "cuda",
+  "n_seeds": 3,
+  "headline_K": 6,
+  "v_sub": 16,
+  "flag_id": 69,
+  "gate_tau": 0.05,
+  "expected_n_units": 36,
+  "arm_digests": {
+    "RAW": "5508cd7a9289575979c3e376990cf6e5c08fbb434e1e503b35c2fe1c8109ada6",
+    "RECENCY_GATE": "4a4736bb3b483161aef55922348db530f6803132e975f585f9e94075a8e53498",
+    "CONTENT_GATE": "43b10f77e53d2cf6908bd34566ab5ce59b3e399c1c0858820531db95eff6d127",
+    "CONTENT_GATE_SCRAMBLED": "a3e8d357a286c9cf7563dece4e9f30656cc1ae02431f2bced7980e7dede4114c"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "per_unit": [
+        {
+          "top1": 0.45900002121925354,
+          "top1_vsub": 0.45900002121925354,
+          "bpc_nats": 1.8839222192764282,
+          "bpc_bits": 2.7179252431706336,
+          "perplexity": 6.579259620176745,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.4345000088214874,
+          "top1_vsub": 0.4345000088214874,
+          "bpc_nats": 1.7293821573257446,
+          "bpc_bits": 2.494971062175709,
+          "perplexity": 5.637169948113495,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.003251169342547655,
+          "bpc_bits": 0.004690445887583734,
+          "perplexity": 1.003256460125785,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.06200000271201134,
+          "top1_vsub": 0.06200000271201134,
+          "bpc_nats": 3.2116124629974365,
+          "bpc_bits": 4.633377373623591,
+          "perplexity": 24.81907381482584,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.2745000123977661,
+          "top1_vsub": 0.2745000123977661,
+          "bpc_nats": 2.459810733795166,
+          "bpc_bits": 3.548756747171728,
+          "perplexity": 11.702596424352262,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.27950000762939453,
+          "top1_vsub": 0.27950000762939453,
+          "bpc_nats": 2.4158647060394287,
+          "bpc_bits": 3.4853560308617575,
+          "perplexity": 11.19945040415492,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0033115462865680456,
+          "bpc_bits": 0.004777551405305982,
+          "perplexity": 1.003317035513576,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.05950000137090683,
+          "top1_vsub": 0.05950000137090683,
+          "bpc_nats": 3.345689058303833,
+          "bpc_bits": 4.826809012771406,
+          "perplexity": 28.3801244911846,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.18000000715255737,
+          "top1_vsub": 0.18000000715255737,
+          "bpc_nats": 2.7745168209075928,
+          "bpc_bits": 4.002781658386397,
+          "perplexity": 16.0308793383242,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RAW",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.17900000512599945,
+          "top1_vsub": 0.17900000512599945,
+          "bpc_nats": 2.7694761753082275,
+          "bpc_bits": 3.9955095439773136,
+          "perplexity": 15.950276672333697,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "RECENCY_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0033886937890201807,
+          "bpc_bits": 0.004888851724510646,
+          "perplexity": 1.00339444190285,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.06700000166893005,
+          "top1_vsub": 0.06700000166893005,
+          "bpc_nats": 3.419593572616577,
+          "bpc_bits": 4.933430689069709,
+          "perplexity": 30.556993298125597,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 7,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 8,
+          "N": 8192
+        }
+      ],
+      "gate_log": {
+        "K4": {
+          "recency_gate": [
+            0.0704,
+            0.3419,
+            0.3616,
+            0.2261
+          ],
+          "recency_relevance": [
+            0.2693,
+            0.4273,
+            0.4329,
+            0.3859
+          ],
+          "scramble_perm": [
+            2,
+            3,
+            1,
+            0
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.3333
+        },
+        "K6": {
+          "recency_gate": [
+            0.119,
+            0.179,
+            0.1835,
+            0.1857,
+            0.1767,
+            0.156
+          ],
+          "recency_relevance": [
+            0.2709,
+            0.3118,
+            0.3143,
+            0.3154,
+            0.3105,
+            0.298
+          ],
+          "scramble_perm": [
+            3,
+            5,
+            4,
+            2,
+            1,
+            0
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.2
+        },
+        "K8": {
+          "recency_gate": [
+            0.1153,
+            0.1243,
+            0.1313,
+            0.1309,
+            0.131,
+            0.1242,
+            0.1245,
+            0.1184
+          ],
+          "recency_relevance": [
+            0.2721,
+            0.2796,
+            0.285,
+            0.2847,
+            0.2848,
+            0.2795,
+            0.2797,
+            0.2747
+          ],
+          "scramble_perm": [
+            1,
+            4,
+            0,
+            6,
+            2,
+            3,
+            7,
+            5
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.1429
+        }
+      },
+      "peak_gpu_gb": 1.093665792,
+      "elapsed_s": 4.6317174434661865,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783491714.630341
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "per_unit": [
+        {
+          "top1": 0.47450003027915955,
+          "top1_vsub": 0.47450003027915955,
+          "bpc_nats": 1.8745791912078857,
+          "bpc_bits": 2.7044461029092606,
+          "perplexity": 6.518075679584968,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RAW",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.5005000233650208,
+          "top1_vsub": 0.5005000233650208,
+          "bpc_nats": 1.696242332458496,
+          "bpc_bits": 2.4471604011838006,
+          "perplexity": 5.453416715175717,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RECENCY_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0032281121239066124,
+          "bpc_bits": 0.004657181352593609,
+          "perplexity": 1.003233328088912,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "CONTENT_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.06850000470876694,
+          "top1_vsub": 0.06850000470876694,
+          "bpc_nats": 3.196070671081543,
+          "bpc_bits": 4.610955307500004,
+          "perplexity": 24.436322955494866,
+          "distinct_token_rate": 0.21428571428571427,
+          "seed": 17,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.2600000202655792,
+          "top1_vsub": 0.2600000202655792,
+          "bpc_nats": 2.46596097946167,
+          "bpc_bits": 3.557629676095042,
+          "perplexity": 11.774792050145694,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RAW",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.28050002455711365,
+          "top1_vsub": 0.28050002455711365,
+          "bpc_nats": 2.4119873046875,
+          "bpc_bits": 3.4797621231597935,
+          "perplexity": 11.156109718932242,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RECENCY_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.003299390897154808,
+          "bpc_bits": 0.0047600148852794295,
+          "perplexity": 1.003304839878426,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "CONTENT_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.07450000196695328,
+          "top1_vsub": 0.07450000196695328,
+          "bpc_nats": 3.3610680103302,
+          "bpc_bits": 4.848996150593916,
+          "perplexity": 28.819954457485295,
+          "distinct_token_rate": 0.21428571428571427,
+          "seed": 17,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.1705000102519989,
+          "top1_vsub": 0.1705000102519989,
+          "bpc_nats": 2.775299549102783,
+          "bpc_bits": 4.003910896471962,
+          "perplexity": 16.04343207162426,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RAW",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.1745000034570694,
+          "top1_vsub": 0.1745000034570694,
+          "bpc_nats": 2.770155429840088,
+          "bpc_bits": 3.9964895011219297,
+          "perplexity": 15.961114650503992,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "RECENCY_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.003357828129082918,
+          "bpc_bits": 0.004844321989985393,
+          "perplexity": 1.0033634719491797,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "CONTENT_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.06750000268220901,
+          "top1_vsub": 0.06750000268220901,
+          "bpc_nats": 3.4832003116607666,
+          "bpc_bits": 5.02519581605588,
+          "perplexity": 32.56376970654671,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 17,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 8,
+          "N": 8192
+        }
+      ],
+      "gate_log": {
+        "K4": {
+          "recency_gate": [
+            0.0684,
+            0.3578,
+            0.3562,
+            0.2176
+          ],
+          "recency_relevance": [
+            0.2646,
+            0.4301,
+            0.4296,
+            0.3803
+          ],
+          "scramble_perm": [
+            2,
+            0,
+            3,
+            1
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.3333
+        },
+        "K6": {
+          "recency_gate": [
+            0.1184,
+            0.1898,
+            0.1856,
+            0.1734,
+            0.1835,
+            0.1495
+          ],
+          "recency_relevance": [
+            0.2687,
+            0.3159,
+            0.3137,
+            0.3069,
+            0.3125,
+            0.292
+          ],
+          "scramble_perm": [
+            1,
+            0,
+            5,
+            2,
+            3,
+            4
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.2
+        },
+        "K8": {
+          "recency_gate": [
+            0.113,
+            0.1312,
+            0.1262,
+            0.1348,
+            0.1211,
+            0.1349,
+            0.121,
+            0.1178
+          ],
+          "recency_relevance": [
+            0.267,
+            0.2819,
+            0.278,
+            0.2846,
+            0.2739,
+            0.2847,
+            0.2738,
+            0.2712
+          ],
+          "scramble_perm": [
+            4,
+            3,
+            0,
+            7,
+            2,
+            1,
+            5,
+            6
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.1429
+        }
+      },
+      "peak_gpu_gb": 1.093665792,
+      "elapsed_s": 4.58181095123291,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783491719.2170296
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "per_unit": [
+        {
+          "top1": 0.4775000214576721,
+          "top1_vsub": 0.4775000214576721,
+          "bpc_nats": 1.8576728105545044,
+          "bpc_bits": 2.680055351381246,
+          "perplexity": 6.408804900399368,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "RAW",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.5985000133514404,
+          "top1_vsub": 0.5985000133514404,
+          "bpc_nats": 1.6333550214767456,
+          "bpc_bits": 2.356433189495587,
+          "perplexity": 5.1210270850218444,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "RECENCY_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0032463930547237396,
+          "bpc_bits": 0.004683555160826312,
+          "perplexity": 1.0032516682956139,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "CONTENT_GATE",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.07250000536441803,
+          "top1_vsub": 0.07250000536441803,
+          "bpc_nats": 3.1887834072113037,
+          "bpc_bits": 4.60044200805276,
+          "perplexity": 24.25889628475807,
+          "distinct_token_rate": 0.2,
+          "seed": 23,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 4,
+          "N": 8192
+        },
+        {
+          "top1": 0.2605000138282776,
+          "top1_vsub": 0.2605000138282776,
+          "bpc_nats": 2.459392786026001,
+          "bpc_bits": 3.548153775997803,
+          "perplexity": 11.697706372247632,
+          "distinct_token_rate": 0.21428571428571427,
+          "seed": 23,
+          "arm": "RAW",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.25450000166893005,
+          "top1_vsub": 0.25450000166893005,
+          "bpc_nats": 2.4204025268554688,
+          "bpc_bits": 3.491902722449501,
+          "perplexity": 11.250386986462477,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "RECENCY_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0033074929378926754,
+          "bpc_bits": 0.0047717036592730315,
+          "perplexity": 1.003312968728041,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "CONTENT_GATE",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.07150000333786011,
+          "top1_vsub": 0.07150000333786011,
+          "bpc_nats": 3.360161781311035,
+          "bpc_bits": 4.847688738482056,
+          "perplexity": 28.7938488090596,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 6,
+          "N": 8192
+        },
+        {
+          "top1": 0.17650000751018524,
+          "top1_vsub": 0.17650000751018524,
+          "bpc_nats": 2.7697858810424805,
+          "bpc_bits": 3.995956354904255,
+          "perplexity": 15.95521732951748,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "RAW",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.1745000034570694,
+          "top1_vsub": 0.1745000034570694,
+          "bpc_nats": 2.768059015274048,
+          "bpc_bits": 3.9934650142238564,
+          "perplexity": 15.927688586945871,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "RECENCY_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 1.0,
+          "top1_vsub": 1.0,
+          "bpc_nats": 0.0033851012121886015,
+          "bpc_bits": 0.004883668731731714,
+          "perplexity": 1.0033908371377003,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "CONTENT_GATE",
+          "K": 8,
+          "N": 8192
+        },
+        {
+          "top1": 0.06750000268220901,
+          "top1_vsub": 0.06750000268220901,
+          "bpc_nats": 3.436889410018921,
+          "bpc_bits": 4.958383307918092,
+          "perplexity": 31.09009905128914,
+          "distinct_token_rate": 0.22857142857142856,
+          "seed": 23,
+          "arm": "CONTENT_GATE_SCRAMBLED",
+          "K": 8,
+          "N": 8192
+        }
+      ],
+      "gate_log": {
+        "K4": {
+          "recency_gate": [
+            0.0699,
+            0.3668,
+            0.3546,
+            0.2087
+          ],
+          "recency_relevance": [
+            0.2685,
+            0.4343,
+            0.431,
+            0.378
+          ],
+          "scramble_perm": [
+            1,
+            3,
+            0,
+            2
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.3333
+        },
+        "K6": {
+          "recency_gate": [
+            0.1176,
+            0.1713,
+            0.1851,
+            0.1873,
+            0.1809,
+            0.1579
+          ],
+          "recency_relevance": [
+            0.2692,
+            0.3068,
+            0.3146,
+            0.3158,
+            0.3123,
+            0.2987
+          ],
+          "scramble_perm": [
+            1,
+            5,
+            4,
+            2,
+            3,
+            0
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.2
+        },
+        "K8": {
+          "recency_gate": [
+            0.1133,
+            0.1187,
+            0.1352,
+            0.1353,
+            0.1212,
+            0.1242,
+            0.1296,
+            0.1224
+          ],
+          "recency_relevance": [
+            0.2696,
+            0.2743,
+            0.2874,
+            0.2874,
+            0.2764,
+            0.2789,
+            0.2831,
+            0.2774
+          ],
+          "scramble_perm": [
+            6,
+            5,
+            0,
+            4,
+            7,
+            2,
+            3,
+            1
+          ],
+          "chance": 0.0625,
+          "content_blind_cap": 0.1429
+        }
+      },
+      "peak_gpu_gb": 1.093665792,
+      "elapsed_s": 4.594879150390625,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1783491723.8149955
+    }
+  ],
+  "curves": {
+    "RAW": {
+      "4": 0.4703333576520284,
+      "6": 0.26500001549720764,
+      "8": 0.1756666749715805
+    },
+    "RECENCY_GATE": {
+      "4": 0.5111666818459829,
+      "6": 0.27150001128514606,
+      "8": 0.17600000401337942
+    },
+    "CONTENT_GATE": {
+      "4": 1.0,
+      "6": 1.0,
+      "8": 1.0
+    },
+    "CONTENT_GATE_SCRAMBLED": {
+      "4": 0.06766667092839877,
+      "6": 0.06850000222524007,
+      "8": 0.0673333356777827
+    }
+  },
+  "curves_bpc": {
+    "RAW": {
+      "4": 2.7008088991537136,
+      "6": 3.551513399754858,
+      "8": 4.000882969920871
+    },
+    "RECENCY_GATE": {
+      "4": 2.432854884285032,
+      "6": 3.485673625490351,
+      "8": 3.995154686441033
+    },
+    "CONTENT_GATE": {
+      "4": 0.0046770608003345515,
+      "6": 0.004769756649952814,
+      "8": 0.004872280815409251
+    },
+    "CONTENT_GATE_SCRAMBLED": {
+      "4": 4.614924896392118,
+      "6": 4.841164633949126,
+      "8": 4.972336604347894
+    }
+  },
+  "elapsed_s": 13.808407545089722,
+  "summary": "HARD_PASS[CONTENT_GATE]: content-addressed (query-key) admission gate exceeds the 1/(K-1) content-blind cap -- CONTENT=1.000>=0.70, RECENCY=0.272<=0.30 (near analytic cap=0.200), scramble_sep=0.931>=0.30. Content-dependent gating is the lever; recency provably fails when the informative slot's position is uniform. @K6: RAW=0.265 RECENCY=0.272 CONTENT=1.000 SCRAMBLE=0.069 | cap=1/(K-1)=0.200 chance=1/|Vsub|=0.062 | lift_vs_recency=+0.728 lift_vs_raw=+0.735 scramble_sep=+0.931 | curves: RAW={4: 0.47, 6: 0.265, 8: 0.176} RECENCY_GATE={4: 0.511, 6: 0.272, 8: 0.176} CONTENT_GATE={4: 1.0, 6: 1.0, 8: 1.0} CONTENT_GATE_SCRAMBLED={4: 0.068, 6: 0.069, 8: 0.067}"
+}

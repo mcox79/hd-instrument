@@ -1,0 +1,12 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_tag": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: META_RULE_AF VIOLATION: arms 'A' and 'B' bit-identical (hash=184469be0539c7ca64c207add177de1e9bc2bc690943e67ed6b8cebadab63024)",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_stateful_core_mes_data_sufficient_gate_v1.py\", line 975, in <module>\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_stateful_core_mes_data_sufficient_gate_v1.py\", line 962, in main\n    ps = power_stats(best_trained, n_eval, ri_accs)\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_stateful_core_mes_data_sufficient_gate_v1.py\", line 600, in run_gate\n    controls = {\"MES\": {}, \"KD\": {}}\n                ^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_stateful_core_mes_data_sufficient_gate_v1.py\", line 248, in _arms_must_differ\n    names = sorted(digests)\n                   ^^^^^^^^^\nAssertionError: META_RULE_AF VIOLATION: arms 'A' and 'B' bit-identical (hash=184469be0539c7ca64c207add177de1e9bc2bc690943e67ed6b8cebadab63024)\n",
+  "ts_iso": "2026-07-30T01:23:16.523161+00:00",
+  "pid": 29220,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "failure_class": "AssertionError"
+}

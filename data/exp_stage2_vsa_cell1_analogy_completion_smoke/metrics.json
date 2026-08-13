@@ -1,0 +1,185 @@
+{
+  "anchor_name": "stage2_vsa_cell1_analogy_completion_smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: HP1+HP2 cleared but cleanup ablation gain=+0.007 < 0.05 (cleanup does not earn its keep on this regime; ablation-safe). n_seeds=3 n_dim=2048 N_C=100 N_R=10 N_Q=500 | CLEANUP=0.861+/-0.009 NO_CLEANUP=0.855+/-0.012 COSINE_BASE=0.007 RANDOM=0.012 | HP1(>=0.80)=True HP2(gap>=0.20)=True(gap=+0.854) HP3(cleanup_gain>=0.05)=False(gain=+0.007)",
+  "summary": "n_seeds=3 n_dim=2048 N_C=100 N_R=10 N_Q=500 mode=smoke",
+  "elapsed_s": 1.3082010746002197,
+  "config_version": "ANCHOR=stage2_vsa_cell1_analogy_completion_smoke,n_dim=2048,N_C=100,N_R=10,N_Q=500,K_DIST=3,SEEDS=11-17-23,RUN_MODE=smoke,arms=4,cleanup=k_NN,binding=FHRR_complex_phasors",
+  "run_mode": "smoke",
+  "n_dim": 2048,
+  "N_C": 100,
+  "N_R": 10,
+  "N_Q": 500,
+  "n_seeds": 3,
+  "expected_n_units": 12,
+  "cardinality_ok": true,
+  "gates": {
+    "cleanup": 0.8613333333333334,
+    "no_cleanup": 0.8546666666666667,
+    "cosine_base": 0.007333333333333333,
+    "random_base": 0.012000000000000002,
+    "hp1": true,
+    "hp2": true,
+    "hp3": false,
+    "cleanup_minus_cosine": 0.8540000000000001,
+    "cleanup_minus_no_cleanup": 0.00666666666666671,
+    "std_per_arm": {
+      "ARM_HRR_BIND_UNBIND_CLEANUP": 0.008993825042154702,
+      "ARM_HRR_BIND_UNBIND_NO_CLEANUP": 0.011585431464655188,
+      "ARM_COSINE_ARGMAX_BASELINE": 0.00339934634239519,
+      "ARM_RANDOM_BASELINE": 0.00282842712474619
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "elapsed_s": 0.38525915145874023,
+      "arms": [
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_CLEANUP",
+          "recall_at_1": 0.856,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.13198232650756836,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_NO_CLEANUP",
+          "recall_at_1": 0.852,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.10469937324523926,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "recall_at_1": 0.004,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.10264229774475098,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "recall_at_1": 0.01,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.028472185134887695,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.36056995391845703,
+      "arms": [
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_CLEANUP",
+          "recall_at_1": 0.874,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.1225738525390625,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_NO_CLEANUP",
+          "recall_at_1": 0.87,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.10590100288391113,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "recall_at_1": 0.012,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.0892632007598877,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "recall_at_1": 0.016,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.026613235473632812,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 0.37841153144836426,
+      "arms": [
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_CLEANUP",
+          "recall_at_1": 0.854,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.13673901557922363,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HRR_BIND_UNBIND_NO_CLEANUP",
+          "recall_at_1": 0.842,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.09285712242126465,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "recall_at_1": 0.006,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.10291934013366699,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "recall_at_1": 0.01,
+          "n_queries": 500,
+          "n_dim": 2048,
+          "N_C": 100,
+          "N_R": 10,
+          "K_DISTRACTORS": 3,
+          "wall_s": 0.030134201049804688,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

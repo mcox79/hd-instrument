@@ -1,0 +1,304 @@
+{
+  "anchor_name": "substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03",
+  "verdict": "HARD_PASS_MECHANISM_LIFT",
+  "verdict_msg": "HARD_PASS_MECHANISM_LIFT: substrate-native ATL-hub-analog PPMI/SVD encoder at N=500 reaches r@5=0.9060 with delta_vs_char_trigram=+0.0520 >= 0.05. HONEST SCOPE: MECHANISM CG on SUPERVISED corpus-as-labeled-partition regime; does NOT grant substrate general-knowledge of Wikipedia content. PPMI mechanism (Levy/Goldberg 2015 co-occurrence + SVD) adds signal ABOVE surface trigram bag on multi-token real-corpus retrieval at 20x smoke scale. trigram r@5=0.8540 (delta_from_smoke=+0.0000). random r@5=0.0073 (chance=0.010000). PPMI delta_from_smoke=+0.0000.",
+  "summary": "HARD_PASS_MECHANISM_LIFT: substrate-native ATL-hub-analog PPMI/SVD encoder at N=500 reaches r@5=0.9060 with delta_vs_char_trigram=+0.0520 >= 0.05. HONEST SCOPE: MECHANISM CG on SUPERVISED corpus-as-labeled-partition regime; does NOT grant substrate general-knowledge of Wikipedia content. PPMI mechanism (Levy/Goldberg 2015 co-occurrence + SVD) adds signal ABOVE surface trigram bag on multi-token real-corpus retrieval at 20x smoke scale. trigram r@5=0.8540 (delta_from_smoke=+0.0000). random r@5=0.0073 (chance=0.010000). PPMI delta_from_smoke=+0.0000.",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_articles": 500,
+  "n_articles_configured": 500,
+  "n_dim": 2048,
+  "body_char_cap": 800,
+  "expected_n_units": 9,
+  "actual_n_units": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE_N10K",
+    "chance_r5": 0.01,
+    "band_max_r5": 0.05,
+    "observed_r5_mean": 0.007333333333333333,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "hp_scope": {
+    "HP_MECHANISM_LIFT_LOAD_BEARING": [
+      "ARM_PPMI_SVD_WIKIPEDIA_N10K"
+    ],
+    "MB_MECHANISM_CHARACTERIZATION": [
+      "ARM_PPMI_SVD_WIKIPEDIA_N10K"
+    ],
+    "HF_BASELINE_IN_BAND": [
+      "ARM_RANDOM_BASELINE_N10K"
+    ],
+    "CO_RUN_REFERENCE": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K"
+    ]
+  },
+  "delta_hp_threshold": 0.05,
+  "delta_mb_min": 0.03,
+  "expected_measure_band_ppmi_r5": [
+    0.8,
+    0.92
+  ],
+  "inconclusive_r5_band": [
+    0.6,
+    0.95
+  ],
+  "inconclusive_margin_r5": 0.1,
+  "ppmi_smoke_reference_r5_at_500_MEASURED": 0.906,
+  "ppmi_smoke_reference_source": "data/exp_substrate_wikipedia_ppmi_svd_baseline_smoke_2026_07_03/metrics.json",
+  "char_trigram_smoke_reference_r5_at_500_MEASURED": 0.854,
+  "char_trigram_smoke_reference_source": "data/exp_substrate_wikipedia_char_trigram_baseline_smoke_2026_07_03/metrics.json",
+  "delta_from_smoke_r5_ppmi": 0.0,
+  "delta_from_smoke_r5_char_trigram": 0.0,
+  "delta_from_char_trigram_at_10K": 0.052000000000000046,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.3246246576309204,
+          "signal_to_noise_ratio": 1.720536757261538,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.4799852000141982,
+          "fit_wall_s": 5.219790200004354,
+          "throughput_articles_per_sec": 1041.6987856817454,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.03407031297683716,
+          "signal_to_noise_ratio": 6.138958746451876,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.833035200019367,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 600.2147328088604,
+          "n_unique_trigrams": 12210
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.002,
+          "recall_at_10": 0.018,
+          "mean_reciprocal_rank": 0.0110849784194068,
+          "intra_article_body_title_cos": -0.001515624908148311,
+          "inter_article_title_body_cos": -0.00019921862985938787,
+          "signal_to_noise_ratio": -7.607847264174373,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.017863199987914413,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 27990.505639430878
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "e2ecc070467df3fb"
+      },
+      "seed_elapsed_s": 15.305389199987985,
+      "N": 500,
+      "run_mode": "smoke",
+      "anchor_name": "substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03",
+      "config_version": "ANCHOR=substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03,N=500,run_mode=smoke",
+      "_ckpt_key": "11",
+      "_partial_written_at": 1783047912.170459
+    },
+    {
+      "seed": 17,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.32378914952278137,
+          "signal_to_noise_ratio": 1.7249764440551256,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.4060669000027701,
+          "fit_wall_s": 3.2227455000102054,
+          "throughput_articles_per_sec": 1231.3241980486198,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.034535154700279236,
+          "signal_to_noise_ratio": 6.0563286210446945,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.7748084000195377,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 645.3208302689955,
+          "n_unique_trigrams": 12210
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.014,
+          "recall_at_10": 0.02,
+          "mean_reciprocal_rank": 0.012482012653221273,
+          "intra_article_body_title_cos": -0.0006269531382713467,
+          "inter_article_title_body_cos": 0.0008144530584104359,
+          "signal_to_noise_ratio": -0.7697842518941093,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.022927600017283112,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 21807.77750933782
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "4fc1ff0c71481e0e"
+      },
+      "seed_elapsed_s": 4.573440800013486,
+      "N": 500,
+      "run_mode": "smoke",
+      "anchor_name": "substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03",
+      "config_version": "ANCHOR=substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03,N=500,run_mode=smoke",
+      "_ckpt_key": "17",
+      "_partial_written_at": 1783047916.7738142
+    },
+    {
+      "seed": 23,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.32313281297683716,
+          "signal_to_noise_ratio": 1.7284801584278515,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.4625397000054363,
+          "fit_wall_s": 3.710691799991764,
+          "throughput_articles_per_sec": 1080.9882913707156,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.033589839935302734,
+          "signal_to_noise_ratio": 6.226771138128743,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.814176400017459,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 614.1175302910747,
+          "n_unique_trigrams": 12210
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.006,
+          "recall_at_10": 0.014,
+          "mean_reciprocal_rank": 0.011949832473476604,
+          "intra_article_body_title_cos": 0.00012695299610345734,
+          "inter_article_title_body_cos": -0.00016210951434914023,
+          "signal_to_noise_ratio": 0.783131061820559,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.022704800008796155,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 22021.775122718238
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA_N10K": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "4508efcf6fd37b18"
+      },
+      "seed_elapsed_s": 5.209601100010332,
+      "N": 500,
+      "run_mode": "smoke",
+      "anchor_name": "substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03",
+      "config_version": "ANCHOR=substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03,N=500,run_mode=smoke",
+      "_ckpt_key": "23",
+      "_partial_written_at": 1783047922.0229125
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_PPMI_SVD_WIKIPEDIA_N10K": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.77,
+      "recall_at_5_mean": 0.906,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.936,
+      "encoding_wall_s_mean": 0.4495306000074682,
+      "fit_wall_s_mean": 4.0510758333354415,
+      "throughput_articles_per_sec_mean": 1118.0037583670269
+    },
+    "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.676,
+      "recall_at_5_mean": 0.854,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.902,
+      "encoding_wall_s_mean": 0.8073400000187879,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 619.8843644563102
+    },
+    "ARM_RANDOM_BASELINE_N10K": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0013333333333333333,
+      "recall_at_5_mean": 0.007333333333333333,
+      "recall_at_5_std": 0.004988876515698589,
+      "recall_at_10_mean": 0.017333333333333333,
+      "encoding_wall_s_mean": 0.02116520000466456,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 23940.019423828973
+    }
+  },
+  "elapsed_s": 0.006633699988014996,
+  "ts_iso_end": "2026-07-03T03:05:31.982184+00:00"
+}

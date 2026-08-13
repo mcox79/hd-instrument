@@ -1,0 +1,65 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | best_cfg=cs64_of0.00 subst=0.550 md=0.450 diag=0.100 | min_md_gap=-0.100 diag_max=0.200",
+  "summary": "MIDDLE_BAND | best_cfg=cs64_of0.00 subst=0.550 md=0.450 diag=0.100 | min_md_gap=-0.100 diag_max=0.200",
+  "per_arm": {
+    "cs64_of0.00": {
+      "substrate_recall_5_mean": 0.55,
+      "md_recall_5_mean": 0.45,
+      "diag_recall_5_mean": 0.1
+    },
+    "cs1024_of0.00": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.05
+    },
+    "cs256_of0.25": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.15000000000000002
+    },
+    "cs1024_of0.50": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.2
+    }
+  },
+  "per_config_summary": {
+    "cs64_of0.00": {
+      "substrate_recall_5_mean": 0.55,
+      "md_recall_5_mean": 0.45,
+      "diag_recall_5_mean": 0.1
+    },
+    "cs1024_of0.00": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.05
+    },
+    "cs256_of0.25": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.15000000000000002
+    },
+    "cs1024_of0.50": {
+      "substrate_recall_5_mean": 0.45,
+      "md_recall_5_mean": 0.5,
+      "diag_recall_5_mean": 0.2
+    }
+  },
+  "best_cfg": "cs64_of0.00",
+  "best_substrate_recall": 0.55,
+  "best_md_recall_at_best_cfg": 0.45,
+  "min_md_gap": -0.10000000000000003,
+  "diag_max": 0.2,
+  "n_seeds_complete": 2,
+  "expected_n_units": 240,
+  "completed_units": 240,
+  "cardinality_ok": true,
+  "anchor_name": "substrate_md_chunk_config_sweep_E3_v1",
+  "elapsed_s": 135.5,
+  "ts_iso": "2026-06-27T22:33:50Z",
+  "pid": 24492,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_md_chunk_config_sweep_E3_v1,N=1024,docs=40,doc_tokens=600,queries=10,seeds=[7, 17],n_configs=4,mode=smoke,HP_subst>=0.70,HP_diag<=0.20,expected_n=240,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_md_chunk_config_sweep_E3"
+}

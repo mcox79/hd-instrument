@@ -1,0 +1,200 @@
+{
+  "anchor_name": "substrate_audit_trail_pipeline_v2_3seed_proper_power",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_DECISIVE: best arm (V3) provenance 0.160 <= 0.70 -- no lift over NAIVE 0.222 within CI even at proper power; audit-trail mechanism does NOT transfer at substrate-bipolar HRR regime; revert to alternative approach. NAIVE_prov=0.222 (sanity [0.55,0.75] -> OUT) | V1_prov=0.130 | V3_prov=0.160 (cv=0.051 refuse=0.000 false_refuse=0.000) | V5_prov=0.120 (cv=0.000 refuse=0.000 false_refuse=0.000) | V5_lift_vs_V3=-0.040 | BEST_ARM=V3 prov=0.160 refuse=0.000 lift_vs_NAIVE=-0.062",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "audit-trail-v2-power-v1: N=2048 V_C=100 V_P=8 M=500 M_unk=200 seeds=[7, 17, 23] TAU_FRAC=0.55 V5_topk=5; bands HP_prov>=0.85 lift>=0.10 refuse>=0.50; MB_prov>=0.75 refuse>=0.20; HF_prov<=0.70",
+  "config": {
+    "N_DIM": 2048,
+    "V_CONCEPTS": 100,
+    "V_PREDICATES": 8,
+    "M_TRIPLES": 500,
+    "M_UNKNOWN": 200,
+    "TAU_FRAC_KNOWN": 0.55,
+    "V5_TOPK": 5,
+    "SEEDS": [
+      7,
+      17,
+      23
+    ]
+  },
+  "aggregate": {
+    "naive_provenance_mean": 0.22166666666666668,
+    "naive_provenance_cv": 0.10143411701678223,
+    "v1_provenance_mean": 0.13,
+    "v1_provenance_cv": 0.08308641921035716,
+    "v3_provenance_mean": 0.16,
+    "v3_provenance_cv": 0.051031036307982926,
+    "v3_refuse_acc_mean": 0.0,
+    "v3_false_refuse_mean": 0.0,
+    "v5_provenance_mean": 0.12,
+    "v5_provenance_cv": 0.0,
+    "v5_refuse_acc_mean": 0.0,
+    "v5_false_refuse_mean": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.235,
+        "object_recall": 0.235,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.145,
+        "object_recall": 0.045,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.037536447819322354,
+        "mean_known_conf": 0.06824808694422245,
+        "provenance_accuracy": 0.17,
+        "object_recall": 0.06,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 0,
+        "n_rerank_changed": 0,
+        "tau_calibrated": 0.03788965984806418,
+        "obj_tau_calibrated": 0.033510319000110034,
+        "mean_known_slot_conf": 0.06889029063284396,
+        "mean_known_obj_conf": 0.06092785272747278,
+        "provenance_accuracy": 0.12,
+        "object_recall": 0.03,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 0.5175085067749023
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.19,
+        "object_recall": 0.19,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.12,
+        "object_recall": 0.055,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.0388718792963773,
+        "mean_known_conf": 0.07067614417523145,
+        "provenance_accuracy": 0.15,
+        "object_recall": 0.1,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 0,
+        "n_rerank_changed": 0,
+        "tau_calibrated": 0.038085223071277145,
+        "obj_tau_calibrated": 0.03355014455877245,
+        "mean_known_slot_conf": 0.0692458601295948,
+        "mean_known_obj_conf": 0.061000262834131715,
+        "provenance_accuracy": 0.12,
+        "object_recall": 0.04,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 0.5527336597442627
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "M": 500,
+      "run_mode": "full",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 200,
+        "provenance_accuracy": 0.24,
+        "object_recall": 0.24,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 200,
+        "provenance_accuracy": 0.125,
+        "object_recall": 0.055,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "tau_calibrated": 0.037597674198448665,
+        "mean_known_conf": 0.06835940763354302,
+        "provenance_accuracy": 0.16,
+        "object_recall": 0.08,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 100,
+        "n_emitted": 100,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 0,
+        "n_rerank_changed": 0,
+        "tau_calibrated": 0.03829304182715714,
+        "obj_tau_calibrated": 0.03420756928995252,
+        "mean_known_slot_conf": 0.06962371241301298,
+        "mean_known_obj_conf": 0.06219558052718639,
+        "provenance_accuracy": 0.12,
+        "object_recall": 0.03,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 0.5914185047149658
+    }
+  ],
+  "elapsed_s": 1.6992440223693848,
+  "summary": "HARD_FAIL_DECISIVE: best arm (V3) provenance 0.160 <= 0.70 -- no lift over NAIVE 0.222 within CI even at proper power; audit-trail mechanism does NOT transfer at substrate-bipolar HRR regime; revert to alternative approach. NAIVE_prov=0.222 (sanity [0.55,0.75] -> OUT) | V1_prov=0.130 | V3_prov=0.160 (cv=0.051 refuse=0.000 false_refuse=0.000) | V5_prov=0.120 (cv=0.000 refuse=0.000 false_refuse=0.000) | V5_lift_vs_V3=-0.040 | BEST_ARM=V3 prov=0.160 refuse=0.000 lift_vs_NAIVE=-0.062",
+  "DESIGN_NOTE": "Wave A revival cell #3 (per Skunkworks audit + Research synthesis 2026-06-24): v1 smoke at N=1024 V=60 M=80 1-seed had binomial CI +/-0.042 on V3 prov=0.825, so HARD_PASS 0.85 sat INSIDE the CI [0.71, 0.94] -- statistically indistinguishable from MIDDLE_BAND. v2 scales N=2048 V=100 M=500 3-seed (600 samples per arm at n_eval=200) where binomial CI ~ +/-0.029 -- can discriminate HP from MIDDLE at p<0.05. SAME 4 arms (apples-to-apples); ONE knob varies = pipeline stage."
+}

@@ -1,0 +1,305 @@
+{
+  "anchor_name": "substrate_anisotropy_fly_lsh_expansion_ratio_sweep_v1",
+  "verdict": "HARD_FAIL_PARTIAL_OOM",
+  "verdict_msg": "HARD_FAIL_OOM_AT_EXPANSION_4096: [Q-DISCIPLINE: FLY_5x=0.9987 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.016 | FLY_5x=0.999(cv=0.002) FLY_64x=nan(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | OOM=['4096', '512', '64', 'ab_control_4096x'] | trans=['5x->64x: 0.999->nan ok=None', '64x->512x: nan->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "summary": "HARD_FAIL_OOM_AT_EXPANSION_4096: [Q-DISCIPLINE: FLY_5x=0.9987 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.016 | FLY_5x=0.999(cv=0.002) FLY_64x=nan(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | OOM=['4096', '512', '64', 'ab_control_4096x'] | trans=['5x->64x: 0.999->nan ok=None', '64x->512x: nan->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "proj_dim": 768,
+  "expansion_factors_active": [
+    5,
+    64,
+    512,
+    4096
+  ],
+  "expansion_factors_canonical": [
+    5,
+    64,
+    512,
+    4096
+  ],
+  "ab_control_expansion": 4096,
+  "M_EVAL": 10000,
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "detail": {
+    "raw": 0.016,
+    "by_expansion": {
+      "5": 0.9987,
+      "64": null,
+      "512": null,
+      "4096": null
+    },
+    "by_expansion_cv": {
+      "5": 0.0016,
+      "64": null,
+      "512": null,
+      "4096": null
+    },
+    "ab_control_at_max": null,
+    "ab_control_cv": null,
+    "AB_CONTROL_EXPANSION": 4096,
+    "monotonic_in_expansion": true,
+    "oom_levels": [
+      "4096",
+      "512",
+      "64",
+      "ab_control_4096x"
+    ],
+    "transitions": [
+      [
+        5,
+        64,
+        0.9987,
+        NaN,
+        null
+      ],
+      [
+        64,
+        512,
+        NaN,
+        NaN,
+        null
+      ],
+      [
+        512,
+        4096,
+        NaN,
+        NaN,
+        null
+      ]
+    ],
+    "M_eval": 10000,
+    "n_seeds": 3,
+    "bands": {
+      "HP_BRAIN_EXPANSION": 0.85,
+      "HP_VS_CONTROL_MARGIN": 0.1,
+      "MONOTONIC_TOL": 0.02,
+      "HF_NO_LIFT_VS_5X": 0.02,
+      "CV_HP": 0.05,
+      "CV_PARTIAL": 0.07,
+      "CONTROL_TOO_CLOSE": 0.1,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "expansionRatioSweepV1(fly_lsh K_FANIN=5 KWTA_FRAC=0.020 FLY_TOPK_FRAC=0.0050) | PROJ_DIM=768 C=256 expansions=[5, 64, 512, 4096] ab_control=4096x | seeds=[11, 13, 19] M_EVAL=10000 encoder=EleutherAI/pythia-2.8b | HP_4096x>=0.85 vs_control_margin>=0.10 cv_HP<=0.05 Q_sat>=0.995",
+    "cites": [
+      "anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017",
+      "USER_geometric_intuition_2026-06-25"
+    ]
+  },
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_max_mem_alloc_mb": 5861.1,
+  "metrics_source": "measured_gpu_anisotropy_fly_lsh_expansion_ratio_sweep",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.016
+        },
+        "arm_fly_lsh_5x": {
+          "top1": 0.9987,
+          "d_p": 3840,
+          "FLY_TOPK": 20,
+          "peak_gpu_mem_mb": 502.9,
+          "expansion": 5,
+          "OOM": false,
+          "elapsed_s_arm": 0.23
+        },
+        "arm_fly_lsh_64x": {
+          "top1": -1.0,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 64,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.83 GiB. GPU 0 has a total capacity of 8.00 GiB of which 570.43 MiB is free. 6.80 GiB allowed; Of the allocated memory 3.75 GiB is allocated by PyTorch, and 1.85",
+          "elapsed_s_arm": 1.2
+        },
+        "arm_fly_lsh_512x": {
+          "top1": -1.0,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 512,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 2.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 735.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.12 GiB is allocated by PyTorch, and 2.01",
+          "elapsed_s_arm": 12.18
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.99 GiB. GPU 0 has a total capacity of 8.00 GiB of which 255.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.60 GiB is allocated by PyTorch, and 2.00",
+          "elapsed_s_arm": 32.82
+        },
+        "arm_ab_control_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 3.17 GiB. GPU 0 has a total capacity of 8.00 GiB of which 658.55 MiB is free. 6.80 GiB allowed; Of the allocated memory 5.57 GiB is allocated by PyTorch, and 16.4",
+          "mechanism": "ab_control_dense_gaussian",
+          "elapsed_s_arm": 0.6
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        5,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782446899.7327356
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.0213
+        },
+        "arm_fly_lsh_5x": {
+          "top1": 0.9987,
+          "d_p": 3840,
+          "FLY_TOPK": 20,
+          "peak_gpu_mem_mb": 502.9,
+          "expansion": 5,
+          "OOM": false,
+          "elapsed_s_arm": 0.18
+        },
+        "arm_fly_lsh_64x": {
+          "top1": -1.0,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 64,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.83 GiB. GPU 0 has a total capacity of 8.00 GiB of which 570.43 MiB is free. 6.80 GiB allowed; Of the allocated memory 3.75 GiB is allocated by PyTorch, and 1.85",
+          "elapsed_s_arm": 1.23
+        },
+        "arm_fly_lsh_512x": {
+          "top1": -1.0,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 512,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 2.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 735.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.12 GiB is allocated by PyTorch, and 2.01",
+          "elapsed_s_arm": 11.94
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.99 GiB. GPU 0 has a total capacity of 8.00 GiB of which 255.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.60 GiB is allocated by PyTorch, and 2.00",
+          "elapsed_s_arm": 32.27
+        },
+        "arm_ab_control_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 3.17 GiB. GPU 0 has a total capacity of 8.00 GiB of which 591.59 MiB is free. 6.80 GiB allowed; Of the allocated memory 5.57 GiB is allocated by PyTorch, and 16.4",
+          "mechanism": "ab_control_dense_gaussian",
+          "elapsed_s_arm": 0.61
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        5,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "_ckpt_key": "s13",
+      "_partial_written_at": 1782447028.1131296
+    },
+    {
+      "seed": 19,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.0127
+        },
+        "arm_fly_lsh_5x": {
+          "top1": 0.9953,
+          "d_p": 3840,
+          "FLY_TOPK": 20,
+          "peak_gpu_mem_mb": 502.9,
+          "expansion": 5,
+          "OOM": false,
+          "elapsed_s_arm": 0.18
+        },
+        "arm_fly_lsh_64x": {
+          "top1": -1.0,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 64,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.83 GiB. GPU 0 has a total capacity of 8.00 GiB of which 557.36 MiB is free. 6.80 GiB allowed; Of the allocated memory 3.75 GiB is allocated by PyTorch, and 1.85",
+          "elapsed_s_arm": 1.2
+        },
+        "arm_fly_lsh_512x": {
+          "top1": -1.0,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 512,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 2.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 735.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.12 GiB is allocated by PyTorch, and 2.01",
+          "elapsed_s_arm": 11.96
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 1.99 GiB. GPU 0 has a total capacity of 8.00 GiB of which 255.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 4.60 GiB is allocated by PyTorch, and 2.00",
+          "elapsed_s_arm": 33.13
+        },
+        "arm_ab_control_4096x": {
+          "top1": -1.0,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 4096,
+          "OOM": true,
+          "oom_msg": "CUDA out of memory. Tried to allocate 3.17 GiB. GPU 0 has a total capacity of 8.00 GiB of which 635.14 MiB is free. 6.80 GiB allowed; Of the allocated memory 5.57 GiB is allocated by PyTorch, and 16.4",
+          "mechanism": "ab_control_dense_gaussian",
+          "elapsed_s_arm": 0.63
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        5,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "_ckpt_key": "s19",
+      "_partial_written_at": 1782447157.3136802
+    }
+  ],
+  "elapsed_s": 391.3420145511627,
+  "DESIGN_NOTE": "USER-directed Gap 2 (2026-06-25). USER geometric intuition: expand the cone to brain-scale (cerebellar 7M x, fly 40x; v2 tested only 5x). This cell sweeps expansion 5x->4096x with fly-LSH sparse-fan-in mechanism; adds AB_CONTROL (dense Gaussian) at largest expansion to test 'any random projection rescues at this scale' hypothesis. Sparse storage for d_p=3.15M; chunked dense-Gaussian projection for control. Apples-to-apples with v2 via Pythia + contrastive train."
+}

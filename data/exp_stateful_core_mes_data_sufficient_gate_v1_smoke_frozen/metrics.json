@@ -1,0 +1,230 @@
+{
+  "verdict": "GATE_COMPLETE",
+  "verdict_tag": "OPTIMIZATION_UNSTABLE",
+  "verdict_msg": "MES/KD FROZEN-ENCODER HARDENED GATE (train WM+judge only; primary size=16; seeds=[7]; eval_N=32; ri_seeds=2): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.5625 gate_mde(2sig)=0.2490. per_seed={7: {'trained': 0.5, 'ri_mean': 0.5625, 'gap': -0.0625, 'z': -0.5, 'p': 0.6922, 'sig': False, 'a_loss': 0.7055, 'fit': False, 'v': 'OPTIMIZATION_UNSTABLE'}}. bar: gap>=0.10 over ri-DIST AND (z>=2.0 AND >ri_max) WITH train_loss<0.15. meanpool_ctrl(MES={16: 0.4688},KD=0.5000). KD B-A={7: 0.0} B-B_SHUF={7: 0.0}. BGE: MES=MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin KD=MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin.",
+  "summary": "MES/KD FROZEN-ENCODER HARDENED GATE (train WM+judge only; primary size=16; seeds=[7]; eval_N=32; ri_seeds=2): gate_verdict=OPTIMIZATION_UNSTABLE. mean_trained=0.5000 mean_random_init=0.5625 gate_mde(2",
+  "elapsed_s": 114.20911449985579,
+  "ts_iso": "2026-07-30T03:02:20.851852+00:00",
+  "pid": 24556,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "run_mode": "smoke_frozen",
+  "device": "cpu",
+  "encoder_frozen": true,
+  "train_wm_judge_only": true,
+  "gate_verdict": "OPTIMIZATION_UNSTABLE",
+  "primary_size": 16,
+  "seeds": [
+    7
+  ],
+  "mes_sizes": [
+    16
+  ],
+  "ctrl_seeds": [
+    7,
+    13
+  ],
+  "per_seed": {
+    "7": {
+      "best_trained_eval": 0.5,
+      "mes_a_train_loss": 0.7054611146450043,
+      "train_fit": false,
+      "seed_verdict": "OPTIMIZATION_UNSTABLE",
+      "power": {
+        "ri_mean": 0.5625,
+        "ri_std": 0.0,
+        "ri_max": 0.5625,
+        "ri_p95": 0.5625,
+        "n_ri_seeds": 2,
+        "se_trained": 0.08838834764831845,
+        "se_diff": 0.12451076133210334,
+        "gap": -0.0625,
+        "z": -0.5019646441105269,
+        "p_value": 0.692153804283572,
+        "min_detectable_effect_2sigma": 0.24902152266420668,
+        "beats_ri_max": false,
+        "significant": false
+      }
+    }
+  },
+  "gate_mean_trained": 0.5,
+  "gate_mean_random_init": 0.5625,
+  "gate_min_detectable_effect_2sigma": 0.24902152266420668,
+  "mes_eval_n": 32,
+  "ri_accs_primary": [
+    0.5625,
+    0.5625
+  ],
+  "results": {
+    "MES": {
+      "16": {
+        "7": {
+          "A": {
+            "train_loss": 0.7054611146450043,
+            "eval_acc": 0.5,
+            "epochs": 16
+          },
+          "B": {
+            "train_loss": 0.7054611146450043,
+            "eval_acc": 0.5,
+            "epochs": 16
+          }
+        }
+      }
+    },
+    "KD": {
+      "7": {
+        "A": {
+          "train_loss": 0.6987052460511526,
+          "eval_acc": 0.5,
+          "epochs": 4
+        },
+        "B": {
+          "train_loss": 0.7101237798730532,
+          "eval_acc": 0.5,
+          "epochs": 4
+        },
+        "B_SHUF": {
+          "train_loss": 0.7095399498939514,
+          "eval_acc": 0.5,
+          "epochs": 4
+        }
+      }
+    }
+  },
+  "controls": {
+    "MES": {
+      "16": {
+        "ri_accs": {
+          "7": 0.5625,
+          "13": 0.5625
+        }
+      }
+    },
+    "KD": {
+      "ri_accs": {
+        "7": 0.51171875,
+        "13": 0.5
+      }
+    }
+  },
+  "meanpool_control": {
+    "MES": {
+      "16": 0.46875
+    },
+    "KD": 0.5
+  },
+  "kd_b_minus_a": {
+    "7": 0.0
+  },
+  "kd_b_minus_shuf": {
+    "7": 0.0
+  },
+  "kd_shuf_self_frac": {
+    "train": 0.0,
+    "eval": 0.0
+  },
+  "bge_recal": {
+    "MES": {
+      "task": "MES",
+      "bge_recal_status": "MEASURED",
+      "n_eval": 32,
+      "bge_trained_best_acc": 0.53125,
+      "bge_trained_best_readout": "MEAN_POOL",
+      "bge_random_init_best_acc": 0.53125,
+      "bge_random_init_best_readout": "CLS_TOKEN",
+      "bge_trained_per_readout": {
+        "MEAN_POOL": 0.53125,
+        "CLS_TOKEN": 0.53125,
+        "LAST_TOKEN": 0.53125
+      },
+      "bge_random_init_per_readout": {
+        "MEAN_POOL": 0.5,
+        "CLS_TOKEN": 0.53125,
+        "LAST_TOKEN": 0.53125
+      },
+      "margin_over_random_init": 0.0,
+      "z": 0.0,
+      "p_value": 0.5,
+      "min_detectable_effect_2sigma": 0.24951124097923924,
+      "headroom_confirmed": false,
+      "headroom_verdict": "MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin"
+    },
+    "KD": {
+      "task": "KD",
+      "bge_recal_status": "MEASURED",
+      "n_eval": 256,
+      "bge_trained_best_acc": 0.58203125,
+      "bge_trained_best_readout": "CLS_TOKEN",
+      "bge_random_init_best_acc": 0.5078125,
+      "bge_random_init_best_readout": "MEAN_POOL",
+      "bge_trained_per_readout": {
+        "MEAN_POOL": 0.57421875,
+        "CLS_TOKEN": 0.58203125,
+        "LAST_TOKEN": 0.58203125
+      },
+      "bge_random_init_per_readout": {
+        "MEAN_POOL": 0.5078125,
+        "CLS_TOKEN": 0.5,
+        "LAST_TOKEN": 0.5
+      },
+      "margin_over_random_init": 0.07421875,
+      "z": 1.6908993317382037,
+      "p_value": 0.04542801548236247,
+      "min_detectable_effect_2sigma": 0.08778612494181415,
+      "headroom_confirmed": false,
+      "headroom_verdict": "MEASUREMENT_IS_THE_BLOCK_no_detectable_known_reader_margin"
+    }
+  },
+  "n_kd_edges_resolved": 9,
+  "kd_eval_n": 256,
+  "kd_train_n": 384,
+  "batch": 8,
+  "target_steps": 32,
+  "lr": 0.0003,
+  "warmup_frac": 0.0,
+  "cosine": false,
+  "tau_start": 1.0,
+  "tau_end": 0.1,
+  "mech_margin": 0.1,
+  "z_thresh": 2.0,
+  "train_fit_thresh": 0.15,
+  "unstable_thresh": 0.3,
+  "equalize": true,
+  "arms_capacity_equalized": true,
+  "shuffled_kb_placebo_arm": true,
+  "gap_b_token_rep_path": true,
+  "cuda_generator_safe": true,
+  "expected_n_units": 13,
+  "n_units_done": 13,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "MES_16_7": {
+      "A": "b4a5304fcffe26524001104e6fb72a311be292f022c9daf71c070c8882dc939e",
+      "B": "b4a5304fcffe26524001104e6fb72a311be292f022c9daf71c070c8882dc939e"
+    },
+    "KD_full_7": {
+      "A": "3b2916ddeae661b70f8770a53062e61f5ce2b6d0cdcc0d21e7575b723aafebc9",
+      "B": "efe1f54f2686cbc035bdcd2cdd9847f5215b9c6722547bbf1d680b1b5507ec9a",
+      "B_SHUF": "b3b3ad04ea010bdc9ca3a3a31e04077b762df904c29d753eb268a8e8afbf0d28"
+    }
+  },
+  "arms_differ_exempted": [
+    {
+      "construction": "MES",
+      "size": 16,
+      "seed": 7,
+      "pair": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "data_fixed_across_seeds": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

@@ -1,0 +1,73 @@
+{
+  "anchor_name": "text8_sentence_block_ingest_v1",
+  "config_version": "N=1024,V_TOK=auto,CORPUS=text8,CORPUS_VER=matt_mahoney_2006,M_EVAL=200,MAX_TOK=20000,SEEDS=11,SENT_LEN_MEAN=18,SENT_LEN_MAX=40,SYNTH=False,ENC=SUBSTRATE_NATIVE,BANDS=KNN>=0.50/BPC<4.50/MB<5.50",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best_arm BPC=9.871 >= 5.50 (worse than MIDDLE_BAND upper). best_arm=ARM_K20_BLOCKS | knn@1=1.000 sub@1=1.000 next_pred=0.000 bpc=9.871 cv=0.000 | arms=1 seeds_seen=1",
+  "summary": "anchor=text8_sentence_block_ingest_v1 mode=smoke n_seeds=1 n_arms=1 | knn_top1_mean=1.000 sub_top1_mean=1.000 next_pred_mean=0.000 bpc_opt_mean=9.871 sentinel_mean=1.000 | elapsed=51.7s",
+  "per_seed": [
+    {
+      "seed": 11,
+      "per_unit": [
+        {
+          "arm_name": "ARM_K20_BLOCKS",
+          "k_fixed": 20,
+          "n_blocks": 1000,
+          "m_eval": 200,
+          "m_knn_sentinel": 200,
+          "knn_top1": 1.0,
+          "knn_sentinel_top1": 1.0,
+          "substrate_top1": 1.0,
+          "substrate_minus_knn": 0.0,
+          "next_block_pred_acc": 0.0,
+          "next_block_pred_n": 200,
+          "bpc_at_t_optimal": 9.870970527750455,
+          "bpc_at_t_1p0": 9.93329381693151,
+          "bpc_t_optimal": 0.2,
+          "bpc_top5": 0.02,
+          "regime_check_passed": false,
+          "saturation_flag": false,
+          "sanity_top1_at_random": 0.001,
+          "encode_wall_s": 49.407217025756836,
+          "bind_wall_s": 0.09663844108581543,
+          "eval_wall_s": 0.6908819675445557,
+          "wall_s": 50.19674563407898,
+          "n_pairs_bound": 999,
+          "corpus_provenance_real": true,
+          "llm_forward_calls_at_inference": 0
+        }
+      ],
+      "elapsed_s": 51.266069173812866,
+      "llm_forward_calls_at_inference": 0,
+      "corpus_provenance_real": true,
+      "N": 1024,
+      "run_mode": "smoke"
+    }
+  ],
+  "aggregate": {
+    "n_arms_total": 1,
+    "knn_top1_mean": 1.0,
+    "substrate_top1_mean": 1.0,
+    "next_block_pred_acc_mean": 0.0,
+    "bpc_at_t_optimal_mean": 9.870970527750455,
+    "bpc_cv": 0.0,
+    "knn_sentinel_mean": 1.0
+  },
+  "by_construction_guards": {
+    "corpus": "text8",
+    "corpus_version": "matt_mahoney_2006",
+    "allow_synthetic": false,
+    "encoder_provenance": "SUBSTRATE_NATIVE",
+    "zero_llm_call_at_inference": true,
+    "sentinel_floor": 0.9,
+    "prereg_bands": {
+      "HARD_PASS_KNN_AT_1": 0.5,
+      "HARD_PASS_SUBSTRATE_GAP": 0.02,
+      "HARD_PASS_BPC": 4.5,
+      "MIDDLE_BAND_UPPER_BPC": 5.5,
+      "CV_MAX_HP": 0.05
+    }
+  },
+  "elapsed_s": 51.73330092430115
+}

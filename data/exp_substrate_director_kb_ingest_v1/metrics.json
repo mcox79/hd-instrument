@@ -1,0 +1,74 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_3_arms_ok; full_elapsed_s=14.306 <= 900; coverage=0.999 >= 0.95; reingest_deterministic_w_l2=0.0 < 1e-06; principles_1-12_preserved",
+  "elapsed_s": 68.34,
+  "summary": {
+    "anchor": "substrate_director_kb_ingest_v1",
+    "smoke": false,
+    "N_DIM": 2048,
+    "seed": 17,
+    "max_files_per_class": null,
+    "schema_version": "v1",
+    "schema_hash": "bf9969b338c3e022035d44f8abc8884bd8e699a42b24b2ce87254f3cd1b8069a",
+    "kb_version": "v1",
+    "arms": [
+      {
+        "arm": "ARM_INGEST_NOTES_ONLY",
+        "ok": true,
+        "elapsed_s": 7.45,
+        "n_discovered": 10405,
+        "n_triples": 34475,
+        "n_entities": 17558,
+        "n_relations": 25,
+        "coverage_ratio": 0.9997,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_ingest_v1\\_arm_notes_only\\kb"
+      },
+      {
+        "arm": "ARM_INGEST_FULL",
+        "ok": true,
+        "elapsed_s": 14.306,
+        "n_discovered": 17704,
+        "per_class_discovered": {
+          "note": 10405,
+          "memory": 427,
+          "metrics": 4207,
+          "prereg": 2650,
+          "cert_ledger": 1,
+          "atoms": 12,
+          "director_plan": 1,
+          "fleet_state": 1
+        },
+        "n_triples": 54195,
+        "n_entities": 30924,
+        "n_relations": 25,
+        "coverage_ratio": 0.999,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_ingest_v1\\_arm_full\\kb"
+      },
+      {
+        "arm": "ARM_REINGEST_DETERMINISTIC",
+        "ok": true,
+        "elapsed_s": 44.418,
+        "t_run_a_s": 23.082,
+        "t_run_b_s": 21.336,
+        "entities_byte_equal": true,
+        "relations_byte_equal": true,
+        "atoms_byte_equal": true,
+        "w_l2_diff": 0.0,
+        "w_within_tolerance": true,
+        "w_tolerance": 1e-06,
+        "n_triples_a": 54195,
+        "n_triples_b": 54195,
+        "schema_hash_a": "bf9969b338c3e022035d44f8abc8884bd8e699a42b24b2ce87254f3cd1b8069a",
+        "schema_hash_b": "bf9969b338c3e022035d44f8abc8884bd8e699a42b24b2ce87254f3cd1b8069a"
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_3_arms_ok; full_elapsed_s=14.306 <= 900; coverage=0.999 >= 0.95; reingest_deterministic_w_l2=0.0 < 1e-06; principles_1-12_preserved",
+    "elapsed_s": 68.34,
+    "envelope_hp_max_full_elapsed_s": 900,
+    "envelope_hf_max_full_elapsed_s": 1800,
+    "envelope_hp_min_coverage": 0.95,
+    "envelope_hf_min_coverage": 0.8,
+    "envelope_hp_max_w_l2": 1e-06
+  }
+}

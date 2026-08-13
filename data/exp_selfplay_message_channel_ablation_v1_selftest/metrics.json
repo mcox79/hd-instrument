@@ -1,0 +1,23 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator telemetry-sensitive (failmask + channel) + pipeline exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 1.316251199983526,
+  "discriminator_selftest": {
+    "corr_planted_high": 0.7727272727272723,
+    "corr_planted_indep": -0.06638382216308654,
+    "toy_corr_wide_channel": 0.5923258142521202,
+    "toy_corr_cap1_channel": 0.7158920297204368,
+    "metric_responds_to_channel": true
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 131,
+    "n_edges": 252,
+    "median_degree": 2.0,
+    "mean_degree": 3.8473282442748094,
+    "frac_deg_ge_2": 1.0
+  }
+}

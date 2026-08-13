@@ -1,0 +1,663 @@
+{
+  "anchor_name": "substrate_stage1_apply_exp3_composition_recovery_hub_bridge_smoke_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_COMPOSITION_RECOVERY_HUB_BRIDGE: MAIN=0.411 < 0.60 * ORACLE=0.822 (hf_target=0.493); PPR-recovered candidates do NOT restore composition F1 even in hub-bridge scope. Re-examine PPR-composition interface. BASELINE=0.000 (drift=0.083) MAIN=0.411 ORACLE=0.822 (drift=0.039) RANDOM=0.056 | hp_target=0.740 hf_target=0.493 | cardinality_ok=True arms_differ_ok=True",
+  "summary": "HARD_FAIL_COMPOSITION_RECOVERY_HUB_BRIDGE: MAIN=0.411 < 0.60 * ORACLE=0.822 (hf_target=0.493); PPR-recovered candidates do NOT restore composition F1 even in hub-bridge scope. Re-examine PPR-composition interface. BASELINE=0.000 (drift=0.083) MAIN=0.411 ORACLE=0.822 (drift=0.039) RANDOM=0.056 | hp_target=0.740 hf_target=0.493 | cardinality_ok=True arms_differ_ok=True",
+  "run_mode": "smoke",
+  "n_dim": 4096,
+  "target_queries": 30,
+  "n_seeds": 3,
+  "top_k": 5,
+  "ppr_alpha": 0.15,
+  "ppr_iters": 5,
+  "ppr_top_k": 5,
+  "hub_indices": [
+    0,
+    1,
+    2
+  ],
+  "hub_over_sample": 3.0,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_queries": 30,
+      "n_facts": 200,
+      "n_dim": 4096,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 30
+        },
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": {
+          "accuracy": 0.5333333333333333,
+          "n_correct": 16,
+          "n": 30
+        },
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.9,
+          "n_correct": 27,
+          "n": 30
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.06666666666666667,
+          "n_correct": 2,
+          "n": 30
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": "67f7a0907c4e5b62",
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": "eed96ec0a0490c21",
+        "ARM_ORACLE_COMPOSITION_SANITY": "a7ecf3d9a911ba99",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "c3663892ad10c4e8"
+      },
+      "arms_differ_violations": [],
+      "hub_empirical_top3": [
+        0,
+        1,
+        2
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "in_deg": [
+        16,
+        16,
+        16,
+        6,
+        2,
+        6,
+        3,
+        4,
+        7,
+        4,
+        6,
+        2,
+        2,
+        2,
+        3,
+        5,
+        6,
+        3,
+        0,
+        9,
+        1,
+        6,
+        4,
+        5,
+        5,
+        4,
+        3,
+        3,
+        8,
+        1,
+        10,
+        5,
+        3,
+        2,
+        4,
+        8,
+        2,
+        2,
+        1,
+        5
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the neighbor of the river of Gulch?",
+          "e0": "Gulch",
+          "mid": "Bexley",
+          "answer": "Larn",
+          "gt_chunks": [
+            32,
+            8
+          ],
+          "bge_top5": [
+            33,
+            32,
+            13,
+            31,
+            147
+          ],
+          "main_union_size": 30,
+          "p_base": "Kelm",
+          "p_main": "Larn",
+          "p_oracle": "Larn",
+          "p_random": "Iona"
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the neighbor of Kord?",
+          "e0": "Kord",
+          "mid": "Coral",
+          "answer": "Kelm",
+          "gt_chunks": [
+            183,
+            10
+          ],
+          "bge_top5": [
+            180,
+            5,
+            184,
+            183,
+            181
+          ],
+          "main_union_size": 30,
+          "p_base": "Alton",
+          "p_main": "Kelm",
+          "p_oracle": "Kelm",
+          "p_random": "Iona"
+        },
+        {
+          "qi": 2,
+          "text": "What is the neighbor of the mayor of Alton?",
+          "e0": "Alton",
+          "mid": "Bexley",
+          "answer": "Larn",
+          "gt_chunks": [
+            0,
+            8
+          ],
+          "bge_top5": [
+            3,
+            53,
+            0,
+            73,
+            40
+          ],
+          "main_union_size": 30,
+          "p_base": "Kelm",
+          "p_main": "Larn",
+          "p_oracle": "Larn",
+          "p_random": "Loam"
+        },
+        {
+          "qi": 3,
+          "text": "What is the capital of the mayor of Iona?",
+          "e0": "Iona",
+          "mid": "Alton",
+          "answer": "Quill",
+          "gt_chunks": [
+            40,
+            1
+          ],
+          "bge_top5": [
+            85,
+            40,
+            56,
+            41,
+            169
+          ],
+          "main_union_size": 30,
+          "p_base": "Larn",
+          "p_main": "Coral",
+          "p_oracle": "Quill",
+          "p_random": "Delft"
+        },
+        {
+          "qi": 4,
+          "text": "What is the capital of the neighbor of Mesa?",
+          "e0": "Mesa",
+          "mid": "Bexley",
+          "answer": "Bexley",
+          "gt_chunks": [
+            63,
+            6
+          ],
+          "bge_top5": [
+            63,
+            61,
+            89,
+            64,
+            60
+          ],
+          "main_union_size": 30,
+          "p_base": "Loam",
+          "p_main": "Bexley",
+          "p_oracle": "Bexley",
+          "p_random": "Kelm"
+        }
+      ],
+      "elapsed_s": 13.028904200007673
+    },
+    {
+      "seed": 17,
+      "n_queries": 30,
+      "n_facts": 200,
+      "n_dim": 4096,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 30
+        },
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": {
+          "accuracy": 0.36666666666666664,
+          "n_correct": 11,
+          "n": 30
+        },
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.8333333333333334,
+          "n_correct": 25,
+          "n": 30
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.03333333333333333,
+          "n_correct": 1,
+          "n": 30
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": "a1797d80a77ede4b",
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": "45f4f0f40bdcba39",
+        "ARM_ORACLE_COMPOSITION_SANITY": "ece0c7f99def41c8",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "9619b8f125c1a070"
+      },
+      "arms_differ_violations": [],
+      "hub_empirical_top3": [
+        0,
+        2,
+        1
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "in_deg": [
+        15,
+        9,
+        12,
+        4,
+        5,
+        6,
+        4,
+        2,
+        2,
+        4,
+        8,
+        6,
+        3,
+        6,
+        9,
+        3,
+        3,
+        6,
+        3,
+        7,
+        6,
+        6,
+        8,
+        4,
+        5,
+        4,
+        5,
+        3,
+        1,
+        2,
+        3,
+        3,
+        6,
+        5,
+        4,
+        6,
+        3,
+        2,
+        4,
+        3
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the neighbor of the capital of Umbra?",
+          "e0": "Umbra",
+          "mid": "Coral",
+          "answer": "Nyx",
+          "gt_chunks": [
+            101,
+            13
+          ],
+          "bge_top5": [
+            163,
+            103,
+            148,
+            101,
+            16
+          ],
+          "main_union_size": 30,
+          "p_base": "Fjord",
+          "p_main": "Nyx",
+          "p_oracle": "Nyx",
+          "p_random": "Dune"
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the capital of Jarl?",
+          "e0": "Jarl",
+          "mid": "Alton",
+          "answer": "Glim",
+          "gt_chunks": [
+            176,
+            0
+          ],
+          "bge_top5": [
+            179,
+            175,
+            176,
+            145,
+            184
+          ],
+          "main_union_size": 30,
+          "p_base": "Osek",
+          "p_main": "Glim",
+          "p_oracle": "Glim",
+          "p_random": "Jarl"
+        },
+        {
+          "qi": 2,
+          "text": "What is the neighbor of the mayor of Tern?",
+          "e0": "Tern",
+          "mid": "Coral",
+          "answer": "Nyx",
+          "gt_chunks": [
+            95,
+            13
+          ],
+          "bge_top5": [
+            95,
+            83,
+            98,
+            99,
+            54
+          ],
+          "main_union_size": 30,
+          "p_base": "Juno",
+          "p_main": "Nyx",
+          "p_oracle": "Nyx",
+          "p_random": "Frey"
+        },
+        {
+          "qi": 3,
+          "text": "What is the neighbor of the founder of Glim?",
+          "e0": "Glim",
+          "mid": "Bexley",
+          "answer": "Brix",
+          "gt_chunks": [
+            164,
+            8
+          ],
+          "bge_top5": [
+            64,
+            14,
+            164,
+            163,
+            136
+          ],
+          "main_union_size": 30,
+          "p_base": "Dune",
+          "p_main": "Yara",
+          "p_oracle": "Brix",
+          "p_random": "Loam"
+        },
+        {
+          "qi": 4,
+          "text": "What is the capital of the capital of Jarl?",
+          "e0": "Jarl",
+          "mid": "Alton",
+          "answer": "Coral",
+          "gt_chunks": [
+            176,
+            1
+          ],
+          "bge_top5": [
+            176,
+            179,
+            177,
+            51,
+            93
+          ],
+          "main_union_size": 30,
+          "p_base": "Jarl",
+          "p_main": "Jarl",
+          "p_oracle": "Jarl",
+          "p_random": "Jarl"
+        }
+      ],
+      "elapsed_s": 6.832107800000813
+    },
+    {
+      "seed": 23,
+      "n_queries": 30,
+      "n_facts": 200,
+      "n_dim": 4096,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 30
+        },
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": {
+          "accuracy": 0.3333333333333333,
+          "n_correct": 10,
+          "n": 30
+        },
+        "ARM_ORACLE_COMPOSITION_SANITY": {
+          "accuracy": 0.7333333333333333,
+          "n_correct": 22,
+          "n": 30
+        },
+        "ARM_RANDOM_CANDIDATES_CONTROL": {
+          "accuracy": 0.06666666666666667,
+          "n_correct": 2,
+          "n": 30
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ONLY_COMPOSITION_BASELINE": "4de7b776def14cf9",
+        "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": "e3c19e0f1b5b604f",
+        "ARM_ORACLE_COMPOSITION_SANITY": "236b7f2616e75f8d",
+        "ARM_RANDOM_CANDIDATES_CONTROL": "a7b4973610d62e7f"
+      },
+      "arms_differ_violations": [],
+      "hub_empirical_top3": [
+        2,
+        1,
+        0
+      ],
+      "hub_set": [
+        0,
+        1,
+        2
+      ],
+      "in_deg": [
+        12,
+        13,
+        14,
+        3,
+        3,
+        3,
+        6,
+        5,
+        3,
+        3,
+        4,
+        4,
+        2,
+        3,
+        7,
+        5,
+        7,
+        4,
+        4,
+        3,
+        5,
+        2,
+        4,
+        5,
+        8,
+        6,
+        5,
+        5,
+        9,
+        5,
+        4,
+        2,
+        6,
+        4,
+        4,
+        1,
+        2,
+        5,
+        5,
+        5
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the mayor of the mayor of Solt?",
+          "e0": "Solt",
+          "mid": "Bexley",
+          "answer": "Holt",
+          "gt_chunks": [
+            90,
+            5
+          ],
+          "bge_top5": [
+            75,
+            90,
+            94,
+            10,
+            16
+          ],
+          "main_union_size": 30,
+          "p_base": "Solt",
+          "p_main": "Solt",
+          "p_oracle": "Solt",
+          "p_random": "Solt"
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the capital of Corv?",
+          "e0": "Corv",
+          "mid": "Alton",
+          "answer": "Zorn",
+          "gt_chunks": [
+            141,
+            0
+          ],
+          "bge_top5": [
+            140,
+            144,
+            156,
+            141,
+            142
+          ],
+          "main_union_size": 30,
+          "p_base": "Kelm",
+          "p_main": "Yara",
+          "p_oracle": "Zorn",
+          "p_random": "Xylo"
+        },
+        {
+          "qi": 2,
+          "text": "What is the river of the mayor of Brix?",
+          "e0": "Brix",
+          "mid": "Coral",
+          "answer": "Alton",
+          "gt_chunks": [
+            135,
+            12
+          ],
+          "bge_top5": [
+            135,
+            145,
+            45,
+            137,
+            67
+          ],
+          "main_union_size": 30,
+          "p_base": "Glim",
+          "p_main": "Alton",
+          "p_oracle": "Alton",
+          "p_random": "Erie"
+        },
+        {
+          "qi": 3,
+          "text": "What is the mayor of the mayor of Larn?",
+          "e0": "Larn",
+          "mid": "Coral",
+          "answer": "Nord",
+          "gt_chunks": [
+            185,
+            10
+          ],
+          "bge_top5": [
+            110,
+            185,
+            186,
+            167,
+            31
+          ],
+          "main_union_size": 30,
+          "p_base": "Larn",
+          "p_main": "Larn",
+          "p_oracle": "Larn",
+          "p_random": "Larn"
+        },
+        {
+          "qi": 4,
+          "text": "What is the river of the neighbor of Ivor?",
+          "e0": "Ivor",
+          "mid": "Coral",
+          "answer": "Alton",
+          "gt_chunks": [
+            173,
+            12
+          ],
+          "bge_top5": [
+            142,
+            172,
+            92,
+            187,
+            173
+          ],
+          "main_union_size": 30,
+          "p_base": "Ivor",
+          "p_main": "Alton",
+          "p_oracle": "Alton",
+          "p_random": "Bexley"
+        }
+      ],
+      "elapsed_s": 6.970456299983198
+    }
+  ],
+  "per_arm_mean_accuracy": {
+    "ARM_BGE_ONLY_COMPOSITION_BASELINE": 0.0,
+    "ARM_PPR_UNION_HOP1_COMPOSITION_MAIN": 0.41111111111111104,
+    "ARM_ORACLE_COMPOSITION_SANITY": 0.8222222222222223,
+    "ARM_RANDOM_CANDIDATES_CONTROL": 0.05555555555555556
+  },
+  "expected_n_units": 12,
+  "actual_n_units": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.016,
+  "crlb_formula_reference": "sqrt(K_chunks/N_dim) = sqrt(5/4096) per Plate 1995",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "scope": "hub_concept_bridge_only",
+  "oracle_precedent": 0.7833,
+  "baseline_precedent": 0.0833,
+  "elapsed_s": 26.833363500016276,
+  "ts_iso": "2026-07-03T15:12:08.611244+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_hierarchical_planner_state_conditioned_disjoint_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: rail=1.000 both=0.000 sc=0.000 dj=0.000 flat=0.000 rand=0.000",
+  "summary": "SELFTEST_OK: rail=1.000 both=0.000 sc=0.000 dj=0.000 flat=0.000 rand=0.000",
+  "elapsed_s": 1.9,
+  "ts_iso": "2026-06-28T09:24:04Z",
+  "pid": 26524,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_planner_state_conditioned_disjoint_v1,N=1024,blocks=8,actions=6,macros=5,K_class=8,goals=4,depth=6,K_flat=8,K_tree=4,block_per_lvl=341,seeds=[7],mode=smoke,HP_both>=0.50,HP_lift_flat>=0.25,HP_lift_sc>=0.10,HP_lift_dj>=0.10,expected_n=24,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AF+META_AH+META_AL+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_planner_state_cond_disjoint",
+  "_phase": "selftest_done",
+  "selftest_arms": [
+    "reproduce_rail",
+    "random_plan",
+    "flat_preplay_k64_d8",
+    "tree_3lvl_state_cond",
+    "tree_3lvl_disjoint_block",
+    "tree_3lvl_both"
+  ],
+  "rail_solve": 1.0,
+  "both_solve": 0.0,
+  "sc_solve": 0.0,
+  "dj_solve": 0.0,
+  "flat_solve": 0.0,
+  "rand_solve": 0.0,
+  "arms_distinct": true
+}

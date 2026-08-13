@@ -1,0 +1,113 @@
+{
+  "anchor_name": "sharded_fhrr_topology_free_dag_extension_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SHARDED discriminates under DAG fan-out F=4 at NPROP=5000, N=8192: sharded=1.000 bundle=0.033. Positive control F=1 sharded=1.000. META STORAGE_STRATEGY topology-free evidence SATISFIED at DAG fan-out F=4 (NRULES=20000, ~17.4x bundle bound). Storage-strategy physics law verified across LINEAR (prior CG cells at L=1-20) AND DAG fan-out topology at this N. sharded_curve={'F=1,NPROP=200': 1.0, 'F=1,NPROP=5000': 1.0, 'F=4,NPROP=200': 1.0, 'F=4,NPROP=5000': 1.0} bundle_curve={'F=1,NPROP=200': 0.5, 'F=1,NPROP=5000': 0.0667, 'F=4,NPROP=200': 0.6333, 'F=4,NPROP=5000': 0.0333}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seed": 7,
+  "device": "cpu",
+  "N": 8192,
+  "n_units": 4,
+  "F_grid": [
+    1,
+    4
+  ],
+  "NPROP_grid": [
+    200,
+    5000
+  ],
+  "M_queries": 30,
+  "bundle_bound_approx": 1147,
+  "F_max": 4,
+  "NPROP_max": 5000,
+  "hp_point": {
+    "F": 4,
+    "NPROP": 5000,
+    "NRULES": 20000,
+    "M": 30,
+    "acc_sharded": 1.0,
+    "acc_bundle": 0.0333,
+    "sharded_hash": "375f48d461012161",
+    "bundle_hash": "d3ae809c0345f487",
+    "peak_gpu_mb": null,
+    "elapsed_s": 4.131
+  },
+  "pc_point": {
+    "F": 1,
+    "NPROP": 5000,
+    "NRULES": 5000,
+    "M": 30,
+    "acc_sharded": 1.0,
+    "acc_bundle": 0.0667,
+    "sharded_hash": "dea73fb6012352b1",
+    "bundle_hash": "858544919c3338df",
+    "peak_gpu_mb": null,
+    "elapsed_s": 1.687
+  },
+  "sharded_curve": {
+    "F=1,NPROP=200": 1.0,
+    "F=1,NPROP=5000": 1.0,
+    "F=4,NPROP=200": 1.0,
+    "F=4,NPROP=5000": 1.0
+  },
+  "bundle_curve": {
+    "F=1,NPROP=200": 0.5,
+    "F=1,NPROP=5000": 0.0667,
+    "F=4,NPROP=200": 0.6333,
+    "F=4,NPROP=5000": 0.0333
+  },
+  "per_unit": [
+    {
+      "F": 1,
+      "NPROP": 200,
+      "NRULES": 200,
+      "M": 30,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.5,
+      "sharded_hash": "ce187e6796fe1acd",
+      "bundle_hash": "f79456968a5a7885",
+      "peak_gpu_mb": null,
+      "elapsed_s": 0.082
+    },
+    {
+      "F": 1,
+      "NPROP": 5000,
+      "NRULES": 5000,
+      "M": 30,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.0667,
+      "sharded_hash": "dea73fb6012352b1",
+      "bundle_hash": "858544919c3338df",
+      "peak_gpu_mb": null,
+      "elapsed_s": 1.687
+    },
+    {
+      "F": 4,
+      "NPROP": 200,
+      "NRULES": 800,
+      "M": 30,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.6333,
+      "sharded_hash": "56b7e5c5846ea001",
+      "bundle_hash": "9d43ea3ff3838aad",
+      "peak_gpu_mb": null,
+      "elapsed_s": 0.168
+    },
+    {
+      "F": 4,
+      "NPROP": 5000,
+      "NRULES": 20000,
+      "M": 30,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.0333,
+      "sharded_hash": "375f48d461012161",
+      "bundle_hash": "d3ae809c0345f487",
+      "peak_gpu_mb": null,
+      "elapsed_s": 4.131
+    }
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "elapsed_s": 6.102350234985352,
+  "summary": "HARD_PASS: SHARDED discriminates under DAG fan-out F=4 at NPROP=5000, N=8192: sharded=1.000 bundle=0.033. Positive control F=1 sharded=1.000. META STORAGE_STRATEGY topology-free evidence SATISFIED at DAG fan-out F=4 (NRULES=20000, ~17.4x bundle bound). Storage-strategy physics law verified across LINEAR (prior CG cells at L=1-20) AND DAG fan-out topology at this N. sharded_curve={'F=1,NPROP=200': 1.0, 'F=1,NPROP=5000': 1.0, 'F=4,NPROP=200': 1.0, 'F=4,NPROP=5000': 1.0} bundle_curve={'F=1,NPROP=200': 0.5, 'F=1,NPROP=5000': 0.0667, 'F=4,NPROP=200': 0.6333, 'F=4,NPROP=5000': 0.0333}"
+}

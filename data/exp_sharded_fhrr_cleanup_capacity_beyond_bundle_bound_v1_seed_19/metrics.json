@@ -1,0 +1,116 @@
+{
+  "anchor_name": "sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SHARDED perfect cleanup at NPROP=16000 (>=1.9*N; sharded=1.000) AND BUNDLE collapses (bundle=0.065 at NPROP=4000, well below Plate 0.14*N~1147 bound). Sharded rule-storage extends cleanup capacity ~13.9x beyond classical bundle bound. sharded_curve={200: 1.0, 500: 1.0, 1000: 1.0, 2000: 1.0, 4000: 1.0, 6000: 1.0, 8000: 1.0, 12000: 1.0, 16000: 1.0} bundle_curve={200: 0.565, 500: 0.51, 1000: 0.475, 2000: 0.295, 4000: 0.065, 6000: 0.03, 8000: 0.01, 12000: 0.01, 16000: 0.005}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "seed": 19,
+  "device": "cuda",
+  "N": 8192,
+  "n_units": 9,
+  "grid_nprop": [
+    200,
+    500,
+    1000,
+    2000,
+    4000,
+    6000,
+    8000,
+    12000,
+    16000
+  ],
+  "M_queries": 200,
+  "bundle_bound_approx": 1147,
+  "sharded_acc_at_max_nprop": 1.0,
+  "bundle_acc_at_max_nprop": 0.005,
+  "max_nprop": 16000,
+  "bundle_collapse_check_nprop": 4000,
+  "bundle_acc_at_collapse_check": 0.065,
+  "per_unit": [
+    {
+      "NPROP": 200,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.565,
+      "sharded_hash": "3aafb7888d95553f",
+      "bundle_hash": "0d97bbc98b90eba7",
+      "elapsed_s": 0.098
+    },
+    {
+      "NPROP": 500,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.51,
+      "sharded_hash": "d1af76d0ef8dbfaf",
+      "bundle_hash": "25177d975c35e380",
+      "elapsed_s": 0.047
+    },
+    {
+      "NPROP": 1000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.475,
+      "sharded_hash": "5a3950c7fe936041",
+      "bundle_hash": "cd5b528f891856d8",
+      "elapsed_s": 0.104
+    },
+    {
+      "NPROP": 2000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.295,
+      "sharded_hash": "082c2621ae2c94db",
+      "bundle_hash": "5d1c5d25f7ef5b94",
+      "elapsed_s": 0.176
+    },
+    {
+      "NPROP": 4000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.065,
+      "sharded_hash": "fa9e0d89cc842dd8",
+      "bundle_hash": "0980711b85549d9d",
+      "elapsed_s": 0.421
+    },
+    {
+      "NPROP": 6000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.03,
+      "sharded_hash": "15a358dddad2453a",
+      "bundle_hash": "397f23ce45b8f211",
+      "elapsed_s": 0.663
+    },
+    {
+      "NPROP": 8000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.01,
+      "sharded_hash": "665a1d85d25abdd6",
+      "bundle_hash": "988e43489e9f6b48",
+      "elapsed_s": 0.971
+    },
+    {
+      "NPROP": 12000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.01,
+      "sharded_hash": "e13271cce4a9f6af",
+      "bundle_hash": "ffdd8dbae127d5c7",
+      "elapsed_s": 1.41
+    },
+    {
+      "NPROP": 16000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.005,
+      "sharded_hash": "1e6f9ca4ef650f6c",
+      "bundle_hash": "94ee56972006b783",
+      "elapsed_s": 1.563
+    }
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "elapsed_s": 5.454274415969849,
+  "summary": "HARD_PASS: SHARDED perfect cleanup at NPROP=16000 (>=1.9*N; sharded=1.000) AND BUNDLE collapses (bundle=0.065 at NPROP=4000, well below Plate 0.14*N~1147 bound). Sharded rule-storage extends cleanup capacity ~13.9x beyond classical bundle bound. sharded_curve={200: 1.0, 500: 1.0, 1000: 1.0, 2000: 1.0, 4000: 1.0, 6000: 1.0, 8000: 1.0, 12000: 1.0, 16000: 1.0} bundle_curve={200: 0.565, 500: 0.51, 1000: 0.475, 2000: 0.295, 4000: 0.065, 6000: 0.03, 8000: 0.01, 12000: 0.01, 16000: 0.005}"
+}

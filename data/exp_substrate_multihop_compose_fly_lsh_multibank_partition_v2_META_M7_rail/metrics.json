@@ -1,0 +1,359 @@
+{
+  "anchor_name": "substrate_multihop_compose_fly_lsh_multibank_partition_v2_META_M7_rail",
+  "verdict": "HARD_PASS_CHAIN_GRADE_BARRIER_1_REVIVAL",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_BARRIER_1_REVIVAL_PARTITION_PER_HOP: BASELINE=0.6500 (sanity_breach=1/3) REPRODUCE_PV2=0.1217 (META_M7_breach=0/3) SINGLE_v1regime=0.3233 FLY=0.3517 BANK=0.8667 PART=0.9550 (cv=0.007) ALL3=0.8750 (cv=0.024) | rails=['SANITY_BREACH(1/3; baseline_mean=0.6500)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "composeFlyLshMultiBankPartitionV2MetaM7Rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7, 17, 23] mode=full depth=5 HP_partition>=0.70 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_banks": 8,
+      "n_partitions": 20,
+      "n_lsh_expansions": 5,
+      "lsh_topk": 20,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "config_version": "composeFlyLshMultiBankPartitionV2MetaM7Rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7, 17, 23] mode=full depth=5 HP_partition>=0.70 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.605,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 6.86
+      },
+      "baseline_sanity_ok": false,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.145,
+        "per_step_acc": [
+          0.69,
+          0.485,
+          0.31,
+          0.205,
+          0.145
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 18.85,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.3,
+        "per_step_acc": [
+          0.84,
+          0.635,
+          0.515,
+          0.395,
+          0.3
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 19.58,
+        "W_n_bindings": 1000
+      },
+      "arm_compose_fly_lsh_5hop": {
+        "top1": 0.365,
+        "per_step_acc": [
+          0.82,
+          0.685,
+          0.565,
+          0.46,
+          0.365
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "fly_lsh_expanded_W_and_cleanup",
+        "elapsed_s_arm": 699.12
+      },
+      "arm_compose_multi_bank_5hop": {
+        "top1": 0.85,
+        "per_step_acc": [
+          0.97,
+          0.935,
+          0.915,
+          0.88,
+          0.85
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_banks": 8,
+        "mechanism": "multi_bank_per_hop_oracle_routed",
+        "elapsed_s_arm": 512.98
+      },
+      "arm_compose_partition_5hop": {
+        "top1": 0.965,
+        "per_step_acc": [
+          0.99,
+          0.98,
+          0.975,
+          0.97,
+          0.965
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed",
+        "elapsed_s_arm": 18.73
+      },
+      "arm_compose_all_3_5hop": {
+        "top1": 0.86,
+        "per_step_acc": [
+          0.985,
+          0.97,
+          0.92,
+          0.905,
+          0.86
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "all3_fly_lsh_multi_bank_partition_composed",
+        "elapsed_s_arm": 692.99
+      },
+      "elapsed_s": 1974.3,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782471617.3670366
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_banks": 8,
+      "n_partitions": 20,
+      "n_lsh_expansions": 5,
+      "lsh_topk": 20,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "config_version": "composeFlyLshMultiBankPartitionV2MetaM7Rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7, 17, 23] mode=full depth=5 HP_partition>=0.70 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.67,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.7
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.645,
+          0.375,
+          0.26,
+          0.2,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 18.04,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.32,
+        "per_step_acc": [
+          0.79,
+          0.63,
+          0.515,
+          0.375,
+          0.32
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 18.9,
+        "W_n_bindings": 1000
+      },
+      "arm_compose_fly_lsh_5hop": {
+        "top1": 0.345,
+        "per_step_acc": [
+          0.77,
+          0.585,
+          0.48,
+          0.375,
+          0.345
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "fly_lsh_expanded_W_and_cleanup",
+        "elapsed_s_arm": 688.14
+      },
+      "arm_compose_multi_bank_5hop": {
+        "top1": 0.855,
+        "per_step_acc": [
+          0.965,
+          0.92,
+          0.9,
+          0.89,
+          0.855
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_banks": 8,
+        "mechanism": "multi_bank_per_hop_oracle_routed",
+        "elapsed_s_arm": 514.39
+      },
+      "arm_compose_partition_5hop": {
+        "top1": 0.95,
+        "per_step_acc": [
+          0.985,
+          0.965,
+          0.97,
+          0.965,
+          0.95
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed",
+        "elapsed_s_arm": 20.7
+      },
+      "arm_compose_all_3_5hop": {
+        "top1": 0.86,
+        "per_step_acc": [
+          0.975,
+          0.93,
+          0.88,
+          0.87,
+          0.86
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "all3_fly_lsh_multi_bank_partition_composed",
+        "elapsed_s_arm": 690.67
+      },
+      "elapsed_s": 1965.1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782473583.3652089
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_banks": 8,
+      "n_partitions": 20,
+      "n_lsh_expansions": 5,
+      "lsh_topk": 20,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "config_version": "composeFlyLshMultiBankPartitionV2MetaM7Rail: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7, 17, 23] mode=full depth=5 HP_partition>=0.70 HP_cv<=0.07 HF<0.50 META_M7=[0.08,0.25] baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.675,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.68
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.64,
+          0.415,
+          0.265,
+          0.16,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 17.96,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.35,
+        "per_step_acc": [
+          0.83,
+          0.675,
+          0.57,
+          0.435,
+          0.35
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 21.32,
+        "W_n_bindings": 1000
+      },
+      "arm_compose_fly_lsh_5hop": {
+        "top1": 0.345,
+        "per_step_acc": [
+          0.84,
+          0.655,
+          0.53,
+          0.43,
+          0.345
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "fly_lsh_expanded_W_and_cleanup",
+        "elapsed_s_arm": 696.72
+      },
+      "arm_compose_multi_bank_5hop": {
+        "top1": 0.895,
+        "per_step_acc": [
+          0.975,
+          0.945,
+          0.925,
+          0.915,
+          0.895
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_banks": 8,
+        "mechanism": "multi_bank_per_hop_oracle_routed",
+        "elapsed_s_arm": 505.74
+      },
+      "arm_compose_partition_5hop": {
+        "top1": 0.95,
+        "per_step_acc": [
+          0.985,
+          0.975,
+          0.955,
+          0.96,
+          0.95
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed",
+        "elapsed_s_arm": 20.25
+      },
+      "arm_compose_all_3_5hop": {
+        "top1": 0.905,
+        "per_step_acc": [
+          0.975,
+          0.96,
+          0.95,
+          0.92,
+          0.905
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "all3_fly_lsh_multi_bank_partition_composed",
+        "elapsed_s_arm": 695.5
+      },
+      "elapsed_s": 1972.1,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782475556.0762222
+    }
+  ],
+  "elapsed_s": 5913.7,
+  "summary": "HARD_PASS_CHAIN_GRADE_BARRIER_1_REVIVAL_PARTITION_PER_HOP: BASELINE=0.6500 (sanity_breach=1/3) REPRODUCE_PV2=0.1217 (META_M7_breach=0/3) SINGLE_v1regime=0.3233 FLY=0.3517 BANK=0.8667 PART=0.9550 (cv=0.007) ALL3=0.8750 (cv=0.024) | rails=['SANITY_BREACH(1/3; baseline_mean=0.6500)']",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "V2 META_M7 RAIL: v1's SINGLE_CHAIN_5HOP=0.275 vs pointer-chain v2's 0.122 same-mechanism-different-W-bindings (1000 vs 2000). ARM_REPRODUCE_POINTER_CHAIN_V2_5HOP builds a SEPARATE W from make_deep_chains(n=200, max_depth=10) -> 2000 bindings; tests at depth=5 using verbatim _retrieve_1hop. Target band [0.08, 0.25] matches pointer-v2's 0.122 +/- noise. If REPRODUCE in band: META_M7 OK; v1's COMPOSE lifts are honest within-cell revivals. If REPRODUCE > 0.25: regime is different from pointer-v2; HP verdict carries META_M7_NOTE flag to surface the regime gap. Longer timeout (7200s) lets all 3 seeds complete."
+}

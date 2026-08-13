@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_pattern_completion_corruption_cliff_v2_narrow_regime_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "crlb N=2048 cliff=0.4610; N=16384 cliff=0.4862; corruption sweep [0.4, 0.43, 0.46, 0.48, 0.5, 0.52] brackets CRLB band [0.4610, 0.4862]; bipolar codebook norms ok; mechanism single-step sanity ok; cardinality FULL=72 SMOKE=6",
+  "summary": "crlb N=2048 cliff=0.4610; N=16384 cliff=0.4862; corruption sweep [0.4, 0.43, 0.46, 0.48, 0.5, 0.52] brackets CRLB band [0.4610, 0.4862]; bipolar codebook norms ok; mechanism single-step sanity ok; cardinality FULL=72 SMOKE=6",
+  "elapsed_s": 0.01,
+  "ts_iso": "2026-06-28T18:33:20Z",
+  "pid": 35900,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_pattern_completion_corruption_cliff_v2_narrow_regime_seed_7,N=[2048,4096,8192,16384],SEED=7,mode=selftest,corruption=[0.40,0.43,0.46,0.48,0.50,0.52],iters=[1,5,20],M=500,beta=8.0,arms=[SUBSTRATE,RANDOM_FLOOR],expected_n_full=72,expected_n_smoke=6,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_pc_corruption_cliff_narrow_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cuda"
+}

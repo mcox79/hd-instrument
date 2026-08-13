@@ -1,0 +1,76 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "all_3_arms_ok_but_outside_HP_band: elapsed=584.663 cov=0.9439 avg_chunks/file=10.45",
+  "elapsed_s": 2053.55,
+  "summary": {
+    "anchor": "substrate_director_kb_content_chunk_ingest_v1",
+    "smoke": false,
+    "N_DIM": 2048,
+    "seed": 17,
+    "max_files_per_class": null,
+    "schema_version": "v1",
+    "schema_hash": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+    "kb_version": "v1",
+    "chunk_ingest_version": "v1",
+    "arms": [
+      {
+        "arm": "ARM_CHUNK_SMOKE_NOTES_ONLY",
+        "ok": true,
+        "elapsed_s": 308.849,
+        "n_discovered": 10498,
+        "n_chunks": 117526,
+        "n_triples": 352523,
+        "n_entities": 290814,
+        "avg_chunks_per_file": 11.23,
+        "coverage_ratio": 0.9972,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v1\\_arm_smoke_notes_only\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_FULL",
+        "ok": true,
+        "elapsed_s": 584.663,
+        "n_discovered": 13607,
+        "per_class_discovered": {
+          "note": 10502,
+          "memory": 435,
+          "prereg": 2668,
+          "director_plan": 1,
+          "fleet_state": 1
+        },
+        "n_chunks": 134259,
+        "n_triples": 401240,
+        "n_entities": 330481,
+        "n_relations": 67,
+        "avg_chunks_per_file": 10.45,
+        "coverage_ratio": 0.9439,
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v1\\_arm_full\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_REINGEST_DET",
+        "ok": true,
+        "elapsed_s": 1157.881,
+        "t_run_a_s": 221.135,
+        "t_run_b_s": 936.746,
+        "entities_byte_equal": true,
+        "relations_byte_equal": true,
+        "atoms_byte_equal": true,
+        "w_l2_diff": 0.0,
+        "w_within_tolerance": true,
+        "w_tolerance": 1e-06,
+        "n_chunks_a": 134275,
+        "n_chunks_b": 134275
+      }
+    ],
+    "verdict": "MIDDLE_BAND",
+    "verdict_msg": "all_3_arms_ok_but_outside_HP_band: elapsed=584.663 cov=0.9439 avg_chunks/file=10.45",
+    "elapsed_s": 2053.55,
+    "envelope_hp_max_full_elapsed_s": 900,
+    "envelope_hf_max_full_elapsed_s": 1800,
+    "envelope_hp_min_coverage": 0.95,
+    "envelope_hf_min_coverage": 0.8,
+    "envelope_hp_min_avg_chunks_per_file": 2.0,
+    "envelope_hf_min_avg_chunks_per_file": 1.2,
+    "envelope_hp_max_w_l2": 1e-06,
+    "cardinality_ok": true
+  }
+}

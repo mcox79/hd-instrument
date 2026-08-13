@@ -1,0 +1,68 @@
+{
+  "anchor_name": "substrate_audit_chain_coherence_benchmark_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate audit-chain claim not supported (0 HARD_PASS). ARM1_PROV=HARD_FAIL(0.700 vs chance 0.005) | ARM2_CALIB=HARD_FAIL(r=0.106 gap=-0.020) | ARM3_REFUSE=HARD_FAIL(0.010 vs chance 0.460 false-refuse=0.000) | ARM4_2HOP=MIDDLE_BAND(0.390 vs chance 0.000 hop1=0.590)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "config": {
+    "N_DIM": 8192,
+    "V_CONCEPTS": 200,
+    "V_PREDICATES": 10,
+    "M_TRIPLES": 500,
+    "M_UNKNOWN": 100,
+    "REFUSE_THRESH_FRAC": 0.55,
+    "SEEDS": [
+      11
+    ]
+  },
+  "aggregate": {
+    "provenance_accuracy_mean": 0.7,
+    "provenance_chance": 0.005,
+    "calib_pearson_r_mean": 0.10643043265491395,
+    "calib_gap_mean": -0.020000000000000018,
+    "refuse_accuracy_mean": 0.01,
+    "refuse_chance": 0.46,
+    "false_refuse_rate_mean": 0.0,
+    "chain_completeness_mean": 0.39,
+    "hop1_acc_mean": 0.59,
+    "chain_chance": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "arm_provenance": {
+        "n_eval": 200,
+        "provenance_accuracy": 0.7,
+        "object_recall": 0.7,
+        "chance_provenance": 0.005,
+        "mean_confidence": 0.045964824995025994
+      },
+      "arm_confidence_calib": {
+        "n_eval": 200,
+        "pearson_r": 0.10643043265491395,
+        "top_half_acc": 0.69,
+        "bottom_half_acc": 0.71,
+        "calibration_gap": -0.020000000000000018
+      },
+      "arm_refuse_gate": {
+        "n_unknown": 100,
+        "n_known_eval": 50,
+        "refuse_threshold": 0.02497661776840687,
+        "mean_known_conf": 0.045412032306194304,
+        "mean_unknown_conf": 0.034998450595885515,
+        "refuse_accuracy": 0.01,
+        "chance_refuse": 0.46,
+        "false_refuse_rate": 0.0
+      },
+      "arm_2hop_chain": {
+        "n_eval": 100,
+        "chain_completeness": 0.39,
+        "hop1_acc": 0.59,
+        "hop2_acc_given_hop1": 0.6610169491525424,
+        "chance_full": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 0.9075450897216797,
+  "summary": "HARD_FAIL: substrate audit-chain claim not supported (0 HARD_PASS). ARM1_PROV=HARD_FAIL(0.700 vs chance 0.005) | ARM2_CALIB=HARD_FAIL(r=0.106 gap=-0.020) | ARM3_REFUSE=HARD_FAIL(0.010 vs chance 0.460 false-refuse=0.000) | ARM4_2HOP=MIDDLE_BAND(0.390 vs chance 0.000 hop1=0.590)"
+}

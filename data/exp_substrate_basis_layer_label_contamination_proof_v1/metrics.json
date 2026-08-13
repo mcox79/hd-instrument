@@ -1,0 +1,545 @@
+{
+  "anchor_name": "substrate_basis_layer_label_contamination_proof_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_REFUTED: RAND retr=0.647 comp=0.453 wc=-0.000 | LABEL_BASIS retr=0.548 comp=0.331 wc=0.199 cc=0.000 | DW retr=0.646 comp=0.445 | OLS retr=0.647 comp=0.444 | proven_label_retr=True proven_random_retr=False proven_emergent=True proven_label_comp=True proven_random_comp=False | refute=True | q=[] confound=[]",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 2400,
+      "V_C": 300,
+      "V_cat": 10,
+      "V_P": 8,
+      "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6554,
+            "top5": 0.9996,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.349,
+            "top5": 0.526,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -0.0002536421816330403,
+            "cross_cat_cos_mean": -1.9806748241535388e-05,
+            "within_cat_cos_std": 0.011010569520294666,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 10.88
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.5571,
+            "top5": 0.8154,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.2917,
+            "top5": 0.4896,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19877935945987701,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.02859410271048546,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.37
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6533,
+            "top5": 0.9954,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4271,
+            "top5": 0.6406,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.08184394985437393,
+            "cross_cat_cos_mean": 0.008638041093945503,
+            "within_cat_cos_std": 0.048649851232767105,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.65
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6554,
+            "top5": 0.9996,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4427,
+            "top5": 0.6875,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.00020291372493375093,
+            "cross_cat_cos_mean": -7.273857045220211e-05,
+            "within_cat_cos_std": 0.011299321427941322,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 42.38
+        }
+      },
+      "elapsed_s": 86.3,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782402847.4409037
+    },
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 2400,
+      "V_C": 300,
+      "V_cat": 10,
+      "V_P": 8,
+      "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 13,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9992,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.5208,
+            "top5": 0.7969,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -0.0002092547802021727,
+            "cross_cat_cos_mean": 0.00010927861148957163,
+            "within_cat_cos_std": 0.011165866628289223,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 15.29
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 13,
+          "retrieval": {
+            "top1": 0.5471,
+            "top5": 0.8,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.2969,
+            "top5": 0.4792,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19916300475597382,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.028240354731678963,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.18
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 13,
+          "retrieval": {
+            "top1": 0.6408,
+            "top5": 0.9958,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4219,
+            "top5": 0.724,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.08104825764894485,
+            "cross_cat_cos_mean": 0.009475000202655792,
+            "within_cat_cos_std": 0.04845462366938591,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 18.31
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 13,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9992,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4427,
+            "top5": 0.6771,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.0001268211199203506,
+            "cross_cat_cos_mean": -6.420117279049009e-05,
+            "within_cat_cos_std": 0.011098968796432018,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 39.84
+        }
+      },
+      "elapsed_s": 89.7,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782402937.2243588
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 2400,
+      "V_C": 300,
+      "V_cat": 10,
+      "V_P": 8,
+      "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 17,
+          "retrieval": {
+            "top1": 0.655,
+            "top5": 1.0,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4635,
+            "top5": 0.6979,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.00011096844536950812,
+            "cross_cat_cos_mean": -1.94652566278819e-05,
+            "within_cat_cos_std": 0.01106491219252348,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 15.85
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 17,
+          "retrieval": {
+            "top1": 0.5567,
+            "top5": 0.8087,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.3542,
+            "top5": 0.5729,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19898545742034912,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.028068432584404945,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 15.5
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 17,
+          "retrieval": {
+            "top1": 0.655,
+            "top5": 1.0,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4688,
+            "top5": 0.6927,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.08313767611980438,
+            "cross_cat_cos_mean": 0.00821520946919918,
+            "within_cat_cos_std": 0.04768743738532066,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.23
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 17,
+          "retrieval": {
+            "top1": 0.655,
+            "top5": 1.0,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4219,
+            "top5": 0.625,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -7.292210648301989e-05,
+            "cross_cat_cos_mean": -5.6005286751315e-05,
+            "within_cat_cos_std": 0.010945040732622147,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 40.6
+        }
+      },
+      "elapsed_s": 88.2,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782403025.506038
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 2400,
+      "V_C": 300,
+      "V_cat": 10,
+      "V_P": 8,
+      "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 23,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9988,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4583,
+            "top5": 0.6562,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.0001363326737191528,
+            "cross_cat_cos_mean": -5.4639305744785815e-05,
+            "within_cat_cos_std": 0.010905264876782894,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 15.07
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 23,
+          "retrieval": {
+            "top1": 0.5392,
+            "top5": 0.8054,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.3438,
+            "top5": 0.5312,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19925493001937866,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.02814987115561962,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 15.54
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 23,
+          "retrieval": {
+            "top1": 0.6388,
+            "top5": 0.9962,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4844,
+            "top5": 0.7917,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.08307279646396637,
+            "cross_cat_cos_mean": 0.008600201457738876,
+            "within_cat_cos_std": 0.047089096158742905,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.79
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 23,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9988,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4062,
+            "top5": 0.6667,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -9.511584357824177e-05,
+            "cross_cat_cos_mean": 0.00013898873294238,
+            "within_cat_cos_std": 0.011196993291378021,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 42.46
+        }
+      },
+      "elapsed_s": 89.9,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782403115.5777905
+    },
+    {
+      "seed": 29,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 2400,
+      "V_C": 300,
+      "V_cat": 10,
+      "V_P": 8,
+      "config_version": "basisLabelContamProof-v1: N_DIM=8192 V_C=300 V_cat=10 V_per_cat=30 V_P=8 M=2400 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7, 13, 17, 23, 29] mode=full; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 29,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9992,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.474,
+            "top5": 0.7031,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -9.51158071984537e-05,
+            "cross_cat_cos_mean": 0.00013386629871092737,
+            "within_cat_cos_std": 0.011235145851969719,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 17.42
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 29,
+          "retrieval": {
+            "top1": 0.54,
+            "top5": 0.7983,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.3698,
+            "top5": 0.5729,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19929616153240204,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.02794753946363926,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 16.11
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 29,
+          "retrieval": {
+            "top1": 0.6412,
+            "top5": 0.995,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.4219,
+            "top5": 0.6823,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.07705855369567871,
+            "cross_cat_cos_mean": 0.009309397079050541,
+            "within_cat_cos_std": 0.04578413441777229,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 17.05
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 29,
+          "retrieval": {
+            "top1": 0.6417,
+            "top5": 0.9992,
+            "n": 2400
+          },
+          "composition": {
+            "top1": 0.5052,
+            "top5": 0.7396,
+            "n": 192
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.00010145685519091785,
+            "cross_cat_cos_mean": -1.7416277842130512e-05,
+            "within_cat_cos_std": 0.010885113850235939,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 2400,
+          "elapsed_s_arm": 45.83
+        }
+      },
+      "elapsed_s": 96.5,
+      "_ckpt_key": "29",
+      "_partial_written_at": 1782403212.114951
+    }
+  ],
+  "elapsed_s": 451.1,
+  "summary": "HARD_FAIL_REFUTED: RAND retr=0.647 comp=0.453 wc=-0.000 | LABEL_BASIS retr=0.548 comp=0.331 wc=0.199 cc=0.000 | DW retr=0.646 comp=0.445 | OLS retr=0.647 comp=0.444 | proven_label_retr=True proven_random_retr=False proven_emergent=True proven_label_comp=True proven_random_comp=False | refute=True | q=[] confound=[]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "USER directive 2026-06-25: 4-arm BIAS-13 + Principle O proof. Labels at basis layer (ARM_LABEL_BASIS only) HURT retrieval vs random + emergent; 3 of 4 arms ZERO LABELS. Substrate-native concept-KG; retrieval+composition; JL-discriminating regime V=300 N=8192 N/V=27.",
+  "BIAS_CHECKLIST": {
+    "BIAS_13_basis_label_contamination": "TESTED (LABEL_BASIS arm directly)",
+    "BIAS_14_JL_oversatisfaction": "MITIGATED (N/V=27 in productive regime)",
+    "BIAS_15_prior_data_mismatch": "MITIGATED (10 cats / 300 concepts aligned)",
+    "BIAS_Q_suspect_1.000": "GUARDED (Q_SUSPECT_RETR_MAX=0.995 flag)"
+  },
+  "CONFOUND_AUDIT": {
+    "C1_axis_projection_bug": "MITIGATED: noise_scale=0.05 matches cell_v1 reference",
+    "C2_degenerate_codes": "GUARDED via within_cat_cos diagnostic (flag if >= 0.95)",
+    "C3_capacity_saturation": "MITIGATED: M=2400 / V=300 / N=8192 well below ~25k capacity"
+  }
+}

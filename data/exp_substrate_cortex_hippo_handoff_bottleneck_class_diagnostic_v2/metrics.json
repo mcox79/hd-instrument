@@ -1,0 +1,268 @@
+{
+  "anchor_name": "substrate_cortex_hippo_handoff_bottleneck_class_diagnostic_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (diagnostic; tag=Ha_HEBBIAN_CROSSTERM_CONFIRMED,Hc_CORTEX_WRITE_SATURATION_CONFIRMED): multiple H_OTHER mechanisms contribute (additive class).  M=2048 N_h=8192 N_c=2048 mode=full R_DIRECT=0.985 R_STANDARD=0.219 R_NO_HEBBIAN_CROSSTERM=0.612 R_NO_L2_NORM=0.217 R_CLEAN_VALS_TO_CORTEX=0.985 gap_DIR_STD=+0.766; closeFrac HEBB=+0.513 L2=-0.003 CLEAN=+1.000",
+  "summary": "n_seeds=3 M=2048 N_h=8192 N_c=2048 arms=('ARM_DIRECT', 'ARM_STANDARD', 'ARM_NO_HEBBIAN_CROSSTERM', 'ARM_NO_L2_NORM', 'ARM_CLEAN_VALS_TO_CORTEX') mode=full alpha_simple=0.250 alpha_h=0.0139 H_OTHER_probe_v2",
+  "elapsed_s": 231.9691128730774,
+  "config_version": "ANCHOR=substrate_cortex_hippo_handoff_bottleneck_class_diagnostic_v2,M=2048,N_h=8192,N_c=2048,sparsity_sparse=0.1,n_replay=1,eta_c=0.005,SEEDS=7-17-23,RUN_MODE=full,arms=ARM_DIRECT+ARM_STANDARD+ARM_NO_HEBBIAN_CROSSTERM+ARM_NO_L2_NORM+ARM_CLEAN_VALS_TO_CORTEX,backend=numpy,hardening=METARULE_AF+METARULE_AH+METARULE_H+ARM_HASH_DIVERGENCE+V1_DIAGNOSTIC_LINEAGE",
+  "M": 2048,
+  "N_c": 2048,
+  "N_h": 8192,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "n_replay_per_item": 1,
+  "backend": "numpy",
+  "n_seeds": 3,
+  "expected_n_units": 15,
+  "cardinality_ok": true,
+  "run_mode": "full",
+  "alpha_simple": 0.25,
+  "alpha_hopfield": 0.013872067700855419,
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_DIRECT",
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_STANDARD",
+      "recall_mean": 0.21923828125,
+      "recall_std": 0.009324339575131839,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+      "recall_mean": 0.6123046875,
+      "recall_std": 0.011395554078264515,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_NO_L2_NORM",
+      "recall_mean": 0.21712239583333334,
+      "recall_std": 0.008095592523076749,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 78.55208206176758,
+      "arms": [
+        {
+          "arm_name": "ARM_DIRECT",
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 0.2269805223305747,
+          "n_total_writes": 2048,
+          "arm_hash": "66f1e9d41d616a25",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 5.996748208999634,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_STANDARD",
+          "seed": 7,
+          "recall_cortex": 0.212890625,
+          "n_items": 2048,
+          "cortex_norm": 0.7174404886768845,
+          "n_total_writes": 2048,
+          "arm_hash": "9e9d6fb6a86675fd",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 20.632561922073364,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+          "seed": 7,
+          "recall_cortex": 0.62353515625,
+          "n_items": 2048,
+          "cortex_norm": 0.2208174266903235,
+          "n_total_writes": 2048,
+          "arm_hash": "f564309b36782f4c",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 10.365728616714478,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_L2_NORM",
+          "seed": 7,
+          "recall_cortex": 0.21240234375,
+          "n_items": 2048,
+          "cortex_norm": 32.50314979088091,
+          "n_total_writes": 2048,
+          "arm_hash": "775335507e73c449",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 20.51643180847168,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 0.2269805223305747,
+          "n_total_writes": 2048,
+          "arm_hash": "66f1e9d41d616a25",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 19.118220806121826,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 75.92621350288391,
+      "arms": [
+        {
+          "arm_name": "ARM_DIRECT",
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 0.22553342588185127,
+          "n_total_writes": 2048,
+          "arm_hash": "9bc34f9e0b8904a1",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 6.066973924636841,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_STANDARD",
+          "seed": 17,
+          "recall_cortex": 0.21240234375,
+          "n_items": 2048,
+          "cortex_norm": 0.714134596645008,
+          "n_total_writes": 2048,
+          "arm_hash": "22b8f62eb0773099",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 19.380401372909546,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+          "seed": 17,
+          "recall_cortex": 0.61669921875,
+          "n_items": 2048,
+          "cortex_norm": 0.22140076276064916,
+          "n_total_writes": 2048,
+          "arm_hash": "2e444956aca6007d",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 9.24703311920166,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_L2_NORM",
+          "seed": 17,
+          "recall_cortex": 0.21044921875,
+          "n_items": 2048,
+          "cortex_norm": 32.243933733695904,
+          "n_total_writes": 2048,
+          "arm_hash": "c46c94aa4c3d9727",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 19.472236394882202,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 0.22553342588185127,
+          "n_total_writes": 2048,
+          "arm_hash": "9bc34f9e0b8904a1",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 19.362655878067017,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 77.16797113418579,
+      "arms": [
+        {
+          "arm_name": "ARM_DIRECT",
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 0.22739956403896117,
+          "n_total_writes": 2048,
+          "arm_hash": "2434597873a5fe21",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 6.362640619277954,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_STANDARD",
+          "seed": 23,
+          "recall_cortex": 0.232421875,
+          "n_items": 2048,
+          "cortex_norm": 0.7160064975611707,
+          "n_total_writes": 2048,
+          "arm_hash": "01bc77bafab1ab35",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 20.09632706642151,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+          "seed": 23,
+          "recall_cortex": 0.5966796875,
+          "n_items": 2048,
+          "cortex_norm": 0.22780613670947408,
+          "n_total_writes": 2048,
+          "arm_hash": "9fbb5fbf501e710c",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 9.90121340751648,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_L2_NORM",
+          "seed": 23,
+          "recall_cortex": 0.228515625,
+          "n_items": 2048,
+          "cortex_norm": 32.44749207190523,
+          "n_total_writes": 2048,
+          "arm_hash": "335b6ca9a868ca21",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 20.198522090911865,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 0.22739956403896117,
+          "n_total_writes": 2048,
+          "arm_hash": "2434597873a5fe21",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.013872067700855419,
+          "wall_s": 18.22737169265747,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

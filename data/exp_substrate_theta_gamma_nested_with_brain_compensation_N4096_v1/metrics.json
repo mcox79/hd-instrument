@@ -1,0 +1,360 @@
+{
+  "anchor_name": "substrate_theta_gamma_nested_with_brain_compensation_N4096_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_1: brain_full adds nothing over nested_baseline (+<=0.03) at ALL sigmas. Pivot to TDM-gating Anchor 2. N=4096 M=500 sparse_f=0.02 tau=0.3; single@16=1.0000 brain_full@16=0.1867 nested_base@16=1.0000 nested_sparse@16=0.1967 nested_cleanup@16=1.0000; brain_full@32=0.0367 single@32=1.0000; criteria=A:False B:False C:False; hf_flags=1:True 2:True 3:False",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config": {
+    "N_DIM": 4096,
+    "M": 500,
+    "K_GAMMA": 31,
+    "K_THETA": 1,
+    "P_SINGLE": 64,
+    "P_THETA": 8,
+    "P_GAMMA": 7,
+    "SIGMAS": [
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0,
+      128.0
+    ],
+    "N_EVAL": 200,
+    "SPARSE_F": 0.02,
+    "CLEANUP_TAU": 0.3
+  },
+  "summary": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.9933333333333333,
+      "sigma_128.0": 0.43333333333333335
+    },
+    "ARM_NESTED_BASELINE": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.7616666666666667,
+      "sigma_128.0": 0.13166666666666668
+    },
+    "ARM_NESTED_SPARSE": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 0.875,
+      "sigma_16.0": 0.19666666666666668,
+      "sigma_32.0": 0.03,
+      "sigma_64.0": 0.011666666666666667,
+      "sigma_128.0": 0.0033333333333333335
+    },
+    "ARM_NESTED_CLEANUP": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.7400000000000001,
+      "sigma_128.0": 0.12666666666666668
+    },
+    "ARM_NESTED_BRAIN_FULL": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 0.8616666666666667,
+      "sigma_16.0": 0.18666666666666668,
+      "sigma_32.0": 0.03666666666666667,
+      "sigma_64.0": 0.011666666666666667,
+      "sigma_128.0": 0.008333333333333333
+    },
+    "ARM_SINGLE_LOCKIN_SPARSE": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.5833333333333333,
+      "sigma_32.0": 0.07833333333333332,
+      "sigma_64.0": 0.013333333333333334,
+      "sigma_128.0": 0.005
+    }
+  },
+  "cv": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.006277948635526754,
+      "sigma_128.0": 0.021757131728816863
+    },
+    "ARM_NESTED_BASELINE": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.008187434106726356,
+      "sigma_128.0": 0.14652958104797753
+    },
+    "ARM_NESTED_SPARSE": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.004665694748158439,
+      "sigma_16.0": 0.02396972139615417,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.20203050891044208,
+      "sigma_128.0": 0.7071067811865475
+    },
+    "ARM_NESTED_CLEANUP": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.01459626283425195,
+      "sigma_128.0": 0.32444284226152503
+    },
+    "ARM_NESTED_BRAIN_FULL": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.026940789704418048,
+      "sigma_16.0": 0.03340765523905308,
+      "sigma_32.0": 0.34015067152490375,
+      "sigma_64.0": 0.5345224838248487,
+      "sigma_128.0": 0.282842712474619
+    },
+    "ARM_SINGLE_LOCKIN_SPARSE": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.014568627181693683,
+      "sigma_32.0": 0.21062755184280146,
+      "sigma_64.0": 0.35355339059327373,
+      "sigma_128.0": 0.0
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.985,
+          "sigma_128.0": 0.44
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.76,
+          "sigma_128.0": 0.14
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.875,
+          "sigma_16.0": 0.2,
+          "sigma_32.0": 0.03,
+          "sigma_64.0": 0.015,
+          "sigma_128.0": 0.0
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.745,
+          "sigma_128.0": 0.12
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.885,
+          "sigma_16.0": 0.18,
+          "sigma_32.0": 0.05,
+          "sigma_64.0": 0.01,
+          "sigma_128.0": 0.01
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.595,
+          "sigma_32.0": 0.06,
+          "sigma_64.0": 0.02,
+          "sigma_128.0": 0.005
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "N_EVAL": 200,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 32.205644845962524,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782270328.6476889
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 1.0,
+          "sigma_128.0": 0.42
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.755,
+          "sigma_128.0": 0.105
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.88,
+          "sigma_16.0": 0.19,
+          "sigma_32.0": 0.03,
+          "sigma_64.0": 0.01,
+          "sigma_128.0": 0.005
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.75,
+          "sigma_128.0": 0.18
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.87,
+          "sigma_16.0": 0.195,
+          "sigma_32.0": 0.02,
+          "sigma_64.0": 0.005,
+          "sigma_128.0": 0.01
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.575,
+          "sigma_32.0": 0.075,
+          "sigma_64.0": 0.01,
+          "sigma_128.0": 0.005
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "N_EVAL": 200,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 31.94799304008484,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782270360.6016853
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.995,
+          "sigma_128.0": 0.44
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.77,
+          "sigma_128.0": 0.15
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.87,
+          "sigma_16.0": 0.2,
+          "sigma_32.0": 0.03,
+          "sigma_64.0": 0.01,
+          "sigma_128.0": 0.005
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.725,
+          "sigma_128.0": 0.08
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 0.83,
+          "sigma_16.0": 0.185,
+          "sigma_32.0": 0.04,
+          "sigma_64.0": 0.02,
+          "sigma_128.0": 0.005
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.58,
+          "sigma_32.0": 0.1,
+          "sigma_64.0": 0.01,
+          "sigma_128.0": 0.005
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "N_EVAL": 200,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 31.810935497283936,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782270392.418623
+    }
+  },
+  "elapsed_s": 96.00660467147827
+}

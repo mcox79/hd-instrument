@@ -1,0 +1,262 @@
+{
+  "anchor_name": "substrate_multihop_consolidation_memory_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: arms[NAIVE=0.847 | CONS_AT_K3=0.948 | CONS_IMMEDIATE=1.000 | HYBRID=0.900] best=CONS_IMMEDIATE (top1=1.000) lift_add=0.153 lift_mult=1.18x naive=0.847 naive_cv=0.028 hop2_oracle_min=0.880 chance=0.005 rails=['HOP2_ORACLE_LOW(min=0.880<0.95)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "subcons-v1: dense-bipolar HRR + multivalue-Hebbian + chain-bind + compound-consolidation; V_C=200 V_P=10 N=8192 n_chains=300 K_THRESH=3 seeds=[7, 17, 23] bands hp_cg>=0.95 hp>=0.85 hf<=0.75 naive_band=[0.40,0.85]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "config_version": "subcons-v1: dense-bipolar HRR + multivalue-Hebbian + chain-bind + compound-consolidation; V_C=200 V_P=10 N=8192 n_chains=300 K_THRESH=3 seeds=[7, 17, 23] bands hp_cg>=0.95 hp>=0.85 hf<=0.75 naive_band=[0.40,0.85]",
+      "n_chains": 300,
+      "pair_freq_top5": [
+        [
+          [
+            1,
+            3
+          ],
+          7
+        ],
+        [
+          [
+            7,
+            1
+          ],
+          6
+        ],
+        [
+          [
+            1,
+            7
+          ],
+          6
+        ],
+        [
+          [
+            0,
+            4
+          ],
+          5
+        ],
+        [
+          [
+            7,
+            9
+          ],
+          5
+        ]
+      ],
+      "arm_naive": {
+        "top1": 0.825,
+        "hop1_top1": 0.92,
+        "hop2_oracle_top1": 0.9,
+        "n_queries": 200
+      },
+      "arm_consolidate_after_thresh": {
+        "top1": 0.93,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": 0.7812,
+        "n_consolidated_chains": 136,
+        "n_naive_fallback_chains": 64,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "arm_consolidate_immediate": {
+        "top1": 1.0,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": null,
+        "n_consolidated_chains": 200,
+        "n_naive_fallback_chains": 0,
+        "n_compound_predicates_created": 78,
+        "k_thresh": 1,
+        "n_queries": 200
+      },
+      "arm_hybrid": {
+        "top1": 0.885,
+        "n_picks_compound": 63,
+        "n_picks_naive": 137,
+        "n_consolidated_chains": 136,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "elapsed_s": 2.1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782397424.048465
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "config_version": "subcons-v1: dense-bipolar HRR + multivalue-Hebbian + chain-bind + compound-consolidation; V_C=200 V_P=10 N=8192 n_chains=300 K_THRESH=3 seeds=[7, 17, 23] bands hp_cg>=0.95 hp>=0.85 hf<=0.75 naive_band=[0.40,0.85]",
+      "n_chains": 300,
+      "pair_freq_top5": [
+        [
+          [
+            7,
+            2
+          ],
+          6
+        ],
+        [
+          [
+            5,
+            7
+          ],
+          6
+        ],
+        [
+          [
+            2,
+            4
+          ],
+          6
+        ],
+        [
+          [
+            5,
+            6
+          ],
+          5
+        ],
+        [
+          [
+            6,
+            0
+          ],
+          5
+        ]
+      ],
+      "arm_naive": {
+        "top1": 0.835,
+        "hop1_top1": 0.95,
+        "hop2_oracle_top1": 0.88,
+        "n_queries": 200
+      },
+      "arm_consolidate_after_thresh": {
+        "top1": 0.945,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": 0.8281,
+        "n_consolidated_chains": 136,
+        "n_naive_fallback_chains": 64,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "arm_consolidate_immediate": {
+        "top1": 1.0,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": null,
+        "n_consolidated_chains": 200,
+        "n_naive_fallback_chains": 0,
+        "n_compound_predicates_created": 79,
+        "k_thresh": 1,
+        "n_queries": 200
+      },
+      "arm_hybrid": {
+        "top1": 0.895,
+        "n_picks_compound": 61,
+        "n_picks_naive": 139,
+        "n_consolidated_chains": 136,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "elapsed_s": 2.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782397426.067572
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "config_version": "subcons-v1: dense-bipolar HRR + multivalue-Hebbian + chain-bind + compound-consolidation; V_C=200 V_P=10 N=8192 n_chains=300 K_THRESH=3 seeds=[7, 17, 23] bands hp_cg>=0.95 hp>=0.85 hf<=0.75 naive_band=[0.40,0.85]",
+      "n_chains": 300,
+      "pair_freq_top5": [
+        [
+          [
+            9,
+            4
+          ],
+          6
+        ],
+        [
+          [
+            1,
+            3
+          ],
+          5
+        ],
+        [
+          [
+            4,
+            7
+          ],
+          5
+        ],
+        [
+          [
+            1,
+            6
+          ],
+          5
+        ],
+        [
+          [
+            2,
+            7
+          ],
+          5
+        ]
+      ],
+      "arm_naive": {
+        "top1": 0.88,
+        "hop1_top1": 0.965,
+        "hop2_oracle_top1": 0.91,
+        "n_queries": 200
+      },
+      "arm_consolidate_after_thresh": {
+        "top1": 0.97,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": 0.9032,
+        "n_consolidated_chains": 138,
+        "n_naive_fallback_chains": 62,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "arm_consolidate_immediate": {
+        "top1": 1.0,
+        "consolidated_chain_top1": 1.0,
+        "naive_fallback_chain_top1": null,
+        "n_consolidated_chains": 200,
+        "n_naive_fallback_chains": 0,
+        "n_compound_predicates_created": 82,
+        "k_thresh": 1,
+        "n_queries": 200
+      },
+      "arm_hybrid": {
+        "top1": 0.92,
+        "n_picks_compound": 70,
+        "n_picks_naive": 130,
+        "n_consolidated_chains": 138,
+        "n_compound_predicates_created": 35,
+        "k_thresh": 3,
+        "n_queries": 200
+      },
+      "elapsed_s": 2.0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782397428.0955162
+    }
+  ],
+  "elapsed_s": 6.2,
+  "summary": "HARD_PASS: arms[NAIVE=0.847 | CONS_AT_K3=0.948 | CONS_IMMEDIATE=1.000 | HYBRID=0.900] best=CONS_IMMEDIATE (top1=1.000) lift_add=0.153 lift_mult=1.18x naive=0.847 naive_cv=0.028 hop2_oracle_min=0.880 chance=0.005 rails=['HOP2_ORACLE_LOW(min=0.880<0.95)']",
+  "DESIGN_NOTE": "USER directive 2026-06-24 (Barrier 1): substrate-native consolidation memory; bind(A,R_compound(R1,R2),C) for K_THRESH-frequent 2-hop chains. Squire-Wixted analogy. Lane 1; chance + intra-arm controls only."
+}

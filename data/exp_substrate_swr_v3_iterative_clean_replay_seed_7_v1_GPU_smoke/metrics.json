@@ -1,0 +1,133 @@
+{
+  "anchor_name": "substrate_swr_v3_iterative_clean_replay_seed_7_v1_GPU",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (BC_CEILING): all N_REPLAY arms within 0.03 of DIRECT_UPPER ceiling; regime too easy; mechanism cannot discriminate. M=4096 seq_len=50 seed=7 NO_REPLAY=1.000 N_REPLAY_1=1.000 N_REPLAY_5=1.000 N_REPLAY_20=1.000 DIRECT_UPPER=1.000 lift_20_vs_1=+0.000 monotonic=True bc_ceiling=True",
+  "summary": "seed=7 M=4096 seq_len=50 mode=smoke device=cpu swr_v3_iterative_clean_replay",
+  "elapsed_s": 253.4790518283844,
+  "config_version": "ANCHOR=substrate_swr_v3_iterative_clean_replay_seed_7_v1_GPU,SEED=7,M=4096,seq_len=50,N_DIM=8192,N_CORTEX=2048,n_replay=(0, 1, 5, 20),RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+AH+AX+J+AC+AG_Q+ARMS_5+CHUNKED_PER_SEED",
+  "seed": 7,
+  "M": 4096,
+  "seq_len": 50,
+  "N_DIM": 8192,
+  "N_CORTEX": 2048,
+  "n_replay_values": [
+    0,
+    1,
+    5,
+    20
+  ],
+  "backend": "torch",
+  "device": "cpu",
+  "run_mode": "smoke",
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_NO_REPLAY",
+      "n_replay": 0,
+      "recall_cortex": 1.0,
+      "arm_hash": "762df6ab5c7aff41",
+      "arm_status": "OK",
+      "wall_s": 0.3991425037384033,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_1",
+      "n_replay": 1,
+      "recall_cortex": 1.0,
+      "arm_hash": "bde5ff461be6c503",
+      "arm_status": "OK",
+      "wall_s": 9.667836427688599,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_5",
+      "n_replay": 5,
+      "recall_cortex": 1.0,
+      "arm_hash": "efd2cc9b58cc22f4",
+      "arm_status": "OK",
+      "wall_s": 43.38728952407837,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_20",
+      "n_replay": 20,
+      "recall_cortex": 1.0,
+      "arm_hash": "0d78ef9b216398b1",
+      "arm_status": "OK",
+      "wall_s": 195.1970615386963,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_DIRECT_UPPER",
+      "n_replay": -1,
+      "recall_cortex": 1.0,
+      "arm_hash": "0abd27d19a30c0ff",
+      "arm_status": "OK",
+      "wall_s": 0.5288233757019043,
+      "failure_class": null
+    }
+  ],
+  "arms": [
+    {
+      "arm_name": "ARM_NO_REPLAY",
+      "n_replay": 0,
+      "seed": 7,
+      "M": 4096,
+      "seq_len": 50,
+      "recall_cortex": 1.0,
+      "arm_hash": "762df6ab5c7aff41",
+      "arm_status": "OK",
+      "wall_s": 0.3991425037384033,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_1",
+      "n_replay": 1,
+      "seed": 7,
+      "M": 4096,
+      "seq_len": 50,
+      "recall_cortex": 1.0,
+      "arm_hash": "bde5ff461be6c503",
+      "arm_status": "OK",
+      "wall_s": 9.667836427688599,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_5",
+      "n_replay": 5,
+      "seed": 7,
+      "M": 4096,
+      "seq_len": 50,
+      "recall_cortex": 1.0,
+      "arm_hash": "efd2cc9b58cc22f4",
+      "arm_status": "OK",
+      "wall_s": 43.38728952407837,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_N_REPLAY_20",
+      "n_replay": 20,
+      "seed": 7,
+      "M": 4096,
+      "seq_len": 50,
+      "recall_cortex": 1.0,
+      "arm_hash": "0d78ef9b216398b1",
+      "arm_status": "OK",
+      "wall_s": 195.1970615386963,
+      "failure_class": null
+    },
+    {
+      "arm_name": "ARM_DIRECT_UPPER",
+      "n_replay": -1,
+      "seed": 7,
+      "M": 4096,
+      "seq_len": 50,
+      "recall_cortex": 1.0,
+      "arm_hash": "0abd27d19a30c0ff",
+      "arm_status": "OK",
+      "wall_s": 0.5288233757019043,
+      "failure_class": null
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "anchor_name": "tonegawa_v5_hopfield_separate_attractor_GPU",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: 4-arm hop_sparse=0.997 diag=0.010 device=cpu",
+  "summary": "SELFTEST_OK: 4-arm hop_sparse=0.997 diag=0.010 device=cpu",
+  "elapsed_s": 1.8,
+  "ts_iso": "2026-06-27T22:25:58Z",
+  "pid": 25536,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=tonegawa_v5_hopfield_separate_attractor_GPU,N=512,KSP=10,NPC=4,WCN=0.40,K_SWEEP=[100],SEEDS=[7],NQPC=3,TEMP=4.0,MAX_STEPS=4,ALPHA=0.5,HP_hop_K2000>=0.40,HP_hop_K10000>=0.10,HP_hop-bundled>=0.20,RUN_MODE=smoke,DEVICE=cuda_required_full,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+GPU_ASSERT+SMOKE_AT_FULL_N_K2000",
+  "_hardening_marker": "v5_hopfield_separate_attractor_GPU"
+}

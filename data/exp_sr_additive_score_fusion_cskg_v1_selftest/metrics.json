@@ -1,0 +1,55 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS SR_ADDITIVE_SCORE_FUSION: real fit+compose+score+KGStore objects exercised; fusion combinators (weighted-sum, RRF) proven on real planted-arena scores; self-fuse identity holds; fuse-with-random must-fail holds; 8 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 3.8670052000088617,
+  "mechanism_selftest": {
+    "real_code_path_ok": true,
+    "real_diag": {
+      "n_query": 11,
+      "N": 60,
+      "sc_shape": [
+        11,
+        60
+      ]
+    },
+    "n_grid_entities": 300,
+    "n_query": 61,
+    "anchor_mrr": 0.40467,
+    "random_mrr": 0.01338,
+    "scramble_mrr": 0.13595,
+    "self_fuse_mrr": 0.40467,
+    "fuse_with_random_mrr": 0.15937,
+    "rrf_with_random_mrr": 0.09169,
+    "anchor_beats_random": true,
+    "scramble_fails": true,
+    "self_fuse_ok": true,
+    "must_fail_ok": true,
+    "must_fail_rrf_ok": true,
+    "arms_differ": true,
+    "validity_preflight_ok": false,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path_F1",
+      "substrate_signature_F2_F3"
+    ],
+    "arms_differ_exempted": [
+      [
+        "FUSE_SUM_w000",
+        "ANCHOR_COMPOSE"
+      ],
+      [
+        "FUSE_SUM_ANCHOR_SELF_w050",
+        "ANCHOR_COMPOSE"
+      ],
+      [
+        "FUSE_SUM_w100",
+        "SR_COMPOSE_NYS"
+      ]
+    ]
+  }
+}

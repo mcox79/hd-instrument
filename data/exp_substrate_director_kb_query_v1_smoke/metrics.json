@@ -1,0 +1,214 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_4_arms_ok; known.resolved=0.933 >= 0.7; unknown.refused=1.0 >= 0.7; principles_1-12_preserved",
+  "elapsed_s": 0.66,
+  "summary": {
+    "anchor": "substrate_director_kb_query_v1",
+    "smoke": true,
+    "kb_version": "v1",
+    "schema_version": "v1",
+    "encoder": "char_trigram_v1",
+    "arms": [
+      {
+        "arm": "ARM_KNOWN_QUERY_BASELINE",
+        "ok": true,
+        "elapsed_s": 0.436,
+        "n_queries": 30,
+        "n_resolved": 28,
+        "n_expected_hit": 29,
+        "ratio_resolved": 0.933,
+        "ratio_expected_hit": 0.967,
+        "sample_per_query": [
+          {
+            "q": "substrate director kb ingest",
+            "expected": "director_kb",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.7803,
+            "top1": "substrate_director_kb_ingest_v1"
+          },
+          {
+            "q": "chain grade multi hop depth extension",
+            "expected": "multihop",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.4453,
+            "top1": "CHAIN_GRADE_DEPTH_EXTENDS"
+          },
+          {
+            "q": "char trigram encoder",
+            "expected": "trigram",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.6836,
+            "top1": "char_trigram_encoder.py"
+          },
+          {
+            "q": "fleet waiting on",
+            "expected": "fleet",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.6406,
+            "top1": "fleet_waiting_on.md"
+          },
+          {
+            "q": "director plan",
+            "expected": "director_plan",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.5498,
+            "top1": "director"
+          },
+          {
+            "q": "cert ledger",
+            "expected": "cert_ledger",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.541,
+            "top1": "cert_ledger_writer.py"
+          },
+          {
+            "q": "substrate index atoms",
+            "expected": "substrate_index",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.4287,
+            "top1": "data/substrate_index/atoms.jsonl"
+          },
+          {
+            "q": "ANCHOR_FOR",
+            "expected": "ANCHOR_FOR",
+            "resolved": true,
+            "expected_hit": false,
+            "confidence": 0.3437,
+            "top1": "anchors"
+          },
+          {
+            "q": "HARD_PASS verdict",
+            "expected": "HARD_PASS",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.5391,
+            "top1": "HARD_PASS"
+          },
+          {
+            "q": "kg traversal",
+            "expected": "kg",
+            "resolved": true,
+            "expected_hit": true,
+            "confidence": 0.4336,
+            "top1": "hdlab/kg_traversal.py"
+          }
+        ]
+      },
+      {
+        "arm": "ARM_UNKNOWN_QUERY_REFUSE",
+        "ok": true,
+        "elapsed_s": 0.12,
+        "n_queries": 8,
+        "n_refused_or_low": 8,
+        "ratio_refused": 1.0,
+        "per_query": [
+          {
+            "q": "purple unicorn ballroom kazoo quartet",
+            "refused": true,
+            "confidence": 0.1543,
+            "low_conf": true
+          },
+          {
+            "q": "synchronized swimming carrot policy",
+            "refused": true,
+            "confidence": 0.1475,
+            "low_conf": true
+          },
+          {
+            "q": "interstellar plumbing harmonica festival",
+            "refused": true,
+            "confidence": 0.1914,
+            "low_conf": true
+          },
+          {
+            "q": "neon bicycle accountant lullaby symposium",
+            "refused": true,
+            "confidence": 0.2129,
+            "low_conf": true
+          },
+          {
+            "q": "magnetic pickle disco choreography",
+            "refused": true,
+            "confidence": 0.1885,
+            "low_conf": true
+          },
+          {
+            "q": "trampoline taxidermy banking initiative",
+            "refused": true,
+            "confidence": 0.1846,
+            "low_conf": true
+          },
+          {
+            "q": "underwater xylophone tax shelter",
+            "refused": true,
+            "confidence": 0.1992,
+            "low_conf": true
+          },
+          {
+            "q": "polka dot trombone insurance quintet",
+            "refused": true,
+            "confidence": 0.1475,
+            "low_conf": true
+          }
+        ]
+      },
+      {
+        "arm": "ARM_AMBIGUOUS_QUERY_TOPK",
+        "ok": true,
+        "elapsed_s": 0.069,
+        "n_queries": 5,
+        "per_query": [
+          {
+            "q": "verdict",
+            "distinct_entities": 8,
+            "top_count": 8,
+            "top1": "verdict_history"
+          },
+          {
+            "q": "encoder",
+            "distinct_entities": 8,
+            "top_count": 8,
+            "top1": "encode.py"
+          },
+          {
+            "q": "anchor",
+            "distinct_entities": 8,
+            "top_count": 8,
+            "top1": "anchors"
+          },
+          {
+            "q": "cell",
+            "distinct_entities": 8,
+            "top_count": 8,
+            "top1": "CELL5"
+          },
+          {
+            "q": "metrics",
+            "distinct_entities": 8,
+            "top_count": 8,
+            "top1": "metrics"
+          }
+        ]
+      },
+      {
+        "arm": "ARM_SUPERSEDED_FILTER",
+        "ok": true,
+        "elapsed_s": 0.033,
+        "n_superseded_entities": 4,
+        "test_entity": "[[feedback-routings-address-orchestrator-not-testbed]]",
+        "default_mode_hides_superseded": true,
+        "debug_mode_shows_superseded": true
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_4_arms_ok; known.resolved=0.933 >= 0.7; unknown.refused=1.0 >= 0.7; principles_1-12_preserved",
+    "elapsed_s": 0.66
+  }
+}

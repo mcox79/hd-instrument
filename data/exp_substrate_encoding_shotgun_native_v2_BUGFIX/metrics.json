@@ -1,0 +1,458 @@
+{
+  "anchor_name": "substrate_encoding_shotgun_native_v2_BUGFIX",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "OPTIMAL_ENCODER_FOUND encoders_pass_all=['E1_sparse_f002', 'E2_sparse_f005', 'E3_dense_bipolar', 'E4_kwta_vq', 'E6_hadamard'] top2_all_tasks=[] best_per_task={'T1_storage_retrieval': 'E1_sparse_f002', 'T2_composition': 'E6_hadamard', 'T3_capacity_at_noise': 'E1_sparse_f002', 'T4_crosstalk': 'E1_sparse_f002'} run_mode=full",
+  "summary": "OPTIMAL_ENCODER_FOUND encoders_pass_all=['E1_sparse_f002', 'E2_sparse_f005', 'E3_dense_bipolar', 'E4_kwta_vq', 'E6_hadamard'] top2_all_tasks=[] best_per_task={'T1_storage_retrieval': 'E1_sparse_f002', 'T2_composition': 'E6_hadamard', 'T3_capacity_at_noise': 'E1_sparse_f002', 'T4_crosstalk': 'E1_sparse_f002'} run_mode=full",
+  "elapsed_s": 2715.407450437546,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "v2BUGFIX-N8192-rank1Wouterproduct-T1M500-T2M300-T3GRID500,1000,2000,4000,8000,16000-noise2.0-T4M1600-seeds7,17,23-encoders6-tasks4-amplitude_scaled_sparse",
+  "corpus_provenance": "synthetic",
+  "lane": "Lane_1_substrate_native_capability",
+  "encoders": [
+    "E1_sparse_f002",
+    "E2_sparse_f005",
+    "E3_dense_bipolar",
+    "E4_kwta_vq",
+    "E5_dense_gaussian",
+    "E6_hadamard"
+  ],
+  "tasks": [
+    "T1_storage_retrieval",
+    "T2_composition",
+    "T3_capacity_at_noise",
+    "T4_crosstalk"
+  ],
+  "storage_primitive": "rank1_hebbian_outer_product_W_eq_VT_at_K_then_pred_eq_Kq_at_WT",
+  "amplitude_scaling": "sparse_bipolar_arms_use_1_over_sqrt_f_amplitude",
+  "v1_bug_diagnosis": "v1 used FFT-HRR + cosine-cleanup which is capacity-limited at ~N/8; v1's top1=0.83 at M=500/N=8192 was the HRR capacity ceiling, not a per-encoder bug. v2 replaces with rank-1 W outer-product (heteroassociative Hopfield/Kanerva style) which gives top1~1.000 by-construction across all encoders at M up to ~3*N. Discriminator shifts to T2 composition + T3 noise-capacity + T4 crosstalk magnitude.",
+  "pass_thresholds": {
+    "T1_storage_retrieval": 0.95,
+    "T2_composition": 0.3,
+    "T3_capacity_at_noise": 1000,
+    "T4_crosstalk": 0.05
+  },
+  "t3_noise_sigma": 2.0,
+  "per_seed": [
+    {
+      "_ckpt_key": "7",
+      "seed": 7,
+      "N": 8192,
+      "run_mode": "full",
+      "matrix": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.3522299773858815,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011893612332642078
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.4493927397157806,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011910846456885338
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.553687876386548,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.01193547248840332
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.6770897556964863,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011972221545875072
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.709129195695863,
+          "T3_capacity_at_noise": 0.0,
+          "T4_crosstalk": 0.011952221393585205
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.626710266584329,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011948125436902046
+        }
+      },
+      "timing": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 0.4445056915283203,
+          "T2_composition": 0.2978858947753906,
+          "T3_capacity_at_noise": 155.16675996780396,
+          "T4_crosstalk": 3.072118043899536
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.8620965480804443,
+          "T2_composition": 1.5057148933410645,
+          "T3_capacity_at_noise": 161.72025966644287,
+          "T4_crosstalk": 3.244871139526367
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.846949815750122,
+          "T2_composition": 1.4927208423614502,
+          "T3_capacity_at_noise": 165.25309491157532,
+          "T4_crosstalk": 3.330482244491577
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 2.1877188682556152,
+          "T2_composition": 1.7758285999298096,
+          "T3_capacity_at_noise": 184.22230529785156,
+          "T4_crosstalk": 4.272751808166504
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 2.019606113433838,
+          "T2_composition": 1.6639649868011475,
+          "T3_capacity_at_noise": 2.2452259063720703,
+          "T4_crosstalk": 3.8259027004241943
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 3.3191580772399902,
+          "T2_composition": 3.013835906982422,
+          "T3_capacity_at_noise": 176.1060221195221,
+          "T4_crosstalk": 4.831486701965332
+        }
+      },
+      "config_version": "v2BUGFIX-N8192-rank1Wouterproduct-T1M500-T2M300-T3GRID500,1000,2000,4000,8000,16000-noise2.0-T4M1600-seeds7,17,23-encoders6-tasks4-amplitude_scaled_sparse",
+      "_partial_written_at": 1782366735.8114467
+    },
+    {
+      "_ckpt_key": "17",
+      "seed": 17,
+      "N": 8192,
+      "run_mode": "full",
+      "matrix": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.6656628161721296,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.01188718806952238
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.7286956219482663,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011964607052505016
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.794569566123248,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011980351060628891
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.5154069512183583,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011933284811675549
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.5970088025192104,
+          "T3_capacity_at_noise": 0.0,
+          "T4_crosstalk": 0.011919558048248291
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.7607353853688124,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011957845650613308
+        }
+      },
+      "timing": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 1.877044439315796,
+          "T2_composition": 1.525458812713623,
+          "T3_capacity_at_noise": 162.40335988998413,
+          "T4_crosstalk": 3.1181626319885254
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.8794152736663818,
+          "T2_composition": 1.5695836544036865,
+          "T3_capacity_at_noise": 164.96094679832458,
+          "T4_crosstalk": 3.3116579055786133
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.8486664295196533,
+          "T2_composition": 1.5942184925079346,
+          "T3_capacity_at_noise": 163.48753190040588,
+          "T4_crosstalk": 3.3000218868255615
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 2.1906485557556152,
+          "T2_composition": 1.7990782260894775,
+          "T3_capacity_at_noise": 184.2304334640503,
+          "T4_crosstalk": 4.292795419692993
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 2.029212474822998,
+          "T2_composition": 1.659083604812622,
+          "T3_capacity_at_noise": 2.192075729370117,
+          "T4_crosstalk": 3.853816270828247
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 3.350315809249878,
+          "T2_composition": 2.743565320968628,
+          "T3_capacity_at_noise": 177.08977556228638,
+          "T4_crosstalk": 4.927550792694092
+        }
+      },
+      "config_version": "v2BUGFIX-N8192-rank1Wouterproduct-T1M500-T2M300-T3GRID500,1000,2000,4000,8000,16000-noise2.0-T4M1600-seeds7,17,23-encoders6-tasks4-amplitude_scaled_sparse",
+      "_partial_written_at": 1782367637.0904942
+    },
+    {
+      "_ckpt_key": "23",
+      "seed": 23,
+      "N": 8192,
+      "run_mode": "full",
+      "matrix": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.594847086932377,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011871696449816227
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.68939072621002,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011915154755115509
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.6751811229715727,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011937602423131466
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.6845002263180113,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011896925047039986
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.6570037683271885,
+          "T3_capacity_at_noise": 0.0,
+          "T4_crosstalk": 0.011899547651410103
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 1.0,
+          "T2_composition": 2.7464913456454743,
+          "T3_capacity_at_noise": 16000.0,
+          "T4_crosstalk": 0.011934519745409489
+        }
+      },
+      "timing": {
+        "E1_sparse_f002": {
+          "T1_storage_retrieval": 1.823643445968628,
+          "T2_composition": 1.5220742225646973,
+          "T3_capacity_at_noise": 162.42235016822815,
+          "T4_crosstalk": 3.1016948223114014
+        },
+        "E2_sparse_f005": {
+          "T1_storage_retrieval": 1.8466708660125732,
+          "T2_composition": 1.4938101768493652,
+          "T3_capacity_at_noise": 163.08725833892822,
+          "T4_crosstalk": 3.332923412322998
+        },
+        "E3_dense_bipolar": {
+          "T1_storage_retrieval": 1.8399474620819092,
+          "T2_composition": 1.5311095714569092,
+          "T3_capacity_at_noise": 170.7730574607849,
+          "T4_crosstalk": 3.3407764434814453
+        },
+        "E4_kwta_vq": {
+          "T1_storage_retrieval": 2.166614294052124,
+          "T2_composition": 1.8801002502441406,
+          "T3_capacity_at_noise": 191.03387355804443,
+          "T4_crosstalk": 4.233349561691284
+        },
+        "E5_dense_gaussian": {
+          "T1_storage_retrieval": 2.092898368835449,
+          "T2_composition": 1.7500269412994385,
+          "T3_capacity_at_noise": 2.119126796722412,
+          "T4_crosstalk": 3.8878862857818604
+        },
+        "E6_hadamard": {
+          "T1_storage_retrieval": 3.4039993286132812,
+          "T2_composition": 3.143134117126465,
+          "T3_capacity_at_noise": 187.7847716808319,
+          "T4_crosstalk": 5.629880428314209
+        }
+      },
+      "config_version": "v2BUGFIX-N8192-rank1Wouterproduct-T1M500-T2M300-T3GRID500,1000,2000,4000,8000,16000-noise2.0-T4M1600-seeds7,17,23-encoders6-tasks4-amplitude_scaled_sparse",
+      "_partial_written_at": 1782368562.3634138
+    }
+  ],
+  "aggregate": {
+    "matrix_mean": {
+      "E1_sparse_f002": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.5375799601634625,
+        "T3_capacity_at_noise": 16000.0,
+        "T4_crosstalk": 0.011884165617326895
+      },
+      "E2_sparse_f005": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.6224930292913555,
+        "T3_capacity_at_noise": 16000.0,
+        "T4_crosstalk": 0.011930202754835287
+      },
+      "E3_dense_bipolar": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.674479521827123,
+        "T3_capacity_at_noise": 16000.0,
+        "T4_crosstalk": 0.011951141990721226
+      },
+      "E4_kwta_vq": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.6256656444109523,
+        "T3_capacity_at_noise": 16000.0,
+        "T4_crosstalk": 0.011934143801530203
+      },
+      "E5_dense_gaussian": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.6543805888474203,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.011923775697747866
+      },
+      "E6_hadamard": {
+        "T1_storage_retrieval": 1.0,
+        "T2_composition": 2.711312332532872,
+        "T3_capacity_at_noise": 16000.0,
+        "T4_crosstalk": 0.011946830277641615
+      }
+    },
+    "matrix_cv": {
+      "E1_sparse_f002": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.05289014124861214,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.0007740414366700097
+      },
+      "E2_sparse_f005": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.04707265076257161,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.0020444758214089773
+      },
+      "E3_dense_bipolar": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.036770066331697465,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.0017297282072380388
+      },
+      "E4_kwta_vq": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.029715643447339703,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.0025762775914516165
+      },
+      "E5_dense_gaussian": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.017258461817851397,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.001820714044451468
+      },
+      "E6_hadamard": {
+        "T1_storage_retrieval": 0.0,
+        "T2_composition": 0.02216810652171081,
+        "T3_capacity_at_noise": 0.0,
+        "T4_crosstalk": 0.0008007728349044733
+      }
+    },
+    "pass_matrix": {
+      "E1_sparse_f002": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": true,
+        "T4_crosstalk": true
+      },
+      "E2_sparse_f005": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": true,
+        "T4_crosstalk": true
+      },
+      "E3_dense_bipolar": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": true,
+        "T4_crosstalk": true
+      },
+      "E4_kwta_vq": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": true,
+        "T4_crosstalk": true
+      },
+      "E5_dense_gaussian": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": false,
+        "T4_crosstalk": true
+      },
+      "E6_hadamard": {
+        "T1_storage_retrieval": true,
+        "T2_composition": true,
+        "T3_capacity_at_noise": true,
+        "T4_crosstalk": true
+      }
+    },
+    "best_per_task": {
+      "T1_storage_retrieval": "E1_sparse_f002",
+      "T2_composition": "E6_hadamard",
+      "T3_capacity_at_noise": "E1_sparse_f002",
+      "T4_crosstalk": "E1_sparse_f002"
+    },
+    "top2_all_tasks": [],
+    "pass_all_tasks": [
+      "E1_sparse_f002",
+      "E2_sparse_f005",
+      "E3_dense_bipolar",
+      "E4_kwta_vq",
+      "E6_hadamard"
+    ],
+    "encoder_ranks": {
+      "E1_sparse_f002": [
+        1,
+        6,
+        1,
+        1
+      ],
+      "E2_sparse_f005": [
+        2,
+        5,
+        2,
+        3
+      ],
+      "E3_dense_bipolar": [
+        3,
+        2,
+        3,
+        6
+      ],
+      "E4_kwta_vq": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "E5_dense_gaussian": [
+        5,
+        3,
+        6,
+        2
+      ],
+      "E6_hadamard": [
+        6,
+        1,
+        5,
+        5
+      ]
+    }
+  }
+}

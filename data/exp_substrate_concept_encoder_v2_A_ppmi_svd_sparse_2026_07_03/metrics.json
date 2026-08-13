@@ -1,0 +1,254 @@
+{
+  "anchor_name": "substrate_concept_encoder_v2_A_ppmi_svd_sparse_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: v2A_r5=0.3400 v1_r5=0.1600 ct_r5=0.2800 ri_r5=0.3200 rb_r5=0.0667; gaps(v1=0.1800,ct=0.0600); HP1-HP5 all met. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "summary": "HARD_PASS: v2A_r5=0.3400 v1_r5=0.1600 ct_r5=0.2800 ri_r5=0.3200 rb_r5=0.0667; gaps(v1=0.1800,ct=0.0600); HP1-HP5 all met. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "elapsed_s": 3.592,
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-03T00:52:24.601185+00:00",
+  "config": {
+    "n_dim": 2048,
+    "ppmi_k_sparsity": 0.02,
+    "ppmi_min_term_freq": 2,
+    "ppmi_smoothing": 0.75,
+    "ri_k_signs": 8,
+    "ce_k_sparsity": 0.02,
+    "ce_max_pos": 24,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "hp_bands": {
+      "HP1_v2A_minus_v1_gap": 0.1,
+      "HP2_v2A_minus_trigram_gap": 0.05,
+      "HP3_v1_target_r5": 0.16,
+      "HP3_v1_recovery_tol": 0.03,
+      "HP4_random_ceiling": 0.1,
+      "char_trigram_prior": 0.28,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_v2a_ppmi_svd_recall_at_1_mean": 0.24,
+    "arm_v2a_ppmi_svd_recall_at_5_mean": 0.34,
+    "arm_v2a_ppmi_svd_recall_at_10_mean": 0.4000000000000001,
+    "arm_v1_concept_encoder_recall_at_1_mean": 0.10333333333333333,
+    "arm_v1_concept_encoder_recall_at_5_mean": 0.16,
+    "arm_v1_concept_encoder_recall_at_10_mean": 0.23666666666666666,
+    "arm_char_trigram_recall_at_1_mean": 0.18000000000000002,
+    "arm_char_trigram_recall_at_5_mean": 0.28,
+    "arm_char_trigram_recall_at_10_mean": 0.34,
+    "arm_random_indexing_recall_at_1_mean": 0.20000000000000004,
+    "arm_random_indexing_recall_at_5_mean": 0.32,
+    "arm_random_indexing_recall_at_10_mean": 0.33,
+    "arm_random_baseline_recall_at_1_mean": 0.013333333333333334,
+    "arm_random_baseline_recall_at_5_mean": 0.06666666666666667,
+    "arm_random_baseline_recall_at_10_mean": 0.10333333333333333
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v2a_ppmi_svd": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.12,
+        "recall_at_10": 0.21
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_indexing": {
+        "recall_at_1": 0.2,
+        "recall_at_5": 0.32,
+        "recall_at_10": 0.33
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.0,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.06
+      },
+      "ppmi_effective_dim": 100,
+      "ppmi_vocab_size": 1181,
+      "arm_walls_s": {
+        "v2a_ppmi_svd": 0.107,
+        "v1_concept_encoder": 0.69,
+        "char_trigram_unsup_reference": 0.097,
+        "random_indexing": 0.094,
+        "random_baseline": 0.028
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2A_PPMI_SVD": "f6b743328da2d73ecda143847ab42fc1bf5c1495e1dac968a705e2e5fb6e1543",
+        "ARM_V1_CONCEPT_ENCODER": "665b31fc32afe16f17b100decc622e4c89148d5c1be9f3c24df99791c50e96df",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_RANDOM_INDEXING": "b111329e98e5e453aa024f4c1254c780ffeaf4f7fb8cc1c0286df3667b78f17c",
+        "ARM_RANDOM_BASELINE": "ac87657e509ec535467c686e5a830a304f35d253e4765b5cb2a065d1be28a0ec"
+      },
+      "wall_s": 1.065
+    },
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v2a_ppmi_svd": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.15,
+        "recall_at_10": 0.19
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_indexing": {
+        "recall_at_1": 0.2,
+        "recall_at_5": 0.32,
+        "recall_at_10": 0.33
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.03,
+        "recall_at_5": 0.07,
+        "recall_at_10": 0.13
+      },
+      "ppmi_effective_dim": 100,
+      "ppmi_vocab_size": 1181,
+      "arm_walls_s": {
+        "v2a_ppmi_svd": 0.077,
+        "v1_concept_encoder": 0.674,
+        "char_trigram_unsup_reference": 0.098,
+        "random_indexing": 0.09,
+        "random_baseline": 0.027
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2A_PPMI_SVD": "f6b743328da2d73ecda143847ab42fc1bf5c1495e1dac968a705e2e5fb6e1543",
+        "ARM_V1_CONCEPT_ENCODER": "08f8ec7911463e470e41bae9e43472ac6495770eab7637eb4736b93914ad645c",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_RANDOM_INDEXING": "b111329e98e5e453aa024f4c1254c780ffeaf4f7fb8cc1c0286df3667b78f17c",
+        "ARM_RANDOM_BASELINE": "82b762ae7684634a79e69f367d4cf1d7fbb628eab4cadfd5f50f0bbeb63b3dea"
+      },
+      "wall_s": 1.008
+    },
+    {
+      "seed": 23,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v2a_ppmi_svd": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder": {
+        "recall_at_1": 0.13,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.31
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_indexing": {
+        "recall_at_1": 0.2,
+        "recall_at_5": 0.32,
+        "recall_at_10": 0.33
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.08,
+        "recall_at_10": 0.12
+      },
+      "ppmi_effective_dim": 100,
+      "ppmi_vocab_size": 1181,
+      "arm_walls_s": {
+        "v2a_ppmi_svd": 0.07,
+        "v1_concept_encoder": 0.748,
+        "char_trigram_unsup_reference": 0.103,
+        "random_indexing": 0.095,
+        "random_baseline": 0.03
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2A_PPMI_SVD": "f6b743328da2d73ecda143847ab42fc1bf5c1495e1dac968a705e2e5fb6e1543",
+        "ARM_V1_CONCEPT_ENCODER": "013128a2a1d93bb4bc12449ebcb61897b7c80b93f971cb1287922e36d543673c",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_RANDOM_INDEXING": "b111329e98e5e453aa024f4c1254c780ffeaf4f7fb8cc1c0286df3667b78f17c",
+        "ARM_RANDOM_BASELINE": "c51c4e671a97daee2c090b2c2df13de51d25f37e333d76fec7f569cc5d4d3048"
+      },
+      "wall_s": 1.085
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "landed_n_units": 15,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_prototype_hds",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "baseline_in_band=True ct_r5=0.2800 v1_r5=0.1600 v2A_r5=0.3400 ri_r5=0.3200 rb_r5=0.0667 gap_v2A_vs_ct=0.0600 discriminator_fires_at_0.05=True",
+  "prereg_path": "preregs/2026-07-03_substrate_concept_encoder_v2_A_ppmi_svd_sparse.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "run_mode_verification_16"
+  ],
+  "hp_scope": {
+    "ARM_V2A_PPMI_SVD": [
+      "HP1",
+      "HP2",
+      "HP5"
+    ],
+    "ARM_V1_CONCEPT_ENCODER": [
+      "HP3",
+      "HP5"
+    ],
+    "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": [
+      "HP5"
+    ],
+    "ARM_RANDOM_INDEXING": [
+      "HP5"
+    ],
+    "ARM_RANDOM_BASELINE": [
+      "HP4",
+      "HP5"
+    ]
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | detector under distractors: naive_prec=0.33 (rec=1.00) -> gated(H=2,K=4) prec=1.00 rec=1.00 | best_prec@recall>=.9=1.00 | sustain-run sep: wobbler<=3 vs genuine>=6 (gap=3) | detection/write: incr 1.09(S)->1.06(L) FLAT=True vs exhaustive 52.5->88.5 (1.7x GROWS) | re-file writes: targ FLAT (14->14) full 106->178 ratio 7.6x->12.7x | end-to-end(L): targ=202 vs full_continual=500 (beats=True) vs full_terminal=250 (beats=True) | VSA recovery: noreorg_shifted=0.62 targeted_shifted=1.00 full_shifted=1.00 | EDIT advantage real: full/targeted re-file writes = 12.7x at LARGE (grew from 7.6x at SMALL)",
+  "summary": "MIDDLE_BAND | detector under distractors: naive_prec=0.33 (rec=1.00) -> gated(H=2,K=4) prec=1.00 rec=1.00 | best_prec@recall>=.9=1.00 | sustain-run sep: wobbler<=3 vs genuine>=6 (gap=3) | detection/write: incr 1.09(S)->1.06(L) FLAT=True vs exhaustive 52.5->88.5 (1.7x GROWS) | re-file writes: targ FL",
+  "run_mode": "smoke",
+  "elapsed_s": 0.7958149999903981,
+  "anchor_name": "schema_reorg_distractor_detection_cost_v1",
+  "ts_iso": "2026-07-17T02:36:26.465544+00:00",
+  "seeds": [
+    7,
+    13
+  ],
+  "sizes": [
+    24,
+    48
+  ],
+  "vsa_size": 48,
+  "expected_n_units": 40,
+  "verdict_summary": {
+    "naive_precision": 0.3333333333333333,
+    "naive_recall": 1.0,
+    "best_gate": {
+      "H": 2,
+      "K": 4
+    },
+    "best_gate_precision": 1.0,
+    "best_gate_recall": 1.0,
+    "best_precision_at_recall_ge_0.90": 1.0,
+    "sustain_run_separation_gap": 3,
+    "max_wobbler_run": 3,
+    "min_genuine_run": 6,
+    "incr_ops_per_write_small": 1.0943396226415094,
+    "incr_ops_per_write_large": 1.0561797752808988,
+    "incr_detection_flat": true,
+    "exhaustive_ops_per_write_small": 52.5,
+    "exhaustive_ops_per_write_large": 88.5,
+    "exhaustive_growth_ratio": 1.6857142857142857,
+    "targeted_records_small": 14.0,
+    "targeted_records_large": 14.0,
+    "targeted_flat": true,
+    "full_refit_records_small": 106.0,
+    "full_refit_records_large": 178.0,
+    "refile_ratio_small": 7.571428571428571,
+    "refile_ratio_large": 12.714285714285714,
+    "edit_advantage_survives": true,
+    "end_to_end_targeted_large": 202.0,
+    "end_to_end_full_continual_large": 500.0,
+    "end_to_end_full_terminal_large": 250.0,
+    "e2e_beats_continual": true,
+    "e2e_beats_terminal_batch": true,
+    "vsa_noreorg_shifted": 0.625,
+    "vsa_targeted_shifted": 1.0,
+    "vsa_full_refit_shifted": 1.0,
+    "notes": [
+      "EDIT advantage real: full/targeted re-file writes = 12.7x at LARGE (grew from 7.6x at SMALL)"
+    ]
+  },
+  "metric_a_confirmation_curve_K": [
+    {
+      "H": 0,
+      "K": 1,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "records_touched": 32.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 2,
+      "precision": 0.5,
+      "recall": 1.0,
+      "records_touched": 16.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 3,
+      "precision": 0.5,
+      "recall": 1.0,
+      "records_touched": 18.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 12.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 14.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 6,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 16.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 0,
+      "K": 7,
+      "precision": 1.0,
+      "recall": 0.0,
+      "records_touched": 0.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    }
+  ],
+  "metric_a_margin_curve_H": [
+    {
+      "H": 0,
+      "K": 1,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "records_touched": 32.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 1,
+      "K": 1,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "records_touched": 18.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 2,
+      "K": 1,
+      "precision": 0.5,
+      "recall": 1.0,
+      "records_touched": 16.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 3,
+      "K": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 10.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 4,
+      "K": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 12.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 5,
+      "K": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 14.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 6,
+      "K": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "records_touched": 16.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    },
+    {
+      "H": 7,
+      "K": 1,
+      "precision": 1.0,
+      "recall": 0.0,
+      "records_touched": 0.0,
+      "max_wobbler_run": 3,
+      "min_genuine_run": 6
+    }
+  ],
+  "metric_b_cost_ladder": {
+    "24": {
+      "n_entities": 24,
+      "n_facts": 106.0,
+      "n_distinct_entities": 48.0,
+      "targeted_records": 14.0,
+      "full_refit_records": 106.0,
+      "incr_detection_ops": 116.0,
+      "exhaustive_detection_ops": 5565.0,
+      "incr_ops_per_write": 1.0943396226415094,
+      "exhaustive_ops_per_write": 52.5
+    },
+    "48": {
+      "n_entities": 48,
+      "n_facts": 178.0,
+      "n_distinct_entities": 72.0,
+      "targeted_records": 14.0,
+      "full_refit_records": 178.0,
+      "incr_detection_ops": 188.0,
+      "exhaustive_detection_ops": 15753.0,
+      "incr_ops_per_write": 1.0561797752808988,
+      "exhaustive_ops_per_write": 88.5
+    }
+  },
+  "metric_c_vsa_recovery": {
+    "no_reorg": {
+      "shifted_typed_acc": 0.625,
+      "stable_typed_acc": 1.0,
+      "records_touched": 0.0,
+      "partition_hash": "33f9518a4bf4a88ffd2eb70ee9ba5333db547fb1a808a0a36c87487c844c146c"
+    },
+    "targeted": {
+      "shifted_typed_acc": 1.0,
+      "stable_typed_acc": 1.0,
+      "records_touched": 14.0,
+      "partition_hash": "727fdd168f6ba363b6e4785c62a3fa7ef9f126f8f7d8b1e75783be4b119bf6bd"
+    },
+    "full_refit": {
+      "shifted_typed_acc": 1.0,
+      "stable_typed_acc": 1.0,
+      "records_touched": 178.0,
+      "partition_hash": "727fdd168f6ba363b6e4785c62a3fa7ef9f126f8f7d8b1e75783be4b119bf6bd"
+    }
+  },
+  "prereg": {
+    "hard_pass": "naive_prec<0.90 & gated_prec>=0.90 & gated_recall>=0.90 & sep_gap>0 & incr_flat & exh_grows>=2x & targeted_flat & refile_ratio_L>=5 & ratio_L>ratio_S & e2e_beats_continual",
+    "hard_fail": "best_prec@recall>=.9 <0.90 (no gate separates) | incr NOT flat (detection O(all)) | refile_ratio_L<2.0",
+    "middle": "gate improves precision but recall<0.90; or advantage only-continual w/ terminal caveat; or detection flat but end-to-end only modestly better",
+    "compute_architecture": "sequential-CPU (store grows fact-by-fact; belief+confirmation state depend on the accumulated stream)",
+    "storage_strategy": "sharded (one exact VSA vector per fact) + type-partition index (cached derivative)",
+    "final_metrics_atomicity": "tmp_replace",
+    "progress_logging": "print_flush_true",
+    "deterministic_seeding": true,
+    "detector": "glass-box hysteresis: margin deadband H + confirmation count K (require K consecutive touches agreeing on the new type before re-filing); naive=(H0,K1)",
+    "honest_note": "sustain separation works because genuine reorganizations are SUSTAINED and wobbles TRANSIENT (construction proof of the gate; does NOT prove real distractors always separate). detection is optimal O(1)/write; targeted beats any CONTINUAL-freshness full-refit but NOT a single TERMINAL batch refit (which sacrifices mid-stream freshness).",
+    "real_code_path_exercised": [
+      "make_phasors",
+      "encode_meaning",
+      "unbind",
+      "cleanup",
+      "simulate_gate",
+      "run_vsa_arm"
+    ]
+  }
+}

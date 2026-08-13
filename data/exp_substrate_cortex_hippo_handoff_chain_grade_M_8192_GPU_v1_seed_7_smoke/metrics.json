@@ -1,0 +1,78 @@
+{
+  "anchor_name": "substrate_cortex_hippo_handoff_chain_grade_M_8192_GPU_v1_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: acc(FULL)>=0.50 AND gap>=0.40 AND ratio>=0.70 AND alpha>=0.05. seed=7 FULL=1.000 NO_REPLAY=0.002 DIRECT=1.000 gap_FULL_vs_NO=+0.998 ratio_FULL_to_DIRECT=1.000 alpha_simple=0.2500 backend=torch.cpu",
+  "summary": "chunk_seed=7 n_seeds=1 N_h=512 N_c=2048 sparsity=0.1 M=512 N_replay=10 mode=smoke alpha_simple=0.2500 backend=torch.cpu",
+  "elapsed_s": 325.79345440864563,
+  "config_version": "ANCHOR=substrate_cortex_hippo_handoff_chain_grade_M_8192_GPU_v1_seed_7,N_h=512,N_c=2048,sparsity=0.1,M=512,N_replay=10,eta_c=0.005,SEEDS=7,RUN_MODE=smoke,chunk_seed=7,alpha_simple=0.2500,alpha_hopfield=0.0801,backend=torch.cpu,hardening=L1early+L2perarm+L4importsentinel+METARULE_AF+METARULE_AH+GPU_PROXY",
+  "N_h": 512,
+  "N_c": 2048,
+  "M": 512,
+  "N_replay": 10,
+  "eta_c": 0.005,
+  "hippo_sparsity": 0.1,
+  "alpha_simple": 0.25,
+  "alpha_hopfield": 0.0801497244938313,
+  "backend": "torch.cpu",
+  "torch_available": true,
+  "cuda_available": false,
+  "n_seeds": 1,
+  "expected_n_units": 3,
+  "cardinality_ok": true,
+  "chunk_seed": 7,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 325.6275804042816,
+      "arms": [
+        {
+          "arm_name": "ARM_FULL_HANDOFF",
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 1.1277023925793574,
+          "N_h": 512,
+          "N_c": 2048,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 10,
+          "wall_s": 146.03389692306519,
+          "backend": "numpy",
+          "gpu_mem_peak_mb": 0.0,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_REPLAY",
+          "recall_cortex": 0.001953125,
+          "n_items": 512,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 0.0,
+          "N_h": 512,
+          "N_c": 2048,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 10,
+          "wall_s": 2.1276323795318604,
+          "backend": "numpy",
+          "gpu_mem_peak_mb": 0.0,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_DIRECT_CORTEX",
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "hippo_post_zero_norm": 0.0,
+          "cortex_norm": 1.1277023925793577,
+          "N_h": 512,
+          "N_c": 2048,
+          "k_hippo_active": 51,
+          "n_replay_cycles": 10,
+          "wall_s": 177.4285490512848,
+          "backend": "numpy",
+          "gpu_mem_peak_mb": 0.0,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

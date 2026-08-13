@@ -1,0 +1,289 @@
+{
+  "anchor": "substrate_per_context_T_diagnostic_v1",
+  "anchor_name": "substrate_per_context_T_diagnostic_v1",
+  "verdict": "SCALE_DEPENDENT_OR_IMPLEMENTATION_BUG",
+  "verdict_msg": "SCALE_DEPENDENT_OR_IMPLEMENTATION_BUG: dense per-ctx-T lift=-0.4976 < 0.05; sparse per-ctx-T lift=-0.3937 < 0.05. Per-context T fails for BOTH codebooks at N_TRAIN=10000 N_DIM=4096. Hypothesis H3 (scale-dependence) or H1 (implementation bug) -- check T_std values: if T_std ~0 then H1, if T_std > 0.001 then H3. BPC uni=6.9759 | DENSE: global=6.4759(lift_vs_uni=0.5000) pc=6.9735(pc_lift=-0.4976) | SPARSE: global=6.5709 pc=6.9646(pc_lift=-0.3937) | n_seeds=3 N_DIM=4096 N_TRAIN=10000",
+  "n_seeds": 3,
+  "N": 4096,
+  "N_DIM": 4096,
+  "N_TRAIN": 10000,
+  "N_HELD": 5000,
+  "VOCAB_CAP": 2000,
+  "SPARSE_F": 0.05,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_GLOBAL_T_DENSE",
+    "ARM_PER_CONTEXT_T_DENSE",
+    "ARM_GLOBAL_T_SPARSE_BIPOLAR",
+    "ARM_PER_CONTEXT_T_SPARSE_BIPOLAR"
+  ],
+  "run_mode": "full",
+  "config_version": "substrate_per_context_T_diagnostic_v1; N_DIM=4096 N_TRAIN=10000 N_HELD=5000 VOCAB_CAP=2000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T_DENSE', 'ARM_PER_CONTEXT_T_DENSE', 'ARM_GLOBAL_T_SPARSE_BIPOLAR', 'ARM_PER_CONTEXT_T_SPARSE_BIPOLAR'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=[0.0, 0.3]",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 6.975929231261021
+      },
+      "ARM_GLOBAL_T_DENSE": {
+        "bpc_mean": 6.475928881499843,
+        "lift_vs_unigram": 0.5000003497611782
+      },
+      "ARM_PER_CONTEXT_T_DENSE": {
+        "bpc_mean": 6.9734976503790875,
+        "lift_over_global": -0.49756876887924495
+      },
+      "ARM_GLOBAL_T_SPARSE_BIPOLAR": {
+        "bpc_mean": 6.57085458336137
+      },
+      "ARM_PER_CONTEXT_T_SPARSE_BIPOLAR": {
+        "bpc_mean": 6.964590711982292,
+        "lift_over_global": -0.39373612862092244
+      }
+    },
+    "dense_substrate_lift": 0.5000003497611782,
+    "pc_dense_lift": -0.49756876887924495,
+    "pc_sp_lift": -0.39373612862092244,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "diagnosis": "H1_OR_H3_SCALE_OR_IMPL"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 2000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 5000,
+      "run_mode": "full",
+      "n_dev": 1784,
+      "n_test": 1785,
+      "elapsed_s": 151.84018898010254,
+      "config_version": "substrate_per_context_T_diagnostic_v1; N_DIM=4096 N_TRAIN=10000 N_HELD=5000 VOCAB_CAP=2000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T_DENSE', 'ARM_PER_CONTEXT_T_DENSE', 'ARM_GLOBAL_T_SPARSE_BIPOLAR', 'ARM_PER_CONTEXT_T_SPARSE_BIPOLAR'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=[0.0, 0.3]",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        },
+        "ARM_GLOBAL_T_DENSE": {
+          "bpc": 6.462568750738828,
+          "top1": 0.25210084033613445,
+          "best_T": 0.02,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.285405464050097
+        },
+        "ARM_PER_CONTEXT_T_DENSE": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.49432381987571716,
+            "T_std": 0.018219489604234695
+          },
+          "method_B_50pct_target": {
+            "bpc": 6.977022850698153,
+            "top1": 0.24145658263305322,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.6118158011213195,
+            "T_mean": 0.07753517478704453,
+            "T_std": 0.022462528198957443
+          },
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        },
+        "ARM_GLOBAL_T_SPARSE_BIPOLAR": {
+          "bpc": 6.545474092134822,
+          "top1": 0.24929971988795518,
+          "best_T": 0.5,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.271056011559083
+        },
+        "ARM_PER_CONTEXT_T_SPARSE_BIPOLAR": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.49937447905540466,
+            "T_std": 0.004201653879135847
+          },
+          "method_B_50pct_target": {
+            "bpc": 6.941913673424835,
+            "top1": 0.23865546218487396,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.531260623809443,
+            "T_mean": 1.104695439338684,
+            "T_std": 0.30688509345054626
+          },
+          "bpc": 6.941913673424835,
+          "top1": 0.23865546218487396
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782276348.4580905
+    },
+    {
+      "seed": 17,
+      "V": 2000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 5000,
+      "run_mode": "full",
+      "n_dev": 1784,
+      "n_test": 1785,
+      "elapsed_s": 145.28791880607605,
+      "config_version": "substrate_per_context_T_diagnostic_v1; N_DIM=4096 N_TRAIN=10000 N_HELD=5000 VOCAB_CAP=2000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T_DENSE', 'ARM_PER_CONTEXT_T_DENSE', 'ARM_GLOBAL_T_SPARSE_BIPOLAR', 'ARM_PER_CONTEXT_T_SPARSE_BIPOLAR'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=[0.0, 0.3]",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        },
+        "ARM_GLOBAL_T_DENSE": {
+          "bpc": 6.489725529067265,
+          "top1": 0.24425770308123249,
+          "best_T": 0.02,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.23270241714431
+        },
+        "ARM_PER_CONTEXT_T_DENSE": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.49525171518325806,
+            "T_std": 0.015240090899169445
+          },
+          "method_B_50pct_target": {
+            "bpc": 7.003085206424317,
+            "top1": 0.22913165266106442,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.546361438982828,
+            "T_mean": 0.07646974921226501,
+            "T_std": 0.021894918754696846
+          },
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        },
+        "ARM_GLOBAL_T_SPARSE_BIPOLAR": {
+          "bpc": 6.576995072423601,
+          "top1": 0.24145658263305322,
+          "best_T": 0.5,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.260432046382109
+        },
+        "ARM_PER_CONTEXT_T_SPARSE_BIPOLAR": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.4997308552265167,
+            "T_std": 0.003238754579797387
+          },
+          "method_B_50pct_target": {
+            "bpc": 7.019945738631784,
+            "top1": 0.23865546218487396,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.519402851511742,
+            "T_mean": 1.096780776977539,
+            "T_std": 0.31774020195007324
+          },
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782276493.9636042
+    },
+    {
+      "seed": 23,
+      "V": 2000,
+      "N_DIM": 4096,
+      "N_TRAIN": 10000,
+      "N_HELD": 5000,
+      "run_mode": "full",
+      "n_dev": 1784,
+      "n_test": 1785,
+      "elapsed_s": 140.71741557121277,
+      "config_version": "substrate_per_context_T_diagnostic_v1; N_DIM=4096 N_TRAIN=10000 N_HELD=5000 VOCAB_CAP=2000 sparse_f=0.050 seeds=[7, 17, 23] run_mode=full arms=['ARM_UNIGRAM', 'ARM_GLOBAL_T_DENSE', 'ARM_PER_CONTEXT_T_DENSE', 'ARM_GLOBAL_T_SPARSE_BIPOLAR', 'ARM_PER_CONTEXT_T_SPARSE_BIPOLAR'] TEMP_GRID=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] LAMBDA_GRID=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] T_LOW=0.020 T_HIGH=0.500 LAMBDA_PC=[0.0, 0.3]",
+      "n_llm_calls": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        },
+        "ARM_GLOBAL_T_DENSE": {
+          "bpc": 6.475492364693432,
+          "top1": 0.2526610644257703,
+          "best_T": 0.02,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.264562575510627
+        },
+        "ARM_PER_CONTEXT_T_DENSE": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.49563127756118774,
+            "T_std": 0.013698372058570385
+          },
+          "method_B_50pct_target": {
+            "bpc": 6.968634488615221,
+            "top1": 0.24593837535014004,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.551749271034678,
+            "T_mean": 0.07704602926969528,
+            "T_std": 0.021728776395320892
+          },
+          "bpc": 6.968634488615221,
+          "top1": 0.24593837535014004
+        },
+        "ARM_GLOBAL_T_SPARSE_BIPOLAR": {
+          "bpc": 6.5900945855256845,
+          "top1": 0.23137254901960785,
+          "best_T": 0.5,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 7.264475231765495
+        },
+        "ARM_PER_CONTEXT_T_SPARSE_BIPOLAR": {
+          "method_A_entropy": {
+            "bpc": 6.975929231261021,
+            "top1": 0.3322128851540616,
+            "best_T_base": 0.01,
+            "best_lambda": 0.0,
+            "best_dev_bpc": 7.653543149133237,
+            "T_mean": 0.4999138116836548,
+            "T_std": 0.0011695807334035635
+          },
+          "method_B_50pct_target": {
+            "bpc": 7.018604932712687,
+            "top1": 0.23249299719887956,
+            "best_lambda": 0.3,
+            "best_dev_bpc": 7.532571111594289,
+            "T_mean": 1.0980653762817383,
+            "T_std": 0.3152017295360565
+          },
+          "bpc": 6.975929231261021,
+          "top1": 0.3322128851540616
+        }
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782276634.7888439
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_per_context_T_diagnostic_v1",
+  "elapsed_s": 438.97123551368713,
+  "summary": "SCALE_DEPENDENT_OR_IMPLEMENTATION_BUG: dense per-ctx-T lift=-0.4976 < 0.05; sparse per-ctx-T lift=-0.3937 < 0.05. Per-context T fails for BOTH codebooks at N_TRAIN=10000 N_DIM=4096. Hypothesis H3 (scale-dependence) or H1 (implementation bug) -- check T_std values: if T_std ~0 then H1, if T_std > 0.001 then H3. BPC uni=6.9759 | DENSE: global=6.4759(lift_vs_uni=0.5000) pc=6.9735(pc_lift=-0.4976) | S"
+}

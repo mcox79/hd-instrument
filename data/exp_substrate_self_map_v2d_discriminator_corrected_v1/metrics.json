@@ -1,0 +1,710 @@
+{
+  "anchor_name": "substrate_self_map_v2d_discriminator_corrected_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: v2d discriminator-corrected ALSO fails; substrate self-mapping truly null. ARI_real=0.0055 ARI_shuf=-0.0015 ARI_ratio=-4.15 (pass 2.0) | size_real=4.40 size_shuf=3.56 size_ratio=1.24 (pass 1.5) | n_clusters_real=29.0 n_clusters_shuf=42.0 | recall=1.000 (pass 0.95 / fail 0.50) | cv_ARI=0.918 (pass 0.20) | n_llm=0",
+  "summary": "HARD_FAIL: v2d discriminator-corrected ALSO fails; substrate self-mapping truly null. ARI_real=0.0055 ARI_shuf=-0.0015 ARI_ratio=-4.15 (pass 2.0) | size_real=4.40 size_shuf=3.56 size_ratio=1.24 (pass 1.5) | n_clusters_real=29.0 n_clusters_shuf=42.0 | recall=1.000 (pass 0.95 / fail 0.50) | cv_ARI=0.918 (pass 0.20) | n_llm=0",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N4096 max_ingest=None n_anchors=100 n_rel_samples=20 kset=16 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+  "per_seed": [
+    {
+      "seed": 7,
+      "_ckpt_key": "7",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N4096 max_ingest=None n_anchors=100 n_rel_samples=20 kset=16 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177578,
+      "n_relation_types": 47,
+      "n_triples": 202440,
+      "n_anchors": 100,
+      "n_anchors_in_v1_family": 9,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 1688.2,
+      "t_encoding_s": 14.9,
+      "t_arm_real_s": 827.1,
+      "t_arm_shuf_s": 826.6,
+      "real": {
+        "n_clusters": 32,
+        "ari": -0.0016,
+        "mean_cluster_size": 3.9565,
+        "coherence": 0.3246,
+        "avg_jaccard_vs_v1": 0.0286,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 7,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.091
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 5,
+            "best_v1_family": "topology",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 4,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.125
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 5,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 5,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 2,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.167
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 24,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 25,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 26,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 27,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 28,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 29,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 30,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 31,
+            "size": 1,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.2
+          }
+        ],
+        "n_cross_family_arrows_total": 37,
+        "n_new_cross_family_arrows": 35,
+        "new_arrows_examples": [
+          "EXP_active_inference_dpefe_h2_cpu_v1",
+          "EXP_matrix_trace_primitives_full_v3",
+          "EXP_multiagent_coord_full_v3",
+          "EXP_n8_conceptnet_ingest_eval_v1",
+          "EXP_p1_v2_action_at_any_position_LLM_class_v1",
+          "EXP_pp48_nkt_cross_n_depth19_v1_n16384",
+          "EXP_q_a3_l104_cross_layer_composition_v1_n16384",
+          "EXP_q_a3_l104_cross_layer_composition_v1_n8192",
+          "EXP_q_a3_l106_cross_layer_composition_v1_n8192",
+          "EXP_q_a3_l112_cross_layer_composition_v1_n16384"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 41,
+        "ari": -0.0016,
+        "mean_cluster_size": 3.5652,
+        "coherence": 0.3358,
+        "avg_jaccard_vs_v1": 0.0294
+      },
+      "discriminator": {
+        "ari_real": -0.0016,
+        "ari_shuf": -0.0016,
+        "ari_ratio": 1.0048,
+        "size_real": 3.9565,
+        "size_shuf": 3.5652,
+        "size_ratio": 1.1098
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782220855.0304625
+    },
+    {
+      "seed": 17,
+      "_ckpt_key": "17",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N4096 max_ingest=None n_anchors=100 n_rel_samples=20 kset=16 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177578,
+      "n_relation_types": 47,
+      "n_triples": 202440,
+      "n_anchors": 100,
+      "n_anchors_in_v1_family": 8,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 2014.2,
+      "t_encoding_s": 15.3,
+      "t_arm_real_s": 837.7,
+      "t_arm_shuf_s": 1142.1,
+      "real": {
+        "n_clusters": 25,
+        "ari": 0.0084,
+        "mean_cluster_size": 4.75,
+        "coherence": 0.3407,
+        "avg_jaccard_vs_v1": 0.0287,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 8,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.083
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 6,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.1
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 6,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.222
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 5,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 1,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 24,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          }
+        ],
+        "n_cross_family_arrows_total": 65,
+        "n_new_cross_family_arrows": 63,
+        "new_arrows_examples": [
+          "EXP_b_delta_readout_lever_transfer_v2",
+          "EXP_c_infty_seb_detection_full_v3",
+          "EXP_f4_kappa_n_deviation_snr_cpu_v1",
+          "EXP_kb_determinism_sweep_RETRY_gpu_v1",
+          "EXP_lambda_batch_results_combo3_unified_api_n32768_v1_bd9c5a",
+          "EXP_pb_e5_vs_bge_pinv_headtohead_v1",
+          "EXP_pb_multilang_paraphrase_chain_kf1_v1",
+          "EXP_pb_pinv_llama_l15_keys_v1",
+          "EXP_planted_csp_viability_full_v3",
+          "EXP_pp48_nkt_depth_11_v1_n4096"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 45,
+        "ari": -0.0016,
+        "mean_cluster_size": 3.5,
+        "coherence": 0.3198,
+        "avg_jaccard_vs_v1": 0.0221
+      },
+      "discriminator": {
+        "ari_real": 0.0084,
+        "ari_shuf": -0.0016,
+        "ari_ratio": -5.3812,
+        "size_real": 4.75,
+        "size_shuf": 3.5,
+        "size_ratio": 1.3571
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782222869.640575
+    },
+    {
+      "seed": 23,
+      "_ckpt_key": "23",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N4096 max_ingest=None n_anchors=100 n_rel_samples=20 kset=16 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177578,
+      "n_relation_types": 47,
+      "n_triples": 202440,
+      "n_anchors": 100,
+      "n_anchors_in_v1_family": 7,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 2085.3,
+      "t_encoding_s": 23.3,
+      "t_arm_real_s": 1076.2,
+      "t_arm_shuf_s": 961.8,
+      "real": {
+        "n_clusters": 30,
+        "ari": 0.0096,
+        "mean_cluster_size": 4.5,
+        "coherence": 0.3264,
+        "avg_jaccard_vs_v1": 0.0283,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 7,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 4,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.125
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 8,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 7,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 1,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 4,
+            "best_v1_family": "composition",
+            "best_jaccard": 0.125
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 24,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 25,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 26,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 27,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 28,
+            "size": 1,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 29,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          }
+        ],
+        "n_cross_family_arrows_total": 52,
+        "n_new_cross_family_arrows": 50,
+        "new_arrows_examples": [
+          "EXP_active_inference_dpefe_h2_cpu_v1",
+          "EXP_deletion_cert_refusal_joint_v1",
+          "EXP_matrix_trace_primitives_full_v3",
+          "EXP_multiagent_coord_full_v3",
+          "EXP_pb_mmr_real_encoder_clustered_v1",
+          "EXP_pp48_nkt_depth_17_v1_n4096",
+          "EXP_pp48_nkt_depth_21_v1_n4096",
+          "EXP_pp48_nkt_depth_23_v1_n4096",
+          "EXP_q_a3_l1000_cross_layer_composition_v1_n8192",
+          "EXP_q_a3_l104_cross_layer_composition_v1_n16384"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 40,
+        "ari": -0.0012,
+        "mean_cluster_size": 3.6087,
+        "coherence": 0.3257,
+        "avg_jaccard_vs_v1": 0.0226
+      },
+      "discriminator": {
+        "ari_real": 0.0096,
+        "ari_shuf": -0.0012,
+        "ari_ratio": -8.0795,
+        "size_real": 4.5,
+        "size_shuf": 3.6087,
+        "size_ratio": 1.247
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782224955.2655892
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 5791.3,
+  "DESIGN_NOTE": "REVIVAL of v2c HARD_FAIL. v2c used cluster_COUNT_gap as discriminator (real has MORE clusters than shuffle). Hypothesis: that direction is INVERTED -- real relations BUNDLE chain-grade anchors into LARGER coherent clusters; shuffle FRAGMENTS them. v2d swaps in ARI(real, v1_families) vs ARI(shuf, v1_families) as PRIMARY discriminator and mean_cluster_size_real/shuf as SECONDARY. Reuses all v2c primitives (char_trigram + KGStore_multivalue_Hebbian + 2hop_Jaccard_cluster); ONLY discriminator changes."
+}

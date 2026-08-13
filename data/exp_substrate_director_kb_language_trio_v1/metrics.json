@@ -1,0 +1,191 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "all_4_arms_ok; full_elapsed_s=1066.911 <= 1200; full_n_triples=754256 >= 500000; determinism_w_l2=0.0 < 1e-06; base_regression_delta_pct=0.0039; principles_1-12_preserved",
+  "elapsed_s": 1804.63,
+  "summary": {
+    "anchor": "substrate_director_kb_language_trio_v1",
+    "smoke": false,
+    "N_DIM": 2048,
+    "seed": 17,
+    "schema_version": "v1",
+    "schema_hash": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+    "kb_version": "v1",
+    "arms": [
+      {
+        "arm": "ARM_INGEST_LANGUAGE_TRIO_SMOKE",
+        "ok": true,
+        "elapsed_s": 130.207,
+        "caps": {
+          "wordnet": 100,
+          "verbnet": 10,
+          "framenet": 50
+        },
+        "n_triples": 2284,
+        "n_entities": 1713,
+        "n_relations": 64,
+        "per_class_triples": {
+          "framenet": 1628,
+          "verbnet": 133,
+          "wordnet": 523
+        },
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_language_trio_v1\\_arm_smoke\\kb"
+      },
+      {
+        "arm": "ARM_INGEST_LANGUAGE_TRIO_FULL",
+        "ok": true,
+        "elapsed_s": 1066.911,
+        "caps": "uncapped",
+        "n_triples": 754256,
+        "n_entities": 453814,
+        "n_relations": 64,
+        "per_class_triples": {
+          "framenet": 39566,
+          "verbnet": 5648,
+          "wordnet": 709042
+        },
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_language_trio_v1\\_arm_full\\kb"
+      },
+      {
+        "arm": "ARM_REINGEST_DETERMINISTIC_TRIO",
+        "ok": true,
+        "elapsed_s": 8.416,
+        "t_run_a_s": 4.759,
+        "t_run_b_s": 3.657,
+        "entities_byte_equal": true,
+        "relations_byte_equal": true,
+        "atoms_byte_equal": true,
+        "w_l2_diff": 0.0,
+        "w_within_tolerance": true,
+        "w_tolerance": 1e-06,
+        "n_triples_a": 2284,
+        "n_triples_b": 2284,
+        "schema_hash_a": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+        "schema_hash_b": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a"
+      },
+      {
+        "arm": "ARM_REGRESSION_BASE_KB",
+        "ok": true,
+        "elapsed_s": 501.82,
+        "n_triples_current": 54407,
+        "n_triples_baseline": 54195,
+        "delta_pct": 0.0039,
+        "n_base_classes": 8,
+        "base_classes": [
+          "atoms",
+          "cert_ledger",
+          "director_plan",
+          "fleet_state",
+          "memory",
+          "metrics",
+          "note",
+          "prereg"
+        ],
+        "coverage_ratio": 0.999
+      }
+    ],
+    "sample_queries": [
+      {
+        "query": "dog.n.01",
+        "expectation": "expected: synset with HYPERNYM_OF + LEMMA_OF edges",
+        "top_entity": "dog.n.01",
+        "top_cosine": 1.0,
+        "n_edges_top": 8,
+        "sample_edges": [
+          [
+            "POS_TAG",
+            "n"
+          ],
+          [
+            "GLOSS",
+            "a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds"
+          ],
+          [
+            "EXAMPLE",
+            "the dog barked all night"
+          ],
+          [
+            "HYPERNYM_OF",
+            "canine.n.02"
+          ],
+          [
+            "HYPERNYM_OF",
+            "domestic_animal.n.01"
+          ]
+        ],
+        "refused": false
+      },
+      {
+        "query": "give-13.1",
+        "expectation": "expected: verbnet class id with ROLE_OF edges",
+        "top_entity": "give-13.1",
+        "top_cosine": 1.0,
+        "n_edges_top": 8,
+        "sample_edges": [
+          [
+            "CLASS_OF",
+            "lend"
+          ],
+          [
+            "CLASS_OF",
+            "loan"
+          ],
+          [
+            "CLASS_OF",
+            "pass"
+          ],
+          [
+            "CLASS_OF",
+            "peddle"
+          ],
+          [
+            "CLASS_OF",
+            "refund"
+          ]
+        ],
+        "refused": false
+      },
+      {
+        "query": "Commerce_buy",
+        "expectation": "expected: framenet frame with HAS_FE edges",
+        "top_entity": "Commerce_buy",
+        "top_cosine": 1.0,
+        "n_edges_top": 8,
+        "sample_edges": [
+          [
+            "HAS_FE",
+            "Commerce_buy::Buyer"
+          ],
+          [
+            "HAS_FE",
+            "Commerce_buy::Explanation"
+          ],
+          [
+            "HAS_FE",
+            "Commerce_buy::Goods"
+          ],
+          [
+            "HAS_FE",
+            "Commerce_buy::Imposed_purpose"
+          ],
+          [
+            "HAS_FE",
+            "Commerce_buy::Manner"
+          ]
+        ],
+        "refused": false
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "all_4_arms_ok; full_elapsed_s=1066.911 <= 1200; full_n_triples=754256 >= 500000; determinism_w_l2=0.0 < 1e-06; base_regression_delta_pct=0.0039; principles_1-12_preserved",
+    "elapsed_s": 1804.63,
+    "envelope_hp_max_full_elapsed_s": 1200,
+    "envelope_hf_max_full_elapsed_s": 2400,
+    "envelope_hp_min_full_triples": 500000,
+    "envelope_hp_max_w_l2": 1e-06,
+    "envelope_hp_regression_band": [
+      -0.05,
+      0.25
+    ],
+    "envelope_hf_regression_lower": -0.25
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS RELATIONAL_INFERENCE_NEIGHBOR_VS_UNBIND: on the planted KIND arena the NEIGHBOR readout beats self-UNBIND (random codes) -> a6bbdfd0's chance was the readout; STRUCT_NEIGHBOR beats the marginal floor; STRUCTURED adds over RANDOM on the NOVEL stratum under the graded value metric; the SHUFFLE control collapses to marginal; 6 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 5.767413499997929,
+  "mechanism_selftest": {
+    "planted_mrr": {
+      "RANDOM_UNBIND": 0.01268,
+      "STRUCT_UNBIND": 0.23091,
+      "RANDOM_NEIGHBOR": 0.24104,
+      "STRUCT_NEIGHBOR": 0.52338,
+      "SHUFFLE_NEIGHBOR": 0.2287,
+      "BASELINE_POP": 0.24167,
+      "UNIFORM_CHANCE": 0.01144,
+      "ORACLE_NEIGHBOR": 0.58808
+    },
+    "planted_graded_novel": {
+      "RANDOM_NEIGHBOR": 0.0,
+      "STRUCT_NEIGHBOR": 0.02917
+    },
+    "n_distinct_sigs": 8,
+    "n_novel": 240,
+    "n_seen": 260,
+    "sn_beats_pop": true,
+    "neighbor_beats_unbind": true,
+    "shuffle_collapses": true,
+    "struct_novel_gain": true,
+    "ceiling_ok": true,
+    "arms_differ": true,
+    "fits_finite": true,
+    "novel_and_seen_present": true,
+    "decisive_selftest_verdict": "STRUCTURED_CODES_ENABLE_INFERENCE",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ],
+    "memsmoke_split_sizing_ok": true,
+    "memsmoke_split_sizing": {
+      "memsmoke_min_query": 100,
+      "split_sizing_margin": 1.5,
+      "synthetic_pos_n_query": 316,
+      "synthetic_pos_required": 150,
+      "synthetic_pos_ok": true,
+      "synthetic_neg_n_query": 9,
+      "synthetic_neg_ok": true,
+      "memsmoke_cskg_max_lines": 600000,
+      "memsmoke_k_core": 5,
+      "memsmoke_cskg_max_nodes": 0
+    }
+  }
+}

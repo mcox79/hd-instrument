@@ -1,0 +1,622 @@
+{
+  "anchor_name": "substrate_dual_trace_scaling_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: dual-trace envelope fixed-point (lift_delta=-0.235 in +/-0.10; ref=N8192_T100000_lift=0.516, target=N8192_T1000000_lift=0.282, cv_ok=True). Mechanism real but does not scale beyond Anchor 1 config. N16384_T100000=FAIL | N16384_T1000000=FAIL | N8192_T100000=bpc7.221(lift0.516,cv0.001) | N8192_T1000000=bpc7.545(lift0.282,cv0.001)",
+  "summary": "MIDDLE_BAND: dual-trace envelope fixed-point (lift_delta=-0.235 in +/-0.10; ref=N8192_T100000_lift=0.516, target=N8192_T1000000_lift=0.282, cv_ok=True). Mechanism real but does not scale beyond Anchor 1 config. N16384_T100000=FAIL | N16384_T1000000=FAIL | N8192_T100000=bpc7.221(lift0.516,cv0.001) | N8192_T1000000=bpc7.545(lift0.282,cv0.001)",
+  "run_mode": "full",
+  "NDIM_GRID": [
+    8192,
+    16384
+  ],
+  "NTRAIN_GRID": [
+    100000,
+    1000000
+  ],
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SPARSE_BIPOLAR_F": 0.02,
+  "TAU_POS": 5,
+  "TAU_NEG": 50,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "ANCHOR1_LIFT": 0.5164999999999997,
+  "ANCHOR1_DUAL_BPC_N8192_T100k": 7.2213,
+  "elapsed_s": 398.83,
+  "detail": {
+    "config_agg": {
+      "N8192_T100000": {
+        "bpc_mean": 7.2213,
+        "bpc_std": 0.0081,
+        "bpc_cv": 0.0011,
+        "lift_vs_unigram": 0.5165,
+        "top1_mean": 0.2368,
+        "mrr_mean": 0.3157,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false
+      },
+      "N8192_T1000000": {
+        "bpc_mean": 7.5453,
+        "bpc_std": 0.0049,
+        "bpc_cv": 0.0006,
+        "lift_vs_unigram": 0.2819,
+        "top1_mean": 0.2109,
+        "mrr_mean": 0.3081,
+        "n_valid_seeds": 3,
+        "all_seeds_failed": false
+      },
+      "N16384_T100000": {
+        "bpc_mean": NaN,
+        "bpc_cv": NaN,
+        "lift_vs_unigram": NaN,
+        "top1_mean": NaN,
+        "mrr_mean": NaN,
+        "n_valid_seeds": 0,
+        "all_seeds_failed": true
+      },
+      "N16384_T1000000": {
+        "bpc_mean": NaN,
+        "bpc_cv": NaN,
+        "lift_vs_unigram": NaN,
+        "top1_mean": NaN,
+        "mrr_mean": NaN,
+        "n_valid_seeds": 0,
+        "all_seeds_failed": true
+      }
+    },
+    "ref_key": "N8192_T100000",
+    "target_key": "N8192_T1000000",
+    "ref_lift": 0.5165,
+    "target_lift": 0.2819,
+    "lift_delta": -0.2346,
+    "ref_bpc": 7.2213,
+    "target_bpc": 7.5453,
+    "cv_ok": true,
+    "ref_cv_ok": true,
+    "target_cv_ok": true,
+    "degen_flag": true,
+    "anchor1_lift": 0.5165,
+    "hard_pass_lift_gain": 0.4,
+    "middle_lift_delta_tol": 0.1,
+    "hard_fail_halving": 0.5,
+    "vocab_entropy_uniform_bits": 11.9658,
+    "fair_harness_baseline_bpc": 7.3065,
+    "envelope_cap_bpc": 7.295,
+    "n_configs_complete": 2,
+    "honest_scope": "ARM_DUAL_TRACE only (exact mechanism from Anchor 1). Cross-config comparison: ref=N8192_T100000 lift=0.516 vs target=N8192_T1000000 lift=0.282. lift_delta=-0.235. HARD_PASS: lift_delta >= +0.40 (envelope grows at scale). MIDDLE_BAND: lift_delta in +/-0.10 (envelope fixed-point). HARD_FAIL: lift halves (lift_delta <= -0.258). tau_pos=5 tau_neg=50 f=0.02.",
+    "cites": [
+      "notes/exp_dev_handoff_research_neuromodulator_orthogonal_composition_2026-06-23.md",
+      "experiments/exp_substrate_dual_trace_sequential_neuromod_LM_v1.py",
+      "data/exp_substrate_dual_trace_sequential_neuromod_LM_v1/metrics.json",
+      "Brzosko et al. 2017 eLife 27756",
+      "Huertas et al. 2016 PMC5156839",
+      "Fremaux-Gerstner 2016 Front Neural Circ"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "n_dim": 8192,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.2324,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.0898,
+          "top1_acc": 0.2302,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3111,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5684,
+          "raw_top1_at_T1_L1": 0.2026,
+          "raw_mrr_at_T1_L1": 0.2926,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 43.93,
+          "wall_ingest_s": 3.33,
+          "wall_recall_s": 0.34
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 75.87,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "n_dim": 8192,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.2182,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.0921,
+          "top1_acc": 0.2331,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3183,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5664,
+          "raw_top1_at_T1_L1": 0.2076,
+          "raw_mrr_at_T1_L1": 0.2987,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 44.03,
+          "wall_ingest_s": 3.37,
+          "wall_recall_s": 0.35
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 44.51,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "n_dim": 8192,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.2134,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.0801,
+          "top1_acc": 0.247,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3177,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5649,
+          "raw_top1_at_T1_L1": 0.2005,
+          "raw_mrr_at_T1_L1": 0.2889,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 43.4,
+          "wall_ingest_s": 3.31,
+          "wall_recall_s": 0.35
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 43.81,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 7,
+      "n_dim": 8192,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.5466,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.5987,
+          "top1_acc": 0.2121,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.3109,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5315,
+          "raw_top1_at_T1_L1": 0.2121,
+          "raw_mrr_at_T1_L1": 0.3084,
+          "n_dev": 8246,
+          "n_test": 8246,
+          "elapsed_s_arm": 75.26,
+          "wall_ingest_s": 33.19,
+          "wall_recall_s": 0.35
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 75.92,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "n_dim": 8192,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.5505,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.6047,
+          "top1_acc": 0.2113,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.3064,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5332,
+          "raw_top1_at_T1_L1": 0.2113,
+          "raw_mrr_at_T1_L1": 0.3026,
+          "n_dev": 8246,
+          "n_test": 8246,
+          "elapsed_s_arm": 75.0,
+          "wall_ingest_s": 33.27,
+          "wall_recall_s": 0.35
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 75.62,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "n_dim": 8192,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "bpc_best": 7.5388,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.5882,
+          "top1_acc": 0.2094,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.3071,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5294,
+          "raw_top1_at_T1_L1": 0.2094,
+          "raw_mrr_at_T1_L1": 0.3041,
+          "n_dev": 8246,
+          "n_test": 8246,
+          "elapsed_s_arm": 74.07,
+          "wall_ingest_s": 33.29,
+          "wall_recall_s": 0.35
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 74.68,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 7,
+      "n_dim": 16384,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 12.9",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.55
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.82,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "n_dim": 16384,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 12.9",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.36
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.11,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "n_dim": 16384,
+      "n_train": 100000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 12.9",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.37
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.13,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 7,
+      "n_dim": 16384,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 6.09",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.36
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.36,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "n_dim": 16384,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 6.09",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.36
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.35,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "n_dim": 16384,
+      "n_train": 1000000,
+      "by_arm": {
+        "ARM_DUAL_TRACE": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.50 GiB is allocated by PyTorch, and 6.09",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.36
+        },
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        }
+      },
+      "V": 4000,
+      "N": 16384,
+      "N_DIM": 16384,
+      "N_TRAIN": 1000000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "elapsed_s_seed": 1.33,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MECHANISTIC law EXTRAPOLATES out-of-range: OOR MAE mech=0.154 lookup=0.386 affine=0.531 quad=0.132 const=3.614 | beats_lookup=True beats_affine=True <1.60=True | C1frac=1.00 C2=True",
+  "summary": "HARD_PASS | OOR mech=0.154 lookup=0.386 affine=0.531 quad=0.132 | C1=True C2=True | folds=[0.42, 0.5, 0.6]",
+  "elapsed_s": 2.092172299977392,
+  "run_mode": "self_test",
+  "anchor_name": "reasoning_depth_mechanistic_survival_law_extrapolation_v1",
+  "data_source": "mock_synthetic_known_curved_law",
+  "seed": 20260708,
+  "out_of_range_split_fill": 0.3516,
+  "train_fills": [
+    0.06,
+    0.09,
+    0.11,
+    0.15,
+    0.2,
+    0.28,
+    0.35
+  ],
+  "out_of_range_fills": [
+    0.42,
+    0.5,
+    0.6
+  ],
+  "n_out_of_range_folds": 3,
+  "expected_out_of_range_folds": 3,
+  "cardinality_ok": true,
+  "censored_fills": [],
+  "all_fills": [
+    0.06,
+    0.09,
+    0.11,
+    0.15,
+    0.2,
+    0.28,
+    0.35,
+    0.42,
+    0.5,
+    0.6
+  ],
+  "out_of_range_eval": {
+    "mech": {
+      "MAE": 0.154,
+      "per_fold_err": [
+        0.061,
+        0.022,
+        0.381
+      ],
+      "preds": [
+        2.252,
+        1.921,
+        1.581
+      ]
+    },
+    "affine": {
+      "MAE": 0.531,
+      "per_fold_err": [
+        0.571,
+        0.613,
+        0.41
+      ],
+      "preds": [
+        2.762,
+        2.556,
+        2.372
+      ]
+    },
+    "quad": {
+      "MAE": 0.132,
+      "per_fold_err": [
+        0.105,
+        0.052,
+        0.24
+      ],
+      "preds": [
+        2.296,
+        1.996,
+        1.723
+      ]
+    },
+    "lookup": {
+      "MAE": 0.386,
+      "per_fold_err": [
+        0.227,
+        0.475,
+        0.456
+      ],
+      "preds": [
+        2.419,
+        2.419,
+        2.419
+      ]
+    },
+    "const": {
+      "MAE": 3.614,
+      "per_fold_err": [
+        3.455,
+        3.703,
+        3.684
+      ],
+      "preds": [
+        5.646,
+        5.646,
+        5.646
+      ]
+    }
+  },
+  "out_of_range_actual_depths": [
+    2.191,
+    1.943,
+    1.962
+  ],
+  "law_params": {
+    "mech_s": 0.63,
+    "mech_kappa": 0.24,
+    "affine_a": 1.7996658962929073,
+    "affine_b": 0.7565832994739743,
+    "quad_c2c1c0": [
+      -0.033715174417847237,
+      1.1801077316197535,
+      0.8493245298816989
+    ]
+  },
+  "mech_beats_lookup_oor": true,
+  "mech_beats_affine_oor": true,
+  "mech_below_abs_1p60": true,
+  "forward_split_horizons": [
+    {
+      "train_max_fill": 0.11,
+      "n_test_folds": 7,
+      "mech_MAE": 0.156,
+      "lookup_MAE": 3.484,
+      "affine_MAE": 1.056,
+      "quad_MAE": 0.431,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.15,
+      "n_test_folds": 6,
+      "mech_MAE": 0.172,
+      "lookup_MAE": 2.776,
+      "affine_MAE": 1.141,
+      "quad_MAE": 0.888,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.2,
+      "n_test_folds": 5,
+      "mech_MAE": 0.202,
+      "lookup_MAE": 1.968,
+      "affine_MAE": 1.015,
+      "quad_MAE": 0.527,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.28,
+      "n_test_folds": 4,
+      "mech_MAE": 0.237,
+      "lookup_MAE": 1.167,
+      "affine_MAE": 0.847,
+      "quad_MAE": 0.337,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.35,
+      "n_test_folds": 3,
+      "mech_MAE": 0.154,
+      "lookup_MAE": 0.386,
+      "affine_MAE": 0.531,
+      "quad_MAE": 0.132,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.42,
+      "n_test_folds": 2,
+      "mech_MAE": 0.201,
+      "lookup_MAE": 0.239,
+      "affine_MAE": 0.353,
+      "quad_MAE": 0.148,
+      "mech_beats_lookup": true,
+      "mech_beats_affine": true
+    },
+    {
+      "train_max_fill": 0.5,
+      "n_test_folds": 1,
+      "mech_MAE": 0.381,
+      "lookup_MAE": 0.019,
+      "affine_MAE": 0.143,
+      "quad_MAE": 0.293,
+      "mech_beats_lookup": false,
+      "mech_beats_affine": false
+    }
+  ],
+  "frac_horizons_mech_beats_lookup": 0.8571428571428571,
+  "frac_horizons_quad_beats_lookup": 0.8571428571428571,
+  "curvature_attribution": {
+    "quad_MAE_oor": 0.132,
+    "mech_MAE_oor": 0.154,
+    "physical_form_beats_empirical_quad": false,
+    "mech_robust_across_horizons": false,
+    "quad_robust_across_horizons": false,
+    "note": "mech is HARD_PASS-worthy on beating lookup+affine; quad (pure empirical curvature) is a control. If quad edges mech on large-train BUT quad is horizon-fragile while mech is robust, the physical form earns its keep via ROBUST extrapolation, not lowest single-split MAE.",
+    "margin_vs_lookup_pct": 60.0,
+    "meets_research_strict_20pct_margin": true
+  },
+  "control1_scramble_mech_law": {
+    "real_full_landscape_mae": 0.2670608152561864,
+    "scrambled_mean_mae": 2.4251289183151483,
+    "scrambled_p10_mae": 1.8395957405582424,
+    "real_below_scrambled_p10": true,
+    "real_beats_scrambled_mean_margin": true,
+    "mech_s": 0.7083333333333334,
+    "mech_kappa": 0.15,
+    "n_boot": 300,
+    "scramble_method": "permute_collT_depth_pairing_full_landscape_then_refit_mech",
+    "firing_criterion": "real_below_p10 AND real_beats_mean over FULL landscape"
+  },
+  "control1_fires": true,
+  "control2_scramble_curve": {
+    "T_real_spearman_fill_depth": -0.9878787878787878,
+    "abs_T_real": 0.9878787878787878,
+    "null_p90": 0.5515151515151515,
+    "null_mean": 0.2698424242424243,
+    "real_outside_null": true,
+    "T_scrambled": 0.10303030303030303,
+    "scrambled_inside_null": true,
+    "n_perm": 2000
+  },
+  "control2_fires": true,
+  "arms_differ_verified": true,
+  "arms_identical_pairs": [],
+  "arm_digests": {
+    "mech": "f49773ebfacb6e0d7bce2c06e4176c09cc3be89f78fee6d9557236d1885902d5",
+    "affine": "d9606c30fe0b48a37eb77fe9b81aa8b6c2333a4fa621a80f9751f5cbaa0bf24b",
+    "quad": "14a8794d13115f3ae1f1ce7ba8ea1bfa679cdc84e20d64300c425e3ad8edb12a",
+    "lookup": "ff091458fb784b9bbb0869963c863727c5ea33cc939dfb6fb57b6a862a1a590a",
+    "const": "962128fe85e70b12a17162af782b436b85e703ef28b02b2affd6afed3a934601"
+  },
+  "telemetry_generation_check": null,
+  "monitor_proposal": {
+    "out_of_range_fills": [
+      0.42,
+      0.5,
+      0.6
+    ],
+    "train_envelope_max_fill": 0.35,
+    "mech_predicted_depths": [
+      2.252,
+      1.921,
+      1.581
+    ],
+    "actual_depths": [
+      2.19131319958192,
+      1.9433660454361474,
+      1.9622539062807078
+    ],
+    "law": "mechanistic transmission-coefficient survival: p_hop=1-s*coll_theo, coll_d=coll0*(1+kappa*(d-1)), D*=argmax_D prod p_hop>=FLOOR",
+    "law_coeffs": {
+      "s_interference": 0.63,
+      "kappa_accumulation": 0.24
+    },
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. Substrate never applies this itself (USER-LOCKED)."
+  },
+  "observed_levels": {
+    "0.06": {
+      "depth": 9.896,
+      "collT": 0.0516,
+      "source": "mock"
+    },
+    "0.09": {
+      "depth": 7.546,
+      "collT": 0.0774,
+      "source": "mock"
+    },
+    "0.11": {
+      "depth": 6.571,
+      "collT": 0.0946,
+      "source": "mock"
+    },
+    "0.15": {
+      "depth": 5.467,
+      "collT": 0.129,
+      "source": "mock"
+    },
+    "0.2": {
+      "depth": 4.33,
+      "collT": 0.172,
+      "source": "mock"
+    },
+    "0.28": {
+      "depth": 3.296,
+      "collT": 0.2408,
+      "source": "mock"
+    },
+    "0.35": {
+      "depth": 2.419,
+      "collT": 0.301,
+      "source": "mock"
+    },
+    "0.42": {
+      "depth": 2.191,
+      "collT": 0.3612,
+      "source": "mock"
+    },
+    "0.5": {
+      "depth": 1.943,
+      "collT": 0.43,
+      "source": "mock"
+    },
+    "0.6": {
+      "depth": 1.962,
+      "collT": 0.516,
+      "source": "mock"
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "analysis cell; telemetry-gen reuses VET'd keyslots generator (own noise floor characterized)",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "gen_prints_per_fold_flush_progress; eval is fast cpu (no long loop)",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "Tests whether a MECHANISTIC transmission-coefficient survival law extrapolates the reasoning-depth self-capacity model out-of-range where the VET'd empirical affine law cannot. HARD_PASS = mech beats lookup+affine on genuine out-of-range folds. HARD_FAIL = regime-shift (lookup wins) -> escalate to percolation-critical-fill drill.",
+  "ts_iso": "2026-07-08T04:26:55.273143+00:00"
+}

@@ -1,0 +1,1018 @@
+{
+  "verdict": "HARD_FAIL_LEARNED_EQUIVALENT_NO_LIFT",
+  "verdict_msg": "HF_LEARNED_EQUIVALENT: 18/18 gates within |delta|<0.03; learning does nothing at n_steps=200 budget",
+  "summary": "HF_LEARNED_EQUIVALENT: 18/18 gates within |delta|<0.03; learning does nothing at n_steps=200 budget",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "arms": [
+    "RANDOM_INIT",
+    "LEARNED_CONTRASTIVE"
+  ],
+  "N_fixed": 4096,
+  "M_sweep": [
+    4000,
+    8000,
+    12000
+  ],
+  "noise_sweep": [
+    0.0
+  ],
+  "metric_gates": [
+    "top1",
+    "top5",
+    "top10",
+    "top50",
+    "cos05",
+    "cos08"
+  ],
+  "hp_learned_higher_capacity": false,
+  "hp_orthogonality": true,
+  "hf_learned_worse": false,
+  "hf_learned_equivalent": true,
+  "cap_delta": 0.0017500519752502441,
+  "cap_random_cos05": 0.6591666340827942,
+  "cap_learned_cos05": 0.6609166860580444,
+  "max_learned_cos_key": 0.09130859375,
+  "learned_worse_count": 0,
+  "learned_equivalent_count": 18,
+  "hf_learned_worse_threshold": 12,
+  "total_gate_pairs": 18,
+  "per_gate_deltas": [
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top1",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top5",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top10",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "top50",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "cos05",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 4000,
+      "noise": 0.0,
+      "metric": "cos08",
+      "RANDOM": 0.0,
+      "LEARNED": 0.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "top1",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "top5",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "top10",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "top50",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "cos05",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 8000,
+      "noise": 0.0,
+      "metric": "cos08",
+      "RANDOM": 0.0,
+      "LEARNED": 0.0,
+      "delta": 0.0
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "top1",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "top5",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "top10",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "top50",
+      "RANDOM": 1.0,
+      "LEARNED": 1.0,
+      "delta": 0.0
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "cos05",
+      "RANDOM": 0.6591666340827942,
+      "LEARNED": 0.6609166860580444,
+      "delta": 0.0017500519752502441
+    },
+    {
+      "M": 12000,
+      "noise": 0.0,
+      "metric": "cos08",
+      "RANDOM": 0.0,
+      "LEARNED": 0.0,
+      "delta": 0.0
+    }
+  ],
+  "arms_differ_details": {
+    "M4000_f0.00": {
+      "RANDOM_top1": 1.0,
+      "LEARNED_top1": 1.0,
+      "differ": false
+    },
+    "M8000_f0.00": {
+      "RANDOM_top1": 1.0,
+      "LEARNED_top1": 1.0,
+      "differ": false
+    },
+    "M12000_f0.00": {
+      "RANDOM_top1": 1.0,
+      "LEARNED_top1": 1.0,
+      "differ": false
+    }
+  },
+  "baseline_in_band": true,
+  "baseline_details": {
+    "M4000_f0.00_cos05": 1.0,
+    "M8000_f0.00_cos05": 1.0,
+    "M12000_f0.00_cos05": 0.6591666340827942
+  },
+  "max_cv_across_arms": 0.0,
+  "stats_cross_seed": {
+    "RANDOM_INIT__M4000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.08056640625,
+      "n_seeds": 1
+    },
+    "RANDOM_INIT__M8000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.0849609375,
+      "n_seeds": 1
+    },
+    "RANDOM_INIT__M12000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 0.6591666340827942,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.08740234375,
+      "n_seeds": 1
+    },
+    "LEARNED_CONTRASTIVE__M4000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.083984375,
+      "n_seeds": 1
+    },
+    "LEARNED_CONTRASTIVE__M8000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 1.0,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.083984375,
+      "n_seeds": 1
+    },
+    "LEARNED_CONTRASTIVE__M12000__f0.00__N4096": {
+      "top1_mean": 1.0,
+      "top1_std": 0.0,
+      "top1_cv": 0.0,
+      "top5_mean": 1.0,
+      "top5_cv": 0.0,
+      "top10_mean": 1.0,
+      "top10_cv": 0.0,
+      "top50_mean": 1.0,
+      "top50_cv": 0.0,
+      "cos05_mean": 0.6609166860580444,
+      "cos05_cv": 0.0,
+      "cos08_mean": 0.0,
+      "cos08_cv": 0.0,
+      "max_pairwise_cos_key_mean": 0.09130859375,
+      "n_seeds": 1
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 6,
+  "observed_n_units_per_seed": [
+    6
+  ],
+  "mechanism_hashes_distinct": true,
+  "per_seed": [
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "per_unit": {
+        "RANDOM_INIT__M4000__f0.00__N4096": {
+          "arm": "RANDOM_INIT",
+          "alpha": 0.9765625,
+          "M": 4000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.08056640625,
+          "mean_pairwise_cos_key": 0.012466207146644592,
+          "encoder_wall_s": 0.152,
+          "seed": 13,
+          "mechanism_hash": "0c0921bcf880fcb829ee93c66f21e41b0a47a15b87d249aa4e04e6a1126a2a68",
+          "train_diag": {}
+        },
+        "LEARNED_CONTRASTIVE__M4000__f0.00__N4096": {
+          "arm": "LEARNED_CONTRASTIVE",
+          "alpha": 0.9765625,
+          "M": 4000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.083984375,
+          "mean_pairwise_cos_key": 0.012467728927731514,
+          "encoder_wall_s": 28.547,
+          "seed": 13,
+          "mechanism_hash": "736c8c21e56e5fba8e6b59edbcfa6b2ef1aa87b16cdb0615fb19826759e6788e",
+          "train_diag": {
+            "n_steps": 200,
+            "lr": 0.02,
+            "margin": 0.05,
+            "lambda_pos": 0.5,
+            "aug_flip_frac": 0.01,
+            "losses_by_step": [
+              [
+                0,
+                2.961836344184121e-06
+              ],
+              [
+                10,
+                2.961836344184121e-06
+              ],
+              [
+                20,
+                2.961836344184121e-06
+              ],
+              [
+                30,
+                2.961836344184121e-06
+              ],
+              [
+                40,
+                2.961836344184121e-06
+              ],
+              [
+                50,
+                2.961836344184121e-06
+              ],
+              [
+                60,
+                2.961836344184121e-06
+              ],
+              [
+                70,
+                2.961836344184121e-06
+              ],
+              [
+                80,
+                2.961836344184121e-06
+              ],
+              [
+                90,
+                2.961836344184121e-06
+              ],
+              [
+                100,
+                2.961836344184121e-06
+              ],
+              [
+                110,
+                2.961836344184121e-06
+              ],
+              [
+                120,
+                2.961836344184121e-06
+              ],
+              [
+                130,
+                2.961836344184121e-06
+              ],
+              [
+                140,
+                2.961836344184121e-06
+              ],
+              [
+                150,
+                2.961836344184121e-06
+              ],
+              [
+                160,
+                2.961836344184121e-06
+              ],
+              [
+                170,
+                2.961836344184121e-06
+              ],
+              [
+                180,
+                2.961836344184121e-06
+              ],
+              [
+                190,
+                2.961836344184121e-06
+              ],
+              [
+                199,
+                2.961836344184121e-06
+              ]
+            ],
+            "max_cos_by_step": [
+              [
+                0,
+                0.083984375
+              ],
+              [
+                10,
+                0.083984375
+              ],
+              [
+                20,
+                0.083984375
+              ],
+              [
+                30,
+                0.083984375
+              ],
+              [
+                40,
+                0.083984375
+              ],
+              [
+                50,
+                0.083984375
+              ],
+              [
+                60,
+                0.083984375
+              ],
+              [
+                70,
+                0.083984375
+              ],
+              [
+                80,
+                0.083984375
+              ],
+              [
+                90,
+                0.083984375
+              ],
+              [
+                100,
+                0.083984375
+              ],
+              [
+                110,
+                0.083984375
+              ],
+              [
+                120,
+                0.083984375
+              ],
+              [
+                130,
+                0.083984375
+              ],
+              [
+                140,
+                0.083984375
+              ],
+              [
+                150,
+                0.083984375
+              ],
+              [
+                160,
+                0.083984375
+              ],
+              [
+                170,
+                0.083984375
+              ],
+              [
+                180,
+                0.083984375
+              ],
+              [
+                190,
+                0.083984375
+              ],
+              [
+                199,
+                0.083984375
+              ]
+            ],
+            "final_max_pairwise_cos": 0.083984375,
+            "final_mean_pairwise_cos": 0.012467728927731514,
+            "train_wall_s": 26.586
+          }
+        },
+        "RANDOM_INIT__M8000__f0.00__N4096": {
+          "arm": "RANDOM_INIT",
+          "alpha": 1.953125,
+          "M": 8000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.0849609375,
+          "mean_pairwise_cos_key": 0.012463713064789772,
+          "encoder_wall_s": 0.21,
+          "seed": 13,
+          "mechanism_hash": "6d310f3dcd89fb7403917735126ffb1f6232e42142537eac304e38be185a7acd",
+          "train_diag": {}
+        },
+        "LEARNED_CONTRASTIVE__M8000__f0.00__N4096": {
+          "arm": "LEARNED_CONTRASTIVE",
+          "alpha": 1.953125,
+          "M": 8000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 1.0,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.083984375,
+          "mean_pairwise_cos_key": 0.012464956380426884,
+          "encoder_wall_s": 48.551,
+          "seed": 13,
+          "mechanism_hash": "6a643bc66add8baa1eb1c69c8f081ff79feeb0a62f092c05ce5a429c4d1df630",
+          "train_diag": {
+            "n_steps": 200,
+            "lr": 0.02,
+            "margin": 0.05,
+            "lambda_pos": 0.5,
+            "aug_flip_frac": 0.01,
+            "losses_by_step": [
+              [
+                0,
+                2.903579115809407e-06
+              ],
+              [
+                10,
+                2.903579115809407e-06
+              ],
+              [
+                20,
+                2.903579115809407e-06
+              ],
+              [
+                30,
+                2.903579115809407e-06
+              ],
+              [
+                40,
+                2.903579115809407e-06
+              ],
+              [
+                50,
+                2.903579115809407e-06
+              ],
+              [
+                60,
+                2.903579115809407e-06
+              ],
+              [
+                70,
+                2.903579115809407e-06
+              ],
+              [
+                80,
+                2.903579115809407e-06
+              ],
+              [
+                90,
+                2.903579115809407e-06
+              ],
+              [
+                100,
+                2.903579115809407e-06
+              ],
+              [
+                110,
+                2.903579115809407e-06
+              ],
+              [
+                120,
+                2.903579115809407e-06
+              ],
+              [
+                130,
+                2.903579115809407e-06
+              ],
+              [
+                140,
+                2.903579115809407e-06
+              ],
+              [
+                150,
+                2.903579115809407e-06
+              ],
+              [
+                160,
+                2.903579115809407e-06
+              ],
+              [
+                170,
+                2.903579115809407e-06
+              ],
+              [
+                180,
+                2.903579115809407e-06
+              ],
+              [
+                190,
+                2.903579115809407e-06
+              ],
+              [
+                199,
+                2.903579115809407e-06
+              ]
+            ],
+            "max_cos_by_step": [
+              [
+                0,
+                0.083984375
+              ],
+              [
+                10,
+                0.083984375
+              ],
+              [
+                20,
+                0.083984375
+              ],
+              [
+                30,
+                0.083984375
+              ],
+              [
+                40,
+                0.083984375
+              ],
+              [
+                50,
+                0.083984375
+              ],
+              [
+                60,
+                0.083984375
+              ],
+              [
+                70,
+                0.083984375
+              ],
+              [
+                80,
+                0.083984375
+              ],
+              [
+                90,
+                0.083984375
+              ],
+              [
+                100,
+                0.083984375
+              ],
+              [
+                110,
+                0.083984375
+              ],
+              [
+                120,
+                0.083984375
+              ],
+              [
+                130,
+                0.083984375
+              ],
+              [
+                140,
+                0.083984375
+              ],
+              [
+                150,
+                0.083984375
+              ],
+              [
+                160,
+                0.083984375
+              ],
+              [
+                170,
+                0.083984375
+              ],
+              [
+                180,
+                0.083984375
+              ],
+              [
+                190,
+                0.083984375
+              ],
+              [
+                199,
+                0.083984375
+              ]
+            ],
+            "final_max_pairwise_cos": 0.083984375,
+            "final_mean_pairwise_cos": 0.012464956380426884,
+            "train_wall_s": 48.293
+          }
+        },
+        "RANDOM_INIT__M12000__f0.00__N4096": {
+          "arm": "RANDOM_INIT",
+          "alpha": 2.9296875,
+          "M": 12000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 0.6591666340827942,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.08740234375,
+          "mean_pairwise_cos_key": 0.012465741485357285,
+          "encoder_wall_s": 0.309,
+          "seed": 13,
+          "mechanism_hash": "2f1f9474bd8f907f49822c59056fe65d5807862bc044c05000e5ab6529de3578",
+          "train_diag": {}
+        },
+        "LEARNED_CONTRASTIVE__M12000__f0.00__N4096": {
+          "arm": "LEARNED_CONTRASTIVE",
+          "alpha": 2.9296875,
+          "M": 12000,
+          "N": 4096,
+          "noise": 0.0,
+          "top1": 1.0,
+          "top5": 1.0,
+          "top10": 1.0,
+          "top50": 1.0,
+          "cos05": 0.6609166860580444,
+          "cos08": 0.0,
+          "max_pairwise_cos_key": 0.09130859375,
+          "mean_pairwise_cos_key": 0.012464439496397972,
+          "encoder_wall_s": 77.68,
+          "seed": 13,
+          "mechanism_hash": "e2fda4adc5e4182e3365052cca153cb66b05a8bf0e3d471944d281038bf03c0a",
+          "train_diag": {
+            "n_steps": 200,
+            "lr": 0.02,
+            "margin": 0.05,
+            "lambda_pos": 0.5,
+            "aug_flip_frac": 0.01,
+            "losses_by_step": [
+              [
+                0,
+                2.9066095521557145e-06
+              ],
+              [
+                10,
+                2.9066095521557145e-06
+              ],
+              [
+                20,
+                2.9066095521557145e-06
+              ],
+              [
+                30,
+                2.9066095521557145e-06
+              ],
+              [
+                40,
+                2.9066095521557145e-06
+              ],
+              [
+                50,
+                2.9066095521557145e-06
+              ],
+              [
+                60,
+                2.9066095521557145e-06
+              ],
+              [
+                70,
+                2.9066095521557145e-06
+              ],
+              [
+                80,
+                2.9066095521557145e-06
+              ],
+              [
+                90,
+                2.9066095521557145e-06
+              ],
+              [
+                100,
+                2.9066095521557145e-06
+              ],
+              [
+                110,
+                2.9066095521557145e-06
+              ],
+              [
+                120,
+                2.9066095521557145e-06
+              ],
+              [
+                130,
+                2.9066095521557145e-06
+              ],
+              [
+                140,
+                2.9066095521557145e-06
+              ],
+              [
+                150,
+                2.9066095521557145e-06
+              ],
+              [
+                160,
+                2.9066095521557145e-06
+              ],
+              [
+                170,
+                2.9066095521557145e-06
+              ],
+              [
+                180,
+                2.9066095521557145e-06
+              ],
+              [
+                190,
+                2.9066095521557145e-06
+              ],
+              [
+                199,
+                2.9066095521557145e-06
+              ]
+            ],
+            "max_cos_by_step": [
+              [
+                0,
+                0.09130859375
+              ],
+              [
+                10,
+                0.09130859375
+              ],
+              [
+                20,
+                0.09130859375
+              ],
+              [
+                30,
+                0.09130859375
+              ],
+              [
+                40,
+                0.09130859375
+              ],
+              [
+                50,
+                0.09130859375
+              ],
+              [
+                60,
+                0.09130859375
+              ],
+              [
+                70,
+                0.09130859375
+              ],
+              [
+                80,
+                0.09130859375
+              ],
+              [
+                90,
+                0.09130859375
+              ],
+              [
+                100,
+                0.09130859375
+              ],
+              [
+                110,
+                0.09130859375
+              ],
+              [
+                120,
+                0.09130859375
+              ],
+              [
+                130,
+                0.09130859375
+              ],
+              [
+                140,
+                0.09130859375
+              ],
+              [
+                150,
+                0.09130859375
+              ],
+              [
+                160,
+                0.09130859375
+              ],
+              [
+                170,
+                0.09130859375
+              ],
+              [
+                180,
+                0.09130859375
+              ],
+              [
+                190,
+                0.09130859375
+              ],
+              [
+                199,
+                0.09130859375
+              ]
+            ],
+            "final_max_pairwise_cos": 0.09130859375,
+            "final_mean_pairwise_cos": 0.012464439496397972,
+            "train_wall_s": 77.25
+          }
+        }
+      },
+      "N_fixed": 4096,
+      "M_sweep": [
+        4000,
+        8000,
+        12000
+      ],
+      "noise_sweep": [
+        0.0
+      ],
+      "arms": [
+        "RANDOM_INIT",
+        "LEARNED_CONTRASTIVE"
+      ],
+      "n_steps_learned": 200,
+      "anchor_name": "stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_13",
+      "config_version": "ANCHOR=stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_13,arms=[RANDOM_INIT,LEARNED_CONTRASTIVE],M_sweep_full=[4000,8000,12000],M_sweep_smoke=[4000],noise_sweep_full=[0.0],noise_sweep_smoke=[0.0],N_full=4096,N_smoke=4096,discriminator_metric=cos05_at_M12000_f0.00,SEED=13,mode=full,learned_n_steps_full=200,learned_n_steps_smoke=100,learned_lr=0.02,learned_margin=0.05,learned_lambda_pos=0.5,HP_LEARNED_HIGHER_CAPACITY_DELTA=0.10,HP_ORTHOGONALITY_MAX_COS=0.20,HF_LEARNED_WORSE_GATE_COUNT=4/6,HF_LEARNED_EQUIVALENT_DELTA=0.03,cv_hp=0.10,cv_mb=0.15,hardening=L1startmarker+L2crashdiag+CHUNKED_PER_SEED+FIX1_per_arm_incremental_checkpoint+FIX2_reduced_grid+FIX3_200_sgd_steps+FIX4_14400s_timeout"
+    }
+  ],
+  "HP_LEARNED_HIGHER_CAPACITY_DELTA": 0.1,
+  "HP_ORTHOGONALITY_MAX_COS": 0.2,
+  "HF_LEARNED_WORSE_GATE_COUNT": 4,
+  "HF_LEARNED_EQUIVALENT_DELTA": 0.03,
+  "CROSS_SEED_CV_MAX_HP": 0.1,
+  "CROSS_SEED_CV_MAX_MB": 0.15,
+  "anchor_name": "stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_13",
+  "elapsed_s": 158.11,
+  "ts_iso": "2026-07-02T17:24:42Z",
+  "pid": 32116,
+  "config_version": "ANCHOR=stage2_learned_encoder_vs_random_init_v2_incremental_checkpoint_n4096_seed_13,arms=[RANDOM_INIT,LEARNED_CONTRASTIVE],M_sweep_full=[4000,8000,12000],M_sweep_smoke=[4000],noise_sweep_full=[0.0],noise_sweep_smoke=[0.0],N_full=4096,N_smoke=4096,discriminator_metric=cos05_at_M12000_f0.00,SEED=13,mode=full,learned_n_steps_full=200,learned_n_steps_smoke=100,learned_lr=0.02,learned_margin=0.05,learned_lambda_pos=0.5,HP_LEARNED_HIGHER_CAPACITY_DELTA=0.10,HP_ORTHOGONALITY_MAX_COS=0.20,HF_LEARNED_WORSE_GATE_COUNT=4/6,HF_LEARNED_EQUIVALENT_DELTA=0.03,cv_hp=0.10,cv_mb=0.15,hardening=L1startmarker+L2crashdiag+CHUNKED_PER_SEED+FIX1_per_arm_incremental_checkpoint+FIX2_reduced_grid+FIX3_200_sgd_steps+FIX4_14400s_timeout",
+  "_hardening_marker": "v2_incremental_checkpoint_final_complete",
+  "backend": "cuda:NVIDIA GeForce RTX 4060 Ti",
+  "seed": 13,
+  "cell_version": "v2_incremental_checkpoint",
+  "checkpoint_kind": "final_complete",
+  "corpus_provenance": "synthetic_bipolar_M_sweep_N4096_v2_M_sweep_4000_8000_12000_noise_0.0_arms_RANDOM_INIT_and_LEARNED_CONTRASTIVE_encoder_only"
+}

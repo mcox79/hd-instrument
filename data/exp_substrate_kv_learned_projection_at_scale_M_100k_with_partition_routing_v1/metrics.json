@@ -1,0 +1,398 @@
+{
+  "anchor_name": "substrate_kv_learned_projection_at_scale_M_100k_with_partition_routing_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_NO_CHAIN_GRADE: no M reaches arm_C chain-grade gate (recall>=0.70 AND lift>=0.10 over arms A and B) | M=10000 A=0.8209 B=0.0153(racc=1.000) C=0.6356(racc=1.000 keysep=0.874 cv=0.024) D=0.0157 anal=0.0304 | M=30000 A=0.7751 B=0.0150(racc=1.000) C=0.6097(racc=1.000 keysep=0.913 cv=0.013) D=0.0091 anal=0.0220 | M=100000 A=0.6643 B=0.0148(racc=1.000) C=0.5797(racc=1.000 keysep=0.932 cv=0.027) D=0.0053 anal=0.0127",
+  "run_mode": "full",
+  "n_units": 9,
+  "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+  "per_unit": [
+    {
+      "M": 10000,
+      "seed": 11,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.818,
+        "keysep": 0.8774,
+        "n_heldout": 2500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.016,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.62,
+        "keysep": 0.8727,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0172,
+        "n_heldout": 2500
+      },
+      "analytic_ceiling_recall": 0.0392,
+      "n_parts": 5,
+      "part_size": 2000,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 2,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 35.41,
+      "_ckpt_key": "M10000_s11",
+      "_partial_written_at": 1782443097.5729275
+    },
+    {
+      "M": 10000,
+      "seed": 13,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.8212,
+        "keysep": 0.8711,
+        "n_heldout": 2500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0152,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.656,
+        "keysep": 0.8722,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0156,
+        "n_heldout": 2500
+      },
+      "analytic_ceiling_recall": 0.03,
+      "n_parts": 5,
+      "part_size": 2000,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 4,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 33.77,
+      "_ckpt_key": "M10000_s13",
+      "_partial_written_at": 1782443182.5637643
+    },
+    {
+      "M": 10000,
+      "seed": 19,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.8236,
+        "keysep": 0.8758,
+        "n_heldout": 2500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0148,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.6308,
+        "keysep": 0.8781,
+        "route_acc": 1.0,
+        "n_heldout": 2500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0144,
+        "n_heldout": 2500
+      },
+      "analytic_ceiling_recall": 0.022,
+      "n_parts": 5,
+      "part_size": 2000,
+      "n_heldout": 2500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 6,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 35.36,
+      "_ckpt_key": "M10000_s19",
+      "_partial_written_at": 1782443268.8160844
+    },
+    {
+      "M": 30000,
+      "seed": 11,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.7749,
+        "keysep": 0.9099,
+        "n_heldout": 7500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0155,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.6141,
+        "keysep": 0.9135,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0081,
+        "n_heldout": 7500
+      },
+      "analytic_ceiling_recall": 0.0227,
+      "n_parts": 15,
+      "part_size": 2000,
+      "n_heldout": 7500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 8,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 89.58,
+      "_ckpt_key": "M30000_s11",
+      "_partial_written_at": 1782443496.884838
+    },
+    {
+      "M": 30000,
+      "seed": 13,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.782,
+        "keysep": 0.9125,
+        "n_heldout": 7500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0149,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.6161,
+        "keysep": 0.9152,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0104,
+        "n_heldout": 7500
+      },
+      "analytic_ceiling_recall": 0.0208,
+      "n_parts": 15,
+      "part_size": 2000,
+      "n_heldout": 7500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 10,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 89.01,
+      "_ckpt_key": "M30000_s13",
+      "_partial_written_at": 1782443724.90811
+    },
+    {
+      "M": 30000,
+      "seed": 19,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.7685,
+        "keysep": 0.9083,
+        "n_heldout": 7500
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0147,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.5989,
+        "keysep": 0.9098,
+        "route_acc": 1.0,
+        "n_heldout": 7500
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0088,
+        "n_heldout": 7500
+      },
+      "analytic_ceiling_recall": 0.0225,
+      "n_parts": 15,
+      "part_size": 2000,
+      "n_heldout": 7500,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 12,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 88.44,
+      "_ckpt_key": "M30000_s19",
+      "_partial_written_at": 1782443952.4769244
+    },
+    {
+      "M": 100000,
+      "seed": 11,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.6464,
+        "keysep": 0.934,
+        "n_heldout": 25000
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0147,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.5652,
+        "keysep": 0.9349,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0054,
+        "n_heldout": 25000
+      },
+      "analytic_ceiling_recall": 0.0133,
+      "n_parts": 50,
+      "part_size": 2000,
+      "n_heldout": 25000,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 14,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 273.49,
+      "_ckpt_key": "M100000_s11",
+      "_partial_written_at": 1782444673.3206587
+    },
+    {
+      "M": 100000,
+      "seed": 13,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.6862,
+        "keysep": 0.9313,
+        "n_heldout": 25000
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0144,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.601,
+        "keysep": 0.9307,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0049,
+        "n_heldout": 25000
+      },
+      "analytic_ceiling_recall": 0.0122,
+      "n_parts": 50,
+      "part_size": 2000,
+      "n_heldout": 25000,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 16,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 258.87,
+      "_ckpt_key": "M100000_s13",
+      "_partial_written_at": 1782445379.462739
+    },
+    {
+      "M": 100000,
+      "seed": 19,
+      "arm_A": {
+        "arm": "ARM_A_LEARNED_NO_PARTITION",
+        "recall_at_1": 0.6603,
+        "keysep": 0.9347,
+        "n_heldout": 25000
+      },
+      "arm_B": {
+        "arm": "ARM_B_DENSE_PARTITION",
+        "recall_at_1": 0.0153,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_C": {
+        "arm": "ARM_C_LEARNED_PARTITION",
+        "recall_at_1": 0.5728,
+        "keysep": 0.9319,
+        "route_acc": 1.0,
+        "n_heldout": 25000
+      },
+      "arm_D": {
+        "arm": "ARM_D_DENSE_NO_PARTITION",
+        "recall_at_1": 0.0057,
+        "n_heldout": 25000
+      },
+      "analytic_ceiling_recall": 0.0127,
+      "n_parts": 50,
+      "part_size": 2000,
+      "n_heldout": 25000,
+      "run_mode": "full",
+      "config_version": "substrateKvLearnedProjAtScale-v1: encoder=EleutherAI/pythia-2.8b M_SWEEP=[10000, 30000, 100000] seeds=[11, 13, 19] proj_dim=256 heldout=0.25 train_steps=600 part_size=2000 cat_cos=0.70 mode=full HP_recall>=0.70 HP_keysep<=0.95 HP_cv<=0.05 HP_comp_lift>=0.10 Q_sat>=0.995",
+      "_llm_forward_calls_at_inference": 0,
+      "_llm_forward_calls_at_setup": 18,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "elapsed_s_unit": 216.17,
+      "_ckpt_key": "M100000_s19",
+      "_partial_written_at": 1782446031.0568738
+    }
+  ],
+  "elapsed_s": 3022.2,
+  "summary": "MIDDLE_BAND_NO_CHAIN_GRADE: no M reaches arm_C chain-grade gate (recall>=0.70 AND lift>=0.10 over arms A and B) | M=10000 A=0.8209 B=0.0153(racc=1.000) C=0.6356(racc=1.000 keysep=0.874 cv=0.024) D=0.0157 anal=0.0304 | M=30000 A=0.7751 B=0.0150(racc=1.000) C=0.6097(racc=1.000 keysep=0.913 cv=0.013) D=0.0091 anal=0.0220 | M=100000 A=0.6643 B=0.0148(racc=1.000) C=0.5797(racc=1.000 keysep=0.932 cv=0.027) D=0.0053 anal=0.0127",
+  "_llm_forward_calls_at_inference": 0,
+  "_llm_forward_calls_at_setup": 18,
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_max_mem_alloc_mb": 5260,
+  "M_SWEEP": [
+    10000,
+    30000,
+    100000
+  ],
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "encoder": "EleutherAI/pythia-2.8b",
+  "DESIGN_NOTE": "Composition cell: KV learned projection + partition routing at M=100k. Tests held-out generalization at production scale. Arm A (learned-only), Arm B (dense+partition), Arm C (learned+partition = the integration), Arm D (dense-only control). Pre-reg per preregs/2026-06-25_substrate_kv_learned_projection_at_scale_M_100k_with_partition_routing_v1.md."
+}

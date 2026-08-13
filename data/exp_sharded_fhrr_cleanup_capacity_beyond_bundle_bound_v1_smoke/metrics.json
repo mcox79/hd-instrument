@@ -1,0 +1,116 @@
+{
+  "anchor_name": "sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (residual): sharded=1.000 at max_nprop=16000; bundle=0.080 at collapse_check=4000. sharded_curve={200: 1.0, 500: 1.0, 1000: 1.0, 2000: 1.0, 4000: 1.0, 6000: 1.0, 8000: 1.0, 12000: 1.0, 16000: 1.0} bundle_curve={200: 0.51, 500: 0.505, 1000: 0.495, 2000: 0.235, 4000: 0.08, 6000: 0.035, 8000: 0.02, 12000: 0.005, 16000: 0.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "seed": 7,
+  "device": "cpu",
+  "N": 8192,
+  "n_units": 9,
+  "grid_nprop": [
+    200,
+    500,
+    1000,
+    2000,
+    4000,
+    6000,
+    8000,
+    12000,
+    16000
+  ],
+  "M_queries": 200,
+  "bundle_bound_approx": 1147,
+  "sharded_acc_at_max_nprop": 1.0,
+  "bundle_acc_at_max_nprop": 0.0,
+  "max_nprop": 16000,
+  "bundle_collapse_check_nprop": 4000,
+  "bundle_acc_at_collapse_check": 0.08,
+  "per_unit": [
+    {
+      "NPROP": 200,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.51,
+      "sharded_hash": "5fbaac97d62ecc7a",
+      "bundle_hash": "2e32b02b2c2d2acd",
+      "elapsed_s": 0.617
+    },
+    {
+      "NPROP": 500,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.505,
+      "sharded_hash": "d27e8962788f9ecd",
+      "bundle_hash": "59dbc87b356397cb",
+      "elapsed_s": 0.663
+    },
+    {
+      "NPROP": 1000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.495,
+      "sharded_hash": "3058a39fc7ca3002",
+      "bundle_hash": "23253886e0ccc9ab",
+      "elapsed_s": 1.314
+    },
+    {
+      "NPROP": 2000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.235,
+      "sharded_hash": "cc283b3f1fe1db71",
+      "bundle_hash": "d69ae07e95c775ad",
+      "elapsed_s": 2.066
+    },
+    {
+      "NPROP": 4000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.08,
+      "sharded_hash": "e28628a52b948c38",
+      "bundle_hash": "ff6bff92b5d52739",
+      "elapsed_s": 3.493
+    },
+    {
+      "NPROP": 6000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.035,
+      "sharded_hash": "492517892250e5c2",
+      "bundle_hash": "cef40d5912ad1147",
+      "elapsed_s": 20.319
+    },
+    {
+      "NPROP": 8000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.02,
+      "sharded_hash": "0b8a94be3497b39a",
+      "bundle_hash": "64c3ef03b6bac089",
+      "elapsed_s": 10.466
+    },
+    {
+      "NPROP": 12000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.005,
+      "sharded_hash": "e49c5cfe0df7281c",
+      "bundle_hash": "f79bdc563b0dd5ad",
+      "elapsed_s": 16.98
+    },
+    {
+      "NPROP": 16000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.0,
+      "sharded_hash": "5e1596a0307be9b4",
+      "bundle_hash": "360ba746dd2c0b1f",
+      "elapsed_s": 61.908
+    }
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "elapsed_s": 117.9345006942749,
+  "summary": "MIDDLE_BAND (residual): sharded=1.000 at max_nprop=16000; bundle=0.080 at collapse_check=4000. sharded_curve={200: 1.0, 500: 1.0, 1000: 1.0, 2000: 1.0, 4000: 1.0, 6000: 1.0, 8000: 1.0, 12000: 1.0, 16000: 1.0} bundle_curve={200: 0.51, 500: 0.505, 1000: 0.495, 2000: 0.235, 4000: 0.08, 6000: 0.035, 8000: 0.02, 12000: 0.005, 16000: 0.0}"
+}

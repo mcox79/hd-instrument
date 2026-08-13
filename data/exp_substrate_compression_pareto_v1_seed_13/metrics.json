@@ -1,0 +1,134 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "FULL MIDDLE_BAND: 5/6 gates. Mechanism alive but incomplete. gates={'positive_control_pass': True, 'compression_gap_pass': True, 'recall_preserved_pass': False, 'pareto_distinct_pass': True, 'arms_differ_pass': True, 'cross_seed_cv_pass': True}",
+  "summary": "FULL MIDDLE_BAND: 5/6 gates. Mechanism alive but incomplete. gates={'positive_control_pass': True, 'compression_gap_pass': True, 'recall_preserved_pass': False, 'pareto_distinct_pass': True, 'arms_differ_pass': True, 'cross_seed_cv_pass': True}",
+  "arm_summary": {
+    "ARM_NO_COMPRESSION": {
+      "recall_mean": 0.86,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 1.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 327680000.0,
+      "efficiency_mean": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_EXEMPLAR_BAYES": {
+      "recall_mean": 0.79,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 10.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 327688000.0,
+      "efficiency_mean": 1.8190422234652963,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_HARDMAX_CENTROID": {
+      "recall_mean": 0.06,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 100.0,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 3316800.0,
+      "efficiency_mean": 0.2763102111592855,
+      "n_seeds": 1
+    },
+    "ARM_SCHEMA_HIERARCHICAL": {
+      "recall_mean": 0.01,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "ratio_mean": 9.900990099009901,
+      "ratio_std": 0.0,
+      "ratio_cv": 0.0,
+      "memory_mean_bytes": 33135680.0,
+      "efficiency_mean": 0.022926347621408775,
+      "n_seeds": 1
+    }
+  },
+  "gates": {
+    "positive_control_pass": true,
+    "compression_gap_pass": true,
+    "recall_preserved_pass": false,
+    "pareto_distinct_pass": true,
+    "arms_differ_pass": true,
+    "cross_seed_cv_pass": true
+  },
+  "pareto_pairs_detail": [
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_EXEMPLAR_BAYES"
+      ],
+      "distinct": true,
+      "recall_delta": 0.06999999999999995,
+      "log_ratio_delta": 1.0
+    },
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_HARDMAX_CENTROID"
+      ],
+      "distinct": true,
+      "recall_delta": 0.8,
+      "log_ratio_delta": 2.0
+    },
+    {
+      "pair": [
+        "ARM_NO_COMPRESSION",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.85,
+      "log_ratio_delta": 0.9956786262173575
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_EXEMPLAR_BAYES",
+        "ARM_SCHEMA_HARDMAX_CENTROID"
+      ],
+      "distinct": true,
+      "recall_delta": 0.73,
+      "log_ratio_delta": 1.0
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_EXEMPLAR_BAYES",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.78,
+      "log_ratio_delta": 0.004321373782642524
+    },
+    {
+      "pair": [
+        "ARM_SCHEMA_HARDMAX_CENTROID",
+        "ARM_SCHEMA_HIERARCHICAL"
+      ],
+      "distinct": true,
+      "recall_delta": 0.049999999999999996,
+      "log_ratio_delta": 1.0043213737826426
+    }
+  ],
+  "compression_ratio_gap_measured": 100.0,
+  "recall_drop_measured": 0.8,
+  "distinct_pareto_pairs": 6,
+  "arms_differ_mean_pairs": 6.0,
+  "nc_recall_mean": 0.86,
+  "hm_recall_mean": 0.06,
+  "hm_ratio_mean": 100.0,
+  "anchor_name": "substrate_compression_pareto_v1_seed_13",
+  "elapsed_s": 12.46,
+  "ts_iso": "2026-07-01T02:47:55Z",
+  "pid": 17432,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_compression_pareto_v1_seed_13,SEED=13,mode=full,arms=[NO_COMPRESSION,SCHEMA_EXEMPLAR_BAYES,SCHEMA_HARDMAX_CENTROID,SCHEMA_HIERARCHICAL],full_n_facts=10000,full_N=8192,full_n_q=100,smoke_n_facts=1000,smoke_N=2048,smoke_n_q=30,hardening=STARTED+SEED_CKPT+HEARTBEAT+CRASH_DIAG+SYS_EXIT_RAISE",
+  "_hardening_marker": "v1_compression_pareto_chunked",
+  "backend": "numpy.cpu",
+  "seed": 13,
+  "expected_n": 4,
+  "observed_n": 4,
+  "cardinality_ok": true
+}

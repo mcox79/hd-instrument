@@ -1,0 +1,186 @@
+{
+  "anchor_name": "substrate_compartmentalized_cortex_K_banks_v1_GPU",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial Hc rescue lift +0.223 below HARD_PASS threshold 0.5. M=512 N_h=2048 N_c=512 alpha_simple=0.250 mode=smoke ARM_STANDARD_K1=0.604 ARM_COMPARTMENT_K2=0.658 ARM_COMPARTMENT_K5=0.721 ARM_COMPARTMENT_K10=0.787 ARM_COMPARTMENT_K20=0.826 | best_K=20 best_lift=+0.223 monotonic=True R_STANDARD_K1=0.604",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 K_banks=(1, 2, 5, 10, 20) mode=smoke alpha_simple=0.250 device=cpu compartmentalized_cortex_K_banks",
+  "elapsed_s": 0.3461909294128418,
+  "config_version": "ANCHOR=substrate_compartmentalized_cortex_K_banks_v1_GPU,M=512,N_h=2048,N_c=512,alpha_simple=0.250,K_BANK=(1, 2, 5, 10, 20),SEEDS=7,RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+METARULE_AH+METARULE_H+COMPARTMENT_K_SWEEP",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "n_replay_per_item": 1,
+  "backend": "torch",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "K_bank_values": [
+    1,
+    2,
+    5,
+    10,
+    20
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_STANDARD_K1",
+      "K_banks": 1,
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K2",
+      "K_banks": 2,
+      "recall_mean": 0.658203125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K5",
+      "K_banks": 5,
+      "recall_mean": 0.720703125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K10",
+      "K_banks": 10,
+      "recall_mean": 0.787109375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_COMPARTMENT_K20",
+      "K_banks": 20,
+      "recall_mean": 0.826171875,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.32449793815612793,
+      "arms": [
+        {
+          "arm_name": "ARM_STANDARD_K1",
+          "K_banks": 1,
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "bank_sizes": [
+            512
+          ],
+          "cortex_norm": 0.21401488780975342,
+          "n_total_writes": 512,
+          "arm_hash": "51c84cca595bdaf5",
+          "alpha_simple": 0.25,
+          "wall_s": 0.07161855697631836,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K2",
+          "K_banks": 2,
+          "seed": 7,
+          "recall_cortex": 0.658203125,
+          "n_items": 512,
+          "bank_sizes": [
+            256,
+            256
+          ],
+          "cortex_norm": 0.24194367229938507,
+          "n_total_writes": 512,
+          "arm_hash": "fb131c84ac808505",
+          "alpha_simple": 0.25,
+          "wall_s": 0.052509307861328125,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K5",
+          "K_banks": 5,
+          "seed": 7,
+          "recall_cortex": 0.720703125,
+          "n_items": 512,
+          "bank_sizes": [
+            103,
+            103,
+            102,
+            102,
+            102
+          ],
+          "cortex_norm": 0.3114764951169491,
+          "n_total_writes": 512,
+          "arm_hash": "191dbe6784f65c5c",
+          "alpha_simple": 0.25,
+          "wall_s": 0.056365013122558594,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K10",
+          "K_banks": 10,
+          "seed": 7,
+          "recall_cortex": 0.787109375,
+          "n_items": 512,
+          "bank_sizes": [
+            52,
+            52,
+            51,
+            51,
+            51,
+            51,
+            51,
+            51,
+            51,
+            51
+          ],
+          "cortex_norm": 0.4011581316590309,
+          "n_total_writes": 512,
+          "arm_hash": "8b3b526d11b5d3b9",
+          "alpha_simple": 0.25,
+          "wall_s": 0.0588228702545166,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_COMPARTMENT_K20",
+          "K_banks": 20,
+          "seed": 7,
+          "recall_cortex": 0.826171875,
+          "n_items": 512,
+          "bank_sizes": [
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            25,
+            25,
+            25,
+            25,
+            25,
+            25,
+            25,
+            25
+          ],
+          "cortex_norm": 0.5381974093616009,
+          "n_total_writes": 512,
+          "arm_hash": "480b6fac29c6deef",
+          "alpha_simple": 0.25,
+          "wall_s": 0.06038212776184082,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

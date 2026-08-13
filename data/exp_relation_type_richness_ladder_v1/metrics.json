@@ -1,0 +1,706 @@
+{
+  "verdict": "MIDDLE_BAND_RICHNESS_LADDER",
+  "verdict_msg": "MIDDLE_BAND_RICHNESS_LADDER || rungs k=[2, 5, 10, 16] best_inductive=[0.673,0.667,0.666,0.675] (slope k2->k16=0.002 mono=True) | ORACLE_PA=[0.636,0.638,0.636,0.638] (range_rel=0.004 flat<=0.10:True) | mean_deg=[3.792,3.501,3.474,3.470] (range_rel=0.090 flat<=0.10:True) | code=[0.673,0.667,0.666,0.675] | type_entropy=[0.624,1.177,1.365,1.396] n_types_used=[2,5,10,15] n_ho=[2193, 2024, 2009, 2007] || RICHNESS_RISES(slope>=0.05)=False DEGREE_CONTROL_HELD=True(oracle_flat=True,deg_flat=True) || seeds=3",
+  "summary": "MIDDLE_BAND_RICHNESS_LADDER || rungs k=[2, 5, 10, 16] best_inductive=[0.673,0.667,0.666,0.675] (slope k2->k16=0.002 mono=True) | ORACLE_PA=[0.636,0.638,0.636,0.638] (range_rel=0.004 flat<=0.10:True) |",
+  "run_mode": "full",
+  "elapsed_s": 157.21813259995542,
+  "anchor_name": "relation_type_richness_ladder_v1",
+  "ts_iso": "2026-07-10T03:06:04.388047+00:00",
+  "device": "cpu",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "n_common_nodes": 3857,
+  "config": {
+    "seeds": [
+      7,
+      13,
+      17
+    ],
+    "n_nodes": 5000,
+    "rung_ks": [
+      2,
+      5,
+      10,
+      16
+    ],
+    "gcn_epochs": 200,
+    "enc": {
+      "epochs": 80,
+      "batch": 256,
+      "code_dim": 512,
+      "feat_dim": 4096,
+      "temp": 0.15,
+      "lr": 0.01,
+      "lambda_cov": 1.0,
+      "lambda_var": 1.0,
+      "lambda_bind": 1.0
+    }
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 4440,
+    "n_edges": 14767,
+    "median_degree": 4.0,
+    "mean_degree": 6.651801801801802,
+    "frac_deg_ge_2": 1.0,
+    "n_relation_types": 16,
+    "relation_types": [
+      "CN_ANTONYM",
+      "CN_AT_LOCATION",
+      "CN_CAPABLE_OF",
+      "CN_CAUSES",
+      "CN_DERIVED_FROM",
+      "CN_HAS_A",
+      "CN_HAS_PROPERTY",
+      "CN_MADE_OF",
+      "CN_MANNER_OF",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_RECEIVES_ACTION",
+      "CN_RELATED_TO",
+      "CN_SYNONYM",
+      "CN_USED_FOR",
+      "IS_A",
+      "PART_OF"
+    ],
+    "n_typed_edges": 14767
+  },
+  "relation_pool_audit": {
+    "n_relation_types": 16,
+    "per_type_edge_count": {
+      "CN_ANTONYM": 46,
+      "CN_AT_LOCATION": 1364,
+      "CN_CAPABLE_OF": 282,
+      "CN_CAUSES": 85,
+      "CN_DERIVED_FROM": 45,
+      "CN_HAS_A": 115,
+      "CN_HAS_PROPERTY": 122,
+      "CN_MADE_OF": 9,
+      "CN_MANNER_OF": 1944,
+      "CN_MOTIVATED_BY_GOAL": 58,
+      "CN_RECEIVES_ACTION": 17,
+      "CN_RELATED_TO": 2299,
+      "CN_SYNONYM": 2311,
+      "CN_USED_FOR": 518,
+      "IS_A": 5001,
+      "PART_OF": 551
+    },
+    "ranked_types_by_mass": [
+      "IS_A",
+      "CN_SYNONYM",
+      "CN_RELATED_TO",
+      "CN_MANNER_OF",
+      "CN_AT_LOCATION",
+      "PART_OF",
+      "CN_USED_FOR",
+      "CN_CAPABLE_OF",
+      "CN_HAS_PROPERTY",
+      "CN_HAS_A",
+      "CN_CAUSES",
+      "CN_MOTIVATED_BY_GOAL",
+      "CN_ANTONYM",
+      "CN_DERIVED_FROM",
+      "CN_RECEIVES_ACTION",
+      "CN_MADE_OF"
+    ]
+  },
+  "gates": {
+    "verdict": "MIDDLE_BAND_RICHNESS_LADDER",
+    "rung_ks": [
+      2,
+      5,
+      10,
+      16
+    ],
+    "best_inductive_per_rung": [
+      0.6728624365259525,
+      0.6673797638115269,
+      0.6662024790665072,
+      0.6751297259117567
+    ],
+    "oracle_pa_per_rung": [
+      0.6356813368019276,
+      0.6381144362033958,
+      0.6361505862832925,
+      0.6382712205637707
+    ],
+    "mean_degree_per_rung": [
+      3.791547835105004,
+      3.5008210180623975,
+      3.473511364618443,
+      3.4704001382767267
+    ],
+    "code_auc_per_rung": [
+      0.6728624365259525,
+      0.6673797638115269,
+      0.6662024790665072,
+      0.6751297259117567
+    ],
+    "type_entropy_per_rung": [
+      0.6238606052551523,
+      1.1769808739897352,
+      1.3652249502069063,
+      1.3955684859502966
+    ],
+    "n_types_used_per_rung": [
+      2.0,
+      5.0,
+      10.0,
+      15.0
+    ],
+    "n_heldout_per_rung": [
+      2193,
+      2024,
+      2009,
+      2007
+    ],
+    "richness_slope": 0.0022672893858042276,
+    "richness_monotonic": true,
+    "oracle_range_rel": 0.004065404433781719,
+    "degree_range_rel": 0.09023359720266123,
+    "oracle_flat": true,
+    "degree_flat": true,
+    "degree_tight": false,
+    "degree_control_failed": false,
+    "richness_rises": false,
+    "richness_flat": true,
+    "enough_heldout": true,
+    "bands": {
+      "RICHNESS_SLOPE_HP": 0.05,
+      "RICHNESS_SLOPE_FLAT": 0.05,
+      "ORACLE_FLAT_REL": 0.1,
+      "ORACLE_FAIL_REL": 0.15,
+      "DEGREE_FLAT_REL": 0.1,
+      "DEGREE_TIGHT_REL": 0.05,
+      "RUNG_KS": [
+        2,
+        5,
+        10,
+        16
+      ]
+    }
+  },
+  "mechanism_selftest": {
+    "pos_best": [
+      0.5141065830721003,
+      0.5596570723013663,
+      0.6096377883113832
+    ],
+    "pos_oracle": [
+      0.48941146411690134,
+      0.5291034257824785,
+      0.5373267367780987
+    ],
+    "pos_slope": 0.09553120523928282,
+    "pos_oracle_range_rel": 0.09239103469251575,
+    "null_best": [
+      0.5380577427821522,
+      0.5280960090852587,
+      0.5410377251098514
+    ],
+    "null_slope": 0.0029799823276991377,
+    "degree_probe_oracle": [
+      0.34619730245039193,
+      0.6837868753226869,
+      0.8229984235132232
+    ],
+    "degree_probe_range": 0.47680112106283123,
+    "pos_rises": true,
+    "null_flat": true,
+    "pos_oracle_flat": true,
+    "degree_probe_moves": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "seed": 7,
+      "rungs": [
+        {
+          "k": 2,
+          "too_few": false,
+          "best_inductive": 0.6785238194154638,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6468130471098502,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5471956224350205
+            },
+            "AA": {
+              "auc_far": 0.5471956224350205
+            },
+            "RA": {
+              "auc_far": 0.5471956224350205
+            },
+            "JC": {
+              "auc_far": 0.5471956224350205
+            },
+            "PA": {
+              "auc_far": 0.6468130471098502
+            },
+            "GCN": {
+              "auc_far": 0.6362735637102591
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6785238194154638
+            }
+          },
+          "code_auc": 0.6785238194154638,
+          "n_heldout": 2193,
+          "mean_degree": 3.791547835105004,
+          "mean_clustering": 0.06817595854010024,
+          "type_entropy": 0.6238606052551523,
+          "n_types_used": 2,
+          "n_edges": 7312,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 5,
+          "too_few": false,
+          "best_inductive": 0.6592471610426742,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.63125359955329,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.540720631786772
+            },
+            "AA": {
+              "auc_far": 0.540720631786772
+            },
+            "RA": {
+              "auc_far": 0.540720631786772
+            },
+            "JC": {
+              "auc_far": 0.540720631786772
+            },
+            "PA": {
+              "auc_far": 0.63125359955329
+            },
+            "GCN": {
+              "auc_far": 0.592357350494899
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6592471610426742
+            }
+          },
+          "code_auc": 0.6592471610426742,
+          "n_heldout": 2026,
+          "mean_degree": 3.5027223230490017,
+          "mean_clustering": 0.054811441100311345,
+          "type_entropy": 1.178006502397552,
+          "n_types_used": 5,
+          "n_edges": 6755,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 10,
+          "too_few": false,
+          "best_inductive": 0.6591580688318339,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6405520389647693,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5401096163428002
+            },
+            "AA": {
+              "auc_far": 0.5401096163428002
+            },
+            "RA": {
+              "auc_far": 0.5401096163428002
+            },
+            "JC": {
+              "auc_far": 0.5401096163428002
+            },
+            "PA": {
+              "auc_far": 0.6405520389647693
+            },
+            "GCN": {
+              "auc_far": 0.5984281720505387
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6591580688318339
+            }
+          },
+          "code_auc": 0.6591580688318339,
+          "n_heldout": 2007,
+          "mean_degree": 3.4695359087373605,
+          "mean_clustering": 0.04804383320773101,
+          "type_entropy": 1.3782947775503755,
+          "n_types_used": 10,
+          "n_edges": 6691,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 16,
+          "too_few": false,
+          "best_inductive": 0.6762863415028514,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6348152063730947,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5364089775561097
+            },
+            "AA": {
+              "auc_far": 0.5364089775561097
+            },
+            "RA": {
+              "auc_far": 0.5364089775561097
+            },
+            "JC": {
+              "auc_far": 0.5364089775561097
+            },
+            "PA": {
+              "auc_far": 0.6348152063730947
+            },
+            "GCN": {
+              "auc_far": 0.6007539754106007
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6762863415028514
+            }
+          },
+          "code_auc": 0.6762863415028514,
+          "n_heldout": 2005,
+          "mean_degree": 3.465906144672025,
+          "mean_clustering": 0.04688877973703445,
+          "type_entropy": 1.3946744951405339,
+          "n_types_used": 15,
+          "n_edges": 6684,
+          "n_distinct_sigs": 6,
+          "failures": []
+        }
+      ],
+      "D_star_mean": 3.791547835105004
+    },
+    {
+      "seed": 13,
+      "rungs": [
+        {
+          "k": 2,
+          "too_few": false,
+          "best_inductive": 0.6617399099110901,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6288333168026858,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5421796625626994
+            },
+            "AA": {
+              "auc_far": 0.5421796625626994
+            },
+            "RA": {
+              "auc_far": 0.5421796625626994
+            },
+            "JC": {
+              "auc_far": 0.5421796625626994
+            },
+            "PA": {
+              "auc_far": 0.6288333168026858
+            },
+            "GCN": {
+              "auc_far": 0.6124968784107456
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6617399099110901
+            }
+          },
+          "code_auc": 0.6617399099110901,
+          "n_heldout": 2193,
+          "mean_degree": 3.791547835105004,
+          "mean_clustering": 0.06817595854010024,
+          "type_entropy": 0.6238606052551523,
+          "n_types_used": 2,
+          "n_edges": 7312,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 5,
+          "too_few": false,
+          "best_inductive": 0.6755865988469075,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6275651317211954,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5370919881305638
+            },
+            "AA": {
+              "auc_far": 0.5370919881305638
+            },
+            "RA": {
+              "auc_far": 0.5370919881305638
+            },
+            "JC": {
+              "auc_far": 0.5370919881305638
+            },
+            "PA": {
+              "auc_far": 0.6275651317211954
+            },
+            "GCN": {
+              "auc_far": 0.6025267556385203
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6755865988469075
+            }
+          },
+          "code_auc": 0.6755865988469075,
+          "n_heldout": 2022,
+          "mean_degree": 3.496499870365569,
+          "mean_clustering": 0.0545217952257718,
+          "type_entropy": 1.1737150913965206,
+          "n_types_used": 5,
+          "n_edges": 6743,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 10,
+          "too_few": false,
+          "best_inductive": 0.6559274798262362,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6274898702398641,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5370094386487829
+            },
+            "AA": {
+              "auc_far": 0.5370094386487829
+            },
+            "RA": {
+              "auc_far": 0.5370094386487829
+            },
+            "JC": {
+              "auc_far": 0.5370094386487829
+            },
+            "PA": {
+              "auc_far": 0.6274898702398641
+            },
+            "GCN": {
+              "auc_far": 0.5988708763134015
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6559274798262362
+            }
+          },
+          "code_auc": 0.6559274798262362,
+          "n_heldout": 2013,
+          "mean_degree": 3.4799066632097486,
+          "mean_clustering": 0.05038918236052006,
+          "type_entropy": 1.3581709243549012,
+          "n_types_used": 10,
+          "n_edges": 6711,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 16,
+          "too_few": false,
+          "best_inductive": 0.6715351105170664,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6384119204970174,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5395522388059701
+            },
+            "AA": {
+              "auc_far": 0.5395522388059701
+            },
+            "RA": {
+              "auc_far": 0.5395522388059701
+            },
+            "JC": {
+              "auc_far": 0.5395522388059701
+            },
+            "PA": {
+              "auc_far": 0.6384119204970174
+            },
+            "GCN": {
+              "auc_far": 0.5960426722110839
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6715351105170664
+            }
+          },
+          "code_auc": 0.6715351105170664,
+          "n_heldout": 2010,
+          "mean_degree": 3.474721285973555,
+          "mean_clustering": 0.04872894678724705,
+          "type_entropy": 1.391286758590837,
+          "n_types_used": 15,
+          "n_edges": 6701,
+          "n_distinct_sigs": 6,
+          "failures": []
+        }
+      ],
+      "D_star_mean": 3.791547835105004
+    },
+    {
+      "seed": 17,
+      "rungs": [
+        {
+          "k": 2,
+          "too_few": false,
+          "best_inductive": 0.6783235802513032,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6313976464932467,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5414956680346558
+            },
+            "AA": {
+              "auc_far": 0.5414956680346558
+            },
+            "RA": {
+              "auc_far": 0.5414956680346558
+            },
+            "JC": {
+              "auc_far": 0.5414956680346558
+            },
+            "PA": {
+              "auc_far": 0.6313976464932467
+            },
+            "GCN": {
+              "auc_far": 0.6326255928940256
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6783235802513032
+            }
+          },
+          "code_auc": 0.6783235802513032,
+          "n_heldout": 2193,
+          "mean_degree": 3.791547835105004,
+          "mean_clustering": 0.06817595854010024,
+          "type_entropy": 0.6238606052551523,
+          "n_types_used": 2,
+          "n_edges": 7312,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 5,
+          "too_few": false,
+          "best_inductive": 0.6673055315449989,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.655524577335702,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5394866732477789
+            },
+            "AA": {
+              "auc_far": 0.5394866732477789
+            },
+            "RA": {
+              "auc_far": 0.5394866732477789
+            },
+            "JC": {
+              "auc_far": 0.5394866732477789
+            },
+            "PA": {
+              "auc_far": 0.655524577335702
+            },
+            "GCN": {
+              "auc_far": 0.5990960066032008
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6673055315449989
+            }
+          },
+          "code_auc": 0.6673055315449989,
+          "n_heldout": 2026,
+          "mean_degree": 3.503240860772621,
+          "mean_clustering": 0.05239289222218048,
+          "type_entropy": 1.1792210281751332,
+          "n_types_used": 5,
+          "n_edges": 6756,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 10,
+          "too_few": false,
+          "best_inductive": 0.6835218885414517,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6404098496452437,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5358565737051793
+            },
+            "AA": {
+              "auc_far": 0.5358565737051793
+            },
+            "RA": {
+              "auc_far": 0.5358565737051793
+            },
+            "JC": {
+              "auc_far": 0.5358565737051793
+            },
+            "PA": {
+              "auc_far": 0.6404098496452437
+            },
+            "GCN": {
+              "auc_far": 0.5846705310233171
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6835218885414517
+            }
+          },
+          "code_auc": 0.6835218885414517,
+          "n_heldout": 2008,
+          "mean_degree": 3.471091521908219,
+          "mean_clustering": 0.044926193234773024,
+          "type_entropy": 1.3592091487154416,
+          "n_types_used": 10,
+          "n_edges": 6694,
+          "n_distinct_sigs": 6,
+          "failures": []
+        },
+        {
+          "k": 16,
+          "too_few": false,
+          "best_inductive": 0.6775677257153525,
+          "best_inductive_method": "CODE_COSINE",
+          "oracle_pa": 0.6415865348212001,
+          "per_method": {
+            "CN": {
+              "auc_far": 0.5351270553064275
+            },
+            "AA": {
+              "auc_far": 0.5351270553064275
+            },
+            "RA": {
+              "auc_far": 0.5351270553064275
+            },
+            "JC": {
+              "auc_far": 0.5351270553064275
+            },
+            "PA": {
+              "auc_far": 0.6415865348212001
+            },
+            "GCN": {
+              "auc_far": 0.5861696319980219
+            },
+            "CODE_COSINE": {
+              "auc_far": 0.6775677257153525
+            }
+          },
+          "code_auc": 0.6775677257153525,
+          "n_heldout": 2007,
+          "mean_degree": 3.4705729841845994,
+          "mean_clustering": 0.04996141141350534,
+          "type_entropy": 1.4007442041195182,
+          "n_types_used": 15,
+          "n_edges": 6693,
+          "n_distinct_sigs": 6,
+          "failures": []
+        }
+      ],
+      "D_star_mean": 3.791547835105004
+    }
+  ]
+}

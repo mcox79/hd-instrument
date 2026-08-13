@@ -1,0 +1,102 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | MECHANISM_NULL_at_K500: perm=0.013 <= proto=0.017 (drill K=500 prediction REFUTED; close sparse-bundled direction) | K=100 perm=0.206 xor=0.011 proto=0.269 diag=0.008 | K=500 perm=0.013 xor=0.002 proto=0.017 diag=0.003 | n_seeds=2 | gpu_util_p50=-1 device=cpu",
+  "summary": "HARD_FAIL | MECHANISM_NULL_at_K500: perm=0.013 <= proto=0.017 (drill K=500 prediction REFUTED; close sparse-bundled direction) | K=100 perm=0.206 xor=0.011 proto=0.269 diag=0.008 | K=500 perm=0.013 xor=0.002 proto=0.017 diag=0.003 | n_seeds=2 | gpu_util_p50=-1 device=cpu",
+  "verdict_reason": "MECHANISM_NULL_at_K500: perm=0.013 <= proto=0.017 (drill K=500 prediction REFUTED; close sparse-bundled direction)",
+  "per_arm_per_K_recall_summary": {
+    "ARM_PROTOTYPE_CENTROID_BUNDLED": {
+      "100": {
+        "mean": 0.269,
+        "std": 0.012999999999999984,
+        "per_seed": [
+          0.256,
+          0.282
+        ]
+      },
+      "500": {
+        "mean": 0.0172,
+        "std": 0.0007999999999999986,
+        "per_seed": [
+          0.0164,
+          0.018
+        ]
+      }
+    },
+    "ARM_XOR_BUNDLED_REGRESSION": {
+      "100": {
+        "mean": 0.0115,
+        "std": 0.0014999999999999996,
+        "per_seed": [
+          0.013,
+          0.01
+        ]
+      },
+      "500": {
+        "mean": 0.0016,
+        "std": 0.0,
+        "per_seed": [
+          0.0016,
+          0.0016
+        ]
+      }
+    },
+    "ARM_PERMUTATION_BUNDLED": {
+      "100": {
+        "mean": 0.2065,
+        "std": 0.0005000000000000004,
+        "per_seed": [
+          0.206,
+          0.207
+        ]
+      },
+      "500": {
+        "mean": 0.0132,
+        "std": 0.002999999999999999,
+        "per_seed": [
+          0.0102,
+          0.0162
+        ]
+      }
+    },
+    "ARM_DIAG_RANDOM_SPARSE_BUNDLED": {
+      "100": {
+        "mean": 0.008,
+        "std": 0.0009999999999999996,
+        "per_seed": [
+          0.009,
+          0.007
+        ]
+      },
+      "500": {
+        "mean": 0.0028,
+        "std": 0.0005999999999999998,
+        "per_seed": [
+          0.0022,
+          0.0034
+        ]
+      }
+    }
+  },
+  "eval_K": 500,
+  "perm_recall_at_eval_K": 0.0132,
+  "xor_recall_at_eval_K": 0.0016,
+  "proto_recall_at_eval_K": 0.0172,
+  "diag_recall_at_eval_K": 0.0028,
+  "perm_minus_proto": -0.004,
+  "perm_minus_xor": 0.0116,
+  "n_seeds_complete": 2,
+  "expected_n_units": 16,
+  "completed_units": 16,
+  "cardinality_ok": true,
+  "gpu_util_p50": -1,
+  "gpu_util_n_samples": 0,
+  "device": "cpu",
+  "gpu_available": false,
+  "anchor_name": "tonegawa_v4_1_permutation_K500_GPU",
+  "elapsed_s": 9.7,
+  "ts_iso": "2026-06-27T22:01:20Z",
+  "pid": 35864,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=tonegawa_v4_1_permutation_K500_GPU,N=2048,KSP=20,NPC=8,BCC=0.30,WCN=0.55,K_SWEEP=[100, 500],SEEDS=[7, 17],NQPC=10,HP_perm_K500>=0.55,HP_perm-proto>=0.20,HP_perm-xor>=0.30,RUN_MODE=smoke,DEVICE=cuda_required,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+GPU_ASSERT+SMOKE_AT_FULL_N_K500",
+  "_hardening_marker": "v4_1_permutation_K500_GPU"
+}

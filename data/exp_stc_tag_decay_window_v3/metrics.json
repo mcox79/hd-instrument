@@ -1,0 +1,15 @@
+{
+  "anchor_name": "stc_tag_decay_window_v3",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=23 (4/5)",
+  "summary": "RUNNING: seed=23 (4/5)",
+  "elapsed_s": 2614.0,
+  "ts_iso": "2026-06-27T23:54:59Z",
+  "pid": 23516,
+  "run_mode": "full",
+  "config_version": "ANCHOR=stc_tag_decay_window_v3,N=8192,M=200,T_PRP=50,T_POST=200,lambda=0.020,tag_frac=0.50,alpha=0.0244,seeds=[11, 13, 19, 23, 29],mode=full,HP_tagged>=0.80,HP_untagged<=0.30,HP_selectivity_lift>=0.10,HP_tag=[0.40,0.55],regime_no_decay>=0.80,regime_with_decay<=0.40,hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=SAME_M_T_N_TAG_FRAC+RANDOM_TAG_DENSITY_CONTROL+ANTISAT_REGIME_GATE",
+  "_hardening_marker": "v3_stc_tag_decay_window",
+  "_phase": "seed_running",
+  "_current_seed": 23,
+  "alpha_load": 0.0244140625
+}

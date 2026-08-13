@@ -1,0 +1,110 @@
+{
+  "seed": 19,
+  "run_mode": "full",
+  "per_arm": [
+    {
+      "geometry": "random_partition",
+      "retrieval_acc": 0.1524,
+      "n_eval": 1024,
+      "routing_hash": "e766ccf0db84dcb1",
+      "kind": "top1",
+      "elapsed_s": 10.39
+    },
+    {
+      "geometry": "learned_supervised",
+      "retrieval_acc": 0.25284,
+      "n_eval": 1024,
+      "routing_hash": "5fd905b0322e143e",
+      "kind": "top1",
+      "elapsed_s": 10.31
+    },
+    {
+      "geometry": "lsh_hash",
+      "retrieval_acc": 0.08931,
+      "n_eval": 1024,
+      "routing_hash": "e9ab6c42562661e7",
+      "kind": "top1",
+      "elapsed_s": 10.91
+    },
+    {
+      "geometry": "hierarchical_tree",
+      "retrieval_acc": 0.11849,
+      "n_eval": 1024,
+      "routing_hash": "70cdea5e805e7296",
+      "kind": "top1",
+      "elapsed_s": 10.92
+    },
+    {
+      "geometry": "knn_softmax",
+      "retrieval_acc": 0.55993,
+      "n_eval": 1024,
+      "routing_hash": "8c1a98ae76e62d66",
+      "kind": "topk",
+      "elapsed_s": 32.31
+    }
+  ],
+  "per_arm_tier": {
+    "random_partition": "MIDDLE_BAND",
+    "learned_supervised": "MIDDLE_BAND",
+    "lsh_hash": "HARD_FAIL",
+    "hierarchical_tree": "HARD_FAIL",
+    "knn_softmax": "HARD_PASS"
+  },
+  "tier_counts": {
+    "HARD_PASS": 1,
+    "MIDDLE_BAND": 2,
+    "HARD_FAIL": 2,
+    "SATURATED": 0,
+    "FAIL": 0
+  },
+  "retrieval_acc_by_arm": {
+    "random_partition": 0.1524,
+    "learned_supervised": 0.25284,
+    "lsh_hash": 0.08931,
+    "hierarchical_tree": 0.11849,
+    "knn_softmax": 0.55993
+  },
+  "routing_hash_by_arm": {
+    "random_partition": "e766ccf0db84dcb1",
+    "learned_supervised": "5fd905b0322e143e",
+    "lsh_hash": "e9ab6c42562661e7",
+    "hierarchical_tree": "70cdea5e805e7296",
+    "knn_softmax": "8c1a98ae76e62d66"
+  },
+  "n_unique_hashes": 5,
+  "n_distinct_localizations": 4,
+  "discrimination_gate_pass": true,
+  "positive_control": {
+    "arm": "random_partition",
+    "retrieval_acc": 0.1524,
+    "floor": 0.1,
+    "pass": true,
+    "saturated": false
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "observed_n_units": 5,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1 arms cleared retrieval_acc>=0.3; 4 distinct localizations; PC=0.152",
+  "summary": "HARD_PASS: 1 arms cleared retrieval_acc>=0.3; 4 distinct localizations; PC=0.152",
+  "n_kg_ents": 80181,
+  "n_kg_rels": 8,
+  "n_kg_keys": 42154,
+  "n_kg_triples": 100000,
+  "M_ingest": 100000,
+  "N_DIM": 2048,
+  "P_SHARDS": 128,
+  "n_eval": 1024,
+  "routing_noise_cos": 0.6,
+  "anchor_name": "substrate_routing_geometry_family_kg_ingest_v2_seed_19",
+  "config_version": "ANCHOR=substrate_routing_geometry_family_kg_ingest_v2_seed_19,geometries=[random_partition,learned_supervised,lsh_hash,hierarchical_tree,knn_softmax],M_smoke=10000,N_smoke=512,M_full=100000,N_full=2048,P_smoke=256,P_full=128,n_eval_smoke=200,n_eval_full=1024,SEED=19,mode=full,expected_n_arms=5,HP_HARD_PASS_RA=0.55,HP_MIN_DISTINCT=3,hardening=L1startmarker+L2crashdiag+L3atomicmetrics+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_routing_geometry_kg_ingest_chunked",
+  "backend": "torch.cuda",
+  "elapsed_s": 75.44,
+  "ts_iso": "2026-07-01T03:34:40Z",
+  "pid": 35696,
+  "n_seeds": 1,
+  "corpus_provenance": "conceptnet5_en_100k_5arm_routing_geometry",
+  "n_llm_calls": 0,
+  "zero_llm_calls_at_inference": true
+}

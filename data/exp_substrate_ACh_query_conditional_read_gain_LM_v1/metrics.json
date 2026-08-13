@@ -1,0 +1,117 @@
+{
+  "anchor_name": "substrate_ACh_query_conditional_read_gain_LM_v1",
+  "anchor": "substrate_ACh_query_conditional_read_gain_LM_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: per-query READ-gain lift=0.0058 <= threshold=0.03. ACh-analog READ-gain provides no LM improvement. GLOBAL_BPC=5.1274 | MARGIN_BPC=5.1216 | ENTROPY_BPC=5.1355 | UNI_BPC=5.5226 | lift_margin=0.0058 | lift_entropy=-0.0081 | replication_ok=False",
+  "run_mode": "smoke",
+  "config_version": "substrate_ACh_query_conditional_read_gain_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_GLOBAL_READ_GAIN', 'ARM_PER_QUERY_GAIN_MARGIN', 'ARM_PER_QUERY_GAIN_ENTROPY'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] base_gains=[0.5, 1.0, 2.0, 4.0] alphas=[0.0, 0.5, 1.0, 2.0, 4.0] sparse_f=0.050 MRR_K=10 device=cpu; bands HP_lift>=0.10 chain_grade_lift>=0.20 middle_lower>=0.03 cv_max=0.050",
+  "detail": {
+    "by_arm_agg": {
+      "ARM_GLOBAL_READ_GAIN": {
+        "bpc_mean": 5.1274,
+        "bpc_std": 0.0,
+        "bpc_cv": 0.0,
+        "n_seeds": 1
+      },
+      "ARM_PER_QUERY_GAIN_MARGIN": {
+        "bpc_mean": 5.1216,
+        "bpc_std": 0.0,
+        "bpc_cv": 0.0,
+        "n_seeds": 1
+      },
+      "ARM_PER_QUERY_GAIN_ENTROPY": {
+        "bpc_mean": 5.1355,
+        "bpc_std": 0.0,
+        "bpc_cv": 0.0,
+        "n_seeds": 1
+      },
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0,
+        "bpc_cv": 0.0,
+        "n_seeds": 1
+      }
+    },
+    "lift_margin_bpc": 0.0058,
+    "lift_entropy_bpc": -0.0081,
+    "best_lift_bpc": 0.0058,
+    "replication_pass": false,
+    "perquery_collapse": false,
+    "any_degen": false,
+    "cv_ok": true,
+    "fair_harness_baseline_bpc": 7.3065,
+    "hp_lift_threshold": 0.1,
+    "chain_grade_lift_threshold": 0.2,
+    "middle_lower_threshold": 0.03
+  },
+  "n_seeds": 1,
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_GLOBAL_READ_GAIN": {
+          "bpc_best": 5.1274,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.3992,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_gain_for_bpc": 0.5,
+          "raw_bpc_at_T1_L1_G1": 7.8054,
+          "replication_ok": false,
+          "replication_delta": -2.1791,
+          "elapsed_s_arm": 0.31,
+          "degen_suspect": false
+        },
+        "ARM_PER_QUERY_GAIN_MARGIN": {
+          "bpc_best": 5.1216,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4004,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_gain_for_bpc": 0.5,
+          "best_alpha_for_bpc": 2.0,
+          "elapsed_s_arm": 0.9
+        },
+        "ARM_PER_QUERY_GAIN_ENTROPY": {
+          "bpc_best": 5.1355,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4006,
+          "best_T_for_bpc": 0.5,
+          "best_lambda_for_bpc": 0.1,
+          "best_gain_for_bpc": 4.0,
+          "best_alpha_for_bpc": 2.0,
+          "elapsed_s_arm": 0.86
+        }
+      },
+      "V": 300,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 300,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "smoke",
+      "config_version": "substrate_ACh_query_conditional_read_gain_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_GLOBAL_READ_GAIN', 'ARM_PER_QUERY_GAIN_MARGIN', 'ARM_PER_QUERY_GAIN_ENTROPY'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] base_gains=[0.5, 1.0, 2.0, 4.0] alphas=[0.0, 0.5, 1.0, 2.0, 4.0] sparse_f=0.050 MRR_K=10 device=cpu; bands HP_lift>=0.10 chain_grade_lift>=0.20 middle_lower>=0.03 cv_max=0.050",
+      "elapsed_s_seed": 47.05,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300
+      },
+      "degen_suspect": false,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782271890.8343198
+    }
+  ],
+  "atexit_synthesis": true,
+  "elapsed_s": 0.0,
+  "summary": "HARD_FAIL: per-query READ-gain lift=0.0058 <= threshold=0.03. ACh-analog READ-gain provides no LM improvement. GLOBAL_BPC=5.1274 | MARGIN_BPC=5.1216 | ENTROPY_BPC=5.1355 | UNI_BPC=5.5226 | lift_margin=0.0058 | lift_entropy=-0.0081 | replication_ok=False"
+}

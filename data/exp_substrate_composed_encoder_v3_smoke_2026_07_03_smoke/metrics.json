@@ -1,0 +1,254 @@
+{
+  "anchor_name": "substrate_composed_encoder_v3_smoke_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF1_COMPOSITION_HURTS: v3_r5=0.3333 < max(VWFA=0.2400, PPMI=0.3400)=0.3400; composition STRICTLY hurts single-spoke performance; mechanism design bug. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "summary": "HF1_COMPOSITION_HURTS: v3_r5=0.3333 < max(VWFA=0.2400, PPMI=0.3400)=0.3400; composition STRICTLY hurts single-spoke performance; mechanism design bug. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "elapsed_s": 18.23,
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-03T01:42:21.751492+00:00",
+  "config": {
+    "n_dim": 2048,
+    "k_sparsity": 0.02,
+    "max_pos": 24,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "hp_bands": {
+      "HP1_composition_lift": 0.03,
+      "HP2_beat_bag_margin": 0.04,
+      "HP3_v1_measured": 0.16,
+      "HP3_v1_tol": 0.03,
+      "HP4_trigram_measured": 0.28,
+      "HP4_trigram_tol": 0.03,
+      "HF4_v1_lo": 0.13,
+      "HF4_v1_hi": 0.19,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_v3_composed_equal_alpha_recall_at_1_mean": 0.19999999999999998,
+    "arm_v3_composed_equal_alpha_recall_at_5_mean": 0.3333333333333333,
+    "arm_v3_composed_equal_alpha_recall_at_10_mean": 0.3833333333333333,
+    "arm_vwfa_alone_recall_at_1_mean": 0.13333333333333333,
+    "arm_vwfa_alone_recall_at_5_mean": 0.24,
+    "arm_vwfa_alone_recall_at_10_mean": 0.2833333333333334,
+    "arm_ppmi_alone_recall_at_1_mean": 0.24,
+    "arm_ppmi_alone_recall_at_5_mean": 0.34,
+    "arm_ppmi_alone_recall_at_10_mean": 0.4000000000000001,
+    "arm_v1_concept_encoder_cosine_recall_at_1_mean": 0.10333333333333333,
+    "arm_v1_concept_encoder_cosine_recall_at_5_mean": 0.16,
+    "arm_v1_concept_encoder_cosine_recall_at_10_mean": 0.23666666666666666,
+    "arm_char_trigram_unsup_reference_recall_at_1_mean": 0.18000000000000002,
+    "arm_char_trigram_unsup_reference_recall_at_5_mean": 0.28,
+    "arm_char_trigram_unsup_reference_recall_at_10_mean": 0.34
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v3_composed_equal_alpha": {
+        "recall_at_1": 0.2,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.41
+      },
+      "arm_vwfa_alone": {
+        "recall_at_1": 0.12,
+        "recall_at_5": 0.23,
+        "recall_at_10": 0.31
+      },
+      "arm_ppmi_alone": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.12,
+        "recall_at_10": 0.21
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "v3_composed": 0.408,
+        "vwfa_alone": 0.338,
+        "ppmi_alone": 0.3,
+        "v1_concept_cosine": 0.941,
+        "char_trigram": 0.116,
+        "v3_fit": 3.235
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V3_COMPOSED_EQUAL_ALPHA": "81da60a1f31b50c09082383a5d558bf9e85de7f1171bcb6ca20ba7f456ed91b4",
+        "ARM_VWFA_ALONE": "4e175b522661db1436a23b0e719539fef832319d5065fe487548f3f5c8ea4cdb",
+        "ARM_PPMI_ALONE": "8adc6f858625d8128acfa8eb604530a84ad331a60a18d43368266056f99c271b",
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "69f3eebb0b0b7da28f4c99776017770b1674d6b5ffcbb6055834d7adf54e1baa",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c"
+      },
+      "hp6_vwfa_identity_ok": true,
+      "hp6_ppmi_identity_ok": true,
+      "wall_s": 5.687
+    },
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v3_composed_equal_alpha": {
+        "recall_at_1": 0.19,
+        "recall_at_5": 0.33,
+        "recall_at_10": 0.37
+      },
+      "arm_vwfa_alone": {
+        "recall_at_1": 0.16,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.27
+      },
+      "arm_ppmi_alone": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.15,
+        "recall_at_10": 0.19
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "v3_composed": 0.395,
+        "vwfa_alone": 0.367,
+        "ppmi_alone": 0.305,
+        "v1_concept_cosine": 0.847,
+        "char_trigram": 0.141,
+        "v3_fit": 3.288
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V3_COMPOSED_EQUAL_ALPHA": "d61b572f9fd05e6915a85e078bb993208633102d8d431947b50ff4c85e2578d6",
+        "ARM_VWFA_ALONE": "4dbc83d7b1587c16c5acefb2ed71f73d8c4b1474006f3639785e1f11a80fbb30",
+        "ARM_PPMI_ALONE": "8adc6f858625d8128acfa8eb604530a84ad331a60a18d43368266056f99c271b",
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "9026c4c5564180d8570a2c9a89dbb2907afe591e2900b69e98672406a9d2c5e8",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c"
+      },
+      "hp6_vwfa_identity_ok": true,
+      "hp6_ppmi_identity_ok": true,
+      "wall_s": 5.787
+    },
+    {
+      "seed": 23,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v3_composed_equal_alpha": {
+        "recall_at_1": 0.21,
+        "recall_at_5": 0.33,
+        "recall_at_10": 0.37
+      },
+      "arm_vwfa_alone": {
+        "recall_at_1": 0.12,
+        "recall_at_5": 0.24,
+        "recall_at_10": 0.27
+      },
+      "arm_ppmi_alone": {
+        "recall_at_1": 0.24,
+        "recall_at_5": 0.34,
+        "recall_at_10": 0.4
+      },
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.13,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.31
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "v3_composed": 0.408,
+        "vwfa_alone": 0.357,
+        "ppmi_alone": 0.485,
+        "v1_concept_cosine": 0.815,
+        "char_trigram": 0.11,
+        "v3_fit": 3.728
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V3_COMPOSED_EQUAL_ALPHA": "9a799e3d882184dc360a4e4d7a2b47315cbcec03d0a9378a420b765b47af3994",
+        "ARM_VWFA_ALONE": "baefa957bc4383c27e20f4037dbdfaff6ea66d5611591cc9cbfc45523e1682dd",
+        "ARM_PPMI_ALONE": "8adc6f858625d8128acfa8eb604530a84ad331a60a18d43368266056f99c271b",
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "b8b699579d1814d75d5c42510fc5d0987ab2ea8bffe7707390c598ab26f51b28",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c"
+      },
+      "hp6_vwfa_identity_ok": true,
+      "hp6_ppmi_identity_ok": true,
+      "wall_s": 6.269
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "landed_n_units": 15,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": true,
+  "arms_differ_verified": true,
+  "hp6_vwfa_identity_ok_all_seeds": true,
+  "hp6_ppmi_identity_ok_all_seeds": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_prototype_hds_composed_v3",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "baseline_in_band=True v3_r5=0.3333 best_spoke=0.3400 tri_r5=0.2800 v1_r5=0.1600 lift_vs_best_spoke=-0.0067 discriminator_fires=True",
+  "prereg_path": "preregs/2026-07-03_substrate_composed_encoder_v3_smoke.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "run_mode_verification_16"
+  ],
+  "hp_scope": {
+    "ARM_V3_COMPOSED_EQUAL_ALPHA": [
+      "HP1",
+      "HP2"
+    ],
+    "ARM_VWFA_ALONE": [
+      "HP6"
+    ],
+    "ARM_PPMI_ALONE": [
+      "HP6"
+    ],
+    "ARM_V1_CONCEPT_ENCODER_COSINE": [
+      "HP3"
+    ],
+    "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": [
+      "HP4"
+    ]
+  }
+}

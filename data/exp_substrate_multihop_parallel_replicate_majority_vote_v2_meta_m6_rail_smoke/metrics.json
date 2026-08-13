@@ -1,0 +1,118 @@
+{
+  "anchor_name": "substrate_multihop_parallel_replicate_majority_vote_v2_meta_m6_rail",
+  "verdict": "META_M6_RAIL_VIOLATION",
+  "verdict_msg": "META_M6_RAIL_VIOLATION_REPRODUCE_POINTER_CHAIN_V2_OUT_OF_RAIL: BASELINE=0.6450 (sanity_breach=0/1 in [0.62,0.68]) | REPRODUCE_POINTER_CHAIN_V2=0.4500 (cv=0.000 META_M6_breach=1/1 rail=[0.08,0.25]) | CELLX_V1_AS_DOC=0.8500 (cv=0.000 V1_DOC_breach=0/1 rail=[0.60,0.90]) | K5_PERHOP_5HOP=0.4500 (cv=0.000) K15_PERHOP_5HOP=0.6000 (cv=0.000) | monotonic_K1<K5<K15=False | pointer_v2_5hop_full=0.122 v1_smoke_5hop=0.78 (reference)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateMultihopParallelReplicateMajorityVote-v2-META_M6_rail: N=2048 V_C=200 BASELINE_V_P=2 (p1=0/p2=1) BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=50 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=20 V1_DEPTH=5 TEST_DEPTH=5 REPLICATE_NOISE_FRAC=0.050 K_REPLICATE_GRID=[1,5,15] seeds=[7] mode=smoke HP_K15>=0.70 HP_K5>=0.50 HP_cv<=0.07 HP_partial_K15>=0.50 mid_K15=[0.30,0.50] HF_K15<0.30 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.60,0.90]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "n_predicates": 10,
+      "baseline_n_chains": 200,
+      "pointerv2_n_chains": 50,
+      "pointerv2_max_depth": 10,
+      "v1_n_chains": 20,
+      "v1_max_depth": 5,
+      "test_depth": 5,
+      "replicate_noise_frac": 0.05,
+      "config_version": "substrateMultihopParallelReplicateMajorityVote-v2-META_M6_rail: N=2048 V_C=200 BASELINE_V_P=2 (p1=0/p2=1) BASELINE_N=200 POINTERV2_V_P=10 POINTERV2_N=50 POINTERV2_DEPTH=10 K_SET=20 V1_V_P=10 V1_N=20 V1_DEPTH=5 TEST_DEPTH=5 REPLICATE_NOISE_FRAC=0.050 K_REPLICATE_GRID=[1,5,15] seeds=[7] mode=smoke HP_K15>=0.70 HP_K5>=0.50 HP_cv<=0.07 HP_partial_K15>=0.50 mid_K15=[0.30,0.50] HF_K15<0.30 baseline_sanity=[0.62,0.68] META_M6_rail=[0.08,0.25] V1_DOC_rail=[0.60,0.90]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.645,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 1.12
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2": {
+        "top1": 0.45,
+        "per_step_acc": [
+          0.8,
+          0.75,
+          0.75,
+          0.6,
+          0.45
+        ],
+        "n_queries": 20,
+        "depth": 5,
+        "K_replicate": 1,
+        "vote_protocol": "at_end",
+        "mean_diversity": 0.0,
+        "replicate_noise_frac": 0.05,
+        "mechanism": "parallel_replicate_majority_vote",
+        "elapsed_s_arm": 0.3,
+        "regime": "pointer_v2 (n_chains=50 max_depth=10 -> 500 bindings)"
+      },
+      "meta_m6_rail_ok": false,
+      "arm_cellx_v1_as_doc": {
+        "top1": 0.85,
+        "per_step_acc": [
+          0.95,
+          0.9,
+          0.9,
+          0.9,
+          0.85
+        ],
+        "n_queries": 20,
+        "depth": 5,
+        "K_replicate": 1,
+        "vote_protocol": "at_end",
+        "mean_diversity": 0.0,
+        "replicate_noise_frac": 0.05,
+        "mechanism": "parallel_replicate_majority_vote",
+        "elapsed_s_arm": 0.26,
+        "regime": "v1 (n_chains=20 max_depth=5 -> 100 bindings)"
+      },
+      "v1_doc_rail_ok": true,
+      "arm_parallel_k5_perhop_5hop": {
+        "top1": 0.45,
+        "per_step_acc": [
+          0.85,
+          0.8,
+          0.75,
+          0.6,
+          0.45
+        ],
+        "n_queries": 20,
+        "depth": 5,
+        "K_replicate": 5,
+        "vote_protocol": "per_hop",
+        "mean_diversity": 0.186,
+        "replicate_noise_frac": 0.05,
+        "mechanism": "parallel_replicate_majority_vote",
+        "elapsed_s_arm": 1.36,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "arm_parallel_k15_perhop_5hop": {
+        "top1": 0.6,
+        "per_step_acc": [
+          0.8,
+          0.8,
+          0.8,
+          0.7,
+          0.6
+        ],
+        "n_queries": 20,
+        "depth": 5,
+        "K_replicate": 15,
+        "vote_protocol": "per_hop",
+        "mean_diversity": 0.1827,
+        "replicate_noise_frac": 0.05,
+        "mechanism": "parallel_replicate_majority_vote",
+        "elapsed_s_arm": 3.69,
+        "regime": "pointer_v2 (matched regime)"
+      },
+      "elapsed_s": 6.9,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782438797.3944721
+    }
+  ],
+  "elapsed_s": 7.0,
+  "summary": "META_M6_RAIL_VIOLATION_REPRODUCE_POINTER_CHAIN_V2_OUT_OF_RAIL: BASELINE=0.6450 (sanity_breach=0/1 in [0.62,0.68]) | REPRODUCE_POINTER_CHAIN_V2=0.4500 (cv=0.000 META_M6_breach=1/1 rail=[0.08,0.25]) | CELLX_V1_AS_DOC=0.8500 (cv=0.000 V1_DOC_breach=0/1 rail=[0.60,0.90]) | K5_PERHOP_5HOP=0.4500 (cv=0.000) K15_PERHOP_5HOP=0.6000 (cv=0.000) | monotonic_K1<K5<K15=False | pointer_v2_5hop_full=0.122 v1_smoke_5hop=0.78 (reference)",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Cell X v2 META_M6_rail: stage-1 sanity-check of Cell X v1 found v1's 0.78 single-chain 5HOP was a REGIME ARTIFACT (v1 ran SMOKE with N=2048 n_chains=50 max_depth=5 -> 250 W bindings, vs pointer-chain v2 FULL with N=8192 n_chains=200 max_depth=10 -> 2000 W bindings; 8x crosstalk diff in same V_C=200, V_P=10 key space). Cell X v1 and pointer-chain v2 use the SAME cleanup primitive (verbatim algorithmically equivalent: key=E[s]*R[p]*sq; readout=W@key; argmax over E; cleaned-atom index seeds next hop). v2 introduces two-W discipline: ARM_REPRODUCE_POINTER_CHAIN_V2 uses W_pointer_v2_regime (HARD; n=200 max_depth=10); ARM_CELLX_V1_AS_DOC uses W_v1_regime (EASIER; n=50 max_depth=5). Parallel arms (K=5, K=15 per_hop vote) use the HARD regime so any lift is real mechanism contribution, NOT low-crosstalk W shortcut. META_M6_RAIL ([0.08, 0.25]) enforces that REPRODUCE actually reproduces pointer-chain v2 at identical regime; otherwise all comparisons are uninterpretable. Pre-reg: preregs/2026-06-25_substrate_multihop_parallel_replicate_majority_vote_v2_META_M6_rail.md."
+}

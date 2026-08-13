@@ -1,0 +1,78 @@
+{
+  "anchor_name": "sharded_fhrr_capacity_scale_free_extension_N16384_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (residual): sharded=1.000 at max_nprop=16000 for N=16384; bundle=0.165 at collapse_check=4000. META scale-free claim inconclusive. sharded_curve={2000: 1.0, 4000: 1.0, 8000: 1.0, 16000: 1.0} bundle_curve={2000: 0.39, 4000: 0.165, 8000: 0.055, 16000: 0.01}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "seed": 7,
+  "device": "cuda",
+  "N": 16384,
+  "n_units": 4,
+  "grid_nprop": [
+    2000,
+    4000,
+    8000,
+    16000
+  ],
+  "M_queries": 200,
+  "bundle_bound_approx": 2294,
+  "sharded_acc_at_max_nprop": 1.0,
+  "bundle_acc_at_max_nprop": 0.01,
+  "max_nprop": 16000,
+  "bundle_collapse_check_nprop": 4000,
+  "bundle_acc_at_collapse_check": 0.165,
+  "per_unit": [
+    {
+      "NPROP": 2000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.39,
+      "sharded_hash": "085eda94ce14db0c",
+      "bundle_hash": "4e2dcb2a34acd916",
+      "build_chunk": 2000,
+      "cleanup_chunk": 2000,
+      "peak_gpu_mb": 1259.4,
+      "elapsed_s": 1.335
+    },
+    {
+      "NPROP": 4000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.165,
+      "sharded_hash": "ff93b0cfc4db3dd6",
+      "bundle_hash": "a1181eb123a20b16",
+      "build_chunk": 2000,
+      "cleanup_chunk": 2000,
+      "peak_gpu_mb": 1259.4,
+      "elapsed_s": 2.098
+    },
+    {
+      "NPROP": 8000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.055,
+      "sharded_hash": "7f5ff78660cb9283",
+      "bundle_hash": "5ae5bde07d1a43d3",
+      "build_chunk": 2000,
+      "cleanup_chunk": 2000,
+      "peak_gpu_mb": 1259.4,
+      "elapsed_s": 3.326
+    },
+    {
+      "NPROP": 16000,
+      "M": 200,
+      "acc_sharded": 1.0,
+      "acc_bundle": 0.01,
+      "sharded_hash": "2c03398c5f5205bc",
+      "bundle_hash": "c24b475d2a574a3d",
+      "build_chunk": 2000,
+      "cleanup_chunk": 2000,
+      "peak_gpu_mb": 1259.4,
+      "elapsed_s": 7.445
+    }
+  ],
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "elapsed_s": 14.205230712890625,
+  "summary": "MIDDLE_BAND (residual): sharded=1.000 at max_nprop=16000 for N=16384; bundle=0.165 at collapse_check=4000. META scale-free claim inconclusive. sharded_curve={2000: 1.0, 4000: 1.0, 8000: 1.0, 16000: 1.0} bundle_curve={2000: 0.39, 4000: 0.165, 8000: 0.055, 16000: 0.01}"
+}

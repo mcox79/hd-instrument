@@ -1,0 +1,75 @@
+{
+  "verdict": "SANITY_FAIL",
+  "verdict_msg": "SANITY_RAIL_2 FAIL: ARM_SINGLE_STEP bpc=7.2513 deviates > 0.05 from reference 7.3753 (delta=0.1240). Cannot apply pre-reg bands against mis-calibrated baseline. ; WHAT_THIS_DOES_NOT_SHOW: (1) whether alpha=0.3 remains optimal across noise levels or M/N ratios; (2) whether result generalizes to non-char-trigram encoders; (3) whether cue-clamping combined with sparsity changes has compound effects.",
+  "arm_summary": {
+    "ARM_BASELINE_NO_CLEANUP": {
+      "bpc_mean": 7.226830005645752,
+      "bpc_std": 0.0018535028155810302,
+      "bpc_cv": 0.00025647521999729267,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.3020985714285722,
+      "mean_iters_mean": 0.0,
+      "n_seeds": 3
+    },
+    "ARM_SINGLE_STEP": {
+      "bpc_mean": 7.2512509028116865,
+      "bpc_std": 0.0033187411598706845,
+      "bpc_cv": 0.00045767843429384523,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.2918299735449736,
+      "mean_iters_mean": 1.0,
+      "n_seeds": 3
+    },
+    "ARM_CLAMPED_ALPHA_03": {
+      "bpc_mean": 7.252498785654704,
+      "bpc_std": 0.0028552522299816934,
+      "bpc_cv": 0.00039369220380006467,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.2928336507936509,
+      "mean_iters_mean": 2.0,
+      "n_seeds": 3
+    },
+    "ARM_CLAMPED_ALPHA_05": {
+      "bpc_mean": 7.269869327545166,
+      "bpc_std": 0.0016068875014232811,
+      "bpc_cv": 0.00022103389057281483,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.2948005555555558,
+      "mean_iters_mean": 2.0,
+      "n_seeds": 3
+    },
+    "ARM_CLAMPED_ALPHA_07": {
+      "bpc_mean": 7.289728323618571,
+      "bpc_std": 0.06058629978030064,
+      "bpc_cv": 0.00831118761778848,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.29635223544973527,
+      "mean_iters_mean": 2.0,
+      "n_seeds": 3
+    },
+    "ARM_UNIGRAM": {
+      "bpc_mean": 7.683793544769287,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.26915,
+      "mrr_mean": NaN,
+      "mean_iters_mean": NaN,
+      "n_seeds": 3
+    }
+  },
+  "bpc_baseline_mean": 7.226830005645752,
+  "bpc_ss_mean": 7.2512509028116865,
+  "n_seeds": 3,
+  "config_version": "substrate_iterative_cleanup_cue_clamped_production_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_NO_CLEANUP', 'ARM_SINGLE_STEP', 'ARM_CLAMPED_ALPHA_03', 'ARM_CLAMPED_ALPHA_05', 'ARM_CLAMPED_ALPHA_07'] seeds=[7, 17, 23] mode=full f=0.050 amplitude_scale=4.472 max_steps=8 temp_cleanup=4.0 bands HP=0.10 chain=0.20 mid=[0.03,0.10] cv_max=0.05",
+  "pre_reg": {
+    "HARD_PASS": "best ARM_CLAMPED beats ARM_BASELINE_NO_CLEANUP by >= 0.1 bits BPC",
+    "CHAIN_GRADE_BONUS": "lift >= 0.2 AND beats cf-RPE 7.1052 by >= 0.05",
+    "MIDDLE_BAND": "lift in [0.03,0.1]",
+    "HARD_FAIL": "lift <= 0.03",
+    "SANITY_RAIL_1": "ARM_BASELINE_NO_CLEANUP within +-0.05 of 7.2268",
+    "SANITY_RAIL_2": "ARM_SINGLE_STEP within +-0.05 of 7.3753",
+    "CV_MAX": 0.05
+  },
+  "elapsed_s": 0.0,
+  "summary": "SANITY_RAIL_2 FAIL: ARM_SINGLE_STEP bpc=7.2513 deviates > 0.05 from reference 7.3753 (delta=0.1240). Cannot apply pre-reg bands against mis-calibrated baseline. ; WHAT_THIS_DOES_NOT_SHOW: (1) whether alpha=0.3 remains optimal across noise levels or M/N ratios; (2) whether result generalizes to non-char-trigram encoders; (3) whether cue-clamping combined with sparsity changes has compound effects."
+}

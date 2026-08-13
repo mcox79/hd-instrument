@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_compression_pareto_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "arms_differ_pairs=6/6 | NC_recall=0.950 | ARM_NO_COMPRESSION=(fpp=1.0,rec=0.950) | ARM_SCHEMA_EXEMPLAR_BAYES=(fpp=10.0,rec=0.900) | ARM_SCHEMA_HARDMAX_CENTROID=(fpp=100.0,rec=0.750) | ARM_SCHEMA_HIERARCHICAL=(fpp=1.0,rec=0.500)",
+  "summary": "arms_differ_pairs=6/6 | NC_recall=0.950 | ARM_NO_COMPRESSION=(fpp=1.0,rec=0.950) | ARM_SCHEMA_EXEMPLAR_BAYES=(fpp=10.0,rec=0.900) | ARM_SCHEMA_HARDMAX_CENTROID=(fpp=100.0,rec=0.750) | ARM_SCHEMA_HIERARCHICAL=(fpp=1.0,rec=0.500)",
+  "elapsed_s": 2.74,
+  "ts_iso": "2026-07-01T02:33:47Z",
+  "pid": 10944,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_compression_pareto_v1_seed_7,SEED=7,mode=selftest,arms=[NO_COMPRESSION,SCHEMA_EXEMPLAR_BAYES,SCHEMA_HARDMAX_CENTROID,SCHEMA_HIERARCHICAL],full_n_facts=10000,full_N=8192,full_n_q=100,smoke_n_facts=1000,smoke_N=2048,smoke_n_q=30,hardening=STARTED+SEED_CKPT+HEARTBEAT+CRASH_DIAG+SYS_EXIT_RAISE",
+  "_hardening_marker": "v1_compression_pareto_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

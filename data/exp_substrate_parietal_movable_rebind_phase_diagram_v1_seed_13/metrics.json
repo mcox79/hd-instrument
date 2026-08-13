@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_parietal_movable_rebind_phase_diagram_v1_seed_13",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS substrate=1.000 random=0.000 static=0.000 arms_distinct=True",
+  "summary": "selftest seed=13 substrate=1.000 random=0.000 static=0.000",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-28T16:36:53Z",
+  "run_mode": "self_test",
+  "config_version": "ANCHOR=substrate_parietal_movable_rebind_phase_diagram_v1_seed_13,N=1024,grids=[4, 8, 16, 32],n_objs=[8, 20, 50, 100, 200],move_freqs=[0.0, 0.2, 0.5, 0.8],pos_noise=0.05,n_scenes=20,mode=full,HP_frac=0.30,HP_sat=0.90,HP_cliff=0.40,HP_lift_static=0.30,META_AM_tol=0.02,arms=['substrate_hrr', 'random', 'static_binding'],hardening=META_AC_CRLB+AE_smoke_gate+AF_arms_differ+AG_atomic_write+AH_main_guard+AM_no_trivial+AN_complete",
+  "_arms_hashes": {
+    "substrate": "9c769d545b6c8bec1e48d0b462c205f989249eb20d9acad4ec99071bfbb7758a",
+    "random": "685e0f6bc18ba8e48a8843385050a67a729e3594cfcc87ebf42fba8fe2ae8ffa",
+    "static": "1d34a9e73d6a1e34fbc9b544084dfd8343645cf4c9af3b6389ef15a9b2b43569"
+  }
+}

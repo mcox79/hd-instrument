@@ -1,0 +1,54 @@
+{
+  "anchor_name": "refuse_gate_5_sq6_concentration_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL / NON_TEST: no (beta,c) separates SQ6-refuse>=0.95 from in-env-accept>=0.80 -> concentrations overlap (gate can't discriminate storable from unstorable, OR only refuses-everything). discriminating 0/1 seeds | sq6_refuse=0.188 in-env-accept=0.984 conc_sep=0.069",
+  "run_mode": "smoke",
+  "N": 2048,
+  "V": 128,
+  "E_in_frac": 0.03,
+  "E_sq6_frac": 0.5,
+  "n_seeds": 1,
+  "detail": {
+    "per_seed": [
+      {
+        "beta": 10.0,
+        "c": 0.5,
+        "inenv_accept": 0.984,
+        "sq6_refuse": 0.188,
+        "discriminating": false,
+        "score": 1.172,
+        "inenv_conc_mean": 0.876,
+        "sq6_conc_mean": 0.807,
+        "seed": 1,
+        "run_mode": "smoke",
+        "_ckpt_key": "s1",
+        "_partial_written_at": 1781979682.9091978
+      }
+    ],
+    "n_discriminating": 0,
+    "n_seeds": 1,
+    "mean_sq6_refuse": 0.188,
+    "mean_inenv_accept": 0.984,
+    "conc_separation_inenv_minus_sq6": 0.069,
+    "honest_claim": "Refuse-gate (attention-concentration) REFUSES on the SQ6-HARD_FAIL regime (dense graph-adjacency E=0.5N the substrate can't store separably) rather than fabricating, while ANSWERING on an in-envelope graph (E=0.03N): exists (beta,c) with SQ6-refuse>=0.95 AND in-env-accept>=0.80 on 0/1 seeds; concentration separation 0.07. SCOPE = known-HARD_FAIL regime (NOT boundary-precision)."
+  },
+  "metrics_source": "measured_cpu_refuse_gate_sq6_concentration",
+  "per_unit": [
+    {
+      "beta": 10.0,
+      "c": 0.5,
+      "inenv_accept": 0.984,
+      "sq6_refuse": 0.188,
+      "discriminating": false,
+      "score": 1.172,
+      "inenv_conc_mean": 0.876,
+      "sq6_conc_mean": 0.807,
+      "seed": 1,
+      "run_mode": "smoke",
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1781979682.9091978
+    }
+  ],
+  "elapsed_s": 0.08763313293457031,
+  "summary": "HARD_FAIL / NON_TEST: no (beta,c) separates SQ6-refuse>=0.95 from in-env-accept>=0.80 -> concentrations overlap (gate can't discriminate storable from unstorable, OR only refuses-everything). discriminating 0/1 seeds | sq6_refuse=0.188 in-env-accept=0.984 conc_sep=0.069"
+}

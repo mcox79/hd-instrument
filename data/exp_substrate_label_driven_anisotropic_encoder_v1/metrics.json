@@ -1,0 +1,490 @@
+{
+  "anchor_name": "substrate_label_driven_anisotropic_encoder_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: RANDOM: a3=0.917 a4=1.000 | AXIS: a3=0.861 a4=nan | GRAM_SCH: a3=0.389 a4=nan | HUB_SPOKE: a3=0.417 a4=1.000 | best_label=AXIS_PROJ a3=0.861 a4=nan | lift_vs_random_a3=-0.056 a4=nan | chance=0.083 a5_max=nan a6_max=1.000 rails=['A6_FLOOR_BUSTED(max=1.000 > 0.30)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "sublabAnis-v1: random vs axis-proj vs gram-schmidt vs hub-spoke; V_C=12 (cat=4 x 3) V_P=6 M=300 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_A3=0.85 HP_CG_A4=0.50 HP_lift=0.15 HP_A3=0.70 HP_A3_lift=0.10",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 300,
+      "V_C": 12,
+      "V_cat": 4,
+      "V_P": 6,
+      "config_version": "sublabAnis-v1: random vs axis-proj vs gram-schmidt vs hub-spoke; V_C=12 (cat=4 x 3) V_P=6 M=300 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_A3=0.85 HP_CG_A4=0.50 HP_lift=0.15 HP_A3=0.70 HP_A3_lift=0.10",
+      "arms": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "arm": "ARM_RANDOM_BIPOLAR_BASELINE",
+          "seed": 7,
+          "heldout_concepts": [
+            4,
+            6
+          ],
+          "a1": {
+            "top1": 0.3633,
+            "top5": 0.9633,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7767,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.4167,
+            "top5_in_cat": 1.0,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.62
+        },
+        "ARM_LABEL_DRIVEN_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_DRIVEN_AXIS_PROJECTION",
+          "seed": 7,
+          "heldout_concepts": [
+            4,
+            6
+          ],
+          "a1": {
+            "top1": 0.3633,
+            "top5": 0.96,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7467,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.1667,
+            "top5_in_cat": 0.9167,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.6
+        },
+        "ARM_LABEL_DRIVEN_GRAM_SCHMIDT": {
+          "arm": "ARM_LABEL_DRIVEN_GRAM_SCHMIDT",
+          "seed": 7,
+          "heldout_concepts": [
+            4,
+            6
+          ],
+          "a1": {
+            "top1": 0.26,
+            "top5": 0.7467,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.6867,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0833,
+            "top5_in_cat": 0.3333,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.6
+        },
+        "ARM_HUB_SPOKE_LABEL_BASELINE": {
+          "arm": "ARM_HUB_SPOKE_LABEL_BASELINE",
+          "seed": 7,
+          "heldout_concepts": [
+            4,
+            6
+          ],
+          "a1": {
+            "top1": 0.33,
+            "top5": 0.8567,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7433,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0,
+            "top5_in_cat": 0.4167,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": 1.0,
+            "n": 2
+          },
+          "a5": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 1
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.63
+        }
+      },
+      "elapsed_s": 2.5,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782397508.8574102
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 300,
+      "V_C": 12,
+      "V_cat": 4,
+      "V_P": 6,
+      "config_version": "sublabAnis-v1: random vs axis-proj vs gram-schmidt vs hub-spoke; V_C=12 (cat=4 x 3) V_P=6 M=300 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_A3=0.85 HP_CG_A4=0.50 HP_lift=0.15 HP_A3=0.70 HP_A3_lift=0.10",
+      "arms": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "arm": "ARM_RANDOM_BIPOLAR_BASELINE",
+          "seed": 17,
+          "heldout_concepts": [
+            8,
+            4
+          ],
+          "a1": {
+            "top1": 0.37,
+            "top5": 0.9533,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7933,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.3333,
+            "top5_in_cat": 0.8333,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.6
+        },
+        "ARM_LABEL_DRIVEN_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_DRIVEN_AXIS_PROJECTION",
+          "seed": 17,
+          "heldout_concepts": [
+            8,
+            4
+          ],
+          "a1": {
+            "top1": 0.3733,
+            "top5": 0.97,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7767,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.5,
+            "top5_in_cat": 0.9167,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.61
+        },
+        "ARM_LABEL_DRIVEN_GRAM_SCHMIDT": {
+          "arm": "ARM_LABEL_DRIVEN_GRAM_SCHMIDT",
+          "seed": 17,
+          "heldout_concepts": [
+            8,
+            4
+          ],
+          "a1": {
+            "top1": 0.2733,
+            "top5": 0.72,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7067,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0,
+            "top5_in_cat": 0.3333,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.6
+        },
+        "ARM_HUB_SPOKE_LABEL_BASELINE": {
+          "arm": "ARM_HUB_SPOKE_LABEL_BASELINE",
+          "seed": 17,
+          "heldout_concepts": [
+            8,
+            4
+          ],
+          "a1": {
+            "top1": 0.3167,
+            "top5": 0.8433,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7233,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0833,
+            "top5_in_cat": 0.3333,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": 1.0,
+            "n": 1
+          },
+          "a5": {
+            "top1": 1.0,
+            "top5": 1.0,
+            "n": 1
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.63
+        }
+      },
+      "elapsed_s": 2.4,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782397511.3103342
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 300,
+      "V_C": 12,
+      "V_cat": 4,
+      "V_P": 6,
+      "config_version": "sublabAnis-v1: random vs axis-proj vs gram-schmidt vs hub-spoke; V_C=12 (cat=4 x 3) V_P=6 M=300 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_A3=0.85 HP_CG_A4=0.50 HP_lift=0.15 HP_A3=0.70 HP_A3_lift=0.10",
+      "arms": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "arm": "ARM_RANDOM_BIPOLAR_BASELINE",
+          "seed": 23,
+          "heldout_concepts": [
+            3,
+            7
+          ],
+          "a1": {
+            "top1": 0.3367,
+            "top5": 0.9333,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.74,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.3333,
+            "top5_in_cat": 0.9167,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": 1.0,
+            "n": 2
+          },
+          "a5": {
+            "top1": 0.5,
+            "top5": 1.0,
+            "n": 2
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.78
+        },
+        "ARM_LABEL_DRIVEN_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_DRIVEN_AXIS_PROJECTION",
+          "seed": 23,
+          "heldout_concepts": [
+            3,
+            7
+          ],
+          "a1": {
+            "top1": 0.33,
+            "top5": 0.9367,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7633,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.1667,
+            "top5_in_cat": 0.75,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.62
+        },
+        "ARM_LABEL_DRIVEN_GRAM_SCHMIDT": {
+          "arm": "ARM_LABEL_DRIVEN_GRAM_SCHMIDT",
+          "seed": 23,
+          "heldout_concepts": [
+            3,
+            7
+          ],
+          "a1": {
+            "top1": 0.27,
+            "top5": 0.7367,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7233,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0833,
+            "top5_in_cat": 0.5,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.62
+        },
+        "ARM_HUB_SPOKE_LABEL_BASELINE": {
+          "arm": "ARM_HUB_SPOKE_LABEL_BASELINE",
+          "seed": 23,
+          "heldout_concepts": [
+            3,
+            7
+          ],
+          "a1": {
+            "top1": 0.3,
+            "top5": 0.8567,
+            "n": 300
+          },
+          "a2": {
+            "top1": 0.7367,
+            "n": 300
+          },
+          "a3": {
+            "top1": 0.0833,
+            "top5_in_cat": 0.5,
+            "n": 12
+          },
+          "a4": {
+            "top5_in_typical_cat": NaN,
+            "n": 0
+          },
+          "a5": {
+            "top1": NaN,
+            "top5": NaN,
+            "n": 0
+          },
+          "a6": {
+            "top5_overlap_trained_o": 1.0,
+            "n": 10
+          },
+          "elapsed_s_arm": 0.7
+        }
+      },
+      "elapsed_s": 2.7,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782397514.0355012
+    }
+  ],
+  "elapsed_s": 7.7,
+  "summary": "MIDDLE_BAND: RANDOM: a3=0.917 a4=1.000 | AXIS: a3=0.861 a4=nan | GRAM_SCH: a3=0.389 a4=nan | HUB_SPOKE: a3=0.417 a4=1.000 | best_label=AXIS_PROJ a3=0.861 a4=nan | lift_vs_random_a3=-0.056 a4=nan | chance=0.083 a5_max=nan a6_max=1.000 rails=['A6_FLOOR_BUSTED(max=1.000 > 0.30)']",
+  "DESIGN_NOTE": "USER directive 2026-06-24 (Barrier 4 alt): label-driven anisotropic encoder construction; A1-A6 mini SEMANTIC battery. Lane 1; random-bipolar isotropic baseline + intra-arm sanity floors (A5, A6)."
+}

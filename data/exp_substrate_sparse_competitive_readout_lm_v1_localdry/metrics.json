@@ -1,0 +1,278 @@
+{
+  "anchor_name": "substrate_sparse_competitive_readout_lm_v1",
+  "anchor": "substrate_sparse_competitive_readout_lm_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SPARSE_COMP_READOUT MIDDLE_BAND: decisive ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 BPC inf vs rank1 inf (delta=nan) absolute_bar=7.500. Competitive readout lifts over rank-1 but doesn't fully break the cap and/or beat unigram. Characterize K-sweep + excitability beta. SPARSE_COMP_READOUT unigram=5.291 | RANK1_ARGMAX=bpcinf(lamnan,K=?) | SPARSE_COMPETITIVE_K10=bpcinf(lamnan,K=?) | SPARSE_COMPETITIVE_K100=bpcinf(lamnan,K=?) | SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100=bpcinf(lamnan,K=?) | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 1500,
+  "N_HELD": 300,
+  "VOCAB_CAP": 300,
+  "TOPK_LIST": [
+    10,
+    100
+  ],
+  "EXCITABILITY_ALPHA": 0.01,
+  "EXCITABILITY_DECAY": 0.99,
+  "EXCITABILITY_BETA": 1.0,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_RANK1_ARGMAX",
+    "ARM_SPARSE_COMPETITIVE_K10",
+    "ARM_SPARSE_COMPETITIVE_K100",
+    "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.2912,
+        "bpc_std": 0.0
+      },
+      "ARM_RANK1_ARGMAX": {
+        "bpc_best_mean": Infinity,
+        "bpc_best_std": NaN,
+        "bpc_best_cv": NaN,
+        "bpc_raw_mean": Infinity,
+        "best_lambda_mean": NaN,
+        "n_valid_seeds": 0,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": true
+      },
+      "ARM_SPARSE_COMPETITIVE_K10": {
+        "bpc_best_mean": Infinity,
+        "bpc_best_std": NaN,
+        "bpc_best_cv": NaN,
+        "bpc_raw_mean": Infinity,
+        "best_lambda_mean": NaN,
+        "n_valid_seeds": 0,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": true
+      },
+      "ARM_SPARSE_COMPETITIVE_K100": {
+        "bpc_best_mean": Infinity,
+        "bpc_best_std": NaN,
+        "bpc_best_cv": NaN,
+        "bpc_raw_mean": Infinity,
+        "best_lambda_mean": NaN,
+        "n_valid_seeds": 0,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": true
+      },
+      "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+        "bpc_best_mean": Infinity,
+        "bpc_best_std": NaN,
+        "bpc_best_cv": NaN,
+        "bpc_raw_mean": Infinity,
+        "best_lambda_mean": NaN,
+        "n_valid_seeds": 0,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": true
+      }
+    },
+    "decisive_arm": "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100",
+    "decisive_bpc": Infinity,
+    "decisive_cv": NaN,
+    "rank1_bpc": Infinity,
+    "delta_excit_vs_rank1": NaN,
+    "delta_k10_vs_rank1": NaN,
+    "delta_k100_vs_rank1": NaN,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "rank1_prior_bpc_ref": 7.738,
+    "hp_bpc_delta_bar": 0.5,
+    "hp_bpc_absolute_bar": 7.5,
+    "hp_bpc_cv_max": 0.05,
+    "TOPK_LIST": [
+      10,
+      100
+    ],
+    "EXCITABILITY_ALPHA": 0.01,
+    "EXCITABILITY_DECAY": 0.99,
+    "EXCITABILITY_BETA": 1.0,
+    "CONFIG_VERSION": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[0] mode=smoke topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+    "honest_scope": "Sparse competitive readout sweep: 5 arms isolate the readout layer (SHARED W+E across all sparse arms). Decisive = ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 (K-WTA top-100 + Tonegawa excitability bias). HARD_PASS = decisive < rank1 - 0.50 AND < 7.500 (breaks rank-1 cap + beats unigram). HARD_FAIL = all competitive >= rank1 (readout layer is NOT the bottleneck). Brain-existence-proof tested in substrate.",
+    "cites": [
+      "preregs/2026-06-23_substrate_sparse_competitive_readout_lm_v1.md",
+      "experiments/exp_substrate_as_lm_composed_primitives_GPU_v1.py",
+      "experiments/exp_excitability_gated_substrate_cpu_v1.py",
+      "USER_2026-06-23_brain_existence_proof_kwta_excitability",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_sparse_competitive_readout_lm_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.2912,
+          "n_test": 92
+        },
+        "ARM_RANK1_ARGMAX": {
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": 1.0,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "bpc_per_lambda_test": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_recall_s": 0.92,
+          "K": 1,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0033,
+          "wall_arm_s": 1.1
+        },
+        "ARM_SPARSE_COMPETITIVE_K10": {
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": 1.0,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "bpc_per_lambda_test": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_recall_s": 0.88,
+          "K": 10,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.0333,
+          "wall_arm_s": 1.03
+        },
+        "ARM_SPARSE_COMPETITIVE_K100": {
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": 1.0,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "bpc_per_lambda_test": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_recall_s": 0.88,
+          "K": 100,
+          "beta_used": 0.0,
+          "fraction_above_uniform": 0.3333,
+          "wall_arm_s": 1.07
+        },
+        "ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100": {
+          "bpc_raw": Infinity,
+          "bpc_best": Infinity,
+          "best_lambda": 1.0,
+          "best_dev_bpc": Infinity,
+          "bpc_per_lambda_dev": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "bpc_per_lambda_test": {
+            "0.0": NaN,
+            "0.1": Infinity,
+            "0.3": Infinity,
+            "0.5": Infinity,
+            "0.7": Infinity,
+            "1.0": Infinity
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_recall_s": 1.0,
+          "K": 100,
+          "beta_used": 1.0,
+          "fraction_above_uniform": 0.3333,
+          "wall_arm_s": 1.31
+        }
+      },
+      "V": 300,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 1500,
+      "N_HELD": 300,
+      "VOCAB_CAP": 300,
+      "TOPK_LIST": [
+        10,
+        100
+      ],
+      "EXCITABILITY_ALPHA": 0.01,
+      "EXCITABILITY_DECAY": 0.99,
+      "EXCITABILITY_BETA": 1.0,
+      "wall_encode_s": 0.59,
+      "wall_ingest_s": 1.87,
+      "run_mode": "smoke",
+      "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[0] mode=smoke topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+      "elapsed_s_seed": 7.07,
+      "device": "cpu",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782252196.8135319
+    }
+  ],
+  "elapsed_s": 7.177921295166016,
+  "summary": "SPARSE_COMP_READOUT MIDDLE_BAND: decisive ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100 BPC inf vs rank1 inf (delta=nan) absolute_bar=7.500. Competitive readout lifts over rank-1 but doesn't fully break the cap and/or beat unigram. Characte",
+  "substrate_only_decode_gate": "TRUE (substrate-native readout sweep; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_sparse_competitive_readout_lm_v1; N_DIM=8192 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_ARGMAX', 'ARM_SPARSE_COMPETITIVE_K10', 'ARM_SPARSE_COMPETITIVE_K100', 'ARM_SPARSE_COMPETITIVE_PLUS_EXCITABILITY_K100'] seeds=[0] mode=smoke topk_list=[10, 100] exc_alpha=0.010 exc_decay=0.990 exc_beta=1.00 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_delta>=0.50 HP_abs<7.500 cv_max=0.05",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

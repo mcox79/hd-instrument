@@ -1,0 +1,328 @@
+{
+  "anchor_name": "substrate_meta_lr_dopamine_analog_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ARM_PER_TOKEN_RPE_LR lift_vs_fixed=0.0040 within +/-0.05 of FIXED_LR. RPE-modulated LR does NOT produce measurable BPC improvement at this scale. Per-token phasic modulation is not load-bearing for substrate-LM at N=8192. uni=bpc7.738 | ARM_FIXED_LR=bpc7.0642 | ARM_GLOBAL_RPE_LR=bpc7.0655 | ARM_PER_TOKEN_RPE_LR=bpc7.0602 cv=0.005 | lift_per_tok_vs_fixed=0.0040 | lift_per_tok_vs_global=0.0053 | lift_global_vs_fixed=-0.0013 | cfrpe_fixed_lr_ref=7.1052 (prior chain-grade)",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "ARMS": [
+    "ARM_UNIGRAM",
+    "ARM_FIXED_LR",
+    "ARM_GLOBAL_RPE_LR",
+    "ARM_PER_TOKEN_RPE_LR"
+  ],
+  "SPARSE_BIPOLAR_F": 0.05,
+  "BASE_CFRPE_LR": 0.5,
+  "META_LR_BETA": 1.0,
+  "META_LR_BETA_GLOBAL": 1.0,
+  "N_STEPS": 2000,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0
+      },
+      "ARM_FIXED_LR": {
+        "bpc_best_mean": 7.0642,
+        "bpc_best_std": 0.0116,
+        "bpc_best_cv": 0.0016,
+        "top1_acc_mean": 0.2423,
+        "top1_acc_std": 0.0081,
+        "mrr_at_10_mean": 0.337,
+        "mrr_at_10_std": 0.0033,
+        "raw_bpc_at_T1_L1_mean": 11.5934,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_GLOBAL_RPE_LR": {
+        "bpc_best_mean": 7.0655,
+        "bpc_best_std": 0.0123,
+        "bpc_best_cv": 0.0017,
+        "top1_acc_mean": 0.2437,
+        "top1_acc_std": 0.0033,
+        "mrr_at_10_mean": 0.3383,
+        "mrr_at_10_std": 0.0014,
+        "raw_bpc_at_T1_L1_mean": 11.5952,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PER_TOKEN_RPE_LR": {
+        "bpc_best_mean": 7.0602,
+        "bpc_best_std": 0.0327,
+        "bpc_best_cv": 0.0046,
+        "top1_acc_mean": 0.2459,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.3372,
+        "mrr_at_10_std": 0.0059,
+        "raw_bpc_at_T1_L1_mean": 11.5984,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "lift_per_token_vs_fixed": 0.004,
+    "lift_per_token_vs_global": 0.0053,
+    "lift_global_vs_fixed": -0.0013,
+    "fixed_bpc": 7.0642,
+    "global_bpc": 7.0655,
+    "per_token_bpc": 7.0602,
+    "unigram_bpc": 7.7378,
+    "cfrpe_fixed_lr_ref_bpc": 7.1052,
+    "fair_harness_hebbian_baseline_bpc": 7.3065,
+    "n_seeds": 3,
+    "hard_pass_per_token_lift_bar": 0.15,
+    "hard_pass_phasic_vs_tonic_bar": 0.05,
+    "chain_grade_bonus_bar": 0.2,
+    "hard_fail_delta": 0.05,
+    "honest_scope": "meta-LR via RPE modulation on cf-RPE delta rule at production scale (N_DIM=8192 N_TRAIN=100k text8 V=4000). Tests whether phasic (per-token) or tonic (global) dopamine-analog learning-rate modulation produces BPC lift over fixed-LR cf-RPE baseline. WHAT_THIS_DOES_NOT_SHOW: does not test multi-domain generalization, STDP composition, or fast-slow weight interaction.",
+    "cites": [
+      "preregs/2026-06-23_substrate_meta_lr_dopamine_analog_v1.md",
+      "experiments/exp_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1.py",
+      "data/exp_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1/metrics.json",
+      "notes/research_brain_to_lm_relevance_audit_2x_drill_2026-06-23.md",
+      "notes/exp_dev_handoff_research_brain_to_lm_relevance_audit_2026-06-23.md"
+    ],
+    "chain_grade_bonus": false
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_FIXED_LR": {
+          "bpc_best": 7.0549,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.797,
+          "top1_acc": 0.2414,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3342,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5885,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 100.05,
+          "wall_ingest_s": 18.43,
+          "wall_recall_s": 0.87
+        },
+        "ARM_GLOBAL_RPE_LR": {
+          "bpc_best": 7.0546,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.7878,
+          "top1_acc": 0.2475,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3395,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5973,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 96.46,
+          "wall_ingest_s": 22.0,
+          "wall_recall_s": 0.34
+        },
+        "ARM_PER_TOKEN_RPE_LR": {
+          "bpc_best": 7.0139,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.7484,
+          "top1_acc": 0.2548,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3455,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5878,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 83.88,
+          "wall_ingest_s": 19.76,
+          "wall_recall_s": 0.34
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 324.2,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_FIXED_LR": {
+          "bpc_best": 7.0571,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8107,
+          "top1_acc": 0.2527,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3417,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.591,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 104.26,
+          "wall_ingest_s": 18.47,
+          "wall_recall_s": 0.86
+        },
+        "ARM_GLOBAL_RPE_LR": {
+          "bpc_best": 7.0593,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8068,
+          "top1_acc": 0.2395,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3363,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.5921,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 81.57,
+          "wall_ingest_s": 20.49,
+          "wall_recall_s": 0.34
+        },
+        "ARM_PER_TOKEN_RPE_LR": {
+          "bpc_best": 7.0845,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8022,
+          "top1_acc": 0.2419,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3339,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6067,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 94.29,
+          "wall_ingest_s": 19.75,
+          "wall_recall_s": 0.34
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 281.18,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_FIXED_LR": {
+          "bpc_best": 7.0805,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8132,
+          "top1_acc": 0.2328,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3351,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.6007,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 77.29,
+          "wall_ingest_s": 18.45,
+          "wall_recall_s": 0.86
+        },
+        "ARM_GLOBAL_RPE_LR": {
+          "bpc_best": 7.0827,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8298,
+          "top1_acc": 0.2442,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.339,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5963,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 99.3,
+          "wall_ingest_s": 21.05,
+          "wall_recall_s": 0.34
+        },
+        "ARM_PER_TOKEN_RPE_LR": {
+          "bpc_best": 7.0821,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.806,
+          "top1_acc": 0.2411,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3323,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.6007,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 78.92,
+          "wall_ingest_s": 19.68,
+          "wall_recall_s": 0.34
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 256.06,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    }
+  ],
+  "elapsed_s": 861.44,
+  "summary": "HARD_FAIL: ARM_PER_TOKEN_RPE_LR lift_vs_fixed=0.0040 within +/-0.05 of FIXED_LR. RPE-modulated LR does NOT produce measurable BPC improvement at this scale. Per-token phasic modulation is not load-bearing for substrate-LM at N=8192. uni=bpc7.738 | ARM_FIXED_LR=bpc7.0642 | ARM_GLOBAL_RPE_LR=bpc7.0655 | ARM_PER_TOKEN_RPE_LR=bpc7.0602 cv=0.005 | lift_per_tok_vs_fixed=0.0040 | lift_per_tok_vs_global=0.0053 | lift_global_vs_fixed=-0.0013 | cfrpe_fixed_lr_ref=7.1052 (prior chain-grade)"
+}

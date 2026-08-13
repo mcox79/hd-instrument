@@ -1,0 +1,126 @@
+{
+  "anchor_name": "substrate_cortex_hippo_handoff_bottleneck_class_diagnostic_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "INCONCLUSIVE: DIRECT-STANDARD gap (+0.396) below discriminator threshold (0.4). Expected ~0.77 at this regime (v1 baseline).  M=512 N_h=2048 N_c=512 mode=smoke R_DIRECT=1.000 R_STANDARD=0.604 R_NO_HEBBIAN_CROSSTERM=0.633 R_NO_L2_NORM=0.592 R_CLEAN_VALS_TO_CORTEX=1.000 gap_DIR_STD=+0.396; closeFrac HEBB=+0.074 L2=-0.030 CLEAN=+1.000",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 arms=('ARM_DIRECT', 'ARM_STANDARD', 'ARM_NO_HEBBIAN_CROSSTERM', 'ARM_NO_L2_NORM', 'ARM_CLEAN_VALS_TO_CORTEX') mode=smoke alpha_simple=0.250 alpha_h=0.0164 H_OTHER_probe_v2",
+  "elapsed_s": 0.0010046958923339844,
+  "config_version": "ANCHOR=substrate_cortex_hippo_handoff_bottleneck_class_diagnostic_v2,M=512,N_h=2048,N_c=512,sparsity_sparse=0.1,n_replay=1,eta_c=0.005,SEEDS=7,RUN_MODE=smoke,arms=ARM_DIRECT+ARM_STANDARD+ARM_NO_HEBBIAN_CROSSTERM+ARM_NO_L2_NORM+ARM_CLEAN_VALS_TO_CORTEX,backend=numpy,hardening=METARULE_AF+METARULE_AH+METARULE_H+ARM_HASH_DIVERGENCE+V1_DIAGNOSTIC_LINEAGE",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "n_replay_per_item": 1,
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "alpha_hopfield": 0.016394261828283675,
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_DIRECT",
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_STANDARD",
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+      "recall_mean": 0.6328125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_NO_L2_NORM",
+      "recall_mean": 0.591796875,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+      "recall_mean": 1.0,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.703052282333374,
+      "arms": [
+        {
+          "arm_name": "ARM_DIRECT",
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 0.11360761799312205,
+          "n_total_writes": 512,
+          "arm_hash": "be9cd24a132acaa0",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.016394261828283675,
+          "wall_s": 0.09274697303771973,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_STANDARD",
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "cortex_norm": 0.21401525261985943,
+          "n_total_writes": 512,
+          "arm_hash": "fcf0761463e0f997",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.016394261828283675,
+          "wall_s": 0.16186881065368652,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_HEBBIAN_CROSSTERM",
+          "seed": 7,
+          "recall_cortex": 0.6328125,
+          "n_items": 512,
+          "cortex_norm": 0.11046012957678165,
+          "n_total_writes": 512,
+          "arm_hash": "93590542bb066044",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.016394261828283675,
+          "wall_s": 0.09833955764770508,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_NO_L2_NORM",
+          "seed": 7,
+          "recall_cortex": 0.591796875,
+          "n_items": 512,
+          "cortex_norm": 4.895758909406842,
+          "n_total_writes": 512,
+          "arm_hash": "356d821ea00cdb68",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.016394261828283675,
+          "wall_s": 0.16726422309875488,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_CLEAN_VALS_TO_CORTEX",
+          "seed": 7,
+          "recall_cortex": 1.0,
+          "n_items": 512,
+          "cortex_norm": 0.11360761799312205,
+          "n_total_writes": 512,
+          "arm_hash": "be9cd24a132acaa0",
+          "alpha_simple": 0.25,
+          "alpha_hopfield": 0.016394261828283675,
+          "wall_s": 0.14004087448120117,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

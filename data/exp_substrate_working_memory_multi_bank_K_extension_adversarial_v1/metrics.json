@@ -1,0 +1,870 @@
+{
+  "anchor_name": "substrate_working_memory_multi_bank_K_extension_adversarial_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_K_4096: best_random multi-bank arm MULTI_64x at K=4096 recall>=0.95 cv<=0.05 route_acc>=0.95 AND adversarial within 0.05 (chain_grade_set={1024: 'MULTI_32x', 2048: 'MULTI_64x', 4096: 'MULTI_64x'}) | K=1024 best_rand=MULTI_32x[rec=1.0000 cv=0.0000 ra=1.0000] adv_same=MULTI_32x[rec=1.0000 cv=0.0000 ra=1.0000] naive_rand_rec=0.0172 | K=2048 best_rand=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000] adv_same=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000] naive_rand_rec=0.0045 | K=4096 best_rand=MULTI_64x[rec=0.9927 cv=0.0006 ra=1.0000] adv_same=MULTI_64x[rec=0.9801 cv=0.0015 ra=1.0000] naive_rand_rec=0.0020 | [Q-DISCIPLINE: saturated at K={1024: {'random': ['MULTI_32x', 'MULTI_64x'], 'adversarial': ['MULTI_32x', 'MULTI_64x']}, 2048: {'random': ['MULTI_64x'], 'adversarial': ['MULTI_64x']}}]",
+  "run_mode": "full",
+  "n_units": 9,
+  "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+  "per_unit": [
+    {
+      "seed": 11,
+      "k_total": 1024,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0146,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 18.4,
+            "regime": "RANDOM"
+          },
+          "MULTI_8x": {
+            "recall": 0.7559,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 19.07,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.9873,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 19.74,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 18.64,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 18.62,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0117,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 19.21,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_8x": {
+            "recall": 0.667,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 18.42,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.9854,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 18.37,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 19.3,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 20.75,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 192.82,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K1024",
+      "_partial_written_at": 1782455365.5652559
+    },
+    {
+      "seed": 11,
+      "k_total": 2048,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0039,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 37.59,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.7539,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 37.48,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.9946,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 39.53,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 38.17,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0054,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 37.0,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.668,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 40.05,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.978,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 39.64,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 38.91,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 310.88,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K2048",
+      "_partial_written_at": 1782455676.5345051
+    },
+    {
+      "seed": 11,
+      "k_total": 4096,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0024,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 76.84,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.7371,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 78.44,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 0.9934,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 76.79,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0027,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 75.57,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.6592,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 79.04,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 0.9812,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 78.0,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 467.4,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed11_K4096",
+      "_partial_written_at": 1782456144.0325348
+    },
+    {
+      "seed": 13,
+      "k_total": 1024,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0166,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 17.59,
+            "regime": "RANDOM"
+          },
+          "MULTI_8x": {
+            "recall": 0.7588,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 19.68,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.9932,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 19.63,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 18.5,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 19.95,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0156,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 19.21,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_8x": {
+            "recall": 0.6709,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 18.59,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.9727,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 19.91,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 19.9,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 18.58,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 193.99,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed13_K1024",
+      "_partial_written_at": 1782456338.0959327
+    },
+    {
+      "seed": 13,
+      "k_total": 2048,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0063,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 38.07,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.7485,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 39.16,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.9907,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 37.73,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 39.01,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0034,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 37.03,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.6631,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 39.14,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.9771,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 38.14,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 38.83,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 309.65,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed13_K2048",
+      "_partial_written_at": 1782456647.7831275
+    },
+    {
+      "seed": 13,
+      "k_total": 4096,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0015,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 74.09,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.7483,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 77.5,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 0.9927,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 74.54,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.002,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 73.95,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.6724,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 76.74,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 0.981,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 78.27,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 457.87,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed13_K4096",
+      "_partial_written_at": 1782457105.765479
+    },
+    {
+      "seed": 19,
+      "k_total": 1024,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0205,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 18.64,
+            "regime": "RANDOM"
+          },
+          "MULTI_8x": {
+            "recall": 0.7412,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 19.92,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.9912,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 20.04,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 18.57,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 19.65,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0176,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 1024,
+            "k_total": 1024,
+            "wall_s": 18.14,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_8x": {
+            "recall": 0.6738,
+            "route_acc": 1.0,
+            "n_banks": 8,
+            "k_per_bank": 128,
+            "k_total": 1024,
+            "wall_s": 19.05,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.9766,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 64,
+            "k_total": 1024,
+            "wall_s": 19.55,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 32,
+            "k_total": 1024,
+            "wall_s": 20.56,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 16,
+            "k_total": 1024,
+            "wall_s": 19.49,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 196.21,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed19_K1024",
+      "_partial_written_at": 1782457302.0700455
+    },
+    {
+      "seed": 19,
+      "k_total": 2048,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0034,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 38.79,
+            "regime": "RANDOM"
+          },
+          "MULTI_16x": {
+            "recall": 0.7563,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 38.58,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.9907,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 38.01,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 39.45,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0049,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 2048,
+            "k_total": 2048,
+            "wall_s": 38.34,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_16x": {
+            "recall": 0.6772,
+            "route_acc": 1.0,
+            "n_banks": 16,
+            "k_per_bank": 128,
+            "k_total": 2048,
+            "wall_s": 38.3,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.9795,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 64,
+            "k_total": 2048,
+            "wall_s": 39.28,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 1.0,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 32,
+            "k_total": 2048,
+            "wall_s": 39.27,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 312.57,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed19_K2048",
+      "_partial_written_at": 1782457614.7258487
+    },
+    {
+      "seed": 19,
+      "k_total": 4096,
+      "by_regime": {
+        "RANDOM": {
+          "NAIVE": {
+            "recall": 0.0022,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 76.97,
+            "regime": "RANDOM"
+          },
+          "MULTI_32x": {
+            "recall": 0.7495,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 78.35,
+            "regime": "RANDOM"
+          },
+          "MULTI_64x": {
+            "recall": 0.9919,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 76.85,
+            "regime": "RANDOM"
+          }
+        },
+        "ADVERSARIAL": {
+          "NAIVE": {
+            "recall": 0.0027,
+            "route_acc": 1.0,
+            "n_banks": 1,
+            "k_per_bank": 4096,
+            "k_total": 4096,
+            "wall_s": 76.31,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_32x": {
+            "recall": 0.6707,
+            "route_acc": 1.0,
+            "n_banks": 32,
+            "k_per_bank": 128,
+            "k_total": 4096,
+            "wall_s": 77.38,
+            "regime": "ADVERSARIAL"
+          },
+          "MULTI_64x": {
+            "recall": 0.978,
+            "route_acc": 1.0,
+            "n_banks": 64,
+            "k_per_bank": 64,
+            "k_total": 4096,
+            "wall_s": 72.65,
+            "regime": "ADVERSARIAL"
+          }
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 8192,
+      "SIGMA": 1.0,
+      "CUE_COS": 0.7,
+      "FEATURE_OVERLAP_FRAC": 0.2,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankKExtAdv-v1: N_DIM=4096 CODEBOOK_SIZE=8192 sigma=1.0 CUE_COS=0.70 FEATURE_OVERLAP=0.20 K_SWEEP=[1024, 2048, 4096] N_ITEMS_PER_K=200 seeds=[11, 13, 19] mode=full HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_adv_within=0.05 HP_adv_break=0.30 Q_sat>=0.995 HP_target_K=4096",
+      "elapsed_s_unit": 461.41,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "seed19_K4096",
+      "_partial_written_at": 1782458076.222314
+    }
+  ],
+  "elapsed_s": 2903.9,
+  "summary": "HARD_PASS_CHAIN_GRADE_K_4096: best_random multi-bank arm MULTI_64x at K=4096 recall>=0.95 cv<=0.05 route_acc>=0.95 AND adversarial within 0.05 (chain_grade_set={1024: 'MULTI_32x', 2048: 'MULTI_64x', 4096: 'MULTI_64x'}) | K=1024 best_rand=MULTI_32x[rec=1.0000 cv=0.0000 ra=1.0000] adv_same=MULTI_32x[rec=1.0000 cv=0.0000 ra=1.0000] naive_rand_rec=0.0172 | K=2048 best_rand=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000] adv_same=MULTI_64x[rec=1.0000 cv=0.0000 ra=1.0000] naive_rand_rec=0.0045 | K=4096 best_rand=MULTI_64x[rec=0.9927 cv=0.0006 ra=1.0000] adv_same=MULTI_64x[rec=0.9801 cv=0.0015 ra=1.0000] naive_rand_rec=0.0020 | [Q-DISCIPLINE: saturated at K={1024: {'random': ['MULTI_32x', 'MULTI_64x'], 'adversarial': ['MULTI_32x', 'MULTI_64x']}, 2048: {'random': ['MULTI_64x'], 'adversarial': ['MULTI_64x']}}]",
+  "_llm_forward_calls_at_inference": 0,
+  "K_SWEEP": [
+    1024,
+    2048,
+    4096
+  ],
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "DESIGN_NOTE": "Multi-bank WM K-extension with adversarial feature-overlap discriminator. Sweeps K_total in {1024, 2048, 4096} (extends past v1 reference's K=1024 saturation) and tests BOTH random items (matches v1 baseline) AND adversarial items with FEATURE_OVERLAP_FRAC=0.20 shared bipolar bits per group. Discriminates which bank arrangement (8x/16x/32x/64x) survives query ambiguity at scale. Pre-reg per preregs/2026-06-25_substrate_working_memory_multi_bank_K_extension_adversarial_v1.md."
+}

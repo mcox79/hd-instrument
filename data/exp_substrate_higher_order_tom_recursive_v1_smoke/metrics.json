@@ -1,0 +1,174 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | PARTIAL: d=2 sub=0.660 need>=0.85 ; d=3 sub=0.640 need>=0.60 ; d=4 sub=0.460 need>=0.40 ; d=5 sub=0.540 need>=0.20 ; cv_d3=0.000 | depths=[2, 3, 4, 5] | sub_means={d2=0.660,d3=0.640,d4=0.460,d5=0.540} | naive_d3=0.200 shuffle_d3=0.160 random_d3=0.240 | cv_sub_d3=0.000 arms_distinct=True cardinality=True n_seeds=1",
+  "summary": "MIDDLE_BAND | PARTIAL: d=2 sub=0.660 need>=0.85 ; d=3 sub=0.640 need>=0.60 ; d=4 sub=0.460 need>=0.40 ; d=5 sub=0.540 need>=0.20 ; cv_d3=0.000 | depths=[2, 3, 4, 5] | sub_means={d2=0.660,d3=0.640,d4=0.460,d5=0.540} | naive_d3=0.200 shuffle_d3=0.160 random_d3=0.240 | cv_sub_d3=0.000 arms_distinct=True cardinality=True n_seeds=1",
+  "verdict_reason": "PARTIAL: d=2 sub=0.660 need>=0.85 ; d=3 sub=0.640 need>=0.60 ; d=4 sub=0.460 need>=0.40 ; d=5 sub=0.540 need>=0.20 ; cv_d3=0.000",
+  "per_depth_per_arm": {
+    "2": {
+      "SUBSTRATE": {
+        "mean": 0.66,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "NAIVE_FLAT": {
+        "mean": 0.24,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "SHUFFLE": {
+        "mean": 0.32,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "RANDOM": {
+        "mean": 0.3,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      }
+    },
+    "3": {
+      "SUBSTRATE": {
+        "mean": 0.64,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "NAIVE_FLAT": {
+        "mean": 0.2,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "SHUFFLE": {
+        "mean": 0.16,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "RANDOM": {
+        "mean": 0.24,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      }
+    },
+    "4": {
+      "SUBSTRATE": {
+        "mean": 0.46,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "NAIVE_FLAT": {
+        "mean": 0.22,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "SHUFFLE": {
+        "mean": 0.28,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "RANDOM": {
+        "mean": 0.22,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      }
+    },
+    "5": {
+      "SUBSTRATE": {
+        "mean": 0.54,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "NAIVE_FLAT": {
+        "mean": 0.2,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "SHUFFLE": {
+        "mean": 0.3,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      },
+      "RANDOM": {
+        "mean": 0.2,
+        "std": 0.0,
+        "cv": 0.0,
+        "n_seeds": 1
+      }
+    }
+  },
+  "arms_distinct_all": true,
+  "suspect_1000": false,
+  "random_in_band": true,
+  "sub_d2": 0.66,
+  "sub_d3": 0.64,
+  "sub_d4": 0.46,
+  "sub_d5": 0.54,
+  "naive_d3": 0.2,
+  "shuffle_d3": 0.16,
+  "random_d3": 0.24,
+  "discriminator_gap_d3": 0.4,
+  "mechanism_gap_d3": 0.44,
+  "cv_sub_d3": 0.0,
+  "n_seeds_complete": 1,
+  "expected_n_units": 800,
+  "completed_units": 800,
+  "cardinality_ok": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_verified": true,
+  "crlb_floor_computed": 0.015625,
+  "crlb_formula_reference": "1/sqrt(n_half); per-level retention from base sqrt(d=2 obs)",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_4loc_chance_0.25",
+  "anchor_name": "substrate_higher_order_tom_recursive_v1",
+  "elapsed_s": 2.3,
+  "ts_iso": "2026-06-28T17:33:15Z",
+  "pid": 34044,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_higher_order_tom_recursive_v1,N=8192,V_REL=256,n_agents_max=12,n_objects=4,n_locs=4,n_trials_per_depth=50,n_interference=16,per_level_distractors=4,depths=[2, 3, 4, 5],seeds=[7],mode=smoke,HP_d2>=0.85,HP_d3>=0.60,HP_d4>=0.40,HP_d5>=0.20,HP_discrim_d3>=0.25,HP_mech_d3>=0.20,HP_cv_max<0.15,random_band=[0.10,0.45],expected_n=800,hardening=L1early+L2perseed+L3outertry+L4importsentinel+META_RULE_AF+META_RULE_AH+META_RULE_AG+META_RULE_AN",
+  "_hardening_marker": "v1_higher_order_tom_recursive",
+  "_multi_seed_smoke_observation": {
+    "seeds_tested": [
+      7,
+      17,
+      23
+    ],
+    "d2_means": [
+      0.66,
+      0.72,
+      0.64
+    ],
+    "d3_means": [
+      0.64,
+      0.66,
+      0.6
+    ],
+    "d4_means": [
+      0.46,
+      0.68,
+      0.76
+    ],
+    "d5_means": [
+      0.54,
+      0.6,
+      0.6
+    ],
+    "mean_d2": 0.673,
+    "mean_d3": 0.633,
+    "mean_d4": 0.633,
+    "mean_d5": 0.58,
+    "note": "substrate-flat profile not graceful-degradation; mechanism gap over baselines ~0.4 chain-grade-eligible but depth-discrimination weak in this calibration"
+  }
+}

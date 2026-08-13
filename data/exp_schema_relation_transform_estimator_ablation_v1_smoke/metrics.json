@@ -1,0 +1,1077 @@
+{
+  "anchor": "schema_relation_transform_estimator_ablation_v1",
+  "anchor_name": "schema_relation_transform_estimator_ablation_v1",
+  "run_mode": "smoke",
+  "N": 8192,
+  "N_DIM": 8192,
+  "V": 100,
+  "relations": [
+    "AtLocation",
+    "CausesDesire",
+    "DerivedFrom"
+  ],
+  "semantic_relations": [
+    "AtLocation",
+    "CausesDesire"
+  ],
+  "encodings": [
+    "char_trigram",
+    "bge_semantic"
+  ],
+  "estimators": [
+    "NAIVE_MEAN",
+    "TRAINED"
+  ],
+  "arms": [
+    "REAL",
+    "SHUFFLED",
+    "MEAN_OBJECT"
+  ],
+  "eval_modes": [
+    "inductive",
+    "transductive"
+  ],
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "M_sweep": [
+    50,
+    200
+  ],
+  "M_OP": 200,
+  "train_steps": 150,
+  "train_lr": 0.5,
+  "train_tau": 0.05,
+  "expected_n_units": 288,
+  "n_units_counted": 288,
+  "n_units_failed": 0,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "REAL_trained": "1be13fe0674a4eade9560c1494c3022d5750df63875b0dc49b663a15c2499e45",
+    "SHUFFLED_trained": "dd73fcfbae4b2a2c25adb35673a358f2e7365b048f6292c6e8b5e953fbd37a4e",
+    "REAL_naive": "2e8c2be6606ffcd9190e07a486f65dfb58e8650e6c247c6f7c65bd85870ba919",
+    "MEAN_OBJECT": "7ad209be311f916f95d149a21543da50ae1c72caf9381e7458c6cc7089f6041c"
+  },
+  "bind_roundtrip": 1.0000000596046463,
+  "synth_clean": {
+    "naive": 1.0,
+    "trained": 1.0
+  },
+  "synth_hard": {
+    "naive": 1.0,
+    "trained": 1.0,
+    "trained_adv": 0.0
+  },
+  "discriminator_fires": false,
+  "randenc_floor": {
+    "NAIVE_MEAN": 0.011111111111111112,
+    "TRAINED": 0.008333333333333333
+  },
+  "enc_unavailable": {},
+  "sem_missing_total": 0,
+  "hp_scope": {
+    "REAL_inductive": [
+      "HARD_PASS",
+      "HARD_FAIL"
+    ],
+    "SHUFFLED": [],
+    "MEAN_OBJECT": [],
+    "RANDENC": [],
+    "SYNTH": []
+  },
+  "bands": {
+    "HP_REAL_GAIN_MIN": 0.2075,
+    "HP_SHUF_GAIN_MAX": 0.05,
+    "HP_REAL_MINUS_MEANOBJ_MIN": 0.05,
+    "HF_REAL_GAIN_MAX": 0.05,
+    "TRAINED_ADV_MIN": 0.05,
+    "IND_TRANS_GAP_FLAG": 0.15
+  },
+  "cells_aggregate": {
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.01178511301977579,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|REAL|inductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.01178511301977579,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.04166666666666667,
+      "std": 0.011785113019775794,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.025,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|REAL|inductive": {
+      "mean": 0.04166666666666667,
+      "std": 0.011785113019775794,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|REAL|transductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.025,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|char_trigram|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.22499999999999998,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.1,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.20833333333333331,
+      "std": 0.05892556509887897,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.08333333333333333,
+      "std": 0.0,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|REAL|inductive": {
+      "mean": 0.21666666666666667,
+      "std": 0.09428090415820634,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|REAL|transductive": {
+      "mean": 0.1,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.22499999999999998,
+      "std": 0.05892556509887897,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.09166666666666667,
+      "std": 0.0117851130197758,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.20833333333333331,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.21666666666666667,
+      "std": 0.09428090415820634,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|REAL|inductive": {
+      "mean": 0.22499999999999998,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|REAL|transductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.21666666666666667,
+      "std": 0.09428090415820634,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "AtLocation|bge_semantic|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.09999999999999999,
+      "std": 0.09428090415820632,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.025,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.020833333333333332,
+      "std": 0.02946278254943948,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|REAL|inductive": {
+      "mean": 0.10833333333333332,
+      "std": 0.10606601717798211,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|REAL|transductive": {
+      "mean": 0.0125,
+      "std": 0.01767766952966369,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.020833333333333332,
+      "std": 0.02946278254943948,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.06666666666666667,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.0125,
+      "std": 0.01767766952966369,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.023570226039551587,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|REAL|inductive": {
+      "mean": 0.07500000000000001,
+      "std": 0.03535533905932738,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|REAL|transductive": {
+      "mean": 0.0125,
+      "std": 0.01767766952966369,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.025,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.020833333333333332,
+      "std": 0.02946278254943948,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.10833333333333334,
+      "std": 0.08249579113843054,
+      "n": 2
+    },
+    "CausesDesire|char_trigram|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.175,
+      "std": 0.05892556509887897,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.14166666666666666,
+      "std": 0.01178511301977579,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.09166666666666666,
+      "std": 0.10606601717798213,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|REAL|inductive": {
+      "mean": 0.15833333333333333,
+      "std": 0.03535533905932737,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|REAL|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.14166666666666666,
+      "std": 0.01178511301977579,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.09166666666666666,
+      "std": 0.10606601717798213,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.15,
+      "std": 0.04714045207910316,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.15833333333333333,
+      "std": 0.03535533905932737,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|REAL|inductive": {
+      "mean": 0.14166666666666666,
+      "std": 0.058925565098878946,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|REAL|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.14166666666666666,
+      "std": 0.058925565098878946,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.058333333333333334,
+      "std": 0.023570226039551584,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "CausesDesire|bge_semantic|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.9333333333333333,
+      "std": 0.04714045207910316,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.8416666666666667,
+      "std": 0.058925565098878904,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.6390909090909092,
+      "std": 0.029569919940528384,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.01,
+      "std": 0.01414213562373095,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|REAL|inductive": {
+      "mean": 0.9333333333333333,
+      "std": 0.04714045207910316,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|REAL|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.7833333333333333,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.6009090909090908,
+      "std": 0.026998622554395467,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.01,
+      "std": 0.01414213562373095,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.9333333333333333,
+      "std": 0.04714045207910316,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.925,
+      "std": 0.011785113019775828,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|REAL|inductive": {
+      "mean": 0.9333333333333333,
+      "std": 0.04714045207910316,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|REAL|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.925,
+      "std": 0.011785113019775828,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.8600000000000001,
+      "std": 0.08485281374238571,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.008333333333333333,
+      "std": 0.011785113019775792,
+      "n": 2
+    },
+    "DerivedFrom|char_trigram|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.8500000000000001,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.8772727272727272,
+      "std": 0.0321412173266613,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.8666666666666667,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.8945454545454545,
+      "std": 0.020570379089063177,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.01818181818181818,
+      "std": 0.025712973861329,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|REAL|inductive": {
+      "mean": 0.8500000000000001,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|REAL|transductive": {
+      "mean": 0.8772727272727272,
+      "std": 0.0321412173266613,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.8666666666666667,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.8845454545454545,
+      "std": 0.034712514712794136,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M50|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.01818181818181818,
+      "std": 0.025712973861329,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|REAL|inductive": {
+      "mean": 0.8500000000000001,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|REAL|transductive": {
+      "mean": 0.8872727272727272,
+      "std": 0.046283352950392265,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|inductive": {
+      "mean": 0.8583333333333334,
+      "std": 0.011785113019775828,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|SHUFFLED|transductive": {
+      "mean": 0.8872727272727272,
+      "std": 0.046283352950392265,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|NAIVE_MEAN|MEAN_OBJECT|transductive": {
+      "mean": 0.01818181818181818,
+      "std": 0.025712973861329,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|REAL|inductive": {
+      "mean": 0.8500000000000001,
+      "std": 0.02357022603955158,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|REAL|transductive": {
+      "mean": 0.8963636363636364,
+      "std": 0.03342686601972776,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|SHUFFLED|inductive": {
+      "mean": 0.8583333333333334,
+      "std": 0.011785113019775828,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|SHUFFLED|transductive": {
+      "mean": 0.8963636363636364,
+      "std": 0.03342686601972776,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 2
+    },
+    "DerivedFrom|bge_semantic|M200|TRAINED|MEAN_OBJECT|transductive": {
+      "mean": 0.01818181818181818,
+      "std": 0.025712973861329,
+      "n": 2
+    }
+  },
+  "chance_by_rel": {
+    "AtLocation": 0.01,
+    "CausesDesire": 0.01,
+    "DerivedFrom": 0.01
+  },
+  "gate_diagnostics": {
+    "M_OP": 200,
+    "bind_roundtrip": 1.0000000596046463,
+    "arms_differ_ok": true,
+    "n_units": 288,
+    "expected_n_units": 288,
+    "synth_clean": {
+      "naive": 1.0,
+      "trained": 1.0
+    },
+    "synth_hard": {
+      "naive": 1.0,
+      "trained": 1.0,
+      "trained_adv": 0.0
+    },
+    "randenc_floor": {
+      "NAIVE_MEAN": 0.011111111111111112,
+      "TRAINED": 0.008333333333333333
+    },
+    "trained_adv_gate": 0.05,
+    "cell_verdicts": {
+      "AtLocation|char_trigram|NAIVE_MEAN": "HARD_FAIL",
+      "AtLocation|char_trigram|TRAINED": "HARD_FAIL",
+      "AtLocation|bge_semantic|NAIVE_MEAN": "HARD_FAIL",
+      "AtLocation|bge_semantic|TRAINED": "HARD_FAIL",
+      "CausesDesire|char_trigram|NAIVE_MEAN": "HARD_FAIL",
+      "CausesDesire|char_trigram|TRAINED": "MIDDLE_BAND",
+      "CausesDesire|bge_semantic|NAIVE_MEAN": "HARD_FAIL",
+      "CausesDesire|bge_semantic|TRAINED": "HARD_FAIL",
+      "DerivedFrom|char_trigram|NAIVE_MEAN": "HARD_FAIL",
+      "DerivedFrom|char_trigram|TRAINED": "HARD_FAIL",
+      "DerivedFrom|bge_semantic|NAIVE_MEAN": "HARD_FAIL",
+      "DerivedFrom|bge_semantic|TRAINED": "HARD_FAIL"
+    },
+    "cell_diag": {
+      "AtLocation|char_trigram|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.03333333333333333,
+        "real_trans": 0.03333333333333333,
+        "real_gain": 0.02333333333333333,
+        "shuf_ind": 0.025,
+        "shuf_gain": 0.015000000000000001,
+        "meanobj_ind": 0.025,
+        "real_minus_shuf": 0.008333333333333331,
+        "real_minus_meanobj": 0.008333333333333331,
+        "ind_trans_gap": 0.0,
+        "real_curve_ind": {
+          "50": 0.058333333333333334,
+          "200": 0.03333333333333333
+        },
+        "confound_shuffle_invariant": false
+      },
+      "AtLocation|char_trigram|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.04166666666666667,
+        "real_trans": 0.025,
+        "real_gain": 0.03166666666666667,
+        "shuf_ind": 0.025,
+        "shuf_gain": 0.015000000000000001,
+        "meanobj_ind": 0.025,
+        "real_minus_shuf": 0.01666666666666667,
+        "real_minus_meanobj": 0.01666666666666667,
+        "ind_trans_gap": -0.01666666666666667,
+        "real_curve_ind": {
+          "50": 0.058333333333333334,
+          "200": 0.04166666666666667
+        },
+        "confound_shuffle_invariant": false
+      },
+      "AtLocation|bge_semantic|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.20833333333333331,
+        "real_trans": 0.10833333333333334,
+        "real_gain": 0.1983333333333333,
+        "shuf_ind": 0.21666666666666667,
+        "shuf_gain": 0.20666666666666667,
+        "meanobj_ind": 0.0,
+        "real_minus_shuf": -0.00833333333333336,
+        "real_minus_meanobj": 0.20833333333333331,
+        "ind_trans_gap": -0.09999999999999998,
+        "real_curve_ind": {
+          "50": 0.22499999999999998,
+          "200": 0.20833333333333331
+        },
+        "confound_shuffle_invariant": true
+      },
+      "AtLocation|bge_semantic|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.22499999999999998,
+        "real_trans": 0.10833333333333334,
+        "real_gain": 0.21499999999999997,
+        "shuf_ind": 0.21666666666666667,
+        "shuf_gain": 0.20666666666666667,
+        "meanobj_ind": 0.008333333333333333,
+        "real_minus_shuf": 0.008333333333333304,
+        "real_minus_meanobj": 0.21666666666666665,
+        "ind_trans_gap": -0.11666666666666664,
+        "real_curve_ind": {
+          "50": 0.21666666666666667,
+          "200": 0.22499999999999998
+        },
+        "confound_shuffle_invariant": true
+      },
+      "CausesDesire|char_trigram|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.06666666666666667,
+        "real_trans": 0.0125,
+        "real_gain": 0.056666666666666664,
+        "shuf_ind": 0.03333333333333333,
+        "shuf_gain": 0.02333333333333333,
+        "meanobj_ind": 0.10833333333333334,
+        "real_minus_shuf": 0.03333333333333333,
+        "real_minus_meanobj": -0.04166666666666667,
+        "ind_trans_gap": -0.05416666666666667,
+        "real_curve_ind": {
+          "50": 0.09999999999999999,
+          "200": 0.06666666666666667
+        },
+        "confound_shuffle_invariant": true
+      },
+      "CausesDesire|char_trigram|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.07500000000000001,
+        "real_trans": 0.0125,
+        "real_gain": 0.06500000000000002,
+        "shuf_ind": 0.025,
+        "shuf_gain": 0.015000000000000001,
+        "meanobj_ind": 0.10833333333333334,
+        "real_minus_shuf": 0.05000000000000001,
+        "real_minus_meanobj": -0.033333333333333326,
+        "ind_trans_gap": -0.06250000000000001,
+        "real_curve_ind": {
+          "50": 0.10833333333333332,
+          "200": 0.07500000000000001
+        },
+        "confound_shuffle_invariant": false
+      },
+      "CausesDesire|bge_semantic|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.15,
+        "real_trans": 0.058333333333333334,
+        "real_gain": 0.13999999999999999,
+        "shuf_ind": 0.15833333333333333,
+        "shuf_gain": 0.14833333333333332,
+        "meanobj_ind": 0.016666666666666666,
+        "real_minus_shuf": -0.008333333333333331,
+        "real_minus_meanobj": 0.13333333333333333,
+        "ind_trans_gap": -0.09166666666666666,
+        "real_curve_ind": {
+          "50": 0.175,
+          "200": 0.15
+        },
+        "confound_shuffle_invariant": true
+      },
+      "CausesDesire|bge_semantic|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.14166666666666666,
+        "real_trans": 0.058333333333333334,
+        "real_gain": 0.13166666666666665,
+        "shuf_ind": 0.14166666666666666,
+        "shuf_gain": 0.13166666666666665,
+        "meanobj_ind": 0.016666666666666666,
+        "real_minus_shuf": 0.0,
+        "real_minus_meanobj": 0.125,
+        "ind_trans_gap": -0.08333333333333333,
+        "real_curve_ind": {
+          "50": 0.15833333333333333,
+          "200": 0.14166666666666666
+        },
+        "confound_shuffle_invariant": true
+      },
+      "DerivedFrom|char_trigram|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.9333333333333333,
+        "real_trans": 0.8600000000000001,
+        "real_gain": 0.9233333333333333,
+        "shuf_ind": 0.925,
+        "shuf_gain": 0.915,
+        "meanobj_ind": 0.008333333333333333,
+        "real_minus_shuf": 0.008333333333333304,
+        "real_minus_meanobj": 0.925,
+        "ind_trans_gap": -0.07333333333333325,
+        "real_curve_ind": {
+          "50": 0.9333333333333333,
+          "200": 0.9333333333333333
+        },
+        "confound_shuffle_invariant": true
+      },
+      "DerivedFrom|char_trigram|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.9333333333333333,
+        "real_trans": 0.8600000000000001,
+        "real_gain": 0.9233333333333333,
+        "shuf_ind": 0.925,
+        "shuf_gain": 0.915,
+        "meanobj_ind": 0.008333333333333333,
+        "real_minus_shuf": 0.008333333333333304,
+        "real_minus_meanobj": 0.925,
+        "ind_trans_gap": -0.07333333333333325,
+        "real_curve_ind": {
+          "50": 0.9333333333333333,
+          "200": 0.9333333333333333
+        },
+        "confound_shuffle_invariant": true
+      },
+      "DerivedFrom|bge_semantic|NAIVE_MEAN": {
+        "chance": 0.01,
+        "real_ind": 0.8500000000000001,
+        "real_trans": 0.8872727272727272,
+        "real_gain": 0.8400000000000001,
+        "shuf_ind": 0.8583333333333334,
+        "shuf_gain": 0.8483333333333334,
+        "meanobj_ind": 0.016666666666666666,
+        "real_minus_shuf": -0.008333333333333304,
+        "real_minus_meanobj": 0.8333333333333334,
+        "ind_trans_gap": 0.037272727272727124,
+        "real_curve_ind": {
+          "50": 0.8500000000000001,
+          "200": 0.8500000000000001
+        },
+        "confound_shuffle_invariant": true
+      },
+      "DerivedFrom|bge_semantic|TRAINED": {
+        "chance": 0.01,
+        "real_ind": 0.8500000000000001,
+        "real_trans": 0.8963636363636364,
+        "real_gain": 0.8400000000000001,
+        "shuf_ind": 0.8583333333333334,
+        "shuf_gain": 0.8483333333333334,
+        "meanobj_ind": 0.016666666666666666,
+        "real_minus_shuf": -0.008333333333333304,
+        "real_minus_meanobj": 0.8333333333333334,
+        "ind_trans_gap": 0.046363636363636274,
+        "real_curve_ind": {
+          "50": 0.8500000000000001,
+          "200": 0.8500000000000001
+        },
+        "confound_shuffle_invariant": true
+      }
+    },
+    "enc_unavailable": {},
+    "sem_missing_total": 0,
+    "transductive_only_cells": [],
+    "discriminator_fires": false
+  },
+  "corpus_provenance": "conceptnet5_en_100k_real_triples",
+  "encoding_provenance": {
+    "char_trigram": "surface_phasor_zero_llm",
+    "bge_semantic": "BAAI/bge-small-en-v1.5_bounded_cache_centered_projected_phasor"
+  },
+  "allow_synthetic": false,
+  "n_generative_llm_calls": 0,
+  "metrics_source": "measured_cpu_fhrr_estimator_x_encoding_ablation_inductive_transductive",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: no full inductive HP on a semantic relation; partial signal. discriminator_fires=False. synthCLEAN(n=1.00,t=1.00) synthHARD(n=1.00,t=1.00,adv=+0.00,fires=False) | AtLocation|char_trigram|NAIVE_MEAN: real_ind=0.033 real_tr=0.033 gain=+0.023 r-shuf=+0.008 r-mean=+0.008 ind-tr-gap=+0.000 [HARD_FAIL] || AtLocation|char_trigram|TRAINED: real_ind=0.042 real_tr=0.025 gain=+0.032 r-shuf=+0.017 r-mean=+0.017 ind-tr-gap=-0.017 [HARD_FAIL] || AtLocation|bge_semantic|NAIVE_MEAN: real_ind=0.208 real_tr=0.108 gain=+0.198 r-shuf=-0.008 r-mean=+0.208 ind-tr-gap=-0.100 [HARD_FAIL] || AtLocation|bge_semantic|TRAINED: real_ind=0.225 real_tr=0.108 gain=+0.215 r-shuf=+0.008 r-mean=+0.217 ind-tr-gap=-0.117 [HARD_FAIL] || CausesDesire|char_trigram|NAIVE_MEAN: real_ind=0.067 real_tr=0.013 gain=+0.057 r-shuf=+0.033 r-mean=-0.042 ind-tr-gap=-0.054 [HARD_FAIL] || CausesDesire|char_trigram|TRAINED: real_ind=0.075 real_tr=0.013 gain=+0.065 r-shuf=+0.050 r-mean=-0.033 ind-tr-gap=-0.063 [MIDDLE_BAND] || CausesDesire|bge_semantic|NAIVE_MEAN: real_ind=0.150 real_tr=0.058 gain=+0.140 r-shuf=-0.008 r-mean=+0.133 ind-tr-gap=-0.092 [HARD_FAIL] || CausesDesire|bge_semantic|TRAINED: real_ind=0.142 real_tr=0.058 gain=+0.132 r-shuf=+0.000 r-mean=+0.125 ind-tr-gap=-0.083 [HARD_FAIL]",
+  "summary": "MIDDLE_BAND: {'AtLocation|char_trigram|NAIVE_MEAN': 'HARD_FAIL', 'AtLocation|char_trigram|TRAINED': 'HARD_FAIL', 'AtLocation|bge_semantic|NAIVE_MEAN': 'HARD_FAIL', 'AtLocation|bge_semantic|TRAINED': 'HARD_FAIL', 'CausesDesire|char_trigram|NAIVE_MEAN': 'HARD_FAIL', 'CausesDesire|char_trigram|TRAINED': 'MIDDLE_BAND', 'CausesDesire|bge_semantic|NAIVE_MEAN': 'HARD_FAIL', 'CausesDesire|bge_semantic|TRAINED': 'HARD_FAIL', 'DerivedFrom|char_trigram|NAIVE_MEAN': 'HARD_FAIL', 'DerivedFrom|char_trigram|TRAINED': 'HARD_FAIL', 'DerivedFrom|bge_semantic|NAIVE_MEAN': 'HARD_FAIL', 'DerivedFrom|bge_semantic|TRAINED': 'HARD_FAIL'}",
+  "elapsed_s": 395.96893215179443
+}

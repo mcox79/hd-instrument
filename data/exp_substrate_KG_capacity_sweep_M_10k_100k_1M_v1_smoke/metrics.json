@@ -1,0 +1,75 @@
+{
+  "anchor_name": "substrate_KG_capacity_sweep_M_10k_100k_1M_v1",
+  "verdict": "MEASURED_MECHANISM_at_M_cliff_X",
+  "verdict_msg": "MEASURED_MECHANISM_at_M_cliff_M=50000: substrate KV recall@1 cliffs to 0.147 < 0.50 at M=50000 (operating envelope upper-bound identified) | M=10000[r@1=0.846 r@5=0.958 cv=0.000 keysep=0.0000 lat=0.01ms W=2.25MB K=29.3MB] | M=50000[r@1=0.147 r@5=0.337 cv=0.000 keysep=0.0003 lat=0.00ms W=2.25MB K=146.5MB]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "kgCapacitySweep-v1: d=768 sigma=0.10 C=256 MAX_Q=2000 M_GRID=[10000, 50000] seeds=[11] mode=smoke device=cpu HP_M_10k>=0.75 HP_M_100k>=0.70 HP_M_1M_stretch>=0.50 cv<=0.05",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "M_GRID": [
+        10000,
+        50000
+      ],
+      "d": 768,
+      "sigma": 0.1,
+      "C": 256,
+      "MAX_Q": 2000,
+      "results_by_M": {
+        "10000": {
+          "M": 10000,
+          "d": 768,
+          "sigma": 0.1,
+          "seed": 11,
+          "recall_at_1": 0.846,
+          "recall_at_5": 0.958,
+          "recall_at_10": 0.982,
+          "avg_cleanup_sigma": 0.0799,
+          "keysep": 0.0,
+          "K_matrix_mb": 29.3,
+          "W_matrix_mb": 2.25,
+          "gpu_mem_max_mb": 0.0,
+          "gpu_mem_alloc_mb": 0.0,
+          "build_s": 0.0294,
+          "query_s": 0.0099,
+          "per_query_latency_ms": 0.005,
+          "elapsed_s": 0.134,
+          "device": "cpu"
+        },
+        "50000": {
+          "M": 50000,
+          "d": 768,
+          "sigma": 0.1,
+          "seed": 11,
+          "recall_at_1": 0.147,
+          "recall_at_5": 0.3365,
+          "recall_at_10": 0.4685,
+          "avg_cleanup_sigma": 0.025,
+          "keysep": 0.0003,
+          "K_matrix_mb": 146.48,
+          "W_matrix_mb": 2.25,
+          "gpu_mem_max_mb": 0.0,
+          "gpu_mem_alloc_mb": 0.0,
+          "build_s": 0.154,
+          "query_s": 0.0091,
+          "per_query_latency_ms": 0.0045,
+          "elapsed_s": 0.549,
+          "device": "cpu"
+        }
+      },
+      "config_version": "kgCapacitySweep-v1: d=768 sigma=0.10 C=256 MAX_Q=2000 M_GRID=[10000, 50000] seeds=[11] mode=smoke device=cpu HP_M_10k>=0.75 HP_M_100k>=0.70 HP_M_1M_stretch>=0.50 cv<=0.05",
+      "device_used": "cpu",
+      "cuda_available": false,
+      "elapsed_s": 0.7,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782421520.4612527
+    }
+  ],
+  "elapsed_s": 0.7,
+  "summary": "MEASURED_MECHANISM_at_M_cliff_M=50000: substrate KV recall@1 cliffs to 0.147 < 0.50 at M=50000 (operating envelope upper-bound identified) | M=10000[r@1=0.846 r@5=0.958 cv=0.000 keysep=0.0000 lat=0.01ms W=2.25MB K=29.3MB] | M=50000[r@1=0.147 r@5=0.337 cv=0.000 keysep=0.0003 lat=0.00ms W=2.25MB K=146.5MB]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Substrate KV capacity sweep M=10k..1M to identify the operating-envelope cliff (or its absence). Reuses dense_projected_KV_envelope_v1 mechanism. GPU required per Fix #24. Pre-reg per preregs/2026-06-25_substrate_KG_capacity_sweep_M_10k_100k_1M_v1.md."
+}

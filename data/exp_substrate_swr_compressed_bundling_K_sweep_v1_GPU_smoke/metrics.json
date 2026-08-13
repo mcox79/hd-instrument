@@ -1,0 +1,143 @@
+{
+  "anchor_name": "substrate_swr_compressed_bundling_K_sweep_v1_GPU",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no SWR-K rescue (best lift -0.522 < 0.05). M=2048 N_h=2048 N_c=512 alpha_simple=1.000 mode=smoke ARM_STANDARD=0.554 ARM_SWR_K5=0.032 ARM_SWR_K10=0.011 ARM_SWR_K20=0.005 ARM_SWR_K50=0.001 | best_K=5 best_lift=-0.522 interior_peak=False",
+  "summary": "n_seeds=1 M=2048 N_h=2048 N_c=512 K_values=(1, 5, 10, 20, 50) mode=smoke alpha_simple=1.000 device=cpu SWR_compressed_bundling_K_sweep",
+  "elapsed_s": 0.5791711807250977,
+  "config_version": "ANCHOR=substrate_swr_compressed_bundling_K_sweep_v1_GPU,M=2048,N_h=2048,N_c=512,alpha_simple=1.000,K_BUNDLE=(1, 5, 10, 20, 50),SEEDS=7,RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+METARULE_AH+METARULE_H+SWR_K_SWEEP",
+  "M": 2048,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "n_replay_per_item": 1,
+  "backend": "torch",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 1.0,
+  "K_bundle_values": [
+    1,
+    5,
+    10,
+    20,
+    50
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_STANDARD",
+      "K_bundle": 1,
+      "recall_mean": 0.5537109375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SWR_K5",
+      "K_bundle": 5,
+      "recall_mean": 0.03173828125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SWR_K10",
+      "K_bundle": 10,
+      "recall_mean": 0.01123046875,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SWR_K20",
+      "K_bundle": 20,
+      "recall_mean": 0.00537109375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SWR_K50",
+      "K_bundle": 50,
+      "recall_mean": 0.00146484375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.5539984703063965,
+      "arms": [
+        {
+          "arm_name": "ARM_STANDARD",
+          "K_bundle": 1,
+          "seed": 7,
+          "recall_cortex": 0.5537109375,
+          "n_items": 2048,
+          "n_bundles": 2048,
+          "cortex_norm": 0.22569504380226135,
+          "n_total_writes": 2048,
+          "arm_hash": "e061dac7ab083b4a",
+          "alpha_simple": 1.0,
+          "wall_s": 0.10736536979675293,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SWR_K5",
+          "K_bundle": 5,
+          "seed": 7,
+          "recall_cortex": 0.03173828125,
+          "n_items": 2048,
+          "n_bundles": 410,
+          "cortex_norm": 0.5032183527946472,
+          "n_total_writes": 410,
+          "arm_hash": "d0a4f8cf527659d4",
+          "alpha_simple": 1.0,
+          "wall_s": 0.10437822341918945,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SWR_K10",
+          "K_bundle": 10,
+          "seed": 7,
+          "recall_cortex": 0.01123046875,
+          "n_items": 2048,
+          "n_bundles": 205,
+          "cortex_norm": 0.7170250415802002,
+          "n_total_writes": 205,
+          "arm_hash": "7371afaacc20b731",
+          "alpha_simple": 1.0,
+          "wall_s": 0.10719871520996094,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SWR_K20",
+          "K_bundle": 20,
+          "seed": 7,
+          "recall_cortex": 0.00537109375,
+          "n_items": 2048,
+          "n_bundles": 103,
+          "cortex_norm": 1.0094081163406372,
+          "n_total_writes": 103,
+          "arm_hash": "bc657639d3f55bb5",
+          "alpha_simple": 1.0,
+          "wall_s": 0.10596632957458496,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SWR_K50",
+          "K_bundle": 50,
+          "seed": 7,
+          "recall_cortex": 0.00146484375,
+          "n_items": 2048,
+          "n_bundles": 41,
+          "cortex_norm": 1.6047078371047974,
+          "n_total_writes": 41,
+          "arm_hash": "de3dfee52549d913",
+          "alpha_simple": 1.0,
+          "wall_s": 0.09993314743041992,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

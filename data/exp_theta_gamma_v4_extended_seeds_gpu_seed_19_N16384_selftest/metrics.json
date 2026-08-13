@@ -1,0 +1,14 @@
+{
+  "anchor_name": "theta_gamma_v4_extended_seeds_gpu_seed_19_N16384",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=55 SMOKE=15; fhrr_unbind_self_inverse_max_diff=1.49e-07; fhrr_K1_clean_retrieval_pass(pred=7); arm_smoke_outcome_hashes={'NO_POSITION': 'dcfe916f8973c3f8', 'CYCLIC_SHIFT': '31bf134b68dbad71', 'FHRR_FLAT_PHASE_8': '5dbe167ac559e00c', 'FHRR_FLAT_PHASE_32': '66afeaa365dc20bd', 'FHRR_NESTED_THETA_GAMMA': '22183c4c28dad539'}; code_path_hashes_distinct={'NO_POSITION': 'f42c085331c340ec', 'CYCLIC_SHIFT': '95f1780908648519', 'FHRR_FLAT_PHASE_8': '8f9c019522aff8fc', 'FHRR_FLAT_PHASE_32': '27189b9649b279aa', 'FHRR_NESTED_THETA_GAMMA': '6c83b8c9bc5d4c5f'}; noise_discipline_no_position_K50_acc=0.0; nested_vs_flat32_distinct=True",
+  "summary": "cardinality FULL=55 SMOKE=15; fhrr_unbind_self_inverse_max_diff=1.49e-07; fhrr_K1_clean_retrieval_pass(pred=7); arm_smoke_outcome_hashes={'NO_POSITION': 'dcfe916f8973c3f8', 'CYCLIC_SHIFT': '31bf134b68dbad71', 'FHRR_FLAT_PHASE_8': '5dbe167ac559e00c', 'FHRR_FLAT_PHASE_32': '66afeaa365dc20bd', 'FHRR_NESTED_THETA_GAMMA': '22183c4c28dad539'}; code_path_hashes_distinct={'NO_POSITION': 'f42c085331c340ec', 'CYCLIC_SHIFT': '95f1780908648519', 'FHRR_FLAT_PHASE_8': '8f9c019522aff8fc', 'FHRR_FLAT_PHASE_32': '27189b9649b279aa', 'FHRR_NESTED_THETA_GAMMA': '6c83b8c9bc5d4c5f'}; noise_discipline_no_position_K50_acc=0.0; nested_vs_flat32_distinct=True",
+  "elapsed_s": 2.35,
+  "ts_iso": "2026-07-01T18:46:04Z",
+  "pid": 22204,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=theta_gamma_v4_extended_seeds_gpu_seed_19_N16384,arms=[NO_POSITION,CYCLIC_SHIFT,FHRR_FLAT_8,FHRR_FLAT_32,FHRR_NESTED_8x8],K_SEQ_full=[50,75,100,125,150,175,200,500,1000,2000,5000],K_SEQ_smoke=[50,100,200],N_DIM=16384,ITEM_VOCAB=10000,POSITION_NESTED=64,NOISE_SIGMA=0.05,SEED=19,mode=selftest,expected_n_full=55,expected_n_smoke=15,discriminator=fhrr_vs_cyclic_and_nested_vs_flat32_and_flat32_cliff_dist_across_7_seeds,HP_FHRR_VS_CYCLIC_LOG2_DELTA=1.5,HP_CROSS_ARM_LOG2_DELTA=0.1,HP_NESTED_VS_FLAT32_MAJORITY=5_of_7,HP_FLAT_32_CV_TIGHT=0.15,HP_PAIRS_DIFFER_full=9_of_10,smoke=4_of_10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED,revival_of=theta_gamma_v3_N16384_gpu",
+  "_hardening_marker": "v4_theta_gamma_extended_seeds_gpu_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cuda:NVIDIA GeForce RTX 4060 Ti"
+}

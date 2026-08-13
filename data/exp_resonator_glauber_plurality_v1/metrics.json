@@ -1,0 +1,423 @@
+{
+  "anchor_name": "resonator_glauber_plurality_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: K4 plurality=0.464 at T0=0.35 -- real lift over 0.142 baseline but below 0.50 (wtd=9.18, distinct_wrong_min=992, oracle_any=0.800). Honest partial rescue; NOT forced to PASS.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7083333333333334,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_glauber_T000_R10": {
+          "plurality": 0.7083333333333334,
+          "oracle_any": 0.7583333333333333,
+          "mean_within_trial_distinct": 1.1333333333333333,
+          "distinct_wrong_configs": 45,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_glauber_T100_R10": {
+          "plurality": 0.925,
+          "oracle_any": 0.9833333333333333,
+          "mean_within_trial_distinct": 2.591666666666667,
+          "distinct_wrong_configs": 190,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_glauber_T200_R10": {
+          "plurality": 0.925,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.55,
+          "distinct_wrong_configs": 186,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_glauber_T350_R10": {
+          "plurality": 0.9333333333333333,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.591666666666667,
+          "distinct_wrong_configs": 190,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_glauber_T500_R10": {
+          "plurality": 0.9333333333333333,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.8333333333333335,
+          "distinct_wrong_configs": 220,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.15833333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_glauber_T000_R10": {
+          "plurality": 0.15,
+          "oracle_any": 0.2833333333333333,
+          "mean_within_trial_distinct": 1.9583333333333333,
+          "distinct_wrong_configs": 201,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_glauber_T100_R10": {
+          "plurality": 0.35833333333333334,
+          "oracle_any": 0.7083333333333334,
+          "mean_within_trial_distinct": 9.208333333333334,
+          "distinct_wrong_configs": 1020,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_glauber_T200_R10": {
+          "plurality": 0.4666666666666667,
+          "oracle_any": 0.7833333333333333,
+          "mean_within_trial_distinct": 9.041666666666666,
+          "distinct_wrong_configs": 991,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_glauber_T350_R10": {
+          "plurality": 0.5083333333333333,
+          "oracle_any": 0.8,
+          "mean_within_trial_distinct": 9.066666666666666,
+          "distinct_wrong_configs": 992,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_glauber_T500_R10": {
+          "plurality": 0.4666666666666667,
+          "oracle_any": 0.825,
+          "mean_within_trial_distinct": 9.166666666666666,
+          "distinct_wrong_configs": 999,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "850f881e44b3ad4faa8a294a8cc78b94bb6a72a06d0075dbb548e80aa4ff6994",
+        "K3_glauber_T000_R10": "594df8565384c5212fe96dfa07f9dabf4e96fcd3d7c04851951350851f94ab76",
+        "K3_glauber_T100_R10": "8ba6399e69dbc505eb93f5bd305e074a8ce29c3c89637d0a2386df5f2badb1e9",
+        "K3_glauber_T200_R10": "3fa565a45d2a90be94f729872a8f02bcb33f7f5e8cd52d96ab3f8f25a05759e2",
+        "K3_glauber_T350_R10": "82649e631f4b1e058831ad558e42e3c6fc9ca8e1ed9747ba91906ca0c4e0bf62",
+        "K3_glauber_T500_R10": "6fc2aaeea49222b8a83ed2099b8ada135e9359e74f57889e45247c7766f847b2",
+        "K4_baseline_T0_R1": "49afd1283c5d1e82d493e8e3378f76bf4e52819725f7266adb2989b65429f201",
+        "K4_glauber_T000_R10": "2e3f9069d7e6e1cfab25f49182355f055c30f8a1b2b867b8a46f395261166a23",
+        "K4_glauber_T100_R10": "4bbb783252282ec5d4e87154b20f9b9d412ec74b3b822375b19f0e9de4a3cc4f",
+        "K4_glauber_T200_R10": "1f8c8e7b23f60de1bdbbaeadc8792dcd2f74c06cb23dff52e150235fba095373",
+        "K4_glauber_T350_R10": "daab19d4d6aa4a1905f4e84b0f1532b7c4c24f8ce8431f86571e7a159efeb96e",
+        "K4_glauber_T500_R10": "54979fdf6e96b8ce84606fe9c2b5c05528851083ea7863021cc62f3c04f6d94c"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_glauber_plurality_v1,N=4096,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783454075.6448746
+    },
+    {
+      "seed": 7,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7833333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_glauber_T000_R10": {
+          "plurality": 0.7833333333333333,
+          "oracle_any": 0.8416666666666667,
+          "mean_within_trial_distinct": 1.1333333333333333,
+          "distinct_wrong_configs": 35,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_glauber_T100_R10": {
+          "plurality": 0.9416666666666667,
+          "oracle_any": 0.975,
+          "mean_within_trial_distinct": 2.4166666666666665,
+          "distinct_wrong_configs": 173,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_glauber_T200_R10": {
+          "plurality": 0.9083333333333333,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.566666666666667,
+          "distinct_wrong_configs": 189,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_glauber_T350_R10": {
+          "plurality": 0.9333333333333333,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.625,
+          "distinct_wrong_configs": 196,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_glauber_T500_R10": {
+          "plurality": 0.9833333333333333,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.6416666666666666,
+          "distinct_wrong_configs": 194,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.09166666666666666,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_glauber_T000_R10": {
+          "plurality": 0.10833333333333334,
+          "oracle_any": 0.19166666666666668,
+          "mean_within_trial_distinct": 1.975,
+          "distinct_wrong_configs": 214,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_glauber_T100_R10": {
+          "plurality": 0.4166666666666667,
+          "oracle_any": 0.7916666666666666,
+          "mean_within_trial_distinct": 9.2,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_glauber_T200_R10": {
+          "plurality": 0.425,
+          "oracle_any": 0.7833333333333333,
+          "mean_within_trial_distinct": 9.216666666666667,
+          "distinct_wrong_configs": 1012,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_glauber_T350_R10": {
+          "plurality": 0.4666666666666667,
+          "oracle_any": 0.7916666666666666,
+          "mean_within_trial_distinct": 9.166666666666666,
+          "distinct_wrong_configs": 1004,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_glauber_T500_R10": {
+          "plurality": 0.5083333333333333,
+          "oracle_any": 0.825,
+          "mean_within_trial_distinct": 9.233333333333333,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "c358c5bc506387b7d4e4e7b7eabc6435b6cd310630af345d6b42644ead251013",
+        "K3_glauber_T000_R10": "7f2c4d31c007a6d6a78e96cf244069c4fb6cf3ccd9e774cd6c5c6cb8183dd6cd",
+        "K3_glauber_T100_R10": "ef6509651069eafe10a9d943b006207bd11d927f91fa7d89a5cde84116e3ca3d",
+        "K3_glauber_T200_R10": "ef57dbefc17d3ca56a4427c19fbb0e9d8b08bf3b45d2035570f4f058f1e958f4",
+        "K3_glauber_T350_R10": "bb064eb2a46365ffcb926e28a733662535da8c97adb7c61edc8d36ab66df1fdf",
+        "K3_glauber_T500_R10": "77e9d6b36a3264233c92bb36f58153eff9dd09c7c2ba80cc55ac2394e6e16e63",
+        "K4_baseline_T0_R1": "b0b4206b7d2533d8371622d07891f4c9f7ef9ec7264542b1a8f556d713ae522d",
+        "K4_glauber_T000_R10": "1dc23cc8aff36d55d428bcdc331572df037589d40c8c8a8a226f51d8ea7c62fe",
+        "K4_glauber_T100_R10": "2e0e0ff4bd6b3832b13f59c336ebd5483d6a6cf95ace2b2ce5831172784d7e72",
+        "K4_glauber_T200_R10": "172cea32e767e771cc76ccd310c4745831c439f65ad7fa10d1073305add82065",
+        "K4_glauber_T350_R10": "08dac7092d7ad6ef54e530ec8110ea94bdd5f70d934caa01ddde3095ead4bcb6",
+        "K4_glauber_T500_R10": "2fa0fe3a070af61191c16c79d180796d6620147885af56f9ec6dc8c4ec5116c0"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_glauber_plurality_v1,N=4096,M=30",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783454478.875294
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7333333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_glauber_T000_R10": {
+          "plurality": 0.7583333333333333,
+          "oracle_any": 0.7916666666666666,
+          "mean_within_trial_distinct": 1.1,
+          "distinct_wrong_configs": 37,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_glauber_T100_R10": {
+          "plurality": 0.9083333333333333,
+          "oracle_any": 0.975,
+          "mean_within_trial_distinct": 2.7,
+          "distinct_wrong_configs": 206,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_glauber_T200_R10": {
+          "plurality": 0.925,
+          "oracle_any": 0.975,
+          "mean_within_trial_distinct": 2.6166666666666667,
+          "distinct_wrong_configs": 197,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_glauber_T350_R10": {
+          "plurality": 0.9083333333333333,
+          "oracle_any": 0.975,
+          "mean_within_trial_distinct": 2.816666666666667,
+          "distinct_wrong_configs": 221,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_glauber_T500_R10": {
+          "plurality": 0.9,
+          "oracle_any": 0.9916666666666667,
+          "mean_within_trial_distinct": 2.816666666666667,
+          "distinct_wrong_configs": 218,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.15,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_glauber_T000_R10": {
+          "plurality": 0.175,
+          "oracle_any": 0.26666666666666666,
+          "mean_within_trial_distinct": 1.9666666666666666,
+          "distinct_wrong_configs": 204,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_glauber_T100_R10": {
+          "plurality": 0.4,
+          "oracle_any": 0.7416666666666667,
+          "mean_within_trial_distinct": 9.266666666666667,
+          "distinct_wrong_configs": 1023,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_glauber_T200_R10": {
+          "plurality": 0.4583333333333333,
+          "oracle_any": 0.8,
+          "mean_within_trial_distinct": 9.216666666666667,
+          "distinct_wrong_configs": 1010,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_glauber_T350_R10": {
+          "plurality": 0.4166666666666667,
+          "oracle_any": 0.8083333333333333,
+          "mean_within_trial_distinct": 9.308333333333334,
+          "distinct_wrong_configs": 1020,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_glauber_T500_R10": {
+          "plurality": 0.38333333333333336,
+          "oracle_any": 0.7666666666666667,
+          "mean_within_trial_distinct": 9.175,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "7b721e9652aeb462715f6908337f2a56b04aa77de44b0930812e1ed0d45967b7",
+        "K3_glauber_T000_R10": "481712db044c4c13f250cc645a7c9707f5b8125192e62c4712064849761c7e2c",
+        "K3_glauber_T100_R10": "065bae14493293b1ab7da08a36090d7a98cc4e2e038c87fa088970c4d6953de2",
+        "K3_glauber_T200_R10": "51ecdd2d2762578320607ff8bcded435c81ec357c2ca2bdf3bb00ada21fdf124",
+        "K3_glauber_T350_R10": "9dc8d4ee60b731198126392188817fe114e8060fdcc4c19bf6432e05f9c98445",
+        "K3_glauber_T500_R10": "0c65d7d3d3e9f2efe21434a424ebb52bea3253eefd33e7da745657d6f850e395",
+        "K4_baseline_T0_R1": "198c40f5284bcf703da8df6de55e7881849a7cc8f89a338df6402bcb3bb75c03",
+        "K4_glauber_T000_R10": "5e85334a80b74507fbc7623e364303d780f9d7c9a30456320ee5b6710d37b87f",
+        "K4_glauber_T100_R10": "25d5f98c8fac6f97a960c0d1f71c24950f7283c7b7d345e277cbd29fca796b72",
+        "K4_glauber_T200_R10": "138c00673b57a97098a5b9c4edea50717cc579004fae6417057aff543ccea5f3",
+        "K4_glauber_T350_R10": "2322be6c445e195a4af1cfad925c7e363966e759946c8ee1de3c9a324741bfe0",
+        "K4_glauber_T500_R10": "18e10760338ed78b109134dfcf6a01f5b44f7b14fcc34135eb10362c5776f23c"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_glauber_plurality_v1,N=4096,M=30",
+      "_ckpt_key": "13",
+      "_partial_written_at": 1783454883.7862904
+    }
+  ],
+  "detail": {
+    "baseline_K4_mean": 0.13333333333333333,
+    "baseline_K3_mean": 0.7416666666666667,
+    "positive_control_ok": true,
+    "best_t0": 0.35,
+    "best_t0_plurality_mean": 0.46388888888888885,
+    "best_t0_mean_within_trial_distinct": 9.180555555555555,
+    "best_t0_distinct_wrong_min": 992,
+    "collapse_flag": false,
+    "scatter_ok": true,
+    "t0_summary": {
+      "0.0": {
+        "plurality_mean": 0.14444444444444443,
+        "mean_within_trial_distinct": 1.9666666666666668,
+        "distinct_wrong_min": 201,
+        "oracle_any_mean": 0.24722222222222223
+      },
+      "0.1": {
+        "plurality_mean": 0.39166666666666666,
+        "mean_within_trial_distinct": 9.225,
+        "distinct_wrong_min": 1009,
+        "oracle_any_mean": 0.7472222222222222
+      },
+      "0.2": {
+        "plurality_mean": 0.44999999999999996,
+        "mean_within_trial_distinct": 9.158333333333333,
+        "distinct_wrong_min": 991,
+        "oracle_any_mean": 0.7888888888888889
+      },
+      "0.35": {
+        "plurality_mean": 0.46388888888888885,
+        "mean_within_trial_distinct": 9.180555555555555,
+        "distinct_wrong_min": 992,
+        "oracle_any_mean": 0.8000000000000002
+      },
+      "0.5": {
+        "plurality_mean": 0.4527777777777778,
+        "mean_within_trial_distinct": 9.191666666666666,
+        "distinct_wrong_min": 999,
+        "oracle_any_mean": 0.8055555555555555
+      }
+    },
+    "arms_differ_verified": true
+  },
+  "config": {
+    "N": 4096,
+    "M": 30,
+    "MAXIT": 60,
+    "R": 10,
+    "TR": 120,
+    "T0_GRID": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "K_GRID": [
+      3,
+      4
+    ],
+    "SEEDS": [
+      3,
+      7,
+      13
+    ]
+  },
+  "elapsed_s": 1215.6351746,
+  "summary": "MIDDLE_BAND: K4 plurality=0.464 at T0=0.35 -- real lift over 0.142 baseline but below 0.50 (wtd=9.18, distinct_wrong_min=992, oracle_any=0.800). Honest partial rescue; NOT forced to PASS."
+}

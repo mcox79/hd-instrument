@@ -1,0 +1,37 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS relation-type-richness-ladder: planted POS rises with type-count (slope=0.121>=0.05) at matched degree (oracle_flat=True), planted NULL flat (slope=0.001), degree-probe moves oracle (range=0.404>0.10) -> ladder detects composition-richness, not type-count per se, and the oracle control fires on degree changes",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 7.025288200005889,
+  "mechanism_selftest": {
+    "pos_best": [
+      0.5523809523809524,
+      0.6065652663973354,
+      0.6734014178908528
+    ],
+    "pos_oracle": [
+      0.5430486268581507,
+      0.5271969706564,
+      0.5571578612788657
+    ],
+    "pos_slope": 0.12102046550990042,
+    "pos_oracle_range_rel": 0.05523072426572405,
+    "null_best": [
+      0.5779036827195467,
+      0.577485380116959,
+      0.5787172011661808
+    ],
+    "null_slope": 0.0008135184466340206,
+    "degree_probe_oracle": [
+      0.43430595378647324,
+      0.7339591610064505,
+      0.8385617436277909
+    ],
+    "degree_probe_range": 0.40425578984131766,
+    "pos_rises": true,
+    "null_flat": true,
+    "pos_oracle_flat": true,
+    "degree_probe_moves": true
+  }
+}

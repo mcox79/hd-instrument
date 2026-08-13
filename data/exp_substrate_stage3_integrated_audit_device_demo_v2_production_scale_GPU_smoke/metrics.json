@@ -1,0 +1,305 @@
+{
+  "anchor_name": "substrate_stage3_integrated_audit_device_demo_v2_production_scale_GPU",
+  "verdict": "CHAIN_GRADE_AT_LOWER_X",
+  "verdict_msg": "CHAIN_GRADE_AT_LOWER_X passes at V_C_IN_200_V_REL_8,V_C_IN_400_V_REL_16 but not (V_C_IN=2000 V_REL=50) | V_C_IN_200_V_REL_8: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.259ms cv=0.000 | V_C_IN_400_V_REL_16: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.494ms cv=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateStage3IntegratedDemoV2ProductionScaleGPU: N=2048 operating_points=[(200, 8), (400, 16)] M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 batch=64 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke device=cpu cuda_available=False target=(2000, 50); bands HP_in_ans>=0.85 HP_out_ref>=0.85 HP_near_ref>=0.85 HP_uncert_corr>=0.70 HP_p95<=10.0ms HP_cv<=0.07 HF_near_ref_min_at_V_REL_ge_20<0.50 HF_lat>50.0ms",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "M_KV": 2000,
+      "operating_points": [
+        [
+          200,
+          8
+        ],
+        [
+          400,
+          16
+        ]
+      ],
+      "n_queries_per_cat": {
+        "PURE_IN_DOMAIN": 25,
+        "PURE_OUT_OF_DOMAIN": 25,
+        "NEAR_DOMAIN_MIXED": 25,
+        "IN_DOMAIN_UNCERTAIN": 25
+      },
+      "config_version": "substrateStage3IntegratedDemoV2ProductionScaleGPU: N=2048 operating_points=[(200, 8), (400, 16)] M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 batch=64 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke device=cpu cuda_available=False target=(2000, 50); bands HP_in_ans>=0.85 HP_out_ref>=0.85 HP_near_ref>=0.85 HP_uncert_corr>=0.70 HP_p95<=10.0ms HP_cv<=0.07 HF_near_ref_min_at_V_REL_ge_20<0.50 HF_lat>50.0ms",
+      "_llm_forward_calls_at_inference": 0,
+      "device": "cpu",
+      "cuda_available": false,
+      "per_operating_point": {
+        "V_C_IN_200_V_REL_8": {
+          "V_C_IN": 200,
+          "V_REL": 8,
+          "arm_pipeline_composed": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9,
+                "latency_p50_ms": 0.259,
+                "latency_p95_ms": 0.259,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.356,
+                "latency_p95_ms": 0.356,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.55,
+                "latency_p95_ms": 0.55,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.646,
+                "latency_p95_ms": 0.646,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.05
+          },
+          "arm_audit_only_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9825,
+                "latency_p50_ms": 0.338,
+                "latency_p95_ms": 0.338,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.773,
+                "latency_p95_ms": 0.773,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.64,
+                "latency_p95_ms": 0.64,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.355,
+                "latency_p95_ms": 0.355,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.06
+          },
+          "arm_no_refuse_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.981,
+                "latency_p50_ms": 0.214,
+                "latency_p95_ms": 0.214,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9977,
+                "latency_p50_ms": 0.617,
+                "latency_p95_ms": 0.617,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9983,
+                "latency_p50_ms": 0.643,
+                "latency_p95_ms": 0.643,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9943,
+                "latency_p50_ms": 0.584,
+                "latency_p95_ms": 0.584,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.06
+          },
+          "elapsed_s_point": 0.2
+        },
+        "V_C_IN_400_V_REL_16": {
+          "V_C_IN": 400,
+          "V_REL": 16,
+          "arm_pipeline_composed": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9,
+                "latency_p50_ms": 0.494,
+                "latency_p95_ms": 0.494,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.674,
+                "latency_p95_ms": 0.674,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.495,
+                "latency_p95_ms": 0.495,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.26,
+                "latency_p95_ms": 0.26,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.06
+          },
+          "arm_audit_only_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 1.0,
+                "latency_p50_ms": 0.307,
+                "latency_p95_ms": 0.307,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.661,
+                "latency_p95_ms": 0.661,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.566,
+                "latency_p95_ms": 0.566,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.313,
+                "latency_p95_ms": 0.313,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.05
+          },
+          "arm_no_refuse_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9979,
+                "latency_p50_ms": 0.356,
+                "latency_p95_ms": 0.356,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9803,
+                "latency_p50_ms": 0.271,
+                "latency_p95_ms": 0.271,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9879,
+                "latency_p50_ms": 1.1,
+                "latency_p95_ms": 1.1,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9875,
+                "latency_p50_ms": 0.375,
+                "latency_p95_ms": 0.375,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.06
+          },
+          "elapsed_s_point": 0.2
+        }
+      },
+      "elapsed_s": 0.5,
+      "_fix24_violations": [],
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782436364.6202033
+    }
+  ],
+  "elapsed_s": 0.6,
+  "summary": "CHAIN_GRADE_AT_LOWER_X passes at V_C_IN_200_V_REL_8,V_C_IN_400_V_REL_16 but not (V_C_IN=2000 V_REL=50) | V_C_IN_200_V_REL_8: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.259ms cv=0.000 | V_C_IN_400_V_REL_16: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.494ms cv=0.000",
+  "_llm_forward_calls_at_inference": 0,
+  "device": "cpu",
+  "cuda_available": false,
+  "_fix24_violations": [],
+  "DESIGN_NOTE": "GPU-torchified rewrite of EXT-1 v2 production scale per Fix #24. Same 4 operating points + 4 categories + 3 arms + bands. Big matmuls (audit cleanup against V_subjects, KV retrieve against W_kv, intent classifier, graph-health probe) batched on torch.cuda; per-query latency amortized from batch wall-clock so p95 reflects per-query production inference cost. Substrate-only; zero LLM forward calls. Target = (V_C_IN=2000, V_REL=50)."
+}

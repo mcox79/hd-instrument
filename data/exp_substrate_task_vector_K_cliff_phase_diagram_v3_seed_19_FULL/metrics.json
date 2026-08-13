@@ -1,0 +1,1128 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | K_cliff_min=3 loc=V50_ov0.30 | valid_cliffs=4/9 | no_sat=4 | non_monotonic=1 | avg_arms_diff=0.271 | all_saturated=False | regime_flip=False | chain_grade_eligible=False | M3#4 PARTIAL: regime-narrow; 4/9 valid; K_cliff_min=3",
+  "summary": "MIDDLE_BAND | K_cliff_min=3 loc=V50_ov0.30 | valid_cliffs=4/9 | no_sat=4 | non_monotonic=1 | avg_arms_diff=0.271 | all_saturated=False | regime_flip=False | chain_grade_eligible=False | M3#4 PARTIAL: regime-narrow; 4/9 valid; K_cliff_min=3",
+  "K_cliff_min": 3,
+  "K_cliff_min_location_key": "V50_ov0.30",
+  "slice_details_pooled": {
+    "V10_ov0.00": {
+      "cliff_status": "valid",
+      "K_sat": 1,
+      "K_cliff": 50,
+      "cliff_reason": "valid cliff: TV saturated at K=1, dropped below 0.4 at K=50, no recovery",
+      "tv_trajectory": [
+        [
+          1,
+          1.0
+        ],
+        [
+          3,
+          0.68
+        ],
+        [
+          5,
+          1.0
+        ],
+        [
+          10,
+          0.68
+        ],
+        [
+          20,
+          0.52
+        ],
+        [
+          50,
+          0.16
+        ],
+        [
+          100,
+          0.18
+        ],
+        [
+          200,
+          0.1
+        ]
+      ]
+    },
+    "V10_ov0.30": {
+      "cliff_status": "valid",
+      "K_sat": 1,
+      "K_cliff": 50,
+      "cliff_reason": "valid cliff: TV saturated at K=1, dropped below 0.4 at K=50, no recovery",
+      "tv_trajectory": [
+        [
+          1,
+          1.0
+        ],
+        [
+          3,
+          0.72
+        ],
+        [
+          5,
+          0.58
+        ],
+        [
+          10,
+          0.46
+        ],
+        [
+          20,
+          0.44
+        ],
+        [
+          50,
+          0.16
+        ],
+        [
+          100,
+          0.16
+        ],
+        [
+          200,
+          0.08
+        ]
+      ]
+    },
+    "V10_ov0.60": {
+      "cliff_status": "no_saturation_reached",
+      "K_sat": null,
+      "K_cliff": null,
+      "cliff_reason": "slice never reached K_SAT_THRESHOLD=0.95 (max TV=0.380)",
+      "tv_trajectory": [
+        [
+          1,
+          0.0
+        ],
+        [
+          3,
+          0.38
+        ],
+        [
+          5,
+          0.34
+        ],
+        [
+          10,
+          0.38
+        ],
+        [
+          20,
+          0.28
+        ],
+        [
+          50,
+          0.18
+        ],
+        [
+          100,
+          0.12
+        ],
+        [
+          200,
+          0.06
+        ]
+      ]
+    },
+    "V20_ov0.00": {
+      "cliff_status": "valid",
+      "K_sat": 1,
+      "K_cliff": 10,
+      "cliff_reason": "valid cliff: TV saturated at K=1, dropped below 0.4 at K=10, no recovery",
+      "tv_trajectory": [
+        [
+          1,
+          1.0
+        ],
+        [
+          3,
+          0.72
+        ],
+        [
+          5,
+          0.58
+        ],
+        [
+          10,
+          0.38
+        ],
+        [
+          20,
+          0.14
+        ],
+        [
+          50,
+          0.12
+        ],
+        [
+          100,
+          0.04
+        ],
+        [
+          200,
+          0.02
+        ]
+      ]
+    },
+    "V20_ov0.30": {
+      "cliff_status": "non_monotonic",
+      "K_sat": 1,
+      "K_cliff": null,
+      "cliff_reason": "TV dropped below floor at K=3 but recovered above 0.45 at: K=10:TV=0.620",
+      "tv_trajectory": [
+        [
+          1,
+          1.0
+        ],
+        [
+          3,
+          0.36
+        ],
+        [
+          5,
+          0.4
+        ],
+        [
+          10,
+          0.62
+        ],
+        [
+          20,
+          0.42
+        ],
+        [
+          50,
+          0.14
+        ],
+        [
+          100,
+          0.02
+        ],
+        [
+          200,
+          0.06
+        ]
+      ]
+    },
+    "V20_ov0.60": {
+      "cliff_status": "no_saturation_reached",
+      "K_sat": null,
+      "K_cliff": null,
+      "cliff_reason": "slice never reached K_SAT_THRESHOLD=0.95 (max TV=0.340)",
+      "tv_trajectory": [
+        [
+          1,
+          0.0
+        ],
+        [
+          3,
+          0.34
+        ],
+        [
+          5,
+          0.0
+        ],
+        [
+          10,
+          0.18
+        ],
+        [
+          20,
+          0.22
+        ],
+        [
+          50,
+          0.14
+        ],
+        [
+          100,
+          0.02
+        ],
+        [
+          200,
+          0.08
+        ]
+      ]
+    },
+    "V50_ov0.00": {
+      "cliff_status": "no_saturation_reached",
+      "K_sat": null,
+      "K_cliff": null,
+      "cliff_reason": "slice never reached K_SAT_THRESHOLD=0.95 (max TV=0.620)",
+      "tv_trajectory": [
+        [
+          1,
+          0.0
+        ],
+        [
+          3,
+          0.62
+        ],
+        [
+          5,
+          0.4
+        ],
+        [
+          10,
+          0.2
+        ],
+        [
+          20,
+          0.02
+        ],
+        [
+          50,
+          0.06
+        ],
+        [
+          100,
+          0.04
+        ],
+        [
+          200,
+          0.0
+        ]
+      ]
+    },
+    "V50_ov0.30": {
+      "cliff_status": "valid",
+      "K_sat": 1,
+      "K_cliff": 3,
+      "cliff_reason": "valid cliff: TV saturated at K=1, dropped below 0.4 at K=3, no recovery",
+      "tv_trajectory": [
+        [
+          1,
+          1.0
+        ],
+        [
+          3,
+          0.0
+        ],
+        [
+          5,
+          0.0
+        ],
+        [
+          10,
+          0.08
+        ],
+        [
+          20,
+          0.14
+        ],
+        [
+          50,
+          0.06
+        ],
+        [
+          100,
+          0.0
+        ],
+        [
+          200,
+          0.04
+        ]
+      ]
+    },
+    "V50_ov0.60": {
+      "cliff_status": "no_saturation_reached",
+      "K_sat": null,
+      "K_cliff": null,
+      "cliff_reason": "slice never reached K_SAT_THRESHOLD=0.95 (max TV=0.160)",
+      "tv_trajectory": [
+        [
+          1,
+          0.0
+        ],
+        [
+          3,
+          0.0
+        ],
+        [
+          5,
+          0.16
+        ],
+        [
+          10,
+          0.08
+        ],
+        [
+          20,
+          0.02
+        ],
+        [
+          50,
+          0.02
+        ],
+        [
+          100,
+          0.04
+        ],
+        [
+          200,
+          0.02
+        ]
+      ]
+    }
+  },
+  "n_valid_cliffs": 4,
+  "n_no_saturation_slices": 4,
+  "n_non_monotonic_slices": 1,
+  "n_no_cliff_post_sat_slices": 0,
+  "n_combos_total": 9,
+  "avg_arms_diff": 0.27111111157056356,
+  "all_saturated": false,
+  "low_kv_mechanism_floor_met": true,
+  "cliff_observable": true,
+  "meta_rule_am_regime_flip_points": [],
+  "summary_per_phase_point_pooled": [
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.6800000071525574,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.6800000071525574,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.7200000286102295,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.7200000286102295,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.3799999952316284,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.3799999952316284,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.7200000286102295,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.7200000286102295,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.36000001430511475,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.36000001430511475,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.3400000035762787,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.3400000035762787,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.6200000047683716,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.6200000047683716,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 1.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 1.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.5799999833106995,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.5799999833106995,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.3400000035762787,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.3400000035762787,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.5799999833106995,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.5799999833106995,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.1599999964237213,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.1599999964237213,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.6800000071525574,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.6800000071525574,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.46000000834465027,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.46000000834465027,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.3799999952316284,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.3799999952316284,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.3799999952316284,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.3799999952316284,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.6200000047683716,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.6200000047683716,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.18000000715255737,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.18000000715255737,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.07999999821186066,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.07999999821186066,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.07999999821186066,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.07999999821186066,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.5199999809265137,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.5199999809265137,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.4399999976158142,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.4399999976158142,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.2800000011920929,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.2800000011920929,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.14000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.14000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.41999998688697815,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.41999998688697815,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.2199999988079071,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.2199999988079071,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.019999999552965164,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.14000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.14000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.019999999552965164,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.1599999964237213,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.1599999964237213,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.1599999964237213,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.1599999964237213,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.18000000715255737,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.18000000715255737,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.11999999731779099,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.11999999731779099,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.14000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.14000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.14000000059604645,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.14000000059604645,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.05999999865889549,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.05999999865889549,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.05999999865889549,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.03999999910593033,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.019999999552965164,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.18000000715255737,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.18000000715255737,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.1599999964237213,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.1599999964237213,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.11999999731779099,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.11999999731779099,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.03999999910593033,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.019999999552965164,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.03999999910593033,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.03999999910593033,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.03999999910593033,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.03999999910593033,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.07999999821186066,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.07999999821186066,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.05999999865889549,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.05999999865889549,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 20,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.03999999910593033,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": -0.019999999552965164,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 20,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.05999999865889549,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.03999999910593033,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 20,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.07999999821186066,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.07999999821186066,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_pooled": 0.0,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.0,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_pooled": 0.03999999910593033,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.03999999910593033,
+      "n_pooled_queries": 50
+    },
+    {
+      "K": 200,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_pooled": 0.019999999552965164,
+      "RANDOM_VECTOR_top1_recall_pooled": 0.0,
+      "ORACLE_top1_recall_pooled": 1.0,
+      "arms_diff": 0.019999999552965164,
+      "n_pooled_queries": 50
+    }
+  ],
+  "n_seeds_complete": 1,
+  "bootstrap_ci": {},
+  "chain_grade_eligible": false,
+  "m3_concern_4_annotation": "M3#4 PARTIAL: regime-narrow; 4/9 valid; K_cliff_min=3",
+  "v3_metric_constants": {
+    "K_SAT_THRESHOLD": 0.95,
+    "HP_CLIFF_FLOOR_RECALL": 0.4,
+    "MONOTONIC_RECOVERY_TOL": 0.05,
+    "HP_K1_FLOOR_RECALL": 0.95,
+    "HP_AVG_ARMS_DIFF_MIN": 0.2,
+    "N_QUERIES_FULL": 50,
+    "BOOTSTRAP_N_REPLICATES": 1000,
+    "CHAIN_GRADE_SLICE_UNIQUENESS": 0.95,
+    "CHAIN_GRADE_K_CLIFF_CI_WIDTH": 1
+  },
+  "anchor_name": "substrate_task_vector_K_cliff_phase_diagram_v3_seed_19",
+  "elapsed_s": 173.5,
+  "ts_iso": "2026-06-29T05:09:12Z",
+  "pid": 20148,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_task_vector_K_cliff_phase_diagram_v3_seed_19,N=8192,SEED=19,mode=full,K=[1,3,5,10,20,50,100,200],V=[10,20,50],ov=[0.0,0.3,0.6],V_ENTS_POOL=200,n_queries_full=50,arms=[TASK_VECTOR,RANDOM_VECTOR,ORACLE],expected_n_full=10800,expected_n_smoke=900,v3_metric=v2_monotonic_decay_inherited,v3_lever=pooled_phase_diagram+bootstrap_ci,bootstrap_n_replicates=1000,bootstrap_ci_pct=95,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v3_taskvec_Kcliff_phase_diagram_chunked",
+  "backend": "torch.cpu",
+  "seed": 19,
+  "expected_n": 10800,
+  "observed_n": 10800,
+  "cardinality_ok": true
+}

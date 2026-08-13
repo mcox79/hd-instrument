@@ -1,0 +1,237 @@
+{
+  "anchor_name": "substrate_cfrpe_n_steps_curve_extension_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: best bpc=4.8122 at N=100 <= 7.00 bar. ASYMPTOTE_BEAT_bpc<=6.95. ASYMPTOTE_OPEN: |bpc@200 - bpc@100|=0.0317 > 0.01. ARM_HEBBIAN_BASELINE=bpc5.1196 | N50_cfrpe=bpc5.0280(lift0.0916) | N100_cfrpe=bpc4.8122(lift0.3074) | N200_cfrpe=bpc4.8439(lift0.2757). hebbian_sanity=False",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "SEEDS": [
+    0
+  ],
+  "N_STEPS_GRID": [
+    50,
+    100,
+    200
+  ],
+  "CFRPE_LR": 0.5,
+  "INGEST_BATCH": 64,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "LAMBDA_GRID": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0
+      },
+      "ARM_HEBBIAN_BASELINE": {
+        "bpc_best_mean": 5.1196,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4056,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7403,
+        "lambda_zero_collapse_any_seed": false,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "N50_cfrpe": {
+        "bpc_best_mean": 5.028,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4173,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6931,
+        "lambda_zero_collapse_any_seed": false,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "N100_cfrpe": {
+        "bpc_best_mean": 4.8122,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.314,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4134,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7047,
+        "lambda_zero_collapse_any_seed": false,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "N200_cfrpe": {
+        "bpc_best_mean": 4.8439,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3955,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6535,
+        "lambda_zero_collapse_any_seed": false,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "lifts_per_n_steps": {
+      "50": 0.0916,
+      "100": 0.3074,
+      "200": 0.2757
+    },
+    "lift_at_max_steps": 0.2757,
+    "lift_at_min_steps": 0.0916,
+    "hebbian_bpc": 5.1196,
+    "unigram_bpc": 5.5226,
+    "is_monotone_lifts": false,
+    "max_n_steps_cv": 0.0,
+    "n_seeds": 1,
+    "n_steps_grid": [
+      50,
+      100,
+      200
+    ],
+    "hebbian_baseline_bpc_ref": 7.3065,
+    "hebbian_sanity_ok": false,
+    "hard_pass_new_anchor_lift_bar": 0.25,
+    "chain_grade_bonus_lift_bar": 0.3,
+    "asymptote_converged_delta": 0.02,
+    "asymptote_open_delta": 0.03,
+    "hard_fail_no_progress_delta": 0.02,
+    "v2_hard_pass_bpc_bar": 7.0,
+    "v2_hard_fail_bpc_bar": 7.05,
+    "v2_asymptote_found_delta": 0.01,
+    "v2_asymptote_beat_bar": 6.95,
+    "v2_diminishing_returns_bar": 0.03,
+    "honest_scope": "cf-RPE N_STEPS asymptote extension at production scale (N_DIM=8192 N_TRAIN=100k text8 V=4000). Extends v1 grid (5000 ceiling) to [50, 100, 200]. HARD_PASS = best bpc across grid <= 7.00. HARD_FAIL = best bpc > 7.05 (no improvement over v1 N=5000 bpc=7.0386). ASYMPTOTE_FOUND = |bpc@200 - bpc@100| <= 0.01. ASYMPTOTE_BEAT (chain-grade-bonus) = best bpc <= 6.95. DIMINISHING_RETURNS = bpc@50 - bpc@200 < 0.03. ARM_HEBBIAN_BASELINE sanity: 7.3065 +/- 0.05 (full only). cv < 0.05 for max arm. C7 LAMBDA_GRID excludes 0.0 (anti-calibration-collapse). WHAT_THIS_DOES_NOT_SHOW: does not test STDP composition, generalization beyond text8, or encoder sensitivity.",
+    "cites": [
+      "preregs/2026-06-24_substrate_cfrpe_n_steps_curve_extension_v2.md",
+      "experiments/exp_substrate_cfrpe_n_steps_curve_v1.py",
+      "data/exp_substrate_cfrpe_n_steps_curve_v1/metrics.json",
+      "preregs/2026-06-23_substrate_cfrpe_n_steps_curve_v1.md",
+      "experiments/exp_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1.py"
+    ],
+    "asymptote_msg": "ASYMPTOTE_OPEN: |bpc@200 - bpc@100|=0.0317 > 0.01",
+    "asymptote_found": false,
+    "asymptote_beat": true,
+    "bpc_gain_extension": 0.1841,
+    "diminishing_returns": false,
+    "best_bpc": 4.8122,
+    "best_n_steps": 100,
+    "bpc_per_n_steps": {
+      "50": 5.028,
+      "100": 4.8122,
+      "200": 4.8439
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_HEBBIAN_BASELINE": {
+          "bpc_best": 5.1196,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 5.0807,
+          "top1_acc": 0.3306,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.4056,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.05,
+          "raw_bpc_at_T1_L1": 7.7403,
+          "lambda_zero_collapse": false,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.06
+        },
+        "N50_cfrpe": {
+          "bpc_best": 5.028,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.8672,
+          "top1_acc": 0.3058,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.4173,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.6931,
+          "lambda_zero_collapse": false,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.07
+        },
+        "N100_cfrpe": {
+          "bpc_best": 4.8122,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.2,
+          "best_dev_bpc": 4.7908,
+          "top1_acc": 0.314,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.4134,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.7047,
+          "lambda_zero_collapse": false,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.09
+        },
+        "N200_cfrpe": {
+          "bpc_best": 4.8439,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.7678,
+          "top1_acc": 0.3058,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3955,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.2,
+          "raw_bpc_at_T1_L1": 7.6535,
+          "lambda_zero_collapse": false,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.12
+        }
+      },
+      "V": 300,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "elapsed_s_seed": 24.52,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300
+      }
+    }
+  ],
+  "elapsed_s": 24.52,
+  "summary": "HARD_PASS: best bpc=4.8122 at N=100 <= 7.00 bar. ASYMPTOTE_BEAT_bpc<=6.95. ASYMPTOTE_OPEN: |bpc@200 - bpc@100|=0.0317 > 0.01. ARM_HEBBIAN_BASELINE=bpc5.1196 | N50_cfrpe=bpc5.0280(lift0.0916) | N100_cfrpe=bpc4.8122(lift0.3074) | N200_cfrpe=bpc4.8439(lift0.2757). hebbian_sanity=False"
+}

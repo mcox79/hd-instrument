@@ -1,0 +1,22 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator telemetry-sensitive + subgraph/encoder pipeline exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.6819674000144005,
+  "discriminator_selftest": {
+    "corr_planted_high": 0.7727272727272723,
+    "corr_planted_indep": -0.06638382216308654,
+    "e2e_tied_corr": 1.0,
+    "e2e_separated_corr": -0.05426137522008722
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 131,
+    "n_edges": 252,
+    "median_degree": 2.0,
+    "mean_degree": 3.8473282442748094,
+    "frac_deg_ge_2": 1.0
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "anchor_name": "substrate_compose_fair_harness_cfrpe_hetplasticity_K2_modern_hopfield_cleanup_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS SUPER_ADDITIVE: ARM_FULL_JOINT_COMPOSE BPC=6.3452 <= 6.850 (substrate clears bigram-floor regime). 5-primitive compose super-additive. Total lift over baseline = -0.399. uni=8.194 | BASE=5.9458(drift=-1.3607,rail=False) | +cfRPE=6.0891(drift=-1.0161,lift=-0.143,rail=False) | +hetPlast=6.2402(drift=-0.9252,lift=-0.151,rail=False) | +K2=6.1476(lift=+0.093) | FULL_JOINT=6.3452(lift=-0.198,cv=0.000) | total_lift=-0.399",
+  "summary": "HARD_PASS | arms=5 seeds=1 N_DIM=1024 N_TRAIN=2000 encoder=word2vec_sparse_bipolar mh_beta=8.00 mh_iters=3",
+  "config_version": "substrate_compose_fair_harness_cfrpe_hetplasticity_K2_modern_hopfield_cleanup_v1; encoder=word2vec_sparse_bipolar_f0.050; N_DIM_TOTAL=1024 K_BANKS=2 N_DIM_PER_BANK=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_BASELINE_fair_harness', 'ARM_FAIR_HARNESS_PLUS_CFRPE', 'ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY', 'ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY_PLUS_K2', 'ARM_FULL_JOINT_COMPOSE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.1, 0.3, 0.5, 0.7, 1.0] cfrpe_lr=0.500 stdp_w=0.500 gate_temp=0.500 mh_beta=8.00 mh_iters=3 n_steps=80 batch=64 device=cpu",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "N_DIM_TOTAL": 1024,
+  "N_DIM_PER_BANK": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "N_STEPS": 80,
+  "K_BANKS": 2,
+  "GATE_TEMP": 0.5,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "MH_BETA": 8.0,
+  "MH_ITERS": 3,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    0
+  ],
+  "ARMS": [
+    "ARM_BASELINE_fair_harness",
+    "ARM_FAIR_HARNESS_PLUS_CFRPE",
+    "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY",
+    "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY_PLUS_K2",
+    "ARM_FULL_JOINT_COMPOSE"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 8.1936,
+        "bpc_std": 0.0
+      },
+      "ARM_BASELINE_fair_harness": {
+        "bpc_best_mean": 5.9458,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.397,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4173,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7672,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FAIR_HARNESS_PLUS_CFRPE": {
+        "bpc_best_mean": 6.0891,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3618,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3948,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.789,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY": {
+        "bpc_best_mean": 6.2402,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3518,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3773,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.8237,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY_PLUS_K2": {
+        "bpc_best_mean": 6.1476,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3568,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3874,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.964,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FULL_JOINT_COMPOSE": {
+        "bpc_best_mean": 6.3452,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3417,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3474,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7374,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      }
+    },
+    "lifts": {
+      "cfrpe_over_baseline": -0.1433,
+      "hetplast_over_cfrpe": -0.1511,
+      "k2_over_hetplast": 0.0926,
+      "mh_over_k2": -0.1976,
+      "total_full_joint_over_baseline": -0.3994
+    },
+    "sanity_rails": {
+      "baseline_ref": 7.3065,
+      "baseline_drift": 1.3607,
+      "baseline_rail_ok": false,
+      "cfrpe_ref": 7.1052,
+      "cfrpe_drift": 1.0161,
+      "cfrpe_rail_ok": false,
+      "hetplast_ref": 7.1654,
+      "hetplast_drift": 0.9252,
+      "hetplast_rail_ok": false,
+      "tolerance": 0.05
+    },
+    "bands": {
+      "hard_pass_bpc_ceiling": 6.85,
+      "middle_band_bpc_lower": 6.85,
+      "middle_band_bpc_upper": 7.05,
+      "hard_fail_bpc_floor": 7.15,
+      "cv_max": 0.05
+    },
+    "full_joint_bpc": 6.3452,
+    "full_joint_cv": 0.0,
+    "n_seeds": 1,
+    "unigram_bpc": 8.1936,
+    "honest_scope": "joint-compose of 5 chain-grade substrate primitives (Hebbian baseline + cf-RPE + STDP + K=2 multi-bank + modern-Hopfield cleanup) at production scale (N_DIM=8192, N_TRAIN=100k text8, V=4000, word2vec sparse-bipolar f=0.05). Tests super-additivity (joint BPC <= 6.85) vs additive (6.85-7.05) vs sub-additive (>=7.15). WHAT_THIS_DOES_NOT_SHOW: K>2 not tested; gate not end-to-end trained; modern-Hopfield cleanup acts on logits post-W, not on E directly; result at text8 V=4000 may not generalize to other corpora.",
+    "cites": [
+      "notes/exp_dev_handoff_research_substrate_aliveness_FULL_store_mined_2026-06-24.md (A1 anchor)",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json (baseline rail 7.3065)",
+      "data/exp_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1/metrics.json (cfRPE 7.1052 / hetPlast 7.1654)",
+      "data/exp_modern_hopfield_n_sweep_v1/metrics.json (modern-Hopfield row 100)",
+      "experiments/exp_substrate_K2_x_cfrpe_compose_word2vec_v2.py (encoder + K2 base)"
+    ],
+    "llm_forward_calls_total": 0,
+    "provenance_check_active": false,
+    "verdict_tier": "HARD_PASS_SUPER_ADDITIVE"
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 8.1936,
+          "top1_unigram": 0.0151,
+          "mrr_unigram": 0.0436,
+          "n_test": 199
+        },
+        "w2v_meta": {
+          "n_hit": 300,
+          "n_miss": 0,
+          "n_vocab": 300,
+          "pretrain_dim": 1024,
+          "synthetic_smoke": true
+        },
+        "ARM_BASELINE_fair_harness": {
+          "bpc_best": 5.9458,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 5.7743,
+          "top1_acc": 0.397,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 1.0,
+          "mrr_at_10": 0.4173,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 1.0,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 6.1509
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 5.9396
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 6.0678
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 5.7743
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 6.0823
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.25,
+          "wall_ingest_s": 0.05,
+          "wall_recall_s": 0.0,
+          "wall_cleanup_s": 0.0,
+          "raw_bpc_at_T1_L1": 7.7672,
+          "mh_cleanup_applied": false,
+          "plasticity": "hebbian",
+          "k_banks": 1
+        },
+        "ARM_FAIR_HARNESS_PLUS_CFRPE": {
+          "bpc_best": 6.0891,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 5.9304,
+          "top1_acc": 0.3618,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3948,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 1.0,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.2801
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 6.0678
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 6.1805
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 5.9304
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 6.201
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.33,
+          "wall_ingest_s": 0.23,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.0,
+          "raw_bpc_at_T1_L1": 7.789,
+          "mh_cleanup_applied": false,
+          "plasticity": "cfrpe",
+          "k_banks": 1
+        },
+        "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY": {
+          "bpc_best": 6.2402,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.7,
+          "best_dev_bpc": 6.033,
+          "top1_acc": 0.3518,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3773,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.7,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.3916
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 6.1791
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 6.2947
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 6.033
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 6.3214
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.6,
+          "wall_ingest_s": 0.47,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.0,
+          "raw_bpc_at_T1_L1": 7.8237,
+          "mh_cleanup_applied": false,
+          "plasticity": "cfrpe_stdp",
+          "k_banks": 1
+        },
+        "ARM_FAIR_HARNESS_PLUS_CFRPE_PLUS_HETPLASTICITY_PLUS_K2": {
+          "bpc_best": 6.1476,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 1.0,
+          "best_dev_bpc": 6.0788,
+          "top1_acc": 0.3568,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3874,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 1.0,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 6.2694
+            },
+            "0.3": {
+              "best_T": 0.02,
+              "bpc_dev": 6.581
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 6.1273
+            },
+            "0.7": {
+              "best_T": 0.05,
+              "bpc_dev": 6.2635
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 6.0788
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.35,
+          "wall_ingest_s": 0.24,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.0,
+          "raw_bpc_at_T1_L1": 7.964,
+          "mh_cleanup_applied": false,
+          "plasticity": "cfrpe_stdp",
+          "k_banks": 2
+        },
+        "ARM_FULL_JOINT_COMPOSE": {
+          "bpc_best": 6.3452,
+          "best_T_for_bpc": 0.2,
+          "best_lambda_for_bpc": 1.0,
+          "best_dev_bpc": 6.1464,
+          "top1_acc": 0.3417,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3474,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.2836
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 6.3624
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 6.1656
+            },
+            "0.7": {
+              "best_T": 0.2,
+              "bpc_dev": 6.4841
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 6.1464
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "elapsed_s_arm": 0.46,
+          "wall_ingest_s": 0.33,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.01,
+          "raw_bpc_at_T1_L1": 7.7374,
+          "mh_cleanup_applied": true,
+          "plasticity": "cfrpe_stdp",
+          "k_banks": 2
+        }
+      },
+      "V": 300,
+      "N_DIM_TOTAL": 1024,
+      "N_TRAIN": 2000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "smoke_synthetic": true,
+        "V": 300,
+        "N_TRAIN": 2000,
+        "n_hit": 300,
+        "n_miss": 0,
+        "n_vocab": 300,
+        "pretrain_dim": 1024,
+        "synthetic_smoke": true
+      },
+      "elapsed_s_seed": 2.01
+    }
+  ],
+  "elapsed_s": 2.01
+}

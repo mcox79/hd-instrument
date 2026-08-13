@@ -1,0 +1,1906 @@
+{
+  "anchor_name": "substrate_ultrametric_clustering_phase_diagram_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS phase-map: ULTRAMETRIC phase diagram populated in all 3 regimes (separable / hierarchical-advantage / chain-failure) at >= 20% of grid points each and discriminating at >= 50% overall. Phase coverage MID -> HIGH achieved. n_points=60 ultra_acc_mean=0.595 (min=0.023, max=1.000); kmeans_acc_mean=0.715; random_acc_mean=0.143; delta_uk_acc_mean=-0.120; n_separable(ULTRA>=0.95)=31/60 (need >= 12); n_chain_failure(d_uk<=-0.20)=25/60 (need >= 12); n_ultra_advantage(d_uk>=0.10)=22/60 (need >= 12); n_discriminating(|d_uk|>0.05)=50/60 (need >= 30); ultra_gap_mean=0.106 kmeans_gap_mean=0.082",
+  "summary": "n_seeds=1 axes(nc,cs,N,td)=[2, 5, 10, 20, 50]x[10, 50, 100, 500]x[2048, 4096, 8192]x2 expected_n_units=60 mode=full cos_thresh=0.85 min_cl_size=5",
+  "elapsed_s": 491.8359446525574,
+  "config_version": "ANCHOR=substrate_ultrametric_clustering_phase_diagram_v1,NC_AXIS=2-5-10-20-50,CS_AXIS=10-50-100-500,N_AXIS=2048-4096-8192,TREE_DEPTH=2,COSINE_THRESH=0.85,MIN_CLUSTER_SIZE=5,NOISE_OVERLAP_BASE=0.3,SEEDS=19,RUN_MODE=full,EXPECTED_N_UNITS=60",
+  "N_CLUSTERS_AXIS": [
+    2,
+    5,
+    10,
+    20,
+    50
+  ],
+  "CLUSTER_SIZE_AXIS": [
+    10,
+    50,
+    100,
+    500
+  ],
+  "N_AXIS": [
+    2048,
+    4096,
+    8192
+  ],
+  "TREE_DEPTH": 2,
+  "expected_n_units": 60,
+  "n_seeds": 1,
+  "seeds": [
+    19
+  ],
+  "cosine_thresh": 0.85,
+  "min_cluster_size": 5,
+  "noise_overlap_base": 0.3,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 19,
+      "elapsed_s": 491.6804711818695,
+      "n_grid_points": 60,
+      "grid_points": [
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 40,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.44395296062958894,
+            "mean_between": -0.0011687969281946387,
+            "gap": 0.4451217575577836
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.4438982978946663,
+            "mean_between": -0.0011687969281946387,
+            "gap": 0.44506709482286094
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.3,
+            "mean_within": 0.09574616292650155,
+            "mean_between": 0.10090961055461034,
+            "gap": -0.005163447628108789
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7,
+          "ultra_gap_minus_kmeans": 5.466273492266138e-05,
+          "wall_s": 0.2620353698730469
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 40,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.4441502912458569,
+            "mean_between": 0.0009850666002371472,
+            "gap": 0.44316522464561975
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.44410624807533705,
+            "mean_between": 0.0009850666002371472,
+            "gap": 0.4431211814750999
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.3,
+            "mean_within": 0.09753575289555265,
+            "mean_between": 0.10232487883679596,
+            "gap": -0.004789125941243311
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7,
+          "ultra_gap_minus_kmeans": 4.404317051986961e-05,
+          "wall_s": 0.25605034828186035
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 40,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.44303797074851875,
+            "mean_between": 0.003100784434755591,
+            "gap": 0.43993718631376316
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.44302863317781704,
+            "mean_between": 0.003100784434755591,
+            "gap": 0.43992784874306146
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.3,
+            "mean_within": 0.09918037362202345,
+            "mean_between": 0.10377641326548792,
+            "gap": -0.004596039643464472
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7,
+          "ultra_gap_minus_kmeans": 9.337570701706266e-06,
+          "wall_s": 1.639333963394165
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13615291838805418,
+            "mean_between": 0.0011558032688423587,
+            "gap": 0.13499711511921184
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.67,
+            "mean_within": 0.12158296140246969,
+            "mean_between": 0.007041014378644505,
+            "gap": 0.11454194702382518
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.295,
+            "mean_within": 0.03529680400637353,
+            "mean_between": 0.033837095816254624,
+            "gap": 0.0014597081901189038
+          },
+          "ultra_acc_minus_kmeans": 0.32999999999999996,
+          "ultra_acc_minus_random": 0.7050000000000001,
+          "ultra_gap_minus_kmeans": 0.020455168095386653,
+          "wall_s": 1.260207176208496
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13781758428667387,
+            "mean_between": 0.000315466376897111,
+            "gap": 0.13750211790977676
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.1375999504134422,
+            "mean_between": 0.000315466376897111,
+            "gap": 0.13728448403654508
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.295,
+            "mean_within": 0.03498011241851682,
+            "mean_between": 0.03409673305646856,
+            "gap": 0.0008833793620482561
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7050000000000001,
+          "ultra_gap_minus_kmeans": 0.00021763387323167627,
+          "wall_s": 1.873347520828247
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13819583405322172,
+            "mean_between": 0.0002791884903707654,
+            "gap": 0.13791664556285096
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13838583833396692,
+            "mean_between": 0.0002791884903707654,
+            "gap": 0.13810664984359616
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.295,
+            "mean_within": 0.034658324278576014,
+            "mean_between": 0.03430725264252973,
+            "gap": 0.0003510716360462865
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7050000000000001,
+          "ultra_gap_minus_kmeans": -0.00019000428074519848,
+          "wall_s": 2.2582855224609375
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.0747615827297089,
+            "mean_between": 0.0005297299312459359,
+            "gap": 0.07423185279846296
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.64,
+            "mean_within": 0.06542292280024138,
+            "mean_between": 0.0042428478405290935,
+            "gap": 0.06118007495971229
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2825,
+            "mean_within": 0.018441498674234284,
+            "mean_between": 0.018511783954205725,
+            "gap": -7.028527997144166e-05
+          },
+          "ultra_acc_minus_kmeans": 0.36,
+          "ultra_acc_minus_random": 0.7175,
+          "ultra_gap_minus_kmeans": 0.013051777838750674,
+          "wall_s": 1.8801844120025635
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.07445070627826152,
+            "mean_between": 0.00013789163989949592,
+            "gap": 0.07431281463836202
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.0740714632601862,
+            "mean_between": 0.00013789163989949592,
+            "gap": 0.0739335716202867
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2825,
+            "mean_within": 0.017964362548221716,
+            "mean_between": 0.018751506017839453,
+            "gap": -0.0007871434696177376
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7175,
+          "ultra_gap_minus_kmeans": 0.00037924301807532035,
+          "wall_s": 2.1985597610473633
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.07406572051707334,
+            "mean_between": 3.1663539949159594e-05,
+            "gap": 0.07403405697712419
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.07402650976983327,
+            "mean_between": 3.1663539949159594e-05,
+            "gap": 0.07399484622988411
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2825,
+            "mean_within": 0.017916246141887394,
+            "mean_between": 0.01854539689210388,
+            "gap": -0.0006291507502164846
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.7175,
+          "ultra_gap_minus_kmeans": 3.921074724007323e-05,
+          "wall_s": 2.418328046798706
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.251,
+            "mean_within": 0.0043578001190937125,
+            "mean_between": -0.0028477953770702632,
+            "gap": 0.007205595496163976
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.9995,
+            "mean_within": 0.015806439029829106,
+            "mean_between": -0.0001638733557501463,
+            "gap": 0.015970312385579253
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2715,
+            "mean_within": 0.004222107431062078,
+            "mean_between": 0.00373968680029525,
+            "gap": 0.00048242063076682756
+          },
+          "ultra_acc_minus_kmeans": -0.7485,
+          "ultra_acc_minus_random": -0.020500000000000018,
+          "ultra_gap_minus_kmeans": -0.008764716889415276,
+          "wall_s": 3.0974154472351074
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.251,
+            "mean_within": 0.0038359387785587735,
+            "mean_between": 0.001595356297877647,
+            "gap": 0.0022405824806811265
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.01556877368210825,
+            "mean_between": 0.00034314282510734324,
+            "gap": 0.015225630857000906
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2715,
+            "mean_within": 0.0041472315332234085,
+            "mean_between": 0.0038956662515871585,
+            "gap": 0.00025156528163624995
+          },
+          "ultra_acc_minus_kmeans": -0.749,
+          "ultra_acc_minus_random": -0.020500000000000018,
+          "ultra_gap_minus_kmeans": -0.01298504837631978,
+          "wall_s": 3.794053316116333
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.251,
+            "mean_within": 0.004314318522966168,
+            "mean_between": 0.0047089419709507654,
+            "gap": -0.00039462344798459753
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.015635607667510758,
+            "mean_between": 0.0002729298848221834,
+            "gap": 0.015362677782688574
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.2715,
+            "mean_within": 0.004035363397115282,
+            "mean_between": 0.004113758626307271,
+            "gap": -7.839522919198937e-05
+          },
+          "ultra_acc_minus_kmeans": -0.749,
+          "ultra_acc_minus_random": -0.020500000000000018,
+          "ultra_gap_minus_kmeans": -0.01575730123067317,
+          "wall_s": 5.849381446838379
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 100,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.32454825434111384,
+            "mean_between": -8.439113926876294e-05,
+            "gap": 0.3246326454803826
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.87,
+            "mean_within": 0.2650279643353574,
+            "mean_between": 0.0035247225927747317,
+            "gap": 0.26150324174258266
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.23,
+            "mean_within": 0.023985844813839075,
+            "mean_between": 0.029080036036869386,
+            "gap": -0.005094191223030311
+          },
+          "ultra_acc_minus_kmeans": 0.13,
+          "ultra_acc_minus_random": 0.77,
+          "ultra_gap_minus_kmeans": 0.06312940373779996,
+          "wall_s": 1.4064786434173584
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 100,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.32531115597975874,
+            "mean_between": 0.0006473668486471787,
+            "gap": 0.32466378913111155
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.3251576693469804,
+            "mean_between": 0.0006473668486471787,
+            "gap": 0.32451030249833324
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.23,
+            "mean_within": 0.024310947736862328,
+            "mean_between": 0.02990375870951714,
+            "gap": -0.005592810972654811
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.77,
+          "ultra_gap_minus_kmeans": 0.0001534866327783102,
+          "wall_s": 1.6069109439849854
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 100,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.32540912477667805,
+            "mean_between": 0.00047596071915819024,
+            "gap": 0.3249331640575199
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.32531576141914303,
+            "mean_between": 0.00047596071915819024,
+            "gap": 0.32483980069998486
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.23,
+            "mean_within": 0.02292157187340659,
+            "mean_between": 0.02984767396383582,
+            "gap": -0.00692610209042923
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.77,
+          "ultra_gap_minus_kmeans": 9.336335753501457e-05,
+          "wall_s": 1.620689868927002
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 500,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.08861272690752976,
+            "mean_between": -0.00012459579068222127,
+            "gap": 0.08873732269821198
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.852,
+            "mean_within": 0.08449180902936607,
+            "mean_between": 0.0004733627817180862,
+            "gap": 0.08401844624764798
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.146,
+            "mean_within": 0.009022259812562373,
+            "mean_between": 0.008416794219100273,
+            "gap": 0.0006054655934621001
+          },
+          "ultra_acc_minus_kmeans": 0.14800000000000002,
+          "ultra_acc_minus_random": 0.854,
+          "ultra_gap_minus_kmeans": 0.004718876450564,
+          "wall_s": 1.6591901779174805
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 500,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.08810932170097388,
+            "mean_between": -0.00017458876076144358,
+            "gap": 0.08828391046173532
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.85,
+            "mean_within": 0.07901020229572994,
+            "mean_between": 0.0011839644819343893,
+            "gap": 0.07782623781379555
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.146,
+            "mean_within": 0.008964765237430257,
+            "mean_between": 0.008195251162739198,
+            "gap": 0.0007695140746910595
+          },
+          "ultra_acc_minus_kmeans": 0.15000000000000002,
+          "ultra_acc_minus_random": 0.854,
+          "ultra_gap_minus_kmeans": 0.010457672647939772,
+          "wall_s": 2.2288355827331543
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 500,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.0882050635389803,
+            "mean_between": -3.218021317461913e-05,
+            "gap": 0.08823724375215493
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.886,
+            "mean_within": 0.07253296381005964,
+            "mean_between": 0.0009699379216832817,
+            "gap": 0.07156302588837636
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.146,
+            "mean_within": 0.00871254083249338,
+            "mean_between": 0.008452714746079561,
+            "gap": 0.00025982608641381827
+          },
+          "ultra_acc_minus_kmeans": 0.11399999999999999,
+          "ultra_acc_minus_random": 0.854,
+          "ultra_gap_minus_kmeans": 0.016674217863778568,
+          "wall_s": 2.9369866847991943
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.106,
+            "mean_within": 0.003134006701310643,
+            "mean_between": 0.0016621689859718058,
+            "gap": 0.0014718377153388374
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.04546429746359462,
+            "mean_between": 0.0002832114403807119,
+            "gap": 0.04518108602321391
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.139,
+            "mean_within": 0.004473576813632439,
+            "mean_between": 0.004367383114702686,
+            "gap": 0.00010619369892975357
+          },
+          "ultra_acc_minus_kmeans": -0.894,
+          "ultra_acc_minus_random": -0.033000000000000015,
+          "ultra_gap_minus_kmeans": -0.04370924830787507,
+          "wall_s": 2.229733467102051
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.503,
+            "mean_within": 0.03377034492361842,
+            "mean_between": 0.00037677813703879235,
+            "gap": 0.03339356678657963
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.046269843814363415,
+            "mean_between": 0.00013135478575350263,
+            "gap": 0.04613848902860991
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.139,
+            "mean_within": 0.004928448790612927,
+            "mean_between": 0.004070292860623048,
+            "gap": 0.0008581559299898787
+          },
+          "ultra_acc_minus_kmeans": -0.497,
+          "ultra_acc_minus_random": 0.364,
+          "ultra_gap_minus_kmeans": -0.012744922242030284,
+          "wall_s": 2.471372365951538
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.04597992044344973,
+            "mean_between": 0.00024002478318145966,
+            "gap": 0.045739895660268266
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.851,
+            "mean_within": 0.04393401137353468,
+            "mean_between": 0.000404535635949182,
+            "gap": 0.0435294757375855
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.139,
+            "mean_within": 0.004629372923215793,
+            "mean_between": 0.0044174264397186845,
+            "gap": 0.00021194648349710885
+          },
+          "ultra_acc_minus_kmeans": 0.14900000000000002,
+          "ultra_acc_minus_random": 0.861,
+          "ultra_gap_minus_kmeans": 0.0022104199226827687,
+          "wall_s": 3.801481008529663
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.1014,
+            "mean_within": 0.04629488454095519,
+            "mean_between": -0.00423137670696245,
+            "gap": 0.05052626124791764
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.5648,
+            "mean_within": 0.006379695387258416,
+            "mean_between": 0.0007818501046059291,
+            "gap": 0.005597845282652487
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1152,
+            "mean_within": 0.0007733255343590345,
+            "mean_between": 0.0011957659330760928,
+            "gap": -0.00042244039871705834
+          },
+          "ultra_acc_minus_kmeans": -0.4634,
+          "ultra_acc_minus_random": -0.013799999999999993,
+          "ultra_gap_minus_kmeans": 0.04492841596526515,
+          "wall_s": 6.861621141433716
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.1014,
+            "mean_within": 0.0009498619622545832,
+            "mean_between": 0.0019464772695876999,
+            "gap": -0.0009966153073331166
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.8646,
+            "mean_within": 0.008366414466317949,
+            "mean_between": 0.00028837912603690196,
+            "gap": 0.008078035340281047
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1152,
+            "mean_within": 0.0009814073326546353,
+            "mean_between": 0.0008182312272041312,
+            "gap": 0.00016317610545050413
+          },
+          "ultra_acc_minus_kmeans": -0.7632,
+          "ultra_acc_minus_random": -0.013799999999999993,
+          "ultra_gap_minus_kmeans": -0.009074650647614164,
+          "wall_s": 13.640507698059082
+        },
+        {
+          "n_top_clusters": 5,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 500,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 10,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.1014,
+            "mean_within": 0.021771585231066305,
+            "mean_between": -0.000817918600495028,
+            "gap": 0.022589503831561334
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.009549099215134044,
+            "mean_between": 4.466376638213897e-05,
+            "gap": 0.009504435448751906
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1152,
+            "mean_within": 0.0006767551275316787,
+            "mean_between": 0.0007709955543652363,
+            "gap": -9.424042683355764e-05
+          },
+          "ultra_acc_minus_kmeans": -0.8986,
+          "ultra_acc_minus_random": -0.013799999999999993,
+          "ultra_gap_minus_kmeans": 0.013085068382809428,
+          "wall_s": 18.891660690307617
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.2698100969824187,
+            "mean_between": 8.565423622241717e-05,
+            "gap": 0.2697244427461963
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.695,
+            "mean_within": 0.17816350907919845,
+            "mean_between": 0.0028508503384739228,
+            "gap": 0.17531265874072452
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.19,
+            "mean_within": 0.01135803677213548,
+            "mean_between": 0.011157675530509658,
+            "gap": 0.0002003612416258231
+          },
+          "ultra_acc_minus_kmeans": 0.30500000000000005,
+          "ultra_acc_minus_random": 0.81,
+          "ultra_gap_minus_kmeans": 0.09441178400547176,
+          "wall_s": 1.3630380630493164
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.2702610952851418,
+            "mean_between": 0.000294656069930454,
+            "gap": 0.26996643921521135
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.71,
+            "mean_within": 0.15662021611919552,
+            "mean_between": 0.0036076491383754466,
+            "gap": 0.15301256698082008
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.19,
+            "mean_within": 0.011359787706207616,
+            "mean_between": 0.011855607407940508,
+            "gap": -0.000495819701732892
+          },
+          "ultra_acc_minus_kmeans": 0.29000000000000004,
+          "ultra_acc_minus_random": 0.81,
+          "ultra_gap_minus_kmeans": 0.11695387223439127,
+          "wall_s": 1.494762897491455
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.2697901698926125,
+            "mean_between": -0.00014053390774258537,
+            "gap": 0.2699307038003551
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.86,
+            "mean_within": 0.22702447774963436,
+            "mean_between": 0.0007465737481273337,
+            "gap": 0.22627790400150702
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.19,
+            "mean_within": 0.011568621269451735,
+            "mean_between": 0.011045869112674253,
+            "gap": 0.0005227521567774812
+          },
+          "ultra_acc_minus_kmeans": 0.14,
+          "ultra_acc_minus_random": 0.81,
+          "ultra_gap_minus_kmeans": 0.04365279979884809,
+          "wall_s": 1.7360248565673828
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.652,
+            "mean_within": 0.05917189054589917,
+            "mean_between": -0.0003673472764420124,
+            "gap": 0.05953923782234118
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.899,
+            "mean_within": 0.06337598368231145,
+            "mean_between": 0.00013423767350291126,
+            "gap": 0.06324174600880854
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.103,
+            "mean_within": 0.0032409760939133164,
+            "mean_between": 0.003173140313189775,
+            "gap": 6.78357807235414e-05
+          },
+          "ultra_acc_minus_kmeans": -0.247,
+          "ultra_acc_minus_random": 0.549,
+          "ultra_gap_minus_kmeans": -0.0037025081864673556,
+          "wall_s": 1.9349520206451416
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.06859504633403882,
+            "mean_between": 1.5633888953777086e-05,
+            "gap": 0.06857941244508504
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.81,
+            "mean_within": 0.05078298375024416,
+            "mean_between": 0.0005974557550512138,
+            "gap": 0.05018552799519295
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.103,
+            "mean_within": 0.003629546458774108,
+            "mean_between": 0.00302087818661127,
+            "gap": 0.000608668272162838
+          },
+          "ultra_acc_minus_kmeans": 0.18999999999999995,
+          "ultra_acc_minus_random": 0.897,
+          "ultra_gap_minus_kmeans": 0.018393884449892095,
+          "wall_s": 2.537717819213867
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.0692615758064033,
+            "mean_between": -2.968600695983552e-05,
+            "gap": 0.06929126181336313
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.929,
+            "mean_within": 0.06300776415447205,
+            "mean_between": 0.00034099803662939794,
+            "gap": 0.06266676611784265
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.103,
+            "mean_within": 0.003512679104903876,
+            "mean_between": 0.00339489169149118,
+            "gap": 0.00011778741341269584
+          },
+          "ultra_acc_minus_kmeans": 0.07099999999999995,
+          "ultra_acc_minus_random": 0.897,
+          "ultra_gap_minus_kmeans": 0.0066244956955204826,
+          "wall_s": 4.0257556438446045
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.056,
+            "mean_within": 0.0009204405148672801,
+            "mean_between": 0.0013761767681260146,
+            "gap": -0.0004557362532587345
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.9315,
+            "mean_within": 0.033112550459635105,
+            "mean_between": -0.00034586369479455383,
+            "gap": 0.03345841415442966
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0855,
+            "mean_within": 0.0019608921260734482,
+            "mean_between": 0.001977157279921445,
+            "gap": -1.626515384799696e-05
+          },
+          "ultra_acc_minus_kmeans": -0.8755,
+          "ultra_acc_minus_random": -0.029500000000000005,
+          "ultra_gap_minus_kmeans": -0.033914150407688394,
+          "wall_s": 2.755281686782837
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.056,
+            "mean_within": 0.0005682858720510177,
+            "mean_between": 0.0011490137037775121,
+            "gap": -0.0005807278317264944
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.9385,
+            "mean_within": 0.03402220301372104,
+            "mean_between": 3.813679612086415e-05,
+            "gap": 0.033984066217600174
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0855,
+            "mean_within": 0.0018286874063780662,
+            "mean_between": 0.0017086192279433504,
+            "gap": 0.00012006817843471587
+          },
+          "ultra_acc_minus_kmeans": -0.8825,
+          "ultra_acc_minus_random": -0.029500000000000005,
+          "ultra_gap_minus_kmeans": -0.03456479404932667,
+          "wall_s": 4.01113224029541
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.8,
+            "mean_within": 0.033310004490610876,
+            "mean_between": -0.00013715376216472426,
+            "gap": 0.0334471582527756
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.7975,
+            "mean_within": 0.026078904654972156,
+            "mean_between": 0.0003060170430557079,
+            "gap": 0.02577288761191645
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0855,
+            "mean_within": 0.0019724844394362357,
+            "mean_between": 0.0016716386691970446,
+            "gap": 0.0003008457702391911
+          },
+          "ultra_acc_minus_kmeans": 0.0025000000000000577,
+          "ultra_acc_minus_random": 0.7145,
+          "ultra_gap_minus_kmeans": 0.007674270640859147,
+          "wall_s": 5.711471080780029
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 250,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.053,
+            "mean_within": 0.0011274360082285312,
+            "mean_between": -0.0001273809520563045,
+            "gap": 0.0012548169602848358
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.2164,
+            "mean_within": 0.004862726658194476,
+            "mean_between": 0.0008537451137031228,
+            "gap": 0.004008981544491353
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0736,
+            "mean_within": 0.0007740928292252199,
+            "mean_between": 0.0010914495807246994,
+            "gap": -0.0003173567514994795
+          },
+          "ultra_acc_minus_kmeans": -0.16340000000000002,
+          "ultra_acc_minus_random": -0.0206,
+          "ultra_gap_minus_kmeans": -0.0027541645842065173,
+          "wall_s": 6.672154426574707
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 250,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0526,
+            "mean_within": 0.0012402756238645083,
+            "mean_between": -0.00012070967507003008,
+            "gap": 0.0013609852989345385
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.7082,
+            "mean_within": 0.009657815063867231,
+            "mean_between": -0.00033459471150218515,
+            "gap": 0.009992409775369417
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0736,
+            "mean_within": 0.0009425174396498766,
+            "mean_between": 0.0005927848126071069,
+            "gap": 0.00034973262704276976
+          },
+          "ultra_acc_minus_kmeans": -0.6556000000000001,
+          "ultra_acc_minus_random": -0.020999999999999998,
+          "ultra_gap_minus_kmeans": -0.008631424476434878,
+          "wall_s": 11.041358709335327
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 250,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.052,
+            "mean_within": 0.0009526662724911439,
+            "mean_between": 0.001074672645914027,
+            "gap": -0.00012200637342288303
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.8852,
+            "mean_within": 0.012071335135438885,
+            "mean_between": -0.0003561565040295183,
+            "gap": 0.012427491639468402
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0736,
+            "mean_within": 0.0006670957233657081,
+            "mean_between": 0.000840108462480714,
+            "gap": -0.0001730127391150059
+          },
+          "ultra_acc_minus_kmeans": -0.8331999999999999,
+          "ultra_acc_minus_random": -0.0216,
+          "ultra_gap_minus_kmeans": -0.012549498012891286,
+          "wall_s": 20.72432827949524
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.23077822900049186,
+            "mean_between": 0.00028087511050902027,
+            "gap": 0.23049735388998283
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.575,
+            "mean_within": 0.11116090893379937,
+            "mean_between": 0.0025579823666260783,
+            "gap": 0.1086029265671733
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1525,
+            "mean_within": 0.004928642586393087,
+            "mean_between": 0.005921988987728674,
+            "gap": -0.0009933464013355863
+          },
+          "ultra_acc_minus_kmeans": 0.42500000000000004,
+          "ultra_acc_minus_random": 0.8475,
+          "ultra_gap_minus_kmeans": 0.12189442732280953,
+          "wall_s": 1.2991275787353516
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.23040844604940047,
+            "mean_between": 0.00022324469360880173,
+            "gap": 0.23018520135579168
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.5725,
+            "mean_within": 0.10449114439985706,
+            "mean_between": 0.0019863121254049807,
+            "gap": 0.10250483227445208
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1525,
+            "mean_within": 0.0046561441715957585,
+            "mean_between": 0.005615168574362184,
+            "gap": -0.0009590244027664254
+          },
+          "ultra_acc_minus_kmeans": 0.4275,
+          "ultra_acc_minus_random": 0.8475,
+          "ultra_gap_minus_kmeans": 0.12768036908133962,
+          "wall_s": 1.644925832748413
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 400,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.23204647619655583,
+            "mean_between": 0.00011030858709230229,
+            "gap": 0.23193616760946353
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.575,
+            "mean_within": 0.10314228264313915,
+            "mean_between": 0.0019750130596628435,
+            "gap": 0.10116726958347631
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.1525,
+            "mean_within": 0.004786802433587455,
+            "mean_between": 0.005496551010273184,
+            "gap": -0.0007097485766857292
+          },
+          "ultra_acc_minus_kmeans": 0.42500000000000004,
+          "ultra_acc_minus_random": 0.8475,
+          "ultra_gap_minus_kmeans": 0.13076889802598723,
+          "wall_s": 2.0085957050323486
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.038,
+            "mean_within": -0.00030639265674139586,
+            "mean_between": 0.00030018597587728665,
+            "gap": -0.0006065786326186825
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.581,
+            "mean_within": 0.02821394995599092,
+            "mean_between": 0.0006673403405095921,
+            "gap": 0.02754660961548133
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0785,
+            "mean_within": 0.001015067118156524,
+            "mean_between": 0.001452285216016398,
+            "gap": -0.0004372180978598739
+          },
+          "ultra_acc_minus_kmeans": -0.5429999999999999,
+          "ultra_acc_minus_random": -0.0405,
+          "ultra_gap_minus_kmeans": -0.028153188248100012,
+          "wall_s": 2.468276023864746
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.875,
+            "mean_within": 0.05385478460267424,
+            "mean_between": 0.0003727154488708154,
+            "gap": 0.05348206915380342
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.5225,
+            "mean_within": 0.02446650550014745,
+            "mean_between": 0.0007888237718295656,
+            "gap": 0.023677681728317884
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0785,
+            "mean_within": 0.0016133827177284544,
+            "mean_between": 0.0019256573133641475,
+            "gap": -0.0003122745956356931
+          },
+          "ultra_acc_minus_kmeans": 0.35250000000000004,
+          "ultra_acc_minus_random": 0.7965,
+          "ultra_gap_minus_kmeans": 0.029804387425485537,
+          "wall_s": 3.1135997772216797
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 2000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.05661830011455631,
+            "mean_between": -2.1371217714431623e-05,
+            "gap": 0.05663967133227074
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.521,
+            "mean_within": 0.022746079552986607,
+            "mean_between": 0.0009020228041267658,
+            "gap": 0.021844056748859843
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0785,
+            "mean_within": 0.0015595954036990971,
+            "mean_between": 0.0019469937094686487,
+            "gap": -0.00038739830576955156
+          },
+          "ultra_acc_minus_kmeans": 0.479,
+          "ultra_acc_minus_random": 0.9215,
+          "ultra_gap_minus_kmeans": 0.0347956145834109,
+          "wall_s": 5.038458824157715
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 4000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0315,
+            "mean_within": 0.04942153272056184,
+            "mean_between": -0.0016482012349173963,
+            "gap": 0.05106973395547923
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.25475,
+            "mean_within": 0.0070362745074964775,
+            "mean_between": 0.0003552423361806017,
+            "gap": 0.0066810321713158755
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.05775,
+            "mean_within": 0.0002501365857908072,
+            "mean_between": 0.0005570977678643814,
+            "gap": -0.0003069611820735742
+          },
+          "ultra_acc_minus_kmeans": -0.22324999999999998,
+          "ultra_acc_minus_random": -0.026250000000000002,
+          "ultra_gap_minus_kmeans": 0.044388701784163355,
+          "wall_s": 5.156859874725342
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 4000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.03125,
+            "mean_within": 0.03005669066519005,
+            "mean_between": 0.0017142382706594236,
+            "gap": 0.028342452394530628
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.44375,
+            "mean_within": 0.009942881767288716,
+            "mean_between": 0.0006863957317683879,
+            "gap": 0.009256486035520328
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.05775,
+            "mean_within": 0.0009040187360477364,
+            "mean_between": 0.0008745878653751543,
+            "gap": 2.9430870672582095e-05
+          },
+          "ultra_acc_minus_kmeans": -0.4125,
+          "ultra_acc_minus_random": -0.026500000000000003,
+          "ultra_gap_minus_kmeans": 0.0190859663590103,
+          "wall_s": 8.174828052520752
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 100,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 4000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.03175,
+            "mean_within": 0.02809052817180863,
+            "mean_between": -5.4246669471568347e-05,
+            "gap": 0.0281447748412802
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.44,
+            "mean_within": 0.009552472572244678,
+            "mean_between": 0.0005079863036863948,
+            "gap": 0.009044486268558284
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.05775,
+            "mean_within": 0.000434499527805996,
+            "mean_between": 0.0008324256293250801,
+            "gap": -0.00039792610151908415
+          },
+          "ultra_acc_minus_kmeans": -0.40825,
+          "ultra_acc_minus_random": -0.026000000000000002,
+          "ultra_gap_minus_kmeans": 0.019100288572721915,
+          "wall_s": 13.08097767829895
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 125,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0294,
+            "mean_within": -0.0014406422499144646,
+            "mean_between": -0.0009841085457771381,
+            "gap": -0.0004565337041373264
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.1976,
+            "mean_within": 0.005983741109752953,
+            "mean_between": 0.00038082511706293763,
+            "gap": 0.005602915992690015
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0542,
+            "mean_within": 0.000777741580865427,
+            "mean_between": 0.0008457005693784123,
+            "gap": -6.795898851298524e-05
+          },
+          "ultra_acc_minus_kmeans": -0.1682,
+          "ultra_acc_minus_random": -0.0248,
+          "ultra_gap_minus_kmeans": -0.006059449696827342,
+          "wall_s": 7.753731727600098
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 125,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.03,
+            "mean_within": 0.0004850530678892574,
+            "mean_between": 0.0006596058998331308,
+            "gap": -0.0001745528319438734
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.6086,
+            "mean_within": 0.011927795301843347,
+            "mean_between": 0.00047027215567070114,
+            "gap": 0.011457523146172646
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0542,
+            "mean_within": 0.0003958473336403268,
+            "mean_between": 0.0006719439927252301,
+            "gap": -0.0002760966590849033
+          },
+          "ultra_acc_minus_kmeans": -0.5786,
+          "ultra_acc_minus_random": -0.0242,
+          "ultra_gap_minus_kmeans": -0.011632075978116519,
+          "wall_s": 12.932240724563599
+        },
+        {
+          "n_top_clusters": 20,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 125,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 40,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0304,
+            "mean_within": 0.025090191507141986,
+            "mean_between": 0.0019131963229989742,
+            "gap": 0.023176995184143012
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.5552,
+            "mean_within": 0.01025767423980827,
+            "mean_between": 0.00023235405467882147,
+            "gap": 0.010025320185129449
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0542,
+            "mean_within": 0.0005021267072859076,
+            "mean_between": 0.0007331467957930386,
+            "gap": -0.00023102008850713106
+          },
+          "ultra_acc_minus_kmeans": -0.5248,
+          "ultra_acc_minus_random": -0.023799999999999998,
+          "ultra_gap_minus_kmeans": 0.013151674999013563,
+          "wall_s": 40.34569454193115
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.1940256257102507,
+            "mean_between": -0.0003835207979349717,
+            "gap": 0.19440914650818567
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.538,
+            "mean_within": 0.08574706373278158,
+            "mean_between": 0.0006212535397357266,
+            "gap": 0.08512581019304585
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.13,
+            "mean_within": 0.0016186268750064286,
+            "mean_between": 0.0014688485021209182,
+            "gap": 0.00014977837288551038
+          },
+          "ultra_acc_minus_kmeans": 0.46199999999999997,
+          "ultra_acc_minus_random": 0.87,
+          "ultra_gap_minus_kmeans": 0.10928333631513981,
+          "wall_s": 6.846048831939697
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.1942811282231108,
+            "mean_between": 0.00030908895012384246,
+            "gap": 0.19397203927298695
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.547,
+            "mean_within": 0.0794051813328075,
+            "mean_between": 0.0007766670156751181,
+            "gap": 0.07862851431713237
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.13,
+            "mean_within": 0.0016272087812276596,
+            "mean_between": 0.0017206964571528378,
+            "gap": -9.34876759251782e-05
+          },
+          "ultra_acc_minus_kmeans": 0.45299999999999996,
+          "ultra_acc_minus_random": 0.87,
+          "ultra_gap_minus_kmeans": 0.11534352495585458,
+          "wall_s": 6.8812761306762695
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.194002828813901,
+            "mean_between": 6.593865840518853e-05,
+            "gap": 0.1939368901554958
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.542,
+            "mean_within": 0.07607677586615672,
+            "mean_between": 0.0007576357621600369,
+            "gap": 0.07531914010399668
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.13,
+            "mean_within": 0.0021075869602686886,
+            "mean_between": 0.0015835440699225644,
+            "gap": 0.0005240428903461243
+          },
+          "ultra_acc_minus_kmeans": 0.45799999999999996,
+          "ultra_acc_minus_random": 0.87,
+          "ultra_gap_minus_kmeans": 0.11861775005149913,
+          "wall_s": 9.5242018699646
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.023,
+            "mean_within": 0.06572796539395119,
+            "mean_between": 0.00017468585397715947,
+            "gap": 0.06555327953997403
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.3432,
+            "mean_within": 0.012793035571980443,
+            "mean_between": 0.00041414449879628555,
+            "gap": 0.012378891073184158
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.00033343747086849384,
+            "mean_between": 0.0005581412563201578,
+            "gap": -0.00022470378545166392
+          },
+          "ultra_acc_minus_kmeans": -0.3202,
+          "ultra_acc_minus_random": -0.030600000000000002,
+          "ultra_gap_minus_kmeans": 0.053174388466789874,
+          "wall_s": 19.4034526348114
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0608,
+            "mean_within": 0.04206184944589662,
+            "mean_between": 0.0004927475817346923,
+            "gap": 0.04156910186416193
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4862,
+            "mean_within": 0.017526162114893565,
+            "mean_between": 0.0005179951012941802,
+            "gap": 0.017008167013599383
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005828705776306695,
+            "mean_between": 0.0008523273516919463,
+            "gap": -0.00026945677406127683
+          },
+          "ultra_acc_minus_kmeans": -0.4254,
+          "ultra_acc_minus_random": 0.007199999999999998,
+          "ultra_gap_minus_kmeans": 0.024560934850562544,
+          "wall_s": 26.174498319625854
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.9898,
+            "mean_within": 0.04615471217212313,
+            "mean_between": 0.00012633746767757233,
+            "gap": 0.046028374704445554
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4966,
+            "mean_within": 0.017656228652094028,
+            "mean_between": 0.00039377351584596977,
+            "gap": 0.017262455136248057
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005852553627330846,
+            "mean_between": 0.0006331041560842055,
+            "gap": -4.7848793351120875e-05
+          },
+          "ultra_acc_minus_kmeans": 0.4932,
+          "ultra_acc_minus_random": 0.9362,
+          "ultra_gap_minus_kmeans": 0.028765919568197497,
+          "wall_s": 39.118460178375244
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.023,
+            "mean_within": 0.06572796539395119,
+            "mean_between": 0.00017468585397715947,
+            "gap": 0.06555327953997403
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.3432,
+            "mean_within": 0.012793035571980443,
+            "mean_between": 0.00041414449879628555,
+            "gap": 0.012378891073184158
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.00033343747086849384,
+            "mean_between": 0.0005581412563201578,
+            "gap": -0.00022470378545166392
+          },
+          "ultra_acc_minus_kmeans": -0.3202,
+          "ultra_acc_minus_random": -0.030600000000000002,
+          "ultra_gap_minus_kmeans": 0.053174388466789874,
+          "wall_s": 17.088135480880737
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0608,
+            "mean_within": 0.04206184944589662,
+            "mean_between": 0.0004927475817346923,
+            "gap": 0.04156910186416193
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4862,
+            "mean_within": 0.017526162114893565,
+            "mean_between": 0.0005179951012941802,
+            "gap": 0.017008167013599383
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005828705776306695,
+            "mean_between": 0.0008523273516919463,
+            "gap": -0.00026945677406127683
+          },
+          "ultra_acc_minus_kmeans": -0.4254,
+          "ultra_acc_minus_random": 0.007199999999999998,
+          "ultra_gap_minus_kmeans": 0.024560934850562544,
+          "wall_s": 23.48558521270752
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 100,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.9898,
+            "mean_within": 0.04615471217212313,
+            "mean_between": 0.00012633746767757233,
+            "gap": 0.046028374704445554
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4966,
+            "mean_within": 0.017656228652094028,
+            "mean_between": 0.00039377351584596977,
+            "gap": 0.017262455136248057
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005852553627330846,
+            "mean_between": 0.0006331041560842055,
+            "gap": -4.7848793351120875e-05
+          },
+          "ultra_acc_minus_kmeans": 0.4932,
+          "ultra_acc_minus_random": 0.9362,
+          "ultra_gap_minus_kmeans": 0.028765919568197497,
+          "wall_s": 39.40911674499512
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.023,
+            "mean_within": 0.06572796539395119,
+            "mean_between": 0.00017468585397715947,
+            "gap": 0.06555327953997403
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.3432,
+            "mean_within": 0.012793035571980443,
+            "mean_between": 0.00041414449879628555,
+            "gap": 0.012378891073184158
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.00033343747086849384,
+            "mean_between": 0.0005581412563201578,
+            "gap": -0.00022470378545166392
+          },
+          "ultra_acc_minus_kmeans": -0.3202,
+          "ultra_acc_minus_random": -0.030600000000000002,
+          "ultra_gap_minus_kmeans": 0.053174388466789874,
+          "wall_s": 17.74648427963257
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.0608,
+            "mean_within": 0.04206184944589662,
+            "mean_between": 0.0004927475817346923,
+            "gap": 0.04156910186416193
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4862,
+            "mean_within": 0.017526162114893565,
+            "mean_between": 0.0005179951012941802,
+            "gap": 0.017008167013599383
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005828705776306695,
+            "mean_between": 0.0008523273516919463,
+            "gap": -0.00026945677406127683
+          },
+          "ultra_acc_minus_kmeans": -0.4254,
+          "ultra_acc_minus_random": 0.007199999999999998,
+          "ultra_gap_minus_kmeans": 0.024560934850562544,
+          "wall_s": 11.693985939025879
+        },
+        {
+          "n_top_clusters": 50,
+          "cluster_size_requested": 500,
+          "cluster_size_effective": 50,
+          "n_dim": 8192,
+          "tree_depth": 2,
+          "n_leaf_clusters": 100,
+          "n_atoms": 5000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.9898,
+            "mean_within": 0.04615471217212313,
+            "mean_between": 0.00012633746767757233,
+            "gap": 0.046028374704445554
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.4966,
+            "mean_within": 0.017656228652094028,
+            "mean_between": 0.00039377351584596977,
+            "gap": 0.017262455136248057
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.0536,
+            "mean_within": 0.0005852553627330846,
+            "mean_between": 0.0006331041560842055,
+            "gap": -4.7848793351120875e-05
+          },
+          "ultra_acc_minus_kmeans": 0.4932,
+          "ultra_acc_minus_random": 0.9362,
+          "ultra_gap_minus_kmeans": 0.028765919568197497,
+          "wall_s": 20.420900583267212
+        }
+      ]
+    }
+  ]
+}

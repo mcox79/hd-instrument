@@ -1,0 +1,182 @@
+{
+  "anchor_name": "substrate_brain_word_level_prediction_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate at K=5 does NOT beat word-bigram. S_K5 top1=0.201 vs B2_top1=0.243 (lift 0.827x). S_K5 BPW=7.814 vs B2_BPW=7.271 (margin -0.543 bits).",
+  "run_mode": "full",
+  "config_version": "substrate_brain_word_level_prediction_v1; mode=full seeds=[7, 17, 23] N_TRAIN=200000 N_HELD=20000 V=4000 N_DIM=2048 K=[1, 5, 10] temps=[0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.3, 0.5, 0.7] HP_TOP1_LIFT=1.30 HP_BPW_MARGIN=0.40",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "arms": [
+    "B1_word_unigram",
+    "B2_word_bigram",
+    "S_K1",
+    "S_K5",
+    "S_K10"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "elapsed_s": 472.9530966281891,
+      "V": 4000,
+      "N_DIM": 2048,
+      "N_TRAIN": 200000,
+      "N_HELD": 20000,
+      "B1_word_unigram": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "B2_word_bigram": {
+        "bpw": 7.271057381926838,
+        "top1": 0.24272427242724273
+      },
+      "S_K1": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.016201620162016202,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K5": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.018901890189018902,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K10": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.0204020402040204,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "sk1_b1_top1_delta": 0.0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782312348.3110821
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "elapsed_s": 479.2478549480438,
+      "V": 4000,
+      "N_DIM": 2048,
+      "N_TRAIN": 200000,
+      "N_HELD": 20000,
+      "B1_word_unigram": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "B2_word_bigram": {
+        "bpw": 7.271057381926838,
+        "top1": 0.24272427242724273
+      },
+      "S_K1": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.015401540154015401,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K5": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.018101810181018103,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K10": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.0205020502050205,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "sk1_b1_top1_delta": 0.0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782312827.7684298
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "elapsed_s": 472.95133996009827,
+      "V": 4000,
+      "N_DIM": 2048,
+      "N_TRAIN": 200000,
+      "N_HELD": 20000,
+      "B1_word_unigram": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "B2_word_bigram": {
+        "bpw": 7.271057381926838,
+        "top1": 0.24272427242724273
+      },
+      "S_K1": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.016301630163016303,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K5": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.020202020202020204,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "S_K10": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008,
+        "top1_raw": 0.018201820182018203,
+        "T_star": 0.05,
+        "lambda_star": 0.0
+      },
+      "sk1_b1_top1_delta": 0.0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782313300.9031308
+    }
+  ],
+  "honest_scope": {
+    "what_this_shows": "Whether substrate at word-grain (V=4000) beats word-bigram baseline on text8 hold-out. Word-bigram is the real aliveness threshold for any LM (unigram is the trivial floor).",
+    "what_this_does_NOT_show": [
+      "Substrate behavior at V_word > 4000 (this cell caps at V=4000)",
+      "Substrate with a learned encoder (frozen char-trigram-meanpool only)",
+      "Sequence > K=10 word context",
+      "Cross-corpus (text8-only; no WikiText / OpenWebText)",
+      "Brain compose stack interactions (no PC top-down, no WM register, no DA-LR)"
+    ],
+    "primary_arm": "S_K5",
+    "real_baseline": "B2_word_bigram (NOT B1_word_unigram)",
+    "arms_avg": {
+      "B1_word_unigram": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "B2_word_bigram": {
+        "bpw": 7.271057381926838,
+        "top1": 0.24272427242724273
+      },
+      "S_K1": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "S_K5": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      },
+      "S_K10": {
+        "bpw": 7.813990413976666,
+        "top1": 0.2008200820082008
+      }
+    },
+    "per_arm_metrics_path": "per_seed[*].{arm} for all arms in ARMS"
+  },
+  "elapsed_s": 1425.821764945984,
+  "summary": "HARD_FAIL: substrate at K=5 does NOT beat word-bigram. S_K5 top1=0.201 vs B2_top1=0.243 (lift 0.827x). S_K5 BPW=7.814 vs B2_BPW=7.271 (margin -0.543 bits)."
+}

@@ -1,0 +1,215 @@
+{
+  "anchor_name": "substrate_multihop_wm_scaffolded_v1",
+  "verdict": "HARD_FAIL_WM_DOESNT_HELP",
+  "verdict_msg": "HARD_FAIL_WM_SCAFFOLD_SAME_REGIME_AS_POINTER_V2: BASELINE=0.6500 (sanity_breach_seeds=1/3 in [0.62, 0.68]) WM_2HOP=0.4250 (cv=0.107) WM_5HOP=0.1217 (cv=0.136) WM_10HOP=0.0350 (cv=0.117) | pointer_v2_5hop=0.122 pointer_v2_10hop=0.035 (reference)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateMultihopWmScaffolded-v1: N=8192 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 WM_V_P=10 WM_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_partial_5hop>=0.30 HP_partial_10hop>=0.10 mid_5hop=[0.15,0.30] HF_5hop<0.15 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "wm_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "substrateMultihopWmScaffolded-v1: N=8192 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 WM_V_P=10 WM_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_partial_5hop>=0.30 HP_partial_10hop>=0.10 mid_5hop=[0.15,0.30] HF_5hop<0.15 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.605,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 6.68
+      },
+      "baseline_sanity_ok": false,
+      "arm_wm_scaffolded_2hop": {
+        "top1": 0.485,
+        "per_step_acc": [
+          0.69,
+          0.485
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 7.45
+      },
+      "arm_wm_scaffolded_5hop": {
+        "top1": 0.145,
+        "per_step_acc": [
+          0.69,
+          0.485,
+          0.31,
+          0.205,
+          0.145
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 17.97
+      },
+      "arm_wm_scaffolded_10hop": {
+        "top1": 0.04,
+        "per_step_acc": [
+          0.69,
+          0.485,
+          0.31,
+          0.205,
+          0.145,
+          0.1,
+          0.07,
+          0.065,
+          0.04,
+          0.04
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 36.45
+      },
+      "elapsed_s": 71.9,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782418063.1499324
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "wm_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "substrateMultihopWmScaffolded-v1: N=8192 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 WM_V_P=10 WM_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_partial_5hop>=0.30 HP_partial_10hop>=0.10 mid_5hop=[0.15,0.30] HF_5hop<0.15 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.67,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.43
+      },
+      "baseline_sanity_ok": true,
+      "arm_wm_scaffolded_2hop": {
+        "top1": 0.375,
+        "per_step_acc": [
+          0.645,
+          0.375
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 7.3
+      },
+      "arm_wm_scaffolded_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.645,
+          0.375,
+          0.26,
+          0.2,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 16.82
+      },
+      "arm_wm_scaffolded_10hop": {
+        "top1": 0.035,
+        "per_step_acc": [
+          0.645,
+          0.375,
+          0.26,
+          0.2,
+          0.11,
+          0.09,
+          0.07,
+          0.04,
+          0.02,
+          0.035
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 34.88
+      },
+      "elapsed_s": 70.9,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782418134.0208697
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "wm_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "substrateMultihopWmScaffolded-v1: N=8192 V_C=200 BASELINE_V_P=2 (fixed p1=0/p2=1; reproduces pointer_chain v2 rail) BASELINE_N=200 WM_V_P=10 WM_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[2, 5, 10] HP_2hop>=0.80 HP_5hop>=0.50 HP_10hop>=0.20 HP_cv<=0.07 HP_partial_5hop>=0.30 HP_partial_10hop>=0.10 mid_5hop=[0.15,0.30] HF_5hop<0.15 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.675,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.22
+      },
+      "baseline_sanity_ok": true,
+      "arm_wm_scaffolded_2hop": {
+        "top1": 0.415,
+        "per_step_acc": [
+          0.64,
+          0.415
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 7.32
+      },
+      "arm_wm_scaffolded_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.64,
+          0.415,
+          0.265,
+          0.16,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 16.13
+      },
+      "arm_wm_scaffolded_10hop": {
+        "top1": 0.03,
+        "per_step_acc": [
+          0.64,
+          0.415,
+          0.265,
+          0.16,
+          0.11,
+          0.075,
+          0.045,
+          0.035,
+          0.04,
+          0.03
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "wm_scaffolded_clean_atom_per_slot",
+        "elapsed_s_arm": 34.01
+      },
+      "elapsed_s": 69.0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782418203.0696552
+    }
+  ],
+  "elapsed_s": 211.9,
+  "summary": "HARD_FAIL_WM_SCAFFOLD_SAME_REGIME_AS_POINTER_V2: BASELINE=0.6500 (sanity_breach_seeds=1/3 in [0.62, 0.68]) WM_2HOP=0.4250 (cv=0.107) WM_5HOP=0.1217 (cv=0.136) WM_10HOP=0.0350 (cv=0.117) | pointer_v2_5hop=0.122 pointer_v2_10hop=0.035 (reference)",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "WM-scaffolded multi-hop closure attempt. Mechanism: PFC + hippocampus composition -- each hop reads a cleaned scaffold intermediate (E[next_idx] written through WM slot), preventing the geometric error compounding observed in pointer_chain v2 (5hop=0.122, 10hop=0.035). Baseline arm reproduces beta-sweep rail [0.62, 0.68] sanity. Pre-reg per preregs/2026-06-25_substrate_multihop_wm_scaffolded_v1.md."
+}

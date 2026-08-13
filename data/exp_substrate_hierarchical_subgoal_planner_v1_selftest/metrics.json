@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_hierarchical_subgoal_planner_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: rail=1.000 tree=0.000 flat=0.000 noclean=0.000 rand=0.000",
+  "summary": "SELFTEST_OK: rail=1.000 tree=0.000 flat=0.000 noclean=0.000 rand=0.000",
+  "elapsed_s": 1.3,
+  "ts_iso": "2026-06-28T01:55:54Z",
+  "pid": 11580,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_subgoal_planner_v1,N=1024,blocks=8,actions=6,macros=5,goals=4,depth=6,K_flat=8,K_tree=4,seeds=[7],mode=smoke,HP_solve>=0.65,HP_lift_flat>=0.25,HP_lift_clean>=0.20,expected_n=20,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AF+META_AH+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_subgoal_planner",
+  "_phase": "selftest_done",
+  "selftest_arms": [
+    "reproduce_rail",
+    "random_plan",
+    "flat_preplay_k64_d8",
+    "hrr_tree_decompose_3lvl",
+    "hrr_tree_no_cleanup"
+  ],
+  "rail_solve": 1.0,
+  "tree_solve": 0.0,
+  "flat_solve": 0.0,
+  "noclean_solve": 0.0,
+  "rand_solve": 0.0,
+  "arms_distinct": true
+}

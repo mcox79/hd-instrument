@@ -1,0 +1,206 @@
+{
+  "anchor": "substrate_cl_crispr_append_only_v1",
+  "anchor_name": "substrate_cl_crispr_append_only_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_BASE": 4096,
+  "D_slab": 1365,
+  "n_seeds": 2,
+  "seeds": [
+    "7",
+    "17"
+  ],
+  "J_phases": 3,
+  "m_per_phase": 200,
+  "arms": [
+    "ARM_BASELINE_STATIC",
+    "ARM_FUSED_W_CFRPE_HEBBIAN",
+    "ARM_APPEND_ONLY_NEW_DIMS",
+    "ARM_APPEND_ONLY_PLUS_CFRPE"
+  ],
+  "primary_arm": "ARM_APPEND_ONLY_PLUS_CFRPE",
+  "config_version": "cl-crispr-v1: N_base=4096 D_slab=1365 J=3 M=200 alpha_fast=1.0 alpha_cfrpe=0.05 alpha_slow=0.1 recency=4.0 replay_passes=10 cfrpe_passes=3 noise_frac=0.2 retrieve_steps=5 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_atoms_per_domain_slab_partition",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_synthetic_bipolar_crispr_4arm",
+  "per_arm_aggregate": {
+    "ARM_BASELINE_STATIC": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.5,
+      "mean_flops": 6727663616.0,
+      "mean_compute_per_update": 33638318.08,
+      "mean_total_slabs": 1.0,
+      "mean_final_routing_acc": NaN,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_FUSED_W_CFRPE_HEBBIAN": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.975,
+      "std_transfer_final": 0.03535533905932741,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 342959849472.0,
+      "mean_compute_per_update": 571599749.12,
+      "mean_total_slabs": 1.0,
+      "mean_final_routing_acc": NaN,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            0.95
+          ]
+        ]
+      ]
+    },
+    "ARM_APPEND_ONLY_NEW_DIMS": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 2241459675.0,
+      "mean_compute_per_update": 3735766.125,
+      "mean_total_slabs": 3.0,
+      "mean_final_routing_acc": 1.0,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    "ARM_APPEND_ONLY_PLUS_CFRPE": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 15673448700.0,
+      "mean_compute_per_update": 26122414.5,
+      "mean_total_slabs": 3.0,
+      "mean_final_routing_acc": 1.0,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CRISPR_MOAT+PLASTICITY chain-grade: APPEND_ONLY forget=0.000 < 0.1 AND slabs=3 >= J=3; APPEND_PLUS_CFRPE forget=0.000 < 0.1 AND transfer=1.000 >= 0.3; cv=0.000 < 0.05. Substrate's CL moat is architecturally real via structural-commitment. APPEND_ONLY forget=0.000 transfer=1.000 slabs=3.0 route_acc=1.000; APPEND_PLUS_CFRPE forget=0.000 transfer=1.000 route_acc=1.000 cv=0.000; FUSED_W forget=0.000; BASELINE p1_initial=1.000",
+  "summary": "HARD_PASS: ARM_APPEND_ONLY_PLUS_CFRPE forget=0.000 transfer=1.000 routing=1.000 slabs=3.0",
+  "elapsed_s": 49.37726306915283
+}

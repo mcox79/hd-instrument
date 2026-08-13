@@ -1,0 +1,133 @@
+{
+  "anchor_name": "substrate_soft_chain_dfe_multihop_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SOFT-CHAIN does NOT rescue the 2-hop gap (SOFT_CHAIN_2HOP top1=0.6317 <= 0.70, paired_delta=-0.0183). Inter-hop hard-decision is NOT the dominant failure mode at this regime; multi-hop limit is more fundamental than chaining mechanism. Revival pivots per research drill: (a) K-beam path-sum (angle 3); (b) substrate-PageRank (angle 4); (c) upstream encoder / W-capacity. sanity_ok | NAIVE_HARD_2HOP top1=0.6500 cv=0.049 (sanity=[0.60,0.70]) | RESONATOR_HARD_2HOP top1=0.6317 cv=0.024 (sanity=[0.58,0.68]) | SOFT_CHAIN_2HOP top1=0.6317 cv=0.024 (HP>=0.80 delta>=0.10 cv<=0.05) [paired_delta=-0.0183] | SOFT_CHAIN_3HOP top1=0.3933 cv=0.102 (bonus>=0.60) | chance=0.0050 V_C=200 V_P=10 N=8192 K_SET=20",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "softchain-v1: dense-bipolar HRR + multivalue-hebbian + 4arm (naive-hard, res-hard, soft-2hop, soft-3hop); V_C=200 V_P=10 N=8192 K_SET=20 n2=300 n3=200; bands naive_sanity[0.60,0.70] res_sanity[0.58,0.68] soft_HP>=0.80 soft_MB>=0.70 soft_delta>=0.10 3hop_bonus>=0.60 cv<=0.05",
+  "per_seed": [
+    {
+      "seed": 7,
+      "config_version": "softchain-v1: dense-bipolar HRR + multivalue-hebbian + 4arm (naive-hard, res-hard, soft-2hop, soft-3hop); V_C=200 V_P=10 N=8192 K_SET=20 n2=300 n3=200; bands naive_sanity[0.60,0.70] res_sanity[0.58,0.68] soft_HP>=0.80 soft_MB>=0.70 soft_delta>=0.10 3hop_bonus>=0.60 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "arm_naive_hard_2hop": {
+        "top1": 0.605,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_resonator_hard_2hop": {
+        "top1": 0.61,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9766,
+        "mean_conf_hop2": 0.7523,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_2hop": {
+        "top1": 0.61,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9766,
+        "mean_conf_hop2": 0.7523,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_3hop": {
+        "top1": 0.45,
+        "k_set": 20,
+        "beta": 8192.0,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "wall_s": 50.4
+    },
+    {
+      "seed": 17,
+      "config_version": "softchain-v1: dense-bipolar HRR + multivalue-hebbian + 4arm (naive-hard, res-hard, soft-2hop, soft-3hop); V_C=200 V_P=10 N=8192 K_SET=20 n2=300 n3=200; bands naive_sanity[0.60,0.70] res_sanity[0.58,0.68] soft_HP>=0.80 soft_MB>=0.70 soft_delta>=0.10 3hop_bonus>=0.60 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "arm_naive_hard_2hop": {
+        "top1": 0.67,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_resonator_hard_2hop": {
+        "top1": 0.645,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9765,
+        "mean_conf_hop2": 0.7768,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_2hop": {
+        "top1": 0.645,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9765,
+        "mean_conf_hop2": 0.7768,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_3hop": {
+        "top1": 0.365,
+        "k_set": 20,
+        "beta": 8192.0,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "wall_s": 49.3
+    },
+    {
+      "seed": 23,
+      "config_version": "softchain-v1: dense-bipolar HRR + multivalue-hebbian + 4arm (naive-hard, res-hard, soft-2hop, soft-3hop); V_C=200 V_P=10 N=8192 K_SET=20 n2=300 n3=200; bands naive_sanity[0.60,0.70] res_sanity[0.58,0.68] soft_HP>=0.80 soft_MB>=0.70 soft_delta>=0.10 3hop_bonus>=0.60 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "arm_naive_hard_2hop": {
+        "top1": 0.675,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_resonator_hard_2hop": {
+        "top1": 0.64,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9766,
+        "mean_conf_hop2": 0.7746,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_2hop": {
+        "top1": 0.64,
+        "k_set": 20,
+        "beta": 8192.0,
+        "mean_conf_hop1": 0.9766,
+        "mean_conf_hop2": 0.7746,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "arm_soft_chain_3hop": {
+        "top1": 0.365,
+        "k_set": 20,
+        "beta": 8192.0,
+        "n_chains": 200,
+        "chance": 0.005
+      },
+      "wall_s": 51.5
+    }
+  ],
+  "elapsed_s": 151.7,
+  "summary": "HARD_FAIL: SOFT-CHAIN does NOT rescue the 2-hop gap (SOFT_CHAIN_2HOP top1=0.6317 <= 0.70, paired_delta=-0.0183). Inter-hop hard-decision is NOT the dominant failure mode at this regime; multi-hop limit is more fundamental than chaining mechanism. Revival pivots per research drill: (a) K-beam path-sum (angle 3); (b) substrate-PageRank (angle 4); (c) upstream encoder / W-capacity. sanity_ok | NAIVE_HARD_2HOP top1=0.6500 cv=0.049 (sanity=[0.60,0.70]) | RESONATOR_HARD_2HOP top1=0.6317 cv=0.024 (sanity=[0.58,0.68]) | SOFT_CHAIN_2HOP top1=0.6317 cv=0.024 (HP>=0.80 delta>=0.10 cv<=0.05) [paired_delta=-0.0183] | SOFT_CHAIN_3HOP top1=0.3933 cv=0.102 (bonus>=0.60) | chance=0.0050 V_C=200 V_P=10 N=8192 K_SET=20",
+  "DESIGN_NOTE": "exp_dev cell-author 2026-06-24 (Resonator HARD_FAIL revival drill anchor 1). SOFT-DECISION-CHAIN rescue: replace per-hop argmax hand-off with weighted superposition of top-K candidates passed forward. CA3 graded-reactivation + telecom soft-DFE / turbo-decoding analog. 4 arms apples-to-apples (same E/R/W/K_SET/beta per seed); ONE knob varies between RESONATOR_HARD vs SOFT_CHAIN (hard argmax vs soft superposition for the inter-hop hand-off). PRIMARY = ARM_SOFT_CHAIN_2HOP top1 vs the 0.65/0.63 HARD_FAIL baselines (which the two control arms must reproduce as sanity)."
+}

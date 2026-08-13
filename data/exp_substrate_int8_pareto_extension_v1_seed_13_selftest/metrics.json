@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_int8_pareto_extension_v1_seed_13",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: int8_recall=1.000 bf16_recall=1.000 bin_recall=1.000 bpf_bin=513.07 bpf_int8=4168.67 bpf_bf16=8209.07",
+  "summary": "selftest OK: int8_recall=1.000 bf16_recall=1.000 bin_recall=1.000 bpf_bin=513.07 bpf_int8=4168.67 bpf_bf16=8209.07",
+  "elapsed_s": 0.13,
+  "ts_iso": "2026-07-01T10:40:33Z",
+  "pid": 20004,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_int8_pareto_extension_v1_seed_13,arms=[INT8_DENSE,BFLOAT16_DENSE,BINARY_DENSE],M_sweep_full=[10000,20000,40000],M_sweep_smoke=[40000],N_sweep_full=[2048,4096,8192],N_sweep_smoke=[4096],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=13,mode=selftest,discriminator=INT8_Pareto_dominance_ge2_of_3_M+META_RULE_Q+cv_lt_0p08,cv_hp=0.08,cv_mb=0.10,saturation_ceil=0.95,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab),hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_int8_pareto_extension_chunked",
+  "_phase": "selftest_done",
+  "backend": "cpu"
+}

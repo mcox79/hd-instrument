@@ -1,0 +1,140 @@
+{
+  "anchor_name": "trigram_downstream_ingest_probe_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "trig_r@1=0.970(cv=0.016) rand_r@1=0.022 gap=0.948 | trigram sufficient for downstream ingest",
+  "summary": "trig_r@1=0.970(cv=0.016) rand_r@1=0.022 gap=0.948 | trigram sufficient for downstream ingest",
+  "elapsed_s": 0.3,
+  "ts_iso": "2026-06-28T02:13:11Z",
+  "pid": 28572,
+  "run_mode": "full",
+  "config_version": "ANCHOR=trigram_downstream_ingest_probe_v1,N=4096,n_theorems=100,seeds=[7, 17, 23, 31, 41],mode=full,cue_frac=0.60,HP_recall@1>=0.70,HP_cv<=0.10,HP_gap>=0.40,expected_n=10,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_trigram_downstream_ingest_probe",
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_theorems": 20,
+      "n_dim": 1024,
+      "cue_frac": 0.6,
+      "trigram_recall_at_1": 1.0,
+      "trigram_correct": 20,
+      "random_recall_at_1": 0.05,
+      "random_correct": 1,
+      "gap_trigram_minus_random": 0.95,
+      "_run_config": {
+        "N": 1024,
+        "run_mode": "smoke"
+      },
+      "seed_wall_s": 0.03,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782598619.125669
+    },
+    "17": {
+      "seed": 17,
+      "n_theorems": 100,
+      "n_dim": 4096,
+      "cue_frac": 0.6,
+      "trigram_recall_at_1": 0.96,
+      "trigram_correct": 96,
+      "random_recall_at_1": 0.01,
+      "random_correct": 1,
+      "gap_trigram_minus_random": 0.95,
+      "_run_config": {
+        "N": 4096,
+        "run_mode": "full"
+      },
+      "seed_wall_s": 0.06,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782612791.1938138
+    },
+    "23": {
+      "seed": 23,
+      "n_theorems": 100,
+      "n_dim": 4096,
+      "cue_frac": 0.6,
+      "trigram_recall_at_1": 0.97,
+      "trigram_correct": 97,
+      "random_recall_at_1": 0.01,
+      "random_correct": 1,
+      "gap_trigram_minus_random": 0.96,
+      "_run_config": {
+        "N": 4096,
+        "run_mode": "full"
+      },
+      "seed_wall_s": 0.06,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782612791.258551
+    },
+    "31": {
+      "seed": 31,
+      "n_theorems": 100,
+      "n_dim": 4096,
+      "cue_frac": 0.6,
+      "trigram_recall_at_1": 0.96,
+      "trigram_correct": 96,
+      "random_recall_at_1": 0.03,
+      "random_correct": 3,
+      "gap_trigram_minus_random": 0.9299999999999999,
+      "_run_config": {
+        "N": 4096,
+        "run_mode": "full"
+      },
+      "seed_wall_s": 0.05,
+      "_ckpt_key": "31",
+      "_partial_written_at": 1782612791.3175535
+    },
+    "41": {
+      "seed": 41,
+      "n_theorems": 100,
+      "n_dim": 4096,
+      "cue_frac": 0.6,
+      "trigram_recall_at_1": 0.96,
+      "trigram_correct": 96,
+      "random_recall_at_1": 0.01,
+      "random_correct": 1,
+      "gap_trigram_minus_random": 0.95,
+      "_run_config": {
+        "N": 4096,
+        "run_mode": "full"
+      },
+      "seed_wall_s": 0.06,
+      "_ckpt_key": "41",
+      "_partial_written_at": 1782612791.3843968
+    }
+  },
+  "per_arm": {
+    "trigram_encode": {
+      "mean_recall_at_1": 0.97,
+      "std_recall_at_1": 0.015491933384829683,
+      "cv_recall_at_1": 0.01597106534518524,
+      "per_seed_recall": {
+        "7": 1.0,
+        "17": 0.96,
+        "23": 0.97,
+        "31": 0.96,
+        "41": 0.96
+      }
+    },
+    "random_encode": {
+      "mean_recall_at_1": 0.022,
+      "per_seed_recall": {
+        "7": 0.05,
+        "17": 0.01,
+        "23": 0.01,
+        "31": 0.03,
+        "41": 0.01
+      }
+    }
+  },
+  "gap_trigram_minus_random_mean": 0.9480000000000001,
+  "expected_n_units": 10,
+  "observed_n_units": 10,
+  "cardinality_ok": true,
+  "verdict_bands": {
+    "HP_recall_at_1": 0.7,
+    "HP_cv_max": 0.1,
+    "HP_gap": 0.4,
+    "MB_recall_at_1": 0.3,
+    "MB_gap": 0.2,
+    "HF_recall_at_1": 0.3
+  }
+}

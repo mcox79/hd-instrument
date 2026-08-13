@@ -1,0 +1,288 @@
+{
+  "anchor_name": "substrate_concept_encoder_v2_vwfa_late_combine_2spoke_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF2 ARM_V2_LATE_COMBINE recall@5_mean=0.2000 < max(VWFA=0.2533, SEM=0.1667)=0.2533; composition HURTS relative to best single spoke. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "summary": "HF2 ARM_V2_LATE_COMBINE recall@5_mean=0.2000 < max(VWFA=0.2533, SEM=0.1667)=0.2533; composition HURTS relative to best single spoke. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "elapsed_s": 12.995,
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-03T00:50:41.491830+00:00",
+  "config": {
+    "n_dim": 2048,
+    "k_sparsity": 0.02,
+    "max_pos": 24,
+    "vwfa_scales": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "vwfa_bind_position": true,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "fit_split_fraction": 0.5,
+    "alpha_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "hp_bands": {
+      "HP1_sem_target_mean": 0.16,
+      "HP1_sem_tolerance": 0.02,
+      "HP2_vwfa_target_mean": 0.28,
+      "HP2_vwfa_tolerance": 0.03,
+      "HP3_late_combine_gap_trigram": 0.05,
+      "HP4_late_combine_gap_any_spoke": 0.03,
+      "HF1_vwfa_floor": 0.2,
+      "HF3_sem_lo": 0.14,
+      "HF3_sem_hi": 0.18,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_v2_vwfa_alone_recall_at_1_mean": 0.15333333333333332,
+    "arm_v2_vwfa_alone_recall_at_5_mean": 0.25333333333333335,
+    "arm_v2_vwfa_alone_recall_at_10_mean": 0.2866666666666667,
+    "arm_v2_sem_alone_recall_at_1_mean": 0.11333333333333334,
+    "arm_v2_sem_alone_recall_at_5_mean": 0.16666666666666666,
+    "arm_v2_sem_alone_recall_at_10_mean": 0.24666666666666667,
+    "arm_v2_late_combine_recall_at_1_mean": 0.12666666666666668,
+    "arm_v2_late_combine_recall_at_5_mean": 0.19999999999999998,
+    "arm_v2_late_combine_recall_at_10_mean": 0.26,
+    "arm_v2_late_combine_equal_recall_at_1_mean": 0.15333333333333335,
+    "arm_v2_late_combine_equal_recall_at_5_mean": 0.22666666666666668,
+    "arm_v2_late_combine_equal_recall_at_10_mean": 0.3,
+    "arm_char_trigram_reference_recall_at_1_mean": 0.19333333333333336,
+    "arm_char_trigram_reference_recall_at_5_mean": 0.28,
+    "arm_char_trigram_reference_recall_at_10_mean": 0.35333333333333333,
+    "alpha_fit_mean": 0.3
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries_total": 100,
+      "n_queries_fit": 50,
+      "n_queries_eval": 50,
+      "alpha_fit": 0.2,
+      "gamma_fit": 0.8,
+      "fit_recall_at_1": 0.08,
+      "arm_v2_vwfa_alone": {
+        "recall_at_1": 0.22,
+        "recall_at_5": 0.38,
+        "recall_at_10": 0.42
+      },
+      "arm_v2_sem_alone": {
+        "recall_at_1": 0.12,
+        "recall_at_5": 0.14,
+        "recall_at_10": 0.28
+      },
+      "arm_v2_late_combine": {
+        "recall_at_1": 0.14,
+        "recall_at_5": 0.24,
+        "recall_at_10": 0.3
+      },
+      "arm_v2_late_combine_equal": {
+        "recall_at_1": 0.22,
+        "recall_at_5": 0.32,
+        "recall_at_10": 0.42
+      },
+      "arm_char_trigram_reference": {
+        "recall_at_1": 0.26,
+        "recall_at_5": 0.32,
+        "recall_at_10": 0.42
+      },
+      "arm_walls_s": {
+        "vwfa": 0.135,
+        "sem": 0.042,
+        "late_combine": 0.023,
+        "late_combine_equal": 0.025,
+        "trigram_ref": 0.017,
+        "weight_fit": 0.025
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2_VWFA_ALONE": "712b5a329bc6ce8a23233528ccc9c48edf7efb6200578324a3374c49b9fa1d4a",
+        "ARM_V2_SEM_ALONE": "665b31fc32afe16f17b100decc622e4c89148d5c1be9f3c24df99791c50e96df",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_V2_LATE_COMBINE": "ec335d9a23b88d1e89a485f7c8bce0a47021d520063f82dd625f9674e7932cd9+712b5a329bc6ce8a+665b31fc32afe16f",
+        "ARM_V2_LATE_COMBINE_EQUAL": "b3f689962d5d23d2c4d34e32885e60cb9af0119e64bbf4ce2446694c45d9cdb9+712b5a329bc6ce8a+665b31fc32afe16f"
+      },
+      "wall_s": 4.001
+    },
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries_total": 100,
+      "n_queries_fit": 50,
+      "n_queries_eval": 50,
+      "alpha_fit": 0.7,
+      "gamma_fit": 0.30000000000000004,
+      "fit_recall_at_1": 0.18,
+      "arm_v2_vwfa_alone": {
+        "recall_at_1": 0.12,
+        "recall_at_5": 0.16,
+        "recall_at_10": 0.2
+      },
+      "arm_v2_sem_alone": {
+        "recall_at_1": 0.08,
+        "recall_at_5": 0.14,
+        "recall_at_10": 0.18
+      },
+      "arm_v2_late_combine": {
+        "recall_at_1": 0.1,
+        "recall_at_5": 0.14,
+        "recall_at_10": 0.2
+      },
+      "arm_v2_late_combine_equal": {
+        "recall_at_1": 0.1,
+        "recall_at_5": 0.14,
+        "recall_at_10": 0.2
+      },
+      "arm_char_trigram_reference": {
+        "recall_at_1": 0.16,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.36
+      },
+      "arm_walls_s": {
+        "vwfa": 0.137,
+        "sem": 0.043,
+        "late_combine": 0.024,
+        "late_combine_equal": 0.026,
+        "trigram_ref": 0.018,
+        "weight_fit": 0.026
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2_VWFA_ALONE": "156c403df789d6bb0910f1cacb8815555a0f66f7ce3d0b4ff94c966639a5968f",
+        "ARM_V2_SEM_ALONE": "08f8ec7911463e470e41bae9e43472ac6495770eab7637eb4736b93914ad645c",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_V2_LATE_COMBINE": "51918f4b207b4059f47927ff8f41479fd8078422f9f1c14794909d3f7307a627+156c403df789d6bb+08f8ec7911463e47",
+        "ARM_V2_LATE_COMBINE_EQUAL": "b3f689962d5d23d2c4d34e32885e60cb9af0119e64bbf4ce2446694c45d9cdb9+156c403df789d6bb+08f8ec7911463e47"
+      },
+      "wall_s": 4.23
+    },
+    {
+      "seed": 23,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries_total": 100,
+      "n_queries_fit": 50,
+      "n_queries_eval": 50,
+      "alpha_fit": 0.0,
+      "gamma_fit": 1.0,
+      "fit_recall_at_1": 0.12,
+      "arm_v2_vwfa_alone": {
+        "recall_at_1": 0.12,
+        "recall_at_5": 0.22,
+        "recall_at_10": 0.24
+      },
+      "arm_v2_sem_alone": {
+        "recall_at_1": 0.14,
+        "recall_at_5": 0.22,
+        "recall_at_10": 0.28
+      },
+      "arm_v2_late_combine": {
+        "recall_at_1": 0.14,
+        "recall_at_5": 0.22,
+        "recall_at_10": 0.28
+      },
+      "arm_v2_late_combine_equal": {
+        "recall_at_1": 0.14,
+        "recall_at_5": 0.22,
+        "recall_at_10": 0.28
+      },
+      "arm_char_trigram_reference": {
+        "recall_at_1": 0.16,
+        "recall_at_5": 0.24,
+        "recall_at_10": 0.28
+      },
+      "arm_walls_s": {
+        "vwfa": 0.126,
+        "sem": 0.042,
+        "late_combine": 0.022,
+        "late_combine_equal": 0.037,
+        "trigram_ref": 0.025,
+        "weight_fit": 0.028
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V2_VWFA_ALONE": "1d250f0409b10b83096395b9cd59c38d5cf1016d42c0f3c5c2397351288de273",
+        "ARM_V2_SEM_ALONE": "013128a2a1d93bb4bc12449ebcb61897b7c80b93f971cb1287922e36d543673c",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827",
+        "ARM_V2_LATE_COMBINE": "22b6f43bd8d27738d3213f29e96b62d01d9d6c0ab4f9732aaae803186f51eab7+1d250f0409b10b83+013128a2a1d93bb4",
+        "ARM_V2_LATE_COMBINE_EQUAL": "b3f689962d5d23d2c4d34e32885e60cb9af0119e64bbf4ce2446694c45d9cdb9+1d250f0409b10b83+013128a2a1d93bb4"
+      },
+      "wall_s": 4.345
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "landed_n_units": 15,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": false,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_prototype_hds",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "baseline_in_band=True tri_r5=0.2800 vwfa_r5=0.2533 sem_r5=0.1667 late_combine_r5=0.2000 gap_vs_tri=-0.0800 gap_vs_maxspoke=-0.0533 alpha_fit_mean=0.30 discriminator_fires=False",
+  "prereg_path": "preregs/2026-07-03_substrate_concept_encoder_v2_vwfa_late_combine_2spoke.md",
+  "design_note_path": "notes/research_brain_reading_architecture_emulation_v2_prescription_substrate_content_HF_2026-07-02.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "run_mode_verification_16"
+  ],
+  "hp_scope": {
+    "HP1": [
+      "ARM_V2_SEM_ALONE"
+    ],
+    "HP2": [
+      "ARM_V2_VWFA_ALONE"
+    ],
+    "HP3": [
+      "ARM_V2_LATE_COMBINE"
+    ],
+    "HP4": [
+      "ARM_V2_LATE_COMBINE"
+    ],
+    "HP5": [
+      "ARM_V2_VWFA_ALONE",
+      "ARM_V2_SEM_ALONE",
+      "ARM_V2_LATE_COMBINE",
+      "ARM_V2_LATE_COMBINE_EQUAL",
+      "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE"
+    ]
+  }
+}

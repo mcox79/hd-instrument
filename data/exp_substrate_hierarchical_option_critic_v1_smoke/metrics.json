@@ -1,0 +1,187 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | CLOSURE_ATOM_CONFIRMED (oc=0.000 <= 0.10; 4th consecutive HARD_FAIL on hierarchical-planning class after Bacon-Roy option-critic; 2x drill discipline satisfied; close capability box) | OC=0.000 BF=0.050 PF=0.100 V3=0.000 FLAT=0.050 RAND=0.000 | OC-V3=0.000 OC-FLAT=-0.050 OC-RAND=0.000 cv=inf arms_distinct=True chance_floor=2.143e-05",
+  "summary": "HARD_FAIL | CLOSURE_ATOM_CONFIRMED (oc=0.000 <= 0.10; 4th consecutive HARD_FAIL on hierarchical-planning class after Bacon-Roy option-critic; 2x drill discipline satisfied; close capability box) | OC=0.000 BF=0.050 PF=0.100 V3=0.000 FLAT=0.050 RAND=0.000 | OC-V3=0.000 OC-FLAT=-0.050 OC-RAND=0.000 cv=inf arms_distinct=True chance_floor=2.143e-05",
+  "per_arm": {
+    "option_critic_full": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "73563728774e64a7",
+        "train_log": {
+          "n_episodes_trained": 100,
+          "mean_train_return": -0.17669999999999994,
+          "final_baseline": -0.20168324162290444,
+          "final_tau_beta": [
+            0.2430545687675476,
+            0.3940810561180115,
+            0.3417193293571472
+          ],
+          "final_Q_U": [
+            -0.19822438061237335,
+            -0.20079539716243744,
+            -0.20168323814868927
+          ],
+          "train_solve_rate_first_quarter": 0.04,
+          "train_solve_rate_last_quarter": 0.0
+        }
+      }
+    },
+    "beta_frozen": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 24.0,
+        "median_plan_ratio_vs_optimal": 6.0,
+        "_seq_hash": "a127d7c312ab3d83",
+        "train_log": {
+          "n_episodes_trained": 100,
+          "mean_train_return": -0.24,
+          "final_baseline": -0.23857907298711983,
+          "final_tau_beta": [
+            0.643054187297821,
+            0.7990806698799133,
+            0.781718909740448
+          ],
+          "final_Q_U": [
+            -0.23750187456607819,
+            -0.2372319996356964,
+            -0.23850427567958832
+          ],
+          "train_solve_rate_first_quarter": 0.0,
+          "train_solve_rate_last_quarter": 0.0
+        }
+      }
+    },
+    "pi_frozen": {
+      "7": {
+        "solve_rate": 0.1,
+        "n_solved": 2,
+        "n_goals": 20,
+        "median_plan_len": 15.5,
+        "median_plan_ratio_vs_optimal": 2.8666666666666667,
+        "_seq_hash": "7d418df9ec67d03a",
+        "train_log": {
+          "n_episodes_trained": 100,
+          "mean_train_return": -0.1097,
+          "final_baseline": -0.0889887650505471,
+          "final_tau_beta": [
+            0.31305450201034546,
+            0.4640809893608093,
+            0.4167192578315735
+          ],
+          "final_Q_U": [
+            -0.08918683230876923,
+            -0.08587362617254257,
+            -0.08683574199676514
+          ],
+          "train_solve_rate_first_quarter": 0.12,
+          "train_solve_rate_last_quarter": 0.16
+        }
+      }
+    },
+    "v3_baseline": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "25102861d02e4c82"
+      }
+    },
+    "flat_reinforce": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 13.0,
+        "median_plan_ratio_vs_optimal": 3.25,
+        "_seq_hash": "56b5261cab3b39c9",
+        "train_log": {
+          "n_episodes_trained": 100,
+          "final_baseline": -0.06964478219654154,
+          "train_solve_rate_first_quarter": 0.12,
+          "train_solve_rate_last_quarter": 0.2
+        }
+      }
+    },
+    "random": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "4fbf9bda4aaa4153"
+      }
+    }
+  },
+  "per_arm_summary": {
+    "option_critic_full": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "beta_frozen": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 6.0,
+      "n": 1
+    },
+    "pi_frozen": {
+      "solve_rate_mean": 0.1,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 2.8666666666666667,
+      "n": 1
+    },
+    "v3_baseline": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "flat_reinforce": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 3.25,
+      "n": 1
+    },
+    "random": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    }
+  },
+  "lift_option_critic_minus_v3": 0.0,
+  "lift_option_critic_minus_flat": -0.05,
+  "lift_option_critic_minus_random": 0.0,
+  "arms_distinct": true,
+  "n_seeds_complete": 1,
+  "expected_n_units": 120,
+  "completed_units": 120,
+  "cardinality_ok": true,
+  "chance_random_floor": 2.143347050754458e-05,
+  "chance_random_rerank_ub": 0.04137174211248285,
+  "_closure_atom_triggered": true,
+  "_third_failure_gate_status": "REMOVED_PER_DRILL_A_4TH_DISTINCT_MECHANISM_CLASS",
+  "anchor_name": "substrate_hierarchical_option_critic_v1",
+  "elapsed_s": 50.9,
+  "ts_iso": "2026-06-28T15:48:07Z",
+  "pid": 25892,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_option_critic_v1,N=8192,blocks=4,pos=3,actions=6,options=3,goals=20,depth=6,max_total=24,seeds=[7],mode=smoke,ep_train=100,alpha_pi=0.0100,alpha_beta=0.0050,alpha_Q=0.0500,baseline_decay=0.95,HP_oc>=0.30,HP_lift_v3>=0.25,HP_lift_flat>=0.15,HP_lift_rand>=0.25,HP_unsat=[0.30,0.95],expected_n=120,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AC+META_AE+META_AF+META_AG+META_AH+META_AN+META_J+CARDINALITY+THIRD_FAILURE_GATE_REMOVED",
+  "_hardening_marker": "v1_substrate_hierarchical_option_critic"
+}

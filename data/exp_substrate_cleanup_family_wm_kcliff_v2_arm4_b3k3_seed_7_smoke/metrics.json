@@ -1,0 +1,278 @@
+{
+  "phase_map_flat": [
+    {
+      "cleanup_family": "classical_hopfield",
+      "K_per_bank": 1024,
+      "num_banks": 4,
+      "K_total": 4096,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 1.0,
+      "N": 8192,
+      "recall": 0.002,
+      "route_acc": 1.0,
+      "mech_output_hash": "5736d88835082c3d",
+      "pred_pattern_hash": "48a24ffb0f8eae54",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 30.085,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "classical_hopfield",
+      "K_per_bank": 2048,
+      "num_banks": 4,
+      "K_total": 8192,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 2.0,
+      "N": 8192,
+      "recall": 0.0007,
+      "route_acc": 1.0,
+      "mech_output_hash": "324ca394dcb47436",
+      "pred_pattern_hash": "03dba6c44e6afff9",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 67.106,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "modern_hopfield_continuous",
+      "K_per_bank": 1024,
+      "num_banks": 4,
+      "K_total": 4096,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 1.0,
+      "N": 8192,
+      "recall": 0.0474,
+      "route_acc": 1.0,
+      "mech_output_hash": "97b7145e640495ff",
+      "pred_pattern_hash": "6046b5e3c7ab761e",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 61.745,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "modern_hopfield_continuous",
+      "K_per_bank": 2048,
+      "num_banks": 4,
+      "K_total": 8192,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 2.0,
+      "N": 8192,
+      "recall": 0.0125,
+      "route_acc": 1.0,
+      "mech_output_hash": "294081335dbbf61e",
+      "pred_pattern_hash": "c52a2db2a5755cb7",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 131.957,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "iterative_attractor",
+      "K_per_bank": 1024,
+      "num_banks": 4,
+      "K_total": 4096,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 1.0,
+      "N": 8192,
+      "recall": 0.053,
+      "route_acc": 1.0,
+      "mech_output_hash": "4da2984d77ce3073",
+      "pred_pattern_hash": "8f43bf954a3f17a9",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 96.235,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "iterative_attractor",
+      "K_per_bank": 2048,
+      "num_banks": 4,
+      "K_total": 8192,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 2.0,
+      "N": 8192,
+      "recall": 0.0114,
+      "route_acc": 1.0,
+      "mech_output_hash": "a9794f2786870daa",
+      "pred_pattern_hash": "d414a760a97bea9b",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 174.364,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "wta_baseline",
+      "K_per_bank": 1024,
+      "num_banks": 4,
+      "K_total": 4096,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 1.0,
+      "N": 8192,
+      "recall": 0.0486,
+      "route_acc": 1.0,
+      "mech_output_hash": "5c7df1c9458ad526",
+      "pred_pattern_hash": "326f0d35769c9a45",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 10.408,
+      "seed": 7
+    },
+    {
+      "cleanup_family": "wta_baseline",
+      "K_per_bank": 2048,
+      "num_banks": 4,
+      "K_total": 8192,
+      "K_cliff_B": 1024,
+      "K_ratio_over_cliff": 2.0,
+      "N": 8192,
+      "recall": 0.0107,
+      "route_acc": 1.0,
+      "mech_output_hash": "b427818de2d0b30f",
+      "pred_pattern_hash": "e2d6f7949fa97a30",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 19.828,
+      "seed": 7
+    }
+  ],
+  "per_key_stats_across_seeds": {
+    "classical_hopfield_B4_K1024": {
+      "recall_mean": 0.002,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "classical_hopfield_B4_K2048": {
+      "recall_mean": 0.0007,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "modern_hopfield_continuous_B4_K1024": {
+      "recall_mean": 0.0474,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "modern_hopfield_continuous_B4_K2048": {
+      "recall_mean": 0.0125,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "iterative_attractor_B4_K1024": {
+      "recall_mean": 0.053,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "iterative_attractor_B4_K2048": {
+      "recall_mean": 0.0114,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "wta_baseline_B4_K1024": {
+      "recall_mean": 0.0486,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    },
+    "wta_baseline_B4_K2048": {
+      "recall_mean": 0.0107,
+      "recall_std": 0.0,
+      "cv": 0.0,
+      "n_seeds": 1
+    }
+  },
+  "cleanup_pair_pred_distinctness": {
+    "classical_hopfield_vs_modern_hopfield_continuous": true,
+    "classical_hopfield_vs_iterative_attractor": true,
+    "classical_hopfield_vs_wta_baseline": true,
+    "modern_hopfield_continuous_vs_iterative_attractor": true,
+    "modern_hopfield_continuous_vs_wta_baseline": true,
+    "iterative_attractor_vs_wta_baseline": true
+  },
+  "cleanup_pair_mech_distinctness": {
+    "classical_hopfield_vs_modern_hopfield_continuous": true,
+    "classical_hopfield_vs_iterative_attractor": true,
+    "classical_hopfield_vs_wta_baseline": true,
+    "modern_hopfield_continuous_vs_iterative_attractor": true,
+    "modern_hopfield_continuous_vs_wta_baseline": true,
+    "iterative_attractor_vs_wta_baseline": true
+  },
+  "n_pairs_pred_differ": 6,
+  "n_pairs_mech_differ": 6,
+  "n_pairs_total": 6,
+  "distinctness_self_report_pass": true,
+  "discriminator_across_seeds": {
+    "4": {
+      "K_disc": 2048,
+      "wta_mean": 0.0107,
+      "lifts_over_wta": {
+        "classical_hopfield": -0.01,
+        "modern_hopfield_continuous": 0.0018,
+        "iterative_attractor": 0.0007
+      },
+      "best_fam": "modern_hopfield_continuous",
+      "best_lift": 0.0018,
+      "best_fam_cv": 0.0,
+      "discriminator_fires_seed_consistent": false
+    }
+  },
+  "n_B_seed_consistent_fires": 0,
+  "q_suspect_at_cliff_union": [],
+  "tier_counts": {
+    "SATURATED": 0,
+    "HARD_PASS": 0,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 8,
+    "HARD_FAIL": 0
+  },
+  "n_seeds": 1,
+  "cardinality_ok_per_seed": [
+    true
+  ],
+  "expected_n_units_per_seed": [
+    8
+  ],
+  "observed_n_units_per_seed": [
+    8
+  ],
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta": 8.0,
+  "hop_max_steps": 4,
+  "cleanup_families": [
+    "classical_hopfield",
+    "modern_hopfield_continuous",
+    "iterative_attractor",
+    "wta_baseline"
+  ],
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SMOKE: DISCRIMINATOR_FAILS_SCALE: no B produced lift >= 0.10 above wta_baseline at K=2*K_cliff; max_lifts_per_B={4: 0.0018}; cleanup family capability-orthogonal at WM scale even at smoke; ABORT full dispatch; sat=0 hp=0 mb=0 floor=8 fail=0",
+  "summary": "HARD_FAIL_SMOKE: DISCRIMINATOR_FAILS_SCALE: no B produced lift >= 0.10 above wta_baseline at K=2*K_cliff; max_lifts_per_B={4: 0.0018}; cleanup family capability-orthogonal at WM scale even at smoke; ABORT full dispatch; sat=0 hp=0 mb=0 floor=8 fail=0",
+  "smoke_gate_pass": false,
+  "smoke_gate_reason": "DISCRIMINATOR_FAILS_SCALE: no B produced lift >= 0.10 above wta_baseline at K=2*K_cliff; max_lifts_per_B={4: 0.0018}; cleanup family capability-orthogonal at WM scale even at smoke; ABORT full dispatch",
+  "anchor_name": "substrate_cleanup_family_wm_kcliff_v2_arm4_b3k3_seed_7",
+  "elapsed_s": 593.51,
+  "ts_iso": "2026-07-01T03:42:55Z",
+  "pid": 24464,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_cleanup_family_wm_kcliff_v2_arm4_b3k3_seed_7,cleanups=[classical_hopfield,modern_hopfield_continuous,iterative_attractor,wta_baseline],encoder=bipolar,N=8192,SEED=7,mode=smoke,num_banks_full=[4,16,64],num_banks_smoke=[4],K_design=Kcliff_relative_over2_1_times2_per_B,K_cliff_formula=256*B,beta=8.0,hop_max_steps=4,expected_n_full=36,expected_n_smoke=8,discriminator=K_2xKcliff_lift_gte_0p10_over_wta_cv_lt_0p08,META_RULE_AX_all_6_pairs_distinct,META_RULE_Q_suspect_1p000_at_Kcliff,META_RULE_AT_compose_multi_bank_alpha_K",
+  "_hardening_marker": "v2_arm4_b3k3_cleanup_family_wm_kcliff",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "corpus_provenance": "synthetic_substrate_bipolar_multibank_wm_kcliff_arm4",
+  "n_llm_calls": 0
+}

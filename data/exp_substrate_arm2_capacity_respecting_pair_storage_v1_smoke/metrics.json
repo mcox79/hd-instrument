@@ -1,0 +1,160 @@
+{
+  "anchor_name": "substrate_arm2_capacity_respecting_pair_storage_v1",
+  "verdict": "DIAGNOSTIC_PASS",
+  "verdict_msg": "DIAGNOSTIC_PASS (by-construction): in_dist top-1 = 1.000 across 1 seeds (CV 0.00e+00 < 0.001). M=20 << capacity at D=8192 with f=0.050; crosstalk estimate ~6.10e-06 is far below the 1/n_obj=0.050 discrimination floor. HRR primitive ALIVE at canonical 1-to-1 regime; this is by construction, NOT chain-grade. Confirms shotgun ARM 2 failure (M=200 super-saturated) was a SATURATION issue, not primitive collapse. Capacity ceiling probe is the natural follow-up.",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "SPARSE_F": 0.05,
+  "N_SUBJ": 20,
+  "N_OBJ": 20,
+  "M_PAIRS": 20,
+  "n_seeds": 1,
+  "detail": {
+    "n_seeds": 1,
+    "in_distribution_top1_mean": 1.0,
+    "in_distribution_top1_cv": 0.0,
+    "in_distribution_top1_per_seed": [
+      1.0
+    ],
+    "bank_l2_mean": 1844.0130615234375,
+    "bank_l2_per_seed": [
+      1844.0130615234375
+    ],
+    "mean_cosine_correct_per_seed": [
+      0.2193684920668602
+    ],
+    "mean_cosine_correct_mean": 0.2193684920668602,
+    "chance_top1": 0.05,
+    "crosstalk_estimate": 6.103515625000001e-06,
+    "is_exact_recovery": true,
+    "is_low_cv": true,
+    "CONFIG_VERSION": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[0] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+    "band_definition": {
+      "HARD_PASS": "in_dist >= 0.95 AND CV >= 0.001",
+      "DIAGNOSTIC_PASS": "in_dist == 1.000 AND CV < 0.001 (by-construction)",
+      "MIDDLE_BAND": "0.80 <= in_dist < 0.95",
+      "HARD_FAIL": "in_dist < 0.80"
+    },
+    "what_this_does_not_show": "In-distribution storage at canonical 1-to-1 regime ONLY. Does NOT test: (1) holdout / compositional generalization (separate follow-up cell); (2) capacity ceiling above M=vocab (capacity-sweep cell); (3) learning, plasticity, or gradient updates (pure substrate primitives); (4) chain-grade integration with substrate KG. DIAGNOSTIC_PASS tier reflects by-construction-saturation: at M=20 / D=8192 / f=0.05, crosstalk M*f^2/D ~ 6e-6 is far below the 1/n_obj=0.05 discrimination floor, so perfect recovery is mathematically expected, not informative.",
+    "honest_scope": "Pure substrate primitives (HRR bind/unbind + sparse-bipolar codebook). NumPy CPU. Per USER 2026-06-24 compositional-drill ANCHOR 1.",
+    "cites": [
+      "USER_compositional_drill_handoff_ANCHOR_1_2026-06-24",
+      "exp_substrate_brain_aligned_aliveness_shotgun_v1_ARM2_super_saturation_2026-06-24",
+      "by_construction_saturation_tiering_Skunkworks_2026-06-22",
+      "operational_findings_2026-06-23_HRR_involutive",
+      "operational_findings_2026-06-23_sparse_bipolar_20_300x_bundle_lift"
+    ]
+  },
+  "metrics_source": "measured_cpu_capacity_respecting_pair_storage",
+  "per_unit": [
+    {
+      "seed": 0,
+      "pair_storage": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "m_pairs": 20,
+        "in_distribution_top1": 1.0,
+        "chance_top1": 0.05,
+        "bank_l2": 1844.0130615234375,
+        "mean_cosine_correct": 0.2193684920668602,
+        "mean_cosine_top1": 0.2193684920668602,
+        "crosstalk_estimate": 6.103515625000001e-06,
+        "train_pairs": [
+          [
+            0,
+            16
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            15
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            9
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            7,
+            11
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            9,
+            13
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            11,
+            18
+          ],
+          [
+            12,
+            1
+          ],
+          [
+            13,
+            14
+          ],
+          [
+            14,
+            17
+          ],
+          [
+            15,
+            5
+          ],
+          [
+            16,
+            6
+          ],
+          [
+            17,
+            8
+          ],
+          [
+            18,
+            19
+          ],
+          [
+            19,
+            12
+          ]
+        ],
+        "N": 8192,
+        "M": 20
+      },
+      "wall_s": 0.0710153579711914,
+      "run_mode": "smoke",
+      "config_version": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[0] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)",
+      "N": 8192,
+      "M": 20,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782314378.2814286
+    }
+  ],
+  "elapsed_s": 0.15120458602905273,
+  "summary": "DIAGNOSTIC_PASS (by-construction): in_dist top-1 = 1.000 across 1 seeds (CV 0.00e+00 < 0.001). M=20 << capacity at D=8192 with f=0.050; crosstalk estimate ~6.10e-06 is far below the 1/n_obj=0.050 discrimination floor. HRR primitive ALIVE at canonical 1-to-1 regime; this is by construction, NOT chain-grade. Confirms shotgun ARM 2 failure (M=200 super-saturated) was a SATURATION issue, not primitive collapse. Capacity ceiling probe is the natural follow-up.",
+  "substrate_only_decode_gate": "N/A (mechanism-characterization cell, not LM cell)",
+  "CONFIG_VERSION": "substrate_arm2_capacity_respecting_pair_storage_v1; N=8192 f=0.050 seeds=[0] n_subj=20 n_obj=20 M=20 (1-to-1 permutation mapping)"
+}

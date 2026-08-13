@@ -1,0 +1,11 @@
+{
+  "anchor_name": "self_explanation_deletion_fidelity_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "IMPORT_CRASH: AssertionError: contribution_true_trace argmax should be query index 0; got 3 scores=[1.484374761581421, 1.296875, 0.9062498807907104, 1.531249761581421]",
+  "summary": "IMPORT_CRASH: AssertionError: contribution_true_trace argmax should be query index 0; got 3 scores=[1.484374761581421, 1.296875, 0.9062498807907104, 1.531249761581421]",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-28T01:47:57Z",
+  "pid": 29716,
+  "_traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_self_explanation_deletion_fidelity_v1.py\", line 872, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_self_explanation_deletion_fidelity_v1.py\", line 797, in main\n    _selftest()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_self_explanation_deletion_fidelity_v1.py\", line 735, in _selftest\n    assert top_score_idx == 0, \\\n           ^^^^^^^^^^^^^^^^^^\nAssertionError: contribution_true_trace argmax should be query index 0; got 3 scores=[1.484374761581421, 1.296875, 0.9062498807907104, 1.531249761581421]\n",
+  "_hardening_marker": "v1_self_explanation_deletion_fidelity_import_crash"
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_schema_exemplar_bayes_capacity_stress_v3_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: SAT(10,10,16384) BAYES=1.000/NN=0.200; sweet(50,50,8192) BAYES=0.800/NN=0.200/RAND=0.000 (chance=0.020); backend=numpy.cpu, elapsed=0.5s",
+  "summary": "selftest OK: SAT(10,10,16384) BAYES=1.000/NN=0.200; sweet(50,50,8192) BAYES=0.800/NN=0.200/RAND=0.000 (chance=0.020); backend=numpy.cpu, elapsed=0.5s",
+  "elapsed_s": 0.91,
+  "ts_iso": "2026-06-29T00:40:38Z",
+  "pid": 12524,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_schema_exemplar_bayes_capacity_stress_v3_seed_7,SEED=7,mode=selftest,n_ex=[10,50,100,200],n_classes=[10,50,100,200],N=[2048,4096,8192,16384],prior_strength=1.0,arms=[SCHEMA_BAYES,NEAREST_EXEMPLAR,UNIFORM_RANDOM],expected_n_full=3840,expected_n_smoke=90,n_seeds_v3=5,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED+PROT021",
+  "_hardening_marker": "v3_schema_exemplar_bayes_capacity_stress_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

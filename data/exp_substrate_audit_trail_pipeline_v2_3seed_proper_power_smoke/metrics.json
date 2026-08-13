@@ -1,0 +1,94 @@
+{
+  "anchor_name": "substrate_audit_trail_pipeline_v2_3seed_proper_power",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_DECISIVE: best arm (V3) provenance 0.640 <= 0.70 -- no lift over NAIVE 0.510 within CI even at proper power; audit-trail mechanism does NOT transfer at substrate-bipolar HRR regime; revert to alternative approach. NAIVE_prov=0.510 (sanity [0.55,0.75] -> OUT) | V1_prov=0.560 | V3_prov=0.640 (cv=0.000 refuse=0.000 false_refuse=0.000) | V5_prov=0.460 (cv=0.000 refuse=0.100 false_refuse=0.000) | V5_lift_vs_V3=-0.180 | BEST_ARM=V3 prov=0.640 refuse=0.000 lift_vs_NAIVE=+0.130",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "audit-trail-v2-power-v1: N=1024 V_C=60 V_P=5 M=100 M_unk=40 seeds=[7] TAU_FRAC=0.55 V5_topk=5; bands HP_prov>=0.85 lift>=0.10 refuse>=0.50; MB_prov>=0.75 refuse>=0.20; HF_prov<=0.70",
+  "config": {
+    "N_DIM": 1024,
+    "V_CONCEPTS": 60,
+    "V_PREDICATES": 5,
+    "M_TRIPLES": 100,
+    "M_UNKNOWN": 40,
+    "TAU_FRAC_KNOWN": 0.55,
+    "V5_TOPK": 5,
+    "SEEDS": [
+      7
+    ]
+  },
+  "aggregate": {
+    "naive_provenance_mean": 0.51,
+    "naive_provenance_cv": 0.0,
+    "v1_provenance_mean": 0.56,
+    "v1_provenance_cv": 0.0,
+    "v3_provenance_mean": 0.64,
+    "v3_provenance_cv": 0.0,
+    "v3_refuse_acc_mean": 0.0,
+    "v3_false_refuse_mean": 0.0,
+    "v5_provenance_mean": 0.46,
+    "v5_provenance_cv": 0.0,
+    "v5_refuse_acc_mean": 0.1,
+    "v5_false_refuse_mean": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "M": 100,
+      "run_mode": "smoke",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 100,
+        "provenance_accuracy": 0.51,
+        "object_recall": 0.51,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 100,
+        "provenance_accuracy": 0.56,
+        "object_recall": 0.46,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 50,
+        "n_emitted": 50,
+        "n_refused": 0,
+        "tau_calibrated": 0.05543014395609498,
+        "mean_known_conf": 0.10078207992017268,
+        "provenance_accuracy": 0.64,
+        "object_recall": 0.52,
+        "refuse_accuracy": 0.0,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 50,
+        "n_emitted": 50,
+        "n_refused": 0,
+        "n_refused_by_slot_tau": 0,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 1,
+        "n_rerank_changed": 1,
+        "tau_calibrated": 0.059150291822850705,
+        "obj_tau_calibrated": 0.06040221726149321,
+        "mean_known_slot_conf": 0.10754598513245582,
+        "mean_known_obj_conf": 0.10982221320271492,
+        "provenance_accuracy": 0.46,
+        "object_recall": 0.32,
+        "refuse_accuracy": 0.1,
+        "false_refuse_rate": 0.0
+      },
+      "elapsed_s": 0.10440897941589355,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782362447.3043678
+    }
+  ],
+  "elapsed_s": 0.021082639694213867,
+  "summary": "HARD_FAIL_DECISIVE: best arm (V3) provenance 0.640 <= 0.70 -- no lift over NAIVE 0.510 within CI even at proper power; audit-trail mechanism does NOT transfer at substrate-bipolar HRR regime; revert to alternative approach. NAIVE_prov=0.510 (sanity [0.55,0.75] -> OUT) | V1_prov=0.560 | V3_prov=0.640 (cv=0.000 refuse=0.000 false_refuse=0.000) | V5_prov=0.460 (cv=0.000 refuse=0.100 false_refuse=0.000) | V5_lift_vs_V3=-0.180 | BEST_ARM=V3 prov=0.640 refuse=0.000 lift_vs_NAIVE=+0.130",
+  "DESIGN_NOTE": "Wave A revival cell #3 (per Skunkworks audit + Research synthesis 2026-06-24): v1 smoke at N=1024 V=60 M=80 1-seed had binomial CI +/-0.042 on V3 prov=0.825, so HARD_PASS 0.85 sat INSIDE the CI [0.71, 0.94] -- statistically indistinguishable from MIDDLE_BAND. v2 scales N=2048 V=100 M=500 3-seed (600 samples per arm at n_eval=200) where binomial CI ~ +/-0.029 -- can discriminate HP from MIDDLE at p<0.05. SAME 4 arms (apples-to-apples); ONE knob varies = pipeline stage."
+}

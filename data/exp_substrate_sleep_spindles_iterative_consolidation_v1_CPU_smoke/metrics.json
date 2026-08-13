@@ -1,0 +1,125 @@
+{
+  "anchor_name": "substrate_sleep_spindles_iterative_consolidation_v1_CPU",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial spindle rescue lift +0.211. M=512 N_h=2048 N_c=512 alpha_simple=0.250 mode=smoke ARM_RIPPLE_ONLY=0.604 ARM_SPINDLE_ONLY=0.705 ARM_RIPPLE_THEN_SPINDLE=0.814 ARM_SPINDLE_THEN_RIPPLE=0.664 ARM_INTERLEAVED=0.686 | best_arm=ARM_RIPPLE_THEN_SPINDLE best_lift=+0.211 R_RIPPLE=0.604",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 arms=('ARM_RIPPLE_ONLY', 'ARM_SPINDLE_ONLY', 'ARM_RIPPLE_THEN_SPINDLE', 'ARM_SPINDLE_THEN_RIPPLE', 'ARM_INTERLEAVED') mode=smoke alpha_simple=0.250 sleep_spindles_iterative_consolidation",
+  "elapsed_s": 7.861366271972656,
+  "config_version": "ANCHOR=substrate_sleep_spindles_iterative_consolidation_v1_CPU,M=512,N_h=2048,N_c=512,alpha_simple=0.250,ARM_NAMES=('ARM_RIPPLE_ONLY', 'ARM_SPINDLE_ONLY', 'ARM_RIPPLE_THEN_SPINDLE', 'ARM_SPINDLE_THEN_RIPPLE', 'ARM_INTERLEAVED'),SEEDS=7,RUN_MODE=smoke,backend=numpy,hardening=METARULE_AF+METARULE_AH+METARULE_H+SPINDLE_RIPPLE_SEQUENCE",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "eta_spindle": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_RIPPLE_ONLY",
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SPINDLE_ONLY",
+      "recall_mean": 0.705078125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+      "recall_mean": 0.814453125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+      "recall_mean": 0.6640625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_INTERLEAVED",
+      "recall_mean": 0.685546875,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 7.817765474319458,
+      "arms": [
+        {
+          "arm_name": "ARM_RIPPLE_ONLY",
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "cortex_norm": 0.21401525261985943,
+          "n_total_writes": 512,
+          "n_spindle_corrections": 0,
+          "arm_hash": "844f6f7ad58fba56",
+          "alpha_simple": 0.25,
+          "wall_s": 1.0924968719482422,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_ONLY",
+          "seed": 7,
+          "recall_cortex": 0.705078125,
+          "n_items": 512,
+          "cortex_norm": 0.09534954253826164,
+          "n_total_writes": 512,
+          "n_spindle_corrections": 512,
+          "arm_hash": "86bd76000914e03e",
+          "alpha_simple": 0.25,
+          "wall_s": 0.996795654296875,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+          "seed": 7,
+          "recall_cortex": 0.814453125,
+          "n_items": 512,
+          "cortex_norm": 0.22603528926637292,
+          "n_total_writes": 512,
+          "n_spindle_corrections": 512,
+          "arm_hash": "f69f0c37538f3f4a",
+          "alpha_simple": 0.25,
+          "wall_s": 1.8513500690460205,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+          "seed": 7,
+          "recall_cortex": 0.6640625,
+          "n_items": 512,
+          "cortex_norm": 0.28697747862396195,
+          "n_total_writes": 512,
+          "n_spindle_corrections": 512,
+          "arm_hash": "fe68bc1f6e8e6e2b",
+          "alpha_simple": 0.25,
+          "wall_s": 2.075406312942505,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_INTERLEAVED",
+          "seed": 7,
+          "recall_cortex": 0.685546875,
+          "n_items": 512,
+          "cortex_norm": 0.2511854224965259,
+          "n_total_writes": 512,
+          "n_spindle_corrections": 511,
+          "arm_hash": "6acbc4c60e78d851",
+          "alpha_simple": 0.25,
+          "wall_s": 1.7656571865081787,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,725 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "mech beats quad pooled at far/crit but NOT (cross-seed robust cv<=0.15 AND majority of seeds AND both controls) -- partial firming, scope UPGRADED not resolved: FARCRIT mech_MAE=0.627 quad_MAE=1.417 mech_beats_pooled=True | per-fold mech-beats-quad=6/6 | CROSS-SEED n=2 cv_mech=0.193 cv_ok=False frac_seeds_mech_beats=1.00 (2/2) majority=True | sensitive=True (spread_folds=2) | C1=True C2=True",
+  "summary": "MIDDLE_BAND | FARCRIT mech_MAE=0.627 quad_MAE=1.417 mech_beats=True | cv=0.193 cv_ok=False maj=True(2/2) sensitive=True | C1=True C2=True | oor=[0.4219, 0.501, 0.5977, 0.6504, 0.7207, 0.7998, 0.9141, 1.0195]",
+  "elapsed_s": 125.57413259999885,
+  "run_mode": "smoke",
+  "anchor_name": "reasoning_depth_mech_survival_abserr_vs_quad_v2",
+  "data_source": "landed_plus_generated_near_far_crit_smoke",
+  "control_rng_seed": 20260708,
+  "n_telemetry_seeds": 2,
+  "telemetry_seeds": [
+    7,
+    17
+  ],
+  "cardinality_seeds_ok": true,
+  "out_of_range_split_fill": 0.3516,
+  "farcrit_split_fill": 0.55,
+  "critical_split_fill": 0.82,
+  "train_fills": [
+    0.0703,
+    0.0879,
+    0.1055,
+    0.1406,
+    0.1758,
+    0.2109,
+    0.2812,
+    0.3516
+  ],
+  "out_of_range_fills": [
+    0.4219,
+    0.501,
+    0.5977,
+    0.6504,
+    0.7207,
+    0.7998,
+    0.9141,
+    1.0195
+  ],
+  "farcrit_fills": [
+    0.5977,
+    0.6504,
+    0.7207,
+    0.7998,
+    0.9141,
+    1.0195
+  ],
+  "n_out_of_range_folds": 8,
+  "expected_out_of_range_folds": 8,
+  "n_farcrit_folds": 6,
+  "expected_farcrit_folds": 6,
+  "cardinality_ok": true,
+  "censored_fills": [
+    0.0527
+  ],
+  "all_fills": [
+    0.0703,
+    0.0879,
+    0.1055,
+    0.1406,
+    0.1758,
+    0.2109,
+    0.2812,
+    0.3516,
+    0.4219,
+    0.501,
+    0.5977,
+    0.6504,
+    0.7207,
+    0.7998,
+    0.9141,
+    1.0195
+  ],
+  "out_of_range_eval": {
+    "mech": {
+      "MAE": 0.65,
+      "per_fold_err": [
+        0.728,
+        0.713,
+        0.27,
+        0.585,
+        0.882,
+        0.197,
+        0.989,
+        0.84
+      ],
+      "preds": [
+        3.728,
+        3.213,
+        2.77,
+        2.585,
+        2.382,
+        2.197,
+        1.989,
+        1.84
+      ]
+    },
+    "affine": {
+      "MAE": 1.056,
+      "per_fold_err": [
+        1.098,
+        1.127,
+        0.713,
+        1.034,
+        1.33,
+        0.632,
+        1.371,
+        1.14
+      ],
+      "preds": [
+        4.098,
+        3.627,
+        3.213,
+        3.034,
+        2.83,
+        2.632,
+        2.371,
+        2.14
+      ]
+    },
+    "quad": {
+      "MAE": 1.182,
+      "per_fold_err": [
+        0.331,
+        0.625,
+        1.342,
+        1.156,
+        1.017,
+        1.871,
+        1.344,
+        1.769
+      ],
+      "preds": [
+        2.669,
+        1.875,
+        1.158,
+        0.844,
+        0.483,
+        0.129,
+        -0.344,
+        -0.769
+      ]
+    },
+    "lookup": {
+      "MAE": 1.462,
+      "per_fold_err": [
+        0.4,
+        0.9,
+        0.9,
+        1.4,
+        1.9,
+        1.4,
+        2.4,
+        2.4
+      ],
+      "preds": [
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4
+      ]
+    },
+    "const": {
+      "MAE": 8.294,
+      "per_fold_err": [
+        7.231,
+        7.731,
+        7.731,
+        8.231,
+        8.731,
+        8.231,
+        9.231,
+        9.231
+      ],
+      "preds": [
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231
+      ]
+    }
+  },
+  "out_of_range_actual_depths": [
+    3.0,
+    2.5,
+    2.5,
+    2.0,
+    1.5,
+    2.0,
+    1.0,
+    1.0
+  ],
+  "abserr_analysis": {
+    "per_fold_mech_abserr": [
+      0.728,
+      0.713,
+      0.27,
+      0.585,
+      0.882,
+      0.197,
+      0.989,
+      0.84
+    ],
+    "per_fold_quad_abserr": [
+      0.331,
+      0.625,
+      1.342,
+      1.156,
+      1.017,
+      1.871,
+      1.344,
+      1.769
+    ],
+    "near_fold_idx": [
+      0,
+      1
+    ],
+    "far_fold_idx": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "critical_fold_idx": [
+      6,
+      7
+    ],
+    "farcrit_fold_idx": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "near_fills": [
+      0.4219,
+      0.501
+    ],
+    "far_fills": [
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "critical_fills": [
+      0.9141,
+      1.0195
+    ],
+    "farcrit_fills": [
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998,
+      0.9141,
+      1.0195
+    ],
+    "mech_mae_near": 0.7205,
+    "quad_mae_near": 0.478,
+    "mech_mae_farcrit": 0.6272,
+    "quad_mae_farcrit": 1.4165,
+    "mech_mae_critical": 0.9145,
+    "quad_mae_critical": 1.5565,
+    "mech_beats_quad_farcrit_pooled": true,
+    "per_farcrit_fold_mech_beats_quad": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "n_farcrit_folds_mech_beats_quad": 6,
+    "farcrit_split_fill": 0.55,
+    "critical_split_fill": 0.82
+  },
+  "per_seed_abserr": [
+    {
+      "seed": 7,
+      "farcrit_actual": [
+        3.0,
+        2.0,
+        2.0,
+        2.0,
+        1.0,
+        1.0
+      ],
+      "mech_abserr_farcrit": [
+        0.23,
+        0.585,
+        0.382,
+        0.197,
+        0.989,
+        0.84
+      ],
+      "quad_abserr_farcrit": [
+        1.842,
+        1.156,
+        1.517,
+        1.871,
+        1.344,
+        1.769
+      ],
+      "mech_mae_farcrit": 0.5371,
+      "quad_mae_farcrit": 1.5834,
+      "mech_beats_quad": true
+    },
+    {
+      "seed": 17,
+      "farcrit_actual": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        1.0,
+        1.0
+      ],
+      "mech_abserr_farcrit": [
+        0.77,
+        0.585,
+        1.382,
+        0.197,
+        0.989,
+        0.84
+      ],
+      "quad_abserr_farcrit": [
+        0.842,
+        1.156,
+        0.517,
+        1.871,
+        1.344,
+        1.769
+      ],
+      "mech_mae_farcrit": 0.7938,
+      "quad_mae_farcrit": 1.25,
+      "mech_beats_quad": true
+    }
+  ],
+  "cross_seed_robustness": {
+    "n_seeds": 2,
+    "per_seed_mech_mae_farcrit": [
+      0.5371,
+      0.7938
+    ],
+    "per_seed_quad_mae_farcrit": [
+      1.5834,
+      1.25
+    ],
+    "mean_mech_mae_farcrit": 0.6654,
+    "mean_quad_mae_farcrit": 1.4167,
+    "cv_mech_mae_farcrit": 0.1929,
+    "cv_ok": false,
+    "frac_seeds_mech_beats_quad": 1.0,
+    "n_seeds_mech_beats_quad": 2,
+    "majority_mech_beats_quad": true
+  },
+  "telemetry_sensitivity": {
+    "telemetry_sensitive": true,
+    "n_farcrit_folds_with_cross_seed_spread": 2,
+    "n_farcrit_nonfloored_folds": 4,
+    "per_fold_cross_seed_mech_abserr_std": {
+      "0.5977": 0.2702,
+      "0.6504": 0.0,
+      "0.7207": 0.5,
+      "0.7998": 0.0,
+      "0.9141": 0.0,
+      "1.0195": 0.0
+    },
+    "per_fold_pooled_actual": {
+      "0.5977": 2.5,
+      "0.6504": 2.0,
+      "0.7207": 1.5,
+      "0.7998": 2.0,
+      "0.9141": 1.0,
+      "1.0195": 1.0
+    },
+    "zero_spread_nonfloored_folds": [
+      0.6504,
+      0.7998
+    ],
+    "metric_analytically_pinned": false
+  },
+  "farcrit_degeneracy_check": {
+    "farcrit_fills": [
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998,
+      0.9141,
+      1.0195
+    ],
+    "farcrit_actual_depths": [
+      2.5,
+      2.0,
+      1.5,
+      2.0,
+      1.0,
+      1.0
+    ],
+    "n_farcrit_dead_below_1": 0,
+    "n_farcrit_folds": 6,
+    "all_farcrit_folds_dead": false,
+    "farcrit_depth_std": 0.5528
+  },
+  "farcrit_folds_dead": false,
+  "law_params": {
+    "mech_s": 0.49,
+    "mech_kappa": 0.005,
+    "affine_a": 1.875270056281815,
+    "affine_b": 1.7570634205196394,
+    "quad_c2c1c0": [
+      -0.14039177938388223,
+      3.284171109334231,
+      -1.26061448990966
+    ]
+  },
+  "forward_split_horizons": [
+    {
+      "train_max_fill": 0.1055,
+      "n_test_folds": 13,
+      "mech_MAE": 1.447,
+      "quad_MAE": 13.714,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.1406,
+      "n_test_folds": 12,
+      "mech_MAE": 0.855,
+      "quad_MAE": 5.941,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.1758,
+      "n_test_folds": 11,
+      "mech_MAE": 0.714,
+      "quad_MAE": 3.618,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.2109,
+      "n_test_folds": 10,
+      "mech_MAE": 1.146,
+      "quad_MAE": 0.415,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.2812,
+      "n_test_folds": 9,
+      "mech_MAE": 0.91,
+      "quad_MAE": 0.755,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.3516,
+      "n_test_folds": 8,
+      "mech_MAE": 0.65,
+      "quad_MAE": 1.182,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.4219,
+      "n_test_folds": 7,
+      "mech_MAE": 0.594,
+      "quad_MAE": 1.107,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.501,
+      "n_test_folds": 6,
+      "mech_MAE": 0.583,
+      "quad_MAE": 0.999,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.5977,
+      "n_test_folds": 5,
+      "mech_MAE": 0.655,
+      "quad_MAE": 0.64,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.6504,
+      "n_test_folds": 4,
+      "mech_MAE": 0.636,
+      "quad_MAE": 0.552,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.7207,
+      "n_test_folds": 3,
+      "mech_MAE": 0.587,
+      "quad_MAE": 0.649,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.7998,
+      "n_test_folds": 2,
+      "mech_MAE": 0.829,
+      "quad_MAE": 0.304,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.9141,
+      "n_test_folds": 1,
+      "mech_MAE": 0.757,
+      "quad_MAE": 0.454,
+      "mech_beats_quad": false
+    }
+  ],
+  "frac_horizons_mech_beats_quad": 0.5384615384615384,
+  "control1_scramble_mech_law": {
+    "real_full_landscape_mae": 0.6694854817265516,
+    "scrambled_mean_mae": 4.428287419846785,
+    "scrambled_p10_mae": 3.7845286501380015,
+    "real_below_scrambled_p10": true,
+    "real_beats_scrambled_mean_margin": true,
+    "mech_s": 0.5,
+    "mech_kappa": 0.0,
+    "n_boot": 300,
+    "scramble_method": "permute_collT_depth_pairing_full_landscape_then_refit_mech",
+    "firing_criterion": "real_below_p10 AND real_beats_mean over FULL landscape"
+  },
+  "control1_fires": true,
+  "control2_scramble_curve": {
+    "T_real_spearman_fill_depth": -0.9852941176470588,
+    "abs_T_real": 0.9852941176470588,
+    "null_p90": 0.4264705882352941,
+    "null_mean": 0.21170588235294116,
+    "real_outside_null": true,
+    "scramble_destroys_signal_margin": true,
+    "margin_c2": 0.2,
+    "T_scrambled_reported_not_gating": 0.02647058823529412,
+    "n_perm": 2000,
+    "firing_criterion": "abs_T_real > null_p90 AND (abs_T_real - null_mean) > MARGIN_C2"
+  },
+  "control2_fires": true,
+  "arms_differ_verified": true,
+  "arms_identical_pairs": [],
+  "arm_digests": {
+    "mech": "f66c0d78aab327dc3f51df56969045fc84fa199187a99750065257f93323d094",
+    "affine": "45ff03c7e8389680c725b480b228853f73661ca14d52e707c9edf82f95b2d3db",
+    "quad": "6f0754e456050387fb7f4f305e5b8857df36052354e0fe130faa334ecd9fdac5",
+    "lookup": "707627e608868d789ff0999d16b6f74170be2b6eadb7ea6aa297f91dd4230a89",
+    "const": "d51a392eef97a0e91a20ffb94113dec56a532154b1972f9ad7f839c4d4070bce"
+  },
+  "telemetry_generation_check": {
+    "generated_fills": [
+      0.4219,
+      0.501,
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998,
+      0.9141,
+      1.0195
+    ],
+    "n_telemetry_seeds": 2,
+    "telemetry_seeds": [
+      7,
+      17
+    ],
+    "sane": true
+  },
+  "monitor_proposal": {
+    "out_of_range_fills": [
+      0.4219,
+      0.501,
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998,
+      0.9141,
+      1.0195
+    ],
+    "farcrit_fills": [
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998,
+      0.9141,
+      1.0195
+    ],
+    "train_envelope_max_fill": 0.3516,
+    "mech_predicted_depths": [
+      3.728,
+      3.213,
+      2.77,
+      2.585,
+      2.382,
+      2.197,
+      1.989,
+      1.84
+    ],
+    "quad_predicted_depths": [
+      2.669,
+      1.875,
+      1.158,
+      0.844,
+      0.483,
+      0.129,
+      -0.344,
+      -0.769
+    ],
+    "actual_depths": [
+      3.0,
+      2.5,
+      2.5,
+      2.0,
+      1.5,
+      2.0,
+      1.0,
+      1.0
+    ],
+    "mech_farcrit_MAE": 0.6272,
+    "quad_farcrit_MAE": 1.4165,
+    "law": "mechanistic transmission-coefficient survival: p_hop=1-s*coll_theo, coll_d=coll0*(1+kappa*(d-1)), D*=argmax_D prod p_hop>=FLOOR",
+    "law_coeffs": {
+      "s_interference": 0.49,
+      "kappa_accumulation": 0.005
+    },
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. Substrate never applies this itself (USER-LOCKED)."
+  },
+  "observed_levels": {
+    "0.0703": {
+      "depth": 17.25,
+      "collT": 0.0677,
+      "source": "landed"
+    },
+    "0.0879": {
+      "depth": 15.25,
+      "collT": 0.0839,
+      "source": "landed"
+    },
+    "0.1055": {
+      "depth": 14.65,
+      "collT": 0.0998,
+      "source": "landed"
+    },
+    "0.1406": {
+      "depth": 9.85,
+      "collT": 0.1309,
+      "source": "landed"
+    },
+    "0.1758": {
+      "depth": 8.15,
+      "collT": 0.1609,
+      "source": "landed"
+    },
+    "0.2109": {
+      "depth": 8.3,
+      "collT": 0.1898,
+      "source": "landed"
+    },
+    "0.2812": {
+      "depth": 5.0,
+      "collT": 0.2448,
+      "source": "landed"
+    },
+    "0.3516": {
+      "depth": 3.4,
+      "collT": 0.2961,
+      "source": "landed"
+    },
+    "0.4219": {
+      "depth": 3.0,
+      "collT": 0.3439,
+      "source": "generated"
+    },
+    "0.501": {
+      "depth": 2.5,
+      "collT": 0.3938,
+      "source": "generated"
+    },
+    "0.5977": {
+      "depth": 2.5,
+      "collT": 0.4497,
+      "source": "generated"
+    },
+    "0.6504": {
+      "depth": 2.0,
+      "collT": 0.478,
+      "source": "generated"
+    },
+    "0.7207": {
+      "depth": 1.5,
+      "collT": 0.5134,
+      "source": "generated"
+    },
+    "0.7998": {
+      "depth": 2.0,
+      "collT": 0.5505,
+      "source": "generated"
+    },
+    "0.9141": {
+      "depth": 1.0,
+      "collT": 0.599,
+      "source": "generated"
+    },
+    "1.0195": {
+      "depth": 1.0,
+      "collT": 0.6391,
+      "source": "generated"
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "analysis cell; telemetry-gen reuses VET'd keyslots generator (own noise floor characterized)",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "gen_prints_per_fold_flush_progress; eval is fast cpu (no long loop)",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "GENUINE-test replacement for the v1 far-fold cell whose margin discriminator was analytically PINNED (VET commit 2fae452d1). Discriminator = per-seed ABSOLUTE OOR error |mech_pred-actual| (telemetry-sensitive; actual never cancels) vs a RE-FIT QUADRATIC at the FAR/CRITICAL folds (fill 0.60-1.02, incl percolation-critical where quad crosses zero). HARD_PASS = mech beats quad at far/crit AND cross-seed cv<=0.15 AND mech beats quad in a MAJORITY of seeds AND controls fire (promote MM->CG-cand). HARD_FAIL = quad ties/beats mech at far/crit (stays MM) OR metric analytically pinned. MIDDLE = mixed.",
+  "ts_iso": "2026-07-08T08:19:30.977742+00:00"
+}

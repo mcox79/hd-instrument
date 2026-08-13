@@ -1,0 +1,48 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS STRUCTURE_DISCOVERY: the shared-code + real-bind readout arm, trained with plain CE (NO hand-designed algebra), DISCOVERS the additive rule and generalizes to NOVEL combos on the tiny synthetic arena, beating the over-parameterized MEMORIZE baseline; the ARBITRARY must-fail fires (novel ~ chance); FPE hand-design ceiling near-exact; 6 validity-preflight checks declared. FULL sweeps L=64 across F1_CYCLIC/F2_XOR (abelian), F3_ASYM (claim-bound) and F4_ARBITRARY (must-fail) with 3 seeds to test discovery across DISTINCT structure families.",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 38.053242999943905,
+  "mechanism_selftest": {
+    "homomorphism_ok": true,
+    "homomorphism_pred": [
+      8,
+      9,
+      4
+    ],
+    "homomorphism_expect": [
+      8,
+      9,
+      4
+    ],
+    "f1_discovery_novel": 0.69608,
+    "f1_memorize_novel": 0.0,
+    "f1_advantage": 0.69608,
+    "f1_fpe_novel": 1.0,
+    "f1_discovery_seen": 1.0,
+    "arb_discovery_novel": 0.06863,
+    "arb_lift": 0.00613,
+    "chance": 0.0625,
+    "n_distinct_sigs": 4,
+    "n_novel": 102,
+    "n_leaked": 0,
+    "disc_learns": true,
+    "arch_adv": true,
+    "fpe_ceiling_ok": true,
+    "arb_mustfail": true,
+    "disc_fits": true,
+    "arms_differ": true,
+    "novel_ok": true,
+    "decisive_selftest_verdict": "ARCHITECTURE_DISCOVERS_COMPOSITIONAL_STRUCTURE_ACROSS_ABELIAN_FAMILIES",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ]
+  }
+}

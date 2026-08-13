@@ -1,0 +1,588 @@
+{
+  "anchor_name": "substrate_multihop_brain_pushback_composition_v3_chain_gen_fix",
+  "verdict": "RAIL_SANITY_BREACH",
+  "verdict_msg": "RAIL_SANITY_BREACH: BASELINE_depth_5=0.5817 (cv=0.036 rail_breach=3/3) R1=0.5817 (cv=0.036) R2=0.5817 (cv=0.036) R3=0.5817 (cv=0.036) COMBINED=0.5817 (cv=0.036) indiv_max=0.5817 cardinality_ok=True expected_units=45 observed_units=45 rails=['BASELINE_SANITY_BREACH(3/3 seeds outside [0.10,0.20]; mean=0.5817)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "brainPushbackComp-v3-chainGenFix: N=8192 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.20] expected_arms=5 expected_n_units=45 hardening=L1early+L2perarm+L3outertry+L4importsentinel chain_gen_fix=V_C200to1000_maxdepth8to5",
+  "per_seed": [
+    {
+      "_ckpt_key": "17",
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 1000,
+      "n_predicates": 10,
+      "n_chains_train": 200,
+      "n_chains_test": 200,
+      "max_depth": 5,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "r1_replay_stats": {
+        "n_chains_replayed": 200,
+        "n_shortcuts": 141,
+        "mean_amp": 0.8632131204120199,
+        "max_amp": 0.9152062412954348,
+        "min_amp_seen": 0.6535667104768264,
+        "cohorts": 5,
+        "min_amp": 0.55,
+        "top_K": 30
+      },
+      "config_version": "brainPushbackComp-v3-chainGenFix: N=8192 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.20] expected_arms=5 expected_n_units=45 hardening=L1early+L2perarm+L3outertry+L4importsentinel chain_gen_fix=V_C200to1000_maxdepth8to5",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_depth_2": {
+        "top1": 0.855,
+        "per_step_acc": [
+          0.91,
+          0.855
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 3.82
+      },
+      "arm_baseline_depth_3": {
+        "top1": 0.76,
+        "per_step_acc": [
+          0.91,
+          0.855,
+          0.76
+        ],
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 5.46
+      },
+      "arm_baseline_depth_5": {
+        "top1": 0.56,
+        "per_step_acc": [
+          0.91,
+          0.855,
+          0.76,
+          0.64,
+          0.56
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 9.53
+      },
+      "arm_r1_replay_into_w_c_depth_2": {
+        "top1": 0.905,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 141,
+        "shortcut_hit_rate": 0.705,
+        "fallback_used": 59,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 3.06
+      },
+      "arm_r1_replay_into_w_c_depth_3": {
+        "top1": 0.76,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 7.15
+      },
+      "arm_r1_replay_into_w_c_depth_5": {
+        "top1": 0.56,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 10.49
+      },
+      "arm_r2_pfc_scratchpad_depth_2": {
+        "top1": 0.855,
+        "pfc_writes": 600,
+        "pfc_reads": 400,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 161.35
+      },
+      "arm_r2_pfc_scratchpad_depth_3": {
+        "top1": 0.76,
+        "pfc_writes": 800,
+        "pfc_reads": 600,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 208.26
+      },
+      "arm_r2_pfc_scratchpad_depth_5": {
+        "top1": 0.56,
+        "pfc_writes": 1200,
+        "pfc_reads": 1000,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 311.61
+      },
+      "arm_r3_bidirectional_depth_2": {
+        "top1": 0.855,
+        "meet_rate": 0.855,
+        "fwd_only_top1": 0.855,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 2.0,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 8.34
+      },
+      "arm_r3_bidirectional_depth_3": {
+        "top1": 0.76,
+        "meet_rate": 0.76,
+        "fwd_only_top1": 0.76,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 3.0,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 11.11
+      },
+      "arm_r3_bidirectional_depth_5": {
+        "top1": 0.56,
+        "meet_rate": 0.56,
+        "fwd_only_top1": 0.56,
+        "bwd_only_top1": 0.005,
+        "mean_meet_step": 4.92,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 19.44
+      },
+      "arm_combined_r1_r2_r3_depth_2": {
+        "top1": 0.905,
+        "shortcut_hits": 141,
+        "meet_hits": 40,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 65.89
+      },
+      "arm_combined_r1_r2_r3_depth_3": {
+        "top1": 0.76,
+        "shortcut_hits": 0,
+        "meet_hits": 152,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 318.87
+      },
+      "arm_combined_r1_r2_r3_depth_5": {
+        "top1": 0.56,
+        "shortcut_hits": 0,
+        "meet_hits": 112,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 522.72
+      },
+      "separate_w_assertion_held": true,
+      "elapsed_s": 1672.0,
+      "_partial_written_at": 1782588082.8294675
+    },
+    {
+      "_ckpt_key": "23",
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 1000,
+      "n_predicates": 10,
+      "n_chains_train": 200,
+      "n_chains_test": 200,
+      "max_depth": 5,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "r1_replay_stats": {
+        "n_chains_replayed": 200,
+        "n_shortcuts": 143,
+        "mean_amp": 0.8490252931538319,
+        "max_amp": 0.9115421336792703,
+        "min_amp_seen": 0.5607465996457528,
+        "cohorts": 5,
+        "min_amp": 0.55,
+        "top_K": 30
+      },
+      "config_version": "brainPushbackComp-v3-chainGenFix: N=8192 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.20] expected_arms=5 expected_n_units=45 hardening=L1early+L2perarm+L3outertry+L4importsentinel chain_gen_fix=V_C200to1000_maxdepth8to5",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_depth_2": {
+        "top1": 0.805,
+        "per_step_acc": [
+          0.92,
+          0.805
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 3.82
+      },
+      "arm_baseline_depth_3": {
+        "top1": 0.715,
+        "per_step_acc": [
+          0.92,
+          0.805,
+          0.715
+        ],
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 5.66
+      },
+      "arm_baseline_depth_5": {
+        "top1": 0.575,
+        "per_step_acc": [
+          0.92,
+          0.805,
+          0.715,
+          0.66,
+          0.575
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 8.25
+      },
+      "arm_r1_replay_into_w_c_depth_2": {
+        "top1": 0.9,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 143,
+        "shortcut_hit_rate": 0.715,
+        "fallback_used": 57,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 2.53
+      },
+      "arm_r1_replay_into_w_c_depth_3": {
+        "top1": 0.715,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 6.8
+      },
+      "arm_r1_replay_into_w_c_depth_5": {
+        "top1": 0.575,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 10.43
+      },
+      "arm_r2_pfc_scratchpad_depth_2": {
+        "top1": 0.805,
+        "pfc_writes": 600,
+        "pfc_reads": 400,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 160.22
+      },
+      "arm_r2_pfc_scratchpad_depth_3": {
+        "top1": 0.715,
+        "pfc_writes": 800,
+        "pfc_reads": 600,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 211.17
+      },
+      "arm_r2_pfc_scratchpad_depth_5": {
+        "top1": 0.575,
+        "pfc_writes": 1200,
+        "pfc_reads": 1000,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 311.6
+      },
+      "arm_r3_bidirectional_depth_2": {
+        "top1": 0.805,
+        "meet_rate": 0.805,
+        "fwd_only_top1": 0.805,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 1.99,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 8.86
+      },
+      "arm_r3_bidirectional_depth_3": {
+        "top1": 0.715,
+        "meet_rate": 0.72,
+        "fwd_only_top1": 0.715,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 2.98,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 11.26
+      },
+      "arm_r3_bidirectional_depth_5": {
+        "top1": 0.575,
+        "meet_rate": 0.575,
+        "fwd_only_top1": 0.575,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 4.99,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 19.43
+      },
+      "arm_combined_r1_r2_r3_depth_2": {
+        "top1": 0.9,
+        "shortcut_hits": 143,
+        "meet_hits": 37,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 63.28
+      },
+      "arm_combined_r1_r2_r3_depth_3": {
+        "top1": 0.715,
+        "shortcut_hits": 0,
+        "meet_hits": 143,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 379.82
+      },
+      "arm_combined_r1_r2_r3_depth_5": {
+        "top1": 0.575,
+        "shortcut_hits": 0,
+        "meet_hits": 115,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 765.69
+      },
+      "separate_w_assertion_held": true,
+      "elapsed_s": 1973.6,
+      "_partial_written_at": 1782590056.5315561
+    },
+    {
+      "_ckpt_key": "7",
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 1000,
+      "n_predicates": 10,
+      "n_chains_train": 200,
+      "n_chains_test": 200,
+      "max_depth": 5,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "r1_replay_stats": {
+        "n_chains_replayed": 200,
+        "n_shortcuts": 147,
+        "mean_amp": 0.8586970895033924,
+        "max_amp": 0.9745642606294852,
+        "min_amp_seen": 0.5502425833566831,
+        "cohorts": 5,
+        "min_amp": 0.55,
+        "top_K": 30
+      },
+      "config_version": "brainPushbackComp-v3-chainGenFix: N=8192 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7, 17, 23] depths=[2, 3, 5] mode=full R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.20] expected_arms=5 expected_n_units=45 hardening=L1early+L2perarm+L3outertry+L4importsentinel chain_gen_fix=V_C200to1000_maxdepth8to5",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_depth_2": {
+        "top1": 0.87,
+        "per_step_acc": [
+          0.945,
+          0.87
+        ],
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 4.03
+      },
+      "arm_baseline_depth_3": {
+        "top1": 0.83,
+        "per_step_acc": [
+          0.945,
+          0.87,
+          0.83
+        ],
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 5.81
+      },
+      "arm_baseline_depth_5": {
+        "top1": 0.61,
+        "per_step_acc": [
+          0.945,
+          0.87,
+          0.83,
+          0.7,
+          0.61
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 8.4
+      },
+      "arm_r1_replay_into_w_c_depth_2": {
+        "top1": 0.935,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 147,
+        "shortcut_hit_rate": 0.735,
+        "fallback_used": 53,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 2.52
+      },
+      "arm_r1_replay_into_w_c_depth_3": {
+        "top1": 0.83,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 6.9
+      },
+      "arm_r1_replay_into_w_c_depth_5": {
+        "top1": 0.61,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 11.0
+      },
+      "arm_r2_pfc_scratchpad_depth_2": {
+        "top1": 0.87,
+        "pfc_writes": 600,
+        "pfc_reads": 400,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 164.66
+      },
+      "arm_r2_pfc_scratchpad_depth_3": {
+        "top1": 0.83,
+        "pfc_writes": 800,
+        "pfc_reads": 600,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 217.77
+      },
+      "arm_r2_pfc_scratchpad_depth_5": {
+        "top1": 0.61,
+        "pfc_writes": 1200,
+        "pfc_reads": 1000,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 356.97
+      },
+      "arm_r3_bidirectional_depth_2": {
+        "top1": 0.87,
+        "meet_rate": 0.87,
+        "fwd_only_top1": 0.87,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 1.99,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 7.93
+      },
+      "arm_r3_bidirectional_depth_3": {
+        "top1": 0.83,
+        "meet_rate": 0.83,
+        "fwd_only_top1": 0.83,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 2.99,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 12.87
+      },
+      "arm_r3_bidirectional_depth_5": {
+        "top1": 0.61,
+        "meet_rate": 0.61,
+        "fwd_only_top1": 0.61,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 5.0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 21.0
+      },
+      "arm_combined_r1_r2_r3_depth_2": {
+        "top1": 0.935,
+        "shortcut_hits": 147,
+        "meet_hits": 40,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 2,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 63.08
+      },
+      "arm_combined_r1_r2_r3_depth_3": {
+        "top1": 0.83,
+        "shortcut_hits": 0,
+        "meet_hits": 166,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 3,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 318.9
+      },
+      "arm_combined_r1_r2_r3_depth_5": {
+        "top1": 0.61,
+        "shortcut_hits": 0,
+        "meet_hits": 122,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 526.92
+      },
+      "separate_w_assertion_held": true,
+      "elapsed_s": 1733.6,
+      "_partial_written_at": 1782586410.7970855
+    }
+  ],
+  "elapsed_s": 5379.6,
+  "summary": "RAIL_SANITY_BREACH: BASELINE_depth_5=0.5817 (cv=0.036 rail_breach=3/3) R1=0.5817 (cv=0.036) R2=0.5817 (cv=0.036) R3=0.5817 (cv=0.036) COMBINED=0.5817 (cv=0.036) indiv_max=0.5817 cardinality_ok=True expected_units=45 observed_units=45 rails=['BASELINE_SANITY_BREACH(3/3 seeds outside [0.10,0.20]; mean=0.5817)']",
+  "_atexit_synth": true,
+  "_llm_forward_calls_at_inference": 0,
+  "_hardening_marker": "v3_chain_gen_fix"
+}

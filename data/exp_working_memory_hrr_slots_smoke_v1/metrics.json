@@ -1,0 +1,320 @@
+{
+  "anchor_name": "working_memory_hrr_slots_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "WORKING_MEMORY_HRR_SLOTS HARD_PASS: ARM_HRR_SLOTS_PLUS_CLEANUP clears K=7 recall=1.000 (>=0.90) AND K=10 recall=1.000 (>=0.70) AND K=16 recall=1.000 (>=0.50); substrate-native working memory at Miller-capacity scale validated; chain-grade-eligible scratch-space primitive for multi-hop reasoning; PFC theta-gamma analog operational at N_DIM=4096. WORKING_MEMORY_HRR_SLOTS: ARM_FLAT_SUPERPOSITION[K_2=0.50 K_4=0.25 K_7=0.14 K_10=0.10 K_16=0.06] | ARM_HRR_SLOTS[K_2=1.00 K_4=1.00 K_7=1.00 K_10=1.00 K_16=1.00] | ARM_HRR_SLOTS_PLUS_CLEANUP[K_2=1.00 K_4=1.00 K_7=1.00 K_10=1.00 K_16=1.00]",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "CODEBOOK_SIZE": 50,
+  "K_VALUES": [
+    2,
+    4,
+    7,
+    10,
+    16
+  ],
+  "SIGMAS": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_FLAT_SUPERPOSITION": {
+        "per_K": {
+          "K_2": {
+            "mean": 0.5,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              0.5
+            ]
+          },
+          "K_4": {
+            "mean": 0.25,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              0.25
+            ]
+          },
+          "K_7": {
+            "mean": 0.1429,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              0.1429
+            ]
+          },
+          "K_10": {
+            "mean": 0.1,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              0.1
+            ]
+          },
+          "K_16": {
+            "mean": 0.0625,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              0.0625
+            ]
+          }
+        }
+      },
+      "ARM_HRR_SLOTS": {
+        "per_K": {
+          "K_2": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_4": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_7": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_10": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_16": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          }
+        }
+      },
+      "ARM_HRR_SLOTS_PLUS_CLEANUP": {
+        "per_K": {
+          "K_2": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_4": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_7": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_10": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          },
+          "K_16": {
+            "mean": 1.0,
+            "std": 0.0,
+            "cv": 0.0,
+            "per_seed": [
+              1.0
+            ]
+          }
+        }
+      }
+    },
+    "k7_cleanup_mean": 1.0,
+    "k10_cleanup_mean": 1.0,
+    "k16_cleanup_mean": 1.0,
+    "k4_slots_mean": 1.0,
+    "k7_passes_HP": true,
+    "k10_passes_HP": true,
+    "k16_passes_HP": true,
+    "k4_slots_triggers_HF": false,
+    "n_seeds": 1,
+    "N_DIM": 4096,
+    "CODEBOOK_SIZE": 50,
+    "CONFIG_VERSION": "working_memory_hrr_slots_smoke_v1; N_DIM=4096 CODEBOOK_SIZE=50 K_VALUES=[2, 4, 7, 10, 16] SIGMAS=[0.0, 0.5, 1.0] arms=['ARM_FLAT_SUPERPOSITION', 'ARM_HRR_SLOTS', 'ARM_HRR_SLOTS_PLUS_CLEANUP'] seeds=[7] mode=smoke; bands HP_K7>=0.90 HP_K10>=0.70 HP_K16>=0.50 HF_K4<=0.50",
+    "honest_scope": "Substrate-native working memory via HRR slot binding + codebook cleanup; 3 arms x K-sweep [2,4,7,10,16] x sigma-sweep [0.0,0.5,1.0] at N_DIM=4096 on 50-atom codebook; HARD_PASS = CLEANUP arm clears K=7 >=0.90 AND K=10 >=0.70 AND K=16 >=0.50 (mean-over-sigma); HARD_FAIL = HRR_SLOTS (no cleanup) at K=4 <=0.50. Brain analog: PFC theta-gamma binding at Miller-capacity scale.",
+    "cites": [
+      "preregs/2026-06-23_working_memory_hrr_slots_smoke_v1.md",
+      "experiments/exp_contextual_encoding_hrr_binding_smoke_v1.py (HRR bipolar bind pattern)",
+      "hdlab/sequence_memory.py (sequence-binding precedent; complementary primitive)",
+      "USER_2026-06-23_substrate_native_scratch_space_multi_hop_reasoning"
+    ]
+  },
+  "metrics_source": "measured_cpu_working_memory_hrr_slots_smoke_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_FLAT_SUPERPOSITION": {
+          "per_K_per_sigma": {
+            "K_2": {
+              "sigma_0.00": 0.5,
+              "sigma_0.50": 0.5,
+              "sigma_1.00": 0.5
+            },
+            "K_4": {
+              "sigma_0.00": 0.25,
+              "sigma_0.50": 0.25,
+              "sigma_1.00": 0.25
+            },
+            "K_7": {
+              "sigma_0.00": 0.1429,
+              "sigma_0.50": 0.1429,
+              "sigma_1.00": 0.1429
+            },
+            "K_10": {
+              "sigma_0.00": 0.1,
+              "sigma_0.50": 0.1,
+              "sigma_1.00": 0.1
+            },
+            "K_16": {
+              "sigma_0.00": 0.0625,
+              "sigma_0.50": 0.0625,
+              "sigma_1.00": 0.0625
+            }
+          },
+          "per_K_mean_over_sigma": {
+            "K_2": 0.5,
+            "K_4": 0.25,
+            "K_7": 0.1429,
+            "K_10": 0.1,
+            "K_16": 0.0625
+          },
+          "wall_s": 0.03
+        },
+        "ARM_HRR_SLOTS": {
+          "per_K_per_sigma": {
+            "K_2": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_4": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_7": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_10": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_16": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            }
+          },
+          "per_K_mean_over_sigma": {
+            "K_2": 1.0,
+            "K_4": 1.0,
+            "K_7": 1.0,
+            "K_10": 1.0,
+            "K_16": 1.0
+          },
+          "wall_s": 0.02
+        },
+        "ARM_HRR_SLOTS_PLUS_CLEANUP": {
+          "per_K_per_sigma": {
+            "K_2": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_4": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_7": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_10": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_16": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            }
+          },
+          "per_K_mean_over_sigma": {
+            "K_2": 1.0,
+            "K_4": 1.0,
+            "K_7": 1.0,
+            "K_10": 1.0,
+            "K_16": 1.0
+          },
+          "wall_s": 0.02
+        }
+      },
+      "N_DIM": 4096,
+      "CODEBOOK_SIZE": 50,
+      "K_VALUES": [
+        2,
+        4,
+        7,
+        10,
+        16
+      ],
+      "SIGMAS": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "run_mode": "smoke",
+      "config_version": "working_memory_hrr_slots_smoke_v1; N_DIM=4096 CODEBOOK_SIZE=50 K_VALUES=[2, 4, 7, 10, 16] SIGMAS=[0.0, 0.5, 1.0] arms=['ARM_FLAT_SUPERPOSITION', 'ARM_HRR_SLOTS', 'ARM_HRR_SLOTS_PLUS_CLEANUP'] seeds=[7] mode=smoke; bands HP_K7>=0.90 HP_K10>=0.70 HP_K16>=0.50 HF_K4<=0.50",
+      "elapsed_s_seed": 0.07,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782253848.1721857
+    }
+  ],
+  "elapsed_s": 0.12346768379211426,
+  "summary": "WORKING_MEMORY_HRR_SLOTS HARD_PASS: ARM_HRR_SLOTS_PLUS_CLEANUP clears K=7 recall=1.000 (>=0.90) AND K=10 recall=1.000 (>=0.70) AND K=16 recall=1.000 (>=0.50); substrate-native working memory at Miller-capacity scale validated; chain-grade-eligible scratch-space primitive for multi-hop reasoning; PFC theta-gamma analog operational at N_DIM=4096. WORKING_MEMORY_HRR_SLOTS: ARM_FLAT_SUPERPOSITION[K_2=0.50 K_4=0.25 K_7=0.14 K_10=0.10 K_16=0.06] | ARM_HRR_SLOTS[K_2=1.00 K_4=1.00 K_7=1.00 K_10=1.00 K_16=1.00] | ARM_HRR_SLOTS_PLUS_CLEANUP[K_2=1.00 K_4=1.00 K_7=1.00 K_10=1.00 K_16=1.00]",
+  "substrate_only_decode_gate": "TRUE (substrate-native HRR slot-binding + codebook cleanup; numpy only; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "substrate_higher_order_tom_recursive_v2_reframed",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: cells=8 max_tom=1.000 arms_distinct_cells=7",
+  "summary": "SELFTEST_OK: cells=8 max_tom=1.000 arms_distinct_cells=7",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-28T20:33:52Z",
+  "pid": 32764,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_higher_order_tom_recursive_v2_reframed,depths=[1, 3],N_dims=[2048, 8192],N_chains=[1, 5],n_trials=5,seeds=[7],mode=smoke,n_objects=4,n_locations=4,n_agents_max=16,per_level_distractors=2,HP_MB_cells_min=30,HP_disc_gap=0.30,HP_MB_lo=0.30,HP_MB_hi=0.95,HP_depth_var_min=0.10,HP_pos_control_min=0.95,HP_capacity_gap=0.30,HF_flat_var_max=0.05,HF_arms_identical_max=0.10,HF_sat_floor_max=0.90,expected_n=120,hardening=L1early+L2perseed+L3outertry+L4importsentinel+META_RULE_AF+META_RULE_AH+META_RULE_AG+META_RULE_AN+META_RULE_AP_v3+HARD_FAIL_FLAT_DEPTH_PROFILE_v2_reframed",
+  "_hardening_marker": "v2_reframed_interleaved_chains",
+  "_phase": "selftest_done",
+  "n_cells_tested": 8,
+  "max_tom_acc": 1.0,
+  "arms_distinct_cells": 7
+}

@@ -1,0 +1,251 @@
+{
+  "anchor_name": "substrate_working_memory_multi_bank_routing_v1",
+  "verdict": "RAIL_SANITY_BREACH",
+  "verdict_msg": "RAIL_SANITY_BREACH_NAIVE_OUT_OF_CELL_D_BAND: per-arm: ARM_NAIVE_SINGLE_BANK_K32: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_NAIVE_SINGLE_BANK_K128: recall=0.8815 cv=0.0199 route_acc=1.0000; ARM_NAIVE_SINGLE_BANK_K256: recall=0.4648 cv=0.0315 route_acc=1.0000; ARM_MULTI_BANK_8x32_K256: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_MULTI_BANK_4x64_K256: recall=0.9987 cv=0.0018 route_acc=1.0000; ARM_MULTI_BANK_2x128_K256: recall=0.8659 cv=0.0181 route_acc=1.0000; ARM_MULTI_BANK_16x16_K256: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_MULTI_BANK_32x32_K1024: recall=1.0000 cv=0.0000 route_acc=1.0000 | rails: K32=1.0000 K128=0.8815 K256=0.4648 (rails_ok=False rails_breached=[K256=0.4648 not in [0.51,0.60]]) | best_multi_K256=ARM_MULTI_BANK_8x32_K256 recall=1.0000 cv=0.0000 route_acc=1.0000 lift_over_naive_K256=+0.5352 | K1024_stretch recall=1.0000 cv=0.0000 route_acc=1.0000 | n_multi_K256_lift_pass=4/4 [Q-DISCIPLINE: suspect saturation -- recall >= 0.995; UNDER-CLAIM tier]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateWmMultiBankRoutingV1: N_DIM=4096 CODEBOOK_SIZE=1024 sigma=1.0 N_ITEMS_PER_K=200 arms=8 seeds=[11, 13, 19] mode=full; bands HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_partial_lift>=0.20 mid_lift=[0.05,0.20] HP_bonus_K1024>=0.95 rails NAIVE_K128=[0.85,0.94] NAIVE_K256=[0.51,0.60] Q_sat>=0.995",
+  "per_seed": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "ARM_NAIVE_SINGLE_BANK_K32": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 32,
+          "k_total": 32,
+          "wall_s": 1.95
+        },
+        "ARM_NAIVE_SINGLE_BANK_K128": {
+          "recall": 0.8828,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 128,
+          "k_total": 128,
+          "wall_s": 2.26
+        },
+        "ARM_NAIVE_SINGLE_BANK_K256": {
+          "recall": 0.4844,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 256,
+          "k_total": 256,
+          "wall_s": 2.56
+        },
+        "ARM_MULTI_BANK_8x32_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 8,
+          "k_per_bank": 32,
+          "k_total": 256,
+          "wall_s": 2.77
+        },
+        "ARM_MULTI_BANK_4x64_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 4,
+          "k_per_bank": 64,
+          "k_total": 256,
+          "wall_s": 2.51
+        },
+        "ARM_MULTI_BANK_2x128_K256": {
+          "recall": 0.875,
+          "route_acc": 1.0,
+          "n_banks": 2,
+          "k_per_bank": 128,
+          "k_total": 256,
+          "wall_s": 3.06
+        },
+        "ARM_MULTI_BANK_16x16_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 16,
+          "k_per_bank": 16,
+          "k_total": 256,
+          "wall_s": 2.59
+        },
+        "ARM_MULTI_BANK_32x32_K1024": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 32,
+          "k_per_bank": 32,
+          "k_total": 1024,
+          "wall_s": 12.25
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 1024,
+      "SIGMA": 1.0,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankRoutingV1: N_DIM=4096 CODEBOOK_SIZE=1024 sigma=1.0 N_ITEMS_PER_K=200 arms=8 seeds=[11, 13, 19] mode=full; bands HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_partial_lift>=0.20 mid_lift=[0.05,0.20] HP_bonus_K1024>=0.95 rails NAIVE_K128=[0.85,0.94] NAIVE_K256=[0.51,0.60] Q_sat>=0.995",
+      "elapsed_s_seed": 30.12,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782438876.0492864
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "ARM_NAIVE_SINGLE_BANK_K32": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 32,
+          "k_total": 32,
+          "wall_s": 2.23
+        },
+        "ARM_NAIVE_SINGLE_BANK_K128": {
+          "recall": 0.8594,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 128,
+          "k_total": 128,
+          "wall_s": 3.61
+        },
+        "ARM_NAIVE_SINGLE_BANK_K256": {
+          "recall": 0.4609,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 256,
+          "k_total": 256,
+          "wall_s": 2.81
+        },
+        "ARM_MULTI_BANK_8x32_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 8,
+          "k_per_bank": 32,
+          "k_total": 256,
+          "wall_s": 3.17
+        },
+        "ARM_MULTI_BANK_4x64_K256": {
+          "recall": 0.9961,
+          "route_acc": 1.0,
+          "n_banks": 4,
+          "k_per_bank": 64,
+          "k_total": 256,
+          "wall_s": 2.72
+        },
+        "ARM_MULTI_BANK_2x128_K256": {
+          "recall": 0.8438,
+          "route_acc": 1.0,
+          "n_banks": 2,
+          "k_per_bank": 128,
+          "k_total": 256,
+          "wall_s": 2.89
+        },
+        "ARM_MULTI_BANK_16x16_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 16,
+          "k_per_bank": 16,
+          "k_total": 256,
+          "wall_s": 2.96
+        },
+        "ARM_MULTI_BANK_32x32_K1024": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 32,
+          "k_per_bank": 32,
+          "k_total": 1024,
+          "wall_s": 13.66
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 1024,
+      "SIGMA": 1.0,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankRoutingV1: N_DIM=4096 CODEBOOK_SIZE=1024 sigma=1.0 N_ITEMS_PER_K=200 arms=8 seeds=[11, 13, 19] mode=full; bands HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_partial_lift>=0.20 mid_lift=[0.05,0.20] HP_bonus_K1024>=0.95 rails NAIVE_K128=[0.85,0.94] NAIVE_K256=[0.51,0.60] Q_sat>=0.995",
+      "elapsed_s_seed": 34.26,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782438910.4098105
+    },
+    {
+      "seed": 19,
+      "by_arm": {
+        "ARM_NAIVE_SINGLE_BANK_K32": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 32,
+          "k_total": 32,
+          "wall_s": 2.04
+        },
+        "ARM_NAIVE_SINGLE_BANK_K128": {
+          "recall": 0.9023,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 128,
+          "k_total": 128,
+          "wall_s": 2.4
+        },
+        "ARM_NAIVE_SINGLE_BANK_K256": {
+          "recall": 0.4492,
+          "route_acc": 1.0,
+          "n_banks": 1,
+          "k_per_bank": 256,
+          "k_total": 256,
+          "wall_s": 2.71
+        },
+        "ARM_MULTI_BANK_8x32_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 8,
+          "k_per_bank": 32,
+          "k_total": 256,
+          "wall_s": 2.67
+        },
+        "ARM_MULTI_BANK_4x64_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 4,
+          "k_per_bank": 64,
+          "k_total": 256,
+          "wall_s": 2.55
+        },
+        "ARM_MULTI_BANK_2x128_K256": {
+          "recall": 0.8789,
+          "route_acc": 1.0,
+          "n_banks": 2,
+          "k_per_bank": 128,
+          "k_total": 256,
+          "wall_s": 2.48
+        },
+        "ARM_MULTI_BANK_16x16_K256": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 16,
+          "k_per_bank": 16,
+          "k_total": 256,
+          "wall_s": 2.51
+        },
+        "ARM_MULTI_BANK_32x32_K1024": {
+          "recall": 1.0,
+          "route_acc": 1.0,
+          "n_banks": 32,
+          "k_per_bank": 32,
+          "k_total": 1024,
+          "wall_s": 11.71
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 1024,
+      "SIGMA": 1.0,
+      "N_ITEMS_PER_K": 200,
+      "run_mode": "full",
+      "config_version": "substrateWmMultiBankRoutingV1: N_DIM=4096 CODEBOOK_SIZE=1024 sigma=1.0 N_ITEMS_PER_K=200 arms=8 seeds=[11, 13, 19] mode=full; bands HP_chain>=0.95 cv<=0.05 route_acc>=0.95 HP_partial_lift>=0.20 mid_lift=[0.05,0.20] HP_bonus_K1024>=0.95 rails NAIVE_K128=[0.85,0.94] NAIVE_K256=[0.51,0.60] Q_sat>=0.995",
+      "elapsed_s_seed": 29.27,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782438939.7957108
+    }
+  ],
+  "elapsed_s": 94.4,
+  "summary": "RAIL_SANITY_BREACH_NAIVE_OUT_OF_CELL_D_BAND: per-arm: ARM_NAIVE_SINGLE_BANK_K32: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_NAIVE_SINGLE_BANK_K128: recall=0.8815 cv=0.0199 route_acc=1.0000; ARM_NAIVE_SINGLE_BANK_K256: recall=0.4648 cv=0.0315 route_acc=1.0000; ARM_MULTI_BANK_8x32_K256: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_MULTI_BANK_4x64_K256: recall=0.9987 cv=0.0018 route_acc=1.0000; ARM_MULTI_BANK_2x128_K256: recall=0.8659 cv=0.0181 route_acc=1.0000; ARM_MULTI_BANK_16x16_K256: recall=1.0000 cv=0.0000 route_acc=1.0000; ARM_MULTI_BANK_32x32_K1024: recall=1.0000 cv=0.0000 route_acc=1.0000 | rails: K32=1.0000 K128=0.8815 K256=0.4648 (rails_ok=False rails_breached=[K256=0.4648 not in [0.51,0.60]]) | best_multi_K256=ARM_MULTI_BANK_8x32_K256 recall=1.0000 cv=0.0000 route_acc=1.0000 lift_over_naive_K256=+0.5352 | K1024_stretch recall=1.0000 cv=0.0000 route_acc=1.0000 | n_multi_K256_lift_pass=4/4 [Q-DISCIPLINE: suspect saturation -- recall >= 0.995; UNDER-CLAIM tier]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Corrected Cell Y (USER 2026-06-25). Original FM lock-in v1 HARD_FAILED with intermod bleed (K128=0.180; K256=0.453) -- 4th cell-evidence point that FDM stacking on shared W produces crosstalk. Corrected substrate analog: MULTI-WM-BANK routing. N_BANKS separate W matrices each within per-bank K-ceiling=64 (Cell D today). Router (analog to Cell 1 partition routing chain-grade @ M=1M today) picks bank from slot. Brain analog: PFC multi-microcircuit WM with attention routing. Strategic: extends WM K from 32 (single-bank chain-grade) to 256 (8x32 multi-bank) at substrate-native -- same architectural decomposition pattern as KG. Stretch arm 32x32_K1024 tests 32x K-ceiling extension."
+}

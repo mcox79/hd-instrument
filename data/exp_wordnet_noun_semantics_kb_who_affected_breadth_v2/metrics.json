@@ -1,0 +1,714 @@
+{
+  "verdict": "MM_NARROW_ENTITY_KB",
+  "verdict_msg": "[MM_NARROW_ENTITY_KB] entity-semantics KB on VERB-BROAD breadth gold | N=43 (ambig excl=4) base=0.7442(32/43) kb=0.7442(32/43) delta=0.0 (boot90 [0.0,0.0]) | DECISIVE: distinct_lemmas_net_rescued D=0 (K=3) lemmas=[] | total rescued=0 broken=0 | SCRAMBLE(must-fail) mean=0.0 max=0.0 collapses=True | override_opportunities=11 fired=0 mechanism_reachable=True arms_differ=False | store_fid_min=1.0 no_regression=True ci_excl0=False baseline_in_band=True kb_nouns=561",
+  "summary": "MM_NARROW_ENTITY_KB",
+  "elapsed_s": 8.97,
+  "run_mode": "full",
+  "anchor_name": "wordnet_noun_semantics_kb_who_affected_breadth_v2",
+  "ts_iso": "2026-07-21T22:15:40.614595+00:00",
+  "is_probe_flag": true,
+  "note": "CHAIN-GRADE ATTEMPT: FROZEN v1 (atom 29420) WordNet noun-semantics KB entity-selectional gate re-run on a fresh verb-broad blind gold (43 primary rows, ~43 distinct verbs, NO met). KB build + override + eval + scramble IMPORTED unchanged from v1; only new thing = comprehensive KB coverage of breadth-gold nouns (new artifact path; v1 artifact frozen). Decisive metric = distinct verb lemmas net-rescued. LOCAL-only; no push/remote-persist; no hdlab mutation; no atom bank (skunkworks VETs after land).",
+  "cg_vs_mm_criterion": {
+    "decisive_metric": "distinct_verb_lemmas_net_rescued (D)",
+    "K": 3,
+    "CG_SUPPORTING": "D>=K AND delta>0 AND boot_lo>0 AND scramble_collapses AND no_regression AND arms_differ",
+    "MIDDLE_BAND": "D==2 AND delta>0 AND scramble_collapses AND no_regression",
+    "MM_NARROW": "D<=1 OR (delta<=0 without net damage) -> narrow envelope confirmed, stays MEASURED_MECHANISM",
+    "HARD_FAIL_DESIGN": "not scramble_collapses OR not arms_differ OR delta<=-0.03 OR broken>rescued",
+    "D_measured": 0,
+    "net_rescued_lemmas": []
+  },
+  "kb": {
+    "n_nouns": 561,
+    "artifact_path": "data\\wordnet_noun_semantics_kb_v2_breadth\\kb.json",
+    "vocab_candidates": 879,
+    "spot_check": {
+      "slides": {
+        "animate": false,
+        "sem_type": "artifact",
+        "in_kb": true
+      },
+      "tv": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "stuff": {
+        "animate": false,
+        "sem_type": "substance",
+        "in_kb": true
+      },
+      "places": {
+        "animate": false,
+        "sem_type": "location",
+        "in_kb": true
+      },
+      "article": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "invoices": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "message": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "gifts": {
+        "animate": false,
+        "sem_type": "possession",
+        "in_kb": true
+      },
+      "kits": {
+        "animate": false,
+        "sem_type": "artifact",
+        "in_kb": true
+      },
+      "order": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "present": {
+        "animate": false,
+        "sem_type": "abstract",
+        "in_kb": true
+      },
+      "dog": {
+        "animate": true,
+        "sem_type": "animal",
+        "in_kb": true
+      },
+      "window": {
+        "animate": false,
+        "sem_type": "artifact",
+        "in_kb": true
+      },
+      "tree": {
+        "animate": false,
+        "sem_type": "plant",
+        "in_kb": true
+      },
+      "songs": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      },
+      "tooth": {
+        "animate": false,
+        "sem_type": "body",
+        "in_kb": true
+      },
+      "dent": {
+        "animate": false,
+        "sem_type": "phenomenon",
+        "in_kb": true
+      },
+      "highway": {
+        "animate": false,
+        "sem_type": "artifact",
+        "in_kb": true
+      },
+      "war": {
+        "animate": false,
+        "sem_type": "abstract",
+        "in_kb": true
+      },
+      "money": {
+        "animate": false,
+        "sem_type": "possession",
+        "in_kb": true
+      },
+      "hands": {
+        "animate": false,
+        "sem_type": "abstract",
+        "in_kb": true
+      },
+      "mouth": {
+        "animate": false,
+        "sem_type": "body",
+        "in_kb": true
+      },
+      "tickets": {
+        "animate": false,
+        "sem_type": "communication",
+        "in_kb": true
+      }
+    },
+    "coverage_note": "FROZEN build_kb over v1 vocab UNION breadth tokens; OOV falls back to live WordNet."
+  },
+  "breadth": {
+    "n": 43,
+    "n_ambiguous_excluded": 4,
+    "base_acc": 0.7442,
+    "kb_acc": 0.7442,
+    "base_correct": 32,
+    "kb_correct": 32,
+    "delta": 0.0,
+    "bootstrap_90ci": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+    },
+    "baseline_in_band": true
+  },
+  "per_verb": {
+    "by_lemma": {
+      "build": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "build"
+        ]
+      },
+      "call": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "call"
+        ]
+      },
+      "carry": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "carrying"
+        ]
+      },
+      "carve": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "carve"
+        ]
+      },
+      "clean": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "cleaned"
+        ]
+      },
+      "copy": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "copy"
+        ]
+      },
+      "cure": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "cure"
+        ]
+      },
+      "delete": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "delete"
+        ]
+      },
+      "deliver": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "delivered"
+        ]
+      },
+      "draft": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "drafted"
+        ]
+      },
+      "drop": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "drop"
+        ]
+      },
+      "enter": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "entering"
+        ]
+      },
+      "establish": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "establish"
+        ]
+      },
+      "forward": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "forward"
+        ]
+      },
+      "hear": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "hearing"
+        ]
+      },
+      "hold": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "hold"
+        ]
+      },
+      "hunt": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "hunting"
+        ]
+      },
+      "leave": {
+        "n": 2,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "left"
+        ]
+      },
+      "lift": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "lift"
+        ]
+      },
+      "notice": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "noticed"
+        ]
+      },
+      "offer": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "offers"
+        ]
+      },
+      "open": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "opening"
+        ]
+      },
+      "pass": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "pass"
+        ]
+      },
+      "pull": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "pull"
+        ]
+      },
+      "purchase": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "purchase"
+        ]
+      },
+      "push": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "pushing"
+        ]
+      },
+      "read": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "read"
+        ]
+      },
+      "receive": {
+        "n": 2,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "received"
+        ]
+      },
+      "remove": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "removing"
+        ]
+      },
+      "replace": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "replaced"
+        ]
+      },
+      "save": {
+        "n": 2,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "save",
+          "saved"
+        ]
+      },
+      "see": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "see"
+        ]
+      },
+      "sell": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "sell"
+        ]
+      },
+      "send": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "send"
+        ]
+      },
+      "start": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "start"
+        ]
+      },
+      "thank": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "thank"
+        ]
+      },
+      "update": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "update"
+        ]
+      },
+      "visit": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "visited"
+        ]
+      },
+      "waste": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "waste"
+        ]
+      },
+      "watch": {
+        "n": 1,
+        "rescued": 0,
+        "broken": 0,
+        "net": 0,
+        "rescued_ids": [],
+        "broken_ids": [],
+        "surfaces": [
+          "watching"
+        ]
+      }
+    },
+    "distinct_lemmas_net_rescued": 0,
+    "net_rescued_lemmas": [],
+    "total_rescued": 0,
+    "total_broken": 0
+  },
+  "override_reachability": {
+    "mechanism_reachable": true,
+    "n_override_opportunities": 11,
+    "n_override_fired": 0,
+    "interpretation": "override fires on its canonical met frame (mechanism_reachable) but had 0 satisfying opportunities on this verb-broad gold -> arm-identity is a genuine ZERO-INTERVENTION (narrow envelope), NOT a wiring bug. BASE already force-nones ~90pct of not-affected rows via the verb-affectedness gate, leaving few rescue opportunities; none carry a KB-satisfiable not-affecting sense since no met-class contact case is present."
+  },
+  "flips": [],
+  "must_fail_scramble": {
+    "seeds": [
+      7,
+      13,
+      17,
+      23,
+      29
+    ],
+    "runs": [
+      {
+        "seed": 7,
+        "scramble_delta": 0.0,
+        "n_flips": 0
+      },
+      {
+        "seed": 13,
+        "scramble_delta": 0.0,
+        "n_flips": 0
+      },
+      {
+        "seed": 17,
+        "scramble_delta": 0.0,
+        "n_flips": 0
+      },
+      {
+        "seed": 23,
+        "scramble_delta": 0.0,
+        "n_flips": 0
+      },
+      {
+        "seed": 29,
+        "scramble_delta": 0.0,
+        "n_flips": 0
+      }
+    ],
+    "mean_delta": 0.0,
+    "max_delta": 0.0,
+    "collapses": true,
+    "interpretation": "permuting the noun->feature map must destroy the lift (mean ~0) => the type/animacy SIGNAL is load-bearing, not a base-rate artifact"
+  },
+  "store_partition": {
+    "runs": [
+      {
+        "seed": 7,
+        "store_fidelity": 1.0,
+        "n_nouns": 561
+      },
+      {
+        "seed": 13,
+        "store_fidelity": 1.0,
+        "n_nouns": 561
+      },
+      {
+        "seed": 17,
+        "store_fidelity": 1.0,
+        "n_nouns": 561
+      },
+      {
+        "seed": 23,
+        "store_fidelity": 1.0,
+        "n_nouns": 561
+      },
+      {
+        "seed": 29,
+        "store_fidelity": 1.0,
+        "n_nouns": 561
+      }
+    ],
+    "fidelity_min": 1.0,
+    "N": 1024,
+    "note": "sharded additive-map (noun (x) sem_type); retrieve==dict => fidelity 1.0"
+  },
+  "arms_differ_verified": false,
+  "arm_decision_digests": {
+    "base": "5062af4328dcc5b6aa124de7c201ff33a1944f45e9ed1cfb3637b0d904e89b2c",
+    "kb": "5062af4328dcc5b6aa124de7c201ff33a1944f45e9ed1cfb3637b0d904e89b2c"
+  },
+  "cardinality": {
+    "expected_scramble_runs": 5,
+    "actual_scramble_runs": 5,
+    "expected_store_runs": 5,
+    "actual_store_runs": 5,
+    "cardinality_ok": true
+  },
+  "design_gate": {
+    "real_baseline": "FROZEN v2 verb-affectedness gate (full_gate baseline), no noun KB; recomputed in-cell on breadth gold",
+    "one_variable": "the KB selectional override on/off (identical negation/phrasal/stative/modal prefix)",
+    "can_fail": "D=0 (frozen override never fires on the verb-broad set = narrow envelope confirmed) OR delta<=0 OR a spurious selectional match breaks an affected row OR scramble fails to collapse",
+    "difficulty_on": "fresh verb-broad UD-EWT web-text (blind annotator, NO met); frozen rules; verb/noun disjoint from v1 tuning",
+    "leak_clean": "gate = verb-lemma + parse-frame + KB-noun-type, gold-independent; mutation-probe permutes breadth gold labels + re-derives -> KB decision vector byte-identical",
+    "deployable_regime": "PREDICTED POS/parse from the trained front-end (not gold-oracle)",
+    "frozen_rules": "build_kb + kb_selectional_override + kb_gate + eval_ud + permute_feats imported UNCHANGED from exp_wordnet_noun_semantics_kb_who_affected_v1; v1-noun KB records byte-identical (self_test)",
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n/a": "accuracy on labeled gold, no noise floor",
+    "calibration_check": "default_ok_for_this_regime (VN_GRADED_THRESHOLD 0.35 inherited; selrestr = exact VerbNet strings)"
+  },
+  "prereg": "preregs/2026-07-21_wordnet_noun_semantics_kb_who_affected_breadth_v2.md",
+  "credit": "WordNet (Fellbaum 1998); VerbNet (Kipper-Schuler 2005); Levin 1993; Dowty 1991; Beavers 2011; Paczynski-Kuperberg 2012; v1 entity-KB (atom 29420) frozen.",
+  "leak_clean": true
+}

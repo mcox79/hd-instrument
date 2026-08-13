@@ -1,0 +1,14 @@
+{
+  "anchor_name": "regime_probe_3_topology_x_cleanup_v1_s7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=73 SMOKE=7; 3 mechanisms distinct at F=2: ['a0ff23c079dd0156', '059887c4c409d2b2', '5c81b9bd9077c0e9']; SHARDED PC easy: acc=1.000; F-axis fires: F1_hash=ff8e0f0e6cd04f88 F2_hash=99be4d1d0c6a6a20",
+  "summary": "cardinality FULL=73 SMOKE=7; 3 mechanisms distinct at F=2: ['a0ff23c079dd0156', '059887c4c409d2b2', '5c81b9bd9077c0e9']; SHARDED PC easy: acc=1.000; F-axis fires: F1_hash=ff8e0f0e6cd04f88 F2_hash=99be4d1d0c6a6a20",
+  "elapsed_s": 0.12,
+  "ts_iso": "2026-07-03T17:59:23Z",
+  "pid": 31464,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=regime_probe_3_topology_x_cleanup_v1_s7,regime=sharded_FHRR_chain_composition_option_Y_3,cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],F=[1,2,4,8],M=[200,800,3200],N=4096(fixed),L=2(fixed),corr=[0.20,0.45],SEED=7,mode=selftest,BUNDLED_PC_regime=fixed_M800_N4096_F1_L2_corr0.20_iterative_cosine,beta=8.0,alpha_soft=0.5,expected_n_full=73,expected_n_smoke=7,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "regime_probe_3_topology_x_cleanup_v1_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

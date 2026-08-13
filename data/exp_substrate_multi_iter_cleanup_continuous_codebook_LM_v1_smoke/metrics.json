@@ -1,0 +1,73 @@
+{
+  "anchor_name": "substrate_multi_iter_cleanup_continuous_codebook_LM_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "ARM_MULTI_ITER_3_CONTINUOUS bpc=5.1080 vs ARM_SINGLE_STEP_CONTINUOUS bpc=4.9928; lift=-0.1153 < 0.020. v1 wrong-closure CONFIRMED at primitive level: multi-iter cleanup does NOT transfer to LM regime even on continuous codebook with modern-Hopfield primitive. The Tier-3 multi-iter-cleanup hypothesis remains rejected for LM tasks. lift_10_vs_1=-0.1153 bpc_sign_rail=4.9948 (v1 ref 7.226). PROVENANCE_FLAG: sanity-rail ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED bpc=4.9948 deviates from v1 reference 7.226 by > 0.050 (drift outside tolerance; treat reversal/confirmation with caution). WHAT_THIS_DOES_NOT_SHOW: (1) whether multi-iter cleanup helps with OTHER continuous encoders (GloVe / fastText); (2) whether beta=8.0 is optimal; (3) whether result generalizes beyond word-bigram BPC at V=300 / N_DIM=512; (4) the sanity-rail ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED is REPRODUCTION-of-v1, not a test of multi-iter (its n_iter=0; included only as provenance check).",
+  "summary": "ARM_MULTI_ITER_3_CONTINUOUS bpc=5.1080 vs ARM_SINGLE_STEP_CONTINUOUS bpc=4.9928; lift=-0.1153 < 0.020. v1 wrong-closure CONFIRMED at primitive level: multi-iter cleanup does NOT transfer to LM regime even on continuous codebook with modern-Hopfield primitive. The Tier-3 multi-iter-cleanup hypothesis",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "arm_summary": {
+    "ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED": {
+      "bpc_mean": 4.994808197021484,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.405,
+      "mrr_mean": 0.425625,
+      "mean_iters_mean": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_SINGLE_STEP_CONTINUOUS_CODEBOOK": {
+      "bpc_mean": 4.992770195007324,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.43,
+      "mrr_mean": 0.45476785714285717,
+      "mean_iters_mean": 1.0,
+      "n_seeds": 1
+    },
+    "ARM_MULTI_ITER_3_CONTINUOUS_CODEBOOK": {
+      "bpc_mean": 5.10804557800293,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.02,
+      "mrr_mean": 0.23464484126984128,
+      "mean_iters_mean": 3.0,
+      "n_seeds": 1
+    },
+    "ARM_MULTI_ITER_10_CONTINUOUS_CODEBOOK": {
+      "bpc_mean": 5.10804557800293,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.005,
+      "mrr_mean": 0.01075,
+      "mean_iters_mean": 10.0,
+      "n_seeds": 1
+    },
+    "ARM_UNIGRAM": {
+      "bpc_mean": 5.013299942016602,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": NaN,
+      "mrr_mean": NaN,
+      "mean_iters_mean": NaN,
+      "n_seeds": 1
+    }
+  },
+  "lift_3iter_vs_1iter_bpc": -0.11527538299560547,
+  "lift_10iter_vs_1iter_bpc": -0.11527538299560547,
+  "bpc_sign_rail_mean": 4.994808197021484,
+  "bpc_continuous_1iter_mean": 4.992770195007324,
+  "bpc_continuous_3iter_mean": 5.10804557800293,
+  "bpc_continuous_10iter_mean": 5.10804557800293,
+  "sanity_rail_ok": false,
+  "sanity_rail_ref": 7.226,
+  "sanity_rail_tolerance": 0.05,
+  "unigram_bpc_mean": 5.013299942016602,
+  "config_version": "substrate_multi_iter_cleanup_continuous_codebook_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED', 'ARM_SINGLE_STEP_CONTINUOUS_CODEBOOK', 'ARM_MULTI_ITER_3_CONTINUOUS_CODEBOOK', 'ARM_MULTI_ITER_10_CONTINUOUS_CODEBOOK'] seeds=[0] mode=smoke beta=8.0 sparsity_f=0.050 amp_scale=4.472 w2v_model=word2vec-google-news-300 bands HP>=0.050 mid=[0.020,0.050] HF<=-0.020 cv_max=0.050 sanity_rail=7.226+-0.050",
+  "pre_reg": {
+    "HARD_PASS": "ARM_MULTI_ITER_3 beats ARM_SINGLE_STEP by >= 0.050 bits AND cv <= 0.050",
+    "MIDDLE_BAND": "lift in [0.020, 0.050)",
+    "HARD_FAIL": "lift < 0.020",
+    "SANITY_RAIL": "ARM_BASELINE within +-0.050 of v1 ref 7.226"
+  },
+  "elapsed_s": 49.93484377861023
+}

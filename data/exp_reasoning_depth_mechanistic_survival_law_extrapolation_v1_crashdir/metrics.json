@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: SMOKE_FAIL: Control-1 (scramble-mech-law) did not fire on mock",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_reasoning_depth_mechanistic_survival_law_extrapolation_v1.py\", line 643, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_reasoning_depth_mechanistic_survival_law_extrapolation_v1.py\", line 630, in main\n    assert c1_fires, \"SMOKE_FAIL: Control-1 (scramble-mech-law) did not fire on mock\"\n           ^^^^^^^^\nAssertionError: SMOKE_FAIL: Control-1 (scramble-mech-law) did not fire on mock\n",
+  "ts_iso": "2026-07-08T04:12:25.738100+00:00",
+  "pid": 15728,
+  "anchor_name": "reasoning_depth_mechanistic_survival_law_extrapolation_v1"
+}

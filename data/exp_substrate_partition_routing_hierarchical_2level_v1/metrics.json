@@ -1,0 +1,276 @@
+{
+  "anchor_name": "substrate_partition_routing_hierarchical_2level_v1",
+  "verdict": "CHAIN_GRADE_AT_M_10M",
+  "verdict_msg": "CHAIN_GRADE_AT_M_10M_HIERARCHICAL: 2LEVEL=0.9783 >= 0.70 at M=10M | M=1000000: 2LEVEL=0.9700 (cv=0.007) SINGLE=0.9467 FLAT=0.4883 | M=10000000: 2LEVEL=0.9783 (cv=0.006) SINGLE=0.9633 FLAT=0.3033",
+  "summary": "CHAIN_GRADE_AT_M_10M_HIERARCHICAL: 2LEVEL=0.9783 >= 0.70 at M=10M | M=1000000: 2LEVEL=0.9700 (cv=0.007) SINGLE=0.9467 FLAT=0.4883 | M=10000000: 2LEVEL=0.9783 (cv=0.006) SINGLE=0.9633 FLAT=0.3033",
+  "headline": "CHAIN_GRADE_AT_M_10M_HIERARCHICAL: 2LEVEL=0.9783 >= 0.70 at M=10M | M=1000000: 2LEVEL=0.9700 (cv=0.007) SINGLE=0.9467 FLAT=0.4883 | M=10000000: 2LEVEL=0.9783 (cv=0.006) SINGLE=0.9633 FLAT=0.3033",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "aggregate": {
+    "1000000": {
+      "arm_single_level": {
+        "recall_mean": 0.9467,
+        "recall_cv": 0.0025,
+        "per_seed_recall": [
+          0.95,
+          0.945,
+          0.945
+        ]
+      },
+      "arm_2level_hierarchical": {
+        "recall_mean": 0.97,
+        "recall_cv": 0.0073,
+        "per_seed_recall": [
+          0.975,
+          0.975,
+          0.96
+        ]
+      },
+      "arm_flat_kv_reference": {
+        "recall_mean": 0.4883,
+        "recall_cv": 0.0348,
+        "per_seed_recall": [
+          0.505,
+          0.495,
+          0.465
+        ]
+      }
+    },
+    "10000000": {
+      "arm_single_level": {
+        "recall_mean": 0.9633,
+        "recall_cv": 0.0088,
+        "per_seed_recall": [
+          0.96,
+          0.955,
+          0.975
+        ]
+      },
+      "arm_2level_hierarchical": {
+        "recall_mean": 0.9783,
+        "recall_cv": 0.0064,
+        "per_seed_recall": [
+          0.98,
+          0.97,
+          0.985
+        ]
+      },
+      "arm_flat_kv_reference": {
+        "recall_mean": 0.3033,
+        "recall_cv": 0.0741,
+        "per_seed_recall": [
+          0.275,
+          0.305,
+          0.33
+        ]
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "full",
+      "N": 1024,
+      "n_sweep_M": [
+        1000000,
+        10000000
+      ],
+      "part_size_single": 2000,
+      "part_size_fine": 1000,
+      "n_coarse": 10,
+      "target_cos": 0.133,
+      "cat_cos": 0.7,
+      "cat_cos_coarse": 0.8,
+      "per_M": {
+        "1000000": {
+          "M": 1000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.95,
+            "route_acc": 1.0,
+            "P_single": 500,
+            "elapsed_s": 0.25
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.975,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 100,
+            "elapsed_s": 0.17
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.505,
+            "elapsed_s": 0.25
+          }
+        },
+        "10000000": {
+          "M": 10000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.96,
+            "route_acc": 1.0,
+            "P_single": 5000,
+            "elapsed_s": 0.13
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.98,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 1000,
+            "elapsed_s": 0.13
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.275,
+            "elapsed_s": 1.21
+          }
+        }
+      },
+      "elapsed_s_seed": 3.3,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782435722.936672
+    },
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "N": 1024,
+      "n_sweep_M": [
+        1000000,
+        10000000
+      ],
+      "part_size_single": 2000,
+      "part_size_fine": 1000,
+      "n_coarse": 10,
+      "target_cos": 0.133,
+      "cat_cos": 0.7,
+      "cat_cos_coarse": 0.8,
+      "per_M": {
+        "1000000": {
+          "M": 1000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.945,
+            "route_acc": 1.0,
+            "P_single": 500,
+            "elapsed_s": 0.11
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.975,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 100,
+            "elapsed_s": 0.16
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.495,
+            "elapsed_s": 0.39
+          }
+        },
+        "10000000": {
+          "M": 10000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.955,
+            "route_acc": 1.0,
+            "P_single": 5000,
+            "elapsed_s": 0.2
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.97,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 1000,
+            "elapsed_s": 0.33
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.305,
+            "elapsed_s": 1.26
+          }
+        }
+      },
+      "elapsed_s_seed": 3.3,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782435726.2447357
+    },
+    {
+      "seed": 19,
+      "run_mode": "full",
+      "N": 1024,
+      "n_sweep_M": [
+        1000000,
+        10000000
+      ],
+      "part_size_single": 2000,
+      "part_size_fine": 1000,
+      "n_coarse": 10,
+      "target_cos": 0.133,
+      "cat_cos": 0.7,
+      "cat_cos_coarse": 0.8,
+      "per_M": {
+        "1000000": {
+          "M": 1000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.945,
+            "route_acc": 1.0,
+            "P_single": 500,
+            "elapsed_s": 0.16
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.96,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 100,
+            "elapsed_s": 0.25
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.465,
+            "elapsed_s": 0.56
+          }
+        },
+        "10000000": {
+          "M": 10000000,
+          "arm_single_level": {
+            "routed_recall_at_10": 0.975,
+            "route_acc": 1.0,
+            "P_single": 5000,
+            "elapsed_s": 0.41
+          },
+          "arm_2level_hierarchical": {
+            "routed_recall_at_10": 0.985,
+            "route_acc_coarse": 1.0,
+            "route_acc_fine": 1.0,
+            "N_COARSE": 10,
+            "P_fine_per_coarse": 1000,
+            "elapsed_s": 0.27
+          },
+          "arm_flat_kv_reference": {
+            "recall_at_10": 0.33,
+            "elapsed_s": 1.25
+          }
+        }
+      },
+      "elapsed_s_seed": 3.8,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782435730.0918188
+    }
+  ],
+  "elapsed_s": 10.537522554397583,
+  "gpu_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "bands": {
+    "HARD_PASS_M10M_2LEVEL": 0.8,
+    "HARD_PASS_M10M_SINGLE_CLIFF": 0.5,
+    "HARD_PASS_M10M_FLAT_COLLAPSE": 0.1,
+    "CHAIN_GRADE_M10M_2LEVEL": 0.7,
+    "HARD_FAIL_M10M_2LEVEL": 0.5,
+    "HARD_PASS_CV": 0.05,
+    "Q_SUSPECT_SATURATION": 0.995
+  },
+  "config_version": "v1_2level_hierarchical_n_coarse_10_part_fine_1000_seeds_11_13_19",
+  "DESIGN_NOTE": "Hierarchical 2-level partition routing for M=10M. 3 arms: SINGLE_LEVEL (Cell 1's flat 5000 partitions at M=10M; predicted to cliff via FHRR pair-space at N=8192), 2LEVEL_HIERARCHICAL (10 coarse * 1000 fine = 10000 partitions of 1000 each), FLAT_KV_REFERENCE (flat scan all N; predicted to collapse). Brain analog: hippocampal indexing into cortical regions (Goyal/Buzsaki 2021)."
+}

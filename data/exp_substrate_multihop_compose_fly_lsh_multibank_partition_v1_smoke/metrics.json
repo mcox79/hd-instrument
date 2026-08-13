@@ -1,0 +1,110 @@
+{
+  "anchor_name": "substrate_multihop_compose_fly_lsh_multibank_partition_v1",
+  "verdict": "HARD_PASS_CHAIN_GRADE_COMPOSITION_ADDITIVE",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_COMPOSITION_ADDITIVE: BASELINE=0.6450 (sanity_breach=0/1) SINGLE=0.7800 FLY=0.7600 BANK=0.9600 PART=1.0000 ALL3=0.9600 (cv=nan) all3_lift=+0.1800 sum_indiv_lifts=+0.3800 super_additive=False | rails=[]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "composeFlyLshMultiBankPartitionV1: N=2048 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7] mode=smoke depth=5 HP_all3>=0.50 HP_cv<=0.07 HP_individual>=0.30 HF<0.20 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_banks": 8,
+      "n_partitions": 20,
+      "n_lsh_expansions": 5,
+      "lsh_topk": 20,
+      "pointer_n_chains": 50,
+      "depth": 5,
+      "config_version": "composeFlyLshMultiBankPartitionV1: N=2048 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=50 K_SET=20 N_BANKS=8 N_PARTS=20 PART_SIZE=10 N_LSH=5 LSH_TOPK=20 seeds=[7] mode=smoke depth=5 HP_all3>=0.50 HP_cv<=0.07 HP_individual>=0.30 HF<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.645,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 0.26
+      },
+      "baseline_sanity_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.78,
+        "per_step_acc": [
+          1.0,
+          0.98,
+          0.94,
+          0.88,
+          0.78
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "elapsed_s_arm": 0.13
+      },
+      "arm_compose_fly_lsh_5hop": {
+        "top1": 0.76,
+        "per_step_acc": [
+          0.98,
+          0.94,
+          0.9,
+          0.88,
+          0.76
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "mechanism": "fly_lsh_expanded_W_and_cleanup",
+        "elapsed_s_arm": 6.43
+      },
+      "arm_compose_multi_bank_5hop": {
+        "top1": 0.96,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.96
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "n_banks": 8,
+        "mechanism": "multi_bank_per_hop_oracle_routed",
+        "elapsed_s_arm": 3.08
+      },
+      "arm_compose_partition_5hop": {
+        "top1": 1.0,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed",
+        "elapsed_s_arm": 0.13
+      },
+      "arm_compose_all_3_5hop": {
+        "top1": 0.96,
+        "per_step_acc": [
+          1.0,
+          1.0,
+          0.98,
+          0.98,
+          0.96
+        ],
+        "n_queries": 50,
+        "depth": 5,
+        "mechanism": "all3_fly_lsh_multi_bank_partition_composed",
+        "elapsed_s_arm": 6.48
+      },
+      "elapsed_s": 16.5,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782440331.6332376
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS_CHAIN_GRADE_COMPOSITION_ADDITIVE: BASELINE=0.6450 (sanity_breach=0/1) SINGLE=0.7800 FLY=0.7600 BANK=0.9600 PART=1.0000 ALL3=0.9600 (cv=nan) all3_lift=+0.1800 sum_indiv_lifts=+0.3800 super_additive=False | rails=[]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "ANGLE 1 revival: compose today's 3 chain-grade wins. fly-LSH expands per-hop key into sparse-random subspace; multi-bank partitions WM into banks; partition-routing restricts per-hop argmax to a small partition. ALL_3 arm composes all three; individual-arm ablation tests whether each lift is independent and whether composition is super-additive vs sum-of-individual. NOTE: bank and partition arms use ORACLE routing (target_bank / target_part); this is the favourable-conditions test. If oracle-routed bank/part STILL fail, the routing is not the bottleneck. If they pass, follow-up cell to add real router."
+}

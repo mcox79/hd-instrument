@@ -1,0 +1,414 @@
+{
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL: no hard-fail trigger but not all gates passed (failing: ['CHUNK_recovery']). P1=1.000 bundle=1.000 thin=0.000 scramble=0.187 flat_drop=0.773 recovery=0.313.",
+  "summary": "PARTIAL: P1=1.000 | disc bundle=1.000 thin=0.000 bag=0.000 scramble=0.187 chance=0.004 | flat 1.000->0.227 (drop 0.773) | chunk recovery 0.313 (recent@8=0.539) | gates={'P1_roundtrips': True, 'DISCRIMINATOR_fires': True, 'P2_structure_load_bearing': True, 'CAPACITY_graceful': True, 'CHUNK_recovery': False}",
+  "elapsed_s": 80.57,
+  "ts_iso": "2026-07-24T03:31:24.852183+00:00",
+  "anchor_name": "situation_model_event_bundle_focus_v1",
+  "run_mode": "full",
+  "seed": 20260723,
+  "event_n": 8192,
+  "focus_n": 384,
+  "capacity": 4,
+  "fanout": 2,
+  "max_n": 8,
+  "gates": {
+    "P1_roundtrips": true,
+    "DISCRIMINATOR_fires": true,
+    "P2_structure_load_bearing": true,
+    "CAPACITY_graceful": true,
+    "CHUNK_recovery": false
+  },
+  "all_gates_pass": false,
+  "real_events_meta": {
+    "slice": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "n_sentences": 163,
+    "parser_uas": 0.7882
+  },
+  "n_real_events": 150,
+  "vocab_size": 223,
+  "arms_differ_verified": true,
+  "arm_hashes": {
+    "bundle": "698eccc777093e8b",
+    "thin_label": "db9e2ffeec73675c"
+  },
+  "p1_roundtrip": {
+    "overall": 1.0,
+    "per_role": {
+      "PRED": 1.0,
+      "AGENT": 1.0,
+      "PATIENT": 1.0,
+      "TENSE": 1.0
+    }
+  },
+  "discriminator": {
+    "bundle": 1.0,
+    "thin_label": 0.0,
+    "bag_of_args": 0.0,
+    "scramble": 0.18666666666666668,
+    "chance": 0.004484304932735426,
+    "n_queries": 300,
+    "disc_margin": 1.0,
+    "p2_margin": 0.8133
+  },
+  "capacity_signature": {
+    "flat": {
+      "1": 1.0,
+      "2": 0.82875,
+      "3": 0.8083333333333333,
+      "4": 0.509375,
+      "5": 0.4885,
+      "6": 0.3308333333333333,
+      "7": 0.33535714285714285,
+      "8": 0.2265625
+    },
+    "chunk_recent": {
+      "1": 1.0,
+      "2": 0.82875,
+      "3": 0.8083333333333333,
+      "4": 0.509375,
+      "5": 0.5208333333333334,
+      "6": 0.505,
+      "7": 0.525,
+      "8": 0.5391666666666667
+    },
+    "chunk_all": {
+      "1": 1.0,
+      "2": 0.82875,
+      "3": 0.8083333333333333,
+      "4": 0.509375,
+      "5": 0.3535,
+      "6": 0.27541666666666664,
+      "7": 0.24107142857142858,
+      "8": 0.2121875
+    },
+    "depth_profile": {
+      "1": {
+        "0": 1.0
+      },
+      "2": {
+        "0": 0.8287
+      },
+      "3": {
+        "0": 0.8083
+      },
+      "4": {
+        "0": 0.5094
+      },
+      "5": {
+        "0": 0.5208,
+        "1": 0.1025
+      },
+      "6": {
+        "0": 0.505,
+        "1": 0.075,
+        "2": 0.0312
+      },
+      "7": {
+        "0": 0.525,
+        "1": 0.0675,
+        "2": 0.005,
+        "3": 0.02
+      },
+      "8": {
+        "0": 0.5392,
+        "1": 0.0425,
+        "2": 0.0125,
+        "3": 0.0075,
+        "4": 0.0088
+      }
+    },
+    "chance": 0.004484304932735426,
+    "flat_drop": 0.7734,
+    "recovery_margin": 0.3126
+  },
+  "n_robustness": {
+    "192": {
+      "flat": {
+        "1": 0.995,
+        "2": 0.4625,
+        "3": 0.4367,
+        "4": 0.2075,
+        "5": 0.207,
+        "6": 0.1517,
+        "7": 0.1507,
+        "8": 0.0806
+      },
+      "chunk_recent": {
+        "1": 0.995,
+        "2": 0.4625,
+        "3": 0.4367,
+        "4": 0.2075,
+        "5": 0.2567,
+        "6": 0.2317,
+        "7": 0.2283,
+        "8": 0.2417
+      },
+      "flat_drop": 0.9144,
+      "recovery": 0.161
+    },
+    "256": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.58,
+        "3": 0.5767,
+        "4": 0.3287,
+        "5": 0.296,
+        "6": 0.2058,
+        "7": 0.2164,
+        "8": 0.1731
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.58,
+        "3": 0.5767,
+        "4": 0.3287,
+        "5": 0.3033,
+        "6": 0.315,
+        "7": 0.34,
+        "8": 0.3217
+      },
+      "flat_drop": 0.8269,
+      "recovery": 0.1485
+    },
+    "384": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.815,
+        "3": 0.795,
+        "4": 0.4988,
+        "5": 0.49,
+        "6": 0.3475,
+        "7": 0.3271,
+        "8": 0.2394
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.815,
+        "3": 0.795,
+        "4": 0.4988,
+        "5": 0.5183,
+        "6": 0.52,
+        "7": 0.5017,
+        "8": 0.5483
+      },
+      "flat_drop": 0.7606,
+      "recovery": 0.309
+    },
+    "512": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.9475,
+        "3": 0.9033,
+        "4": 0.6425,
+        "5": 0.644,
+        "6": 0.47,
+        "7": 0.4507,
+        "8": 0.325
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.9475,
+        "3": 0.9033,
+        "4": 0.6425,
+        "5": 0.6417,
+        "6": 0.6617,
+        "7": 0.63,
+        "8": 0.6467
+      },
+      "flat_drop": 0.675,
+      "recovery": 0.3217
+    }
+  },
+  "glass_box_samples": [
+    {
+      "event": [
+        "rubbed",
+        "cat",
+        "castle"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "rubbed",
+          2930.0
+        ],
+        "AGENT": [
+          "cat",
+          3030.0
+        ],
+        "PATIENT": [
+          "castle",
+          3068.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3130.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "rattling",
+        "cat",
+        "down"
+      ],
+      "tense": "T=PRES",
+      "recovered": {
+        "PRED": [
+          "rattling",
+          2966.0
+        ],
+        "AGENT": [
+          "cat",
+          3108.0
+        ],
+        "PATIENT": [
+          "down",
+          3044.0
+        ],
+        "TENSE": [
+          "T=PRES",
+          2998.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "took",
+        "herbert",
+        "blocks"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "took",
+          2966.0
+        ],
+        "AGENT": [
+          "herbert",
+          3100.0
+        ],
+        "PATIENT": [
+          "blocks",
+          3190.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3234.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "threw",
+        "herbert",
+        "it"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "threw",
+          3254.0
+        ],
+        "AGENT": [
+          "herbert",
+          3044.0
+        ],
+        "PATIENT": [
+          "it",
+          3066.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3154.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "did",
+        "it",
+        "harm"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "did",
+          3178.0
+        ],
+        "AGENT": [
+          "it",
+          3168.0
+        ],
+        "PATIENT": [
+          "harm",
+          2970.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3090.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "sha'n",
+        "she",
+        "hurt"
+      ],
+      "tense": "T=PRES",
+      "recovered": {
+        "PRED": [
+          "sha'n",
+          3044.0
+        ],
+        "AGENT": [
+          "she",
+          3066.0
+        ],
+        "PATIENT": [
+          "hurt",
+          3134.0
+        ],
+        "TENSE": [
+          "T=PRES",
+          3116.0
+        ]
+      }
+    }
+  ],
+  "bands": {
+    "HP_P1_MIN": 0.98,
+    "HF_P1_MIN": 0.8,
+    "HP_DISC_BUNDLE_MIN": 0.95,
+    "HP_DISC_THIN_MAX": 0.2,
+    "HP_DISC_BAG_MAX": 0.4,
+    "HP_DISC_MARGIN_MIN": 0.5,
+    "HP_P2_SCRAMBLE_MAX": 0.4,
+    "HP_P2_MARGIN_MIN": 0.4,
+    "HP_FLAT1_MIN": 0.9,
+    "HP_FLAT_DROP_MIN": 0.15,
+    "HF_FLAT_SAT_EPS": 0.02,
+    "HP_RECOVERY_MARGIN_MIN": 0.1,
+    "HP_RECOVERY_RECENT_MIN": 0.55
+  },
+  "one_variable": "event-level: bundle (role-slot binding) vs thin-label/bag-of-args (no role binding) -- structure vs no-structure; P2: same bundle with role<->filler binding permuted; capacity: FlatFocus (chunking OFF) vs ChunkedFocus (chunking ON) on the SAME event stream -- chunking is the only variable.",
+  "cited": {
+    "role_slot_summarizer": "hdlab/role_slot_summarizer.py RoleSlotSummarizer M1.7 3-seed CG 2026-07-01 ROLE 0.79/0.83/0.79 cv=0.024",
+    "cowan": "Cowan (2001) 4+-1 chunks in the focus of attention; notes/research_drill_HOL_meta_reasoning_biology_3x_2026-06-09.md"
+  },
+  "modules": {
+    "event_bundle": "hdlab/event_bundle.py",
+    "situation_focus": "hdlab/situation_focus.py"
+  },
+  "scope_caveat": "TENSE is a HEURISTIC placeholder for the TIME/TENSE slot (past if -ed/irregular else present), not a validated tense-tagger -- the role-slot BINDING is what is validated, not tense extraction. Real events come from the consolidated who-did-what reader (out-of-domain UD-EWT parser on McGuffey; extraction is imperfect, F1~0.59 CITED) -- the event-bundle format is agnostic to extraction quality (it encodes whatever tuple it is given). The focus operating point N=384 is chosen ONCE to make the finite-capacity limit visible in 1..8 while keeping recent items usable (design-gate regime choice); the N-robustness table shows the graceful-decline + chunking-recovery signature is N-invariant (only the knee shifts), so it is not a construction-aided clean number. This is a NEW-MODULE DEMONSTRATION (pluggable event/focus representation for the reader), CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs separately per the routing contract). NOT banked."
+}

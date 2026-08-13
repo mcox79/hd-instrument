@@ -1,0 +1,500 @@
+{
+  "anchor_name": "substrate_k_module_heterogeneous_compose_LM_v1",
+  "anchor": "substrate_k_module_heterogeneous_compose_LM_v1",
+  "verdict": "INSTRUMENTATION_SUSPECT",
+  "verdict_msg": "INSTRUMENTATION_SUSPECT: ARM_K_MODULE_FULL_HETERO raw_bpc_T1L1 near vocab-entropy (DEGEN). full_bpc=7.7378 raw_bpc=11.5486.",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "n_seeds": 3,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "LOCK_IN_P": 64,
+  "LOCK_IN_K_FREQ": 31,
+  "HRR_CONTEXT_WINDOW": 5,
+  "REFUSE_MARGIN_THR": 0.3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0
+      },
+      "ARM_SPARSE_BIPOLAR_ONLY": {
+        "bpc_best_mean": 7.3065,
+        "bpc_best_std": 0.0132,
+        "bpc_best_cv": 0.0018,
+        "top1_acc_mean": 0.2134,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.2917,
+        "mrr_at_10_std": 0.0062,
+        "raw_bpc_at_T1_L1_mean": 11.6085,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      },
+      "ARM_M1_PLUS_LOCKIN": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2096,
+        "top1_acc_std": 0.003,
+        "mrr_at_10_mean": 0.29,
+        "mrr_at_10_std": 0.001,
+        "raw_bpc_at_T1_L1_mean": 11.2542,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_M1_M2_PLUS_HRR": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2108,
+        "top1_acc_std": 0.0046,
+        "mrr_at_10_mean": 0.2935,
+        "mrr_at_10_std": 0.0048,
+        "raw_bpc_at_T1_L1_mean": 10.9036,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_K_MODULE_FULL_HETERO": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2858,
+        "mrr_at_10_std": 0.0003,
+        "raw_bpc_at_T1_L1_mean": 11.5486,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      }
+    },
+    "HP_BPC_LIFT_threshold": 0.3,
+    "CHAIN_GRADE_BONUS_LIFT_threshold": 0.5,
+    "HARD_FAIL_LIFT_threshold": 0.1,
+    "CV_MAX_threshold": 0.05,
+    "vocab_entropy_uniform_bits": 11.9658,
+    "zero_llm_calls_at_inference": true,
+    "unigram_bpc_ref": 7.738,
+    "m1_baseline_bpc_ref": 7.3065,
+    "n_seeds": 3
+  },
+  "per_unit": [
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SPARSE_BIPOLAR_ONLY": {
+          "bpc_best": 7.2882,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3003,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6085,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              0.05
+            ],
+            "lambda": 0.3
+          },
+          "elapsed_s_arm": 66.37
+        },
+        "ARM_M1_PLUS_LOCKIN": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2118,
+          "best_T_for_top1": 0.3,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2901,
+          "best_T_for_mrr": 0.3,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.254,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 69.95,
+          "m2_ok": false
+        },
+        "ARM_M1_M2_PLUS_HRR": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 0.7,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3001,
+          "best_T_for_mrr": 0.7,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 10.9031,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 81.48,
+          "m2_ok": false,
+          "m3_ok": false
+        },
+        "ARM_K_MODULE_FULL_HETERO": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2854,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5537,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 87.79,
+          "m2_ok": false,
+          "m3_ok": false,
+          "refuse_gate_high_conf_frac": 0.0668
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_k_module_heterogeneous_compose_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] sparse_f=0.050 lockin_P=64 lockin_k=31 hrr_ctx=5 refuse_thr=0.30 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cuda",
+      "elapsed_s_seed": 308.41,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782272812.5036755
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SPARSE_BIPOLAR_ONLY": {
+          "bpc_best": 7.3126,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "top1_acc": 0.2186,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2861,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6099,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              0.05
+            ],
+            "lambda": 0.3
+          },
+          "elapsed_s_arm": 67.73
+        },
+        "ARM_M1_PLUS_LOCKIN": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2053,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2887,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.2572,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 66.22,
+          "m2_ok": false
+        },
+        "ARM_M1_M2_PLUS_HRR": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2089,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2892,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 10.9082,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 80.92,
+          "m2_ok": false,
+          "m3_ok": false
+        },
+        "ARM_K_MODULE_FULL_HETERO": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2862,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5555,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 85.68,
+          "m2_ok": false,
+          "m3_ok": false,
+          "refuse_gate_high_conf_frac": 0.0667
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_k_module_heterogeneous_compose_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] sparse_f=0.050 lockin_P=64 lockin_k=31 hrr_ctx=5 refuse_thr=0.30 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cuda",
+      "elapsed_s_seed": 303.31,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782273115.86581
+    },
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SPARSE_BIPOLAR_ONLY": {
+          "bpc_best": 7.3187,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "top1_acc": 0.2045,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2888,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.607,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              0.05
+            ],
+            "lambda": 0.3
+          },
+          "elapsed_s_arm": 40.46
+        },
+        "ARM_M1_PLUS_LOCKIN": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2116,
+          "best_T_for_top1": 0.3,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2911,
+          "best_T_for_mrr": 2.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.2514,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 49.1,
+          "m2_ok": false
+        },
+        "ARM_M1_M2_PLUS_HRR": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2064,
+          "best_T_for_top1": 0.3,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2911,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 10.8995,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 75.6,
+          "m2_ok": false,
+          "m3_ok": false
+        },
+        "ARM_K_MODULE_FULL_HETERO": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2859,
+          "best_T_for_mrr": 1.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5365,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "betas": [
+              1.0,
+              0.1,
+              0.1
+            ],
+            "lambda": 0.0,
+            "beta_extra": 0.1
+          },
+          "elapsed_s_arm": 89.63,
+          "m2_ok": false,
+          "m3_ok": false,
+          "refuse_gate_high_conf_frac": 0.0937
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_k_module_heterogeneous_compose_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] sparse_f=0.050 lockin_P=64 lockin_k=31 hrr_ctx=5 refuse_thr=0.30 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cuda",
+      "elapsed_s_seed": 291.24,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782272504.0398536
+    }
+  ],
+  "elapsed_s": 902.96,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "config_version": "substrate_k_module_heterogeneous_compose_LM_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] sparse_f=0.050 lockin_P=64 lockin_k=31 hrr_ctx=5 refuse_thr=0.30 HP_lift=0.30 HF_lift=0.10 cv_max=0.05 device=cuda",
+  "honest_scope": "K-module heterogeneous compose LM test (Levy-Horn-Ruppin escape). 5 arms: ARM_UNIGRAM + 4 substrate compose arms (M1 only -> M1+M2 -> M1+M2+M3 -> FULL+refuse-gate). HP = ARM_K_MODULE_FULL_HETERO BPC lift >= +0.30 bits vs ARM_SPARSE_BIPOLAR_ONLY AND cv<=0.05. HF = lift <= +0.10 bits OR all seeds fail. CHAIN_GRADE_BONUS = lift >= +0.50 bits. N_DIM=8192 N_TRAIN=100000 N_HELD=20000 V=4000.",
+  "prereg_bands": {
+    "HARD_PASS_lift_bits": 0.3,
+    "CHAIN_GRADE_BONUS_lift_bits": 0.5,
+    "MIDDLE_BAND_lower_bits": 0.1,
+    "HARD_FAIL_lift_bits_or_below": 0.1,
+    "cv_max": 0.05
+  },
+  "cites": [
+    "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+    "data/exp_substrate_dual_trace_sequential_neuromod_LM_v1/metrics.json",
+    "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+    "experiments/exp_lock_in_amplifier_hd_frequency_v1_FULL.py",
+    "notes/research_rank1_hebbian_brain_escape_mechanisms_2026-06-23.md",
+    "Levy-Horn-Ruppin-1997-NIPS-multi-modular-associative-memory"
+  ],
+  "summary": "INSTRUMENTATION_SUSPECT: ARM_K_MODULE_FULL_HETERO raw_bpc_T1L1 near vocab-entropy (DEGEN). full_bpc=7.7378 raw_bpc=11.5486."
+}

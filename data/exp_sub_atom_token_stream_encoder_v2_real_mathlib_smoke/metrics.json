@@ -1,0 +1,159 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | RF_d3=0.935 Trig_d3=0.660 gap=0.275 | alpha_cos=0.943 codebook_disambig=1.000 cv=0.070 | fairness=OK | n=2",
+  "summary": "MIDDLE_BAND | RF_d3=0.935 Trig_d3=0.660 gap=0.275 | alpha_cos=0.943 codebook_disambig=1.000 cv=0.070 | fairness=OK | n=2",
+  "per_arm": {
+    "char_trigram_baseline": {
+      "7": {
+        "unbind_d1": 0.94,
+        "unbind_d3": 0.65,
+        "unbind_d5": 0.71,
+        "alpha_equiv_cos": 0.8453810906410217,
+        "codebook_disambig": 0.0
+      },
+      "17": {
+        "unbind_d1": 0.94,
+        "unbind_d3": 0.67,
+        "unbind_d5": 0.71,
+        "alpha_equiv_cos": 0.8146511602401734,
+        "codebook_disambig": 0.0
+      }
+    },
+    "math_codebook_token": {
+      "7": {
+        "unbind_d1": 0.96,
+        "unbind_d3": 0.74,
+        "unbind_d5": 0.77,
+        "alpha_equiv_cos": 0.9678679466247558,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 0.95,
+        "unbind_d3": 0.64,
+        "unbind_d5": 0.63,
+        "alpha_equiv_cos": 0.9831654906272889,
+        "codebook_disambig": 1.0
+      }
+    },
+    "math_codebook_var_rename": {
+      "7": {
+        "unbind_d1": 0.95,
+        "unbind_d3": 0.72,
+        "unbind_d5": 0.67,
+        "alpha_equiv_cos": 0.9961063170433044,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 0.96,
+        "unbind_d3": 0.66,
+        "unbind_d5": 0.72,
+        "alpha_equiv_cos": 0.9966893219947814,
+        "codebook_disambig": 1.0
+      }
+    },
+    "math_codebook_role_filler": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 0.87,
+        "unbind_d5": 0.86,
+        "alpha_equiv_cos": 0.9268454623222351,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.9587762594223023,
+        "codebook_disambig": 1.0
+      }
+    },
+    "diag_bind_depth": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 0.99,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 0.98,
+        "unbind_d5": 0.98,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "char_trigram_baseline": {
+      "mean_d1": 0.94,
+      "mean_d3": 0.66,
+      "std_d3": 0.010000000000000009,
+      "cv_d3": 0.015151515151515164,
+      "mean_d5": 0.71,
+      "mean_alpha_cos": 0.8300161254405976,
+      "mean_codebook_disambig": 0.0,
+      "n": 2
+    },
+    "math_codebook_token": {
+      "mean_d1": 0.955,
+      "mean_d3": 0.69,
+      "std_d3": 0.04999999999999999,
+      "cv_d3": 0.07246376811594202,
+      "mean_d5": 0.7,
+      "mean_alpha_cos": 0.9755167186260223,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "math_codebook_var_rename": {
+      "mean_d1": 0.955,
+      "mean_d3": 0.69,
+      "std_d3": 0.02999999999999997,
+      "cv_d3": 0.04347826086956518,
+      "mean_d5": 0.6950000000000001,
+      "mean_alpha_cos": 0.9963978195190429,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "math_codebook_role_filler": {
+      "mean_d1": 1.0,
+      "mean_d3": 0.935,
+      "std_d3": 0.065,
+      "cv_d3": 0.06951871657754011,
+      "mean_d5": 0.9299999999999999,
+      "mean_alpha_cos": 0.9428108608722687,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "diag_bind_depth": {
+      "mean_d1": 1.0,
+      "mean_d3": 0.99,
+      "std_d3": 0.010000000000000009,
+      "cv_d3": 0.01010101010101011,
+      "mean_d5": 0.985,
+      "mean_alpha_cos": 0.0,
+      "mean_codebook_disambig": 0.0,
+      "n": 2
+    }
+  },
+  "rf_d3": 0.935,
+  "trig_d3": 0.66,
+  "rf_minus_trig_d3": 0.275,
+  "rf_alpha_cos": 0.9428108608722687,
+  "rf_codebook_disambig": 1.0,
+  "rf_cv": 0.06951871657754011,
+  "fairness_saturation_violation": false,
+  "fairness_trig_ceiling_violation": true,
+  "fairness_rf_gap_ok": false,
+  "n_seeds_complete": 2,
+  "expected_n_units": 10,
+  "completed_units": 10,
+  "cardinality_ok": true,
+  "anchor_name": "sub_atom_token_stream_encoder_v2_real_mathlib",
+  "elapsed_s": 17.2,
+  "ts_iso": "2026-06-27T22:04:06Z",
+  "pid": 25240,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=sub_atom_token_stream_encoder_v2_real_mathlib,N=2048,codebook=2000,n_test=100,seeds=[7, 17],corpora=['lean'],mode=smoke,HP_unbind_d3>=0.80,HP_alpha_cos>=0.95,HP_codebook_disambig>=0.95,HP_cv<=0.10,FAIRNESS_trig_ceiling<=0.50,FAIRNESS_rf_over_trig>=0.30,expected_n=10,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v2_real_mathlib_sub_atom_encoder"
+}

@@ -1,0 +1,35 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "both_arms_ok; drop_latency_s=15.041 <= 60.0; batch_no_data_loss=True; principles_1-12_preserved",
+  "elapsed_s": 101.01,
+  "summary": {
+    "anchor": "substrate_director_kb_continuous_ingest_v1",
+    "smoke": true,
+    "arms": [
+      {
+        "arm": "ARM_FILE_DROP_LATENCY",
+        "ok": true,
+        "elapsed_s": 29.403,
+        "latency_drop_to_queryable_s": 15.041,
+        "latency_drop_to_detected_s": 14.088,
+        "hp_max_latency_s": 60.0,
+        "unique_token": "zqtkn505379",
+        "n_test_notes_cleaned": 1
+      },
+      {
+        "arm": "ARM_BATCH_BACKPRESSURE",
+        "ok": true,
+        "elapsed_s": 32.126,
+        "batch_size": 50,
+        "drop_elapsed_s": 0.544,
+        "ingest_elapsed_s": 13.728,
+        "n_tokens_found_in_kb": 50,
+        "n_test_notes_cleaned": 50,
+        "no_data_loss": true
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "both_arms_ok; drop_latency_s=15.041 <= 60.0; batch_no_data_loss=True; principles_1-12_preserved",
+    "elapsed_s": 101.01
+  }
+}

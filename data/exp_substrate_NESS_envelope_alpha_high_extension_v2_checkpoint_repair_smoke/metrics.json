@@ -1,0 +1,198 @@
+{
+  "anchor_name": "substrate_NESS_envelope_alpha_high_extension_v2_checkpoint_repair",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_ALPHA_EXTENSION: NESS envelope chain-grades at af=0.85 (ratio>=2.0 AND ext_hopfrac>=0.95 cv<=0.05); chain-grade set=[0.7, 0.85, 0.95] | af=0.70[K_obs=26.2 K_eq=3.07 ratio=8.51 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=43] | af=0.85[K_obs=16.8 K_eq=0.63 ratio=26.54 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=24] | af=0.95[K_obs=15.2 K_eq=0.06 ratio=241.54 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=24] | [Q-DISCIPLINE: ext_hopfrac >= 0.995 at af=[0.7, 0.85, 0.95]; suspect saturation]",
+  "run_mode": "smoke",
+  "n_units": 3,
+  "config_version": "substrateNessEnvelopeAlphaHighV2-r1: N=1024 N_CHAINS=8 K_GRID_BASE=[3, 6, 12, 24] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995 K_cap_formula=8*K_eq+18_floor24_max120",
+  "per_unit": [
+    {
+      "alpha_frac": 0.7,
+      "alpha": 0.0966,
+      "seed": 11,
+      "K_cap_eff": 43,
+      "K_GRID_used": [
+        3,
+        6,
+        12,
+        24,
+        43
+      ],
+      "k_obs": 26.17,
+      "ctrl_k_obs": 13.92,
+      "cleanup_boost": 1.88,
+      "k_eq": 3.0745,
+      "ratio_to_eq": 8.512,
+      "ctrl_ratio_to_eq": 4.528,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 1.0,
+        "43": 0.125
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.375,
+        "43": 0.25
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 1.0,
+        "43": 0.0058
+      },
+      "deep_K": 24,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "config_version": "substrateNessEnvelopeAlphaHighV2-r1: N=1024 N_CHAINS=8 K_GRID_BASE=[3, 6, 12, 24] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995 K_cap_formula=8*K_eq+18_floor24_max120",
+      "N": 1024,
+      "wall_s": 11.3,
+      "_ckpt_key": "af0p70_s11",
+      "_partial_written_at": 1782486930.176772
+    },
+    {
+      "alpha_frac": 0.85,
+      "alpha": 0.1173,
+      "seed": 11,
+      "K_cap_eff": 24,
+      "K_GRID_used": [
+        3,
+        6,
+        12,
+        24
+      ],
+      "k_obs": 16.8,
+      "ctrl_k_obs": 13.6,
+      "cleanup_boost": 1.235,
+      "k_eq": 0.633,
+      "ratio_to_eq": 26.541,
+      "ctrl_ratio_to_eq": 21.485,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.75
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.25
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.6458
+      },
+      "deep_K": 12,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "config_version": "substrateNessEnvelopeAlphaHighV2-r1: N=1024 N_CHAINS=8 K_GRID_BASE=[3, 6, 12, 24] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995 K_cap_formula=8*K_eq+18_floor24_max120",
+      "N": 1024,
+      "wall_s": 5.7,
+      "_ckpt_key": "af0p85_s11",
+      "_partial_written_at": 1782486936.0498502
+    },
+    {
+      "alpha_frac": 0.95,
+      "alpha": 0.1311,
+      "seed": 11,
+      "K_cap_eff": 24,
+      "K_GRID_used": [
+        3,
+        6,
+        12,
+        24
+      ],
+      "k_obs": 15.2,
+      "ctrl_k_obs": 14.4,
+      "cleanup_boost": 1.056,
+      "k_eq": 0.0629,
+      "ratio_to_eq": 241.542,
+      "ctrl_ratio_to_eq": 228.829,
+      "safe_gate": true,
+      "cand_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.625
+      },
+      "ctrl_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.5
+      },
+      "hop_curve": {
+        "3": 1.0,
+        "6": 1.0,
+        "12": 1.0,
+        "24": 0.3385
+      },
+      "deep_K": 12,
+      "ext_hopfrac": 1.0,
+      "genuine_control": true,
+      "extension_genuine": true,
+      "run_mode": "smoke",
+      "_llm_forward_calls_at_inference": 0,
+      "config_version": "substrateNessEnvelopeAlphaHighV2-r1: N=1024 N_CHAINS=8 K_GRID_BASE=[3, 6, 12, 24] ALPHA_C=0.138 ALPHA_FRACS=[0.7, 0.85, 0.95] seeds=[11] mode=smoke HP_ratio>=2.00 HP_ext_hopfrac>=0.95 HP_chain_grade_alpha=0.85 rapid_cliff_alpha=0.75 Q_sat>=0.995 K_cap_formula=8*K_eq+18_floor24_max120",
+      "N": 1024,
+      "wall_s": 8.0,
+      "_ckpt_key": "af0p95_s11",
+      "_partial_written_at": 1782486944.2433739
+    }
+  ],
+  "elapsed_s": 0.1,
+  "summary": "HARD_PASS_ALPHA_EXTENSION: NESS envelope chain-grades at af=0.85 (ratio>=2.0 AND ext_hopfrac>=0.95 cv<=0.05); chain-grade set=[0.7, 0.85, 0.95] | af=0.70[K_obs=26.2 K_eq=3.07 ratio=8.51 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=43] | af=0.85[K_obs=16.8 K_eq=0.63 ratio=26.54 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=24] | af=0.95[K_obs=15.2 K_eq=0.06 ratio=241.54 ext_hf=1.000 cv=0.000 ext_gen=True K_cap=24] | [Q-DISCIPLINE: ext_hopfrac >= 0.995 at af=[0.7, 0.85, 0.95]; suspect saturation]",
+  "_llm_forward_calls_at_inference": 0,
+  "ALPHA_FRACS": [
+    0.7,
+    0.85,
+    0.95
+  ],
+  "seeds": [
+    11
+  ],
+  "K_GRID_BASE": [
+    3,
+    6,
+    12,
+    24
+  ],
+  "N": 1024,
+  "K_GRID_per_af": {
+    "0.7": [
+      3,
+      6,
+      12,
+      24,
+      43
+    ],
+    "0.85": [
+      3,
+      6,
+      12,
+      24
+    ],
+    "0.95": [
+      3,
+      6,
+      12,
+      24
+    ]
+  },
+  "DESIGN_NOTE": "v2 checkpoint repair: per-(af,seed) partial + K-progressive incremental W (no per-K rebuild waste) + dynamic K_GRID cap K_cap_eff(af) = min(120, max(24, ceil(8*K_eq(af)+18))) to prevent v1-style runaway at high alpha where cliff occurs at K << K_GRID_BASE max=120. v1 hang root cause: af=0.85+ never early-broke + K=120 ~10-15min wall per K -> hours per unit at N=8192. v2 caps K at ~24 for high alpha and rebuilds W ONCE per chain (not per K). Pre-reg per preregs/2026-06-25_substrate_NESS_envelope_alpha_high_extension_v2_checkpoint_repair.md."
+}

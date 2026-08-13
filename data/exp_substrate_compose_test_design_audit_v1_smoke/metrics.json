@@ -1,0 +1,981 @@
+{
+  "anchor_name": "substrate_compose_test_design_audit_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_RECOVERY: ARM_FIX_ALL_5_TOGETHER BPC=7.4710 in (7.30, 7.50] (partial recovery; ~40-50% of A1 was test-design). Both angle-2 structural + angle-3 test-design diagnoses load-bearing. Lift over A1 = -1.505. uni=8.194 | A1_BASELINE=5.9658(drift=-1.9261,rail=False) | FIX_TEMP=5.9274(lift=+0.038) | FIX_NSTEPS=5.8624(lift=+0.103) | FIX_NONCUM=5.9684(lift=-0.003) | FIX_HP=7.7724(lift=-1.807) | FIX_ALL_5=7.4710(lift=-1.505, cv=0.000)",
+  "summary": "MIDDLE_BAND | arms=6 seeds=1 N_DIM=1024 N_TRAIN=2000 primary=ARM_FIX_ALL_5_TOGETHER",
+  "config_version": "substrate_compose_test_design_audit_v1; N_DIM=1024 K=2 V=300 N_TRAIN=2000 N_HELD=400 arms=['ARM_A1_BASELINE', 'ARM_FIX_TEMP_GRID', 'ARM_FIX_N_STEPS', 'ARM_FIX_NON_CUMULATIVE_BUILD', 'ARM_FIX_PER_ARM_HP_TUNED', 'ARM_FIX_ALL_5_TOGETHER'] seeds=[0] mode=smoke T_a1=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] T_ext=[0.01, 0.05, 0.2, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0] lams=[0.1, 0.3, 0.5, 0.7, 1.0] cfrpe_lr=0.500 stdp_w=0.500 gate_temp=0.500 mh_beta_a1=8.00 mh_iters=3 mh_beta_sweep=[1.0, 2.0, 4.0] n_steps_a1=1000 n_steps_boost=5000 device=cpu",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "N_DIM_TOTAL": 1024,
+  "N_DIM_PER_BANK": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "K_BANKS": 2,
+  "GATE_TEMP": 0.5,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "MH_BETA_A1": 8.0,
+  "MH_ITERS": 3,
+  "MH_BETA_SWEEP": [
+    1.0,
+    2.0,
+    4.0
+  ],
+  "N_STEPS_A1": 1000,
+  "N_STEPS_BOOSTED": 5000,
+  "TEMP_GRID_A1": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "TEMP_GRID_EXTENDED": [
+    0.01,
+    0.05,
+    0.2,
+    1.0,
+    2.0,
+    5.0,
+    10.0,
+    20.0,
+    50.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    0
+  ],
+  "ARMS": [
+    "ARM_A1_BASELINE",
+    "ARM_FIX_TEMP_GRID",
+    "ARM_FIX_N_STEPS",
+    "ARM_FIX_NON_CUMULATIVE_BUILD",
+    "ARM_FIX_PER_ARM_HP_TUNED",
+    "ARM_FIX_ALL_5_TOGETHER"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 8.1936,
+        "bpc_std": 0.0
+      },
+      "ARM_A1_BASELINE": {
+        "bpc_best_mean": 5.9658,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.397,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.399,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FIX_TEMP_GRID": {
+        "bpc_best_mean": 5.9274,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.397,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4059,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FIX_N_STEPS": {
+        "bpc_best_mean": 5.8624,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.407,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4127,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FIX_NON_CUMULATIVE_BUILD": {
+        "bpc_best_mean": 5.9684,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3869,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4094,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FIX_PER_ARM_HP_TUNED": {
+        "bpc_best_mean": 7.7724,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.1608,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.173,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      },
+      "ARM_FIX_ALL_5_TOGETHER": {
+        "bpc_best_mean": 7.471,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2211,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2378,
+        "mrr_at_10_std": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false
+      }
+    },
+    "fix_contributions_vs_a1_baseline": {
+      "ARM_FIX_TEMP_GRID": 0.0384,
+      "ARM_FIX_N_STEPS": 0.1034,
+      "ARM_FIX_NON_CUMULATIVE_BUILD": -0.0026,
+      "ARM_FIX_PER_ARM_HP_TUNED": -1.8066,
+      "ARM_FIX_ALL_5_TOGETHER": -1.5052
+    },
+    "sanity_rails": {
+      "a1_baseline_ref": 7.8919,
+      "a1_baseline_drift": 1.9261,
+      "a1_baseline_rail_ok": false,
+      "tolerance": 0.1
+    },
+    "bands": {
+      "hard_pass_super_additive_ceiling": 7.0,
+      "hard_pass_test_design_ceiling": 7.3,
+      "middle_band_bpc_upper": 7.5,
+      "hard_fail_structural_floor": 7.7
+    },
+    "primary_arm": "ARM_FIX_ALL_5_TOGETHER",
+    "primary_bpc": 7.471,
+    "primary_cv": 0.0,
+    "a1_baseline_bpc": 5.9658,
+    "n_seeds": 1,
+    "unigram_bpc": 8.1936,
+    "honest_scope": "Tests whether A1's FULL_JOINT BPC=7.89 catastrophic failure is TEST-DESIGN ARTIFACT (drill P_deflated=0.75) by holding the 5 substrate primitives constant (cf-RPE + STDP + K=2 + modern-Hopfield + sparse-bipolar) and varying each of the 5 identified test-design biases (TEMP_GRID range, N_STEPS, MH-cumulative-build, per-arm MH_BETA HP). Primary metric = BPC on ARM_FIX_ALL_5_TOGETHER (combined fixes). WHAT_THIS_DOES_NOT_SHOW: factorial 2^4=16 decomposition not run (escape path B); K>2 not tested; GATE_TEMP not swept; MH_ITERS held at A1=3.",
+    "cites": [
+      "notes/research_a1_composition_collapse_3rd_angle_test_design_audit_2026-06-24.md",
+      "data/exp_substrate_compose_fair_harness_cfrpe_hetplasticity_K2_modern_hopfield_cleanup_v1/metrics.json (A1 baseline)",
+      "data/exp_substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512/metrics.json (smoking-gun)",
+      "preregs/2026-06-24_substrate_compose_test_design_audit_v1.md"
+    ],
+    "llm_forward_calls_total": 0,
+    "provenance_check_active": false,
+    "verdict_tier": "MIDDLE_BAND_PARTIAL_RECOVERY"
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 8.1936,
+          "top1_unigram": 0.0151,
+          "mrr_unigram": 0.0436,
+          "n_test": 199
+        },
+        "w2v_meta": {
+          "n_hit": 300,
+          "n_miss": 0,
+          "n_vocab": 300,
+          "pretrain_dim": 1024,
+          "synthetic_smoke": true
+        },
+        "ARM_A1_BASELINE": {
+          "elapsed_s_arm": 4.66,
+          "wall_ingest_s": 4.54,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.11,
+          "n_steps": 1000,
+          "extended_grid": false,
+          "mh_cleanup_arm_config": true,
+          "mh_beta_sweep_arm_config": false,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": 8.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 5.9658,
+              "top1_acc": 0.397,
+              "mrr_at_10": 0.399,
+              "best_T_for_bpc": 0.2,
+              "best_lambda_for_bpc": 1.0,
+              "raw_bpc_at_T1_L1": 7.658,
+              "best_dev_bpc": 5.779,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.02,
+                  "bpc_dev": 5.9379
+                },
+                "0.3": {
+                  "best_T": 0.05,
+                  "bpc_dev": 5.9628
+                },
+                "0.5": {
+                  "best_T": 0.1,
+                  "bpc_dev": 5.8107
+                },
+                "0.7": {
+                  "best_T": 0.1,
+                  "bpc_dev": 6.1707
+                },
+                "1.0": {
+                  "best_T": 0.2,
+                  "bpc_dev": 5.779
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": 8.0,
+          "bpc_best": 5.9658,
+          "top1_acc": 0.397,
+          "mrr_at_10": 0.399,
+          "best_T_for_bpc": 0.2,
+          "best_lambda_for_bpc": 1.0,
+          "raw_bpc_at_T1_L1": 7.658,
+          "best_dev_bpc": 5.779,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 5.9379
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 5.9628
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 5.8107
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 6.1707
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 5.779
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.02,
+            0.05,
+            0.1,
+            0.2,
+            0.5,
+            1.0
+          ]
+        },
+        "ARM_FIX_TEMP_GRID": {
+          "elapsed_s_arm": 6.61,
+          "wall_ingest_s": 6.34,
+          "wall_recall_s": 0.02,
+          "wall_cleanup_s": 0.25,
+          "n_steps": 1000,
+          "extended_grid": true,
+          "mh_cleanup_arm_config": true,
+          "mh_beta_sweep_arm_config": false,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": 8.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 5.9274,
+              "top1_acc": 0.397,
+              "mrr_at_10": 0.4059,
+              "best_T_for_bpc": 0.2,
+              "best_lambda_for_bpc": 1.0,
+              "raw_bpc_at_T1_L1": 7.6586,
+              "best_dev_bpc": 5.818,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.01,
+                  "bpc_dev": 6.488
+                },
+                "0.3": {
+                  "best_T": 0.05,
+                  "bpc_dev": 6.0137
+                },
+                "0.5": {
+                  "best_T": 0.2,
+                  "bpc_dev": 6.7224
+                },
+                "0.7": {
+                  "best_T": 0.2,
+                  "bpc_dev": 6.2493
+                },
+                "1.0": {
+                  "best_T": 0.2,
+                  "bpc_dev": 5.818
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.05,
+                0.2,
+                1.0,
+                2.0,
+                5.0,
+                10.0,
+                20.0,
+                50.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": 8.0,
+          "bpc_best": 5.9274,
+          "top1_acc": 0.397,
+          "mrr_at_10": 0.4059,
+          "best_T_for_bpc": 0.2,
+          "best_lambda_for_bpc": 1.0,
+          "raw_bpc_at_T1_L1": 7.6586,
+          "best_dev_bpc": 5.818,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 6.488
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 6.0137
+            },
+            "0.5": {
+              "best_T": 0.2,
+              "bpc_dev": 6.7224
+            },
+            "0.7": {
+              "best_T": 0.2,
+              "bpc_dev": 6.2493
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 5.818
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.05,
+            0.2,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            20.0,
+            50.0
+          ]
+        },
+        "ARM_FIX_N_STEPS": {
+          "elapsed_s_arm": 20.13,
+          "wall_ingest_s": 20.0,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.12,
+          "n_steps": 5000,
+          "extended_grid": false,
+          "mh_cleanup_arm_config": true,
+          "mh_beta_sweep_arm_config": false,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": 8.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 5.8624,
+              "top1_acc": 0.407,
+              "mrr_at_10": 0.4127,
+              "best_T_for_bpc": 0.2,
+              "best_lambda_for_bpc": 1.0,
+              "raw_bpc_at_T1_L1": 7.6381,
+              "best_dev_bpc": 5.7427,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.02,
+                  "bpc_dev": 5.9017
+                },
+                "0.3": {
+                  "best_T": 0.05,
+                  "bpc_dev": 5.9502
+                },
+                "0.5": {
+                  "best_T": 0.1,
+                  "bpc_dev": 5.7756
+                },
+                "0.7": {
+                  "best_T": 0.2,
+                  "bpc_dev": 6.1843
+                },
+                "1.0": {
+                  "best_T": 0.2,
+                  "bpc_dev": 5.7427
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": 8.0,
+          "bpc_best": 5.8624,
+          "top1_acc": 0.407,
+          "mrr_at_10": 0.4127,
+          "best_T_for_bpc": 0.2,
+          "best_lambda_for_bpc": 1.0,
+          "raw_bpc_at_T1_L1": 7.6381,
+          "best_dev_bpc": 5.7427,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 5.9017
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 5.9502
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 5.7756
+            },
+            "0.7": {
+              "best_T": 0.2,
+              "bpc_dev": 6.1843
+            },
+            "1.0": {
+              "best_T": 0.2,
+              "bpc_dev": 5.7427
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.02,
+            0.05,
+            0.1,
+            0.2,
+            0.5,
+            1.0
+          ]
+        },
+        "ARM_FIX_NON_CUMULATIVE_BUILD": {
+          "elapsed_s_arm": 3.98,
+          "wall_ingest_s": 3.86,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.11,
+          "n_steps": 1000,
+          "extended_grid": false,
+          "mh_cleanup_arm_config": false,
+          "mh_beta_sweep_arm_config": false,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": null,
+              "mh_cleanup_applied": false,
+              "bpc_best": 5.9684,
+              "top1_acc": 0.3869,
+              "mrr_at_10": 0.4094,
+              "best_T_for_bpc": 0.1,
+              "best_lambda_for_bpc": 1.0,
+              "raw_bpc_at_T1_L1": 7.9244,
+              "best_dev_bpc": 5.7705,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.01,
+                  "bpc_dev": 6.0106
+                },
+                "0.3": {
+                  "best_T": 0.05,
+                  "bpc_dev": 6.4106
+                },
+                "0.5": {
+                  "best_T": 0.05,
+                  "bpc_dev": 5.8515
+                },
+                "0.7": {
+                  "best_T": 0.1,
+                  "bpc_dev": 6.1613
+                },
+                "1.0": {
+                  "best_T": 0.1,
+                  "bpc_dev": 5.7705
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": null,
+          "bpc_best": 5.9684,
+          "top1_acc": 0.3869,
+          "mrr_at_10": 0.4094,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 1.0,
+          "raw_bpc_at_T1_L1": 7.9244,
+          "best_dev_bpc": 5.7705,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 6.0106
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 6.4106
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 5.8515
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 6.1613
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 5.7705
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.02,
+            0.05,
+            0.1,
+            0.2,
+            0.5,
+            1.0
+          ]
+        },
+        "ARM_FIX_PER_ARM_HP_TUNED": {
+          "elapsed_s_arm": 4.49,
+          "wall_ingest_s": 3.85,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.63,
+          "n_steps": 1000,
+          "extended_grid": false,
+          "mh_cleanup_arm_config": true,
+          "mh_beta_sweep_arm_config": true,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": 1.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 8.135,
+              "top1_acc": 0.0151,
+              "mrr_at_10": 0.0419,
+              "best_T_for_bpc": 1.0,
+              "best_lambda_for_bpc": 0.5,
+              "raw_bpc_at_T1_L1": 8.2346,
+              "best_dev_bpc": 8.1301,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1674
+                },
+                "0.3": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1372
+                },
+                "0.5": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1301
+                },
+                "0.7": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1483
+                },
+                "1.0": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.2311
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            },
+            {
+              "mh_beta_eval": 2.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 8.1345,
+              "top1_acc": 0.0302,
+              "mrr_at_10": 0.0494,
+              "best_T_for_bpc": 1.0,
+              "best_lambda_for_bpc": 0.5,
+              "raw_bpc_at_T1_L1": 8.2333,
+              "best_dev_bpc": 8.1292,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1672
+                },
+                "0.3": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1366
+                },
+                "0.5": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1292
+                },
+                "0.7": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1471
+                },
+                "1.0": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.2294
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            },
+            {
+              "mh_beta_eval": 4.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 7.7724,
+              "top1_acc": 0.1608,
+              "mrr_at_10": 0.173,
+              "best_T_for_bpc": 0.05,
+              "best_lambda_for_bpc": 0.7,
+              "raw_bpc_at_T1_L1": 8.1778,
+              "best_dev_bpc": 7.6649,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.01,
+                  "bpc_dev": 7.7634
+                },
+                "0.3": {
+                  "best_T": 0.02,
+                  "bpc_dev": 7.6682
+                },
+                "0.5": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.7189
+                },
+                "0.7": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.6649
+                },
+                "1.0": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.7547
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.5,
+                1.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": 4.0,
+          "bpc_best": 7.7724,
+          "top1_acc": 0.1608,
+          "mrr_at_10": 0.173,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.7,
+          "raw_bpc_at_T1_L1": 8.1778,
+          "best_dev_bpc": 7.6649,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 7.7634
+            },
+            "0.3": {
+              "best_T": 0.02,
+              "bpc_dev": 7.6682
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7189
+            },
+            "0.7": {
+              "best_T": 0.05,
+              "bpc_dev": 7.6649
+            },
+            "1.0": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7547
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.02,
+            0.05,
+            0.1,
+            0.2,
+            0.5,
+            1.0
+          ]
+        },
+        "ARM_FIX_ALL_5_TOGETHER": {
+          "elapsed_s_arm": 18.76,
+          "wall_ingest_s": 18.18,
+          "wall_recall_s": 0.01,
+          "wall_cleanup_s": 0.57,
+          "n_steps": 5000,
+          "extended_grid": true,
+          "mh_cleanup_arm_config": true,
+          "mh_beta_sweep_arm_config": true,
+          "mh_results_all": [
+            {
+              "mh_beta_eval": 1.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 8.1305,
+              "top1_acc": 0.0151,
+              "mrr_at_10": 0.0419,
+              "best_T_for_bpc": 50.0,
+              "best_lambda_for_bpc": 0.5,
+              "raw_bpc_at_T1_L1": 8.2345,
+              "best_dev_bpc": 8.129,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 50.0,
+                  "bpc_dev": 8.1672
+                },
+                "0.3": {
+                  "best_T": 50.0,
+                  "bpc_dev": 8.1366
+                },
+                "0.5": {
+                  "best_T": 50.0,
+                  "bpc_dev": 8.129
+                },
+                "0.7": {
+                  "best_T": 50.0,
+                  "bpc_dev": 8.1467
+                },
+                "1.0": {
+                  "best_T": 50.0,
+                  "bpc_dev": 8.2288
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.05,
+                0.2,
+                1.0,
+                2.0,
+                5.0,
+                10.0,
+                20.0,
+                50.0
+              ]
+            },
+            {
+              "mh_beta_eval": 2.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 8.1312,
+              "top1_acc": 0.0302,
+              "mrr_at_10": 0.0494,
+              "best_T_for_bpc": 5.0,
+              "best_lambda_for_bpc": 0.5,
+              "raw_bpc_at_T1_L1": 8.2329,
+              "best_dev_bpc": 8.129,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 1.0,
+                  "bpc_dev": 8.1672
+                },
+                "0.3": {
+                  "best_T": 2.0,
+                  "bpc_dev": 8.1365
+                },
+                "0.5": {
+                  "best_T": 5.0,
+                  "bpc_dev": 8.129
+                },
+                "0.7": {
+                  "best_T": 5.0,
+                  "bpc_dev": 8.1467
+                },
+                "1.0": {
+                  "best_T": 2.0,
+                  "bpc_dev": 8.2287
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.05,
+                0.2,
+                1.0,
+                2.0,
+                5.0,
+                10.0,
+                20.0,
+                50.0
+              ]
+            },
+            {
+              "mh_beta_eval": 4.0,
+              "mh_cleanup_applied": true,
+              "bpc_best": 7.471,
+              "top1_acc": 0.2211,
+              "mrr_at_10": 0.2378,
+              "best_T_for_bpc": 0.05,
+              "best_lambda_for_bpc": 0.7,
+              "raw_bpc_at_T1_L1": 8.1541,
+              "best_dev_bpc": 7.3556,
+              "per_lambda_T_summary": {
+                "0.1": {
+                  "best_T": 0.01,
+                  "bpc_dev": 7.5352
+                },
+                "0.3": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.7122
+                },
+                "0.5": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.4878
+                },
+                "0.7": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.3556
+                },
+                "1.0": {
+                  "best_T": 0.05,
+                  "bpc_dev": 7.3594
+                }
+              },
+              "n_dev": 198,
+              "n_test": 199,
+              "temp_grid_used": [
+                0.01,
+                0.05,
+                0.2,
+                1.0,
+                2.0,
+                5.0,
+                10.0,
+                20.0,
+                50.0
+              ]
+            }
+          ],
+          "chosen_mh_beta": 4.0,
+          "bpc_best": 7.471,
+          "top1_acc": 0.2211,
+          "mrr_at_10": 0.2378,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.7,
+          "raw_bpc_at_T1_L1": 8.1541,
+          "best_dev_bpc": 7.3556,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.01,
+              "bpc_dev": 7.5352
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7122
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.4878
+            },
+            "0.7": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3556
+            },
+            "1.0": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3594
+            }
+          },
+          "n_dev": 198,
+          "n_test": 199,
+          "temp_grid_used": [
+            0.01,
+            0.05,
+            0.2,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            20.0,
+            50.0
+          ]
+        }
+      },
+      "V": 300,
+      "N_DIM_TOTAL": 1024,
+      "N_TRAIN": 2000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "smoke_synthetic": true,
+        "V": 300,
+        "N_TRAIN": 2000,
+        "n_hit": 300,
+        "n_miss": 0,
+        "n_vocab": 300,
+        "pretrain_dim": 1024,
+        "synthetic_smoke": true
+      },
+      "elapsed_s_seed": 58.66
+    }
+  ],
+  "elapsed_s": 58.66
+}

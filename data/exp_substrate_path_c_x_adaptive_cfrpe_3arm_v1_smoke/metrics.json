@@ -1,0 +1,306 @@
+{
+  "anchor_name": "substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "anchor": "substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_BREAKS_GAP: ARM_PC_ENCODER_PER_TOKEN_CFRPE bpc=5.6011 <= 7.00. Substrate-OWNED PC encoder + per-token-adaptive cf-RPE matches OR beats word2vec equivalent at the per-token cf-RPE setpoint. CHAIN_GRADE_BONUS. path_c_viable=False closes_gap=True. ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE=bpc5.4691(prov_ref=6.9920 tol=0.05 ok=False) | ARM_PC_ENCODER_HEBBIAN_REFERENCE=bpc5.5038(prov_ref=7.6184 tol=0.05 ok=False) | ARM_PC_ENCODER_PER_TOKEN_CFRPE=bpc5.6011 cv=0.0000",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "INGEST_CHUNK": 512,
+  "RECALL_BATCH": 128,
+  "N_STEPS_PLASTIC": 200,
+  "PC_TRAINING_TOKENS": 1000,
+  "CFRPE_LR": 0.5,
+  "INGEST_BATCH": 64,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "ADAPT_LR_FLOOR": 0.25,
+  "ADAPT_LR_CEIL": 4.0,
+  "PC_ALPHA": 0.05,
+  "PC_BETA": 2.0,
+  "PC_N_LAYERS": 3,
+  "PC_N_PASSES": 1,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "arms": [
+    "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE",
+    "ARM_PC_ENCODER_HEBBIAN_REFERENCE",
+    "ARM_PC_ENCODER_PER_TOKEN_CFRPE"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0,
+        "top1_mean": 0.3306,
+        "top1_std": 0.0,
+        "mrr_mean": 0.4001,
+        "mrr_std": 0.0
+      },
+      "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+        "bpc_best_mean": 5.4691,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3223,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4001,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.9244,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+        "bpc_best_mean": 5.5038,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3388,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4004,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 8.0119,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+        "bpc_best_mean": 5.6011,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3709,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 8.0324,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "arm1_provenance_ok": false,
+    "arm2_provenance_ok": false,
+    "provenance_word2vec_per_token_ref_bpc": 6.992,
+    "provenance_pc_hebbian_ref_bpc": 7.6184,
+    "provenance_tol": 0.05,
+    "hp_breaks_gap_bpc_bar": 7.0,
+    "hp_closes_gap_bpc_bar": 7.1,
+    "hp_path_c_viable_lift": 0.3,
+    "middle_band_bpc_upper": 7.6,
+    "hp_bpc_cv_max": 0.1,
+    "arm3_breaks_gap": true,
+    "arm3_closes_gap": true,
+    "arm3_path_c_viable": false,
+    "arm3_cv_ok": true,
+    "arm3_cv": 0.0,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "PRIMARY arm = ARM_PC_ENCODER_PER_TOKEN_CFRPE. Tests whether substrate-OWNED PC encoder (3-layer Hebbian-PC + Tonegawa) x per-token-adaptive cf-RPE plasticity closes the gap to word2vec + per-token-adaptive cf-RPE (~6.99 BPC, MIDDLE_BAND). HARD_PASS_BREAKS_GAP: ARM_3 <= 7.00 (chain-grade-bonus). HARD_PASS_CLOSES_GAP: ARM_3 <= 7.10. HARD_PASS_PATH_C_VIABLE: ARM_3 <= ARM_2 - 0.30. MIDDLE_BAND: in (7.10, 7.60). HARD_FAIL: >= 7.60. Provenance rails: arm1=6.9920+/-0.05 arm2=7.6184+/-0.05. CV gate: arm3 bpc_cv <= 0.10 or verdict downgrades. WHAT_THIS_DOES_NOT_SHOW: does not test STDP / other plasticity / PC variants / generalization / encoder ablations.",
+    "cites": [
+      "preregs/2026-06-24_substrate_path_c_x_adaptive_cfrpe_3arm_v1.md",
+      "experiments/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2.py",
+      "experiments/exp_substrate_cfrpe_per_token_adaptive_lr_v1.py",
+      "data/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2/metrics.json",
+      "data/exp_substrate_cfrpe_per_token_adaptive_lr_v1/metrics.json"
+    ],
+    "CONFIG_VERSION": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 seeds=[0] mode=smoke n_steps=200 pc_train_tokens=1000 device=cpu sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10"
+  },
+  "metrics_source": "measured_gpu_substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+          "bpc_best": 5.4691,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 5.2432,
+          "top1_acc": 0.3223,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.4001,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 7.9244,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.7,
+          "wall_w_s": 0.54,
+          "wall_recall_s": 0.01,
+          "pc_arm": false,
+          "cfrpe_arm": true,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 1.7029,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.042213,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 200,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        },
+        "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+          "bpc_best": 5.5038,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 5.2203,
+          "top1_acc": 0.3388,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.4004,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 8.0119,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.32,
+          "wall_w_s": 0.01,
+          "wall_recall_s": 0.01,
+          "pc_arm": true,
+          "cfrpe_arm": false,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                28.1759
+              ],
+              "L2": [
+                22.9859
+              ],
+              "L3": [
+                22.9651
+              ]
+            },
+            "n_train_tokens": 1000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 0.08,
+            "n_updates": 4,
+            "wall_pc_pipeline_s": 0.11
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6184,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "rule_class": "one_pass_rank1_hebbian"
+          }
+        },
+        "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+          "bpc_best": 5.6011,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 5.108,
+          "top1_acc": 0.3058,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.3709,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.2,
+          "raw_bpc_at_T1_L1": 8.0324,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.79,
+          "wall_w_s": 0.5,
+          "wall_recall_s": 0.0,
+          "pc_arm": true,
+          "cfrpe_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                28.1759
+              ],
+              "L2": [
+                22.9859
+              ],
+              "L3": [
+                22.9651
+              ]
+            },
+            "n_train_tokens": 1000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 0.07,
+            "n_updates": 4,
+            "wall_pc_pipeline_s": 0.09
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6184,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 1.7462,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.042878,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 200,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        }
+      },
+      "V": 300,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 300,
+      "run_mode": "smoke",
+      "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 seeds=[0] mode=smoke n_steps=200 pc_train_tokens=1000 device=cpu sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+      "elapsed_s_seed": 1.95,
+      "device": "cpu",
+      "encoder_meta": {
+        "smoke_skip_gensim": true,
+        "encoder": "char_trigram"
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782331013.4955878
+    }
+  ],
+  "elapsed_s": 2.177558422088623,
+  "summary": "HARD_PASS_BREAKS_GAP: ARM_PC_ENCODER_PER_TOKEN_CFRPE bpc=5.6011 <= 7.00. Substrate-OWNED PC encoder + per-token-adaptive cf-RPE matches OR beats word2vec equivalent at the per-token cf-RPE setpoint. CHAIN_GRADE_BONUS. path_c_viable=False cl",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec is static open-weight lookup; PC encoder trained on substrate; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 seeds=[0] mode=smoke n_steps=200 pc_train_tokens=1000 device=cpu sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

@@ -1,0 +1,78 @@
+{
+  "anchor_name": "substrate_working_memory_v2_extended_K_with_cleanup_per_slot",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_CLEANUP_PARTIAL_LIFT: CLEANUP_K128_sigma1.0=0.9375 (cv=0.000) NAIVE_K128_sigma1.0=0.9297 (cv=0.000) | K-ceiling(>=0.95 at sigma1.0): NAIVE=64 CLEANUP=64 | per-arm-per-K: K32_NAIVE=1.000_CLEANUP=1.000 K64_NAIVE=1.000_CLEANUP=1.000 K128_NAIVE=0.930_CLEANUP=0.938",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateWmV2ExtendedKCleanupPerSlot: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128] SIGMAS=[0.0, 0.5, 1.0] N_ITEMS_PER_K=50 arms=['ARM_NAIVE', 'ARM_CLEANUP_PER_SLOT'] seeds=[11] mode=smoke; bands HP_CLEANUP_K128_SIGMA10>=0.95 cv<=0.07 mid=[0.80,0.95] HF=cleanup<=naive",
+  "per_seed": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "ARM_NAIVE": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_0.00": 0.9219,
+              "sigma_0.50": 0.9297,
+              "sigma_1.00": 0.9297
+            }
+          },
+          "wall_s": 0.12
+        },
+        "ARM_CLEANUP_PER_SLOT": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_0.00": 1.0,
+              "sigma_0.50": 1.0,
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_0.00": 0.9141,
+              "sigma_0.50": 0.9219,
+              "sigma_1.00": 0.9375
+            }
+          },
+          "wall_s": 0.3
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 512,
+      "K_VALUES": [
+        32,
+        64,
+        128
+      ],
+      "SIGMAS": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "N_ITEMS_PER_K": 50,
+      "run_mode": "smoke",
+      "config_version": "substrateWmV2ExtendedKCleanupPerSlot: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128] SIGMAS=[0.0, 0.5, 1.0] N_ITEMS_PER_K=50 arms=['ARM_NAIVE', 'ARM_CLEANUP_PER_SLOT'] seeds=[11] mode=smoke; bands HP_CLEANUP_K128_SIGMA10>=0.95 cv<=0.07 mid=[0.80,0.95] HF=cleanup<=naive",
+      "elapsed_s_seed": 0.44,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782435367.1682456
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "MIDDLE_BAND_CLEANUP_PARTIAL_LIFT: CLEANUP_K128_sigma1.0=0.9375 (cv=0.000) NAIVE_K128_sigma1.0=0.9297 (cv=0.000) | K-ceiling(>=0.95 at sigma1.0): NAIVE=64 CLEANUP=64 | per-arm-per-K: K32_NAIVE=1.000_CLEANUP=1.000 K64_NAIVE=1.000_CLEANUP=1.000 K128_NAIVE=0.930_CLEANUP=0.938",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "EXT-6 WM-HRR-slots K-extension via cleanup-per-slot. Compares NAIVE (PRODUCTION mechanism: bind+bundle+unbind+cleanup) vs CLEANUP_PER_SLOT (adds an iterated cleanup pass at read time: unbind, argmax, mix-toward-winner, re-quantize, re-argmax). Brain analog: theta-gamma WM refresh. K-sweep [32, 64, 128, 256, 512] sigma-sweep [0.0, 0.5, 1.0]. Per-arm per-K mean + cv reported."
+}

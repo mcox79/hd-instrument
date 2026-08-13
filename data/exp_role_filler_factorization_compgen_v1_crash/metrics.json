@@ -1,0 +1,9 @@
+{
+  "anchor_name": "role_filler_factorization_compgen_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "KeyError: 'capacity'",
+  "summary": "CELL_CRASHED: KeyError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_compgen_v1.py\", line 658, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_compgen_v1.py\", line 648, in main\n    run_mode(\"smoke\")\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_compgen_v1.py\", line 581, in run_mode\n    per_seed_slim = [{\"seed\": s[\"seed\"], \"curve\": s[\"curve\"], \"capacity\": s[\"capacity\"]} for s in per_seed]\n                                                                          ~^^^^^^^^^^^^\nKeyError: 'capacity'\n",
+  "ts_iso": "2026-07-19T03:25:07.957632+00:00"
+}

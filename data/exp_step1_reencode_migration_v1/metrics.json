@@ -1,0 +1,20 @@
+{
+  "anchor_name": "step1_reencode_migration_v1",
+  "verdict": "HELD",
+  "verdict_msg": "FULL re-encode HELD; ID-collision gate CLEARED (177899 unique qualified ids); gated on: encoder-choice (id gate cleared). SEPARATE completeness caveat: teacher cache has a store reverse-gap (live store atoms with no teacher vector) -- see data/exp_step1_reencode_migration_v1/qualified_cache_report.json; a COMPLETE re-encode needs a cache rebuild from the current store (BGE for uncovered atoms). Re-run with --release-full once encoder chosen.",
+  "summary": "FULL re-encode HELD; ID-collision gate CLEARED (177899 unique qualified ids); gated on: encoder-choice (id gate cleared). SEPARATE completeness caveat: teacher cache has a store reverse-gap (live store atoms with no teacher vector) -- see data/exp_step1_reencode_migration_v1/qualified_cache_report.json; a COMPLETE re-encode needs a cache rebuild from the current store (BGE for uncovered atoms). Re-run with --release-full once encoder chosen.",
+  "run_mode": "full",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-07-05T01:38:56.067377+00:00",
+  "held_for_encoder_choice": true,
+  "encoder": "regime_switch_v1",
+  "cache_side_gate": {
+    "teacher_cache": "qualified_bge_large_v2_name_177899.npz",
+    "ids_source": "qualified_cache_direct",
+    "cache_ids_already_qualified": true,
+    "n_rows": 177899,
+    "n_unique_qualified_ids": 177899,
+    "assert_unique_ids_pass": true,
+    "cache_side_cleared": true
+  }
+}

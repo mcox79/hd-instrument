@@ -1,0 +1,324 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | NO_CROSSING_AT_EXTREME: EXEMPLAR at 90% overlap = 0.705 > 0.65 AND MAC+FAC never crosses (cosine fully robust; structural alignment NEVER helps in measured regime) | ov=0.00 EX=0.722 MACFAC=0.656 ORA=0.804 BASE=0.267 RAND=0.594 || ov=0.10 EX=0.674 MACFAC=0.608 ORA=0.798 BASE=0.322 RAND=0.565 || ov=0.25 EX=0.692 MACFAC=0.619 ORA=0.808 BASE=0.349 RAND=0.583 || ov=0.50 EX=0.683 MACFAC=0.588 ORA=0.808 BASE=0.382 RAND=0.573 || ov=0.75 EX=0.620 MACFAC=0.556 ORA=0.785 BASE=0.562 RAND=0.562 || ov=0.90 EX=0.705 MACFAC=0.603 ORA=0.799 BASE=0.691 RAND=0.628 | crossing_overlap=-1.00 anchor3_repro=True oracle=[0.785,0.808] max_cv_primary=0.065 arms_distinct=True n_seeds=2",
+  "summary": "HARD_FAIL | NO_CROSSING_AT_EXTREME: EXEMPLAR at 90% overlap = 0.705 > 0.65 AND MAC+FAC never crosses (cosine fully robust; structural alignment NEVER helps in measured regime) | ov=0.00 EX=0.722 MACFAC=0.656 ORA=0.804 BASE=0.267 RAND=0.594 || ov=0.10 EX=0.674 MACFAC=0.608 ORA=0.798 BASE=0.322 RAND=0.565 || ov=0.25 EX=0.692 MACFAC=0.619 ORA=0.808 BASE=0.349 RAND=0.583 || ov=0.50 EX=0.683 MACFAC=0.588 ORA=0.808 BASE=0.382 RAND=0.573 || ov=0.75 EX=0.620 MACFAC=0.556 ORA=0.785 BASE=0.562 RAND=0.562 || ov=0.90 EX=0.705 MACFAC=0.603 ORA=0.799 BASE=0.691 RAND=0.628 | crossing_overlap=-1.00 anchor3_repro=True oracle=[0.785,0.808] max_cv_primary=0.065 arms_distinct=True n_seeds=2",
+  "verdict_reason": "NO_CROSSING_AT_EXTREME: EXEMPLAR at 90% overlap = 0.705 > 0.65 AND MAC+FAC never crosses (cosine fully robust; structural alignment NEVER helps in measured regime)",
+  "per_overlap_per_arm_summary": {
+    "0.00": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.26666666666666666,
+        "std": 0.01944444444444443,
+        "cv": 0.07291666666666662,
+        "per_seed": [
+          0.24722222222222223,
+          0.2861111111111111
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.7215277777777778,
+        "std": 0.006249999999999978,
+        "cv": 0.008662175168431154,
+        "per_seed": [
+          0.7277777777777777,
+          0.7152777777777778
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.65625,
+        "std": 0.01041666666666663,
+        "cv": 0.015873015873015817,
+        "per_seed": [
+          0.6666666666666666,
+          0.6458333333333334
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.8041666666666667,
+        "std": 0.004166666666666652,
+        "cv": 0.0051813471502590485,
+        "per_seed": [
+          0.8083333333333333,
+          0.8
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.59375,
+        "std": 0.00347222222222221,
+        "cv": 0.005847953216374248,
+        "per_seed": [
+          0.5902777777777778,
+          0.5972222222222222
+        ]
+      }
+    },
+    "0.10": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.3222222222222222,
+        "std": 0.026388888888888882,
+        "cv": 0.08189655172413791,
+        "per_seed": [
+          0.29583333333333334,
+          0.3486111111111111
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.6736111111111112,
+        "std": 0.004166666666666707,
+        "cv": 0.006185567010309338,
+        "per_seed": [
+          0.6777777777777778,
+          0.6694444444444444
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.6083333333333334,
+        "std": 0.018055555555555547,
+        "cv": 0.029680365296803637,
+        "per_seed": [
+          0.6263888888888889,
+          0.5902777777777778
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.7979166666666666,
+        "std": 0.010416666666666685,
+        "cv": 0.01305483028720629,
+        "per_seed": [
+          0.8083333333333333,
+          0.7875
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.5645833333333333,
+        "std": 0.004861111111111094,
+        "cv": 0.008610086100860979,
+        "per_seed": [
+          0.5597222222222222,
+          0.5694444444444444
+        ]
+      }
+    },
+    "0.25": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.34930555555555554,
+        "std": 0.000694444444444442,
+        "cv": 0.0019880715705765336,
+        "per_seed": [
+          0.35,
+          0.3486111111111111
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.6916666666666667,
+        "std": 0.02777777777777779,
+        "cv": 0.040160642570281145,
+        "per_seed": [
+          0.6638888888888889,
+          0.7194444444444444
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.61875,
+        "std": 0.02430555555555558,
+        "cv": 0.03928170594837265,
+        "per_seed": [
+          0.5944444444444444,
+          0.6430555555555556
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.8076388888888889,
+        "std": 0.021527777777777812,
+        "cv": 0.026655202063628588,
+        "per_seed": [
+          0.7861111111111111,
+          0.8291666666666667
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.5826388888888889,
+        "std": 0.027083333333333348,
+        "cv": 0.046483909415971414,
+        "per_seed": [
+          0.5555555555555556,
+          0.6097222222222223
+        ]
+      }
+    },
+    "0.50": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.3819444444444444,
+        "std": 0.022222222222222227,
+        "cv": 0.058181818181818196,
+        "per_seed": [
+          0.4041666666666667,
+          0.3597222222222222
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.6833333333333333,
+        "std": 0.015277777777777779,
+        "cv": 0.022357723577235773,
+        "per_seed": [
+          0.6986111111111111,
+          0.6680555555555555
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.5881944444444445,
+        "std": 0.028472222222222232,
+        "cv": 0.04840613931523024,
+        "per_seed": [
+          0.6166666666666667,
+          0.5597222222222222
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.8076388888888889,
+        "std": 0.002083333333333326,
+        "cv": 0.0025795356835769468,
+        "per_seed": [
+          0.8055555555555556,
+          0.8097222222222222
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.5729166666666667,
+        "std": 0.021527777777777757,
+        "cv": 0.03757575757575753,
+        "per_seed": [
+          0.5944444444444444,
+          0.5513888888888889
+        ]
+      }
+    },
+    "0.75": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.5625,
+        "std": 0.05138888888888893,
+        "cv": 0.09135802469135809,
+        "per_seed": [
+          0.5111111111111111,
+          0.6138888888888889
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.6201388888888889,
+        "std": 0.022916666666666696,
+        "cv": 0.036954087346024685,
+        "per_seed": [
+          0.6430555555555556,
+          0.5972222222222222
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.5555555555555556,
+        "std": 0.03472222222222221,
+        "cv": 0.06249999999999997,
+        "per_seed": [
+          0.5902777777777778,
+          0.5208333333333334
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.7854166666666667,
+        "std": 0.013194444444444453,
+        "cv": 0.01679929266136164,
+        "per_seed": [
+          0.7986111111111112,
+          0.7722222222222223
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.5625,
+        "std": 0.00694444444444442,
+        "cv": 0.012345679012345635,
+        "per_seed": [
+          0.5555555555555556,
+          0.5694444444444444
+        ]
+      }
+    },
+    "0.90": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean": 0.6909722222222222,
+        "std": 0.08958333333333335,
+        "cv": 0.12964824120603016,
+        "per_seed": [
+          0.7805555555555556,
+          0.6013888888888889
+        ]
+      },
+      "ARM_EXEMPLAR_BAYES_K20": {
+        "mean": 0.7048611111111112,
+        "std": 0.06597222222222227,
+        "cv": 0.09359605911330054,
+        "per_seed": [
+          0.7708333333333334,
+          0.6388888888888888
+        ]
+      },
+      "ARM_MAC_PLUS_FAC": {
+        "mean": 0.6027777777777779,
+        "std": 0.03888888888888892,
+        "cv": 0.0645161290322581,
+        "per_seed": [
+          0.6416666666666667,
+          0.5638888888888889
+        ]
+      },
+      "ARM_ORACLE_TRUE_SCHEMA": {
+        "mean": 0.7993055555555556,
+        "std": 0.000694444444444442,
+        "cv": 0.0008688097306689804,
+        "per_seed": [
+          0.7986111111111112,
+          0.8
+        ]
+      },
+      "ARM_RANDOM_STRUCTURAL": {
+        "mean": 0.6277777777777778,
+        "std": 0.03749999999999998,
+        "cv": 0.05973451327433625,
+        "per_seed": [
+          0.6652777777777777,
+          0.5902777777777778
+        ]
+      }
+    }
+  },
+  "crossing_overlap": -1.0,
+  "macfac_ever_crosses": false,
+  "anchor3_reproduction_ok": true,
+  "exemplar_at_0_overlap": 0.7215277777777778,
+  "exemplar_at_90_overlap": 0.7048611111111112,
+  "oracle_min_across_overlaps": 0.7854166666666667,
+  "oracle_max_across_overlaps": 0.8076388888888889,
+  "oracle_pipeline_sound": true,
+  "primary_max_cv_across_overlaps": 0.0645161290322581,
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "events_observed_total": 8640,
+  "events_expected_total": 8640,
+  "n_seeds_complete": 2,
+  "n_overlap_points": 6,
+  "overlap_grid": [
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    0.9
+  ],
+  "expected_n_units": 43200,
+  "comparator_anchor_3_exemplar_bayes_MEASURED": 0.728,
+  "comparator_anchor_3_oracle_MEASURED": 0.809,
+  "comparator_anchor_2_mac_plus_fac_MEASURED": 0.665,
+  "anchor_name": "schema_inference_cross_schema_overlap_sweep_v1",
+  "elapsed_s": 1.2,
+  "ts_iso": "2026-06-28T01:05:25Z",
+  "pid": 36268,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=schema_inference_cross_schema_overlap_sweep_v1,N=2048,VSLOT=8,MSLOTS=6,KSCH=8,NEX=20,FN=0.20,MF=0.50,NQPS=30,SEEDS=[7, 17],OVERLAP_GRID=[0.0, 0.1, 0.25, 0.5, 0.75, 0.9],BETA=8.0,N_MASKED=3,MAC_SPARSE=0.10,FAC_K=20,KTOP=5,K_EXEMPLAR=20,HP_anchor3_repro=[0.678,0.778],HP_crossing_overlap_min=0.50,HP_oracle=[0.65,0.85],HP_cv<0.15,HF_no_crossing_ex_at_90=0.65,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+ARMS_DIFFER_SHA256+ATOMIC_REPLACE+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v1_cross_schema_overlap_phase_diagram"
+}

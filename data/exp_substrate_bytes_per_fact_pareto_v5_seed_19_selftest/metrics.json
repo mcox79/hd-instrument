@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_bytes_per_fact_pareto_v5_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: fp32_recall=1.000 int8_recall=1.000 bin_recall=1.000 pc==fp32 (identity) bpf_fp32=16418 bpf_int8=4169 bpf_bin=513",
+  "summary": "selftest OK: fp32_recall=1.000 int8_recall=1.000 bin_recall=1.000 pc==fp32 (identity) bpf_fp32=16418 bpf_int8=4169 bpf_bin=513",
+  "elapsed_s": 0.08,
+  "ts_iso": "2026-07-01T06:57:39Z",
+  "pid": 38472,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_bytes_per_fact_pareto_v5_seed_19,arms=[FP32_DENSE,INT8_DENSE,BINARY_DENSE,POSITIVE_CONTROL_NO_QUANT],N_DIM_DENSE=2048,M_sweep_full=[40000,80000],M_sweep_smoke=[40000,80000],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=19,mode=selftest,discriminator=INT8_parity_AND_compression_at_M40k_AND_M80k+cross_seed_cv_lt_0p10,parity_tol=0.005,compression_ratio_max=0.30,cross_seed_cv_max=0.10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v5_bytes_per_fact_pareto_int8_specialization_chunked",
+  "_phase": "selftest_done",
+  "backend": "cpu"
+}

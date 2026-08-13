@@ -1,0 +1,122 @@
+{
+  "anchor_name": "substrate_theta_gamma_phase_binding_v1_GPU",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: phase-binding does not improve over cyclic-shift (best lift -0.700). N_DIM=2048 K_SEQ=50 V_ITEMS=200 PROBE_POS=25 mode=smoke ARM_NO_PHASE=1.000 ARM_THETA_GAMMA_8=0.100 ARM_THETA_GAMMA_16=0.300 ARM_THETA_GAMMA_32=0.300 | best_arm=ARM_THETA_GAMMA_16 best_lift=-0.700 R_NO_PHASE=1.000",
+  "summary": "n_seeds=1 N_DIM=2048 K_SEQ=50 V_ITEMS=200 PROBE_POS=25 arms=('ARM_NO_PHASE', 'ARM_THETA_GAMMA_8', 'ARM_THETA_GAMMA_16', 'ARM_THETA_GAMMA_32') mode=smoke device=cpu theta_gamma_phase_binding",
+  "elapsed_s": 0.24024176597595215,
+  "config_version": "ANCHOR=substrate_theta_gamma_phase_binding_v1_GPU,N_DIM=2048,K_SEQ=50,V_ITEMS=200,PROBE_POS=25,ARM_CONFIGS=(('ARM_NO_PHASE', 0), ('ARM_THETA_GAMMA_8', 8), ('ARM_THETA_GAMMA_16', 16), ('ARM_THETA_GAMMA_32', 32)),SEEDS=7,RUN_MODE=smoke,DEVICE=cpu,hardening=METARULE_AF+METARULE_AH+METARULE_H+THETA_GAMMA_PHASE",
+  "N_DIM": 2048,
+  "K_SEQ": 50,
+  "V_ITEMS": 200,
+  "PROBE_POS": 25,
+  "backend": "torch",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 4,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "arm_configs": [
+    {
+      "name": "ARM_NO_PHASE",
+      "K_phases": 0
+    },
+    {
+      "name": "ARM_THETA_GAMMA_8",
+      "K_phases": 8
+    },
+    {
+      "name": "ARM_THETA_GAMMA_16",
+      "K_phases": 16
+    },
+    {
+      "name": "ARM_THETA_GAMMA_32",
+      "K_phases": 32
+    }
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_NO_PHASE",
+      "K_phases": 0,
+      "recall_accuracy_mean": 1.0,
+      "recall_accuracy_std": 0.0,
+      "mean_cos_to_target_mean": 0.13762351125478745,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_THETA_GAMMA_8",
+      "K_phases": 8,
+      "recall_accuracy_mean": 0.1,
+      "recall_accuracy_std": 0.0,
+      "mean_cos_to_target_mean": 0.15521452967077493,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_THETA_GAMMA_16",
+      "K_phases": 16,
+      "recall_accuracy_mean": 0.3,
+      "recall_accuracy_std": 0.0,
+      "mean_cos_to_target_mean": 0.1903622567653656,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_THETA_GAMMA_32",
+      "K_phases": 32,
+      "recall_accuracy_mean": 0.3,
+      "recall_accuracy_std": 0.0,
+      "mean_cos_to_target_mean": 0.18808237984776496,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.15919899940490723,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_PHASE",
+          "K_phases": 0,
+          "seed": 7,
+          "recall_accuracy": 1.0,
+          "mean_cos_to_target": 0.13762351125478745,
+          "n_probe_trials": 10,
+          "arm_hash": "083b8a52c71d2b30",
+          "wall_s": 0.024204730987548828,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_THETA_GAMMA_8",
+          "K_phases": 8,
+          "seed": 7,
+          "recall_accuracy": 0.1,
+          "mean_cos_to_target": 0.15521452967077493,
+          "n_probe_trials": 10,
+          "arm_hash": "31999b412aeaec58",
+          "wall_s": 0.015311717987060547,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_THETA_GAMMA_16",
+          "K_phases": 16,
+          "seed": 7,
+          "recall_accuracy": 0.3,
+          "mean_cos_to_target": 0.1903622567653656,
+          "n_probe_trials": 10,
+          "arm_hash": "43dfddcc63350216",
+          "wall_s": 0.028694868087768555,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_THETA_GAMMA_32",
+          "K_phases": 32,
+          "seed": 7,
+          "recall_accuracy": 0.3,
+          "mean_cos_to_target": 0.18808237984776496,
+          "n_probe_trials": 10,
+          "arm_hash": "52f85ee0d85123d5",
+          "wall_s": 0.015000343322753906,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

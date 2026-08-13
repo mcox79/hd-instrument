@@ -1,0 +1,192 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_HARD_PASS: cliff fires at (M=100000 sigma=0.28); FP32=0.683 FP16=0.683 INT8=0.683 INT4=0.674; arms_range=0.009; INT8_gap=0.000<=0.05; INT4_drop=0.009 (breaks=False)",
+  "summary": "SMOKE_HARD_PASS: cliff fires at (M=100000 sigma=0.28); FP32=0.683 FP16=0.683 INT8=0.683 INT4=0.674; arms_range=0.009; INT8_gap=0.000<=0.05; INT4_drop=0.009 (breaks=False)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "arms": [
+    "FP32",
+    "FP16",
+    "INT8",
+    "INT4"
+  ],
+  "M_sweep": [
+    100000
+  ],
+  "N_fixed": 4096,
+  "sigma_sweep": [
+    0.28
+  ],
+  "discriminator_point": {
+    "N": 4096,
+    "M": 100000,
+    "sigma": 0.28,
+    "chosen_by": "best_discriminating_sigma_scan",
+    "qualification_tier": "tier_2_pareto_probe",
+    "FP32_recall": 0.6830999851226807,
+    "FP16_recall": 0.6830999851226807,
+    "INT8_recall": 0.6827999949455261,
+    "INT4_recall": 0.6740000247955322,
+    "INT8_gap_vs_FP32": 0.000299990177154541,
+    "INT4_drop_vs_FP32": 0.009099960327148438,
+    "arms_range": 0.009099960327148438,
+    "fp32_unsaturated": true
+  },
+  "hp_meta_rule_q_atcliff": true,
+  "hp_int8_pareto_cliff": true,
+  "hp_int4_breaks": false,
+  "hp_pre_crack_free": false,
+  "hp_memory_factor": true,
+  "hp_gates_cleared": 3,
+  "hp_gates_total": 4,
+  "pre_crack_details": {},
+  "max_pre_crack_gap": Infinity,
+  "max_memory_factor_int8_vs_fp32": 0.250244140625,
+  "max_cv_across_arms": 0.0,
+  "stats_cross_seed": {
+    "FP32__M100000__N4096__sigma0.28": {
+      "recall_cosine_mean": 0.6830999851226807,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 18.112,
+      "bytes_per_fact_mean": 1506.67264,
+      "n_seeds": 1
+    },
+    "FP16__M100000__N4096__sigma0.28": {
+      "recall_cosine_mean": 0.6830999851226807,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 19.331,
+      "bytes_per_fact_mean": 753.33632,
+      "n_seeds": 1
+    },
+    "INT8__M100000__N4096__sigma0.28": {
+      "recall_cosine_mean": 0.6827999949455261,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 19.617,
+      "bytes_per_fact_mean": 377.036,
+      "n_seeds": 1
+    },
+    "INT4__M100000__N4096__sigma0.28": {
+      "recall_cosine_mean": 0.6740000247955322,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 20.573,
+      "bytes_per_fact_mean": 188.70192,
+      "n_seeds": 1
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 4,
+  "observed_n_units_per_seed": [
+    4
+  ],
+  "mechanism_hashes_distinct": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "per_unit": {
+        "FP32__M100000__N4096__sigma0.28": {
+          "arm": "FP32",
+          "M": 100000,
+          "N": 4096,
+          "sigma": 0.28,
+          "recall_cosine_mean": 0.6830999851226807,
+          "n_facts": 100000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 1506.67264,
+          "wall_s": 18.112,
+          "mechanism_hash": "f18110c392630c2af199f7afa0bb841a0b6f007ebbb78ac9b0677f9e97f19c9d",
+          "seed": 7
+        },
+        "FP16__M100000__N4096__sigma0.28": {
+          "arm": "FP16",
+          "M": 100000,
+          "N": 4096,
+          "sigma": 0.28,
+          "recall_cosine_mean": 0.6830999851226807,
+          "n_facts": 100000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 753.33632,
+          "wall_s": 19.331,
+          "mechanism_hash": "92d2beeb0c9de9ab8a82ba9df24f3b2e807cf540e33ed673d01a50309cfd100e",
+          "seed": 7
+        },
+        "INT8__M100000__N4096__sigma0.28": {
+          "arm": "INT8",
+          "M": 100000,
+          "N": 4096,
+          "sigma": 0.28,
+          "recall_cosine_mean": 0.6827999949455261,
+          "n_facts": 100000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 377.036,
+          "wall_s": 19.617,
+          "mechanism_hash": "9ddd52dd201617ae01411d1e9da0e819a412e740de33e2a799557d2b38140f73",
+          "seed": 7
+        },
+        "INT4__M100000__N4096__sigma0.28": {
+          "arm": "INT4",
+          "M": 100000,
+          "N": 4096,
+          "sigma": 0.28,
+          "recall_cosine_mean": 0.6740000247955322,
+          "n_facts": 100000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 188.70192,
+          "wall_s": 20.573,
+          "mechanism_hash": "a6b7661daef83f3fd515a2814cfdb488db75ea626d23b6736da3ae30bace3390",
+          "seed": 7
+        }
+      },
+      "M_sweep": [
+        100000
+      ],
+      "N_fixed": 4096,
+      "sigma_sweep": [
+        0.28
+      ],
+      "arms": [
+        "FP32",
+        "FP16",
+        "INT8",
+        "INT4"
+      ],
+      "anchor_name": "stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7",
+      "config_version": "ANCHOR=stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7,arms=[FP32,FP16,INT8,INT4],M_sweep_full=[10000,100000,160000],M_sweep_smoke=[100000],N_fixed_full=8192,N_fixed_smoke=4096,sigma_sweep_full=[0.20,0.28,0.35,0.38,0.42,0.55],sigma_sweep_smoke=[0.28],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=NOISE_CLIFF_AUTO_SELECT@M160k_bestsigma,HP_META_RULE_Q_ARMS_RANGE_MIN=0.03,HP_META_RULE_Q_FP32_UPPER=0.98,HP_INT8_PARETO_CLIFF_TOL=0.05,HP_INT4_BREAKS_DELTA=0.20,HP_PRE_CRACK_FREE_TOL=0.01,HP_PRE_CRACK_SIGMA_MAX=0.42,HP_MEMORY_FACTOR_MAX=0.35,cv_hp=0.08,cv_mb=0.10,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab)+inline_int4,hardening=L1startmarker+L2crashdiag+L3perunitckpt+CHUNKED_PER_SEED",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782958916.151334
+    }
+  ],
+  "topK": 1,
+  "HP_INT8_PARETO_CLIFF_TOL": 0.05,
+  "HP_INT4_BREAKS_DELTA": 0.2,
+  "HP_PRE_CRACK_FREE_TOL": 0.01,
+  "HP_META_RULE_Q_ARMS_RANGE_MIN": 0.03,
+  "HP_MEMORY_FACTOR_MAX": 0.35,
+  "CROSS_SEED_CV_MAX_HP": 0.08,
+  "CROSS_SEED_CV_MAX_MB": 0.1,
+  "anchor_name": "stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7",
+  "elapsed_s": 78.51,
+  "ts_iso": "2026-07-02T02:21:56Z",
+  "pid": 25044,
+  "config_version": "ANCHOR=stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7,arms=[FP32,FP16,INT8,INT4],M_sweep_full=[10000,100000,160000],M_sweep_smoke=[100000],N_fixed_full=8192,N_fixed_smoke=4096,sigma_sweep_full=[0.20,0.28,0.35,0.38,0.42,0.55],sigma_sweep_smoke=[0.28],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=NOISE_CLIFF_AUTO_SELECT@M160k_bestsigma,HP_META_RULE_Q_ARMS_RANGE_MIN=0.03,HP_META_RULE_Q_FP32_UPPER=0.98,HP_INT8_PARETO_CLIFF_TOL=0.05,HP_INT4_BREAKS_DELTA=0.20,HP_PRE_CRACK_FREE_TOL=0.01,HP_PRE_CRACK_SIGMA_MAX=0.42,HP_MEMORY_FACTOR_MAX=0.35,cv_hp=0.08,cv_mb=0.10,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab)+inline_int4,hardening=L1startmarker+L2crashdiag+L3perunitckpt+CHUNKED_PER_SEED",
+  "_hardening_marker": "v3_stage2_int8_pareto_noise_cliff_chunked",
+  "backend": "cpu",
+  "seed": 7,
+  "corpus_provenance": "synthetic_uniform_KG_5000ent_100rel_N_fixed_8192_M_sweep_10k_100k_160k_sigma_sweep_0.20_0.35_0.42_0.45_0.48_0.55_holdout_10pct_queries_noise_cliff_v3_amendment"
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_cleanup_family_wm_kcliff_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=50 SMOKE=15; 5 cleanups registered: ['no_cleanup', 'classical_hopfield', 'modern_hopfield_continuous', 'iterative_attractor', 'k_NN_lookup']; cliff_K_per_bank N=8192 banks=16 ~ 512; sanity no_cleanup: K_per_bank=8 N=512 rec=0.969 ra=1.000; sanity classical_hopfield: K_per_bank=8 N=512 rec=0.469 ra=1.000; sanity modern_hopfield_continuous: K_per_bank=8 N=512 rec=1.000 ra=1.000; sanity iterative_attractor: K_per_bank=8 N=512 rec=0.969 ra=1.000; sanity k_NN_lookup: K_per_bank=8 N=512 rec=0.969 ra=1.000; 5/5 cleanups >= 0.20 at sanity; distinctness sanity: 9/10 cleanup pairs produce distinct pred patterns",
+  "summary": "cardinality FULL=50 SMOKE=15; 5 cleanups registered: ['no_cleanup', 'classical_hopfield', 'modern_hopfield_continuous', 'iterative_attractor', 'k_NN_lookup']; cliff_K_per_bank N=8192 banks=16 ~ 512; sanity no_cleanup: K_per_bank=8 N=512 rec=0.969 ra=1.000; sanity classical_hopfield: K_per_bank=8 N=512 rec=0.469 ra=1.000; sanity modern_hopfield_continuous: K_per_bank=8 N=512 rec=1.000 ra=1.000; sanity iterative_attractor: K_per_bank=8 N=512 rec=0.969 ra=1.000; sanity k_NN_lookup: K_per_bank=8 N=512 rec=0.969 ra=1.000; 5/5 cleanups >= 0.20 at sanity; distinctness sanity: 9/10 cleanup pairs produce distinct pred patterns",
+  "elapsed_s": 0.17,
+  "ts_iso": "2026-06-30T18:57:07Z",
+  "pid": 36388,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_cleanup_family_wm_kcliff_v1_seed_7,cleanups=[no_cleanup,classical_hopfield,modern_hopfield_continuous,iterative_attractor,k_NN_lookup],encoder=bipolar,N_full=8192,N_smoke=2048,SEED=7,mode=selftest,K_per_bank_full=[50,100,250,500,1000],K_per_bank_smoke=[50,100,250],num_banks=16,regimes_full=[RANDOM,ADVERSARIAL],regimes_smoke=[RANDOM],beta=8.0,hop_max_steps=4,expected_n_full=50,expected_n_smoke=15,META_RULE_AY=verdict_HARDFAIL_on_distinctness_false,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_cleanup_family_wm_kcliff_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

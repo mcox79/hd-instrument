@@ -1,0 +1,9 @@
+{
+  "anchor_name": "redundancy_decorrelation_from_coherence_gate_precheck_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: arms do not differ: {'GATE': '4fde3e32c24433a5', 'REDUN': 'beb1eab2111a65be', 'DOUBLE': 'beb1eab2111a65be'}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_redundancy_decorrelation_from_coherence_gate_precheck_v1.py\", line 416, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_redundancy_decorrelation_from_coherence_gate_precheck_v1.py\", line 408, in main\n    run_mode(\"smoke\"); return\n    ^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_redundancy_decorrelation_from_coherence_gate_precheck_v1.py\", line 296, in run_mode\n    assert arms_differ, f\"arms do not differ: {hh}\"\n           ^^^^^^^^^^^\nAssertionError: arms do not differ: {'GATE': '4fde3e32c24433a5', 'REDUN': 'beb1eab2111a65be', 'DOUBLE': 'beb1eab2111a65be'}\n",
+  "ts_iso": "2026-07-19T16:13:21.575061+00:00"
+}

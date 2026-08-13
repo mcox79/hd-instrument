@@ -1,0 +1,436 @@
+{
+  "phase_map": [
+    {
+      "cleanup_family": "no_cleanup",
+      "K_per_bank": 50,
+      "num_banks": 16,
+      "K_total": 800,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.9025,
+      "route_acc": 1.0,
+      "mech_output_hash": "4492976ef015ccf8",
+      "pred_pattern_hash": "5e6ff3509ced1da3",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.097,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "no_cleanup",
+      "K_per_bank": 100,
+      "num_banks": 16,
+      "K_total": 1600,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.4181,
+      "route_acc": 1.0,
+      "mech_output_hash": "ce1f6eb771b1bc7a",
+      "pred_pattern_hash": "91aa7d31eef6d640",
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.202,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "no_cleanup",
+      "K_per_bank": 250,
+      "num_banks": 16,
+      "K_total": 4000,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.0712,
+      "route_acc": 1.0,
+      "mech_output_hash": "10869e78902bca56",
+      "pred_pattern_hash": "af50b595f2a79268",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.548,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "classical_hopfield",
+      "K_per_bank": 50,
+      "num_banks": 16,
+      "K_total": 800,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.0813,
+      "route_acc": 1.0,
+      "mech_output_hash": "76b57ea9aebd220a",
+      "pred_pattern_hash": "aa0d995c45e18c34",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.372,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "classical_hopfield",
+      "K_per_bank": 100,
+      "num_banks": 16,
+      "K_total": 1600,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.0112,
+      "route_acc": 1.0,
+      "mech_output_hash": "ea21272b09b906e4",
+      "pred_pattern_hash": "2c77a6c65c9032b5",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.598,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "classical_hopfield",
+      "K_per_bank": 250,
+      "num_banks": 16,
+      "K_total": 4000,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.006,
+      "route_acc": 1.0,
+      "mech_output_hash": "8693855043fb0974",
+      "pred_pattern_hash": "8f5b70a326407027",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 1.154,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "modern_hopfield_continuous",
+      "K_per_bank": 50,
+      "num_banks": 16,
+      "K_total": 800,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.8912,
+      "route_acc": 1.0,
+      "mech_output_hash": "5fa985002728f687",
+      "pred_pattern_hash": "41a5ebb19f130704",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.819,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "modern_hopfield_continuous",
+      "K_per_bank": 100,
+      "num_banks": 16,
+      "K_total": 1600,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.4231,
+      "route_acc": 1.0,
+      "mech_output_hash": "f53f45ee4883acbd",
+      "pred_pattern_hash": "1e3aa01711e92004",
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 1.813,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "modern_hopfield_continuous",
+      "K_per_bank": 250,
+      "num_banks": 16,
+      "K_total": 4000,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.0727,
+      "route_acc": 1.0,
+      "mech_output_hash": "1551a16eb20d7e7d",
+      "pred_pattern_hash": "8e0abca834f6a321",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 4.903,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "iterative_attractor",
+      "K_per_bank": 50,
+      "num_banks": 16,
+      "K_total": 800,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.8912,
+      "route_acc": 1.0,
+      "mech_output_hash": "bf35b566042bc5a2",
+      "pred_pattern_hash": "0512571948d27f10",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.832,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "iterative_attractor",
+      "K_per_bank": 100,
+      "num_banks": 16,
+      "K_total": 1600,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.4156,
+      "route_acc": 1.0,
+      "mech_output_hash": "5b74a8833de5f899",
+      "pred_pattern_hash": "9af6c09ea2ed6ffd",
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 3.023,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "iterative_attractor",
+      "K_per_bank": 250,
+      "num_banks": 16,
+      "K_total": 4000,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.071,
+      "route_acc": 1.0,
+      "mech_output_hash": "760d4bfe5469174f",
+      "pred_pattern_hash": "66a2d9e0cab1c079",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 4.12,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "k_NN_lookup",
+      "K_per_bank": 50,
+      "num_banks": 16,
+      "K_total": 800,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.885,
+      "route_acc": 1.0,
+      "mech_output_hash": "e57b26344ca3e3df",
+      "pred_pattern_hash": "ad7f0f4365615aa0",
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.12,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "k_NN_lookup",
+      "K_per_bank": 100,
+      "num_banks": 16,
+      "K_total": 1600,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.4225,
+      "route_acc": 1.0,
+      "mech_output_hash": "3daf00b50a39e2b2",
+      "pred_pattern_hash": "57c066c117b28ba5",
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.235,
+      "cliff_estimate_K_per_bank": 128
+    },
+    {
+      "cleanup_family": "k_NN_lookup",
+      "K_per_bank": 250,
+      "num_banks": 16,
+      "K_total": 4000,
+      "regime": "RANDOM",
+      "N": 2048,
+      "recall": 0.0703,
+      "route_acc": 1.0,
+      "mech_output_hash": "8f0dd543e27d978b",
+      "pred_pattern_hash": "b3cca457f4f19b7a",
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.575,
+      "cliff_estimate_K_per_bank": 128
+    }
+  ],
+  "per_cleanup_summary": {
+    "no_cleanup": {
+      "recall_mean": 0.4639,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "discriminating_fraction": 0.3333,
+      "cliff_K_per_bank_per_regime": {
+        "RANDOM": 100
+      },
+      "recall_per_K": {
+        "RANDOM_K50": 0.9025,
+        "RANDOM_K100": 0.4181,
+        "RANDOM_K250": 0.0712
+      }
+    },
+    "classical_hopfield": {
+      "recall_mean": 0.0328,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 3,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.0,
+      "cliff_K_per_bank_per_regime": {
+        "RANDOM": 50
+      },
+      "recall_per_K": {
+        "RANDOM_K50": 0.0813,
+        "RANDOM_K100": 0.0112,
+        "RANDOM_K250": 0.006
+      }
+    },
+    "modern_hopfield_continuous": {
+      "recall_mean": 0.4623,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "discriminating_fraction": 0.3333,
+      "cliff_K_per_bank_per_regime": {
+        "RANDOM": 100
+      },
+      "recall_per_K": {
+        "RANDOM_K50": 0.8912,
+        "RANDOM_K100": 0.4231,
+        "RANDOM_K250": 0.0727
+      }
+    },
+    "iterative_attractor": {
+      "recall_mean": 0.4593,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "discriminating_fraction": 0.3333,
+      "cliff_K_per_bank_per_regime": {
+        "RANDOM": 100
+      },
+      "recall_per_K": {
+        "RANDOM_K50": 0.8912,
+        "RANDOM_K100": 0.4156,
+        "RANDOM_K250": 0.071
+      }
+    },
+    "k_NN_lookup": {
+      "recall_mean": 0.4593,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "discriminating_fraction": 0.3333,
+      "cliff_K_per_bank_per_regime": {
+        "RANDOM": 100
+      },
+      "recall_per_K": {
+        "RANDOM_K50": 0.885,
+        "RANDOM_K100": 0.4225,
+        "RANDOM_K250": 0.0703
+      }
+    }
+  },
+  "cleanup_tiers": {
+    "no_cleanup": "COMPETITIVE_CLEANUP",
+    "classical_hopfield": "DOMINATED_CLEANUP",
+    "modern_hopfield_continuous": "COMPETITIVE_CLEANUP",
+    "iterative_attractor": "COMPETITIVE_CLEANUP",
+    "k_NN_lookup": "COMPETITIVE_CLEANUP"
+  },
+  "cleanup_pair_mech_distinctness": {
+    "no_cleanup_vs_classical_hopfield": true,
+    "no_cleanup_vs_modern_hopfield_continuous": true,
+    "no_cleanup_vs_iterative_attractor": true,
+    "no_cleanup_vs_k_NN_lookup": true,
+    "classical_hopfield_vs_modern_hopfield_continuous": true,
+    "classical_hopfield_vs_iterative_attractor": true,
+    "classical_hopfield_vs_k_NN_lookup": true,
+    "modern_hopfield_continuous_vs_iterative_attractor": true,
+    "modern_hopfield_continuous_vs_k_NN_lookup": true,
+    "iterative_attractor_vs_k_NN_lookup": true
+  },
+  "cleanup_pair_pred_distinctness": {
+    "no_cleanup_vs_classical_hopfield": true,
+    "no_cleanup_vs_modern_hopfield_continuous": true,
+    "no_cleanup_vs_iterative_attractor": true,
+    "no_cleanup_vs_k_NN_lookup": true,
+    "classical_hopfield_vs_modern_hopfield_continuous": true,
+    "classical_hopfield_vs_iterative_attractor": true,
+    "classical_hopfield_vs_k_NN_lookup": true,
+    "modern_hopfield_continuous_vs_iterative_attractor": true,
+    "modern_hopfield_continuous_vs_k_NN_lookup": true,
+    "iterative_attractor_vs_k_NN_lookup": true
+  },
+  "n_pairs_mech_differ": 10,
+  "n_pairs_pred_differ": 10,
+  "distinctness_self_report_pass": true,
+  "cliff_K_log2_span": 1.0,
+  "positive_control_result": {
+    "target": {
+      "cleanup_family": "no_cleanup",
+      "K_per_bank": 50,
+      "regime": "RANDOM",
+      "recall_floor": 0.6
+    },
+    "measured_recall": 0.9025,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "observed_n_units": 15,
+  "tier_counts": {
+    "SATURATED": 0,
+    "HARD_PASS": 4,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 7,
+    "HARD_FAIL": 4
+  },
+  "n_discriminating": 4,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta": 8.0,
+  "hop_max_steps": 4,
+  "num_banks": 16,
+  "estimated_cliff_K_per_bank": 128,
+  "gpu_util_estimate": 0.0,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 15/15 pts; sat=0 hp=4 mb=0 floor=7 fail=4; pred_differ=10/10 mech_differ=10/10; cliff_log2_span=1.000; positive_control rec=0.9025; cleanup_tiers={'no_cleanup': 'COMPETITIVE_CLEANUP', 'classical_hopfield': 'DOMINATED_CLEANUP', 'modern_hopfield_continuous': 'COMPETITIVE_CLEANUP', 'iterative_attractor': 'COMPETITIVE_CLEANUP', 'k_NN_lookup': 'COMPETITIVE_CLEANUP'}; gpu_util~0.00",
+  "summary": "HARD_PASS_SMOKE: 15/15 pts; sat=0 hp=4 mb=0 floor=7 fail=4; pred_differ=10/10 mech_differ=10/10; cliff_log2_span=1.000; positive_control rec=0.9025; cleanup_tiers={'no_cleanup': 'COMPETITIVE_CLEANUP', 'classical_hopfield': 'DOMINATED_CLEANUP', 'modern_hopfield_continuous': 'COMPETITIVE_CLEANUP', 'iterative_attractor': 'COMPETITIVE_CLEANUP', 'k_NN_lookup': 'COMPETITIVE_CLEANUP'}; gpu_util~0.00",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + positive_control_pass + distinctness 10/10 pred + cliff_log2_span=1.000 + no_cleanup_recall=0.464",
+  "anchor_name": "substrate_cleanup_family_wm_kcliff_v1_seed_7",
+  "elapsed_s": 19.66,
+  "ts_iso": "2026-06-30T18:58:57Z",
+  "pid": 8440,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_cleanup_family_wm_kcliff_v1_seed_7,cleanups=[no_cleanup,classical_hopfield,modern_hopfield_continuous,iterative_attractor,k_NN_lookup],encoder=bipolar,N_full=8192,N_smoke=2048,SEED=7,mode=smoke,K_per_bank_full=[50,100,250,500,1000],K_per_bank_smoke=[50,100,250],num_banks=16,regimes_full=[RANDOM,ADVERSARIAL],regimes_smoke=[RANDOM],beta=8.0,hop_max_steps=4,expected_n_full=50,expected_n_smoke=15,META_RULE_AY=verdict_HARDFAIL_on_distinctness_false,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_cleanup_family_wm_kcliff_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_bipolar_multibank_wm_kcliff",
+  "n_llm_calls": 0
+}

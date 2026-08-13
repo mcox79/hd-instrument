@@ -1,0 +1,232 @@
+{
+  "anchor_name": "vrc_paradigm_validation_pcra_mhca_srr_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS VRC_PARADIGM_PASS: all 3 (PCRA 1.000 vs 0.004 gap=0.996; MHCA 1.000 vs 0.000 gap=1.000; SRR refuse_OOD 1.000 false_accept_IN 0.012 ablated_false_accept_OOD 1.000) HARD_PASS -- VRC paradigm is a DISCRIMINATING measurement framework on synthetic substrate. First cell of new PARADIGM; opens substrate-native LM evaluation path.",
+  "summary": "HARD_PASS VRC_PARADIGM_PASS: all 3 (PCRA 1.000 vs 0.004 gap=0.996; MHCA 1.000 vs 0.000 gap=1.000; SRR refuse_OOD 1.000 false_accept_IN 0.012 ablated_false_accept_OOD 1.000) HARD_PASS -- VRC paradigm is a DISCRIMINATING measurement framework on synthetic substrate. First cell of new PARADIGM; opens substrate-native LM evaluation path.",
+  "run_mode": "smoke",
+  "elapsed_s": 195.8916208744049,
+  "n_seeds": 3,
+  "expected_n_seeds": 3,
+  "n_arms": 3,
+  "arms": [
+    "ARM_MECHANISM",
+    "ARM_ABLATED_RETRIEVE",
+    "ARM_ABLATED_REFUSE"
+  ],
+  "n_units_observed": 9,
+  "expected_n_units_per_metric": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    [
+      "ARM_MECHANISM",
+      "ARM_ABLATED_REFUSE"
+    ]
+  ],
+  "arm_hashes_by_seed": {
+    "7": {
+      "mech": "544acec7615b3736",
+      "ablated_retrieve": "8acdb9108065a893",
+      "ablated_refuse": "544acec7615b3736"
+    },
+    "13": {
+      "mech": "e795a2ec03f6e873",
+      "ablated_retrieve": "4abeeaaaf39f4bc0",
+      "ablated_refuse": "e795a2ec03f6e873"
+    },
+    "19": {
+      "mech": "3547da8612e4cef4",
+      "ablated_retrieve": "1a7ce736e9b0fe21",
+      "ablated_refuse": "3547da8612e4cef4"
+    }
+  },
+  "per_unit": [
+    {
+      "arm": "ARM_MECHANISM",
+      "seed": 7,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 1.0,
+      "false_accept_in": 0.012000024318695068,
+      "false_accept_ood": 0.0,
+      "balanced_acc": 0.9939999878406525,
+      "tau": 0.9172927141189575,
+      "s_frobenius_norm": 6308242.5,
+      "arm_hash": "544acec7615b3736",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_MECHANISM",
+      "seed": 13,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 1.0,
+      "false_accept_in": 0.0,
+      "false_accept_ood": 0.0,
+      "balanced_acc": 1.0,
+      "tau": 0.9145107269287109,
+      "s_frobenius_norm": 6304354.5,
+      "arm_hash": "e795a2ec03f6e873",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_MECHANISM",
+      "seed": 19,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 1.0,
+      "false_accept_in": 0.0040000081062316895,
+      "false_accept_ood": 0.0,
+      "balanced_acc": 0.9979999959468842,
+      "tau": 0.9163731336593628,
+      "s_frobenius_norm": 6309113.5,
+      "arm_hash": "3547da8612e4cef4",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_RETRIEVE",
+      "seed": 7,
+      "pcra": 0.002,
+      "mhca": 0.0,
+      "refuse_ood": 0.9200000166893005,
+      "false_accept_in": 0.931999996304512,
+      "false_accept_ood": 0.07999998331069946,
+      "balanced_acc": 0.49400001019239426,
+      "tau": 0.055830687284469604,
+      "s_frobenius_norm": 1540.2630615234375,
+      "arm_hash": "8acdb9108065a893",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_RETRIEVE",
+      "seed": 13,
+      "pcra": 0.004,
+      "mhca": 0.0,
+      "refuse_ood": 0.5600000023841858,
+      "false_accept_in": 0.47200000286102295,
+      "false_accept_ood": 0.4399999976158142,
+      "balanced_acc": 0.5439999997615814,
+      "tau": 0.04740834981203079,
+      "s_frobenius_norm": 1540.271728515625,
+      "arm_hash": "4abeeaaaf39f4bc0",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_RETRIEVE",
+      "seed": 19,
+      "pcra": 0.004,
+      "mhca": 0.0,
+      "refuse_ood": 0.6800000071525574,
+      "false_accept_in": 0.6480000019073486,
+      "false_accept_ood": 0.3199999928474426,
+      "balanced_acc": 0.5160000026226044,
+      "tau": 0.05007263645529747,
+      "s_frobenius_norm": 1540.2608642578125,
+      "arm_hash": "1a7ce736e9b0fe21",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_REFUSE",
+      "seed": 7,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 0.0,
+      "false_accept_in": 0.0,
+      "false_accept_ood": 1.0,
+      "balanced_acc": 0.5,
+      "tau": 0.0,
+      "s_frobenius_norm": 6308242.5,
+      "arm_hash": "544acec7615b3736",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_REFUSE",
+      "seed": 13,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 0.0,
+      "false_accept_in": 0.0,
+      "false_accept_ood": 1.0,
+      "balanced_acc": 0.5,
+      "tau": 0.0,
+      "s_frobenius_norm": 6304354.5,
+      "arm_hash": "e795a2ec03f6e873",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    },
+    {
+      "arm": "ARM_ABLATED_REFUSE",
+      "seed": 19,
+      "pcra": 1.0,
+      "mhca": 1.0,
+      "refuse_ood": 0.0,
+      "false_accept_in": 0.0,
+      "false_accept_ood": 1.0,
+      "balanced_acc": 0.5,
+      "tau": 0.0,
+      "s_frobenius_norm": 6309113.5,
+      "arm_hash": "3547da8612e4cef4",
+      "n_facts": 500,
+      "n_chains": 20,
+      "n_ood": 50
+    }
+  ],
+  "pcra": {
+    "mech_min": 1.0,
+    "ablated_max": 0.004,
+    "gap": 0.996,
+    "hp": true
+  },
+  "mhca": {
+    "mech_min": 1.0,
+    "ablated_max": 0.0,
+    "gap": 1.0,
+    "hp": true
+  },
+  "srr": {
+    "mech_refuse_ood_min": 1.0,
+    "mech_false_accept_in_max": 0.012000024318695068,
+    "ablated_refuse_false_accept_ood_min": 1.0,
+    "hp": true
+  },
+  "vrc_paradigm_pass": true,
+  "config": {
+    "N_DIM": 4096,
+    "M_FACTS": 500,
+    "N_CHAINS": 20,
+    "CHAIN_DEPTH": 4,
+    "N_OOD": 50,
+    "V_REL_LIB": 8,
+    "SEEDS": [
+      7,
+      13,
+      19
+    ]
+  },
+  "config_version": "ANCHOR=vrc_paradigm_validation_pcra_mhca_srr_v1,N=4096,M=500,chains=20,depth=4,ood=50",
+  "progress_logging": "print_flush_true",
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "crlb_n_a_reason": "binary-classification discriminator; no continuous quantitative floor",
+  "discriminator_reachability": true,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

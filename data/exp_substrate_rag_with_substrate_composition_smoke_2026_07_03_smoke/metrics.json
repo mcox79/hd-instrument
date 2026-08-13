@@ -1,0 +1,198 @@
+{
+  "anchor_name": "substrate_rag_with_substrate_composition_smoke_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no HP fires; substrate composition adds no measurable value over retrieval baselines or substrate-alone. tandem=0.083 | topk_concat=0.133 | subst_alone=0.517 | random_chunks=0.050 | oracle=0.783 | single_chunk=0.067 | random_baseline=0.050 | HP1=False HP2=False HP3=False HP4=False HP_ORACLE=True | cardinality_ok=True arms_differ_ok=True",
+  "summary": "HARD_FAIL: no HP fires; substrate composition adds no measurable value over retrieval baselines or substrate-alone. tandem=0.083 | topk_concat=0.133 | subst_alone=0.517 | random_chunks=0.050 | oracle=0.783 | single_chunk=0.067 | random_baseline=0.050 | HP1=False HP2=False HP3=False HP4=False HP_ORACLE=True | cardinality_ok=True arms_differ_ok=True",
+  "run_mode": "smoke",
+  "n_dim": 4096,
+  "n_queries": 20,
+  "n_seeds": 3,
+  "top_k": 5,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_queries": 20,
+      "n_facts": 100,
+      "n_dim": 4096,
+      "top_k": 5,
+      "per_arm": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": {
+          "accuracy": 0.1,
+          "n_correct": 2,
+          "n": 20
+        },
+        "ARM_BGE_ALONE_TOP_K_CONCAT": {
+          "accuracy": 0.15,
+          "n_correct": 3,
+          "n": 20
+        },
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": {
+          "accuracy": 0.05,
+          "n_correct": 1,
+          "n": 20
+        },
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": {
+          "accuracy": 0.55,
+          "n_correct": 11,
+          "n": 20
+        },
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": {
+          "accuracy": 0.05,
+          "n_correct": 1,
+          "n": 20
+        },
+        "ARM_RANDOM_BASELINE": {
+          "accuracy": 0.1,
+          "n_correct": 2,
+          "n": 20
+        },
+        "ARM_TANDEM_SUBSTRATE_ORACLE": {
+          "accuracy": 0.7,
+          "n_correct": 14,
+          "n": 20
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": "f52293a93cdc0928",
+        "ARM_BGE_ALONE_TOP_K_CONCAT": "065ec5974d868e4d",
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": "feb53c91571c09c9",
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": "7bd3a40786945d92",
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": "0b8f8241c457a92c",
+        "ARM_RANDOM_BASELINE": "d50c336b2f5d7a2c",
+        "ARM_TANDEM_SUBSTRATE_ORACLE": "f854bea81f29fdd7"
+      },
+      "arms_differ_violations": [],
+      "elapsed_s": 116.96967890000087
+    },
+    {
+      "seed": 17,
+      "n_queries": 20,
+      "n_facts": 100,
+      "n_dim": 4096,
+      "top_k": 5,
+      "per_arm": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 20
+        },
+        "ARM_BGE_ALONE_TOP_K_CONCAT": {
+          "accuracy": 0.05,
+          "n_correct": 1,
+          "n": 20
+        },
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": {
+          "accuracy": 0.05,
+          "n_correct": 1,
+          "n": 20
+        },
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": {
+          "accuracy": 0.35,
+          "n_correct": 7,
+          "n": 20
+        },
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 20
+        },
+        "ARM_RANDOM_BASELINE": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 20
+        },
+        "ARM_TANDEM_SUBSTRATE_ORACLE": {
+          "accuracy": 0.8,
+          "n_correct": 16,
+          "n": 20
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": "2200fc6d4619815c",
+        "ARM_BGE_ALONE_TOP_K_CONCAT": "e219ef478cd3ca6b",
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": "174f358e2ae4604d",
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": "6442aa34168db087",
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": "5ffdd0fa6ea79cc3",
+        "ARM_RANDOM_BASELINE": "a46f05736ce1c263",
+        "ARM_TANDEM_SUBSTRATE_ORACLE": "28f4133a85bacade"
+      },
+      "arms_differ_violations": [],
+      "elapsed_s": 8.570281700027408
+    },
+    {
+      "seed": 23,
+      "n_queries": 20,
+      "n_facts": 100,
+      "n_dim": 4096,
+      "top_k": 5,
+      "per_arm": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": {
+          "accuracy": 0.1,
+          "n_correct": 2,
+          "n": 20
+        },
+        "ARM_BGE_ALONE_TOP_K_CONCAT": {
+          "accuracy": 0.2,
+          "n_correct": 4,
+          "n": 20
+        },
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": {
+          "accuracy": 0.15,
+          "n_correct": 3,
+          "n": 20
+        },
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": {
+          "accuracy": 0.65,
+          "n_correct": 13,
+          "n": 20
+        },
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": {
+          "accuracy": 0.1,
+          "n_correct": 2,
+          "n": 20
+        },
+        "ARM_RANDOM_BASELINE": {
+          "accuracy": 0.05,
+          "n_correct": 1,
+          "n": 20
+        },
+        "ARM_TANDEM_SUBSTRATE_ORACLE": {
+          "accuracy": 0.85,
+          "n_correct": 17,
+          "n": 20
+        }
+      },
+      "arm_digests": {
+        "ARM_BGE_ALONE_SINGLE_CHUNK": "214e66f578ad24e2",
+        "ARM_BGE_ALONE_TOP_K_CONCAT": "4446d1a48dea22ad",
+        "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": "2922a323663628ad",
+        "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": "171af2d780198bc2",
+        "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": "aa2f6d1d03925e29",
+        "ARM_RANDOM_BASELINE": "318d3dad18939ced",
+        "ARM_TANDEM_SUBSTRATE_ORACLE": "4b584f9ae2b50dbc"
+      },
+      "arms_differ_violations": [],
+      "elapsed_s": 8.170364000019617
+    }
+  ],
+  "per_arm_mean_accuracy": {
+    "ARM_BGE_ALONE_SINGLE_CHUNK": 0.06666666666666667,
+    "ARM_BGE_ALONE_TOP_K_CONCAT": 0.13333333333333333,
+    "ARM_TANDEM_RAG_SUBSTRATE_COMPOSITION": 0.08333333333333333,
+    "ARM_SUBSTRATE_ALONE_NO_RETRIEVAL": 0.5166666666666667,
+    "ARM_TANDEM_RANDOM_CHUNKS_CONTROL": 0.05000000000000001,
+    "ARM_RANDOM_BASELINE": 0.05000000000000001,
+    "ARM_TANDEM_SUBSTRATE_ORACLE": 0.7833333333333333
+  },
+  "expected_n_units": 21,
+  "actual_n_units": 21,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.016,
+  "crlb_formula_reference": "sqrt(K/N) per Plate 1995 FHRR unbind noise floor",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "elapsed_s": 133.71192930001416,
+  "ts_iso": "2026-07-03T13:02:59.881576+00:00"
+}

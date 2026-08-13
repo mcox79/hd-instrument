@@ -1,0 +1,51 @@
+{
+  "verdict": "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H",
+  "run_mode": "memsmoke",
+  "verdict_msg": "expected 1 seeds, got 0 (failures=[{'seed': 7, 'failure_class': 'RuntimeError', 'msg': 'held-out query edges too few (9)'}])",
+  "summary": "cardinality breach",
+  "elapsed_s": 7.493188300053589,
+  "unit_failures": [
+    {
+      "seed": 7,
+      "failure_class": "RuntimeError",
+      "msg": "held-out query edges too few (9)"
+    }
+  ],
+  "mechanism_selftest": {
+    "planted_mrr": {
+      "RANDOM_UNBIND": 0.01268,
+      "STRUCT_UNBIND": 0.23091,
+      "RANDOM_NEIGHBOR": 0.24104,
+      "STRUCT_NEIGHBOR": 0.52338,
+      "SHUFFLE_NEIGHBOR": 0.2287,
+      "BASELINE_POP": 0.24167,
+      "UNIFORM_CHANCE": 0.01144,
+      "ORACLE_NEIGHBOR": 0.58808
+    },
+    "planted_graded_novel": {
+      "RANDOM_NEIGHBOR": 0.0,
+      "STRUCT_NEIGHBOR": 0.02917
+    },
+    "n_distinct_sigs": 8,
+    "n_novel": 240,
+    "n_seen": 260,
+    "sn_beats_pop": true,
+    "neighbor_beats_unbind": true,
+    "shuffle_collapses": true,
+    "struct_novel_gain": true,
+    "ceiling_ok": true,
+    "arms_differ": true,
+    "fits_finite": true,
+    "novel_and_seen_present": true,
+    "decisive_selftest_verdict": "STRUCTURED_CODES_ENABLE_INFERENCE",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "real_code_path",
+      "substrate_signature",
+      "positive_control",
+      "metric_moves",
+      "negative_control_margin",
+      "full_gates_exercised"
+    ]
+  }
+}

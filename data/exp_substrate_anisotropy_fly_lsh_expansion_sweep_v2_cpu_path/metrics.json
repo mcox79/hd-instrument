@@ -1,0 +1,283 @@
+{
+  "anchor_name": "substrate_anisotropy_fly_lsh_expansion_sweep_v2_cpu_path",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_LIFT: monotonic lift across [8, 64, 512, 4096]; FLY_4096x=0.611 below 0.85. Expansion-ratio mechanism real but plateau at this corpus regime. raw=0.058 | FLY_8x=0.509(cv=0.013) FLY_64x=0.575(cv=0.011) FLY_512x=0.609(cv=0.007) FLY_4096x=0.611(cv=0.009) | AB_CONTROL_4096x=0.601(cv=0.012) | monotonic=True | trans=['8x->64x: 0.509->0.575 ok=True', '64x->512x: 0.575->0.609 ok=True', '512x->4096x: 0.609->0.611 ok=True']",
+  "summary": "MIDDLE_BAND_PARTIAL_LIFT: monotonic lift across [8, 64, 512, 4096]; FLY_4096x=0.611 below 0.85. Expansion-ratio mechanism real but plateau at this corpus regime. raw=0.058 | FLY_8x=0.509(cv=0.013) FLY_64x=0.575(cv=0.011) FLY_512x=0.609(cv=0.007) FLY_4096x=0.611(cv=0.009) | AB_CONTROL_4096x=0.601(cv=0.012) | monotonic=True | trans=['8x->64x: 0.509->0.575 ok=True', '64x->512x: 0.575->0.609 ok=True', '512x->4096x: 0.609->0.611 ok=True']",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "proj_dim": 768,
+  "expansion_factors_active": [
+    8,
+    64,
+    512,
+    4096
+  ],
+  "expansion_factors_canonical": [
+    8,
+    64,
+    512,
+    4096
+  ],
+  "ab_control_expansion": 4096,
+  "M_EVAL": 2000,
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "detail": {
+    "raw": 0.058,
+    "by_expansion": {
+      "8": 0.5087,
+      "64": 0.5753,
+      "512": 0.6093,
+      "4096": 0.6107
+    },
+    "by_expansion_cv": {
+      "8": 0.0128,
+      "64": 0.0114,
+      "512": 0.0073,
+      "4096": 0.0092
+    },
+    "ab_control_at_max": 0.6013,
+    "ab_control_cv": 0.012,
+    "AB_CONTROL_EXPANSION": 4096,
+    "monotonic_in_expansion": true,
+    "transitions": [
+      [
+        8,
+        64,
+        0.5087,
+        0.5753,
+        true
+      ],
+      [
+        64,
+        512,
+        0.5753,
+        0.6093,
+        true
+      ],
+      [
+        512,
+        4096,
+        0.6093,
+        0.6107,
+        true
+      ]
+    ],
+    "M_eval": 2000,
+    "n_seeds": 3,
+    "bands": {
+      "HP_BRAIN_EXPANSION": 0.85,
+      "HP_VS_CONTROL_MARGIN": 0.1,
+      "HP_CONTROL_ALSO": 0.85,
+      "HP_CONTROL_OVER_RAW": 0.5,
+      "MONOTONIC_TOL": 0.02,
+      "HF_NO_LIFT_VS_8X": 0.02,
+      "HF_CONTROL_DOMINATES": 0.05,
+      "CV_HP": 0.05,
+      "CV_PARTIAL": 0.07,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "expansionSweepV2CpuPath(fly_lsh K_FANIN=5 KWTA_FRAC=0.020 FLY_TOPK_FRAC=0.0050) | PROJ_DIM=768 C=256 expansions=[8, 64, 512, 4096] ab_control=4096x | window=16t shift=1 | seeds=[11, 13, 19] M_EVAL=2000 encoder=EleutherAI/pythia-2.8b | HP_4096x>=0.85 vs_control_margin>=0.10 cv_HP<=0.05 Q_sat>=0.995 | PURE_NUMPY_NO_TORCH_NO_GPU_CAP mem_budget_gb=12.0",
+    "cites": [
+      "anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+      "anisotropy_fly_lsh_expansion_ratio_sweep_v1_GPU_OOM",
+      "anisotropy_rescue_M100k_adversarial_similarity_keys_v2_batched",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017",
+      "USER_geometric_intuition_2026-06-25"
+    ]
+  },
+  "compute_path": "pure_numpy_cpu_no_torch_no_gpu",
+  "mem_budget_gb": 12.0,
+  "mem_peak_estimates_gb": {
+    "fly_8x": 0.262,
+    "fly_64x": 0.269,
+    "fly_512x": 0.323,
+    "fly_4096x": 0.759,
+    "raw": 0.022,
+    "ab_control_4096x": 1.947
+  },
+  "metrics_source": "measured_cpu_anisotropy_fly_lsh_expansion_sweep_v2_cpu_path",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.0487
+        },
+        "arm_fly_lsh_8x": {
+          "top1": 0.5173,
+          "d_p": 6144,
+          "FLY_TOPK": 30,
+          "expansion": 8,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 6.18
+        },
+        "arm_fly_lsh_64x": {
+          "top1": 0.5753,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "expansion": 64,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 67.47
+        },
+        "arm_fly_lsh_512x": {
+          "top1": 0.6093,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "expansion": 512,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 556.71
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": 0.6,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 2451.53
+        },
+        "arm_ab_control_4096x": {
+          "top1": 0.6013,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "ab_control_dense_gaussian_cpu",
+          "elapsed_s_arm": 737.02
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        8,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "encoder_elapsed_s": 40.51,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782453156.108135
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.058
+        },
+        "arm_fly_lsh_8x": {
+          "top1": 0.5087,
+          "d_p": 6144,
+          "FLY_TOPK": 30,
+          "expansion": 8,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 6.45
+        },
+        "arm_fly_lsh_64x": {
+          "top1": 0.5847,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "expansion": 64,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 63.38
+        },
+        "arm_fly_lsh_512x": {
+          "top1": 0.6127,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "expansion": 512,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 530.87
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": 0.6107,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 2342.35
+        },
+        "arm_ab_control_4096x": {
+          "top1": 0.6133,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "ab_control_dense_gaussian_cpu",
+          "elapsed_s_arm": 683.36
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        8,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "encoder_elapsed_s": 35.1,
+      "_ckpt_key": "s13",
+      "_partial_written_at": 1782456817.7706165
+    },
+    {
+      "seed": 19,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.076
+        },
+        "arm_fly_lsh_8x": {
+          "top1": 0.5013,
+          "d_p": 6144,
+          "FLY_TOPK": 30,
+          "expansion": 8,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 5.49
+        },
+        "arm_fly_lsh_64x": {
+          "top1": 0.5687,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "expansion": 64,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 64.37
+        },
+        "arm_fly_lsh_512x": {
+          "top1": 0.602,
+          "d_p": 393216,
+          "FLY_TOPK": 1966,
+          "expansion": 512,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 521.04
+        },
+        "arm_fly_lsh_4096x": {
+          "top1": 0.6127,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 1911.1
+        },
+        "arm_ab_control_4096x": {
+          "top1": 0.596,
+          "d_p": 3145728,
+          "FLY_TOPK": 15728,
+          "expansion": 4096,
+          "mechanism": "ab_control_dense_gaussian_cpu",
+          "elapsed_s_arm": 687.13
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        8,
+        64,
+        512,
+        4096
+      ],
+      "AB_CONTROL_EXPANSION": 4096,
+      "encoder_elapsed_s": 32.88,
+      "_ckpt_key": "s19",
+      "_partial_written_at": 1782460039.8607886
+    }
+  ],
+  "elapsed_s": 10743.26490020752,
+  "DESIGN_NOTE": "USER-directed 2026-06-25 v4 CPU-path: three GPU OOMs (v1 GPU sweep + v2_batched + v3) on 8GB GPU blocked the brain-scale (4096x) expansion test. Route via pure-numpy on remote_cpu_queue (no GPU cap; ~16GB RAM headroom). M reduced 10k->2k for CPU feasibility; mechanism, bands, and discriminator preserved. Expansion grid changed to [8, 64, 512, 4096] for cleaner monotonicity. Adversarial-similarity keys (stride-1 windows; same as v2_batched) for the discriminator regime. AB_CONTROL_4096x retained as LSH-vs-generic discriminator. FINAL anisotropy program cell: outcome locks substrate-product positioning for anisotropy gap (brain-scale rescue confirmed | expansion-only mechanism | bypass-only)."
+}

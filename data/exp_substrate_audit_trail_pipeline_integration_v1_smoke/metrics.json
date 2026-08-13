@@ -1,0 +1,93 @@
+{
+  "anchor_name": "substrate_audit_trail_pipeline_integration_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: V3 provenance 0.825 below 0.85 OR refuse 0.167 below 0.5; audit-trail integration did not transfer (Gap 4 still open). NAIVE_prov=0.650 (sanity [0.63,0.73] -> IN) | V1_prov=0.725 | V3_prov=0.825 (cv=0.000; refuse_acc=0.167; false_refuse=0.000) | V5_prov=0.692 (cv=0.000; refuse_acc=0.067; false_refuse=0.025) | V5_lift_vs_V3=-0.133",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config": {
+    "N_DIM": 1024,
+    "V_CONCEPTS": 60,
+    "V_PREDICATES": 5,
+    "M_TRIPLES": 80,
+    "M_UNKNOWN": 30,
+    "TAU_FRAC_KNOWN": 0.55,
+    "V5_TOPK": 5,
+    "V5_CONF_FLOOR": 0.5,
+    "SEEDS": [
+      11
+    ]
+  },
+  "aggregate": {
+    "naive_provenance_mean": 0.65,
+    "naive_provenance_cv": 0.0,
+    "v1_provenance_mean": 0.725,
+    "v1_provenance_cv": 0.0,
+    "v3_provenance_mean": 0.825,
+    "v3_provenance_cv": 0.0,
+    "v3_refuse_acc_mean": 0.16666666666666666,
+    "v3_false_refuse_mean": 0.0,
+    "v5_provenance_mean": 0.6923076923076923,
+    "v5_provenance_cv": 0.0,
+    "v5_refuse_acc_mean": 0.06666666666666667,
+    "v5_false_refuse_mean": 0.025
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 1024,
+      "M": 80,
+      "run_mode": "smoke",
+      "arm_naive": {
+        "arm": "NAIVE_NO_AUDIT",
+        "n_eval": 80,
+        "provenance_accuracy": 0.65,
+        "object_recall": 0.65,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v1": {
+        "arm": "AUDIT_V1_PER_TRIPLE_TAG",
+        "n_eval": 80,
+        "provenance_accuracy": 0.725,
+        "object_recall": 0.625,
+        "refuse_accuracy": NaN,
+        "false_refuse_rate": NaN
+      },
+      "arm_v3": {
+        "arm": "AUDIT_V3_WITH_CLEANUP_VERIFY",
+        "n_eval": 40,
+        "n_emitted": 40,
+        "n_refused": 0,
+        "tau_calibrated": 0.05831773375160993,
+        "mean_known_conf": 0.10603224318474531,
+        "provenance_accuracy": 0.825,
+        "object_recall": 0.75,
+        "refuse_accuracy": 0.16666666666666666,
+        "false_refuse_rate": 0.0
+      },
+      "arm_v5": {
+        "arm": "AUDIT_V5_FULL_PIPELINE",
+        "n_eval": 40,
+        "n_emitted": 39,
+        "n_refused": 1,
+        "n_refused_by_slot_tau": 1,
+        "n_refused_by_obj_tau": 0,
+        "n_rerank_triggered": 1,
+        "n_rerank_changed": 1,
+        "tau_calibrated": 0.05733835114166141,
+        "obj_tau_calibrated": 0.06390553965233267,
+        "mean_known_slot_conf": 0.10425154753029346,
+        "mean_known_obj_conf": 0.11619189027696848,
+        "provenance_accuracy": 0.6923076923076923,
+        "object_recall": 0.6666666666666666,
+        "refuse_accuracy": 0.06666666666666667,
+        "false_refuse_rate": 0.025
+      },
+      "elapsed_s": 0.07938194274902344,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782355720.982214
+    }
+  ],
+  "elapsed_s": 0.02235555648803711,
+  "summary": "HARD_FAIL: V3 provenance 0.825 below 0.85 OR refuse 0.167 below 0.5; audit-trail integration did not transfer (Gap 4 still open). NAIVE_prov=0.650 (sanity [0.63,0.73] -> IN) | V1_prov=0.725 | V3_prov=0.825 (cv=0.000; refuse_acc=0.167; false_refuse=0.000) | V5_prov=0.692 (cv=0.000; refuse_acc=0.067; false_refuse=0.025) | V5_lift_vs_V3=-0.133"
+}

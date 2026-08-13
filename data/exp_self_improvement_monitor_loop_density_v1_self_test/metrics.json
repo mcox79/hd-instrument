@@ -1,0 +1,383 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "extrap fold V=350000: m_prop=6 m_actual=6 correct=True beats_both=True C1=True C2=True",
+  "summary": "HARD_PASS | C1=True C2=True | proposal m*=6 (V=350000) band=[5, 8]",
+  "elapsed_s": 2.2579254000011133,
+  "run_mode": "self_test",
+  "anchor_name": "self_improvement_monitor_loop_density_v1",
+  "data_source": "mock_synthetic",
+  "seed": 20260707,
+  "grid": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    8
+  ],
+  "scales": [
+    40000,
+    70000,
+    120000,
+    200000,
+    350000
+  ],
+  "n_units": 5,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_exempted": "data_driven_grid_density_collision_legit: proposal arms are discrete grid densities; a flat operating point across scales makes real_law/constant/lookup coincide, which the firing controls catch (C1 will not fire) - not an implementation bug (META_RULE_AF)",
+  "arms_identical_pairs": [],
+  "arm_digests": {
+    "real_law": "e29aa95d5c57a8f5e5e378bf58ebe541de249ed9102fd03b56da445cc32a4cf1",
+    "constant": "8d908a675e8ce7e18d423b4104b1dcb60196adb7b5f51864080c1c0008df3299",
+    "nearest_lookup": "7309f19df719c7923e57614291f3931e0a5b3af1efb24f033e9b7f25989fe59d"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "monitor_proposal": {
+    "predicted_m_star": 6,
+    "V_target": 350000,
+    "confidence_band": [
+      5,
+      8
+    ],
+    "law_used": "JL_LarsenNelson_a+b*ln(V_eff)",
+    "law_coeffs": {
+      "a": -10.728880933981701,
+      "b": 1.3123768958204582
+    },
+    "fit_scales": [
+      40000,
+      70000,
+      120000,
+      200000
+    ],
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. The substrate never applies this itself (USER-LOCKED)."
+  },
+  "control2_scramble_cv": {
+    "T_real": 0.9999999999999999,
+    "null_p90": 0.7999999999999999,
+    "null_mean": 0.12794999999999998,
+    "real_outside_null": true,
+    "T_scrambled": 0.19999999999999998,
+    "scrambled_inside_null": true,
+    "n_perm": 2000
+  },
+  "control2_scramble_cv_fires": true,
+  "folds": [
+    {
+      "held_out_V": 40000,
+      "train_scales": [
+        70000,
+        120000,
+        200000,
+        350000
+      ],
+      "law_a": -8.496410454085328,
+      "law_b": 1.1288574507915672,
+      "m_continuous": 3.4656796176868827,
+      "m_proposed": 3,
+      "m_actual": 3,
+      "idx_proposed": 1,
+      "idx_actual": 1,
+      "m_constant_baseline": 5,
+      "m_nearest_lookup_baseline": 4,
+      "min_ret_proposed": 0.5443745475268269,
+      "min_ret_constant": 0.16441102836363233,
+      "min_ret_lookup": 0.4528117483520639,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": true,
+      "control1_detail": {
+        "m_real": 3,
+        "real_score": 0.5443745475268269,
+        "scrambled_mean": 0.3032983482195638,
+        "scrambled_p90": 0.5443745475268269,
+        "chance_mean": 0.26494956485387794,
+        "real_beats_scrambled_margin": true,
+        "scrambled_collapsed_to_chance": true,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 70000,
+      "train_scales": [
+        40000,
+        120000,
+        200000,
+        350000
+      ],
+      "law_a": -10.916694202893336,
+      "law_b": 1.3258981545680544,
+      "m_continuous": 3.87535777484122,
+      "m_proposed": 4,
+      "m_actual": 4,
+      "idx_proposed": 2,
+      "idx_actual": 2,
+      "m_constant_baseline": 5,
+      "m_nearest_lookup_baseline": 3,
+      "min_ret_proposed": 0.540175912508769,
+      "min_ret_constant": 0.38365614338007237,
+      "min_ret_lookup": 0.48814606596767657,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": true,
+      "control1_detail": {
+        "m_real": 4,
+        "real_score": 0.540175912508769,
+        "scrambled_mean": 0.26939786274213745,
+        "scrambled_p90": 0.540175912508769,
+        "chance_mean": 0.288365602911959,
+        "real_beats_scrambled_margin": true,
+        "scrambled_collapsed_to_chance": true,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 120000,
+      "train_scales": [
+        40000,
+        70000,
+        200000,
+        350000
+      ],
+      "law_a": -10.701575934835537,
+      "law_b": 1.3013753663499918,
+      "m_continuous": 4.518330442666478,
+      "m_proposed": 5,
+      "m_actual": 5,
+      "idx_proposed": 3,
+      "idx_actual": 3,
+      "m_constant_baseline": 5,
+      "m_nearest_lookup_baseline": 4,
+      "min_ret_proposed": 0.5198735914712942,
+      "min_ret_constant": 0.5198735914712942,
+      "min_ret_lookup": 0.510372347459129,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": true,
+      "control1_detail": {
+        "m_real": 5,
+        "real_score": 0.5198735914712942,
+        "scrambled_mean": 0.29381263844767264,
+        "scrambled_p90": 0.5198735914712942,
+        "chance_mean": 0.2854897919009348,
+        "real_beats_scrambled_margin": true,
+        "scrambled_collapsed_to_chance": true,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 200000,
+      "train_scales": [
+        40000,
+        70000,
+        120000,
+        350000
+      ],
+      "law_a": -11.381958426209895,
+      "law_b": 1.374650109636499,
+      "m_continuous": 5.397120674199229,
+      "m_proposed": 5,
+      "m_actual": 5,
+      "idx_proposed": 3,
+      "idx_actual": 3,
+      "m_constant_baseline": 5,
+      "m_nearest_lookup_baseline": 5,
+      "min_ret_proposed": 0.5364742525806732,
+      "min_ret_constant": 0.5364742525806732,
+      "min_ret_lookup": 0.5364742525806732,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": true,
+      "control1_detail": {
+        "m_real": 5,
+        "real_score": 0.5364742525806732,
+        "scrambled_mean": 0.19250898995718022,
+        "scrambled_p90": 0.5364742525806732,
+        "chance_mean": 0.24771928610704178,
+        "real_beats_scrambled_margin": true,
+        "scrambled_collapsed_to_chance": true,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": false
+    },
+    {
+      "held_out_V": 350000,
+      "train_scales": [
+        40000,
+        70000,
+        120000,
+        200000
+      ],
+      "law_a": -10.728880933981701,
+      "law_b": 1.3123768958204582,
+      "m_continuous": 6.024513625341006,
+      "m_proposed": 6,
+      "m_actual": 6,
+      "idx_proposed": 4,
+      "idx_actual": 4,
+      "m_constant_baseline": 5,
+      "m_nearest_lookup_baseline": 5,
+      "min_ret_proposed": 0.5422029652439031,
+      "min_ret_constant": 0.42157318172008507,
+      "min_ret_lookup": 0.42157318172008507,
+      "proposal_correct_within_1step": true,
+      "beats_both_baselines": true,
+      "control1_scramble_law_fires": true,
+      "control1_detail": {
+        "m_real": 6,
+        "real_score": 0.5422029652439031,
+        "scrambled_mean": 0.1778094602728645,
+        "scrambled_p90": 0.5422029652439031,
+        "chance_mean": 0.20798583694648842,
+        "real_beats_scrambled_margin": true,
+        "scrambled_collapsed_to_chance": true,
+        "scramble_method": "bootstrap_refit_then_permute_ab_pairing",
+        "n_boot": 2000
+      },
+      "is_extrapolation_fold": true
+    }
+  ],
+  "observed": {
+    "40000": {
+      "min_ret": {
+        "2": 0.42810006488074437,
+        "3": 0.5443745475268269,
+        "4": 0.4528117483520639,
+        "5": 0.16441102836363233,
+        "6": 0.0,
+        "8": 0.0
+      },
+      "cv": {
+        "2": 0.04786239956928741,
+        "3": 0.008794495263714916,
+        "4": 0.011015341221212501,
+        "5": 0.07495443889216118,
+        "6": 1.3991621613486176,
+        "8": 1.376734775806601
+      },
+      "argmax_min_m": 3,
+      "cv_onset_m": 3
+    },
+    "70000": {
+      "min_ret": {
+        "2": 0.217255841446676,
+        "3": 0.48814606596767657,
+        "4": 0.540175912508769,
+        "5": 0.38365614338007237,
+        "6": 0.10095965416856022,
+        "8": 0.0
+      },
+      "cv": {
+        "2": 0.10259497373796478,
+        "3": 0.007906360125858167,
+        "4": 0.010076160230041688,
+        "5": 0.050149794177535796,
+        "6": 0.12822883414167147,
+        "8": 2.23606797749979
+      },
+      "argmax_min_m": 4,
+      "cv_onset_m": 3
+    },
+    "120000": {
+      "min_ret": {
+        "2": 0.025891714512786608,
+        "3": 0.3212112482434423,
+        "4": 0.510372347459129,
+        "5": 0.5198735914712942,
+        "6": 0.3355898497189569,
+        "8": 0.0
+      },
+      "cv": {
+        "2": 0.46936226144539733,
+        "3": 0.03661280994789777,
+        "4": 0.023705771361185842,
+        "5": 0.016485467108200754,
+        "6": 0.03412374389579373,
+        "8": 0.8151181402138247
+      },
+      "argmax_min_m": 5,
+      "cv_onset_m": 5
+    },
+    "200000": {
+      "min_ret": {
+        "2": 0.0,
+        "3": 0.09160020365157344,
+        "4": 0.3830232255980764,
+        "5": 0.5364742525806732,
+        "6": 0.47521803481192776,
+        "8": 0.0
+      },
+      "cv": {
+        "2": 1.1335388742529935,
+        "3": 0.12959300338976149,
+        "4": 0.030535713047019866,
+        "5": 0.01352922830936603,
+        "6": 0.028259419269741504,
+        "8": 1.5915065987450705
+      },
+      "argmax_min_m": 5,
+      "cv_onset_m": 5
+    },
+    "350000": {
+      "min_ret": {
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.1395374548227879,
+        "5": 0.42157318172008507,
+        "6": 0.5422029652439031,
+        "8": 0.1446014198921546
+      },
+      "cv": {
+        "2": 1.3711181014430458,
+        "3": 0.9450368277099948,
+        "4": 0.17123882302543048,
+        "5": 0.05829935286775903,
+        "6": 0.00811707610730116,
+        "8": 0.1263340465406185
+      },
+      "argmax_min_m": 6,
+      "cv_onset_m": 6
+    }
+  },
+  "provenance": [
+    {
+      "source": "mock_synthetic",
+      "scales": [
+        40000,
+        70000,
+        120000,
+        200000,
+        350000
+      ],
+      "grid": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ]
+    }
+  ],
+  "crlb_n/a": "monitor/analysis cell; no matmul noise floor to bound",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "fast_cpu_analysis_no_long_loop_heartbeat_exempt",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "DENSITY-ONLY instance (n=1 of a 2-regime pattern). Proves the loop WORKS in one regime, NOT that self-improvement is universal. Resonator instance (n=2) shares the shape; its Control-2 analogue is still to build.",
+  "ts_iso": "2026-07-08T01:38:47.241340+00:00"
+}

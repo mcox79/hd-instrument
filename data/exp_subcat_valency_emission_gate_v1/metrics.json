@@ -1,0 +1,331 @@
+{
+  "verdict": "SUBCAT_GATE_HARD_PASS",
+  "verdict_msg": "SUBCAT-VALENCY GATE on the consolidated reader (C4_FULL McGuffey base f1=0.6423): subcat_fp 23->16 (cut 7; addressable subset |A|=7, HP threshold 4), +2 spurious FP cut as bonus; F1 0.6423->0.661 (delta +0.0187); precision 0.5411->0.5735 (delta +0.0324); recall_ceiling 0.79->0.78 (drop 0.01, floor 0.02); true patients dropped 1. P2: struct-only true_dropped=2>clean 1 (valency protects recall=True); scrambled nopat_cut=2<clean 7 (valency load-bearing=True); P2_fires=True. P1 base reproduction (f1==0.6423) ok=True. Residual subcat_fp by subtype: {'not_pp_object_direct_attachment': 14, 'that_or_infinitival_complement_subject': 2}. NEXT LEVERS (named, not walls): quotative-inversion + that/infinitival-complement subject mis-read as patient -- DIFFERENT mechanisms from PP-object valency. HYPOTHESIS pending review; LOCAL-ONLY, NOT banked.",
+  "summary": "SUBCAT_GATE_HARD_PASS: subcat_fp 23->16 cut=7 (|A|=7 hp_thr=4) f1 0.6423->0.661 (+0.0187) prec 0.5411->0.5735 rc 0.79->0.78 true_dropped=1 P2_fires=True P1_ok=True parser_uas=0.7882",
+  "elapsed_s": 65.85,
+  "ts_iso": "2026-07-24T00:52:50.892430+00:00",
+  "anchor_name": "subcat_valency_emission_gate_v1",
+  "run_mode": "full",
+  "seed": 20260724,
+  "slice_lessons": [
+    "L04",
+    "L05",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L12"
+  ],
+  "p1_base_reproduction_ok": true,
+  "measurement": {
+    "slice_lessons": [
+      "L04",
+      "L05",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L12"
+    ],
+    "order_n": 163,
+    "gold_n": 114,
+    "base": {
+      "f1": 0.6423,
+      "precision": 0.5411,
+      "recall": 0.79,
+      "recall_ceiling": 0.79,
+      "subcat_fp": 23,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 38,
+      "n_pred": 146,
+      "tp": 79,
+      "arm_hash": "dc5ca232b62a881c"
+    },
+    "gated": {
+      "f1": 0.661,
+      "precision": 0.5735,
+      "recall": 0.78,
+      "recall_ceiling": 0.78,
+      "subcat_fp": 16,
+      "within_frame_fp": 6,
+      "spurious_verb_fp": 36,
+      "n_pred": 136,
+      "tp": 78,
+      "arm_hash": "990fcdee6924948e"
+    },
+    "deltas": {
+      "subcat_fp_cut": 7,
+      "spurious_fp_cut": 2,
+      "f1_delta": 0.0187,
+      "precision_delta": 0.0324,
+      "recall_ceiling_drop": 0.01,
+      "true_patients_dropped": 1
+    },
+    "addressable": {
+      "n": 7,
+      "detail": [
+        {
+          "sid": "L04_15",
+          "verb": "get",
+          "patient": "floor"
+        },
+        {
+          "sid": "L05_02",
+          "verb": "sing",
+          "patient": "work"
+        },
+        {
+          "sid": "L05_06",
+          "verb": "flit",
+          "patient": "face"
+        },
+        {
+          "sid": "L05_21",
+          "verb": "run",
+          "patient": "one"
+        },
+        {
+          "sid": "L09_13",
+          "verb": "gnaw",
+          "patient": "branches"
+        },
+        {
+          "sid": "L10_10",
+          "verb": "inquire",
+          "patient": "dog"
+        },
+        {
+          "sid": "L12_06",
+          "verb": "walk",
+          "patient": "gravel"
+        }
+      ],
+      "hp_cut_threshold": 4
+    },
+    "telemetry_clean": {
+      "fired": 10,
+      "true_dropped": 1,
+      "nopat_cut": 7,
+      "other_fp_cut": 2,
+      "suppressed": [
+        {
+          "sid": "L04_02",
+          "verb": "rub",
+          "patient": "castle",
+          "cls": "TRUE_PATIENT"
+        },
+        {
+          "sid": "L04_15",
+          "verb": "get",
+          "patient": "floor",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L05_02",
+          "verb": "sing",
+          "patient": "work",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L05_06",
+          "verb": "flit",
+          "patient": "face",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L05_07",
+          "verb": "cry",
+          "patient": "milk",
+          "cls": "other_fp"
+        },
+        {
+          "sid": "L05_21",
+          "verb": "run",
+          "patient": "one",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L09_11",
+          "verb": "finish",
+          "patient": "frosts",
+          "cls": "other_fp"
+        },
+        {
+          "sid": "L09_13",
+          "verb": "gnaw",
+          "patient": "branches",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L10_10",
+          "verb": "inquire",
+          "patient": "dog",
+          "cls": "nopat"
+        },
+        {
+          "sid": "L12_06",
+          "verb": "walk",
+          "patient": "gravel",
+          "cls": "nopat"
+        }
+      ]
+    },
+    "p2": {
+      "struct_only": {
+        "true_dropped": 2,
+        "nopat_cut": 7,
+        "fired": 12
+      },
+      "scrambled": {
+        "true_dropped": 1,
+        "nopat_cut": 2,
+        "fired": 6,
+        "arm_hash": "37799748ab551020"
+      },
+      "p2b_valency_protects_recall": true,
+      "p2c_valency_load_bearing": true,
+      "p2_fires": true
+    }
+  },
+  "residual_autopsy": {
+    "by_subtype": {
+      "not_pp_object_direct_attachment": 14,
+      "that_or_infinitival_complement_subject": 2
+    },
+    "detail": [
+      {
+        "sid": "L04_04",
+        "verb": "do",
+        "patient": "harm",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": null
+      },
+      {
+        "sid": "L04_12",
+        "verb": "answer",
+        "patient": "hetty",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": null
+      },
+      {
+        "sid": "L05_08",
+        "verb": "retort",
+        "patient": "herbert",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L05_10",
+        "verb": "see",
+        "patient": "papa",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L05_17",
+        "verb": "speak",
+        "patient": "out",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L05_24",
+        "verb": "believe",
+        "patient": "it",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L07_10",
+        "verb": "find",
+        "patient": "james",
+        "cls": "that_or_infinitival_complement_subject",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L09_06",
+        "verb": "build",
+        "patient": "stream",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L09_11",
+        "verb": "get",
+        "patient": "them",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L10_12",
+        "verb": "ask",
+        "patient": "him",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L10_30",
+        "verb": "leave",
+        "patient": "mr",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L10_37",
+        "verb": "meet",
+        "patient": "eyes",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L10_40",
+        "verb": "fear",
+        "patient": "father",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      },
+      {
+        "sid": "L12_13",
+        "verb": "choose",
+        "patient": "boy",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L12_13",
+        "verb": "find",
+        "patient": "him",
+        "cls": "that_or_infinitival_complement_subject",
+        "valency_admits_intrans": false
+      },
+      {
+        "sid": "L12_16",
+        "verb": "leave",
+        "patient": "gardener",
+        "cls": "not_pp_object_direct_attachment",
+        "valency_admits_intrans": true
+      }
+    ]
+  },
+  "bands": {
+    "P1_F1_LO": 0.64,
+    "P1_F1_HI": 0.645,
+    "RECALL_FLOOR_TOL": 0.02,
+    "RECALL_FAIL_TOL": 0.05,
+    "F1_FAIL_TOL": 0.01,
+    "MIN_CUT_HP_ABS": 4,
+    "MIN_CUT_FAIL": 3,
+    "CITED_C4_FULL_F1": 0.6423,
+    "CITED_C4_FULL_SUBCAT_FP": 23
+  },
+  "parser_info": {
+    "n_train": 12329,
+    "epochs": 6,
+    "elapsed_s": 48.0,
+    "uas_dev": 0.7882,
+    "n_dev": 600
+  },
+  "one_variable": "ONE VARIABLE = the subcat-valency emission gate ON vs OFF over the identical C4_FULL composed reader arm (same parser/clf/gold/slice). P2 controls change ONLY the valency permission (removed -> structural-only; scrambled -> permuted verb->valency map).",
+  "mechanism": "SUPPRESS patient iff verb ADMITS INTRANSITIVE use per VerbNet AND no genuine direct object AND patient is an oblique preposition-governed NP head. Structural + valency conjunction; fixed thresholds; NO semantic/embedding gate (that route HARD_FAILed).",
+  "scope_caveat": "Gate is scoped to the PP-OBJECT / oblique subcat_fp subtype the architectural VET justified. It is NOT expected to close quotative-inversion or that/infinitival-complement subcat_fp (different mechanisms) -- those are the named next levers, NOT a wall. Parser OOD transfer caveat inherited from the consolidated reader. VerbNet is a build-time read-only knowledge foundation (glass-box; no LLM/network at inference). The one bounded true-patient loss is a contact-verb argument/adjunct-ambiguity case ('rubbed against the castle' -- the oblique object IS the gold patient), within the pre-registered recall floor. LOCAL-ONLY; NOT banked; HYPOTHESIS pending review."
+}

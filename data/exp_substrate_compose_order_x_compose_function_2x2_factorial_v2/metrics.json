@@ -1,0 +1,389 @@
+{
+  "anchor_name": "substrate_compose_order_x_compose_function_2x2_factorial_v2",
+  "anchor": "substrate_compose_order_x_compose_function_2x2_factorial_v2",
+  "verdict": "INSTRUMENTATION_SUSPECT",
+  "verdict_msg": "INSTRUMENTATION_SUSPECT: ARM_CANONICAL_SIGMOID raw_bpc_T1L1 near vocab-entropy (DEGEN gate). sig_can_bpc=7.7378. | PER_ARM: VEH=7.7160 CAN_MULT=7.7378 REV_MULT=7.7378 CAN_SIG=7.7378 REV_SIG=7.7378",
+  "run_mode": "full",
+  "N_DIM": 4096,
+  "N": 4096,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "n_seeds": 3,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "LOCK_IN_P": 32,
+  "HRR_CONTEXT_WINDOW": 3,
+  "SIGMOID_ALPHA": 1.0,
+  "SIGMOID_BETA": 1.0,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378
+      },
+      "ARM_VEHICLE": {
+        "bpc_best_mean": 7.716,
+        "bpc_best_std": 0.0237,
+        "bpc_best_cv": 0.0031,
+        "top1_acc_mean": 0.2167,
+        "mrr_at_10_mean": 0.2765,
+        "raw_bpc_at_T1_L1_mean": 11.7739,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      },
+      "ARM_CANONICAL_MULT": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2171,
+        "mrr_at_10_mean": 0.2761,
+        "raw_bpc_at_T1_L1_mean": 11.618,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      },
+      "ARM_REVERSED_MULT": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2171,
+        "mrr_at_10_mean": 0.2761,
+        "raw_bpc_at_T1_L1_mean": 11.6521,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      },
+      "ARM_CANONICAL_SIGMOID": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2171,
+        "mrr_at_10_mean": 0.2762,
+        "raw_bpc_at_T1_L1_mean": 11.7913,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      },
+      "ARM_REVERSED_SIGMOID": {
+        "bpc_best_mean": 7.7378,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2171,
+        "mrr_at_10_mean": 0.2762,
+        "raw_bpc_at_T1_L1_mean": 11.7913,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": true
+      }
+    },
+    "HP_BEST_ARM_MARGIN_threshold": 0.2,
+    "HP_CHAIN_GRADE_VS_VEHICLE_threshold": 0.3,
+    "HARD_FAIL_LIFT_VS_VEHICLE_threshold": 0.05,
+    "CV_MAX_threshold": 0.05,
+    "vocab_entropy_uniform_bits": 11.9658,
+    "zero_llm_calls_at_inference": true,
+    "n_seeds": 3
+  },
+  "per_unit": [
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_VEHICLE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.7959,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 55.73
+        },
+        "ARM_CANONICAL_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.6474,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 75.35
+        },
+        "ARM_REVERSED_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.6674,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 77.03
+        },
+        "ARM_CANONICAL_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7973,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 57.72
+        },
+        "ARM_REVERSED_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7973,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 58.83
+        }
+      },
+      "V": 4000,
+      "N": 4096,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v2; N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+      "elapsed_s_seed": 551.41,
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782290265.9600704
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_VEHICLE": {
+          "bpc_best": 7.7271,
+          "best_T_for_bpc": 0.05,
+          "best_lam_for_bpc": 0.1,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2775,
+          "raw_bpc_at_T1_L1": 11.7754,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.05,
+            "lam": 0.1
+          },
+          "elapsed_s_arm": 56.43
+        },
+        "ARM_CANONICAL_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.632,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 71.35
+        },
+        "ARM_REVERSED_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.6583,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 70.34
+        },
+        "ARM_CANONICAL_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7994,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 55.02
+        },
+        "ARM_REVERSED_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7994,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 55.66
+        }
+      },
+      "V": 4000,
+      "N": 4096,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v2; N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+      "elapsed_s_seed": 541.05,
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782290807.1415775
+    },
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_VEHICLE": {
+          "bpc_best": 7.683,
+          "best_T_for_bpc": 0.05,
+          "best_lam_for_bpc": 0.1,
+          "top1_acc": 0.2158,
+          "mrr_at_10": 0.2758,
+          "raw_bpc_at_T1_L1": 11.7505,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.05,
+            "lam": 0.1
+          },
+          "elapsed_s_arm": 59.64
+        },
+        "ARM_CANONICAL_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.5747,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 86.08
+        },
+        "ARM_REVERSED_MULT": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2761,
+          "raw_bpc_at_T1_L1": 11.6307,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 84.61
+        },
+        "ARM_CANONICAL_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7771,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 62.23
+        },
+        "ARM_REVERSED_SIGMOID": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.2171,
+          "mrr_at_10": 0.2762,
+          "raw_bpc_at_T1_L1": 11.7771,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 63.05
+        }
+      },
+      "V": 4000,
+      "N": 4096,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v2; N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+      "elapsed_s_seed": 595.58,
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782289714.4536293
+    }
+  ],
+  "elapsed_s": 1688.04,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v2; N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 mode=full seeds=[7, 17, 23] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+  "honest_scope": "2x2 factorial: compose order (canonical vs reversed) x compose function (multiplicative-shared-target vs sigmoidal-additive-heterogeneous). 5 arms: VEHICLE + 4 factorial cells. HP = ARM_CANONICAL_SIGMOID wins best-other by >= +0.20 BPC AND cv<=0.05. HF = margin <= +0.05 OR all seeds fail. DOES NOT TEST: K>2 modules, word2vec encoder, or N=8192 scale. N_DIM=4096 N_TRAIN=100000 N_HELD=20000 V=4000. Pure numpy. RESCUE v2 of v1 (timeout exhaustion at 1200s).",
+  "prereg_bands": {
+    "HP_best_arm_margin_bits": 0.2,
+    "HP_chain_grade_lift_vs_vehicle_bits": 0.3,
+    "HF_lift_vs_vehicle_bits": 0.05,
+    "cv_max": 0.05
+  },
+  "summary": "INSTRUMENTATION_SUSPECT: ARM_CANONICAL_SIGMOID raw_bpc_T1L1 near vocab-entropy (DEGEN gate). sig_can_bpc=7.7378. | PER_ARM: VEH=7.7160 CAN_MULT=7.7378 REV_MULT=7.7378 CAN_SIG=7.7378 REV_SIG=7.7378"
+}

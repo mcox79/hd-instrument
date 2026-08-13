@@ -1,0 +1,188 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | discriminating_frac=0.500 (3/6) | family_pair_differs=5/6 | sat=3 floor=0 | pos_ctrl=0.8 (pass=True) | random_arm_pathology=False",
+  "summary": "HARD_PASS | discriminating_frac=0.500 (3/6) | family_pair_differs=5/6 | sat=3 floor=0 | pos_ctrl=0.8 (pass=True) | random_arm_pathology=False",
+  "discriminating_fraction": 0.5,
+  "discriminating_pts": 3,
+  "n_combos_total": 6,
+  "saturated_pts": 3,
+  "floor_pts": 0,
+  "all_saturated": false,
+  "arms_identical": false,
+  "random_arm_pathology": false,
+  "random_arm_pathology_pts": 0,
+  "positive_control_top1": 0.8,
+  "positive_control_pass": true,
+  "cliff_per_family": {
+    "FAMILY_EXEMPLAR_BAYES": false,
+    "FAMILY_PROTOTYPE_BASED": false,
+    "FAMILY_HYBRID": false,
+    "FAMILY_BAYESIAN_WITH_PRIORS": false
+  },
+  "per_family_summary": {
+    "FAMILY_EXEMPLAR_BAYES": {
+      "top1_mean": 0.6000000000000001,
+      "top1_min": 0.4,
+      "top1_max": 0.8,
+      "lift_mean": 60.0,
+      "n_pts": 2
+    },
+    "FAMILY_PROTOTYPE_BASED": {
+      "top1_mean": 0.8,
+      "top1_min": 0.6,
+      "top1_max": 1.0,
+      "lift_mean": 85.0,
+      "n_pts": 2
+    },
+    "FAMILY_HYBRID": {
+      "top1_mean": 1.0,
+      "top1_min": 1.0,
+      "top1_max": 1.0,
+      "lift_mean": 50.0,
+      "n_pts": 1
+    },
+    "FAMILY_BAYESIAN_WITH_PRIORS": {
+      "top1_mean": 1.0,
+      "top1_min": 1.0,
+      "top1_max": 1.0,
+      "lift_mean": 10.0,
+      "n_pts": 1
+    }
+  },
+  "family_hashes": {
+    "FAMILY_EXEMPLAR_BAYES": "61a1d3d2600a0929",
+    "FAMILY_PROTOTYPE_BASED": "88c99845b36a806d",
+    "FAMILY_HYBRID": "c2272c0a862f11de",
+    "FAMILY_BAYESIAN_WITH_PRIORS": "c2272c0a862f11de"
+  },
+  "family_pair_distinctness": {
+    "pair_differs_count": 5,
+    "pairs": [
+      {
+        "family_a": "FAMILY_EXEMPLAR_BAYES",
+        "family_b": "FAMILY_PROTOTYPE_BASED",
+        "differs": true
+      },
+      {
+        "family_a": "FAMILY_EXEMPLAR_BAYES",
+        "family_b": "FAMILY_HYBRID",
+        "differs": true
+      },
+      {
+        "family_a": "FAMILY_EXEMPLAR_BAYES",
+        "family_b": "FAMILY_BAYESIAN_WITH_PRIORS",
+        "differs": true
+      },
+      {
+        "family_a": "FAMILY_PROTOTYPE_BASED",
+        "family_b": "FAMILY_HYBRID",
+        "differs": true
+      },
+      {
+        "family_a": "FAMILY_PROTOTYPE_BASED",
+        "family_b": "FAMILY_BAYESIAN_WITH_PRIORS",
+        "differs": true
+      },
+      {
+        "family_a": "FAMILY_HYBRID",
+        "family_b": "FAMILY_BAYESIAN_WITH_PRIORS",
+        "differs": false
+      }
+    ]
+  },
+  "summary_per_phase_point": [
+    {
+      "family": "FAMILY_BAYESIAN_WITH_PRIORS",
+      "alpha_requested": 0.01,
+      "alpha_actual": 0.009765625,
+      "n_schemas": 10,
+      "n_exemplars_per_class": 4.0,
+      "top1_mean": 1.0,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 10.0,
+      "chance_floor": 0.1,
+      "tier": "SATURATED",
+      "n_seeds": 1
+    },
+    {
+      "family": "FAMILY_EXEMPLAR_BAYES",
+      "alpha_requested": 0.1,
+      "alpha_actual": 0.09765625,
+      "n_schemas": 50,
+      "n_exemplars_per_class": 8.0,
+      "top1_mean": 0.8,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 40.0,
+      "chance_floor": 0.02,
+      "tier": "HARD_PASS",
+      "n_seeds": 1
+    },
+    {
+      "family": "FAMILY_EXEMPLAR_BAYES",
+      "alpha_requested": 10.0,
+      "alpha_actual": 10.009765625,
+      "n_schemas": 200,
+      "n_exemplars_per_class": 205.0,
+      "top1_mean": 0.4,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 80.0,
+      "chance_floor": 0.005,
+      "tier": "MIDDLE_BAND",
+      "n_seeds": 1
+    },
+    {
+      "family": "FAMILY_HYBRID",
+      "alpha_requested": 1.0,
+      "alpha_actual": 1.0009765625,
+      "n_schemas": 50,
+      "n_exemplars_per_class": 82.0,
+      "top1_mean": 1.0,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 50.0,
+      "chance_floor": 0.02,
+      "tier": "SATURATED",
+      "n_seeds": 1
+    },
+    {
+      "family": "FAMILY_PROTOTYPE_BASED",
+      "alpha_requested": 0.1,
+      "alpha_actual": 0.09765625,
+      "n_schemas": 50,
+      "n_exemplars_per_class": 8.0,
+      "top1_mean": 1.0,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 50.0,
+      "chance_floor": 0.02,
+      "tier": "SATURATED",
+      "n_seeds": 1
+    },
+    {
+      "family": "FAMILY_PROTOTYPE_BASED",
+      "alpha_requested": 10.0,
+      "alpha_actual": 10.009765625,
+      "n_schemas": 200,
+      "n_exemplars_per_class": 205.0,
+      "top1_mean": 0.6,
+      "random_arm_top1_mean": 0.0,
+      "lift_over_chance_mean": 120.0,
+      "chance_floor": 0.005,
+      "tier": "HARD_PASS",
+      "n_seeds": 1
+    }
+  ],
+  "n_seeds_complete": 1,
+  "expected_cardinality_full": 48,
+  "expected_cardinality_smoke": 6,
+  "anchor_name": "substrate_schema_family_phase_diagram_v1_seed_7",
+  "elapsed_s": 2.26,
+  "ts_iso": "2026-06-29T02:13:11Z",
+  "pid": 38776,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_schema_family_phase_diagram_v1_seed_7,SEED=7,mode=smoke,families=[EXEMPLAR_BAYES,PROTOTYPE_BASED,HYBRID,BAYESIAN_WITH_PRIORS],alpha=[0.01,0.1,1.0,10.0],n_schemas=[10,50,200],N=4096,expected_n_full=48,expected_n_smoke=6,hardening=L1early+L2perpt+L3outertry+L4importsentinel+CHUNKED_PER_SEED+PROT021",
+  "_hardening_marker": "v1_schema_family_phase_diagram_chunked",
+  "backend": "numpy.cpu",
+  "seed": 7,
+  "expected_n": 6,
+  "observed_n": 6,
+  "cardinality_ok": true
+}

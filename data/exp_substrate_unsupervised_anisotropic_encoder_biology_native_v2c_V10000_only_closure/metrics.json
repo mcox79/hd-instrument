@@ -1,0 +1,410 @@
+{
+  "anchor_name": "substrate_unsupervised_anisotropic_encoder_biology_native_v2c_V10000_only_closure",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND at V=10000: no v10k-prereg band fired cleanly; rand=0.1448 olsh=0.1291 deep=0.0981 koh=0.1447 bio_lifts={'OLSHAUSEN': -0.01570000000000002, 'DEEPWALK': -0.046700000000000005, 'KOHONEN': -0.00010000000000001674} cv_ok=True. BIO4xV10K: OLSHAUSEN_FIEL@V=10000=bpc9.019(lift-0.002 vs rand9.017)/sig01.000[HARD_FAIL_NULL]/top10.1291 | DEEPWALK_ON_BI@V=10000=bpc9.018(lift-0.001 vs rand9.017)/sig00.947[HARD_FAIL_NULL]/top10.0981 | KOHONEN_SOM_TO@V=10000=bpc9.017(lift-0.000 vs rand9.017)/sig01.000[HARD_FAIL_NULL]/top10.1447 || V10K_top1: rand=0.1448 olsh=0.1291 deep=0.0981 koh=0.1447 -> MIDDLE_BAND",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "V_grid": [
+    10000
+  ],
+  "n_units": 3,
+  "n_units_expected": 3,
+  "detail": {
+    "by_arm_V_agg": {
+      "ARM_RANDOM_BIPOLAR_BASELINE": {
+        "10000": {
+          "bpc_best_calibrated_mean": 9.0172,
+          "bpc_best_calibrated_std": 0.0,
+          "bpc_best_calibrated_cv": 0.0,
+          "top1_acc_mean": 0.1448,
+          "top5_acc_mean": 0.3107,
+          "anisotropy_eigenspread_mean": 0.9425,
+          "cosine_spread_mean": 0.011,
+          "sigma0_recall_mean": 1.0,
+          "n_seeds": 3
+        }
+      },
+      "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+        "10000": {
+          "bpc_best_calibrated_mean": 9.0191,
+          "bpc_best_calibrated_std": 0.0001,
+          "bpc_best_calibrated_cv": 0.0,
+          "top1_acc_mean": 0.1291,
+          "top5_acc_mean": 0.3227,
+          "anisotropy_eigenspread_mean": 0.9446,
+          "cosine_spread_mean": 0.014,
+          "sigma0_recall_mean": 1.0,
+          "n_seeds": 3
+        }
+      },
+      "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+        "10000": {
+          "bpc_best_calibrated_mean": 9.0179,
+          "bpc_best_calibrated_std": 0.0001,
+          "bpc_best_calibrated_cv": 0.0,
+          "top1_acc_mean": 0.0981,
+          "top5_acc_mean": 0.2612,
+          "anisotropy_eigenspread_mean": 0.9687,
+          "cosine_spread_mean": 0.0345,
+          "sigma0_recall_mean": 0.9467,
+          "n_seeds": 3
+        }
+      },
+      "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+        "10000": {
+          "bpc_best_calibrated_mean": 9.0173,
+          "bpc_best_calibrated_std": 0.0002,
+          "bpc_best_calibrated_cv": 0.0,
+          "top1_acc_mean": 0.1447,
+          "top5_acc_mean": 0.3106,
+          "anisotropy_eigenspread_mean": 0.9425,
+          "cosine_spread_mean": 0.0113,
+          "sigma0_recall_mean": 1.0,
+          "n_seeds": 3
+        }
+      }
+    },
+    "classifications": {
+      "ARM_RANDOM_BIPOLAR_BASELINE": {
+        "10000": "HARD_FAIL_NULL"
+      },
+      "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+        "10000": "HARD_FAIL_NULL"
+      },
+      "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+        "10000": "HARD_FAIL_NULL"
+      },
+      "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+        "10000": "HARD_FAIL_NULL"
+      }
+    },
+    "lift_bpc": {
+      "ARM_RANDOM_BIPOLAR_BASELINE": {
+        "10000": 0.0
+      },
+      "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+        "10000": -0.0019
+      },
+      "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+        "10000": -0.0007
+      },
+      "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+        "10000": -0.0001
+      }
+    },
+    "any_chain_grade_cells": [],
+    "any_hard_pass_cells": [],
+    "confound_cells": [],
+    "null_cells": [
+      "ARM_OLSHAUSEN_FIELD_SPARSE_CODING@V=10000",
+      "ARM_DEEPWALK_ON_BIGRAM_GRAPH@V=10000",
+      "ARM_KOHONEN_SOM_TOPOGRAPHIC@V=10000"
+    ],
+    "hurts_cells": [],
+    "middle_cells": [],
+    "V_grid_actual": [
+      10000
+    ],
+    "n_total_V_seed_units": 3,
+    "provenance_diagnostic": {},
+    "CONFIG_VERSION": "subUnsupAnisBio-v2c-V10000_ONLY_CLOSURE: N_DIM=8192 SPARSE_F=0.020 K_WTA=5 V_GRID=[10000] arms=['ARM_RANDOM_BIPOLAR_BASELINE', 'ARM_OLSHAUSEN_FIELD_SPARSE_CODING', 'ARM_DEEPWALK_ON_BIGRAM_GRAPH', 'ARM_KOHONEN_SOM_TOPOGRAPHIC'] seeds=[7, 17, 23] mode=full N_TRAIN_FIXED=400000; bands HP_CHAIN_LIFT>=0.200 sigma0>=0.950 HP_LIFT>=0.100 sigma0>=0.900 HF_NULL_BAND<=0.050 CONFOUND_SIGMA0<0.900 V10K_PHASE_TRANS_NEG<=0.0050 V10K_TIE_BAND<=0.0050 V10K_REVIVAL_POS>=0.0050 V10K_CONVERGE<=0.0050 V10K_NOISE_FLOOR<0.0010 V10K_TOP1_CV<=0.0500",
+    "v10k_top1_classification": {
+      "v10k_class": "MIDDLE_BAND",
+      "reason": "no v10k-prereg band fired cleanly; rand=0.1448 olsh=0.1291 deep=0.0981 koh=0.1447 bio_lifts={'OLSHAUSEN': -0.01570000000000002, 'DEEPWALK': -0.046700000000000005, 'KOHONEN': -0.00010000000000001674} cv_ok=True",
+      "rand_t1": 0.1448,
+      "olsh_t1": 0.1291,
+      "deep_t1": 0.0981,
+      "koh_t1": 0.1447,
+      "top1_cv": {
+        "rand": 0.006929059366156735,
+        "olsh": 0.020177711760975808,
+        "deep": 0.03146708037505014,
+        "koh": 0.015799238034216928
+      }
+    },
+    "honest_scope": "v2c V=10000-only closure cell: 4-arm biology-native UNSUPERVISED anisotropic encoder at N_DIM=8192, N_TRAIN_FIXED=400000, seeds=[7, 17, 23]. Designed to merge with v2b 9/12 partials (V=200/1000/4000 x 3 seeds) for a 12-point phase-diagram analysis. v2c bands at V=10000 are PROSPECTIVE top1-based (capacity-tight regime); v2b BPC-based per-arm classifier preserved for cross-cert continuity.",
+    "cites": [
+      "experiments/exp_substrate_unsupervised_anisotropic_encoder_biology_native_v2b_no_foldiak.py",
+      "preregs/2026-06-25_substrate_unsupervised_anisotropic_encoder_biology_native_v2b_no_foldiak.md",
+      "preregs/2026-06-25_substrate_unsupervised_anisotropic_encoder_biology_native_v2c_V10000_only.md",
+      "Olshausen_Field_1996_Nature_381_607",
+      "Moraitis_2107_05747_SoftHebb",
+      "Perozzi_2014_DeepWalk",
+      "Kohonen_1982_SOM",
+      "Mu_Viswanath_spectrum_of_decisions_capacity_tight_regime"
+    ]
+  },
+  "metrics_source": "measured_cpu_substrate_unsupervised_anisotropic_encoder_biology_native_v2c_V10000_only_closure",
+  "per_unit": [
+    {
+      "V_cap": 10000,
+      "seed": 7,
+      "by_arm": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "bpc_raw": 13.0596,
+          "bpc_best_calibrated": 9.0172,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2261,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1434,
+          "top5_acc": 0.3116,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0114,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 2.32,
+          "wall_sanity_s": 0.24,
+          "wall_anisotropy_s": 34.4,
+          "wall_bpc_s": 291.13
+        },
+        "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+          "bpc_raw": 13.0463,
+          "bpc_best_calibrated": 9.0192,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2278,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1254,
+          "top5_acc": 0.3211,
+          "anisotropy_eigenspread": 0.9443,
+          "cosine_spread": 0.0138,
+          "eff_rank_norm": 0.0557,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 51.36,
+          "wall_sanity_s": 0.24,
+          "wall_anisotropy_s": 31.4,
+          "wall_bpc_s": 282.79
+        },
+        "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+          "bpc_raw": 12.824,
+          "bpc_best_calibrated": 9.0178,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2276,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.0941,
+          "top5_acc": 0.2619,
+          "anisotropy_eigenspread": 0.9674,
+          "cosine_spread": 0.0321,
+          "eff_rank_norm": 0.0326,
+          "mechanism_fired": true,
+          "sigma0_recall": 0.93,
+          "wall_encode_s": 6.42,
+          "wall_sanity_s": 0.24,
+          "wall_anisotropy_s": 31.22,
+          "wall_bpc_s": 284.28
+        },
+        "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+          "bpc_raw": 13.0616,
+          "bpc_best_calibrated": 9.0176,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2261,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1419,
+          "top5_acc": 0.3092,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0117,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 297.92,
+          "wall_sanity_s": 0.26,
+          "wall_anisotropy_s": 39.21,
+          "wall_bpc_s": 553.04
+        }
+      },
+      "N_DIM": 8192,
+      "N": 8192,
+      "N_TRAIN": 400000,
+      "N_HELD": 200000,
+      "V_actual": 10000,
+      "run_mode": "full",
+      "config_version": "subUnsupAnisBio-v2c-V10000_ONLY_CLOSURE: N_DIM=8192 SPARSE_F=0.020 K_WTA=5 V_GRID=[10000] arms=['ARM_RANDOM_BIPOLAR_BASELINE', 'ARM_OLSHAUSEN_FIELD_SPARSE_CODING', 'ARM_DEEPWALK_ON_BIGRAM_GRAPH', 'ARM_KOHONEN_SOM_TOPOGRAPHIC'] seeds=[7, 17, 23] mode=full N_TRAIN_FIXED=400000; bands HP_CHAIN_LIFT>=0.200 sigma0>=0.950 HP_LIFT>=0.100 sigma0>=0.900 HF_NULL_BAND<=0.050 CONFOUND_SIGMA0<0.900 V10K_PHASE_TRANS_NEG<=0.0050 V10K_TIE_BAND<=0.0050 V10K_REVIVAL_POS>=0.0050 V10K_CONVERGE<=0.0050 V10K_NOISE_FLOOR<0.0010 V10K_TOP1_CV<=0.0500",
+      "elapsed_s_unit": 1906.65,
+      "_ckpt_key": "V10000_seed7",
+      "_partial_written_at": 1782434938.914165
+    },
+    {
+      "V_cap": 10000,
+      "seed": 17,
+      "by_arm": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "bpc_raw": 13.0567,
+          "bpc_best_calibrated": 9.0172,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2262,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1457,
+          "top5_acc": 0.3115,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0111,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 3.67,
+          "wall_sanity_s": 0.54,
+          "wall_anisotropy_s": 49.49,
+          "wall_bpc_s": 494.37
+        },
+        "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+          "bpc_raw": 13.0419,
+          "bpc_best_calibrated": 9.0189,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2277,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1312,
+          "top5_acc": 0.3264,
+          "anisotropy_eigenspread": 0.9446,
+          "cosine_spread": 0.0143,
+          "eff_rank_norm": 0.0554,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 82.41,
+          "wall_sanity_s": 0.47,
+          "wall_anisotropy_s": 43.61,
+          "wall_bpc_s": 479.23
+        },
+        "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+          "bpc_raw": 12.8205,
+          "bpc_best_calibrated": 9.018,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2274,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1016,
+          "top5_acc": 0.2546,
+          "anisotropy_eigenspread": 0.9687,
+          "cosine_spread": 0.0376,
+          "eff_rank_norm": 0.0313,
+          "mechanism_fired": true,
+          "sigma0_recall": 0.94,
+          "wall_encode_s": 9.41,
+          "wall_sanity_s": 0.4,
+          "wall_anisotropy_s": 43.69,
+          "wall_bpc_s": 473.87
+        },
+        "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+          "bpc_raw": 13.0597,
+          "bpc_best_calibrated": 9.0172,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2258,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1448,
+          "top5_acc": 0.3108,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0111,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 431.05,
+          "wall_sanity_s": 0.39,
+          "wall_anisotropy_s": 47.59,
+          "wall_bpc_s": 594.82
+        }
+      },
+      "N_DIM": 8192,
+      "N": 8192,
+      "N_TRAIN": 400000,
+      "N_HELD": 200000,
+      "V_actual": 10000,
+      "run_mode": "full",
+      "config_version": "subUnsupAnisBio-v2c-V10000_ONLY_CLOSURE: N_DIM=8192 SPARSE_F=0.020 K_WTA=5 V_GRID=[10000] arms=['ARM_RANDOM_BIPOLAR_BASELINE', 'ARM_OLSHAUSEN_FIELD_SPARSE_CODING', 'ARM_DEEPWALK_ON_BIGRAM_GRAPH', 'ARM_KOHONEN_SOM_TOPOGRAPHIC'] seeds=[7, 17, 23] mode=full N_TRAIN_FIXED=400000; bands HP_CHAIN_LIFT>=0.200 sigma0>=0.950 HP_LIFT>=0.100 sigma0>=0.900 HF_NULL_BAND<=0.050 CONFOUND_SIGMA0<0.900 V10K_PHASE_TRANS_NEG<=0.0050 V10K_TIE_BAND<=0.0050 V10K_REVIVAL_POS>=0.0050 V10K_CONVERGE<=0.0050 V10K_NOISE_FLOOR<0.0010 V10K_TOP1_CV<=0.0500",
+      "elapsed_s_unit": 2755.75,
+      "_ckpt_key": "V10000_seed17",
+      "_partial_written_at": 1782437694.8803375
+    },
+    {
+      "V_cap": 10000,
+      "seed": 23,
+      "by_arm": {
+        "ARM_RANDOM_BIPOLAR_BASELINE": {
+          "bpc_raw": 13.0604,
+          "bpc_best_calibrated": 9.0173,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2258,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1453,
+          "top5_acc": 0.3091,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0106,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 3.7,
+          "wall_sanity_s": 0.59,
+          "wall_anisotropy_s": 46.99,
+          "wall_bpc_s": 645.05
+        },
+        "ARM_OLSHAUSEN_FIELD_SPARSE_CODING": {
+          "bpc_raw": 13.0462,
+          "bpc_best_calibrated": 9.0192,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2277,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1306,
+          "top5_acc": 0.3207,
+          "anisotropy_eigenspread": 0.9449,
+          "cosine_spread": 0.0138,
+          "eff_rank_norm": 0.0551,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 94.95,
+          "wall_sanity_s": 0.55,
+          "wall_anisotropy_s": 46.22,
+          "wall_bpc_s": 581.36
+        },
+        "ARM_DEEPWALK_ON_BIGRAM_GRAPH": {
+          "bpc_raw": 12.8323,
+          "bpc_best_calibrated": 9.018,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.2279,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.0987,
+          "top5_acc": 0.2671,
+          "anisotropy_eigenspread": 0.9701,
+          "cosine_spread": 0.0338,
+          "eff_rank_norm": 0.0299,
+          "mechanism_fired": true,
+          "sigma0_recall": 0.97,
+          "wall_encode_s": 11.45,
+          "wall_sanity_s": 0.44,
+          "wall_anisotropy_s": 43.91,
+          "wall_bpc_s": 582.64
+        },
+        "ARM_KOHONEN_SOM_TOPOGRAPHIC": {
+          "bpc_raw": 13.0567,
+          "bpc_best_calibrated": 9.0172,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 9.226,
+          "bpc_n_eval": 87381,
+          "top1_acc": 0.1475,
+          "top5_acc": 0.3118,
+          "anisotropy_eigenspread": 0.9425,
+          "cosine_spread": 0.0111,
+          "eff_rank_norm": 0.0575,
+          "mechanism_fired": true,
+          "sigma0_recall": 1.0,
+          "wall_encode_s": 457.11,
+          "wall_sanity_s": 0.47,
+          "wall_anisotropy_s": 46.53,
+          "wall_bpc_s": 530.51
+        }
+      },
+      "N_DIM": 8192,
+      "N": 8192,
+      "N_TRAIN": 400000,
+      "N_HELD": 200000,
+      "V_actual": 10000,
+      "run_mode": "full",
+      "config_version": "subUnsupAnisBio-v2c-V10000_ONLY_CLOSURE: N_DIM=8192 SPARSE_F=0.020 K_WTA=5 V_GRID=[10000] arms=['ARM_RANDOM_BIPOLAR_BASELINE', 'ARM_OLSHAUSEN_FIELD_SPARSE_CODING', 'ARM_DEEPWALK_ON_BIGRAM_GRAPH', 'ARM_KOHONEN_SOM_TOPOGRAPHIC'] seeds=[7, 17, 23] mode=full N_TRAIN_FIXED=400000; bands HP_CHAIN_LIFT>=0.200 sigma0>=0.950 HP_LIFT>=0.100 sigma0>=0.900 HF_NULL_BAND<=0.050 CONFOUND_SIGMA0<0.900 V10K_PHASE_TRANS_NEG<=0.0050 V10K_TIE_BAND<=0.0050 V10K_REVIVAL_POS>=0.0050 V10K_CONVERGE<=0.0050 V10K_NOISE_FLOOR<0.0010 V10K_TOP1_CV<=0.0500",
+      "elapsed_s_unit": 3092.9,
+      "_ckpt_key": "V10000_seed23",
+      "_partial_written_at": 1782440787.992316
+    }
+  ],
+  "elapsed_s": 7755.940478563309,
+  "summary": "MIDDLE_BAND at V=10000: no v10k-prereg band fired cleanly; rand=0.1448 olsh=0.1291 deep=0.0981 koh=0.1447 bio_lifts={'OLSHAUSEN': -0.01570000000000002, 'DEEPWALK': -0.046700000000000005, 'KOHONEN': -0.00010000000000001674} cv_ok=True. BIO4xV10K: OLSHAUSEN_FIEL@V=10000=bpc9.019(lift-0.002 vs rand9.017)/sig01.000[HARD_FAIL_NULL]/top10.1291 | DEEPWALK_ON_BI@V=10000=bpc9.018(lift-0.001 vs rand9.017)/sig00.947[HARD_FAIL_NULL]/top10.0981 | KOHONEN_SOM_TO@V=10000=bpc9.017(lift-0.000 vs rand9.017)/sig01.000[HARD_FAIL_NULL]/top10.1447 || V10K_top1: rand=0.1448 olsh=0.1291 deep=0.0981 koh=0.1447 -> MIDDLE_BAND",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native; no LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": false
+}

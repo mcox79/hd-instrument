@@ -1,0 +1,239 @@
+{
+  "anchor_name": "substrate_brain_aligned_aliveness_shotgun_v1",
+  "verdict": "BRAIN_ALIGNED_PARTIAL",
+  "verdict_msg": "BRAIN_ALIGNED_PARTIAL: 3 of 4 arms HARD_PASS. ARM1=HARD_PASS(1.000); ARM2=HARD_FAIL(holdout 0.000); ARM3=HARD_PASS(min cap 15); ARM4=HARD_PASS(0.884). Substrate is partially alive; characterize which dimensions.",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "SPARSE_F": 0.05,
+  "n_seeds": 3,
+  "detail": {
+    "n_seeds": 3,
+    "arm1": {
+      "mean_median_recovery": 0.9999999403953552,
+      "cv": 0.0,
+      "verdict": "HARD_PASS",
+      "band": "HARD_PASS>0.85, HARD_FAIL<0.50"
+    },
+    "arm2": {
+      "mean_holdout_top1": 0.0,
+      "cv": 0.0,
+      "verdict": "HARD_FAIL",
+      "in_distribution_top1_mean": 0.10000000000000002,
+      "band": "HARD_PASS>0.70, HARD_FAIL<0.20",
+      "chance": 0.05
+    },
+    "arm3": {
+      "mean_capacity": 15.0,
+      "min_capacity": 15,
+      "verdict": "HARD_PASS",
+      "band": "HARD_PASS>=7 (Miller 7+/-2), HARD_FAIL<4",
+      "per_seed_capacities": [
+        15,
+        15,
+        15
+      ]
+    },
+    "arm4": {
+      "mean_top1": 0.8843537414965986,
+      "cv": 0.027196414661021087,
+      "verdict": "HARD_PASS",
+      "band": "HARD_PASS>0.50, HARD_FAIL<0.10",
+      "chance": 0.02
+    },
+    "n_arms_hard_pass": 3,
+    "arm1_sanity_pass": true,
+    "CONFIG_VERSION": "substrate_brain_aligned_aliveness_shotgun_v1; N=8192 f=0.050 seeds=[7, 17, 23] arm1_M=500 corrupt=0.50 arm2=20x20 cov=0.50 arm3_k=[1, 2, 4, 7, 10, 15] arm3_trials=60 arm4_seqlen=100 arm4_vocab=50",
+    "what_this_does_not_show": "These probes test brain-CANONICAL aliveness dimensions (pattern completion, compositional generalization, working memory, bidirectional prediction) on substrate primitives in isolation. They do NOT show: (1) language-task performance (no text corpus involved); (2) learning / plasticity (no cf-RPE, no gradient updates); (3) chain-grade integration with the rest of the substrate KG. A BRAIN_ALIGNED_ALIVE verdict is a MECHANISM characterization, not a cert of any downstream task. By construction notes: ARM 1 cue carries half the original bits at full sign-fidelity (cosine recovery directly reflects information preserved by the sparse-bipolar code); ARM 2-4 measure HRR bind/unbind crosstalk under superposition; capacity in ARM 3 falls when M*f^2 crosstalk exceeds signal.",
+    "honest_scope": "Pure substrate primitives (HRR bind/unbind + sparse-bipolar codebook); NO learning. NumPy CPU. Per USER 2026-06-24 brain-aligned aliveness directive.",
+    "cites": [
+      "USER_brain_aligned_aliveness_directive_2026-06-24",
+      "substrate_as_LM_test_harness_rigged_audit_2026-06-23",
+      "operational_findings_2026-06-23_late_session_HRR_involutive",
+      "operational_findings_2026-06-23_sparse_bipolar_20_300x_bundle_lift",
+      "Miller_1956_seven_plus_minus_two_working_memory"
+    ]
+  },
+  "metrics_source": "measured_cpu_brain_aligned_aliveness_shotgun",
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm1_pattern_completion": {
+        "M": 500,
+        "corrupt_frac": 0.5,
+        "top1_recovery_rate": 1.0,
+        "median_recovery_cosine": 0.9999999403953552,
+        "mean_recovery_cosine": 1.0,
+        "min_recovery_cosine": 0.9999998807907104,
+        "median_cue_only_cosine": 0.7071067094802856,
+        "n_above_0p85": 500,
+        "n_above_0p70": 500,
+        "n_above_0p50": 500
+      },
+      "arm2_compositional": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "coverage": 0.5,
+        "n_train": 200,
+        "n_held": 200,
+        "holdout_top1": 0.0,
+        "in_distribution_top1": 0.1,
+        "chance_top1": 0.05,
+        "mean_cosine_correct_holdout": -0.0008114539494272321
+      },
+      "arm3_working_memory": {
+        "k_grid": [
+          1,
+          2,
+          4,
+          7,
+          10,
+          15
+        ],
+        "per_k_accuracy": {
+          "1": 1.0,
+          "2": 1.0,
+          "4": 1.0,
+          "7": 1.0,
+          "10": 1.0,
+          "15": 1.0
+        },
+        "k_capacity_at_90pct_accuracy": 15,
+        "trials_per_k": 60,
+        "item_pool_size": 30
+      },
+      "arm4_bidirectional": {
+        "seq_len": 100,
+        "vocab": 50,
+        "n_predictions": 98,
+        "top1": 0.8673469387755102,
+        "chance_top1": 0.02
+      },
+      "wall_s": 110.28481888771057,
+      "run_mode": "full",
+      "config_version": "substrate_brain_aligned_aliveness_shotgun_v1; N=8192 f=0.050 seeds=[7, 17, 23] arm1_M=500 corrupt=0.50 arm2=20x20 cov=0.50 arm3_k=[1, 2, 4, 7, 10, 15] arm3_trials=60 arm4_seqlen=100 arm4_vocab=50",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782311928.0926914
+    },
+    {
+      "seed": 17,
+      "arm1_pattern_completion": {
+        "M": 500,
+        "corrupt_frac": 0.5,
+        "top1_recovery_rate": 1.0,
+        "median_recovery_cosine": 0.9999999403953552,
+        "mean_recovery_cosine": 1.0,
+        "min_recovery_cosine": 0.9999998807907104,
+        "median_cue_only_cosine": 0.7071067094802856,
+        "n_above_0p85": 500,
+        "n_above_0p70": 500,
+        "n_above_0p50": 500
+      },
+      "arm2_compositional": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "coverage": 0.5,
+        "n_train": 200,
+        "n_held": 200,
+        "holdout_top1": 0.0,
+        "in_distribution_top1": 0.1,
+        "chance_top1": 0.05,
+        "mean_cosine_correct_holdout": -0.00020420934772118925
+      },
+      "arm3_working_memory": {
+        "k_grid": [
+          1,
+          2,
+          4,
+          7,
+          10,
+          15
+        ],
+        "per_k_accuracy": {
+          "1": 1.0,
+          "2": 1.0,
+          "4": 1.0,
+          "7": 1.0,
+          "10": 1.0,
+          "15": 1.0
+        },
+        "k_capacity_at_90pct_accuracy": 15,
+        "trials_per_k": 60,
+        "item_pool_size": 30
+      },
+      "arm4_bidirectional": {
+        "seq_len": 100,
+        "vocab": 50,
+        "n_predictions": 98,
+        "top1": 0.9183673469387755,
+        "chance_top1": 0.02
+      },
+      "wall_s": 85.85551762580872,
+      "run_mode": "full",
+      "config_version": "substrate_brain_aligned_aliveness_shotgun_v1; N=8192 f=0.050 seeds=[7, 17, 23] arm1_M=500 corrupt=0.50 arm2=20x20 cov=0.50 arm3_k=[1, 2, 4, 7, 10, 15] arm3_trials=60 arm4_seqlen=100 arm4_vocab=50",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782312014.122393
+    },
+    {
+      "seed": 23,
+      "arm1_pattern_completion": {
+        "M": 500,
+        "corrupt_frac": 0.5,
+        "top1_recovery_rate": 1.0,
+        "median_recovery_cosine": 0.9999999403953552,
+        "mean_recovery_cosine": 1.0,
+        "min_recovery_cosine": 0.9999998807907104,
+        "median_cue_only_cosine": 0.7071067094802856,
+        "n_above_0p85": 500,
+        "n_above_0p70": 500,
+        "n_above_0p50": 500
+      },
+      "arm2_compositional": {
+        "n_subj": 20,
+        "n_obj": 20,
+        "coverage": 0.5,
+        "n_train": 200,
+        "n_held": 200,
+        "holdout_top1": 0.0,
+        "in_distribution_top1": 0.1,
+        "chance_top1": 0.05,
+        "mean_cosine_correct_holdout": -0.00022869260545121505
+      },
+      "arm3_working_memory": {
+        "k_grid": [
+          1,
+          2,
+          4,
+          7,
+          10,
+          15
+        ],
+        "per_k_accuracy": {
+          "1": 1.0,
+          "2": 1.0,
+          "4": 1.0,
+          "7": 1.0,
+          "10": 1.0,
+          "15": 1.0
+        },
+        "k_capacity_at_90pct_accuracy": 15,
+        "trials_per_k": 60,
+        "item_pool_size": 30
+      },
+      "arm4_bidirectional": {
+        "seq_len": 100,
+        "vocab": 50,
+        "n_predictions": 98,
+        "top1": 0.8673469387755102,
+        "chance_top1": 0.02
+      },
+      "wall_s": 109.01861357688904,
+      "run_mode": "full",
+      "config_version": "substrate_brain_aligned_aliveness_shotgun_v1; N=8192 f=0.050 seeds=[7, 17, 23] arm1_M=500 corrupt=0.50 arm2=20x20 cov=0.50 arm3_k=[1, 2, 4, 7, 10, 15] arm3_trials=60 arm4_seqlen=100 arm4_vocab=50",
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782312123.2358382
+    }
+  ],
+  "elapsed_s": 305.6384174823761,
+  "summary": "BRAIN_ALIGNED_PARTIAL: 3 of 4 arms HARD_PASS. ARM1=HARD_PASS(1.000); ARM2=HARD_FAIL(holdout 0.000); ARM3=HARD_PASS(min cap 15); ARM4=HARD_PASS(0.884). Substrate is partially alive; characterize which dimensions.",
+  "substrate_only_decode_gate": "N/A (mechanism-characterization cell, not LM cell)"
+}

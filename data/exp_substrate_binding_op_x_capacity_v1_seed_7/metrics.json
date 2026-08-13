@@ -1,0 +1,340 @@
+{
+  "phase_map": [
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "alpha": 0.1,
+      "M_per_bank": 150,
+      "B_banks": 16,
+      "total_M": 2400,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 5.422,
+      "bundle_hash": "ceb7abfde3b75150076644535f4d5592d13cce3606b84d26d949024db7a9e18f",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "alpha": 0.5,
+      "M_per_bank": 750,
+      "B_banks": 16,
+      "total_M": 12000,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.2667,
+      "top1_random": 0.0,
+      "discriminator": 0.2667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 8.723,
+      "bundle_hash": "0159dc33f7343225285328a150d7e8e301fd83213025237412f73c04c05a70eb",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "HADAMARD_BIND",
+      "encoder_family": "binary_bipolar",
+      "alpha": 0.9,
+      "M_per_bank": 1350,
+      "B_banks": 16,
+      "total_M": 21600,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.1,
+      "top1_random": 0.0,
+      "discriminator": 0.1,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 5.486,
+      "bundle_hash": "304d7098c93ec3acef3c4832ffaed02424244e3269393ee0c1acd3f3337b4fa0",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "alpha": 0.1,
+      "M_per_bank": 150,
+      "B_banks": 16,
+      "total_M": 2400,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 11.631,
+      "bundle_hash": "d976735a98f15cd6df4f9dbf77bc465b89cc7ab944391c4683434af477ff5217",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "alpha": 0.5,
+      "M_per_bank": 750,
+      "B_banks": 16,
+      "total_M": 12000,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.3667,
+      "top1_random": 0.0,
+      "discriminator": 0.3667,
+      "band": "MB",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 11.954,
+      "bundle_hash": "e5e9f8b78de151f3848b4276c19dc4485ae498217cef5f639666d05c17636214",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "CIRCULAR_CONV_HRR",
+      "encoder_family": "hrr_real",
+      "alpha": 0.9,
+      "M_per_bank": 1350,
+      "B_banks": 16,
+      "total_M": 21600,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.1667,
+      "top1_random": 0.0,
+      "discriminator": 0.1667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 11.494,
+      "bundle_hash": "284c26ba349b383349cf74f484aa1b24f9633b50e55a2d75c2665f229fa8deab",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "FHRR_COMPLEX_MUL",
+      "encoder_family": "fhrr_complex_unit",
+      "alpha": 0.1,
+      "M_per_bank": 150,
+      "B_banks": 16,
+      "total_M": 2400,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 41.362,
+      "bundle_hash": "d0f7b3be44091fbc18c793b987d604b0a25289e29bbcda1f3f49daf31927fe08",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "FHRR_COMPLEX_MUL",
+      "encoder_family": "fhrr_complex_unit",
+      "alpha": 0.5,
+      "M_per_bank": 750,
+      "B_banks": 16,
+      "total_M": 12000,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.8667,
+      "top1_random": 0.0,
+      "discriminator": 0.8667,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 44.486,
+      "bundle_hash": "17a250b2f78245403aed050be472b1366692b4f80044ca3eff2bac54513ecea2",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "binding_operation": "FHRR_COMPLEX_MUL",
+      "encoder_family": "fhrr_complex_unit",
+      "alpha": 0.9,
+      "M_per_bank": 1350,
+      "B_banks": 16,
+      "total_M": 21600,
+      "N_DIM": 8192,
+      "n_queries": 30,
+      "seed": 7,
+      "top1_substrate": 0.3667,
+      "top1_random": 0.0,
+      "discriminator": 0.3667,
+      "band": "MB",
+      "suspect_saturation": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 43.204,
+      "bundle_hash": "4a248da0ed2219be885e2e13f64fbb661312ae273eccdfc0ac189f14ef6af110",
+      "bundle_shape": [
+        8192
+      ]
+    }
+  ],
+  "per_op_summary": {
+    "HADAMARD_BIND": {
+      "encoder_family": "binary_bipolar",
+      "top1_sub_mean": 0.4556,
+      "top1_rand_mean": 0.0,
+      "K_cliff_per_op": 750,
+      "cliff_alpha": 0.5,
+      "cliff_observed": true,
+      "K_cliff_shift_from_ref": 0.0,
+      "top1_at_alpha_0p5": 0.2667,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 0,
+        "FLOOR": 1,
+        "TRANSITION": 1
+      },
+      "cv_across_alpha": 0.8581,
+      "mechanism_hash_prefix": "ceb7abfde3b75150"
+    },
+    "CIRCULAR_CONV_HRR": {
+      "encoder_family": "hrr_real",
+      "top1_sub_mean": 0.5111,
+      "top1_rand_mean": 0.0,
+      "K_cliff_per_op": 750,
+      "cliff_alpha": 0.5,
+      "cliff_observed": true,
+      "K_cliff_shift_from_ref": 0.0,
+      "top1_at_alpha_0p5": 0.3667,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 1
+      },
+      "cv_across_alpha": 0.6949,
+      "mechanism_hash_prefix": "d976735a98f15cd6"
+    },
+    "FHRR_COMPLEX_MUL": {
+      "encoder_family": "fhrr_complex_unit",
+      "top1_sub_mean": 0.7445,
+      "top1_rand_mean": 0.0,
+      "K_cliff_per_op": 750,
+      "cliff_alpha": 0.5,
+      "cliff_observed": true,
+      "K_cliff_shift_from_ref": 0.0,
+      "top1_at_alpha_0p5": 0.8667,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 1
+      },
+      "cv_across_alpha": 0.3662,
+      "mechanism_hash_prefix": "d0f7b3be44091fbc"
+    }
+  },
+  "K_cliff_per_op": {
+    "HADAMARD_BIND": 750,
+    "HADAMARD_BIND_cliff_alpha": 0.5,
+    "HADAMARD_BIND_cliff_observed": true,
+    "CIRCULAR_CONV_HRR": 750,
+    "CIRCULAR_CONV_HRR_cliff_alpha": 0.5,
+    "CIRCULAR_CONV_HRR_cliff_observed": true,
+    "FHRR_COMPLEX_MUL": 750,
+    "FHRR_COMPLEX_MUL_cliff_alpha": 0.5,
+    "FHRR_COMPLEX_MUL_cliff_observed": true
+  },
+  "K_cliff_shift_from_ref": {
+    "HADAMARD_BIND": 0.0,
+    "CIRCULAR_CONV_HRR": 0.0,
+    "FHRR_COMPLEX_MUL": 0.0
+  },
+  "n_ops_shifted_ge_15pct": 0,
+  "shifted_ops": [],
+  "top1_at_alpha_0p5": {
+    "HADAMARD_BIND": 0.2667,
+    "CIRCULAR_CONV_HRR": 0.3667,
+    "FHRR_COMPLEX_MUL": 0.8667
+  },
+  "op_pair_distinctness": {
+    "HADAMARD_BIND_vs_CIRCULAR_CONV_HRR": true,
+    "HADAMARD_BIND_vs_FHRR_COMPLEX_MUL": true,
+    "CIRCULAR_CONV_HRR_vs_FHRR_COMPLEX_MUL": true
+  },
+  "n_pairs_differ": 3,
+  "op_mech_hashes": {
+    "HADAMARD_BIND": "ceb7abfde3b75150076644535f4d5592d13cce3606b84d26d949024db7a9e18f",
+    "CIRCULAR_CONV_HRR": "d976735a98f15cd6df4f9dbf77bc465b89cc7ab944391c4683434af477ff5217",
+    "FHRR_COMPLEX_MUL": "d0f7b3be44091fbc18c793b987d604b0a25289e29bbcda1f3f49daf31927fe08"
+  },
+  "cv_per_op": {
+    "HADAMARD_BIND": 0.8581,
+    "CIRCULAR_CONV_HRR": 0.6949,
+    "FHRR_COMPLEX_MUL": 0.3662
+  },
+  "max_cv": 0.8581,
+  "n_suspect_saturation": 3,
+  "positive_control_result": {
+    "binding_operation": "HADAMARD_BIND",
+    "alpha": 0.1,
+    "M_per_bank": 150,
+    "top1_floor_required": 0.8,
+    "measured_top1": 1.0,
+    "pass": true,
+    "regime": "full"
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 9,
+  "observed_n_units": 9,
+  "tier_counts": {
+    "SAT": 3,
+    "MB": 2,
+    "FLOOR": 1,
+    "TRANSITION": 3
+  },
+  "gpu_util_estimate": 0.0,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta": 8.0,
+  "B_banks": 16,
+  "K_cliff_hadamard_ref": 1500,
+  "regime": "binding_op_x_capacity_alpha_sweep_WM_multibank_N8192_B16",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_BINDING_OP_CAPACITY_INVARIANT: all 3 ops produce K_cliff within 15% of Hadamard baseline; K_cliff_shift={'HADAMARD_BIND': 0.0, 'CIRCULAR_CONV_HRR': 0.0, 'FHRR_COMPLEX_MUL': 0.0}; K_cliff_per_op={'HADAMARD_BIND': 750, 'CIRCULAR_CONV_HRR': 750, 'FHRR_COMPLEX_MUL': 750}; binding-op axis capacity-invariant at WM regime; substantive substrate finding: composition D x O is null",
+  "summary": "HARD_FAIL_BINDING_OP_CAPACITY_INVARIANT: all 3 ops produce K_cliff within 15% of Hadamard baseline; K_cliff_shift={'HADAMARD_BIND': 0.0, 'CIRCULAR_CONV_HRR': 0.0, 'FHRR_COMPLEX_MUL': 0.0}; K_cliff_per_op={'HADAMARD_BIND': 750, 'CIRCULAR_CONV_HRR': 750, 'FHRR_COMPLEX_MUL': 750}; binding-op axis capacity-invariant at WM regime; substantive substrate finding: composition D x O is null",
+  "anchor_name": "substrate_binding_op_x_capacity_v1_seed_7",
+  "elapsed_s": 186.41,
+  "ts_iso": "2026-07-01T04:18:36Z",
+  "pid": 4480,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_binding_op_x_capacity_v1_seed_7,bindings=[HADAMARD_BIND,CIRCULAR_CONV_HRR,FHRR_COMPLEX_MUL],N_DIM=8192,B_BANKS=16,SEED=7,mode=full,K_CLIFF_HADAMARD_REF=1500,ALPHA_FULL=[0.1,0.5,0.9],ALPHA_SMOKE=[0.5],n_q_full=30,n_q_smoke=20,V_ITEMS=8000,V_POS=8000,beta=8.0,expected_n_full=9,expected_n_smoke=3,discriminator=K_cliff_shift_ge_15pct_from_hadamard_at_alpha_0p5,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_binding_op_x_capacity_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_3_binding_op_x_3_alpha_multibank_WM_v1_cell5_research_20260701",
+  "n_llm_calls": 0,
+  "cell_lineage": "research_2026_07_01_phase_diagram_gap_analysis_cell_5_axis_D_x_O"
+}

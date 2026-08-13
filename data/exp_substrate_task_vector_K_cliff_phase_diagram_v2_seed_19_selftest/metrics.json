@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_task_vector_K_cliff_phase_diagram_v2_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: TV(K=1,V=10,ov=0)=1.000, TV(K=200,V=10,ov=0)=0.500, RV(K=200,V=10,ov=0)=0.000, backend=torch.cpu",
+  "summary": "selftest OK: TV(K=1,V=10,ov=0)=1.000, TV(K=200,V=10,ov=0)=0.500, RV(K=200,V=10,ov=0)=0.000, backend=torch.cpu",
+  "elapsed_s": 4.16,
+  "ts_iso": "2026-06-29T00:45:21Z",
+  "pid": 11076,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_task_vector_K_cliff_phase_diagram_v2_seed_19,N=8192,SEED=19,mode=selftest,K=[1,3,5,10,20,50,100,200],V=[10,20,50],ov=[0.0,0.3,0.6],V_ENTS_POOL=200,arms=[TASK_VECTOR,RANDOM_VECTOR,ORACLE],expected_n_full=2160,expected_n_smoke=180,v2_metric=monotonic_decay_from_saturation,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_taskvec_Kcliff_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

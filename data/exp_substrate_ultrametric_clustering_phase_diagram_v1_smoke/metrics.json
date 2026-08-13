@@ -1,0 +1,288 @@
+{
+  "anchor_name": "substrate_ultrametric_clustering_phase_diagram_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: phase diagram discriminating at >= 50% overall but not all 3 regimes populated at >= 20%. hp_checks=[sep=True,chain=False,adv=True,discrim=True]. n_points=8 ultra_acc_mean=0.944 (min=0.551, max=1.000); kmeans_acc_mean=0.862; random_acc_mean=0.245; delta_uk_acc_mean=+0.082; n_separable(ULTRA>=0.95)=7/8 (need >= 2); n_chain_failure(d_uk<=-0.20)=1/8 (need >= 2); n_ultra_advantage(d_uk>=0.10)=4/8 (need >= 2); n_discriminating(|d_uk|>0.05)=6/8 (need >= 4); ultra_gap_mean=0.227 kmeans_gap_mean=0.182",
+  "summary": "n_seeds=1 axes(nc,cs,N,td)=[2, 10]x[10, 50]x[2048, 4096]x2 expected_n_units=8 mode=smoke cos_thresh=0.85 min_cl_size=5",
+  "elapsed_s": 8.849515438079834,
+  "config_version": "ANCHOR=substrate_ultrametric_clustering_phase_diagram_v1,NC_AXIS=2-10,CS_AXIS=10-50,N_AXIS=2048-4096,TREE_DEPTH=2,COSINE_THRESH=0.85,MIN_CLUSTER_SIZE=5,NOISE_OVERLAP_BASE=0.3,SEEDS=7,RUN_MODE=smoke,EXPECTED_N_UNITS=8",
+  "N_CLUSTERS_AXIS": [
+    2,
+    10
+  ],
+  "CLUSTER_SIZE_AXIS": [
+    10,
+    50
+  ],
+  "N_AXIS": [
+    2048,
+    4096
+  ],
+  "TREE_DEPTH": 2,
+  "expected_n_units": 8,
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "cosine_thresh": 0.85,
+  "min_cluster_size": 5,
+  "noise_overlap_base": 0.3,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 8.760492324829102,
+      "n_grid_points": 8,
+      "grid_points": [
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 40,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.4476409431736187,
+            "mean_between": 0.001970357296095799,
+            "gap": 0.4456705858775229
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.65,
+            "mean_within": 0.30258313492246575,
+            "mean_between": 0.041970793243367936,
+            "gap": 0.2606123416790978
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.375,
+            "mean_within": 0.10907111428836368,
+            "mean_between": 0.09853252383929201,
+            "gap": 0.01053859044907167
+          },
+          "ultra_acc_minus_kmeans": 0.35,
+          "ultra_acc_minus_random": 0.625,
+          "ultra_gap_minus_kmeans": 0.1850582441984251,
+          "wall_s": 0.8742778301239014
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 40,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.4445598405698105,
+            "mean_between": 0.00885962064097867,
+            "gap": 0.43570021992883184
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.44461188595554557,
+            "mean_between": 0.00885962064097867,
+            "gap": 0.4357522653145669
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.375,
+            "mean_within": 0.11273966947522922,
+            "mean_between": 0.10362677732339376,
+            "gap": 0.009112892151835458
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.625,
+          "ultra_gap_minus_kmeans": -5.204538573505557e-05,
+          "wall_s": 0.8860852718353271
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13810891605275497,
+            "mean_between": 0.001663626922396741,
+            "gap": 0.13644528913035822
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.13765806339190725,
+            "mean_between": 0.001663626922396741,
+            "gap": 0.1359944364695105
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.32,
+            "mean_within": 0.035080824215824445,
+            "mean_between": 0.03415900607119543,
+            "gap": 0.000921818144629015
+          },
+          "ultra_acc_minus_kmeans": 0.0,
+          "ultra_acc_minus_random": 0.6799999999999999,
+          "ultra_gap_minus_kmeans": 0.00045085266084771147,
+          "wall_s": 1.061544418334961
+        },
+        {
+          "n_top_clusters": 2,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 4,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.1387462753837151,
+            "mean_between": 0.001553942863605701,
+            "gap": 0.1371923325201094
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.765,
+            "mean_within": 0.10491530758028453,
+            "mean_between": 0.012324616207501521,
+            "gap": 0.092590691372783
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.32,
+            "mean_within": 0.03524103923414932,
+            "mean_between": 0.03403871783389176,
+            "gap": 0.0012023214002575625
+          },
+          "ultra_acc_minus_kmeans": 0.235,
+          "ultra_acc_minus_random": 0.6799999999999999,
+          "ultra_gap_minus_kmeans": 0.0446016411473264,
+          "wall_s": 0.9356436729431152
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.26875291354280845,
+            "mean_between": 0.0005184432070078275,
+            "gap": 0.2682344703358006
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.805,
+            "mean_within": 0.2003658175538405,
+            "mean_between": 0.0021810438871613094,
+            "gap": 0.1981847736666792
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.185,
+            "mean_within": 0.009981756374136506,
+            "mean_between": 0.012763390307888325,
+            "gap": -0.0027816339337518193
+          },
+          "ultra_acc_minus_kmeans": 0.19499999999999995,
+          "ultra_acc_minus_random": 0.815,
+          "ultra_gap_minus_kmeans": 0.07004969666912142,
+          "wall_s": 0.9226353168487549
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 10,
+          "cluster_size_effective": 10,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 200,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.2699708267961877,
+            "mean_between": 0.0003437480937495203,
+            "gap": 0.2696270787024382
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.805,
+            "mean_within": 0.20679107621847326,
+            "mean_between": 0.001760779031764356,
+            "gap": 0.2050302971867089
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.185,
+            "mean_within": 0.0118814911859386,
+            "mean_between": 0.012622294900873483,
+            "gap": -0.0007408037149348821
+          },
+          "ultra_acc_minus_kmeans": 0.19499999999999995,
+          "ultra_acc_minus_random": 0.815,
+          "ultra_gap_minus_kmeans": 0.06459678151572928,
+          "wall_s": 0.7010166645050049
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 2048,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 0.551,
+            "mean_within": 0.05716096846869598,
+            "mean_between": 0.0004181788201663554,
+            "gap": 0.05674278964852962
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.931,
+            "mean_within": 0.06292214591347822,
+            "mean_between": 0.0003269477100011539,
+            "gap": 0.06259519820347707
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.102,
+            "mean_within": 0.003303406795627503,
+            "mean_between": 0.003484565821784271,
+            "gap": -0.0001811590261567679
+          },
+          "ultra_acc_minus_kmeans": -0.38,
+          "ultra_acc_minus_random": 0.44900000000000007,
+          "ultra_gap_minus_kmeans": -0.0058524085549474525,
+          "wall_s": 1.1522457599639893
+        },
+        {
+          "n_top_clusters": 10,
+          "cluster_size_requested": 50,
+          "cluster_size_effective": 50,
+          "n_dim": 4096,
+          "tree_depth": 2,
+          "n_leaf_clusters": 20,
+          "n_atoms": 1000,
+          "ARM_ULTRAMETRIC": {
+            "acc_leaf": 1.0,
+            "mean_within": 0.0691796555533645,
+            "mean_between": -0.00013652544578515374,
+            "gap": 0.06931618099914966
+          },
+          "ARM_FLAT_KMEANS": {
+            "acc_leaf": 0.936,
+            "mean_within": 0.06191071029478841,
+            "mean_between": 1.0122989869922182e-05,
+            "gap": 0.061900587304918486
+          },
+          "ARM_RANDOM_GROUPING": {
+            "acc_leaf": 0.102,
+            "mean_within": 0.0035896073116037193,
+            "mean_between": 0.0030279800018478305,
+            "gap": 0.0005616273097558888
+          },
+          "ultra_acc_minus_kmeans": 0.06399999999999995,
+          "ultra_acc_minus_random": 0.898,
+          "ultra_gap_minus_kmeans": 0.007415593694231171,
+          "wall_s": 2.220430374145508
+        }
+      ]
+    }
+  ]
+}

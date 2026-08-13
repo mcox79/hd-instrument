@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "TypeError: '>' not supported between instances of 'Tensor' and 'numpy.ndarray'",
+  "summary": "CELL_CRASHED: TypeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_resonator_decision_compgen_2factor_v1.py\", line 674, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_resonator_decision_compgen_2factor_v1.py\", line 653, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_resonator_decision_compgen_2factor_v1.py\", line 612, in self_test\n    p_res = resonator_decode(Bho, code_c, code_v, role_table, n_iter=25, n_restart=4, seed=1)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_resonator_decision_compgen_2factor_v1.py\", line 298, in resonator_decode\n    take = score > best_score\n           ^^^^^^^^^^^^^^^^^^\nTypeError: '>' not supported between instances of 'Tensor' and 'numpy.ndarray'\n",
+  "ts_iso": "2026-07-21T06:45:09.033925+00:00",
+  "pid": 23664,
+  "anchor_name": "exp_resonator_decision_compgen_2factor_v1"
+}

@@ -1,0 +1,653 @@
+{
+  "anchor_name": "substrate_compose_heterogeneous_routing_v2_RESCUE",
+  "verdict": "HARD_FAIL_PROVENANCE",
+  "verdict_msg": "HARD_FAIL_PROVENANCE_BASELINE: ARM_BASELINE_FAIR_HARNESS=7.6563 drifts 0.3498 from fair_harness ref 7.3065 (>tol 0.05). Encoder/Hebbian pipeline mismatch. uni=7.863 | BASE=7.6563(drift=+0.3498,rail=False) | THETA=7.5528 | FREQ=7.4321 | ORTHOG=7.7728 | best_het=ARM_FREQ_ROUTED_K2 (BPC=7.4321 cv=0.0031)",
+  "summary": "HARD_FAIL_PROVENANCE | arms=4 seeds=2 N_DIM=4096 N_TRAIN=50000 encoder=word2vec_sparse_bipolar het_routing_v2_RESCUE",
+  "config_version": "substrate_compose_heterogeneous_routing_v2_RESCUE; encoder=word2vec_sparse_bipolar_f0.050; N_DIM=4096 N_TRAIN=50000 N_HELD=10000 VOCAB_CAP=4000 arms=['ARM_BASELINE_FAIR_HARNESS', 'ARM_THETA_PHASE_TWO_W', 'ARM_FREQ_ROUTED_K2', 'ARM_ORTHOG_SUBSPACE'] seeds=[7, 17] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.1, 0.3, 0.5, 0.7, 1.0] cfrpe_lr=0.500 stdp_w=0.500 n_steps=1000 batch=64 theta_alphas=[0.3, 0.5, 0.7] freq_rank=100 freq_lr_high=0.500 freq_lr_rare=0.200 orthog_lr=0.500 device=cpu rescue=v2",
+  "run_mode": "full",
+  "device": "cpu",
+  "N_DIM": 4096,
+  "N_TRAIN": 50000,
+  "N_HELD": 10000,
+  "VOCAB_CAP": 4000,
+  "N_STEPS": 1000,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "FREQ_ROUTE_RANK": 100,
+  "FREQ_LR_HIGH": 0.5,
+  "FREQ_LR_RARE": 0.2,
+  "THETA_ALPHA_GRID": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "ORTHOG_LR": 0.5,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "SEEDS": [
+    7,
+    17
+  ],
+  "ARMS": [
+    "ARM_BASELINE_FAIR_HARNESS",
+    "ARM_THETA_PHASE_TWO_W",
+    "ARM_FREQ_ROUTED_K2",
+    "ARM_ORTHOG_SUBSPACE"
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.863,
+        "bpc_std": 0.0
+      },
+      "ARM_BASELINE_FAIR_HARNESS": {
+        "bpc_best_mean": 7.6563,
+        "bpc_best_std": 0.0023,
+        "bpc_best_cv": 0.0003,
+        "top1_acc_mean": 0.2071,
+        "top1_acc_std": 0.0013,
+        "mrr_at_10_mean": 0.2781,
+        "mrr_at_10_std": 0.001,
+        "raw_bpc_at_T1_L1_mean": 11.664,
+        "n_valid_seeds": 2,
+        "discriminating_per_seed": [
+          {},
+          {}
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_THETA_PHASE_TWO_W": {
+        "bpc_best_mean": 7.5528,
+        "bpc_best_std": 0.019,
+        "bpc_best_cv": 0.0025,
+        "top1_acc_mean": 0.2127,
+        "top1_acc_std": 0.0005,
+        "mrr_at_10_mean": 0.2728,
+        "mrr_at_10_std": 0.002,
+        "raw_bpc_at_T1_L1_mean": 11.6989,
+        "n_valid_seeds": 2,
+        "discriminating_per_seed": [
+          {
+            "enc_vs_ret_bank_corr": 0.3468,
+            "logit_enc_ret_corr_mean": 0.186,
+            "n_phase0_steps": 500,
+            "n_phase1_steps": 500,
+            "best_alpha": 0.7,
+            "best_alpha_dev_bpc": 7.1259,
+            "alpha_grid": [
+              0.3,
+              0.5,
+              0.7
+            ]
+          },
+          {
+            "enc_vs_ret_bank_corr": 0.3477,
+            "logit_enc_ret_corr_mean": 0.1743,
+            "n_phase0_steps": 500,
+            "n_phase1_steps": 500,
+            "best_alpha": 0.7,
+            "best_alpha_dev_bpc": 7.1498,
+            "alpha_grid": [
+              0.3,
+              0.5,
+              0.7
+            ]
+          }
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_FREQ_ROUTED_K2": {
+        "bpc_best_mean": 7.4321,
+        "bpc_best_std": 0.0232,
+        "bpc_best_cv": 0.0031,
+        "top1_acc_mean": 0.1995,
+        "top1_acc_std": 0.0001,
+        "mrr_at_10_mean": 0.2904,
+        "mrr_at_10_std": 0.0027,
+        "raw_bpc_at_T1_L1_mean": 11.5772,
+        "n_valid_seeds": 2,
+        "discriminating_per_seed": [
+          {
+            "n_high_freq_steps": 36002,
+            "n_rare_steps": 27998,
+            "freq_threshold": 100,
+            "n_high_freq_vocab": 100,
+            "n_rare_vocab": 3900,
+            "top1_high_freq_tokens": 0.2917,
+            "top1_low_freq_tokens": 0.0,
+            "freq_top1_differential": 0.2917,
+            "n_high_freq_tgts_in_test": 2660,
+            "n_low_freq_tgts_in_test": 1232
+          },
+          {
+            "n_high_freq_steps": 36118,
+            "n_rare_steps": 27882,
+            "freq_threshold": 100,
+            "n_high_freq_vocab": 100,
+            "n_rare_vocab": 3900,
+            "top1_high_freq_tokens": 0.2921,
+            "top1_low_freq_tokens": 0.0,
+            "freq_top1_differential": 0.2921,
+            "n_high_freq_tgts_in_test": 2660,
+            "n_low_freq_tgts_in_test": 1232
+          }
+        ],
+        "all_seeds_failed": false
+      },
+      "ARM_ORTHOG_SUBSPACE": {
+        "bpc_best_mean": 7.7728,
+        "bpc_best_std": 0.1074,
+        "bpc_best_cv": 0.0138,
+        "top1_acc_mean": 0.1873,
+        "top1_acc_std": 0.0172,
+        "mrr_at_10_mean": 0.2684,
+        "mrr_at_10_std": 0.0047,
+        "raw_bpc_at_T1_L1_mean": 11.6358,
+        "n_valid_seeds": 2,
+        "discriminating_per_seed": [
+          {
+            "orthog_residual_max": 0.0,
+            "cross_subspace_grad_corr_mean_abs": 0.0005,
+            "n_grad_samples": 5
+          },
+          {
+            "orthog_residual_max": 0.0,
+            "cross_subspace_grad_corr_mean_abs": 0.0004,
+            "n_grad_samples": 5
+          }
+        ],
+        "all_seeds_failed": false
+      }
+    },
+    "het_arm_bpc": {
+      "ARM_THETA_PHASE_TWO_W": 7.5528,
+      "ARM_FREQ_ROUTED_K2": 7.4321,
+      "ARM_ORTHOG_SUBSPACE": 7.7728
+    },
+    "best_het_arm": "ARM_FREQ_ROUTED_K2",
+    "best_het_bpc": 7.4321,
+    "best_het_cv": 0.0031,
+    "sanity_rails": {
+      "baseline_ref": 7.3065,
+      "baseline_drift": 0.3498,
+      "baseline_rail_ok": false,
+      "tolerance": 0.05
+    },
+    "bands": {
+      "hard_pass_cap_broken_bpc": 6.95,
+      "chain_grade_bonus_bpc": 6.8,
+      "middle_band_lower": 6.95,
+      "middle_band_upper": 7.05,
+      "hard_fail_decisive_floor": 7.3,
+      "cv_max": 0.05
+    },
+    "n_seeds": 2,
+    "unigram_bpc": 7.863,
+    "llm_forward_calls_total": 0,
+    "honest_scope": "Tests 3 heterogeneous-routing composition architectures (theta-phase two-W / frequency-routed K=2 / orthogonal subspace) vs a fair_harness Hebbian baseline at RESCUE scope (N_DIM=4096, N_TRAIN=50k text8, V=4000, word2vec sparse-bipolar f=0.05, 2 seeds). v1 TIMED OUT at 3600s (per partial_metrics_7: seed 7 alone needed 3074s at N=8192). v2_RESCUE applies disparate-fields drill: smaller units (4x matmul reduction) + D1 pre-flight roofline probe + D2 atexit partial-flush. HARD_PASS: any het-routing arm BPC <= 6.95 refutes cf-RPE +12%% cap. WHAT_THIS_DOES_NOT_SHOW: heterogeneous-routing benefit may scale WITH N (at reduced N=4096 discriminator could be weaker than full N=8192); doesn't test K>2 routing variants; modern-Hopfield cleanup not stacked here.",
+    "cites": [
+      "notes/exp_dev_handoff_research_timeout_class_revival_2026-06-24.md (ANCHOR 2)",
+      "notes/research_timeout_class_revival_disparate_fields_2026-06-24.md (TIMEOUT drill)",
+      "experiments/exp_substrate_compose_heterogeneous_routing_v1.py (v1 cell)",
+      "data/exp_substrate_compose_heterogeneous_routing_v1/partial_metrics_7.json (seed 7 v1 data)",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json (sanity rail 7.3065)"
+    ],
+    "provenance_check_active": true
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.863,
+          "top1_unigram": 0.2125,
+          "mrr_unigram": 0.2795,
+          "n_test": 3892
+        },
+        "w2v_meta": {
+          "n_hit": 3753,
+          "n_miss": 247,
+          "n_vocab": 4000,
+          "pretrain_dim": 300
+        },
+        "ARM_BASELINE_FAIR_HARNESS": {
+          "bpc_best": 7.6587,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.2671,
+          "top1_acc": 0.2058,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.277,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.2671
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3841
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.733
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.3454
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.0712
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "wall_ingest_s": 15.48,
+          "wall_recall_s": 7.76,
+          "raw_bpc_at_T1_L1": 11.6628,
+          "discriminating": {},
+          "elapsed_s_arm": 80.1
+        },
+        "ARM_THETA_PHASE_TWO_W": {
+          "bpc_best": 7.5338,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.1259,
+          "top1_acc": 0.2122,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2748,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.1259
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3286
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7426
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.4592
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.2981
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 292.6,
+          "wall_ingest_s": 96.31,
+          "wall_recall_s": 14.09,
+          "raw_bpc_at_T1_L1": 11.6941,
+          "discriminating": {
+            "enc_vs_ret_bank_corr": 0.3468,
+            "logit_enc_ret_corr_mean": 0.186,
+            "n_phase0_steps": 500,
+            "n_phase1_steps": 500,
+            "best_alpha": 0.7,
+            "best_alpha_dev_bpc": 7.1259,
+            "alpha_grid": [
+              0.3,
+              0.5,
+              0.7
+            ]
+          }
+        },
+        "ARM_FREQ_ROUTED_K2": {
+          "bpc_best": 7.4553,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 6.9855,
+          "top1_acc": 0.1994,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2878,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 6.9855
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.0392
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.5395
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.7891
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.374
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 367.3,
+          "wall_ingest_s": 289.85,
+          "wall_recall_s": 15.72,
+          "raw_bpc_at_T1_L1": 11.5809,
+          "discriminating": {
+            "n_high_freq_steps": 36002,
+            "n_rare_steps": 27998,
+            "freq_threshold": 100,
+            "n_high_freq_vocab": 100,
+            "n_rare_vocab": 3900,
+            "top1_high_freq_tokens": 0.2917,
+            "top1_low_freq_tokens": 0.0,
+            "freq_top1_differential": 0.2917,
+            "n_high_freq_tgts_in_test": 2660,
+            "n_low_freq_tgts_in_test": 1232
+          }
+        },
+        "ARM_ORTHOG_SUBSPACE": {
+          "bpc_best": 7.6654,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.3821,
+          "top1_acc": 0.1701,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2637,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3821
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.6064
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9391
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.461
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.4857
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "wall_ingest_s": 60.31,
+          "wall_recall_s": 5.75,
+          "raw_bpc_at_T1_L1": 11.6367,
+          "discriminating": {
+            "orthog_residual_max": 0.0,
+            "cross_subspace_grad_corr_mean_abs": 0.0005,
+            "n_grad_samples": 5
+          },
+          "elapsed_s_arm": 149.28
+        }
+      },
+      "V": 4000,
+      "N_DIM": 4096,
+      "N_TRAIN": 50000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "n_hit": 3753,
+        "n_miss": 247,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "elapsed_s_seed": 1023.58
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.863,
+          "top1_unigram": 0.2125,
+          "mrr_unigram": 0.2795,
+          "n_test": 3892
+        },
+        "w2v_meta": {
+          "n_hit": 3753,
+          "n_miss": 247,
+          "n_vocab": 4000,
+          "pretrain_dim": 300
+        },
+        "ARM_BASELINE_FAIR_HARNESS": {
+          "bpc_best": 7.654,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.2932,
+          "top1_acc": 0.2084,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2791,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.2932
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.4082
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7355
+            },
+            "0.7": {
+              "best_T": 0.05,
+              "bpc_dev": 8.3567
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.0994
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "wall_ingest_s": 16.78,
+          "wall_recall_s": 7.27,
+          "raw_bpc_at_T1_L1": 11.6652,
+          "discriminating": {},
+          "elapsed_s_arm": 83.35
+        },
+        "ARM_THETA_PHASE_TWO_W": {
+          "bpc_best": 7.5718,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.1498,
+          "top1_acc": 0.2133,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2709,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.1498
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.3637
+            },
+            "0.5": {
+              "best_T": 0.05,
+              "bpc_dev": 7.7813
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.5134
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.3696
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 290.42,
+          "wall_ingest_s": 96.79,
+          "wall_recall_s": 14.99,
+          "raw_bpc_at_T1_L1": 11.7037,
+          "discriminating": {
+            "enc_vs_ret_bank_corr": 0.3477,
+            "logit_enc_ret_corr_mean": 0.1743,
+            "n_phase0_steps": 500,
+            "n_phase1_steps": 500,
+            "best_alpha": 0.7,
+            "best_alpha_dev_bpc": 7.1498,
+            "alpha_grid": [
+              0.3,
+              0.5,
+              0.7
+            ]
+          }
+        },
+        "ARM_FREQ_ROUTED_K2": {
+          "bpc_best": 7.4088,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.0034,
+          "top1_acc": 0.1996,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2931,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.0034
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.048
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.5514
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 7.7971
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 8.3699
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "elapsed_s_arm": 367.37,
+          "wall_ingest_s": 290.17,
+          "wall_recall_s": 14.73,
+          "raw_bpc_at_T1_L1": 11.5735,
+          "discriminating": {
+            "n_high_freq_steps": 36118,
+            "n_rare_steps": 27882,
+            "freq_threshold": 100,
+            "n_high_freq_vocab": 100,
+            "n_rare_vocab": 3900,
+            "top1_high_freq_tokens": 0.2921,
+            "top1_low_freq_tokens": 0.0,
+            "freq_top1_differential": 0.2921,
+            "n_high_freq_tgts_in_test": 2660,
+            "n_low_freq_tgts_in_test": 1232
+          }
+        },
+        "ARM_ORTHOG_SUBSPACE": {
+          "bpc_best": 7.8802,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 7.3464,
+          "top1_acc": 0.2045,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2731,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "per_lambda_T_summary": {
+            "0.1": {
+              "best_T": 0.02,
+              "bpc_dev": 7.3464
+            },
+            "0.3": {
+              "best_T": 0.05,
+              "bpc_dev": 7.5641
+            },
+            "0.5": {
+              "best_T": 0.1,
+              "bpc_dev": 7.9389
+            },
+            "0.7": {
+              "best_T": 0.1,
+              "bpc_dev": 8.4493
+            },
+            "1.0": {
+              "best_T": 0.1,
+              "bpc_dev": 9.4545
+            }
+          },
+          "n_dev": 3891,
+          "n_test": 3892,
+          "wall_ingest_s": 60.58,
+          "wall_recall_s": 6.26,
+          "raw_bpc_at_T1_L1": 11.635,
+          "discriminating": {
+            "orthog_residual_max": 0.0,
+            "cross_subspace_grad_corr_mean_abs": 0.0004,
+            "n_grad_samples": 5
+          },
+          "elapsed_s_arm": 148.72
+        }
+      },
+      "V": 4000,
+      "N_DIM": 4096,
+      "N_TRAIN": 50000,
+      "llm_forward_calls_at_inference": 0,
+      "encoder_meta": {
+        "n_hit": 3753,
+        "n_miss": 247,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "elapsed_s_seed": 892.89
+    }
+  ],
+  "elapsed_s": 1916.47
+}

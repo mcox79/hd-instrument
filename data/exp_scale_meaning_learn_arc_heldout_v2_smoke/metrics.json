@@ -1,0 +1,236 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE run_mode=smoke raw=0.6118 text=0.5045 feq=0.6119 zavg=0.5896 wtuned=0.6119 primary(ARM_FUSE_WTUNED)=0.6119 prim_margin=0.0001 text_margin=-0.1073 learn(txt-rand)=-0.0197 collapse=0.4946 pop=0.5008 rel_raw=0.5485 rel_text=0.5402 rel_text_margin=-0.0083 n_query_min=242",
+  "summary": "SMOKE run_mode=smoke raw=0.6118 text=0.5045 feq=0.6119 zavg=0.5896 wtuned=0.6119 primary(ARM_FUSE_WTUNED)=0.6119 prim_margin=0.0001 text_margin=-0.1073 learn(txt-rand)=-0.0197 collapse=0.4946 pop=0.5008 rel_raw=0.5485 rel_text=0.5402 rel_text_margin=-0.0083 n_query_min=242",
+  "anchor_name": "scale_meaning_learn_arc_heldout_v2",
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-27T10:10:58.957993+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_seeds": 1,
+  "results_summary": {
+    "primary_arm_selected": [
+      "ARM_FUSE_WTUNED"
+    ],
+    "w_star_per_seed": [
+      0.1
+    ],
+    "semantic_raw_grounding": 0.611845341254209,
+    "semantic_text": 0.5045160682109735,
+    "semantic_fused_eq_naive": 0.6119225435447363,
+    "semantic_fuse_zavg": 0.5896140234958005,
+    "semantic_fuse_wtuned": 0.6119435309246466,
+    "semantic_primary": 0.6119435309246466,
+    "semantic_random_init": 0.5242151096092544,
+    "semantic_collapse": 0.49460324722451104,
+    "semantic_popularity": 0.5007889416610629,
+    "semantic_margin_primary_minus_raw": 9.818967043762061e-05,
+    "semantic_margin_primary_min": 9.818967043762061e-05,
+    "semantic_margin_text_minus_raw": -0.10732927304323547,
+    "semantic_margin_text_min": -0.10732927304323547,
+    "learning_text_minus_random": -0.019699041398280936,
+    "well_covered_margin": 0.0037274321896123563,
+    "relational_raw": 0.5485461182336183,
+    "relational_text": 0.540204326923077,
+    "relational_fused_eq": 0.5485461182336183,
+    "relational_fuse_zavg": 0.5435292022792023,
+    "relational_fuse_wtuned": 0.5485461182336183,
+    "relational_collapse": 0.47702590811965806,
+    "relational_popularity": 0.49760861823361824,
+    "relational_text_minus_raw": -0.008341791310541358,
+    "n_query_min": 242,
+    "validity": true,
+    "trained_tokens": [
+      3155569
+    ]
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "smoke",
+      "elapsed_s": 54.30584809998982,
+      "w_star": 0.1,
+      "selected_arm": "ARM_FUSE_WTUNED",
+      "fusion_select": {
+        "w_star": 0.1,
+        "selected_arm": "ARM_FUSE_WTUNED",
+        "n_query_train": 1499,
+        "train_arm_auc": {
+          "ARM_RAW_GROUNDING": 0.6116888485562756,
+          "ARM_RAW_TEXT": 0.5068623172646012,
+          "ARM_FUSED_EQ": 0.611948431581496,
+          "ARM_FUSE_ZAVG": 0.6039080865943794,
+          "ARM_FUSE_WTUNED": 0.611948431581496,
+          "ARM_RANDOM_INIT": 0.513246281524723,
+          "ARM_COLLAPSE_SHUFFLE": 0.49890447365513213,
+          "ARM_POPULARITY": 0.49730445704812015
+        },
+        "train_wtuned_by_w": {
+          "0.0": 0.6116888485562756,
+          "0.1": 0.6119530088507238,
+          "0.2": 0.6119496682041478,
+          "0.3": 0.6119476544152295,
+          "0.4": 0.6119475595632936,
+          "0.5": 0.611948431581496,
+          "0.6": 0.6119454988572988,
+          "0.7": 0.611945097572402,
+          "0.8": 0.6119456185273866,
+          "0.9": 0.6119482681843184,
+          "1.0": 0.5068623172646012
+        },
+        "train_candidate_auc": {
+          "ARM_RAW_TEXT": 0.5068623172646012,
+          "ARM_FUSE_ZAVG": 0.6039080865943794,
+          "ARM_FUSE_WTUNED": 0.6119530088507238
+        }
+      },
+      "n_well_covered": 34,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.611845341254209,
+        "ARM_RAW_TEXT": 0.5045160682109735,
+        "ARM_FUSED_EQ": 0.6119225435447363,
+        "ARM_FUSE_ZAVG": 0.5896140234958005,
+        "ARM_FUSE_WTUNED": 0.6119435309246466,
+        "ARM_FUSE_SELECTED": 0.6119435309246466,
+        "ARM_RANDOM_INIT": 0.5242151096092544,
+        "ARM_COLLAPSE_SHUFFLE": 0.49460324722451104,
+        "ARM_POPULARITY": 0.5007889416610629,
+        "_selected_arm": "ARM_FUSE_WTUNED",
+        "_w_star": 0.1,
+        "_n_query": 242,
+        "_n_concepts": 250
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.6485558205698638,
+        "ARM_RAW_TEXT": 0.46502189933259175,
+        "ARM_FUSED_EQ": 0.6522832527594762,
+        "ARM_FUSE_ZAVG": 0.6116464875502695,
+        "ARM_FUSE_WTUNED": 0.6522832527594762,
+        "ARM_FUSE_SELECTED": 0.6522832527594762,
+        "ARM_RANDOM_INIT": 0.5196987036878583,
+        "ARM_COLLAPSE_SHUFFLE": 0.5193758289124668,
+        "ARM_POPULARITY": 0.48898816526910244,
+        "_selected_arm": "ARM_FUSE_WTUNED",
+        "_w_star": 0.1,
+        "_n_query": 26,
+        "_n_concepts": 34
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5485461182336183,
+        "ARM_RAW_TEXT": 0.540204326923077,
+        "ARM_FUSED_EQ": 0.5485461182336183,
+        "ARM_FUSE_ZAVG": 0.5435292022792023,
+        "ARM_FUSE_WTUNED": 0.5485461182336183,
+        "ARM_COLLAPSE_SHUFFLE": 0.47702590811965806,
+        "ARM_POPULARITY": 0.49760861823361824,
+        "_n_query": 78,
+        "_n_shards": 6
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "8048e007ee0b8b223f19eee7735c877034412877b2fb1feb9a1ac1c18e4e310d",
+        "ARM_RAW_TEXT": "0157587f2b44a3ba822e6343c872acba103b27d6b27a10886504ad9e6eb92bc1",
+        "ARM_RANDOM_INIT": "9d0bd11562e8ccf26d79c4b36fbbf1864d126a35b795a02fad8b0a448b10ece6"
+      },
+      "mention_rep_coverage": 1.0,
+      "final_mlm_loss": 7.232456684112549,
+      "trained_tokens": 3155569,
+      "corpus_stats": {
+        "n_read": 150000,
+        "n_kept": 134982,
+        "n_dup": 80,
+        "n_lowq": 14938,
+        "dup_rate": 0.0005333333333333334,
+        "total_alpha_tokens": 2389909
+      },
+      "collect_meta": {
+        "n_train_lines": 105684,
+        "n_held_lines": 29298,
+        "bpe_sample": 80000,
+        "train_tokens_available": 1717146,
+        "scrub_terms": 2011
+      },
+      "split_meta": {
+        "n_eligible": 1953,
+        "n_heldout": 250,
+        "n_train_eval": 1703,
+        "median_mentions_eligible": 15.0,
+        "median_mentions_heldout": 15.0
+      },
+      "bpe_size": 4096,
+      "checkpoint_saved": true,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785147058.9096043
+    }
+  },
+  "bands": {
+    "hp_margin_over_raw": 0.03,
+    "raw_signal_min": 0.55,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "min_query": 120,
+    "well_covered_min": 100
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "elapsed_s": 54.30584809998982,
+  "structured_gate_claims": [
+    {
+      "gate_name": "collapse_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "collapse=0.4946 band=(0.44, 0.56)"
+    },
+    {
+      "gate_name": "popularity_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "pop=0.5008"
+    },
+    {
+      "gate_name": "raw_grounding_signal",
+      "measured": 0.611845341254209,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "raw grounding must be a real signal"
+    },
+    {
+      "gate_name": "power_min_query",
+      "measured": 242.0,
+      "threshold": 120.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out query power floor"
+    },
+    {
+      "gate_name": "primary_beats_raw_margin",
+      "measured": 9.818967043762061e-05,
+      "threshold": 0.03,
+      "op": ">=",
+      "gate_verdict": false,
+      "note": "PRIMARY(best-honest fusion)-RAW semantic"
+    },
+    {
+      "gate_name": "primary_beats_raw_per_seed_min",
+      "measured": 9.818967043762061e-05,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "per-seed min PRIMARY margin"
+    },
+    {
+      "gate_name": "learning_real_text_over_random",
+      "measured": -0.019699041398280936,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": false,
+      "note": "RAW_TEXT - RANDOM_INIT"
+    }
+  ]
+}

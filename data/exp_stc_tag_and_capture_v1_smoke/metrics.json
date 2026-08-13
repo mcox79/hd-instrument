@@ -1,0 +1,141 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | BASELINE_SATURATES: baseline=0.953 >= 0.95 | base=0.953 rep_no_tag=0.953 stc=0.953 stc_decay=0.953 | lift=0.000 tag=0.535 cap=1.000 cv=0.001 | alpha=0.0488 n=2",
+  "summary": "HARD_FAIL | BASELINE_SATURATES: baseline=0.953 >= 0.95 | base=0.953 rep_no_tag=0.953 stc=0.953 stc_decay=0.953 | lift=0.000 tag=0.535 cap=1.000 cv=0.001 | alpha=0.0488 n=2",
+  "verdict_reason": "BASELINE_SATURATES: baseline=0.953 >= 0.95",
+  "per_arm": {
+    "baseline_hebbian": {
+      "11": {
+        "new_pattern_acc": 0.9527068138122559,
+        "old_pattern_acc": 0.9606676697731018,
+        "fraction_tagged": 1.0,
+        "fraction_captured": 1.0
+      },
+      "13": {
+        "new_pattern_acc": 0.953994631767273,
+        "old_pattern_acc": 0.9609839916229248,
+        "fraction_tagged": 1.0,
+        "fraction_captured": 1.0
+      }
+    },
+    "replay_no_tag": {
+      "11": {
+        "new_pattern_acc": 0.9526721239089966,
+        "old_pattern_acc": 0.9606356024742126,
+        "fraction_tagged": 1.0,
+        "fraction_captured": 1.0
+      },
+      "13": {
+        "new_pattern_acc": 0.9539598226547241,
+        "old_pattern_acc": 0.9609520435333252,
+        "fraction_tagged": 1.0,
+        "fraction_captured": 1.0
+      }
+    },
+    "stc_tagged": {
+      "11": {
+        "new_pattern_acc": 0.9526721239089966,
+        "old_pattern_acc": 0.9606356024742126,
+        "fraction_tagged": 0.5374358596801758,
+        "fraction_captured": 1.0
+      },
+      "13": {
+        "new_pattern_acc": 0.9539598226547241,
+        "old_pattern_acc": 0.9609520435333252,
+        "fraction_tagged": 0.5384569778442383,
+        "fraction_captured": 1.0
+      }
+    },
+    "stc_tagged_decay": {
+      "11": {
+        "new_pattern_acc": 0.952624499797821,
+        "old_pattern_acc": 0.9606003165245056,
+        "fraction_tagged": 0.5374358596801758,
+        "fraction_captured": 0.9999844551086425
+      },
+      "13": {
+        "new_pattern_acc": 0.9539086222648621,
+        "old_pattern_acc": 0.960911750793457,
+        "fraction_tagged": 0.5384569778442383,
+        "fraction_captured": 0.9999817848205567
+      }
+    },
+    "diag_tag_fraction": {
+      "11": {
+        "new_pattern_acc": 0.5373699474334717,
+        "old_pattern_acc": 1.0,
+        "fraction_tagged": 0.5373699474334717,
+        "fraction_captured": 1.0
+      },
+      "13": {
+        "new_pattern_acc": 0.5317214584350586,
+        "old_pattern_acc": 1.0,
+        "fraction_tagged": 0.5317214584350586,
+        "fraction_captured": 1.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "baseline_hebbian": {
+      "mean_new": 0.9533507227897644,
+      "std_new": 0.0006439089775085449,
+      "cv_new": 0.0006754166773213236,
+      "mean_old": 0.9608258306980133,
+      "mean_tagged": 1.0,
+      "mean_captured": 1.0,
+      "n": 2
+    },
+    "replay_no_tag": {
+      "mean_new": 0.9533159732818604,
+      "std_new": 0.0006438493728637695,
+      "cv_new": 0.0006753787735741705,
+      "mean_old": 0.9607938230037689,
+      "mean_tagged": 1.0,
+      "mean_captured": 1.0,
+      "n": 2
+    },
+    "stc_tagged": {
+      "mean_new": 0.9533159732818604,
+      "std_new": 0.0006438493728637695,
+      "cv_new": 0.0006753787735741705,
+      "mean_old": 0.9607938230037689,
+      "mean_tagged": 0.5379464187622071,
+      "mean_captured": 1.0,
+      "n": 2
+    },
+    "stc_tagged_decay": {
+      "mean_new": 0.9532665610313416,
+      "std_new": 0.0006420612335205078,
+      "cv_new": 0.0006735379795823952,
+      "mean_old": 0.9607560336589813,
+      "mean_tagged": 0.5379464187622071,
+      "mean_captured": 0.9999831199645997,
+      "n": 2
+    },
+    "diag_tag_fraction": {
+      "mean_new": 0.5345457029342651,
+      "std_new": 0.0028242444992065407,
+      "cv_new": 0.005283448138678327,
+      "mean_old": 1.0,
+      "mean_tagged": 0.5345457029342651,
+      "mean_captured": 1.0,
+      "n": 2
+    }
+  },
+  "saturation_score": 0.9533507227897644,
+  "stc_lift_over_replay_no_tag": 0.0,
+  "fraction_tagged": 0.5345457029342651,
+  "fraction_captured": 1.0,
+  "stc_cv": 0.0006753787735741705,
+  "n_seeds_complete": 2,
+  "expected_n_units": 10,
+  "completed_units": 10,
+  "cardinality_ok": true,
+  "anchor_name": "stc_tag_and_capture_v1",
+  "elapsed_s": 111.6,
+  "ts_iso": "2026-06-27T19:42:39Z",
+  "pid": 22660,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=stc_tag_and_capture_v1,N=1024,NCAT=50,NTRAIN=10,NHELDOUT=10,proto_noise=0.85,alpha=0.0488,J_capture=50,K_decay=25,theta_pct=90.0,eta_fast=1.00,eta_cap=0.05,seeds=[11, 13],mode=smoke,HP_new>=0.50,HP_lift>=0.10,HP_baseline=[0.20,0.70],HP_tag=[0.05,0.30],hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=SAME_SURFACE+TAG_SELECTIVITY_BANDED+BASELINE_NOT_SATURATING",
+  "_hardening_marker": "v1_stc_tag_and_capture"
+}

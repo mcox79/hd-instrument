@@ -1,0 +1,246 @@
+{
+  "phase_map": [
+    {
+      "routing_family": "partition",
+      "K_total": 256,
+      "k_per_bank": 32,
+      "n_banks": 8,
+      "regime": "RANDOM",
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "route_hash": "c4fe95dec1d51a20",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.266,
+      "N": 2048
+    },
+    {
+      "routing_family": "partition",
+      "K_total": 1024,
+      "k_per_bank": 32,
+      "n_banks": 32,
+      "regime": "RANDOM",
+      "recall": 0.9893,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "route_hash": "806d2cdfe3e6f43c",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.29,
+      "N": 2048
+    },
+    {
+      "routing_family": "knn_softmax",
+      "K_total": 256,
+      "k_per_bank": 32,
+      "n_banks": 8,
+      "regime": "RANDOM",
+      "recall": 1.0,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "route_hash": "cfb0e75fa4063263",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.062,
+      "N": 2048
+    },
+    {
+      "routing_family": "knn_softmax",
+      "K_total": 1024,
+      "k_per_bank": 32,
+      "n_banks": 32,
+      "regime": "RANDOM",
+      "recall": 0.9932,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "route_hash": "27441cec5a7d40a2",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.213,
+      "N": 2048
+    },
+    {
+      "routing_family": "softmax_attention",
+      "K_total": 256,
+      "k_per_bank": 32,
+      "n_banks": 8,
+      "regime": "RANDOM",
+      "recall": 0.9883,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "route_hash": "674e8caf39f1e3f3",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.06,
+      "N": 2048
+    },
+    {
+      "routing_family": "softmax_attention",
+      "K_total": 1024,
+      "k_per_bank": 32,
+      "n_banks": 32,
+      "regime": "RANDOM",
+      "recall": 0.9922,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "route_hash": "d7c5e8fc5caeaf54",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.22,
+      "N": 2048
+    },
+    {
+      "routing_family": "learned_hierarchical",
+      "K_total": 256,
+      "k_per_bank": 32,
+      "n_banks": 8,
+      "regime": "RANDOM",
+      "recall": 0.9961,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "route_hash": "131d87c0ae724ef1",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.071,
+      "N": 2048
+    },
+    {
+      "routing_family": "learned_hierarchical",
+      "K_total": 1024,
+      "k_per_bank": 32,
+      "n_banks": 32,
+      "regime": "RANDOM",
+      "recall": 0.9932,
+      "route_acc": 1.0,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "route_hash": "1cef9222a8e66845",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.212,
+      "N": 2048
+    }
+  ],
+  "per_routing_summary": {
+    "partition": {
+      "recall_mean": 0.9947,
+      "route_acc_mean": 1.0,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.5,
+      "recall_per_phase_point": {
+        "K256_RANDOM": 1.0,
+        "K1024_RANDOM": 0.9893
+      }
+    },
+    "knn_softmax": {
+      "recall_mean": 0.9966,
+      "route_acc_mean": 1.0,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.5,
+      "recall_per_phase_point": {
+        "K256_RANDOM": 1.0,
+        "K1024_RANDOM": 0.9932
+      }
+    },
+    "softmax_attention": {
+      "recall_mean": 0.9902,
+      "route_acc_mean": 1.0,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 2,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 1.0,
+      "recall_per_phase_point": {
+        "K256_RANDOM": 0.9883,
+        "K1024_RANDOM": 0.9922
+      }
+    },
+    "learned_hierarchical": {
+      "recall_mean": 0.9947,
+      "route_acc_mean": 1.0,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.5,
+      "recall_per_phase_point": {
+        "K256_RANDOM": 0.9961,
+        "K1024_RANDOM": 0.9932
+      }
+    }
+  },
+  "routing_tiers": {
+    "partition": "COMPETITIVE_ROUTING",
+    "knn_softmax": "COMPETITIVE_ROUTING",
+    "softmax_attention": "COMPETITIVE_ROUTING",
+    "learned_hierarchical": "COMPETITIVE_ROUTING"
+  },
+  "routings_differ_from_partition": {
+    "knn_softmax": true,
+    "softmax_attention": true,
+    "learned_hierarchical": true
+  },
+  "n_routings_distinct_from_partition": 3,
+  "positive_control_result": {
+    "target": {
+      "routing_family": "partition",
+      "K_total": 1024,
+      "regime": "RANDOM",
+      "recall_floor": 0.6
+    },
+    "measured_recall": 0.9893,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "observed_n_units": 8,
+  "tier_counts": {
+    "SATURATED": 3,
+    "HARD_PASS": 5,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 0,
+    "HARD_FAIL": 0
+  },
+  "n_discriminating": 5,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta_soft": 8.0,
+  "group_size": 4,
+  "k_per_bank": 32,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 8/8 pts; sat=3 hp=5 mb=0 floor=0 fail=0; positive_control@partition_K=1024 rec=0.989; routing_tiers={'partition': 'COMPETITIVE_ROUTING', 'knn_softmax': 'COMPETITIVE_ROUTING', 'softmax_attention': 'COMPETITIVE_ROUTING', 'learned_hierarchical': 'COMPETITIVE_ROUTING'}",
+  "summary": "HARD_PASS_SMOKE: 8/8 pts; sat=3 hp=5 mb=0 floor=0 fail=0; positive_control@partition_K=1024 rec=0.989; routing_tiers={'partition': 'COMPETITIVE_ROUTING', 'knn_softmax': 'COMPETITIVE_ROUTING', 'softmax_attention': 'COMPETITIVE_ROUTING', 'learned_hierarchical': 'COMPETITIVE_ROUTING'}",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + positive_control_pass + 3/3 routings distinct from partition + 4/4 routings discriminating",
+  "anchor_name": "substrate_wm_routing_family_phase_diagram_v1_seed_7",
+  "elapsed_s": 1.69,
+  "ts_iso": "2026-06-29T02:15:31Z",
+  "pid": 37496,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_wm_routing_family_phase_diagram_v1_seed_7,routings=[partition,knn_softmax,softmax_attention,learned_hierarchical],K_full=[1024,4096,8192],regimes_full=[RANDOM,ADVERSARIAL],k_per_bank_full=64,N_full=8192,CB_full=16384,K_smoke=[256,1024],regimes_smoke=[RANDOM],k_per_bank_smoke=32,N_smoke=2048,CB_smoke=4096,SEED=7,mode=smoke,sigma=1.0,cue_cos=0.70,feat_overlap=0.20,beta_soft=8.0,group_size=4,expected_n_full=24,expected_n_smoke=8,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_wm_routing_family_phase_diagram_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_4_routing_family_multibank_wm",
+  "n_llm_calls": 0,
+  "zero_llm_calls_at_inference": true
+}

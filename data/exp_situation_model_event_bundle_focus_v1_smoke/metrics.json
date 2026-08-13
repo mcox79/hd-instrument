@@ -1,0 +1,409 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS situation-model memory format: (P1) event bundle round-trips -- per-role recovery {'PRED': 1.0, 'AGENT': 1.0, 'PATIENT': 1.0, 'TENSE': 1.0}, overall 1.000; (DISCRIMINATOR) role-query retrieval bundle=1.000 vs thin-label 0.012 / bag-of-args 0.012 (chance 0.014) -- the bundle answers 'who was the AGENT/PATIENT' by unbinding a role; the thin baselines CANNOT (margin 0.988); (P2) scrambling the role bindings collapses retrieval to 0.195 (structure load-bearing, margin 0.805); (CAPACITY) FLAT focus degrades gracefully 1.000->0.356 over 1..8 active items (Cowan signature, not unbounded, not hard-zero); (CHUNK) ChunkedFocus keeps recent items accessible at load 8 (recent 0.688 vs flat 0.356, recovery 0.331) by compressing older frames -- the human focus-of-attention signature. Signature N-invariant (robustness table). Event bundle = byte-identical reuse of RoleSlotSummarizer flat role-slot binding.",
+  "summary": "HARD_PASS: P1=1.000 | disc bundle=1.000 thin=0.012 bag=0.012 scramble=0.195 chance=0.014 | flat 1.000->0.356 (drop 0.644) | chunk recovery 0.331 (recent@8=0.688) | gates={'P1_roundtrips': True, 'DISCRIMINATOR_fires': True, 'P2_structure_load_bearing': True, 'CAPACITY_graceful': True, 'CHUNK_recovery': True}",
+  "elapsed_s": 10.64,
+  "ts_iso": "2026-07-24T03:29:52.332375+00:00",
+  "anchor_name": "situation_model_event_bundle_focus_v1",
+  "run_mode": "smoke",
+  "seed": 20260723,
+  "event_n": 8192,
+  "focus_n": 384,
+  "capacity": 4,
+  "fanout": 2,
+  "max_n": 8,
+  "gates": {
+    "P1_roundtrips": true,
+    "DISCRIMINATOR_fires": true,
+    "P2_structure_load_bearing": true,
+    "CAPACITY_graceful": true,
+    "CHUNK_recovery": true
+  },
+  "all_gates_pass": true,
+  "real_events_meta": {
+    "slice": [
+      "L04",
+      "L05"
+    ],
+    "n_sentences": 46,
+    "parser_uas": 0.7475
+  },
+  "n_real_events": 41,
+  "vocab_size": 74,
+  "arms_differ_verified": true,
+  "arm_hashes": {
+    "bundle": "110df9e7e9cf1ec8",
+    "thin_label": "59297fc02924c330"
+  },
+  "p1_roundtrip": {
+    "overall": 1.0,
+    "per_role": {
+      "PRED": 1.0,
+      "AGENT": 1.0,
+      "PATIENT": 1.0,
+      "TENSE": 1.0
+    }
+  },
+  "discriminator": {
+    "bundle": 1.0,
+    "thin_label": 0.012195121951219513,
+    "bag_of_args": 0.012195121951219513,
+    "scramble": 0.1951219512195122,
+    "chance": 0.013513513513513514,
+    "n_queries": 82,
+    "disc_margin": 0.9878,
+    "p2_margin": 0.8049
+  },
+  "capacity_signature": {
+    "flat": {
+      "1": 1.0,
+      "2": 0.89375,
+      "3": 0.8833333333333333,
+      "4": 0.659375,
+      "5": 0.655,
+      "6": 0.43125,
+      "7": 0.45,
+      "8": 0.35625
+    },
+    "chunk_recent": {
+      "1": 1.0,
+      "2": 0.89375,
+      "3": 0.8833333333333333,
+      "4": 0.659375,
+      "5": 0.5958333333333333,
+      "6": 0.7125,
+      "7": 0.6583333333333333,
+      "8": 0.6875
+    },
+    "chunk_all": {
+      "1": 1.0,
+      "2": 0.89375,
+      "3": 0.8833333333333333,
+      "4": 0.659375,
+      "5": 0.4125,
+      "6": 0.3875,
+      "7": 0.31607142857142856,
+      "8": 0.2875
+    },
+    "depth_profile": {
+      "1": {
+        "0": 1.0
+      },
+      "2": {
+        "0": 0.8938
+      },
+      "3": {
+        "0": 0.8833
+      },
+      "4": {
+        "0": 0.6594
+      },
+      "5": {
+        "0": 0.5958,
+        "1": 0.1375
+      },
+      "6": {
+        "0": 0.7125,
+        "1": 0.125,
+        "2": 0.0312
+      },
+      "7": {
+        "0": 0.6583,
+        "1": 0.175,
+        "2": 0.0375,
+        "3": 0.0125
+      },
+      "8": {
+        "0": 0.6875,
+        "1": 0.1,
+        "2": 0.0875,
+        "3": 0.0375,
+        "4": 0.0063
+      }
+    },
+    "chance": 0.013513513513513514,
+    "flat_drop": 0.6438,
+    "recovery_margin": 0.3312
+  },
+  "n_robustness": {
+    "192": {
+      "flat": {
+        "1": 0.975,
+        "2": 0.6562,
+        "3": 0.5792,
+        "4": 0.3656,
+        "5": 0.3475,
+        "6": 0.2812,
+        "7": 0.2446,
+        "8": 0.1969
+      },
+      "chunk_recent": {
+        "1": 0.975,
+        "2": 0.6562,
+        "3": 0.5792,
+        "4": 0.3656,
+        "5": 0.3583,
+        "6": 0.3292,
+        "7": 0.3042,
+        "8": 0.3167
+      },
+      "flat_drop": 0.7781,
+      "recovery": 0.1198
+    },
+    "256": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.75,
+        "3": 0.7,
+        "4": 0.4406,
+        "5": 0.4725,
+        "6": 0.3083,
+        "7": 0.3589,
+        "8": 0.2344
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.75,
+        "3": 0.7,
+        "4": 0.4406,
+        "5": 0.4792,
+        "6": 0.3958,
+        "7": 0.4625,
+        "8": 0.5208
+      },
+      "flat_drop": 0.7656,
+      "recovery": 0.2865
+    },
+    "384": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.8938,
+        "3": 0.8833,
+        "4": 0.6594,
+        "5": 0.655,
+        "6": 0.4313,
+        "7": 0.45,
+        "8": 0.3563
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.8938,
+        "3": 0.8833,
+        "4": 0.6594,
+        "5": 0.5958,
+        "6": 0.7125,
+        "7": 0.6583,
+        "8": 0.6875
+      },
+      "flat_drop": 0.6438,
+      "recovery": 0.3312
+    },
+    "512": {
+      "flat": {
+        "1": 1.0,
+        "2": 0.95,
+        "3": 0.9542,
+        "4": 0.7844,
+        "5": 0.7875,
+        "6": 0.5896,
+        "7": 0.5696,
+        "8": 0.4625
+      },
+      "chunk_recent": {
+        "1": 1.0,
+        "2": 0.95,
+        "3": 0.9542,
+        "4": 0.7844,
+        "5": 0.7583,
+        "6": 0.7667,
+        "7": 0.8,
+        "8": 0.7542
+      },
+      "flat_drop": 0.5375,
+      "recovery": 0.2917
+    }
+  },
+  "glass_box_samples": [
+    {
+      "event": [
+        "rubbed",
+        "cat",
+        "castle"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "rubbed",
+          3010.0
+        ],
+        "AGENT": [
+          "cat",
+          3106.0
+        ],
+        "PATIENT": [
+          "castle",
+          3130.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3174.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "rattling",
+        "cat",
+        "down"
+      ],
+      "tense": "T=PRES",
+      "recovered": {
+        "PRED": [
+          "rattling",
+          3058.0
+        ],
+        "AGENT": [
+          "cat",
+          3170.0
+        ],
+        "PATIENT": [
+          "down",
+          3182.0
+        ],
+        "TENSE": [
+          "T=PRES",
+          3192.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "took",
+        "herbert",
+        "blocks"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "took",
+          3016.0
+        ],
+        "AGENT": [
+          "herbert",
+          2984.0
+        ],
+        "PATIENT": [
+          "blocks",
+          3036.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3064.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "threw",
+        "herbert",
+        "it"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "threw",
+          3120.0
+        ],
+        "AGENT": [
+          "herbert",
+          2978.0
+        ],
+        "PATIENT": [
+          "it",
+          2934.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          3070.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "did",
+        "it",
+        "harm"
+      ],
+      "tense": "T=PAST",
+      "recovered": {
+        "PRED": [
+          "did",
+          3126.0
+        ],
+        "AGENT": [
+          "it",
+          3030.0
+        ],
+        "PATIENT": [
+          "harm",
+          3064.0
+        ],
+        "TENSE": [
+          "T=PAST",
+          2924.0
+        ]
+      }
+    },
+    {
+      "event": [
+        "sha'n",
+        "she",
+        "hurt"
+      ],
+      "tense": "T=PRES",
+      "recovered": {
+        "PRED": [
+          "sha'n",
+          3090.0
+        ],
+        "AGENT": [
+          "she",
+          3194.0
+        ],
+        "PATIENT": [
+          "hurt",
+          2958.0
+        ],
+        "TENSE": [
+          "T=PRES",
+          3034.0
+        ]
+      }
+    }
+  ],
+  "bands": {
+    "HP_P1_MIN": 0.98,
+    "HF_P1_MIN": 0.8,
+    "HP_DISC_BUNDLE_MIN": 0.95,
+    "HP_DISC_THIN_MAX": 0.2,
+    "HP_DISC_BAG_MAX": 0.4,
+    "HP_DISC_MARGIN_MIN": 0.5,
+    "HP_P2_SCRAMBLE_MAX": 0.4,
+    "HP_P2_MARGIN_MIN": 0.4,
+    "HP_FLAT1_MIN": 0.9,
+    "HP_FLAT_DROP_MIN": 0.15,
+    "HF_FLAT_SAT_EPS": 0.02,
+    "HP_RECOVERY_MARGIN_MIN": 0.1,
+    "HP_RECOVERY_RECENT_MIN": 0.55
+  },
+  "one_variable": "event-level: bundle (role-slot binding) vs thin-label/bag-of-args (no role binding) -- structure vs no-structure; P2: same bundle with role<->filler binding permuted; capacity: FlatFocus (chunking OFF) vs ChunkedFocus (chunking ON) on the SAME event stream -- chunking is the only variable.",
+  "cited": {
+    "role_slot_summarizer": "hdlab/role_slot_summarizer.py RoleSlotSummarizer M1.7 3-seed CG 2026-07-01 ROLE 0.79/0.83/0.79 cv=0.024",
+    "cowan": "Cowan (2001) 4+-1 chunks in the focus of attention; notes/research_drill_HOL_meta_reasoning_biology_3x_2026-06-09.md"
+  },
+  "modules": {
+    "event_bundle": "hdlab/event_bundle.py",
+    "situation_focus": "hdlab/situation_focus.py"
+  },
+  "scope_caveat": "TENSE is a HEURISTIC placeholder for the TIME/TENSE slot (past if -ed/irregular else present), not a validated tense-tagger -- the role-slot BINDING is what is validated, not tense extraction. Real events come from the consolidated who-did-what reader (out-of-domain UD-EWT parser on McGuffey; extraction is imperfect, F1~0.59 CITED) -- the event-bundle format is agnostic to extraction quality (it encodes whatever tuple it is given). The focus operating point N=384 is chosen ONCE to make the finite-capacity limit visible in 1..8 while keeping recent items usable (design-gate regime choice); the N-robustness table shows the graceful-decline + chunking-recovery signature is N-invariant (only the knee shifts), so it is not a construction-aided clean number. This is a NEW-MODULE DEMONSTRATION (pluggable event/focus representation for the reader), CLAIM-VET-pending; strategic read = HYPOTHESIS pending landed-VET (skunkworks VETs separately per the routing contract). NOT banked."
+}

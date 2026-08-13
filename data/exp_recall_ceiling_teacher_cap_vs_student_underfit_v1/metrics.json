@@ -1,0 +1,125 @@
+{
+  "verdict": "OBJECTIVE_MISMATCH_SUBSTRATE_NATIVE",
+  "verdict_msg": "OBJECTIVE_MISMATCH_SUBSTRATE_NATIVE | PRODUCTION superposition@J5(V=40000): teacher=0.171 student=0.865 SP_gap=-0.693 -> OBJECTIVE_MISMATCH_SUBSTRATE_NATIVE. SINGLE-CONCEPT@alpha1.2: teacher=0.997 student=0.556 SC_gap=+0.441 -> SUBSTRATE_LOSES_POINTWISE_FIDELITY. TEACHER-CROWDING: median_NN_cos=0.921 frac>0.90=0.617 (CROWDED). SP curve teacher={'1': 1.0, '2': 0.962, '3': 0.567, '5': 0.171, '8': 0.036} student={'1': 1.0, '2': 1.0, '3': 0.985, '5': 0.865, '8': 0.608}. SP_gap@J5 per-seed cv=0.024. cache=bge_large_v2_name_43905_8a40445a.npz. INTERPRETATION: matching-BGE-geometry caps recall; substrate decorrelation exceeds teacher -> replace distillation objective (fix b).",
+  "summary": "OBJECTIVE_MISMATCH_SUBSTRATE_NATIVE: teacher-cap vs student-underfit (full)",
+  "run_mode": "full",
+  "elapsed_s": 93.64215089999198,
+  "ts_iso": "2026-07-08T10:22:16.044793+00:00",
+  "anchor_name": "recall_ceiling_teacher_cap_vs_student_underfit_v1",
+  "cache_source": "bge_large_v2_name_43905_8a40445a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 5,
+  "n_units": 5,
+  "primary_verdict": "OBJECTIVE_MISMATCH_SUBSTRATE_NATIVE",
+  "pointwise_subclass": "SUBSTRATE_LOSES_POINTWISE_FIDELITY",
+  "arms_differ_verified": true,
+  "baseline_in_band_superposition": true,
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2
+  },
+  "rt_sp_op": 0.1714,
+  "rs_sp_op": 0.8648,
+  "sp_gap_op": -0.6934,
+  "rt_sc_op": 0.9970000000000001,
+  "rs_sc_op": 0.5563333333333333,
+  "sc_gap_op": 0.44066666666666676,
+  "crowd_median_nn": 0.9206955432891846,
+  "crowd_frac_gt90": 0.6168,
+  "crowd_frac_gt80": 0.9609500000000001,
+  "student_code": {
+    "N": 4096,
+    "K": 128,
+    "sparsity": 0.03125
+  },
+  "bands": {
+    "SP_GAP_NEG": -0.15,
+    "SP_GAP_POS": 0.2,
+    "RT_SP_LOW": 0.55,
+    "RT_SP_HIGH": 0.7,
+    "SP_GAP_TIE": 0.1,
+    "SC_GAP_FID": 0.15,
+    "CROWD_HI": 0.85
+  },
+  "regime": {
+    "V": 40000,
+    "alphas": [
+      0.0,
+      0.4,
+      0.8,
+      1.2,
+      1.6
+    ],
+    "Js": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "nq": 600
+  },
+  "agg": {
+    "n_seeds": 5,
+    "sp_teacher_mean": {
+      "1": 1.0,
+      "2": 0.9618333333333334,
+      "3": 0.5674444444444445,
+      "5": 0.1714,
+      "8": 0.036250000000000004
+    },
+    "sp_student_mean": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.985111111111111,
+      "5": 0.8648,
+      "8": 0.60825
+    },
+    "sc_teacher_mean": {
+      "0.0": 1.0,
+      "0.4": 1.0,
+      "0.8": 0.9969999999999999,
+      "1.2": 0.9970000000000001,
+      "1.6": 0.986
+    },
+    "sc_student_mean": {
+      "0.0": 1.0,
+      "0.4": 0.9726666666666667,
+      "0.8": 0.8453333333333333,
+      "1.2": 0.5563333333333333,
+      "1.6": 0.26433333333333336
+    },
+    "crowd_median_nn_mean": 0.9206955432891846,
+    "crowd_frac_gt90_mean": 0.6168,
+    "crowd_frac_gt80_mean": 0.9609500000000001,
+    "sp_gap_op_per_seed": [
+      -0.7090000000000001,
+      -0.7006666666666667,
+      -0.6736666666666666,
+      -0.7103333333333334,
+      -0.6733333333333333
+    ],
+    "sc_gap_op_per_seed": [
+      0.46166666666666667,
+      0.43000000000000005,
+      0.44166666666666665,
+      0.42166666666666663,
+      0.44833333333333336
+    ],
+    "rt_sp_op_per_seed": [
+      0.17099999999999999,
+      0.17766666666666667,
+      0.17866666666666667,
+      0.16133333333333333,
+      0.16833333333333333
+    ],
+    "sp_gap_op_cv": 0.023915474396010317
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}

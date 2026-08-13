@@ -1,0 +1,1303 @@
+{
+  "anchor_name": "substrate_distill_verify_operator_equivalence_v3_NAMED_corpus_stratified",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_META_REASONING: substrate META-reasoning (CHTV-1) generalizes to a NAMED operator corpus stratified across 4 categories with adversarial decoys. ARM_TP_MERGE=1.0000 >= 0.85 cv=0.0000 <= 0.07, ARM_FP_MERGE=0.0000 <= 0.10, ARM_FN_MISS=0.0000 <= 0.20, ARM_BOUNDARY_F1=1.0000 >= 0.80, all 4 categories above per-category floor 0.70. First chain-grade substrate self-evaluation primitive. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category: math=1.0 | programming=1.0 | substrate=1.0 | statistical=1.0 | per_seed_TP=[1.0, 1.0, 1.0] per_seed_FP=[0.0, 0.0, 0.0] per_seed_FN=[0.0, 0.0, 0.0] per_seed_F1=[1.0, 1.0, 1.0]",
+  "summary": "HARD_PASS_CHAIN_GRADE_META_REASONING: substrate META-reasoning (CHTV-1) generalizes to a NAMED operator corpus stratified across 4 categories with adversarial decoys. ARM_TP_MERGE=1.0000 >= 0.85 cv=0.0000 <= 0.07, ARM_FP_MERGE=0.0000 <= 0.10, ARM_FN_MISS=0.0000 <= 0.20, ARM_BOUNDARY_F1=1.0000 >= 0.80, all 4 categories above per-category floor 0.70. First chain-grade substrate self-evaluation primitive. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category: math=1.0 | programming=1.0 | substrate=1.0 | statistical=1.0 | per_seed_TP=[1.0, 1.0, 1.0] per_seed_FP=[0.0, 0.0, 0.0] per_seed_FN=[0.0, 0.0, 0.0] per_seed_F1=[1.0, 1.0, 1.0]",
+  "headline": "HARD_PASS_CHAIN_GRADE_META_REASONING: substrate META-reasoning (CHTV-1) generalizes to a NAMED operator corpus stratified across 4 categories with adversarial decoys. ARM_TP_MERGE=1.0000 >= 0.85 cv=0.0000 <= 0.07, ARM_FP_MERGE=0.0000 <= 0.10, ARM_FN_MISS=0.0000 <= 0.20, ARM_BOUNDARY_F1=1.0000 >= 0.80, all 4 categories above per-category floor 0.70. First chain-grade substrate self-evaluation primitive. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category: math=1.0 | programming=1.0 | substrate=1.0 | statistical=1.0 | per_seed_TP=[1.0, 1.0, 1.0] per_seed_FP=[0.0, 0.0, 0.0] per_seed_FN=[0.0, 0.0, 0.0] per_seed_F1=[1.0, 1.0, 1.0]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "aggregate": {
+    "n_seeds": 3,
+    "seeds": [
+      11,
+      13,
+      19
+    ],
+    "arm_tp_merge_mean": 1.0,
+    "arm_tp_merge_cv": 0.0,
+    "arm_fp_merge_mean": 0.0,
+    "arm_fp_merge_cv": Infinity,
+    "arm_fn_miss_mean": 0.0,
+    "arm_fn_miss_cv": Infinity,
+    "arm_boundary_f1_mean": 1.0,
+    "arm_boundary_f1_cv": 0.0,
+    "per_seed_tp": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "per_seed_fp": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "per_seed_fn": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "per_seed_f1": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "per_category": {
+      "math": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 9
+      },
+      "programming": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 9
+      },
+      "substrate": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 9
+      },
+      "statistical": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 9
+      }
+    },
+    "any_corpus_degenerate": false
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 0,
+      "run_mode": "full",
+      "n_folds": 3,
+      "arm_tp_merge_seed_mean": 1.0,
+      "arm_fp_merge_seed_mean": 0.0,
+      "arm_fn_miss_seed_mean": 0.0,
+      "arm_boundary_f1_seed_mean": 1.0,
+      "fold_compositions": [
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 0
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 0
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 0
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 0
+          }
+        }
+      ],
+      "corpus_degenerate": false,
+      "per_fold": [
+        {
+          "fold_idx": 0,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "commutative_vs_noncommutative_multiply",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "identity_operator",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "conjugate_transpose",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "map_vs_flatmap",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "map_iteration",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "concat_append",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_vs_std",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "correlation_cosine_after_centering",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "mean_expected_value",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_K5_vs_K10",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "audit_subject_only_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "cleanup_argmax_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 1,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "transpose_vs_conjugate_transpose",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "multiplicative_product",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "distributive_multiply_then_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending_vs_descending",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "filter_select",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_vs_recall",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "entropy_shannon_normalized",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_mse_around_mean",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_vs_fhrr_bind",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_bipolar_K5_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "fhrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 2,
+          "n_held_out": 8,
+          "n_tp": 8,
+          "n_adv": 0,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 0,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "left_inverse_complement",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "commutative_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "reduce_fold",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "lookup_by_key",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "recall_sensitivity_tpr",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_ppv",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "partition_routing_v1_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        }
+      ],
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782438956.7064888
+    },
+    {
+      "seed": 13,
+      "N": 0,
+      "run_mode": "full",
+      "n_folds": 3,
+      "arm_tp_merge_seed_mean": 1.0,
+      "arm_fp_merge_seed_mean": 0.0,
+      "arm_fn_miss_seed_mean": 0.0,
+      "arm_boundary_f1_seed_mean": 1.0,
+      "fold_compositions": [
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 0
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 0
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 0
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 0
+          }
+        }
+      ],
+      "corpus_degenerate": false,
+      "per_fold": [
+        {
+          "fold_idx": 0,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "commutative_vs_noncommutative_multiply",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "identity_operator",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "left_inverse_complement",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending_vs_descending",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "lookup_by_key",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_vs_recall",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "entropy_shannon_normalized",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "recall_sensitivity_tpr",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_vs_fhrr_bind",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "partition_routing_v1_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 1,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "transpose_vs_conjugate_transpose",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "commutative_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "conjugate_transpose",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "map_vs_flatmap",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "map_iteration",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "filter_select",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_vs_std",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_mse_around_mean",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "mean_expected_value",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_K5_vs_K10",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_bipolar_K5_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "cleanup_argmax_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 2,
+          "n_held_out": 8,
+          "n_tp": 8,
+          "n_adv": 0,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 0,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "distributive_multiply_then_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "multiplicative_product",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "reduce_fold",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "concat_append",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "correlation_cosine_after_centering",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_ppv",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "audit_subject_only_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "fhrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        }
+      ],
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782438956.7999432
+    },
+    {
+      "seed": 19,
+      "N": 0,
+      "run_mode": "full",
+      "n_folds": 3,
+      "arm_tp_merge_seed_mean": 1.0,
+      "arm_fp_merge_seed_mean": 0.0,
+      "arm_fn_miss_seed_mean": 0.0,
+      "arm_boundary_f1_seed_mean": 1.0,
+      "fold_compositions": [
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 1
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 1
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 1
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 1
+          }
+        },
+        {
+          "math": {
+            "tp": 2,
+            "adv": 0
+          },
+          "programming": {
+            "tp": 2,
+            "adv": 0
+          },
+          "substrate": {
+            "tp": 2,
+            "adv": 0
+          },
+          "statistical": {
+            "tp": 2,
+            "adv": 0
+          }
+        }
+      ],
+      "corpus_degenerate": false,
+      "per_fold": [
+        {
+          "fold_idx": 0,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "commutative_vs_noncommutative_multiply",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "left_inverse_complement",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "commutative_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "map_vs_flatmap",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "lookup_by_key",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "map_iteration",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_vs_std",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "entropy_shannon_normalized",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "variance_mse_around_mean",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_vs_fhrr_bind",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "audit_subject_only_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "hrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 1,
+          "n_held_out": 12,
+          "n_tp": 8,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "transpose_vs_conjugate_transpose",
+              "group_type": "adversarial_decoy",
+              "category": "math",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "distributive_multiply_then_add",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "conjugate_transpose",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending_vs_descending",
+              "group_type": "adversarial_decoy",
+              "category": "programming",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "reduce_fold",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "concat_append",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_vs_recall",
+              "group_type": "adversarial_decoy",
+              "category": "statistical",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "precision_ppv",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "mean_expected_value",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_K5_vs_K10",
+              "group_type": "adversarial_decoy",
+              "category": "substrate",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "cleanup_argmax_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "partition_routing_v1_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 2,
+          "n_held_out": 8,
+          "n_tp": 8,
+          "n_adv": 0,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 8,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 0,
+          "per_category": {
+            "math": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "programming": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "substrate": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "statistical": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "multiplicative_product",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "identity_operator",
+              "group_type": "true_positive",
+              "category": "math",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sort_ascending",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "filter_select",
+              "group_type": "true_positive",
+              "category": "programming",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "recall_sensitivity_tpr",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "correlation_cosine_after_centering",
+              "group_type": "true_positive",
+              "category": "statistical",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "fhrr_bind_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "sparse_bipolar_K5_family",
+              "group_type": "true_positive",
+              "category": "substrate",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        }
+      ],
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782438957.0899465
+    }
+  ],
+  "elapsed_s": 0.0,
+  "n_total_groups": 32,
+  "n_tp": 24,
+  "n_adv": 8,
+  "bands": {
+    "HP_TP_MERGE": 0.85,
+    "HP_TP_MERGE_CV": 0.07,
+    "HP_FP_MERGE": 0.1,
+    "HP_FN_MISS": 0.2,
+    "HP_BOUNDARY_F1": 0.8,
+    "HP_PER_CATEGORY_MIN": 0.7,
+    "PARTIAL_F1_LOW": 0.6,
+    "MIDDLE_F1_LOW": 0.45
+  },
+  "config_version": "v3_NAMED_corpus_stratified_seeds_11_13_19_3fold_capability_fallback_DISABLED",
+  "corpus_path": "data\\meta_reasoning_corpus\\algebra_dict_v1.jsonl"
+}

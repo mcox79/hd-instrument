@@ -1,0 +1,266 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "one_or_more_arms_not_ok: smoke.ok=True full.ok=True det.ok=False disc.ok=True failing=['ARM_CHUNK_REINGEST_DET']",
+  "elapsed_s": 1050.97,
+  "summary": {
+    "anchor": "substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced",
+    "smoke": false,
+    "N_DIM": 2048,
+    "seed": 17,
+    "max_files_per_class": null,
+    "schema_version": "v1",
+    "schema_hash": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+    "kb_version": "v1",
+    "chunk_ingest_version": "v2_tripwire_surfaced",
+    "arms": [
+      {
+        "arm": "ARM_CHUNK_SMOKE_NOTES_ONLY",
+        "ok": true,
+        "elapsed_s": 248.727,
+        "n_discovered": 10515,
+        "n_chunks": 117769,
+        "n_triples": 353252,
+        "n_entities": 291276,
+        "avg_chunks_per_file": 11.23,
+        "coverage_ratio": 0.9971,
+        "out_dir": "C:\\dev\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced\\_arm_smoke_notes_only\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_FULL",
+        "ok": true,
+        "elapsed_s": 272.945,
+        "n_discovered": 13171,
+        "per_class_discovered": {
+          "note": 10515,
+          "memory": 0,
+          "prereg": 2654,
+          "director_plan": 1,
+          "fleet_state": 1
+        },
+        "n_chunks": 131030,
+        "n_triples": 392970,
+        "n_entities": 322585,
+        "n_relations": 67,
+        "avg_chunks_per_file": 10.56,
+        "coverage_ratio": 0.942,
+        "out_dir": "C:\\dev\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced\\_arm_full\\kb"
+      },
+      {
+        "arm": "ARM_CHUNK_REINGEST_DET",
+        "ok": false,
+        "elapsed_s": 526.722,
+        "t_run_a_s": 265.277,
+        "t_run_b_s": 261.446,
+        "entities_byte_equal": false,
+        "relations_byte_equal": true,
+        "atoms_byte_equal": false,
+        "w_l2_diff": 1694119.0,
+        "w_within_tolerance": false,
+        "w_tolerance": 1e-06,
+        "n_chunks_a": 131074,
+        "n_chunks_b": 131379
+      },
+      {
+        "arm": "ARM_CONTENT_VS_FILENAME_DISCRIMINATOR_TEST",
+        "ok": true,
+        "elapsed_s": 0.124,
+        "kb_persisted_at": "C:\\dev\\hd-instrument\\data\\exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced\\_arm_content_vs_filename\\kb",
+        "n_chunks_built": 2,
+        "n_entities_built": 7,
+        "n_triples_built": 6,
+        "banana_query_assertion_passed": true,
+        "banana_query_diag": {
+          "query_word": "banana",
+          "top1_entity_preview": "Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana p",
+          "top1_source_paths": [
+            "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+          ],
+          "top1_cosine": 0.6367,
+          "entity_text_contains_query": true,
+          "source_paths_match_correct_content_file": true,
+          "correct_content_file_substr": "elephant_filename"
+        },
+        "banana_query_top_5_atoms": [
+          {
+            "entity": "Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with ba",
+            "cosine": 0.6367,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md::chunk000",
+            "cosine": 0.6338,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": [
+              [
+                "IS_CHUNK_OF",
+                "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+              ],
+              [
+                "SECTION_HEADER",
+                "Topic"
+              ],
+              [
+                "CHUNK_CONTENT",
+                "Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropica"
+              ]
+            ]
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md",
+            "cosine": 0.1455,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md",
+            "cosine": 0.0098,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with ",
+            "cosine": -0.0039,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          }
+        ],
+        "elephant_query_assertion_passed": true,
+        "elephant_query_diag": {
+          "query_word": "elephant",
+          "top1_entity_preview": "Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant",
+          "top1_source_paths": [
+            "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+          ],
+          "top1_cosine": 0.585,
+          "entity_text_contains_query": true,
+          "source_paths_match_correct_content_file": true,
+          "correct_content_file_substr": "banana_filename"
+        },
+        "elephant_query_top_5_atoms": [
+          {
+            "entity": "Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with ",
+            "cosine": 0.585,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md::chunk000",
+            "cosine": 0.582,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": [
+              [
+                "IS_CHUNK_OF",
+                "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+              ],
+              [
+                "SECTION_HEADER",
+                "Topic"
+              ],
+              [
+                "CHUNK_CONTENT",
+                "Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration elephant savannas with elephant family groups. Elephant herds elephant social structures elephant migration"
+              ]
+            ]
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md",
+            "cosine": 0.1104,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md",
+            "cosine": 0.0098,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/banana_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": []
+          },
+          {
+            "entity": "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md::chunk000",
+            "cosine": -0.0059,
+            "source_paths": [
+              "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+            ],
+            "source_classes": [
+              "chunk_note"
+            ],
+            "relations": [
+              [
+                "IS_CHUNK_OF",
+                "data/exp_substrate_director_kb_content_chunk_ingest_v2_tripwire_surfaced/_arm_content_vs_filename/src_notes/elephant_filename_2026-06-26.md"
+              ],
+              [
+                "SECTION_HEADER",
+                "Topic"
+              ],
+              [
+                "CHUNK_CONTENT",
+                "Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropical climates with banana plantations. Banana cultivation banana ripening banana tree banana fruit in tropica"
+              ]
+            ]
+          }
+        ],
+        "banana_query_max_cosine": 0.6367,
+        "elephant_query_max_cosine": 0.585,
+        "banana_query_refused": false,
+        "elephant_query_refused": false
+      }
+    ],
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "one_or_more_arms_not_ok: smoke.ok=True full.ok=True det.ok=False disc.ok=True failing=['ARM_CHUNK_REINGEST_DET']",
+    "elapsed_s": 1050.97,
+    "envelope_hp_max_full_elapsed_s": 900,
+    "envelope_hf_max_full_elapsed_s": 1800,
+    "envelope_hp_min_coverage": 0.95,
+    "envelope_hf_min_coverage": 0.8,
+    "envelope_hp_min_avg_chunks_per_file": 2.0,
+    "envelope_hf_min_avg_chunks_per_file": 1.2,
+    "envelope_hp_max_w_l2": 1e-06,
+    "cardinality_ok": true
+  }
+}

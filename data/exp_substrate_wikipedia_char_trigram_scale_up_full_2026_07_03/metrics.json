@@ -1,0 +1,195 @@
+{
+  "anchor_name": "substrate_wikipedia_char_trigram_scale_up_full_2026_07_03",
+  "verdict": "MEASURED_BOUND",
+  "verdict_msg": "MEASURED_BOUND: substrate-native char-trigram surface encoder at N=10000 reaches r@5=0.7030 in expected band [0.60, 0.90]. Scaling characterization: delta_from_smoke_r5=-0.1510 (smoke N=500 r@5=0.8540); gap_to_bge_100k_ref=+0.2890. HONEST SCOPE: MECHANISM CHARACTERIZATION at supervised-Wikipedia regime; substrate has not ingested general knowledge. random r@5=0.0003 (chance=0.000500).",
+  "summary": "MEASURED_BOUND: substrate-native char-trigram surface encoder at N=10000 reaches r@5=0.7030 in expected band [0.60, 0.90]. Scaling characterization: delta_from_smoke_r5=-0.1510 (smoke N=500 r@5=0.8540); gap_to_bge_100k_ref=+0.2890. HONEST SCOPE: MECHANISM CHARACTERIZATION at supervised-Wikipedia regime; substrate has not ingested general knowledge. random r@5=0.0003 (chance=0.000500).",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_articles": 10000,
+  "n_articles_configured": 10000,
+  "n_dim": 2048,
+  "body_char_cap": 800,
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE_N10K",
+    "chance_r5": 0.0005,
+    "band_max_r5": 0.0025,
+    "observed_r5_mean": 0.0003,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "hp_scope": {
+    "MEASURED_BOUND_EXPECTED_BAND": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K"
+    ],
+    "HF_BASELINE_IN_BAND": [
+      "ARM_RANDOM_BASELINE_N10K"
+    ]
+  },
+  "expected_measure_band_r5": [
+    0.6,
+    0.9
+  ],
+  "inconclusive_margin_r5": 0.1,
+  "smoke_reference_r5_at_500_MEASURED": 0.854,
+  "smoke_reference_source": "data/exp_substrate_wikipedia_char_trigram_baseline_smoke_2026_07_03/metrics.json",
+  "bge_reference_r5_at_100k_MEASURED": 0.992,
+  "bge_reference_source": "data/exp_wikipedia_ingest_100k_gpu_v1/metrics.json (2026-06-19)",
+  "delta_from_smoke_r5": -0.15100000000000002,
+  "gap_to_bge_100k_ref_r5": 0.28900000000000003,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_articles": 10000,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.4872,
+          "recall_at_5": 0.703,
+          "recall_at_10": 0.7726,
+          "mean_reciprocal_rank": 0.586424820084538,
+          "intra_article_body_title_cos": 0.21798759256982012,
+          "inter_article_title_body_cos": 0.03377099707722664,
+          "signal_to_noise_ratio": 6.454875823516011,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 9.317642399983015,
+          "throughput_articles_per_sec": 1073.2328598507095,
+          "n_unique_trigrams": 43986,
+          "seed_hash_collision_probability_estimate": 0.2252366621978581
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.0003,
+          "recall_at_10": 0.001,
+          "mean_reciprocal_rank": 0.0008778882218969138,
+          "intra_article_body_title_cos": 3.34960861551393e-05,
+          "inter_article_title_body_cos": 0.0004413085407577455,
+          "signal_to_noise_ratio": 0.07590174007877822,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.29146530001889914,
+          "throughput_articles_per_sec": 34309.40149428279
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "e2ecc070467df3fb"
+      },
+      "seed_elapsed_s": 22.187102500000037
+    },
+    {
+      "seed": 17,
+      "n_articles": 10000,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.4872,
+          "recall_at_5": 0.703,
+          "recall_at_10": 0.7726,
+          "mean_reciprocal_rank": 0.586424820084538,
+          "intra_article_body_title_cos": 0.21798759256982012,
+          "inter_article_title_body_cos": 0.033589355647563934,
+          "signal_to_noise_ratio": 6.489781907609462,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 9.359096100030001,
+          "throughput_articles_per_sec": 1068.4792519619436,
+          "n_unique_trigrams": 43986,
+          "seed_hash_collision_probability_estimate": 0.2252366621978581
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.0001,
+          "recall_at_10": 0.0006,
+          "mean_reciprocal_rank": 0.0007695751559622377,
+          "intra_article_body_title_cos": -0.00013613281104065902,
+          "inter_article_title_body_cos": 0.0003966796793974936,
+          "signal_to_noise_ratio": -0.34318070249382976,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.2880282999831252,
+          "throughput_articles_per_sec": 34718.8106189075
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "4fc1ff0c71481e0e"
+      },
+      "seed_elapsed_s": 22.201971800008323
+    },
+    {
+      "seed": 23,
+      "n_articles": 10000,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+          "recall_at_1": 0.4872,
+          "recall_at_5": 0.703,
+          "recall_at_10": 0.7726,
+          "mean_reciprocal_rank": 0.586424820084538,
+          "intra_article_body_title_cos": 0.21798759256982012,
+          "inter_article_title_body_cos": 0.03381240367889404,
+          "signal_to_noise_ratio": 6.446971195540576,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 9.108129800006282,
+          "throughput_articles_per_sec": 1097.920233854496,
+          "n_unique_trigrams": 43986,
+          "seed_hash_collision_probability_estimate": 0.2252366621978581
+        },
+        "ARM_RANDOM_BASELINE_N10K": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.0005,
+          "recall_at_10": 0.0013,
+          "mean_reciprocal_rank": 0.000931710014741428,
+          "intra_article_body_title_cos": 0.0002392578317044364,
+          "inter_article_title_body_cos": 0.0004185547004453838,
+          "signal_to_noise_ratio": 0.5716285862990962,
+          "arm_name": "ARM_RANDOM_BASELINE_N10K",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.3004150000051595,
+          "throughput_articles_per_sec": 33287.28592057072
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE_N10K": "4508efcf6fd37b18"
+      },
+      "seed_elapsed_s": 22.026619600015692
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.4872,
+      "recall_at_5_mean": 0.703,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.7726000000000001,
+      "encoding_wall_s_mean": 9.2616227666731,
+      "throughput_articles_per_sec_mean": 1079.8774485557165,
+      "n_unique_trigrams_mean": 43986.0
+    },
+    "ARM_RANDOM_BASELINE_N10K": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0,
+      "recall_at_5_mean": 0.0003,
+      "recall_at_5_std": 0.00016329931618554522,
+      "recall_at_10_mean": 0.0009666666666666666,
+      "encoding_wall_s_mean": 0.2933028666690613,
+      "throughput_articles_per_sec_mean": 34105.16601125367
+    }
+  },
+  "elapsed_s": 66.48273300001165,
+  "ts_iso_end": "2026-07-03T01:57:47.022859+00:00"
+}

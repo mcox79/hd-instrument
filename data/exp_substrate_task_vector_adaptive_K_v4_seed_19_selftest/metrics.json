@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_task_vector_adaptive_K_v4_seed_19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: phase_map=1, N=1024, n_queries=5, backend=torch.cpu, am_K_mean=36.40, am_K_std=57.11",
+  "summary": "selftest OK: phase_map=1, N=1024, n_queries=5, backend=torch.cpu, am_K_mean=36.40, am_K_std=57.11",
+  "elapsed_s": 2.5,
+  "ts_iso": "2026-06-30T21:25:33Z",
+  "pid": 5720,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_task_vector_adaptive_K_v4_seed_19,N=8192,SEED=19,mode=selftest,V=[10,20,50],ov=[0.0,0.3,0.6],FIXED_K=[3,5,10],V_ENTS_POOL=200,n_queries_full=50,arms=[FIXED_K_v3,ADAPTIVE_THRESH_LOW,ADAPTIVE_THRESH_MID,ADAPTIVE_THRESH_HIGH,RANDOM_K_CONTROL],tau=[0.11,0.14,0.19],ADAPTIVE_K_MAX=150,RANDOM_K_SUPPORT=[1,3,5,10,20,50,100,150],expected_n_full=3150,expected_n_smoke=250,v4_mechanism=endogenous_K_attractor_convergence_CRP_style,v4_calibration=empirical_p25_p50_p75_cleanup_cosine_2026-06-30,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v4_taskvec_adaptive_K_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

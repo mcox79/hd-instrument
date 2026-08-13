@@ -1,0 +1,426 @@
+{
+  "anchor_name": "substrate_distill_verify_operator_equivalence_v4_self_discovered_corpus",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_CONFIRMED_SELF_DISCOVERED: substrate META-reasoning (CHTV-1) generalizes to a SUBSTRATE-SELF-DISCOVERED corpus (28 groups extracted from substrate's own atoms.jsonl; 15 same-name dup-TPs + 13 cap-shared cross-name ADVs across 3 categories). ARM_TP_MERGE=1.0000 >= 0.75 cv=0.0000 <= 0.10, ARM_FP_MERGE=0.0000 <= 0.15, ARM_FN_MISS=0.0000 <= 0.25, ARM_BOUNDARY_F1=1.0000 >= 0.70, all 3 categories above per-category floor 0.60. PROMOTES v3 from MM-expected to chain-grade-confirmed; substrate self-evaluation primitive operational on its own atoms. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category(3cat): algorithms=1.0 | learning=1.0 | representation=1.0 | per_seed_TP=[1.0] per_seed_FP=[0.0] per_seed_FN=[0.0] per_seed_F1=[1.0] | Q_DISCIPLINE_FLAG: arms at IDENTICAL_TO_V3 saturation (TP=1.0000 cv=0.0000 FP=0.0000 F1=1.0000). Substrate-self-discovered corpus may still be by-construction; cap-tag may leak equivalence into typed-sig discipline. Skunkworks tiers.",
+  "summary": "HARD_PASS_CHAIN_GRADE_CONFIRMED_SELF_DISCOVERED: substrate META-reasoning (CHTV-1) generalizes to a SUBSTRATE-SELF-DISCOVERED corpus (28 groups extracted from substrate's own atoms.jsonl; 15 same-name dup-TPs + 13 cap-shared cross-name ADVs across 3 categories). ARM_TP_MERGE=1.0000 >= 0.75 cv=0.0000 <= 0.10, ARM_FP_MERGE=0.0000 <= 0.15, ARM_FN_MISS=0.0000 <= 0.25, ARM_BOUNDARY_F1=1.0000 >= 0.70, all 3 categories above per-category floor 0.60. PROMOTES v3 from MM-expected to chain-grade-confirmed; substrate self-evaluation primitive operational on its own atoms. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category(3cat): algorithms=1.0 | learning=1.0 | representation=1.0 | per_seed_TP=[1.0] per_seed_FP=[0.0] per_seed_FN=[0.0] per_seed_F1=[1.0] | Q_DISCIPLINE_FLAG: arms at IDENTICAL_TO_V3 saturation (TP=1.0000 cv=0.0000 FP=0.0000 F1=1.0000). Substrate-self-discovered corpus may still be by-construction; cap-tag may leak equivalence into typed-sig discipline. Skunkworks tiers.",
+  "headline": "HARD_PASS_CHAIN_GRADE_CONFIRMED_SELF_DISCOVERED: substrate META-reasoning (CHTV-1) generalizes to a SUBSTRATE-SELF-DISCOVERED corpus (28 groups extracted from substrate's own atoms.jsonl; 15 same-name dup-TPs + 13 cap-shared cross-name ADVs across 3 categories). ARM_TP_MERGE=1.0000 >= 0.75 cv=0.0000 <= 0.10, ARM_FP_MERGE=0.0000 <= 0.15, ARM_FN_MISS=0.0000 <= 0.25, ARM_BOUNDARY_F1=1.0000 >= 0.70, all 3 categories above per-category floor 0.60. PROMOTES v3 from MM-expected to chain-grade-confirmed; substrate self-evaluation primitive operational on its own atoms. Stage 4 self-improvement scaffold (self-test/correct/discover/optimize). arms: TP_MERGE=1.0000 cv=0.0000 | FP_MERGE=0.0000 | FN_MISS=0.0000 | BOUNDARY_F1=1.0000 cv=0.0000 | per_category(3cat): algorithms=1.0 | learning=1.0 | representation=1.0 | per_seed_TP=[1.0] per_seed_FP=[0.0] per_seed_FN=[0.0] per_seed_F1=[1.0] | Q_DISCIPLINE_FLAG: arms at IDENTICAL_TO_V3 saturation (TP=1.0000 cv=0.0000 FP=0.0000 F1=1.0000). Substrate-self-discovered corpus may still be by-construction; cap-tag may leak equivalence into typed-sig discipline. Skunkworks tiers.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "n_seeds": 1,
+    "seeds": [
+      11
+    ],
+    "arm_tp_merge_mean": 1.0,
+    "arm_tp_merge_cv": 0.0,
+    "arm_fp_merge_mean": 0.0,
+    "arm_fp_merge_cv": Infinity,
+    "arm_fn_miss_mean": 0.0,
+    "arm_fn_miss_cv": Infinity,
+    "arm_boundary_f1_mean": 1.0,
+    "arm_boundary_f1_cv": 0.0,
+    "per_seed_tp": [
+      1.0
+    ],
+    "per_seed_fp": [
+      0.0
+    ],
+    "per_seed_fn": [
+      0.0
+    ],
+    "per_seed_f1": [
+      1.0
+    ],
+    "per_category": {
+      "algorithms": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 3
+      },
+      "learning": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 3
+      },
+      "representation": {
+        "score_mean": 1.0,
+        "score_cv": 0.0,
+        "n_observations": 3
+      }
+    },
+    "any_corpus_degenerate": false
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 0,
+      "run_mode": "smoke",
+      "n_folds": 3,
+      "arm_tp_merge_seed_mean": 1.0,
+      "arm_fp_merge_seed_mean": 0.0,
+      "arm_fn_miss_seed_mean": 0.0,
+      "arm_boundary_f1_seed_mean": 1.0,
+      "fold_compositions": [
+        {
+          "algorithms": {
+            "tp": 2,
+            "adv": 1
+          },
+          "learning": {
+            "tp": 3,
+            "adv": 2
+          },
+          "representation": {
+            "tp": 1,
+            "adv": 3
+          }
+        },
+        {
+          "algorithms": {
+            "tp": 2,
+            "adv": 0
+          },
+          "learning": {
+            "tp": 2,
+            "adv": 1
+          },
+          "representation": {
+            "tp": 1,
+            "adv": 3
+          }
+        },
+        {
+          "algorithms": {
+            "tp": 1,
+            "adv": 0
+          },
+          "learning": {
+            "tp": 2,
+            "adv": 1
+          },
+          "representation": {
+            "tp": 1,
+            "adv": 2
+          }
+        }
+      ],
+      "corpus_degenerate": false,
+      "per_fold": [
+        {
+          "fold_idx": 0,
+          "n_held_out": 12,
+          "n_tp": 6,
+          "n_adv": 6,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 6,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 6,
+          "per_category": {
+            "algorithms": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "learning": {
+              "n_tp": 3,
+              "n_adv": 2,
+              "tp_merged": 3,
+              "adv_refused": 2,
+              "score": 1.0
+            },
+            "representation": {
+              "n_tp": 1,
+              "n_adv": 3,
+              "tp_merged": 1,
+              "adv_refused": 3,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "substrate_cap_cap_sequence_alignment_distance",
+              "group_type": "adversarial_decoy",
+              "category": "algorithms",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_beam_search",
+              "group_type": "true_positive",
+              "category": "algorithms",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_dynamic_programming",
+              "group_type": "true_positive",
+              "category": "algorithms",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-364_pos_tagger",
+              "group_type": "adversarial_decoy",
+              "category": "learning",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-364_NER",
+              "group_type": "adversarial_decoy",
+              "category": "learning",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_default_mode_network",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_bayesian_inference",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_hmm_transition",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-compositional_depth_retrieval",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_CAP_cleanup",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_CAP_circular_convolution",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_cosine_similarity",
+              "group_type": "true_positive",
+              "category": "representation",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 1,
+          "n_held_out": 9,
+          "n_tp": 5,
+          "n_adv": 4,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 5,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 4,
+          "per_category": {
+            "algorithms": {
+              "n_tp": 2,
+              "n_adv": 0,
+              "tp_merged": 2,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "learning": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "representation": {
+              "n_tp": 1,
+              "n_adv": 3,
+              "tp_merged": 1,
+              "adv_refused": 3,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "substrate_dup_hungarian_assignment",
+              "group_type": "true_positive",
+              "category": "algorithms",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_astar",
+              "group_type": "true_positive",
+              "category": "algorithms",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_CAP_bayesian_inference",
+              "group_type": "adversarial_decoy",
+              "category": "learning",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_perceptron_update",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_quantum_entanglement",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_CAP_discriminative_perceptron",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-367_unified_algebra_lang_math",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-225_fact_recall_kb100K",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_pca_whitening",
+              "group_type": "true_positive",
+              "category": "representation",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        },
+        {
+          "fold_idx": 2,
+          "n_held_out": 7,
+          "n_tp": 4,
+          "n_adv": 3,
+          "arm_tp_merge": 1.0,
+          "arm_fp_merge": 0.0,
+          "arm_fn_miss": 0.0,
+          "arm_boundary_f1": 1.0,
+          "tp_merged": 4,
+          "tp_undecidable": 0,
+          "tp_refused": 0,
+          "adv_merged": 0,
+          "adv_refused": 3,
+          "per_category": {
+            "algorithms": {
+              "n_tp": 1,
+              "n_adv": 0,
+              "tp_merged": 1,
+              "adv_refused": 0,
+              "score": 1.0
+            },
+            "learning": {
+              "n_tp": 2,
+              "n_adv": 1,
+              "tp_merged": 2,
+              "adv_refused": 1,
+              "score": 1.0
+            },
+            "representation": {
+              "n_tp": 1,
+              "n_adv": 2,
+              "tp_merged": 1,
+              "adv_refused": 2,
+              "score": 1.0
+            }
+          },
+          "per_group": [
+            {
+              "group_name": "substrate_dup_dijkstra",
+              "group_type": "true_positive",
+              "category": "algorithms",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_SCHOOL_reinforcement_learning_family",
+              "group_type": "adversarial_decoy",
+              "category": "learning",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_answer_consistency_weak_labels",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_discriminative_perceptron",
+              "group_type": "true_positive",
+              "category": "learning",
+              "verdict": "PROVABLY_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_PP-371_reasoning_routing",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_cap_concept_CAP_fhrr_bind",
+              "group_type": "adversarial_decoy",
+              "category": "representation",
+              "verdict": "NOT_EQUIVALENT"
+            },
+            {
+              "group_name": "substrate_dup_zca_whitening",
+              "group_type": "true_positive",
+              "category": "representation",
+              "verdict": "PROVABLY_EQUIVALENT"
+            }
+          ]
+        }
+      ],
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782442407.6658092
+    }
+  ],
+  "elapsed_s": 0.1,
+  "n_total_groups": 28,
+  "n_tp": 15,
+  "n_adv": 13,
+  "categories": [
+    "algorithms",
+    "learning",
+    "representation"
+  ],
+  "bands": {
+    "HP_TP_MERGE": 0.75,
+    "HP_TP_MERGE_CV": 0.1,
+    "HP_FP_MERGE": 0.15,
+    "HP_FN_MISS": 0.25,
+    "HP_BOUNDARY_F1": 0.7,
+    "HP_PER_CATEGORY_MIN": 0.6,
+    "PARTIAL_F1_LOW": 0.55,
+    "MIDDLE_F1_LOW": 0.4
+  },
+  "config_version": "v4_substrate_self_discovered_seeds_11_13_19_3fold_3cat_capability_fallback_DISABLED",
+  "corpus_path": "data\\meta_reasoning_corpus\\substrate_self_discovered_v1.jsonl"
+}

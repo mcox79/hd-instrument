@@ -1,0 +1,23 @@
+{
+  "anchor_name": "substrate_preplay_beam_to_goal_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: k64=0.000 greedy=0.000 rand=0.000",
+  "summary": "SELFTEST_OK: k64=0.000 greedy=0.000 rand=0.000",
+  "elapsed_s": 1.2,
+  "ts_iso": "2026-06-27T22:28:39Z",
+  "pid": 16208,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_preplay_beam_to_goal_v1,N=256,blocks=4,actions=6,goals=6,depth=4,K={'k4': 4, 'k64': 8},seeds=[7],mode=smoke,HP_solve>=0.70,HP_K64-K4>=0.10,expected_n=30,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_substrate_preplay_beam",
+  "_phase": "selftest_done",
+  "selftest_arms": [
+    "greedy_1step",
+    "preplay_k4",
+    "preplay_k64",
+    "preplay_k64_with_goal_gate",
+    "random_control"
+  ],
+  "k64_solve": 0.0,
+  "greedy_solve": 0.0,
+  "rand_solve": 0.0
+}

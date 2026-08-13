@@ -1,0 +1,674 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | K_cliff_min=1 loc=(10, 0.6) | n_cliffs=9/9 | avg_arms_diff=0.276 | all_saturated=False | regime_flip=False | M3#4 CONFIRMED: TASK_VECTOR un-saturated; K_cliff_min=1 at (10, 0.6)",
+  "summary": "HARD_PASS | K_cliff_min=1 loc=(10, 0.6) | n_cliffs=9/9 | avg_arms_diff=0.276 | all_saturated=False | regime_flip=False | M3#4 CONFIRMED: TASK_VECTOR un-saturated; K_cliff_min=1 at (10, 0.6)",
+  "K_cliff_min": 1,
+  "K_cliff_min_location": {
+    "V_tasks": 10,
+    "overlap": 0.6
+  },
+  "K_cliffs_per_combo": {
+    "V10_ov0.00": 20,
+    "V10_ov0.30": 20,
+    "V10_ov0.60": 1,
+    "V50_ov0.00": 3,
+    "V50_ov0.30": 1,
+    "V50_ov0.60": 10,
+    "V200_ov0.00": 5,
+    "V200_ov0.30": 1,
+    "V200_ov0.60": 1
+  },
+  "n_cliff_combos_observable": 9,
+  "n_combos_total": 9,
+  "avg_arms_diff": 0.2761904781772977,
+  "all_saturated": false,
+  "low_kv_mechanism_floor_met": true,
+  "cliff_observable": true,
+  "meta_rule_am_regime_flip_points": [],
+  "summary_per_phase_point": [
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 1,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 1.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 1.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.800000011920929,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.800000011920929,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.699999988079071,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.699999988079071,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.30000001192092896,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.30000001192092896,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.6000000238418579,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.6000000238418579,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.5,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.5,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 3,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.699999988079071,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.699999988079071,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.5,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.5,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.8999999761581421,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.8999999761581421,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.30000001192092896,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.30000001192092896,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 5,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.800000011920929,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.800000011920929,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.800000011920929,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.800000011920929,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 10,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.30000001192092896,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.30000001192092896,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.30000001192092896,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.30000001192092896,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.20000000298023224,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.20000000298023224,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 20,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.4000000059604645,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.4000000059604645,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.30000001192092896,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.30000001192092896,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": -0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 50,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 10,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.10000000149011612,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "RANDOM_VECTOR_top1_recall_mean": 0.10000000149011612,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 50,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 200,
+      "overlap": 0.0,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 200,
+      "overlap": 0.3,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    },
+    {
+      "K": 100,
+      "V_tasks": 200,
+      "overlap": 0.6,
+      "TASK_VECTOR_top1_recall_mean": 0.0,
+      "RANDOM_VECTOR_top1_recall_mean": 0.0,
+      "ORACLE_top1_recall_mean": 1.0,
+      "arms_diff": 0.0,
+      "n_seeds": 1
+    }
+  ],
+  "n_seeds_complete": 1,
+  "m3_concern_4_annotation": "M3#4 CONFIRMED: TASK_VECTOR un-saturated; K_cliff_min=1 at (10, 0.6)",
+  "anchor_name": "substrate_task_vector_K_cliff_phase_diagram_v1_seed_13",
+  "elapsed_s": 4.39,
+  "ts_iso": "2026-06-28T20:43:10Z",
+  "pid": 36132,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_task_vector_K_cliff_phase_diagram_v1_seed_13,N=8192,SEED=13,mode=full,K=[1,3,5,10,20,50,100],V=[10,50,200],ov=[0.0,0.3,0.6],arms=[TASK_VECTOR,RANDOM_VECTOR,ORACLE],expected_n_full=1890,expected_n_smoke=30,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_taskvec_Kcliff_phase_diagram_chunked",
+  "backend": "torch.cuda",
+  "seed": 13,
+  "expected_n": 1890,
+  "observed_n": 1890,
+  "cardinality_ok": true
+}

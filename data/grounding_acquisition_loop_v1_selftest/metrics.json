@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: self-test adversarial probe did not guard-reject: {'n_items': 1, 'final_statuses': {'zzadversarial0': 'GROUNDED_POS'}, 'n_escalated': 0, 'n_grounded_wrongly': 1, 'grounded_any': True, 'guard_rejected_all': False}",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounding_acquisition_loop_v1.py\", line 538, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounding_acquisition_loop_v1.py\", line 514, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_grounding_acquisition_loop_v1.py\", line 488, in self_test\n    assert adv[\"guard_rejected_all\"], f\"self-test adversarial probe did not guard-reject: {adv}\"\n           ~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: self-test adversarial probe did not guard-reject: {'n_items': 1, 'final_statuses': {'zzadversarial0': 'GROUNDED_POS'}, 'n_escalated': 0, 'n_grounded_wrongly': 1, 'grounded_any': True, 'guard_rejected_all': False}\n",
+  "ts_iso": "2026-08-09T16:12:22.897746+00:00",
+  "pid": 15080,
+  "anchor_name": "grounding_acquisition_loop_v1"
+}

@@ -1,0 +1,3348 @@
+{
+  "anchor_name": "sparse_bipolar_substrate_lm_param_sweep_v1",
+  "anchor": "sparse_bipolar_substrate_lm_param_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SWEEP_HARD_FAIL: sparse-bipolar lift saturates -- max_lift=0.442 <= baseline_lift(0.431) + tol(0.05) = 0.481. No config improves on fair_harness baseline; envelope is one-point (no scaling lever). SWEEP optimal=f0.0200_n8192_t100000 bpc=7.295 beat_baseline=0.011 n_hp=6/10 max_lift=0.442 | f0.0100_n4096_t100000=bpc7.402(cv0.001,lift0.34)*HP f0.0100_n4096_t1000000=FAIL f0.0100_n8192_t100000=bpc7.397(cv0.001,lift0.34)*HP f0.0100_n16384_t100000=FAIL f0.0200_n4096_t100000=bpc7.313(cv0.013,lift0.42)*HP f0.0200_n4096_t1000000=FAIL f0.0200_n8192_t100000=bpc7.295(cv0.013,lift0.44)*HP f0.0200_n16384_t100000=FAIL f0.0500_n4096_t100000=bpc7.312(cv0.002,lift0.43)*HP f0.0500_n4096_t1000000=FAIL f0.0500_n8192_t100000=bpc7.306(cv0.002,lift0.43)*HP f0.0500_n16384_t100000=FAIL f0.1000_n4096_t100000=bpc7.546(cv0.001,lift0.19) f0.1000_n4096_t1000000=FAIL f0.1000_n8192_t100000=bpc7.547(cv0.000,lift0.19) f0.1000_n16384_t100000=FAIL f0.2000_n4096_t100000=bpc7.608(cv0.001,lift0.13) f0.2000_n4096_t1000000=FAIL f0.2000_n8192_t100000=bpc7.609(cv0.001,lift0.13) f0.2000_n16384_t100000=FAIL",
+  "run_mode": "full",
+  "n_configs": 20,
+  "n_seeds_per_config": 3,
+  "n_units": 60,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "VOCAB_CAP": 4000,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "N_HELD": 20000,
+  "F_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2
+  ],
+  "DIM_TRAIN_GRID": [
+    [
+      4096,
+      100000
+    ],
+    [
+      4096,
+      1000000
+    ],
+    [
+      8192,
+      100000
+    ],
+    [
+      16384,
+      100000
+    ]
+  ],
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "detail": {
+    "cfg_summaries": [
+      {
+        "f": 0.01,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.402,
+        "bpc_best_std": 0.0068,
+        "bpc_best_cv": 0.0009,
+        "top1_acc_mean": 0.236,
+        "top1_acc_std": 0.0065,
+        "mrr_at_10_mean": 0.3139,
+        "mrr_at_10_std": 0.0029,
+        "raw_bpc_at_T1_L1_mean": 11.5595,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.3358,
+        "lift_vs_fair_harness_baseline_bits": -0.0955,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.01,
+        "N_DIM": 4096,
+        "N_TRAIN": 1000000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.01,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.3967,
+        "bpc_best_std": 0.0038,
+        "bpc_best_cv": 0.0005,
+        "top1_acc_mean": 0.2339,
+        "top1_acc_std": 0.0111,
+        "mrr_at_10_mean": 0.3134,
+        "mrr_at_10_std": 0.0053,
+        "raw_bpc_at_T1_L1_mean": 11.5567,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.3411,
+        "lift_vs_fair_harness_baseline_bits": -0.0902,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.01,
+        "N_DIM": 16384,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.02,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.3132,
+        "bpc_best_std": 0.0915,
+        "bpc_best_cv": 0.0125,
+        "top1_acc_mean": 0.2296,
+        "top1_acc_std": 0.0032,
+        "mrr_at_10_mean": 0.3109,
+        "mrr_at_10_std": 0.0024,
+        "raw_bpc_at_T1_L1_mean": 11.5802,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.2333,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.4246,
+        "lift_vs_fair_harness_baseline_bits": -0.0067,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.02,
+        "N_DIM": 4096,
+        "N_TRAIN": 1000000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.02,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.2955,
+        "bpc_best_std": 0.0956,
+        "bpc_best_cv": 0.0131,
+        "top1_acc_mean": 0.2324,
+        "top1_acc_std": 0.0026,
+        "mrr_at_10_mean": 0.3111,
+        "mrr_at_10_std": 0.001,
+        "raw_bpc_at_T1_L1_mean": 11.5727,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.2333,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.4423,
+        "lift_vs_fair_harness_baseline_bits": 0.011,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.02,
+        "N_DIM": 16384,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.3116,
+        "bpc_best_std": 0.0108,
+        "bpc_best_cv": 0.0015,
+        "top1_acc_mean": 0.2159,
+        "top1_acc_std": 0.0029,
+        "mrr_at_10_mean": 0.2868,
+        "mrr_at_10_std": 0.0019,
+        "raw_bpc_at_T1_L1_mean": 11.6099,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.3,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.4262,
+        "lift_vs_fair_harness_baseline_bits": -0.0051,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 4096,
+        "N_TRAIN": 1000000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.3065,
+        "bpc_best_std": 0.0132,
+        "bpc_best_cv": 0.0018,
+        "top1_acc_mean": 0.2134,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.2917,
+        "mrr_at_10_std": 0.0062,
+        "raw_bpc_at_T1_L1_mean": 11.6085,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.3,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.4313,
+        "lift_vs_fair_harness_baseline_bits": 0.0,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 16384,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.5461,
+        "bpc_best_std": 0.0042,
+        "bpc_best_cv": 0.0006,
+        "top1_acc_mean": 0.2069,
+        "top1_acc_std": 0.0023,
+        "mrr_at_10_mean": 0.2822,
+        "mrr_at_10_std": 0.0001,
+        "raw_bpc_at_T1_L1_mean": 11.6418,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.1917,
+        "lift_vs_fair_harness_baseline_bits": -0.2396,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": false,
+        "cv_clears": true,
+        "is_hp_config": false,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 4096,
+        "N_TRAIN": 1000000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.5471,
+        "bpc_best_std": 0.0033,
+        "bpc_best_cv": 0.0004,
+        "top1_acc_mean": 0.2101,
+        "top1_acc_std": 0.0014,
+        "mrr_at_10_mean": 0.2822,
+        "mrr_at_10_std": 0.0009,
+        "raw_bpc_at_T1_L1_mean": 11.6427,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.1907,
+        "lift_vs_fair_harness_baseline_bits": -0.2406,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": false,
+        "cv_clears": true,
+        "is_hp_config": false,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 16384,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.6082,
+        "bpc_best_std": 0.007,
+        "bpc_best_cv": 0.0009,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2795,
+        "mrr_at_10_std": 0.0003,
+        "raw_bpc_at_T1_L1_mean": 11.6696,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.1296,
+        "lift_vs_fair_harness_baseline_bits": -0.3017,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": false,
+        "cv_clears": true,
+        "is_hp_config": false,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 4096,
+        "N_TRAIN": 1000000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 7.6088,
+        "bpc_best_std": 0.0041,
+        "bpc_best_cv": 0.0005,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2793,
+        "mrr_at_10_std": 0.0001,
+        "raw_bpc_at_T1_L1_mean": 11.6714,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 7.7378,
+        "unigram_top1_mean": 0.2171,
+        "unigram_mrr_mean": 0.2761,
+        "lift_vs_unigram_bits": 0.129,
+        "lift_vs_fair_harness_baseline_bits": -0.3023,
+        "hp_bpc_bar": 7.4378,
+        "bpc_clears_bar": false,
+        "cv_clears": true,
+        "is_hp_config": false,
+        "all_seeds_failed": false
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 16384,
+        "N_TRAIN": 100000,
+        "n_valid_seeds": 0,
+        "n_compute_failed": 3,
+        "bpc_best_mean": Infinity,
+        "all_seeds_failed": true
+      }
+    ],
+    "valid_cfgs_sorted_by_bpc": [
+      {
+        "f": 0.02,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.2955,
+        "lift_vs_unigram_bits": 0.4423,
+        "lift_vs_fair_harness_baseline_bits": 0.011,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.3065,
+        "lift_vs_unigram_bits": 0.4313,
+        "lift_vs_fair_harness_baseline_bits": 0.0,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.05,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.3116,
+        "lift_vs_unigram_bits": 0.4262,
+        "lift_vs_fair_harness_baseline_bits": -0.0051,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.02,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.3132,
+        "lift_vs_unigram_bits": 0.4246,
+        "lift_vs_fair_harness_baseline_bits": -0.0067,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.01,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.3967,
+        "lift_vs_unigram_bits": 0.3411,
+        "lift_vs_fair_harness_baseline_bits": -0.0902,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.01,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.402,
+        "lift_vs_unigram_bits": 0.3358,
+        "lift_vs_fair_harness_baseline_bits": -0.0955,
+        "is_hp_config": true
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.5461,
+        "lift_vs_unigram_bits": 0.1917,
+        "lift_vs_fair_harness_baseline_bits": -0.2396,
+        "is_hp_config": false
+      },
+      {
+        "f": 0.1,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.5471,
+        "lift_vs_unigram_bits": 0.1907,
+        "lift_vs_fair_harness_baseline_bits": -0.2406,
+        "is_hp_config": false
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 4096,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.6082,
+        "lift_vs_unigram_bits": 0.1296,
+        "lift_vs_fair_harness_baseline_bits": -0.3017,
+        "is_hp_config": false
+      },
+      {
+        "f": 0.2,
+        "N_DIM": 8192,
+        "N_TRAIN": 100000,
+        "bpc_best_mean": 7.6088,
+        "lift_vs_unigram_bits": 0.129,
+        "lift_vs_fair_harness_baseline_bits": -0.3023,
+        "is_hp_config": false
+      }
+    ],
+    "optimal_config": {
+      "f": 0.02,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "bpc_best_mean": 7.2955,
+      "optimal_beats_baseline_bits": 0.011
+    },
+    "n_configs_total": 20,
+    "n_configs_valid": 10,
+    "n_hp_configs": 6,
+    "max_lift_vs_unigram_bits": 0.4423,
+    "baseline_lift_vs_unigram_bits": 0.4313,
+    "fair_harness_baseline_bpc": 7.3065,
+    "unigram_bpc_ref": 7.7378,
+    "hp_bpc_margin": 0.3,
+    "hp_bpc_cv_max": 0.05,
+    "hp_beat_baseline_bits": 0.1,
+    "hp_min_hp_configs": 3,
+    "hf_baseline_lift_tol": 0.05,
+    "CONFIG_VERSION": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+    "honest_scope": "Envelope sweep of ARM_SUBSTRATE_SPARSE_BIPOLAR over (f_sparse, N_DIM, N_TRAIN). Single-arm; reuses fair_harness joint (T,lambda) harness + 3-metric reporting. Pruned factorial: N_TRAIN=1M only at N_DIM=4096 to fit 7200s timeout budget. HP_BPC bar = unigram_bpc - 0.30; cv <= 0.05. HARD_PASS requires >= 3 HP configs AND optimal beats fair_harness baseline (7.3065) by >= 0.10 bits. HARD_FAIL requires max lift <= baseline lift (0.4313) + 0.05. PRIMARY METRIC IS BPC; top-1/MRR reported for transparency but NOT load-bearing in this envelope (per fair_harness: sparse-bipolar's win is BPC-shape, not top-1 -- top1_ok=false in validated config).",
+    "cites": [
+      "preregs/2026-06-23_sparse_bipolar_substrate_lm_param_sweep_v1.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+      "Skunkworks_2026-06-23_methodology_audit",
+      "USER_2026-06-22_Fix24_GPU_must_use_GPU",
+      "USER_2026-06-22_Fix28_verify_per_arm_metrics"
+    ]
+  },
+  "metrics_source": "measured_gpu_sparse_bipolar_param_sweep_v1",
+  "per_unit": [
+    {
+      "cfg_name": "fbps0100_n4096_t100000_s7",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3975,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.1037,
+          "top1_acc": 0.2279,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3108,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5637,
+          "raw_top1_at_T1_L1": 0.211,
+          "raw_mrr_at_T1_L1": 0.2799,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 37.78,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.33,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 68.44,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t100000_s7",
+      "_partial_written_at": 1782261316.1672192
+    },
+    {
+      "cfg_name": "fbps0100_n4096_t100000_s17",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.4117,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.1081,
+          "top1_acc": 0.2365,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3131,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5583,
+          "raw_top1_at_T1_L1": 0.2238,
+          "raw_mrr_at_T1_L1": 0.2937,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 40.77,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.36,
+          "wall_recall_s": 0.0
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 41.08,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t100000_s17",
+      "_partial_written_at": 1782261357.2813852
+    },
+    {
+      "cfg_name": "fbps0100_n4096_t100000_s23",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3969,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.102,
+          "top1_acc": 0.2437,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3177,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5566,
+          "raw_top1_at_T1_L1": 0.1898,
+          "raw_mrr_at_T1_L1": 0.2762,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 38.4,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.47,
+          "wall_recall_s": 0.0
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 38.66,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t100000_s23",
+      "_partial_written_at": 1782261395.9740365
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t100000_s7",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2655,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1106,
+          "top1_acc": 0.2274,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3142,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5792,
+          "raw_top1_at_T1_L1": 0.2204,
+          "raw_mrr_at_T1_L1": 0.296,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 39.71,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.33,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 39.94,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t100000_s7",
+      "_partial_written_at": 1782261435.9495773
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t100000_s17",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.4412,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.1271,
+          "top1_acc": 0.2341,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3102,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5831,
+          "raw_top1_at_T1_L1": 0.2035,
+          "raw_mrr_at_T1_L1": 0.2794,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 42.34,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.38,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 42.6,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t100000_s17",
+      "_partial_written_at": 1782261478.5926692
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t100000_s23",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2328,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.0875,
+          "top1_acc": 0.2274,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3084,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5782,
+          "raw_top1_at_T1_L1": 0.1793,
+          "raw_mrr_at_T1_L1": 0.2718,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 54.62,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.33,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 54.83,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t100000_s23",
+      "_partial_written_at": 1782261533.4690118
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t100000_s7",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3269,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1504,
+          "top1_acc": 0.212,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2857,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6079,
+          "raw_top1_at_T1_L1": 0.1746,
+          "raw_mrr_at_T1_L1": 0.26,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 66.91,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.48,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 67.28,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t100000_s7",
+      "_partial_written_at": 1782261600.8050945
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t100000_s17",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3038,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1399,
+          "top1_acc": 0.2187,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2895,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6093,
+          "raw_top1_at_T1_L1": 0.1845,
+          "raw_mrr_at_T1_L1": 0.268,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 58.54,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.35,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 58.9,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t100000_s17",
+      "_partial_written_at": 1782261659.7605963
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t100000_s23",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3042,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1419,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2852,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6124,
+          "raw_top1_at_T1_L1": 0.1777,
+          "raw_mrr_at_T1_L1": 0.27,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.25,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.34,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.55,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t100000_s23",
+      "_partial_written_at": 1782261716.3643596
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t100000_s7",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5403,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.1984,
+          "top1_acc": 0.2099,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2822,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.6368,
+          "raw_top1_at_T1_L1": 0.1503,
+          "raw_mrr_at_T1_L1": 0.2257,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 55.0,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.35,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 55.35,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t100000_s7",
+      "_partial_written_at": 1782261771.7722816
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t100000_s17",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5503,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2066,
+          "top1_acc": 0.2044,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2823,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.6441,
+          "raw_top1_at_T1_L1": 0.1659,
+          "raw_mrr_at_T1_L1": 0.2308,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.85,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.35,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.17,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t100000_s17",
+      "_partial_written_at": 1782261828.992214
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t100000_s23",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5477,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2054,
+          "top1_acc": 0.2063,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.282,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.6445,
+          "raw_top1_at_T1_L1": 0.1524,
+          "raw_mrr_at_T1_L1": 0.2378,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 55.21,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.46,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 55.56,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t100000_s23",
+      "_partial_written_at": 1782261884.6051705
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t100000_s7",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5994,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2438,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2793,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6607,
+          "raw_top1_at_T1_L1": 0.095,
+          "raw_mrr_at_T1_L1": 0.1514,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 55.83,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.35,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.25,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t100000_s7",
+      "_partial_written_at": 1782261940.9023376
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t100000_s17",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6087,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2488,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2799,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.6698,
+          "raw_top1_at_T1_L1": 0.0962,
+          "raw_mrr_at_T1_L1": 0.1489,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.52,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.51,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.9,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t100000_s17",
+      "_partial_written_at": 1782261997.8619387
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t100000_s23",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6166,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.253,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2792,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6784,
+          "raw_top1_at_T1_L1": 0.0848,
+          "raw_mrr_at_T1_L1": 0.1467,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 54.89,
+          "wall_keys_s": 0.0,
+          "wall_ingest_s": 0.33,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 55.27,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t100000_s23",
+      "_partial_written_at": 1782262053.199701
+    },
+    {
+      "cfg_name": "fbps0100_n4096_t1000000_s7",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.12
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.84,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t1000000_s7",
+      "_partial_written_at": 1782262054.0970123
+    },
+    {
+      "cfg_name": "fbps0100_n4096_t1000000_s17",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.1
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.8,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t1000000_s17",
+      "_partial_written_at": 1782262054.936754
+    },
+    {
+      "cfg_name": "fbps0100_n4096_t1000000_s23",
+      "f": 0.01,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.11
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.75,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0100_n4096_t1000000_s23",
+      "_partial_written_at": 1782262055.7305436
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t1000000_s7",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.05
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.71,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t1000000_s7",
+      "_partial_written_at": 1782262056.4908292
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t1000000_s17",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.05
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.75,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t1000000_s17",
+      "_partial_written_at": 1782262057.2946317
+    },
+    {
+      "cfg_name": "fbps0200_n4096_t1000000_s23",
+      "f": 0.02,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.75,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0200_n4096_t1000000_s23",
+      "_partial_written_at": 1782262058.093787
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t1000000_s7",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.76,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t1000000_s7",
+      "_partial_written_at": 1782262058.9031496
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t1000000_s17",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.69,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t1000000_s17",
+      "_partial_written_at": 1782262059.6440544
+    },
+    {
+      "cfg_name": "fbps0500_n4096_t1000000_s23",
+      "f": 0.05,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.67,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps0500_n4096_t1000000_s23",
+      "_partial_written_at": 1782262060.3687627
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t1000000_s7",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.06
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.74,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t1000000_s7",
+      "_partial_written_at": 1782262061.1620214
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t1000000_s17",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.06
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.82,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t1000000_s17",
+      "_partial_written_at": 1782262062.0396736
+    },
+    {
+      "cfg_name": "fbps1000_n4096_t1000000_s23",
+      "f": 0.1,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.14
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.83,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps1000_n4096_t1000000_s23",
+      "_partial_written_at": 1782262062.918698
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t1000000_s7",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.07
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.69,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t1000000_s7",
+      "_partial_written_at": 1782262063.661735
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t1000000_s17",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.17
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.92,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t1000000_s17",
+      "_partial_written_at": 1782262064.6430473
+    },
+    {
+      "cfg_name": "fbps2000_n4096_t1000000_s23",
+      "f": 0.2,
+      "N_DIM": 4096,
+      "N_TRAIN": 1000000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.8272,
+          "top1_unigram": 0.1814,
+          "mrr_unigram": 0.2508,
+          "n_test": 8246
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 15.26 GiB. GPU 0 has a total capacity of 8.00 GiB of which 6.72 GiB is free. 6.80 GiB allowed; Of the allocated memory 140.91 MiB is allocated by PyTorch, and 9.0",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.07
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3868,
+        "n_miss": 132,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.75,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 4096,
+      "_ckpt_key": "fbps2000_n4096_t1000000_s23",
+      "_partial_written_at": 1782262065.442064
+    },
+    {
+      "cfg_name": "fbps0100_n8192_t100000_s7",
+      "f": 0.01,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3998,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.097,
+          "top1_acc": 0.2256,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3089,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5567,
+          "raw_top1_at_T1_L1": 0.2198,
+          "raw_mrr_at_T1_L1": 0.2988,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 54.41,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.17,
+          "wall_recall_s": 0.03
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 54.94,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0100_n8192_t100000_s7",
+      "_partial_written_at": 1782262120.4404998
+    },
+    {
+      "cfg_name": "fbps0100_n8192_t100000_s17",
+      "f": 0.01,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.399,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.0982,
+          "top1_acc": 0.2266,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3105,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5583,
+          "raw_top1_at_T1_L1": 0.2109,
+          "raw_mrr_at_T1_L1": 0.2933,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.4,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.27,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.99,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0100_n8192_t100000_s17",
+      "_partial_written_at": 1782262178.4953418
+    },
+    {
+      "cfg_name": "fbps0100_n8192_t100000_s23",
+      "f": 0.01,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3914,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.093,
+          "top1_acc": 0.2496,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3208,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5552,
+          "raw_top1_at_T1_L1": 0.2011,
+          "raw_mrr_at_T1_L1": 0.2851,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 64.47,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.13,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 65.06,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0100_n8192_t100000_s23",
+      "_partial_written_at": 1782262243.6181443
+    },
+    {
+      "cfg_name": "fbps0200_n8192_t100000_s7",
+      "f": 0.02,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.4307,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.1195,
+          "top1_acc": 0.23,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3099,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5751,
+          "raw_top1_at_T1_L1": 0.2056,
+          "raw_mrr_at_T1_L1": 0.2901,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.89,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.14,
+          "wall_recall_s": 0.04
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 58.6,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0200_n8192_t100000_s7",
+      "_partial_written_at": 1782262302.282769
+    },
+    {
+      "cfg_name": "fbps0200_n8192_t100000_s17",
+      "f": 0.02,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2303,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.112,
+          "top1_acc": 0.2312,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3109,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5717,
+          "raw_top1_at_T1_L1": 0.213,
+          "raw_mrr_at_T1_L1": 0.2986,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.22,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.14,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.9,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0200_n8192_t100000_s17",
+      "_partial_written_at": 1782262360.2504528
+    },
+    {
+      "cfg_name": "fbps0200_n8192_t100000_s23",
+      "f": 0.02,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2254,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.0949,
+          "top1_acc": 0.236,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3124,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5714,
+          "raw_top1_at_T1_L1": 0.1964,
+          "raw_mrr_at_T1_L1": 0.2827,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.9,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.16,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 58.53,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0200_n8192_t100000_s23",
+      "_partial_written_at": 1782262418.8447657
+    },
+    {
+      "cfg_name": "fbps0500_n8192_t100000_s7",
+      "f": 0.05,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3187,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.144,
+          "top1_acc": 0.2045,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2888,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.607,
+          "raw_top1_at_T1_L1": 0.1759,
+          "raw_mrr_at_T1_L1": 0.2637,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.29,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.14,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.45,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0500_n8192_t100000_s7",
+      "_partial_written_at": 1782262476.3575754
+    },
+    {
+      "cfg_name": "fbps0500_n8192_t100000_s17",
+      "f": 0.05,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.2882,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1166,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3003,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6085,
+          "raw_top1_at_T1_L1": 0.1756,
+          "raw_mrr_at_T1_L1": 0.2678,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 58.94,
+          "wall_keys_s": 0.02,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 59.73,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0500_n8192_t100000_s17",
+      "_partial_written_at": 1782262536.1401644
+    },
+    {
+      "cfg_name": "fbps0500_n8192_t100000_s23",
+      "f": 0.05,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.3126,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1482,
+          "top1_acc": 0.2186,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2861,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6099,
+          "raw_top1_at_T1_L1": 0.1697,
+          "raw_mrr_at_T1_L1": 0.2621,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.82,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.16,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.41,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps0500_n8192_t100000_s23",
+      "_partial_written_at": 1782262593.600059
+    },
+    {
+      "cfg_name": "fbps1000_n8192_t100000_s7",
+      "f": 0.1,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5441,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2031,
+          "top1_acc": 0.2099,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.2822,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.64,
+          "raw_top1_at_T1_L1": 0.1558,
+          "raw_mrr_at_T1_L1": 0.2311,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 58.25,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 58.79,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps1000_n8192_t100000_s7",
+      "_partial_written_at": 1782262652.4390476
+    },
+    {
+      "cfg_name": "fbps1000_n8192_t100000_s17",
+      "f": 0.1,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5455,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2035,
+          "top1_acc": 0.212,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2832,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.642,
+          "raw_top1_at_T1_L1": 0.1518,
+          "raw_mrr_at_T1_L1": 0.2357,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.1,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.17,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.64,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps1000_n8192_t100000_s17",
+      "_partial_written_at": 1782262709.1327221
+    },
+    {
+      "cfg_name": "fbps1000_n8192_t100000_s23",
+      "f": 0.1,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.5516,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2086,
+          "top1_acc": 0.2085,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.2811,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.646,
+          "raw_top1_at_T1_L1": 0.1514,
+          "raw_mrr_at_T1_L1": 0.2294,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.07,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.64,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps1000_n8192_t100000_s23",
+      "_partial_written_at": 1782262765.8250165
+    },
+    {
+      "cfg_name": "fbps2000_n8192_t100000_s7",
+      "f": 0.2,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6031,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2464,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2791,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.666,
+          "raw_top1_at_T1_L1": 0.0909,
+          "raw_mrr_at_T1_L1": 0.148,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 57.35,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.15,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.92,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps2000_n8192_t100000_s7",
+      "_partial_written_at": 1782262823.811042
+    },
+    {
+      "cfg_name": "fbps2000_n8192_t100000_s17",
+      "f": 0.2,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6127,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2532,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2794,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6757,
+          "raw_top1_at_T1_L1": 0.1037,
+          "raw_mrr_at_T1_L1": 0.1545,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 56.69,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.16,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 57.22,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps2000_n8192_t100000_s17",
+      "_partial_written_at": 1782262881.0918918
+    },
+    {
+      "cfg_name": "fbps2000_n8192_t100000_s23",
+      "f": 0.2,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 7.6105,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2506,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2793,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.6725,
+          "raw_top1_at_T1_L1": 0.0946,
+          "raw_mrr_at_T1_L1": 0.1527,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "grid_size": 42,
+          "elapsed_s_arm": 55.85,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 1.16,
+          "wall_recall_s": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 56.47,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 8192,
+      "_ckpt_key": "fbps2000_n8192_t100000_s23",
+      "_partial_written_at": 1782262937.617873
+    },
+    {
+      "cfg_name": "fbps0100_n16384_t100000_s7",
+      "f": 0.01,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 263.00 MiB is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.9",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.18
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 1.51,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0100_n16384_t100000_s7",
+      "_partial_written_at": 1782262939.1638095
+    },
+    {
+      "cfg_name": "fbps0100_n16384_t100000_s17",
+      "f": 0.01,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.9,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0100_n16384_t100000_s17",
+      "_partial_written_at": 1782262940.107379
+    },
+    {
+      "cfg_name": "fbps0100_n16384_t100000_s23",
+      "f": 0.01,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.82,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0100_n16384_t100000_s23",
+      "_partial_written_at": 1782262940.963751
+    },
+    {
+      "cfg_name": "fbps0200_n16384_t100000_s7",
+      "f": 0.02,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.01
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.77,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0200_n16384_t100000_s7",
+      "_partial_written_at": 1782262941.7616286
+    },
+    {
+      "cfg_name": "fbps0200_n16384_t100000_s17",
+      "f": 0.02,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.02
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.76,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0200_n16384_t100000_s17",
+      "_partial_written_at": 1782262942.5577912
+    },
+    {
+      "cfg_name": "fbps0200_n16384_t100000_s23",
+      "f": 0.02,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.02
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.77,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0200_n16384_t100000_s23",
+      "_partial_written_at": 1782262943.3607676
+    },
+    {
+      "cfg_name": "fbps0500_n16384_t100000_s7",
+      "f": 0.05,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.02
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.77,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0500_n16384_t100000_s7",
+      "_partial_written_at": 1782262944.163316
+    },
+    {
+      "cfg_name": "fbps0500_n16384_t100000_s17",
+      "f": 0.05,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.03
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.78,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0500_n16384_t100000_s17",
+      "_partial_written_at": 1782262944.9834397
+    },
+    {
+      "cfg_name": "fbps0500_n16384_t100000_s23",
+      "f": 0.05,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.03
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.78,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps0500_n16384_t100000_s23",
+      "_partial_written_at": 1782262945.7859786
+    },
+    {
+      "cfg_name": "fbps1000_n16384_t100000_s7",
+      "f": 0.1,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.02
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.75,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps1000_n16384_t100000_s7",
+      "_partial_written_at": 1782262946.5666158
+    },
+    {
+      "cfg_name": "fbps1000_n16384_t100000_s17",
+      "f": 0.1,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.02
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.76,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps1000_n16384_t100000_s17",
+      "_partial_written_at": 1782262947.3550825
+    },
+    {
+      "cfg_name": "fbps1000_n16384_t100000_s23",
+      "f": 0.1,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.03
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.83,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps1000_n16384_t100000_s23",
+      "_partial_written_at": 1782262948.2172348
+    },
+    {
+      "cfg_name": "fbps2000_n16384_t100000_s7",
+      "f": 0.2,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 7,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.04
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.8,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps2000_n16384_t100000_s7",
+      "_partial_written_at": 1782262949.055938
+    },
+    {
+      "cfg_name": "fbps2000_n16384_t100000_s17",
+      "f": 0.2,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 17,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.04
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.79,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps2000_n16384_t100000_s17",
+      "_partial_written_at": 1782262949.8800519
+    },
+    {
+      "cfg_name": "fbps2000_n16384_t100000_s23",
+      "f": 0.2,
+      "N_DIM": 16384,
+      "N_TRAIN": 100000,
+      "seed": 23,
+      "V": 4000,
+      "N_HELD": 20000,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 1.22 GiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.60 GiB is allocated by PyTorch, and 12.96 M",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "mrr_at_10": NaN,
+          "best_T_for_bpc": NaN,
+          "best_lambda_for_bpc": NaN,
+          "raw_bpc_at_T1_L1": Infinity,
+          "elapsed_s_arm": 0.03
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 0.79,
+      "run_mode": "full",
+      "device": "cuda",
+      "N": 16384,
+      "_ckpt_key": "fbps2000_n16384_t100000_s23",
+      "_partial_written_at": 1782262950.697277
+    }
+  ],
+  "elapsed_s": 1703.0358908176422,
+  "summary": "SWEEP_HARD_FAIL: sparse-bipolar lift saturates -- max_lift=0.442 <= baseline_lift(0.431) + tol(0.05) = 0.481. No config improves on fair_harness baseline; envelope is one-point (no scaling lever). SWEEP optimal=f0.0200_n8192_t100000 bpc=7.2",
+  "substrate_only_decode_gate": "TRUE (single-arm; substrate cosine logits; word2vec static lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=20 configs=[(0.01, 4096, 100000), (0.02, 4096, 100000), (0.05, 4096, 100000), (0.1, 4096, 100000), (0.2, 4096, 100000), (0.01, 4096, 1000000), (0.02, 4096, 1000000), (0.05, 4096, 1000000), (0.1, 4096, 1000000), (0.2, 4096, 1000000), (0.01, 8192, 100000), (0.02, 8192, 100000), (0.05, 8192, 100000), (0.1, 8192, 100000), (0.2, 8192, 100000), (0.01, 16384, 100000), (0.02, 16384, 100000), (0.05, 16384, 100000), (0.1, 16384, 100000), (0.2, 16384, 100000)] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=4000 N_HELD=20000 PRETRAIN_DIM=300 INGEST_CHUNK=4096 RECALL_BATCH=256 MRR_K=10 device=cuda; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

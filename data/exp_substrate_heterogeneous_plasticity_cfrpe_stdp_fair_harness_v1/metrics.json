@@ -1,0 +1,325 @@
+{
+  "anchor_name": "substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: lift=0.141 >= 0.10 bits. Heterogeneous plasticity adds real lift over Hebbian baseline at production scale (N_DIM=8192 text8 100k). uni=bpc7.738 | ARM_HEBBIAN_ONLY=bpc7.306 | ARM_CFRPE_ONLY=bpc7.105 | ARM_CFRPE_STDP_HETEROGENEOUS=bpc7.165 cv=0.003 | lift=0.141 bits | cfrpe_only_lift=0.201 | degen=True",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "ARMS": [
+    "ARM_UNIGRAM",
+    "ARM_HEBBIAN_ONLY",
+    "ARM_CFRPE_ONLY",
+    "ARM_CFRPE_STDP_HETEROGENEOUS"
+  ],
+  "SPARSE_BIPOLAR_F": 0.05,
+  "CFRPE_LR": 0.5,
+  "STDP_WEIGHT": 0.5,
+  "N_STEPS": 1000,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0
+      },
+      "ARM_HEBBIAN_ONLY": {
+        "bpc_best_mean": 7.3065,
+        "bpc_best_std": 0.0132,
+        "bpc_best_cv": 0.0018,
+        "top1_acc_mean": 0.2134,
+        "top1_acc_std": 0.0063,
+        "mrr_at_10_mean": 0.2917,
+        "mrr_at_10_std": 0.0062,
+        "raw_bpc_at_T1_L1_mean": 11.6085,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_CFRPE_ONLY": {
+        "bpc_best_mean": 7.1052,
+        "bpc_best_std": 0.0122,
+        "bpc_best_cv": 0.0017,
+        "top1_acc_mean": 0.2295,
+        "top1_acc_std": 0.0078,
+        "mrr_at_10_mean": 0.3285,
+        "mrr_at_10_std": 0.0062,
+        "raw_bpc_at_T1_L1_mean": 11.5537,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_CFRPE_STDP_HETEROGENEOUS": {
+        "bpc_best_mean": 7.1654,
+        "bpc_best_std": 0.022,
+        "bpc_best_cv": 0.0031,
+        "top1_acc_mean": 0.2368,
+        "top1_acc_std": 0.0073,
+        "mrr_at_10_mean": 0.3313,
+        "mrr_at_10_std": 0.0024,
+        "raw_bpc_at_T1_L1_mean": 11.5603,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "lift_hetero_vs_hebbian": 0.1411,
+    "lift_cfrpe_vs_hebbian": 0.2013,
+    "hebbian_bpc": 7.3065,
+    "hetero_bpc": 7.1654,
+    "degen_flag": true,
+    "vocab_entropy_uniform_bits": 11.9658,
+    "n_seeds": 3,
+    "hard_pass_lift_bar": 0.1,
+    "chain_grade_bonus_bar": 0.2,
+    "hard_fail_lift_bar": 0.03,
+    "fair_harness_hebbian_baseline_bpc": 7.3065,
+    "honest_scope": "heterogeneous plasticity cf-RPE x STDP at production scale (N_DIM=8192 N_TRAIN=100k text8 V=4000). HARD_PASS = lift >= 0.10 bits vs ARM_HEBBIAN_ONLY. CHAIN_GRADE_BONUS = lift >= 0.20 bits. HARD_FAIL = lift <= 0.03 bits OR READOUT_DEGENERATE. cv < 0.05 mandatory. Baseline: fair_harness ARM_SUBSTRATE_SPARSE_BIPOLAR BPC=7.3065 (cert row 473 chain-grade at N=512).",
+    "cites": [
+      "preregs/2026-06-23_substrate_heterogeneous_plasticity_cfrpe_stdp_fair_harness_v1.md",
+      "experiments/exp_substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512.py",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+      "data/exp_substrate_neuromodulator_3axis_gated_compose_LM_v1/metrics.json",
+      "notes/substrate_mine_modulator_gain_experiments_inventory_2026-06-23.md"
+    ],
+    "chain_grade_bonus": false
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_HEBBIAN_ONLY": {
+          "bpc_best": 7.3187,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.144,
+          "top1_acc": 0.2045,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2888,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.607,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 42.78,
+          "wall_ingest_s": 0.6,
+          "wall_recall_s": 0.58
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.1133,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8649,
+          "top1_acc": 0.221,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3201,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5456,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 50.33,
+          "wall_ingest_s": 8.8,
+          "wall_recall_s": 1.07
+        },
+        "ARM_CFRPE_STDP_HETEROGENEOUS": {
+          "bpc_best": 7.1711,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8875,
+          "top1_acc": 0.2366,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3326,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.5633,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 63.13,
+          "wall_ingest_s": 20.72,
+          "wall_recall_s": 1.51
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 186.84,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_HEBBIAN_ONLY": {
+          "bpc_best": 7.2882,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1166,
+          "top1_acc": 0.2172,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3003,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.6085,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 43.15,
+          "wall_ingest_s": 0.6,
+          "wall_recall_s": 0.58
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.1144,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8565,
+          "top1_acc": 0.2277,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3305,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.5608,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 50.47,
+          "wall_ingest_s": 8.87,
+          "wall_recall_s": 1.07
+        },
+        "ARM_CFRPE_STDP_HETEROGENEOUS": {
+          "bpc_best": 7.189,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.9217,
+          "top1_acc": 0.2459,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3333,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5642,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 62.39,
+          "wall_ingest_s": 20.81,
+          "wall_recall_s": 1.51
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 156.51,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_HEBBIAN_ONLY": {
+          "bpc_best": 7.3126,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 8.1482,
+          "top1_acc": 0.2186,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.2861,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6099,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 41.48,
+          "wall_ingest_s": 0.71,
+          "wall_recall_s": 0.58
+        },
+        "ARM_CFRPE_ONLY": {
+          "bpc_best": 7.088,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.8475,
+          "top1_acc": 0.2398,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3348,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.5546,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 49.46,
+          "wall_ingest_s": 8.76,
+          "wall_recall_s": 1.08
+        },
+        "ARM_CFRPE_STDP_HETEROGENEOUS": {
+          "bpc_best": 7.136,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.9016,
+          "top1_acc": 0.228,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.3279,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5535,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 62.22,
+          "wall_ingest_s": 20.79,
+          "wall_recall_s": 1.51
+        }
+      },
+      "V": 4000,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "elapsed_s_seed": 153.51,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      }
+    }
+  ],
+  "elapsed_s": 496.86,
+  "summary": "HARD_PASS: lift=0.141 >= 0.10 bits. Heterogeneous plasticity adds real lift over Hebbian baseline at production scale (N_DIM=8192 text8 100k). uni=bpc7.738 | ARM_HEBBIAN_ONLY=bpc7.306 | ARM_CFRPE_ONLY=bpc7.105 | ARM_CFRPE_STDP_HETEROGENEOUS=bpc7.165 cv=0.003 | lift=0.141 bits | cfrpe_only_lift=0.201 | degen=True"
+}

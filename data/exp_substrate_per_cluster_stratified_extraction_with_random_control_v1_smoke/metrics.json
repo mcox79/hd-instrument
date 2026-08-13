@@ -1,0 +1,76 @@
+{
+  "anchor_name": "substrate_per_cluster_stratified_extraction_with_random_control_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (can-fail-witnessed): random control FAILS (arm2 <= 0.50 at sp1000) while stratified holds; discrimination > 0.40 -> stratification has genuine value over random-at-budget. CHAIN-GRADE-CANDIDATE -> Skunkworks. arm1_min_cov=1.000 arm2_cov@sp1000=0.457 discrim@sp1000=0.543 worst_cv=0.000 | {'sp10': (1.0, 0.4774), 'sp100': (1.0, 0.4362), 'sp1000': (1.0, 0.4568)}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "detail": {
+    "by_sp": {
+      "sp10": {
+        "arm1_cov": 1.0,
+        "arm2_cov": 0.4774,
+        "arm1_speedup": 20.6,
+        "arm2_speedup": 20.6,
+        "discrimination": 0.5226
+      },
+      "sp100": {
+        "arm1_cov": 1.0,
+        "arm2_cov": 0.4362,
+        "arm1_speedup": 20.6,
+        "arm2_speedup": 20.6,
+        "discrimination": 0.5638
+      },
+      "sp1000": {
+        "arm1_cov": 1.0,
+        "arm2_cov": 0.4568,
+        "arm1_speedup": 20.6,
+        "arm2_speedup": 20.6,
+        "discrimination": 0.5432
+      }
+    },
+    "arm1_min_coverage": 1.0,
+    "arm2_coverage_sp1000": 0.4568,
+    "discrimination_sp1000": 0.5432,
+    "worst_cv": 0.0,
+    "source_sibling": "substrate_per_cluster_stratified_extraction_v1",
+    "pre_reg": "arm1>=0.95 & arm2<=0.50@sp1000 & discrim>0.40@sp1000 & cv<=0.05"
+  },
+  "metrics_source": "measured_cpu_stratified_vs_random_control_matched_budget",
+  "per_seed": [
+    {
+      "seed": 1,
+      "n_tok": 5000,
+      "by_speedup": {
+        "sp10": {
+          "arm1_stratified_coverage": 1.0,
+          "arm1_actual_speedup": 20.5761316872428,
+          "arm2_random_coverage": 0.4773662551440329,
+          "arm2_actual_speedup": 20.5761316872428,
+          "discrimination": 0.522633744855967,
+          "total_budget": 243
+        },
+        "sp100": {
+          "arm1_stratified_coverage": 1.0,
+          "arm1_actual_speedup": 20.5761316872428,
+          "arm2_random_coverage": 0.43621399176954734,
+          "arm2_actual_speedup": 20.5761316872428,
+          "discrimination": 0.5637860082304527,
+          "total_budget": 243
+        },
+        "sp1000": {
+          "arm1_stratified_coverage": 1.0,
+          "arm1_actual_speedup": 20.5761316872428,
+          "arm2_random_coverage": 0.4567901234567901,
+          "arm2_actual_speedup": 20.5761316872428,
+          "discrimination": 0.5432098765432098,
+          "total_budget": 243
+        }
+      },
+      "min_arm1_coverage": 1.0,
+      "_ckpt_key": "s1",
+      "_partial_written_at": 1782022082.5374818
+    }
+  ],
+  "elapsed_s": 25.792577028274536,
+  "summary": "HARD_PASS (can-fail-witnessed): random control FAILS (arm2 <= 0.50 at sp1000) while stratified holds; discrimination > 0.40 -> stratification has genuine value over random-at-budget. CHAIN-GRADE-CANDIDATE -> Skunkworks. arm1_min_cov=1.000 arm2_cov@sp1000=0.457 discrim@sp1000=0.543 worst_cv=0.000 | {'sp10': (1.0, 0.4774), 'sp100': (1.0, 0.4362), 'sp1000': (1.0, 0.4568)}"
+}

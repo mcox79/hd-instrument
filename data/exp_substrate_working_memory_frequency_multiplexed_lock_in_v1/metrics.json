@@ -1,0 +1,284 @@
+{
+  "anchor_name": "substrate_working_memory_frequency_multiplexed_lock_in_v1",
+  "verdict": "HARD_FAIL_INTERMOD",
+  "verdict_msg": "HARD_FAIL_FM_CROSS_SLOT_BLEED_TOO_HIGH: FM_K128=0.9271 (cv=0.019 bleed=0.073) FM_K256=0.5612 (cv=0.007 bleed=0.421) NAIVE_K128=0.9284 (cv=0.002) NAIVE_K256=0.5404 (cv=0.025) lift_K128=-0.0013 lift_K256=0.0208 max_lift=0.0208 max_bleed=0.4206 rail_breach=0/3 | per-K: K32_NAIVE=1.000_FM=1.000_bleed=0.000 K64_NAIVE=0.999_FM=1.000_bleed=0.000 K128_NAIVE=0.928_FM=0.927_bleed=0.073 K256_NAIVE=0.540_FM=0.561_bleed=0.421 | WM_v2_NAIVE_K128=0.908 WM_v2_NAIVE_K256=0.555 (ref)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateWmFreqMultiplexedLockIn-v1: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128, 256] SIGMAS=[1.0] N_ITEMS_PER_K=200 P_LOCKIN=8 arms=['ARM_NAIVE_HRR_WM', 'ARM_FM_LOCK_IN'] seeds=[11, 13, 19] mode=full; bands HP_FM_K128_sigma1>=0.98 HP_FM_K256_sigma1>=0.90 cv<=0.05 HP_partial_lift>=0.10 mid_lift=[0.05,0.10] HF_intermod>0.10 naive_K128_rail=[0.88,0.94] naive_K256_rail=[0.51,0.60]",
+  "per_seed": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "ARM_NAIVE_HRR_WM": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.9258
+            },
+            "K_256": {
+              "sigma_1.00": 0.5273
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0234
+            },
+            "K_256": {
+              "sigma_1.00": 0.2305
+            }
+          },
+          "wall_s": 2.33
+        },
+        "ARM_FM_LOCK_IN": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.9414
+            },
+            "K_256": {
+              "sigma_1.00": 0.5664
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0586
+            },
+            "K_256": {
+              "sigma_1.00": 0.4219
+            }
+          },
+          "wall_s": 3.98
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 512,
+      "K_VALUES": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "SIGMAS": [
+        1.0
+      ],
+      "N_ITEMS_PER_K": 200,
+      "P_LOCKIN": 8,
+      "run_mode": "full",
+      "config_version": "substrateWmFreqMultiplexedLockIn-v1: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128, 256] SIGMAS=[1.0] N_ITEMS_PER_K=200 P_LOCKIN=8 arms=['ARM_NAIVE_HRR_WM', 'ARM_FM_LOCK_IN'] seeds=[11, 13, 19] mode=full; bands HP_FM_K128_sigma1>=0.98 HP_FM_K256_sigma1>=0.90 cv<=0.05 HP_partial_lift>=0.10 mid_lift=[0.05,0.10] HF_intermod>0.10 naive_K128_rail=[0.88,0.94] naive_K256_rail=[0.51,0.60]",
+      "elapsed_s_seed": 6.45,
+      "_llm_forward_calls_at_inference": 0,
+      "rail_naive_k128_ok": true,
+      "rail_naive_k256_ok": true,
+      "naive_k128_sigma1": 0.9258,
+      "naive_k256_sigma1": 0.5273,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782438982.1322303
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "ARM_NAIVE_HRR_WM": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.9297
+            },
+            "K_256": {
+              "sigma_1.00": 0.5352
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0312
+            },
+            "K_256": {
+              "sigma_1.00": 0.2266
+            }
+          },
+          "wall_s": 2.41
+        },
+        "ARM_FM_LOCK_IN": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.9023
+            },
+            "K_256": {
+              "sigma_1.00": 0.5586
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0977
+            },
+            "K_256": {
+              "sigma_1.00": 0.4258
+            }
+          },
+          "wall_s": 4.35
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 512,
+      "K_VALUES": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "SIGMAS": [
+        1.0
+      ],
+      "N_ITEMS_PER_K": 200,
+      "P_LOCKIN": 8,
+      "run_mode": "full",
+      "config_version": "substrateWmFreqMultiplexedLockIn-v1: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128, 256] SIGMAS=[1.0] N_ITEMS_PER_K=200 P_LOCKIN=8 arms=['ARM_NAIVE_HRR_WM', 'ARM_FM_LOCK_IN'] seeds=[11, 13, 19] mode=full; bands HP_FM_K128_sigma1>=0.98 HP_FM_K256_sigma1>=0.90 cv<=0.05 HP_partial_lift>=0.10 mid_lift=[0.05,0.10] HF_intermod>0.10 naive_K128_rail=[0.88,0.94] naive_K256_rail=[0.51,0.60]",
+      "elapsed_s_seed": 6.87,
+      "_llm_forward_calls_at_inference": 0,
+      "rail_naive_k128_ok": true,
+      "rail_naive_k256_ok": true,
+      "naive_k128_sigma1": 0.9297,
+      "naive_k256_sigma1": 0.5352,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782438989.100937
+    },
+    {
+      "seed": 19,
+      "by_arm": {
+        "ARM_NAIVE_HRR_WM": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.9961
+            },
+            "K_128": {
+              "sigma_1.00": 0.9297
+            },
+            "K_256": {
+              "sigma_1.00": 0.5586
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0039
+            },
+            "K_256": {
+              "sigma_1.00": 0.2422
+            }
+          },
+          "wall_s": 2.42
+        },
+        "ARM_FM_LOCK_IN": {
+          "per_K_per_sigma": {
+            "K_32": {
+              "sigma_1.00": 1.0
+            },
+            "K_64": {
+              "sigma_1.00": 1.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.9375
+            },
+            "K_256": {
+              "sigma_1.00": 0.5586
+            }
+          },
+          "per_K_bleed": {
+            "K_32": {
+              "sigma_1.00": 0.0
+            },
+            "K_64": {
+              "sigma_1.00": 0.0
+            },
+            "K_128": {
+              "sigma_1.00": 0.0625
+            },
+            "K_256": {
+              "sigma_1.00": 0.4141
+            }
+          },
+          "wall_s": 4.14
+        }
+      },
+      "N": 4096,
+      "CODEBOOK_SIZE": 512,
+      "K_VALUES": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "SIGMAS": [
+        1.0
+      ],
+      "N_ITEMS_PER_K": 200,
+      "P_LOCKIN": 8,
+      "run_mode": "full",
+      "config_version": "substrateWmFreqMultiplexedLockIn-v1: N_DIM=4096 CODEBOOK_SIZE=512 K=[32, 64, 128, 256] SIGMAS=[1.0] N_ITEMS_PER_K=200 P_LOCKIN=8 arms=['ARM_NAIVE_HRR_WM', 'ARM_FM_LOCK_IN'] seeds=[11, 13, 19] mode=full; bands HP_FM_K128_sigma1>=0.98 HP_FM_K256_sigma1>=0.90 cv<=0.05 HP_partial_lift>=0.10 mid_lift=[0.05,0.10] HF_intermod>0.10 naive_K128_rail=[0.88,0.94] naive_K256_rail=[0.51,0.60]",
+      "elapsed_s_seed": 6.69,
+      "_llm_forward_calls_at_inference": 0,
+      "rail_naive_k128_ok": true,
+      "rail_naive_k256_ok": true,
+      "naive_k128_sigma1": 0.9297,
+      "naive_k256_sigma1": 0.5586,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782438995.9807944
+    }
+  ],
+  "elapsed_s": 21.1,
+  "summary": "HARD_FAIL_FM_CROSS_SLOT_BLEED_TOO_HIGH: FM_K128=0.9271 (cv=0.019 bleed=0.073) FM_K256=0.5612 (cv=0.007 bleed=0.421) NAIVE_K128=0.9284 (cv=0.002) NAIVE_K256=0.5404 (cv=0.025) lift_K128=-0.0013 lift_K256=0.0208 max_lift=0.0208 max_bleed=0.4206 rail_breach=0/3 | per-K: K32_NAIVE=1.000_FM=1.000_bleed=0.000 K64_NAIVE=0.999_FM=1.000_bleed=0.000 K128_NAIVE=0.928_FM=0.927_bleed=0.073 K256_NAIVE=0.540_FM=0.561_bleed=0.421 | WM_v2_NAIVE_K128=0.908 WM_v2_NAIVE_K256=0.555 (ref)",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "USER-proposed mechanism (Q3 2026-06-25): frequency-multiplexed WM where each slot k stored at a different roll offset (k * delta_k) instead of a slot-tag bind. Read uses P=8 phase lock-in demodulation. Brain analog: theta-gamma multiplexing in PFC (Lisman-Buzsaki). Substrate analog: chain-grade lock-in primitive applied as slot-isolation filter. NOT same as Cell 6 v3 today (shared-W FDM-plasticity stacking which MIDDLE_BAND'd; that stacked PLASTICITY RULES at different freqs -- this stacks DATA at different freqs). Pre-reg per preregs/2026-06-25_substrate_working_memory_frequency_multiplexed_lock_in_v1.md."
+}

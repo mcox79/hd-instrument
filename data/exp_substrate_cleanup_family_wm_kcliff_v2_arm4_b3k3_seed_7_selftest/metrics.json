@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_cleanup_family_wm_kcliff_v2_arm4_b3k3_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=36 SMOKE=8; 4 cleanups registered: ['classical_hopfield', 'modern_hopfield_continuous', 'iterative_attractor', 'wta_baseline']; K_cliff: B4=1024 B16=4096 B64=16384; sanity classical_hopfield: rec=0.469; sanity modern_hopfield_continuous: rec=1.000; sanity iterative_attractor: rec=1.000; sanity wta_baseline: rec=0.969; 4/4 cleanups >= 0.20 at sanity; distinctness sanity: 5/6 pairs distinct",
+  "summary": "cardinality FULL=36 SMOKE=8; 4 cleanups registered: ['classical_hopfield', 'modern_hopfield_continuous', 'iterative_attractor', 'wta_baseline']; K_cliff: B4=1024 B16=4096 B64=16384; sanity classical_hopfield: rec=0.469; sanity modern_hopfield_continuous: rec=1.000; sanity iterative_attractor: rec=1.000; sanity wta_baseline: rec=0.969; 4/4 cleanups >= 0.20 at sanity; distinctness sanity: 5/6 pairs distinct",
+  "elapsed_s": 0.2,
+  "ts_iso": "2026-07-01T03:32:51Z",
+  "pid": 27320,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_cleanup_family_wm_kcliff_v2_arm4_b3k3_seed_7,cleanups=[classical_hopfield,modern_hopfield_continuous,iterative_attractor,wta_baseline],encoder=bipolar,N=8192,SEED=7,mode=selftest,num_banks_full=[4,16,64],num_banks_smoke=[4],K_design=Kcliff_relative_over2_1_times2_per_B,K_cliff_formula=256*B,beta=8.0,hop_max_steps=4,expected_n_full=36,expected_n_smoke=8,discriminator=K_2xKcliff_lift_gte_0p10_over_wta_cv_lt_0p08,META_RULE_AX_all_6_pairs_distinct,META_RULE_Q_suspect_1p000_at_Kcliff,META_RULE_AT_compose_multi_bank_alpha_K",
+  "_hardening_marker": "v2_arm4_b3k3_cleanup_family_wm_kcliff",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

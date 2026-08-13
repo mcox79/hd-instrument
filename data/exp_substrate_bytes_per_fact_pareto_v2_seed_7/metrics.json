@@ -1,0 +1,883 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 7-arm x 4-M Pareto | FP32@M4000=1.000 | bfloat16@M4000=1.000 (not-collapsed) | int4@M4000=1.000 (valid_tier; int8_gap=0.000 info) | pareto_seps=[True, True, True, True] | monotone_ok=True | max_cv=0.000 | n_seeds=1",
+  "summary": "HARD_PASS: 7-arm x 4-M Pareto | FP32@M4000=1.000 | bfloat16@M4000=1.000 (not-collapsed) | int4@M4000=1.000 (valid_tier; int8_gap=0.000 info) | pareto_seps=[True, True, True, True] | monotone_ok=True | max_cv=0.000 | n_seeds=1",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "arms": [
+    "FP32_DENSE",
+    "BFLOAT16_DENSE",
+    "FP16_DENSE",
+    "INT8_DENSE",
+    "INT4_QUANTIZED",
+    "BINARY_DENSE",
+    "SPARSE_BIPOLAR_0p05"
+  ],
+  "M_sweep": [
+    1000,
+    4000,
+    10000,
+    20000
+  ],
+  "M_nominal_positive_control": 4000,
+  "M_for_int4_int8_gap": 10000,
+  "arm_means_by_unit": {
+    "FP32_DENSE__M1000": {
+      "arm": "FP32_DENSE",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 150667.264
+    },
+    "FP32_DENSE__M4000": {
+      "arm": "FP32_DENSE",
+      "M": 4000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 37666.816
+    },
+    "FP32_DENSE__M10000": {
+      "arm": "FP32_DENSE",
+      "M": 10000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 15066.7264
+    },
+    "FP32_DENSE__M20000": {
+      "arm": "FP32_DENSE",
+      "M": 20000,
+      "recall_mean": 0.999500036239624,
+      "bytes_per_fact_mean": 7533.3632
+    },
+    "BFLOAT16_DENSE__M1000": {
+      "arm": "BFLOAT16_DENSE",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 75333.632
+    },
+    "BFLOAT16_DENSE__M4000": {
+      "arm": "BFLOAT16_DENSE",
+      "M": 4000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 18833.408
+    },
+    "BFLOAT16_DENSE__M10000": {
+      "arm": "BFLOAT16_DENSE",
+      "M": 10000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 7533.3632
+    },
+    "BFLOAT16_DENSE__M20000": {
+      "arm": "BFLOAT16_DENSE",
+      "M": 20000,
+      "recall_mean": 0.999500036239624,
+      "bytes_per_fact_mean": 3766.6816
+    },
+    "FP16_DENSE__M1000": {
+      "arm": "FP16_DENSE",
+      "M": 1000,
+      "recall_mean": 0.0,
+      "bytes_per_fact_mean": 75333.632
+    },
+    "FP16_DENSE__M4000": {
+      "arm": "FP16_DENSE",
+      "M": 4000,
+      "recall_mean": 0.0,
+      "bytes_per_fact_mean": 18833.408
+    },
+    "FP16_DENSE__M10000": {
+      "arm": "FP16_DENSE",
+      "M": 10000,
+      "recall_mean": 0.0,
+      "bytes_per_fact_mean": 7533.3632
+    },
+    "FP16_DENSE__M20000": {
+      "arm": "FP16_DENSE",
+      "M": 20000,
+      "recall_mean": 0.0,
+      "bytes_per_fact_mean": 3766.6816
+    },
+    "INT8_DENSE__M1000": {
+      "arm": "INT8_DENSE",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 37703.6
+    },
+    "INT8_DENSE__M4000": {
+      "arm": "INT8_DENSE",
+      "M": 4000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 9425.9
+    },
+    "INT8_DENSE__M10000": {
+      "arm": "INT8_DENSE",
+      "M": 10000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 3770.36
+    },
+    "INT8_DENSE__M20000": {
+      "arm": "INT8_DENSE",
+      "M": 20000,
+      "recall_mean": 0.999500036239624,
+      "bytes_per_fact_mean": 1885.18
+    },
+    "INT4_QUANTIZED__M1000": {
+      "arm": "INT4_QUANTIZED",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 18870.192
+    },
+    "INT4_QUANTIZED__M4000": {
+      "arm": "INT4_QUANTIZED",
+      "M": 4000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 4717.548
+    },
+    "INT4_QUANTIZED__M10000": {
+      "arm": "INT4_QUANTIZED",
+      "M": 10000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 1887.0192
+    },
+    "INT4_QUANTIZED__M20000": {
+      "arm": "INT4_QUANTIZED",
+      "M": 20000,
+      "recall_mean": 0.999500036239624,
+      "bytes_per_fact_mean": 943.5096
+    },
+    "BINARY_DENSE__M1000": {
+      "arm": "BINARY_DENSE",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 4708.352
+    },
+    "BINARY_DENSE__M4000": {
+      "arm": "BINARY_DENSE",
+      "M": 4000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 1177.088
+    },
+    "BINARY_DENSE__M10000": {
+      "arm": "BINARY_DENSE",
+      "M": 10000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 470.8352
+    },
+    "BINARY_DENSE__M20000": {
+      "arm": "BINARY_DENSE",
+      "M": 20000,
+      "recall_mean": 0.999500036239624,
+      "bytes_per_fact_mean": 235.4176
+    },
+    "SPARSE_BIPOLAR_0p05__M1000": {
+      "arm": "SPARSE_BIPOLAR_0p05",
+      "M": 1000,
+      "recall_mean": 1.0,
+      "bytes_per_fact_mean": 131240.748
+    },
+    "SPARSE_BIPOLAR_0p05__M4000": {
+      "arm": "SPARSE_BIPOLAR_0p05",
+      "M": 4000,
+      "recall_mean": 0.8050000071525574,
+      "bytes_per_fact_mean": 32810.187
+    },
+    "SPARSE_BIPOLAR_0p05__M10000": {
+      "arm": "SPARSE_BIPOLAR_0p05",
+      "M": 10000,
+      "recall_mean": 0.26600000262260437,
+      "bytes_per_fact_mean": 13124.0748
+    },
+    "SPARSE_BIPOLAR_0p05__M20000": {
+      "arm": "SPARSE_BIPOLAR_0p05",
+      "M": 20000,
+      "recall_mean": 0.07699999958276749,
+      "bytes_per_fact_mean": 6562.0374
+    }
+  },
+  "monotone_ok_per_arm": {
+    "FP32_DENSE": true,
+    "BFLOAT16_DENSE": true,
+    "FP16_DENSE": true,
+    "INT8_DENSE": true,
+    "INT4_QUANTIZED": true,
+    "BINARY_DENSE": true,
+    "SPARSE_BIPOLAR_0p05": true
+  },
+  "cv_table": {
+    "FP32_DENSE__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 150667.264,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP32_DENSE__M4000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 37666.816,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP32_DENSE__M10000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 15066.7264,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP32_DENSE__M20000": {
+      "recall_mean": 0.999500036239624,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 7533.3632,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BFLOAT16_DENSE__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 75333.632,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BFLOAT16_DENSE__M4000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 18833.408,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BFLOAT16_DENSE__M10000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 7533.3632,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BFLOAT16_DENSE__M20000": {
+      "recall_mean": 0.999500036239624,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 3766.6816,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP16_DENSE__M1000": {
+      "recall_mean": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 75333.632,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP16_DENSE__M4000": {
+      "recall_mean": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 18833.408,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP16_DENSE__M10000": {
+      "recall_mean": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 7533.3632,
+      "bytes_per_fact_cv": 0.0
+    },
+    "FP16_DENSE__M20000": {
+      "recall_mean": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 3766.6816,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT8_DENSE__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 37703.6,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT8_DENSE__M4000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 9425.9,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT8_DENSE__M10000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 3770.36,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT8_DENSE__M20000": {
+      "recall_mean": 0.999500036239624,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1885.18,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT4_QUANTIZED__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 18870.192,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT4_QUANTIZED__M4000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 4717.548,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT4_QUANTIZED__M10000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1887.0192,
+      "bytes_per_fact_cv": 0.0
+    },
+    "INT4_QUANTIZED__M20000": {
+      "recall_mean": 0.999500036239624,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 943.5096,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BINARY_DENSE__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 4708.352,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BINARY_DENSE__M4000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1177.088,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BINARY_DENSE__M10000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 470.8352,
+      "bytes_per_fact_cv": 0.0
+    },
+    "BINARY_DENSE__M20000": {
+      "recall_mean": 0.999500036239624,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 235.4176,
+      "bytes_per_fact_cv": 0.0
+    },
+    "SPARSE_BIPOLAR_0p05__M1000": {
+      "recall_mean": 1.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 131240.748,
+      "bytes_per_fact_cv": 0.0
+    },
+    "SPARSE_BIPOLAR_0p05__M4000": {
+      "recall_mean": 0.8050000071525574,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 32810.187,
+      "bytes_per_fact_cv": 0.0
+    },
+    "SPARSE_BIPOLAR_0p05__M10000": {
+      "recall_mean": 0.26600000262260437,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 13124.0748,
+      "bytes_per_fact_cv": 0.0
+    },
+    "SPARSE_BIPOLAR_0p05__M20000": {
+      "recall_mean": 0.07699999958276749,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 6562.0374,
+      "bytes_per_fact_cv": 0.0
+    }
+  },
+  "positive_control_fp32_recall_mean": 1.0,
+  "positive_control_ok": true,
+  "bfloat16_recall_mean_at_M_nominal": 1.0,
+  "bfloat16_not_collapsed": true,
+  "int8_recall_mean_at_M_nominal": 1.0,
+  "int4_recall_mean_at_M_nominal": 1.0,
+  "int4_vs_int8_recall_gap_informational": 0.0,
+  "int4_valid_tier": true,
+  "pareto_2x_separation_per_M": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "pareto_2x_separation_ok": true,
+  "monotone_decay_ok": true,
+  "max_recall_cv": 0.0,
+  "max_bytes_per_fact_cv": 0.0,
+  "cross_seed_cv_ok": true,
+  "mechanism_hashes_distinct": true,
+  "expected_n_units_per_seed": 28,
+  "observed_n_units_per_seed": [
+    28
+  ],
+  "cardinality_ok": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "per_unit": {
+        "FP32_DENSE__M1000": {
+          "arm": "FP32_DENSE",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 150667.264,
+          "pareto_efficiency": 0.08387271080537821,
+          "elapsed_s": 0.14,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "8185f708e5fd4cfad2a6371280dc0eedb58ef904de010860a7c2eae5af5113de",
+          "seed": 7
+        },
+        "BFLOAT16_DENSE__M1000": {
+          "arm": "BFLOAT16_DENSE",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 75333.632,
+          "pareto_efficiency": 0.08904971699824074,
+          "elapsed_s": 0.085,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "cbf7ca3e14d57fd9f2372b976ca3c0b0c80c8b830edd1403ddac1ae506d95a75",
+          "seed": 7
+        },
+        "FP16_DENSE__M1000": {
+          "arm": "FP16_DENSE",
+          "M": 1000,
+          "recall": 0.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 75333.632,
+          "pareto_efficiency": 0.0,
+          "elapsed_s": 0.077,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "434818127fc9afd2ff08fd7949ec4684d2ade43fb622e9ed24371489f51b6378",
+          "seed": 7
+        },
+        "INT8_DENSE__M1000": {
+          "arm": "INT8_DENSE",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 37703.6,
+          "pareto_efficiency": 0.09489907183247184,
+          "elapsed_s": 0.043,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "60ef3cd222375abd839d0b835b720fd5f1b508bb7494858f26d0d3ca11e47a98",
+          "seed": 7
+        },
+        "INT4_QUANTIZED__M1000": {
+          "arm": "INT4_QUANTIZED",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 18870.192,
+          "pareto_efficiency": 0.10157090771321324,
+          "elapsed_s": 0.037,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "0e04a55f02d38aa52b3cb7158abfe0dd183610823be013312e0e16fdcc437b69",
+          "seed": 7
+        },
+        "BINARY_DENSE__M1000": {
+          "arm": "BINARY_DENSE",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 4708352,
+          "bytes_per_fact": 4708.352,
+          "pareto_efficiency": 0.11824393708032405,
+          "elapsed_s": 0.058,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "f5a1bbfe8e7c851bd3ee04fe1a8711c084b65b092bab139d3dee904eee8c45d1",
+          "seed": 7
+        },
+        "SPARSE_BIPOLAR_0p05__M1000": {
+          "arm": "SPARSE_BIPOLAR_0p05",
+          "M": 1000,
+          "recall": 1.0,
+          "n_facts": 1000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 16384,
+          "bytes_total": 131240748,
+          "bytes_per_fact": 131240.748,
+          "pareto_efficiency": 0.08485514900594647,
+          "elapsed_s": 4.418,
+          "sparse_observed_nnz": 13421772,
+          "mechanism_hash": "f5bc755e999df6f49b4a02510fd3f80689db37df8855b2487d05c8e92a194b68",
+          "seed": 7
+        },
+        "FP32_DENSE__M4000": {
+          "arm": "FP32_DENSE",
+          "M": 4000,
+          "recall": 1.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 37666.816,
+          "pareto_efficiency": 0.09490786311488697,
+          "elapsed_s": 0.034,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "f8068ad628295439ae5e72abbee425d71c2da2b6ead908a69b31f5a99b8e4983",
+          "seed": 7
+        },
+        "BFLOAT16_DENSE__M4000": {
+          "arm": "BFLOAT16_DENSE",
+          "M": 4000,
+          "recall": 1.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 18833.408,
+          "pareto_efficiency": 0.10159104175731208,
+          "elapsed_s": 0.012,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "c2a85dbeaaddd5034763f4297476a66c2b2045c78bc2f76fc0ca601ff8ea7f08",
+          "seed": 7
+        },
+        "FP16_DENSE__M4000": {
+          "arm": "FP16_DENSE",
+          "M": 4000,
+          "recall": 0.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 18833.408,
+          "pareto_efficiency": 0.0,
+          "elapsed_s": 0.012,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "1cdb12c894ac03cb50fd83a13c9d4fb7cdae2fa9ac24a6a4de4e779e77901315",
+          "seed": 7
+        },
+        "INT8_DENSE__M4000": {
+          "arm": "INT8_DENSE",
+          "M": 4000,
+          "recall": 1.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 9425.9,
+          "pareto_efficiency": 0.1092750892918788,
+          "elapsed_s": 0.028,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "d1996c9776b0a6ad80ce9764e73281559d5f2a258f3a50fdba24cfc51364fdf8",
+          "seed": 7
+        },
+        "INT4_QUANTIZED__M4000": {
+          "arm": "INT4_QUANTIZED",
+          "M": 4000,
+          "recall": 1.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 4717.548,
+          "pareto_efficiency": 0.11821666213789549,
+          "elapsed_s": 0.028,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "e699573b02b7917de5b5993e9423130254c1e6914a5f53b61722646bba7b2f3b",
+          "seed": 7
+        },
+        "BINARY_DENSE__M4000": {
+          "arm": "BINARY_DENSE",
+          "M": 4000,
+          "recall": 1.0,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 4708352,
+          "bytes_per_fact": 1177.088,
+          "pareto_efficiency": 0.14142673526279387,
+          "elapsed_s": 0.024,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "4112b807b075c7f06f38f3736a378ca44c9fda9fbbfe4d2572dd29d903432cae",
+          "seed": 7
+        },
+        "SPARSE_BIPOLAR_0p05__M4000": {
+          "arm": "SPARSE_BIPOLAR_0p05",
+          "M": 4000,
+          "recall": 0.8050000071525574,
+          "n_facts": 4000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 16384,
+          "bytes_total": 131240748,
+          "bytes_per_fact": 32810.187,
+          "pareto_efficiency": 0.07741505471466259,
+          "elapsed_s": 9.693,
+          "sparse_observed_nnz": 13421772,
+          "mechanism_hash": "4928248528f91c71ccf2aa0c0b2d424c3b29583fa45304a6e788c001e216cad5",
+          "seed": 7
+        },
+        "FP32_DENSE__M10000": {
+          "arm": "FP32_DENSE",
+          "M": 10000,
+          "recall": 1.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 15066.7264,
+          "pareto_efficiency": 0.10394746699362263,
+          "elapsed_s": 0.32,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "57a315839af50d334904dfa55be9d6b10e6b1676b748c25655b0562dc3927ef8",
+          "seed": 7
+        },
+        "BFLOAT16_DENSE__M10000": {
+          "arm": "BFLOAT16_DENSE",
+          "M": 10000,
+          "recall": 1.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 7533.3632,
+          "pareto_efficiency": 0.11201850002858892,
+          "elapsed_s": 0.021,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "878987294e18b6f3239cc64a4715e3be7285af3b0e340168225c5d8289379860",
+          "seed": 7
+        },
+        "FP16_DENSE__M10000": {
+          "arm": "FP16_DENSE",
+          "M": 10000,
+          "recall": 0.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 7533.3632,
+          "pareto_efficiency": 0.0,
+          "elapsed_s": 0.021,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "adb432f3f97041e29ef81914949127e39d65afe52e0aae321a58f000117ab290",
+          "seed": 7
+        },
+        "INT8_DENSE__M10000": {
+          "arm": "INT8_DENSE",
+          "M": 10000,
+          "recall": 1.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 3770.36,
+          "pareto_efficiency": 0.1214340029701278,
+          "elapsed_s": 0.051,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "be674ccce22cd83647a9ebaa0b86b8313357d055be8932300a5e223d28645468",
+          "seed": 7
+        },
+        "INT4_QUANTIZED__M10000": {
+          "arm": "INT4_QUANTIZED",
+          "M": 10000,
+          "recall": 1.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 1887.0192,
+          "pareto_efficiency": 0.13257757539163154,
+          "elapsed_s": 0.051,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "5d7fbc658e0e0a2518219b7f4690fc0d8c2a59dedce4c88e2c968096976d73ef",
+          "seed": 7
+        },
+        "BINARY_DENSE__M10000": {
+          "arm": "BINARY_DENSE",
+          "M": 10000,
+          "recall": 1.0,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 4708352,
+          "bytes_per_fact": 470.8352,
+          "pareto_efficiency": 0.16248252133617164,
+          "elapsed_s": 0.048,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "35bdc971c4c9202a70316eeb68be858da19f2630cbb7ae2adffda5ed4630214b",
+          "seed": 7
+        },
+        "SPARSE_BIPOLAR_0p05__M10000": {
+          "arm": "SPARSE_BIPOLAR_0p05",
+          "M": 10000,
+          "recall": 0.26600000262260437,
+          "n_facts": 10000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 16384,
+          "bytes_total": 131240748,
+          "bytes_per_fact": 13124.0748,
+          "pareto_efficiency": 0.02805255128709093,
+          "elapsed_s": 20.425,
+          "sparse_observed_nnz": 13421772,
+          "mechanism_hash": "3841c0120a37336cf633a27533b08c52f6bb98bb1925acd8d62b623c7dbcb92b",
+          "seed": 7
+        },
+        "FP32_DENSE__M20000": {
+          "arm": "FP32_DENSE",
+          "M": 20000,
+          "recall": 0.999500036239624,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 7533.3632,
+          "pareto_efficiency": 0.11196249483808295,
+          "elapsed_s": 0.343,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "8be3956a2431669a38ce8c7ef1d55a9ec3a88d426f6379e316aa2a9f7bee08ad",
+          "seed": 7
+        },
+        "BFLOAT16_DENSE__M20000": {
+          "arm": "BFLOAT16_DENSE",
+          "M": 20000,
+          "recall": 0.999500036239624,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 3766.6816,
+          "pareto_efficiency": 0.12138767845416405,
+          "elapsed_s": 0.036,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "534f0ee1fff2716987af60b225e0586065567c26d68cb69b89ebc367ce4db913",
+          "seed": 7
+        },
+        "FP16_DENSE__M20000": {
+          "arm": "FP16_DENSE",
+          "M": 20000,
+          "recall": 0.0,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 3766.6816,
+          "pareto_efficiency": 0.0,
+          "elapsed_s": 0.043,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "5462e70e5f284ea9e3c23f5429ad33f525cf3ccac80d1ccfbc84c738ce350a17",
+          "seed": 7
+        },
+        "INT8_DENSE__M20000": {
+          "arm": "INT8_DENSE",
+          "M": 20000,
+          "recall": 0.999500036239624,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 1885.18,
+          "pareto_efficiency": 0.1325284248054972,
+          "elapsed_s": 0.093,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "2d19fb5b105cac027d521fbbaf88d343375ebb946b4321f9f92fb2cd8da3c667",
+          "seed": 7
+        },
+        "INT4_QUANTIZED__M20000": {
+          "arm": "INT4_QUANTIZED",
+          "M": 20000,
+          "recall": 0.999500036239624,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 943.5096,
+          "pareto_efficiency": 0.14592079566259364,
+          "elapsed_s": 0.093,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "29ae2e9be64d8183bccc29a7b44074dec2bb51a2c174b7e00a403ffbcd78b647",
+          "seed": 7
+        },
+        "BINARY_DENSE__M20000": {
+          "arm": "BINARY_DENSE",
+          "M": 20000,
+          "recall": 0.999500036239624,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 4708352,
+          "bytes_per_fact": 235.4176,
+          "pareto_efficiency": 0.18301299691696707,
+          "elapsed_s": 0.09,
+          "sparse_observed_nnz": 0,
+          "mechanism_hash": "91c1f01c8e3b9e5cbaaa6358cd0b4577d4f1bfa81d2613c445f2ba95346e8b30",
+          "seed": 7
+        },
+        "SPARSE_BIPOLAR_0p05__M20000": {
+          "arm": "SPARSE_BIPOLAR_0p05",
+          "M": 20000,
+          "recall": 0.07699999958276749,
+          "n_facts": 20000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 16384,
+          "bytes_total": 131240748,
+          "bytes_per_fact": 6562.0374,
+          "pareto_efficiency": 0.00876089490892249,
+          "elapsed_s": 38.802,
+          "sparse_observed_nnz": 13421772,
+          "mechanism_hash": "432268bed054dc72fa82a33cc4293b73b2c6dcbdf3a06172d36e8f88075f15f5",
+          "seed": 7
+        }
+      },
+      "M_sweep": [
+        1000,
+        4000,
+        10000,
+        20000
+      ],
+      "arms": [
+        "FP32_DENSE",
+        "BFLOAT16_DENSE",
+        "FP16_DENSE",
+        "INT8_DENSE",
+        "INT4_QUANTIZED",
+        "BINARY_DENSE",
+        "SPARSE_BIPOLAR_0p05"
+      ],
+      "anchor_name": "substrate_bytes_per_fact_pareto_v2_seed_7",
+      "config_version": "ANCHOR=substrate_bytes_per_fact_pareto_v2_seed_7,arms=[FP32_DENSE,BFLOAT16_DENSE,FP16_DENSE,INT8_DENSE,INT4_QUANTIZED,BINARY_DENSE,SPARSE_BIPOLAR_0p05],N_DIM_DENSE=4096,N_DIM_SPARSE=16384,M_sweep_full=[1000,4000,10000,20000],M_sweep_smoke=[500,2000],n_ent_full=5000,n_rel_full=100,query_frac=0.10,recall_target_underload=0.85,bfloat16_min=0.5,int4_int8_gap=0.10,topK=1,SEED=7,mode=full,discriminator=pareto_sep_per_M+monotone_decay+bfloat16_range+int4_gap+META_RULE_BC,cross_seed_cv_ceiling=0.15,mechanism_hash_distinct_required=True,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782877587.6122763
+    }
+  ],
+  "topK": 1,
+  "anchor_name": "substrate_bytes_per_fact_pareto_v2_seed_7",
+  "elapsed_s": 79.34,
+  "ts_iso": "2026-07-01T03:46:27Z",
+  "pid": 31664,
+  "config_version": "ANCHOR=substrate_bytes_per_fact_pareto_v2_seed_7,arms=[FP32_DENSE,BFLOAT16_DENSE,FP16_DENSE,INT8_DENSE,INT4_QUANTIZED,BINARY_DENSE,SPARSE_BIPOLAR_0p05],N_DIM_DENSE=4096,N_DIM_SPARSE=16384,M_sweep_full=[1000,4000,10000,20000],M_sweep_smoke=[500,2000],n_ent_full=5000,n_rel_full=100,query_frac=0.10,recall_target_underload=0.85,bfloat16_min=0.5,int4_int8_gap=0.10,topK=1,SEED=7,mode=full,discriminator=pareto_sep_per_M+monotone_decay+bfloat16_range+int4_gap+META_RULE_BC,cross_seed_cv_ceiling=0.15,mechanism_hash_distinct_required=True,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_bytes_per_fact_pareto_extended_precisions_chunked",
+  "backend": "cuda:NVIDIA GeForce RTX 4060 Ti",
+  "seed": 7,
+  "corpus_provenance": "synthetic_uniform_KG_5000ent_100rel_M_sweep_1k_4k_10k_20k_holdout_10pct_queries"
+}

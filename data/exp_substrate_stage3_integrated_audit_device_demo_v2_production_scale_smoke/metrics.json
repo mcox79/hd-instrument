@@ -1,0 +1,299 @@
+{
+  "anchor_name": "substrate_stage3_integrated_audit_device_demo_v2_production_scale",
+  "verdict": "CHAIN_GRADE_AT_LOWER_X",
+  "verdict_msg": "CHAIN_GRADE_AT_LOWER_X passes at V_C_IN_200_V_REL_8,V_C_IN_400_V_REL_16 but not (V_C_IN=2000 V_REL=50) | V_C_IN_200_V_REL_8: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.66ms cv=0.000 | V_C_IN_400_V_REL_16: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.96ms cv=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateStage3IntegratedDemoV2ProductionScale: N=2048 operating_points=[(200, 8), (400, 16)] M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke target=(2000, 50); bands HP_in_ans>=0.85 HP_out_ref>=0.85 HP_near_ref>=0.85 HP_uncert_corr>=0.70 HP_p95<=10.0ms HP_cv<=0.07 HF_near_ref_min_at_V_REL_ge_20<0.50 HF_lat>50.0ms",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "M_KV": 2000,
+      "operating_points": [
+        [
+          200,
+          8
+        ],
+        [
+          400,
+          16
+        ]
+      ],
+      "n_queries_per_cat": {
+        "PURE_IN_DOMAIN": 25,
+        "PURE_OUT_OF_DOMAIN": 25,
+        "NEAR_DOMAIN_MIXED": 25,
+        "IN_DOMAIN_UNCERTAIN": 25
+      },
+      "config_version": "substrateStage3IntegratedDemoV2ProductionScale: N=2048 operating_points=[(200, 8), (400, 16)] M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke target=(2000, 50); bands HP_in_ans>=0.85 HP_out_ref>=0.85 HP_near_ref>=0.85 HP_uncert_corr>=0.70 HP_p95<=10.0ms HP_cv<=0.07 HF_near_ref_min_at_V_REL_ge_20<0.50 HF_lat>50.0ms",
+      "_llm_forward_calls_at_inference": 0,
+      "per_operating_point": {
+        "V_C_IN_200_V_REL_8": {
+          "V_C_IN": 200,
+          "V_REL": 8,
+          "arm_pipeline_composed": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9,
+                "latency_p50_ms": 0.355,
+                "latency_p95_ms": 0.659,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.037,
+                "latency_p95_ms": 0.078,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.004,
+                "latency_p95_ms": 0.06,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.046,
+                "latency_p95_ms": 0.057,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.01
+          },
+          "arm_audit_only_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9922,
+                "latency_p50_ms": 0.294,
+                "latency_p95_ms": 0.501,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.057,
+                "latency_p95_ms": 0.077,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.03,
+                "latency_p95_ms": 0.036,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.04,
+                "latency_p95_ms": 0.049,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.01
+          },
+          "arm_no_refuse_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.993,
+                "latency_p50_ms": 0.325,
+                "latency_p95_ms": 0.533,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9972,
+                "latency_p50_ms": 0.331,
+                "latency_p95_ms": 0.412,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9906,
+                "latency_p50_ms": 0.275,
+                "latency_p95_ms": 0.354,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9974,
+                "latency_p50_ms": 0.261,
+                "latency_p95_ms": 0.359,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.03
+          },
+          "elapsed_s_point": 0.1
+        },
+        "V_C_IN_400_V_REL_16": {
+          "V_C_IN": 400,
+          "V_REL": 16,
+          "arm_pipeline_composed": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9,
+                "latency_p50_ms": 0.607,
+                "latency_p95_ms": 0.956,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.163,
+                "latency_p95_ms": 0.231,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.165,
+                "latency_p95_ms": 0.273,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.175,
+                "latency_p95_ms": 0.232,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.03
+          },
+          "arm_audit_only_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9869,
+                "latency_p50_ms": 0.593,
+                "latency_p95_ms": 0.82,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.143,
+                "latency_p95_ms": 0.201,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.139,
+                "latency_p95_ms": 0.206,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 1.0,
+                "answer_rate": 0.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.0,
+                "latency_p50_ms": 0.156,
+                "latency_p95_ms": 0.226,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.03
+          },
+          "arm_no_refuse_rail": {
+            "per_category": {
+              "PURE_IN_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 1.0,
+                "avg_confidence": 0.9861,
+                "latency_p50_ms": 0.491,
+                "latency_p95_ms": 0.647,
+                "n_total": 25
+              },
+              "PURE_OUT_OF_DOMAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9985,
+                "latency_p50_ms": 0.429,
+                "latency_p95_ms": 0.717,
+                "n_total": 25
+              },
+              "NEAR_DOMAIN_MIXED": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9886,
+                "latency_p50_ms": 0.416,
+                "latency_p95_ms": 0.602,
+                "n_total": 25
+              },
+              "IN_DOMAIN_UNCERTAIN": {
+                "refuse_rate": 0.0,
+                "answer_rate": 1.0,
+                "correct_rate": 0.0,
+                "avg_confidence": 0.9967,
+                "latency_p50_ms": 0.371,
+                "latency_p95_ms": 0.523,
+                "n_total": 25
+              }
+            },
+            "elapsed_s_arm": 0.05
+          },
+          "elapsed_s_point": 0.2
+        }
+      },
+      "elapsed_s": 0.3,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782435385.4930732
+    }
+  ],
+  "elapsed_s": 0.4,
+  "summary": "CHAIN_GRADE_AT_LOWER_X passes at V_C_IN_200_V_REL_8,V_C_IN_400_V_REL_16 but not (V_C_IN=2000 V_REL=50) | V_C_IN_200_V_REL_8: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.66ms cv=0.000 | V_C_IN_400_V_REL_16: in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.96ms cv=0.000",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "EXT-1 Stage 3 integrated audit-device at production V. Extends v1 (chain-grade at V_C_IN=600 V_REL=8 M_KV=10k) to 4 production-scale operating points (V_C_IN x V_REL in {1000,2000} x {20,50}) at N=8192 M_KV=10k. Target = (2000, 50); CHAIN_GRADE_AT_LOWER_X if any of the 3 sub-production points passes. Per-arm per-category per-point metrics reported. Substrate-only; zero LLM forward calls."
+}

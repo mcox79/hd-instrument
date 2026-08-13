@@ -1,0 +1,178 @@
+{
+  "anchor_name": "sparse_bipolar_substrate_lm_param_sweep_v1",
+  "anchor": "sparse_bipolar_substrate_lm_param_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SWEEP_HARD_FAIL: sparse-bipolar lift saturates -- max_lift=0.345 <= baseline_lift(0.431) + tol(0.05) = 0.481. No config improves on fair_harness baseline; envelope is one-point (no scaling lever). SWEEP optimal=f0.0500_n512_t2000 bpc=5.178 beat_baseline=2.129 n_hp=1/1 max_lift=0.345 | f0.0500_n512_t2000=bpc5.178(cv0.000,lift0.34)*HP",
+  "run_mode": "smoke",
+  "n_configs": 1,
+  "n_seeds_per_config": 1,
+  "n_units": 1,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "VOCAB_CAP": 300,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 512,
+  "RECALL_BATCH": 128,
+  "N_HELD": 400,
+  "F_GRID": [
+    0.05
+  ],
+  "DIM_TRAIN_GRID": [
+    [
+      512,
+      2000
+    ]
+  ],
+  "SEEDS": [
+    0
+  ],
+  "detail": {
+    "cfg_summaries": [
+      {
+        "f": 0.05,
+        "N_DIM": 512,
+        "N_TRAIN": 2000,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "bpc_best_mean": 5.1777,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4052,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.8054,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "unigram_bpc_mean": 5.5226,
+        "unigram_top1_mean": 0.3306,
+        "unigram_mrr_mean": 0.4001,
+        "lift_vs_unigram_bits": 0.3449,
+        "lift_vs_fair_harness_baseline_bits": 2.1288,
+        "hp_bpc_bar": 5.2226,
+        "bpc_clears_bar": true,
+        "cv_clears": true,
+        "is_hp_config": true,
+        "all_seeds_failed": false
+      }
+    ],
+    "valid_cfgs_sorted_by_bpc": [
+      {
+        "f": 0.05,
+        "N_DIM": 512,
+        "N_TRAIN": 2000,
+        "bpc_best_mean": 5.1777,
+        "lift_vs_unigram_bits": 0.3449,
+        "lift_vs_fair_harness_baseline_bits": 2.1288,
+        "is_hp_config": true
+      }
+    ],
+    "optimal_config": {
+      "f": 0.05,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "bpc_best_mean": 5.1777,
+      "optimal_beats_baseline_bits": 2.1288
+    },
+    "n_configs_total": 1,
+    "n_configs_valid": 1,
+    "n_hp_configs": 1,
+    "max_lift_vs_unigram_bits": 0.3449,
+    "baseline_lift_vs_unigram_bits": 0.4313,
+    "fair_harness_baseline_bpc": 7.3065,
+    "unigram_bpc_ref": 7.7378,
+    "hp_bpc_margin": 0.3,
+    "hp_bpc_cv_max": 0.05,
+    "hp_beat_baseline_bits": 0.1,
+    "hp_min_hp_configs": 3,
+    "hf_baseline_lift_tol": 0.05,
+    "CONFIG_VERSION": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=1 configs=[(0.05, 512, 2000)] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=300 N_HELD=400 PRETRAIN_DIM=300 INGEST_CHUNK=512 RECALL_BATCH=128 MRR_K=10 device=cpu; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+    "honest_scope": "Envelope sweep of ARM_SUBSTRATE_SPARSE_BIPOLAR over (f_sparse, N_DIM, N_TRAIN). Single-arm; reuses fair_harness joint (T,lambda) harness + 3-metric reporting. Pruned factorial: N_TRAIN=1M only at N_DIM=4096 to fit 7200s timeout budget. HP_BPC bar = unigram_bpc - 0.30; cv <= 0.05. HARD_PASS requires >= 3 HP configs AND optimal beats fair_harness baseline (7.3065) by >= 0.10 bits. HARD_FAIL requires max lift <= baseline lift (0.4313) + 0.05. PRIMARY METRIC IS BPC; top-1/MRR reported for transparency but NOT load-bearing in this envelope (per fair_harness: sparse-bipolar's win is BPC-shape, not top-1 -- top1_ok=false in validated config).",
+    "cites": [
+      "preregs/2026-06-23_sparse_bipolar_substrate_lm_param_sweep_v1.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "data/exp_fair_harness_substrate_as_lm_v1/metrics.json",
+      "Skunkworks_2026-06-23_methodology_audit",
+      "USER_2026-06-22_Fix24_GPU_must_use_GPU",
+      "USER_2026-06-22_Fix28_verify_per_arm_metrics"
+    ]
+  },
+  "metrics_source": "measured_gpu_sparse_bipolar_param_sweep_v1",
+  "per_unit": [
+    {
+      "cfg_name": "fbps0500_n512_t2000_s0",
+      "f": 0.05,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "seed": 0,
+      "V": 300,
+      "N_HELD": 400,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_SUBSTRATE_SPARSE_BIPOLAR": {
+          "bpc_best": 5.1777,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.0814,
+          "top1_acc": 0.3306,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.4052,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.8054,
+          "raw_top1_at_T1_L1": 0.281,
+          "raw_mrr_at_T1_L1": 0.373,
+          "n_dev": 121,
+          "n_test": 121,
+          "grid_size": 42,
+          "elapsed_s_arm": 0.17,
+          "wall_keys_s": 0.01,
+          "wall_ingest_s": 0.05,
+          "wall_recall_s": 0.0
+        }
+      },
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300
+      },
+      "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=1 configs=[(0.05, 512, 2000)] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=300 N_HELD=400 PRETRAIN_DIM=300 INGEST_CHUNK=512 RECALL_BATCH=128 MRR_K=10 device=cpu; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+      "elapsed_s_cs": 34.61,
+      "run_mode": "smoke",
+      "device": "cpu",
+      "N": 512,
+      "_ckpt_key": "fbps0500_n512_t2000_s0",
+      "_partial_written_at": 1782261046.5618868
+    }
+  ],
+  "elapsed_s": 34.66280961036682,
+  "summary": "SWEEP_HARD_FAIL: sparse-bipolar lift saturates -- max_lift=0.345 <= baseline_lift(0.431) + tol(0.05) = 0.481. No config improves on fair_harness baseline; envelope is one-point (no scaling lever). SWEEP optimal=f0.0500_n512_t2000 bpc=5.178 ",
+  "substrate_only_decode_gate": "TRUE (single-arm; substrate cosine logits; word2vec static lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "config_version": "sparse_bipolar_substrate_lm_param_sweep_v1; n_configs=1 configs=[(0.05, 512, 2000)] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] VOCAB_CAP=300 N_HELD=400 PRETRAIN_DIM=300 INGEST_CHUNK=512 RECALL_BATCH=128 MRR_K=10 device=cpu; bands HP_BPC_margin>=0.300 HP_CV<=0.05 HP_beat>=0.100 HP_min_configs=3 HF_baseline_lift_tol=0.050 DEGEN_tol=0.50 baseline_bpc=7.3065 unigram_bpc=7.7378",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

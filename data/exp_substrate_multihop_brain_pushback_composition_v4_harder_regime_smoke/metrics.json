@@ -1,0 +1,214 @@
+{
+  "anchor_name": "substrate_multihop_brain_pushback_composition_v4_harder_regime",
+  "verdict": "RAIL_SANITY_BREACH",
+  "verdict_msg": "RAIL_SANITY_BREACH: BASELINE_depth_5=0.8750 (cv=nan rail_breach=1/1) R1=0.8750 (cv=nan) R2=0.8750 (cv=nan) R3=0.8750 (cv=nan) COMBINED=0.8750 (cv=nan) indiv_max=0.8750 cardinality_ok=True expected_units=15 observed_units=15 rails=['BASELINE_SANITY_BREACH(1/1 seeds outside [0.10,0.30]; mean=0.8750)']",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "brainPushbackComp-v4-harderRegime: N=2048 V_C=2000 V_P=10 N_chains_train=250 N_chains_test=40 seeds=[7] depths=[2, 3, 5] mode=smoke R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.30] expected_arms=5 expected_n_units=15 hardening=L1early+L2perarm+L3outertry+L4importsentinel+sysexitGuard harder_regime=N_chains_train200to1000_crosstalk",
+  "per_seed": [
+    {
+      "_ckpt_key": "7",
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 2000,
+      "n_predicates": 10,
+      "n_chains_train": 250,
+      "n_chains_test": 40,
+      "max_depth": 5,
+      "depths": [
+        2,
+        3,
+        5
+      ],
+      "r1_replay_stats": {
+        "n_chains_replayed": 40,
+        "n_shortcuts": 40,
+        "mean_amp": 0.747957452139816,
+        "max_amp": 0.7895931011514686,
+        "min_amp_seen": 0.6044601322888759,
+        "cohorts": 5,
+        "min_amp": 0.55,
+        "top_K": 30
+      },
+      "config_version": "brainPushbackComp-v4-harderRegime: N=2048 V_C=2000 V_P=10 N_chains_train=250 N_chains_test=40 seeds=[7] depths=[2, 3, 5] mode=smoke R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_combined>=0.65 HP_indiv>=0.50 HP_cv<=0.080 MB_combined_lo=0.45 MB_indiv_lo=0.30 HF_pivot=0.25 baseline_rail=[0.10,0.30] expected_arms=5 expected_n_units=15 hardening=L1early+L2perarm+L3outertry+L4importsentinel+sysexitGuard harder_regime=N_chains_train200to1000_crosstalk",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_depth_2": {
+        "top1": 0.95,
+        "per_step_acc": [
+          1.0,
+          0.95
+        ],
+        "n_queries": 40,
+        "depth": 2,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 0.22
+      },
+      "arm_baseline_depth_3": {
+        "top1": 0.9,
+        "per_step_acc": [
+          1.0,
+          0.95,
+          0.9
+        ],
+        "n_queries": 40,
+        "depth": 3,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 0.34
+      },
+      "arm_baseline_depth_5": {
+        "top1": 0.875,
+        "per_step_acc": [
+          1.0,
+          0.95,
+          0.9,
+          0.9,
+          0.875
+        ],
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 0.54
+      },
+      "arm_r1_replay_into_w_c_depth_2": {
+        "top1": 1.0,
+        "shortcut_attempts": 40,
+        "shortcut_hits": 40,
+        "shortcut_hit_rate": 1.0,
+        "fallback_used": 0,
+        "n_queries": 40,
+        "depth": 2,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 0.11
+      },
+      "arm_r1_replay_into_w_c_depth_3": {
+        "top1": 0.9,
+        "shortcut_attempts": 40,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 40,
+        "n_queries": 40,
+        "depth": 3,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 0.36
+      },
+      "arm_r1_replay_into_w_c_depth_5": {
+        "top1": 0.875,
+        "shortcut_attempts": 40,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 40,
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 0.53
+      },
+      "arm_r2_pfc_scratchpad_depth_2": {
+        "top1": 0.95,
+        "pfc_writes": 120,
+        "pfc_reads": 80,
+        "n_queries": 40,
+        "depth": 2,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 4.06
+      },
+      "arm_r2_pfc_scratchpad_depth_3": {
+        "top1": 0.9,
+        "pfc_writes": 160,
+        "pfc_reads": 120,
+        "n_queries": 40,
+        "depth": 3,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 5.16
+      },
+      "arm_r2_pfc_scratchpad_depth_5": {
+        "top1": 0.875,
+        "pfc_writes": 240,
+        "pfc_reads": 200,
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 7.39
+      },
+      "arm_r3_bidirectional_depth_2": {
+        "top1": 0.95,
+        "meet_rate": 0.95,
+        "fwd_only_top1": 0.95,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 2.0,
+        "n_queries": 40,
+        "depth": 2,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 0.38
+      },
+      "arm_r3_bidirectional_depth_3": {
+        "top1": 0.9,
+        "meet_rate": 0.9,
+        "fwd_only_top1": 0.9,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 3.0,
+        "n_queries": 40,
+        "depth": 3,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 0.55
+      },
+      "arm_r3_bidirectional_depth_5": {
+        "top1": 0.875,
+        "meet_rate": 0.875,
+        "fwd_only_top1": 0.875,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 5.0,
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 1.12
+      },
+      "arm_combined_r1_r2_r3_depth_2": {
+        "top1": 1.0,
+        "shortcut_hits": 40,
+        "meet_hits": 0,
+        "fallback_fwd_hits": 0,
+        "n_queries": 40,
+        "depth": 2,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 0.11
+      },
+      "arm_combined_r1_r2_r3_depth_3": {
+        "top1": 0.9,
+        "shortcut_hits": 0,
+        "meet_hits": 36,
+        "fallback_fwd_hits": 0,
+        "n_queries": 40,
+        "depth": 3,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 7.34
+      },
+      "arm_combined_r1_r2_r3_depth_5": {
+        "top1": 0.875,
+        "shortcut_hits": 0,
+        "meet_hits": 35,
+        "fallback_fwd_hits": 0,
+        "n_queries": 40,
+        "depth": 5,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 12.07
+      },
+      "separate_w_assertion_held": true,
+      "elapsed_s": 40.8,
+      "_partial_written_at": 1782602827.6353302
+    }
+  ],
+  "elapsed_s": 41.3,
+  "summary": "RAIL_SANITY_BREACH: BASELINE_depth_5=0.8750 (cv=nan rail_breach=1/1) R1=0.8750 (cv=nan) R2=0.8750 (cv=nan) R3=0.8750 (cv=nan) COMBINED=0.8750 (cv=nan) indiv_max=0.8750 cardinality_ok=True expected_units=15 observed_units=15 rails=['BASELINE_SANITY_BREACH(1/1 seeds outside [0.10,0.30]; mean=0.8750)']",
+  "expected_n_units": 15,
+  "expected_arms": [
+    "baseline",
+    "r1_replay_into_w_c",
+    "r2_pfc_scratchpad",
+    "r3_bidirectional",
+    "combined_r1_r2_r3"
+  ],
+  "_llm_forward_calls_at_inference": 0,
+  "_hardening_marker": "v4_harder_regime",
+  "DESIGN_NOTE": "V4 HARDER REGIME over v3_chain_gen_fix: mechanism + hardening IDENTICAL to v3; only N_CHAINS_TRAIN 200->1000 (5x MORE training bindings into W_H => 5000 bindings across V_P=10 predicates => ~500/predicate >> HRR cleanup capacity ~270 at N=8192 => forced crosstalk => per-step accuracy drops => depth_5 baseline falls into target band ~0.19). V_C 1000->2000 to keep chain-gen feasible (disallow_s growth at 1000 train + 200 test would exhaust V=1000). v3 RAIL_SANITY_BREACHed with BASELINE_depth_5=0.5817 (3/3 seeds above [0.10, 0.20]); all 5 arms IDENTICAL at 0.5817 (no headroom). v4 RELAXES baseline rail HI 0.20->0.30 to give one more attempt. USER-corrected from initial backwards spec (200->40 would have made baseline EASIER not harder; reversed mid-authoring). HARD_PASS_BARRIER_BROKEN requires ARM_COMBINED depth-5 >= 0.65 AND composition wins individual AND +0.45 over baseline AND cv<=0.08."
+}

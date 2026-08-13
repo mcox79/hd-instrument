@@ -1,0 +1,40 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "arm_exception ARM_LOCAL_INGEST_FRESHNESS_CHECK: local manifest missing at C:\\dev\\hd-instrument\\data\\substrate_director_kb_v1\\manifest.json",
+  "elapsed_s": 0.14,
+  "summary": {
+    "anchor": "substrate_director_kb_remote_provision_v1",
+    "smoke": false,
+    "skip_sync": false,
+    "arms": [
+      {
+        "arm": "ARM_LOCAL_INGEST_FRESHNESS_CHECK",
+        "ok": false,
+        "error": "local manifest missing at C:\\dev\\hd-instrument\\data\\substrate_director_kb_v1\\manifest.json",
+        "elapsed_s": 0.0
+      },
+      {
+        "arm": "ARM_REMOTE_SYNC",
+        "ok": false,
+        "error": "FileNotFoundError: [WinError 2] The system cannot find the file specified",
+        "elapsed_s": 0.002
+      },
+      {
+        "arm": "ARM_REMOTE_VERIFY",
+        "ok": false,
+        "error": "remote manifest read failed rc=255 err=marsh@home: Permission denied (publickey,password,keyboard-interactive).",
+        "elapsed_s": 0.141
+      }
+    ],
+    "local_n_entities": null,
+    "remote_n_entities": null,
+    "local_kb_version": null,
+    "remote_kb_version": null,
+    "canary_query_top1_match": null,
+    "sync_wall_s": null,
+    "bytes_transferred": null,
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "arm_exception ARM_LOCAL_INGEST_FRESHNESS_CHECK: local manifest missing at C:\\dev\\hd-instrument\\data\\substrate_director_kb_v1\\manifest.json",
+    "elapsed_s": 0.14
+  }
+}

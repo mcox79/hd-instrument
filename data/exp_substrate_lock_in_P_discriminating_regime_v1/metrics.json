@@ -1,0 +1,234 @@
+{
+  "anchor_name": "substrate_lock_in_P_discriminating_regime_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discriminating regime confirmed at P=16. P64@sigma=64=1.0000 (>=0.995); P16@sigma=64=0.8083 (in [0.4,0.95]). P=16 is the chain-grade discriminator default; P=64 saturates. sigma_64 results: [P4=0.1617, P7=0.3567, P16=0.8083, P32=0.9883, P64=1.0000]. N=8192 M=500 k=31. WHAT_THIS_DOES_NOT_SHOW: does not establish chain-grade cert; does not test k_signal sweep (fixed k=31); does not test sigma<16; does not show performance on LM tasks. Establishes discriminating-regime operating point for discriminator design only.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config": {
+    "N": 8192,
+    "M": 500,
+    "P_SWEEP": [
+      4,
+      7,
+      16,
+      32,
+      64
+    ],
+    "K_SIGNAL": 31,
+    "SIGMAS": [
+      16.0,
+      32.0,
+      64.0,
+      128.0
+    ],
+    "N_EVAL": 200
+  },
+  "summary": {
+    "P4": {
+      "sigma_16": 1.0,
+      "sigma_32": 0.7933333333333333,
+      "sigma_64": 0.16166666666666668,
+      "sigma_128": 0.021666666666666667
+    },
+    "P7": {
+      "sigma_16": 1.0,
+      "sigma_32": 0.9816666666666666,
+      "sigma_64": 0.35666666666666663,
+      "sigma_128": 0.06833333333333334
+    },
+    "P16": {
+      "sigma_16": 1.0,
+      "sigma_32": 1.0,
+      "sigma_64": 0.8083333333333332,
+      "sigma_128": 0.17666666666666667
+    },
+    "P32": {
+      "sigma_16": 1.0,
+      "sigma_32": 1.0,
+      "sigma_64": 0.9883333333333333,
+      "sigma_128": 0.41500000000000004
+    },
+    "P64": {
+      "sigma_16": 1.0,
+      "sigma_32": 1.0,
+      "sigma_64": 1.0,
+      "sigma_128": 0.805
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "per_P": {
+        "P4": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.765,
+          "sigma_64": 0.18,
+          "sigma_128": 0.035
+        },
+        "P7": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.975,
+          "sigma_64": 0.345,
+          "sigma_128": 0.08
+        },
+        "P16": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 0.755,
+          "sigma_128": 0.21
+        },
+        "P32": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 1.0,
+          "sigma_128": 0.425
+        },
+        "P64": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 1.0,
+          "sigma_128": 0.79
+        }
+      },
+      "P_SWEEP": [
+        4,
+        7,
+        16,
+        32,
+        64
+      ],
+      "SIGMAS": [
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "K_SIGNAL": 31,
+      "N_EVAL": 200,
+      "elapsed_s": 27.823320388793945,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782274892.885562
+    },
+    "17": {
+      "seed": 17,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "per_P": {
+        "P4": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.835,
+          "sigma_64": 0.17,
+          "sigma_128": 0.015
+        },
+        "P7": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.995,
+          "sigma_64": 0.355,
+          "sigma_128": 0.04
+        },
+        "P16": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 0.84,
+          "sigma_128": 0.14
+        },
+        "P32": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 0.98,
+          "sigma_128": 0.405
+        },
+        "P64": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 1.0,
+          "sigma_128": 0.81
+        }
+      },
+      "P_SWEEP": [
+        4,
+        7,
+        16,
+        32,
+        64
+      ],
+      "SIGMAS": [
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "K_SIGNAL": 31,
+      "N_EVAL": 200,
+      "elapsed_s": 28.008301734924316,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782274920.9008622
+    },
+    "23": {
+      "seed": 23,
+      "N": 8192,
+      "M": 500,
+      "run_mode": "full",
+      "per_P": {
+        "P4": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.78,
+          "sigma_64": 0.135,
+          "sigma_128": 0.015
+        },
+        "P7": {
+          "sigma_16": 1.0,
+          "sigma_32": 0.975,
+          "sigma_64": 0.37,
+          "sigma_128": 0.085
+        },
+        "P16": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 0.83,
+          "sigma_128": 0.18
+        },
+        "P32": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 0.985,
+          "sigma_128": 0.415
+        },
+        "P64": {
+          "sigma_16": 1.0,
+          "sigma_32": 1.0,
+          "sigma_64": 1.0,
+          "sigma_128": 0.815
+        }
+      },
+      "P_SWEEP": [
+        4,
+        7,
+        16,
+        32,
+        64
+      ],
+      "SIGMAS": [
+        16.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "K_SIGNAL": 31,
+      "N_EVAL": 200,
+      "elapsed_s": 27.576345682144165,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782274948.4845374
+    }
+  },
+  "elapsed_s": 83.47183346748352
+}

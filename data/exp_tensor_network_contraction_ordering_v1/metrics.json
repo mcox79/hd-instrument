@@ -1,0 +1,12 @@
+{
+  "anchor_name": "tensor_network_contraction_ordering_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: formula self-tests T1-T5 all PASS at import time",
+  "summary": "SELFTEST_OK: formula self-tests T1-T5 all PASS at import time",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-27T19:00:16Z",
+  "pid": 5796,
+  "run_mode": "full",
+  "config_version": "ANCHOR=tensor_network_contraction_ordering_v1,N=512,V_C=64,depth=3,seeds=[7],topologies=['chain'],nq=20,mode=full,HP_lift>=0.10,HP_cv<=0.10,HP_opt_tol=0.03,HP_dim_reduc>=0.20,HP_gpu_p50>=30,expected_n=3,hardening=L1early+L2pertopology+L3outertry+L4importsentinel,GPU_MANDATE=torch.cuda_batched_einsum",
+  "_hardening_marker": "v1_tensor_network_contraction_ordering"
+}

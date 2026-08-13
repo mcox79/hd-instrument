@@ -1,0 +1,161 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_POSITIVE_CONTROL_PC: pc_row={'regime': 'PC', 'sparsity_frac': 0.1, 'top1_mechanism_mean': 1.0, 'top1_mechanism_std': 0.0, 'seed_cv': 0.0, 'top1_random_mean': 0.04, 'discriminator_mean': 0.96, 'per_seed_top1': [1.0], 'per_seed_tier': ['SATURATED'], 'n_seeds_at_point': 1}",
+  "summary": "HARD_FAIL_POSITIVE_CONTROL_PC: pc_row={'regime': 'PC', 'sparsity_frac': 0.1, 'top1_mechanism_mean': 1.0, 'top1_mechanism_std': 0.0, 'seed_cv': 0.0, 'top1_random_mean': 0.04, 'discriminator_mean': 0.96, 'per_seed_top1': [1.0], 'per_seed_tier': ['SATURATED'], 'n_seeds_at_point': 1}",
+  "per_regime_summary": {
+    "PC": {
+      "sparsity_range": 0.02,
+      "spearman_rho_top1_vs_alpha": 1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.005,
+        0.01,
+        0.025,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.98,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "agg_rows": [
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.005,
+      "top1_mechanism_mean": 0.98,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.02,
+      "discriminator_mean": 0.96,
+      "per_seed_top1": [
+        0.98
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.01,
+      "top1_mechanism_mean": 1.0,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.04,
+      "discriminator_mean": 0.96,
+      "per_seed_top1": [
+        1.0
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.025,
+      "top1_mechanism_mean": 1.0,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.02,
+      "discriminator_mean": 0.98,
+      "per_seed_top1": [
+        1.0
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 1.0,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0,
+      "discriminator_mean": 1.0,
+      "per_seed_top1": [
+        1.0
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 1.0,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.04,
+      "discriminator_mean": 0.96,
+      "per_seed_top1": [
+        1.0
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 1.0,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0,
+      "discriminator_mean": 1.0,
+      "per_seed_top1": [
+        1.0
+      ],
+      "per_seed_tier": [
+        "SATURATED"
+      ],
+      "n_seeds_at_point": 1
+    }
+  ],
+  "per_seed": {
+    "7": {
+      "observed_n_units": 6,
+      "cardinality_ok": true
+    }
+  },
+  "expected_n_units": 6,
+  "observed_n_units": 6,
+  "cardinality_ok": true,
+  "positive_control_pc_ok": false,
+  "positive_control_wm_ok": true,
+  "arms_differ_verified": true,
+  "hp_range_ok": false,
+  "hp_monotonicity_ok": true,
+  "hp_cv_ok": true,
+  "REQUIRED_FIELDS_check": [
+    "verdict",
+    "verdict_msg",
+    "elapsed_s",
+    "summary"
+  ],
+  "anchor_name": "sparsity_free_axis_v1_n8192_seed_7",
+  "elapsed_s": 1.8,
+  "ts_iso": "2026-07-01T13:23:51Z",
+  "pid": 27076,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=sparsity_free_axis_v1_n8192_seed_7,encoder=hrr_real,sparsity=[0.005,0.010,0.025,0.050,0.100,0.200],regimes=[PC,WM],N=8192,SEED=7,mode=smoke,pc_M=100,pc_c=0.485,pc_T=5,wm_K=500,wm_B=16,wm_c=0.30,wm_T=3,beta=8.0,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=12,expected_n_smoke=6,design_kind=SPARSITY_FREE_AXIS_REGIME_SWEPT,parent_refs=[batch_A_x_C_v2_CG,PC_v2p2_dense_cliff_c0.485,WM_multibank_K500],hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_sparsity_free_axis_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "N": 8192,
+  "corpus_provenance": "synthetic_sparsity_free_axis_v1",
+  "n_llm_calls": 0,
+  "design_kind": "SPARSITY_FREE_AXIS_REGIME_SWEPT"
+}

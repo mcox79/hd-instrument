@@ -1,0 +1,419 @@
+{
+  "anchor": "substrate_cl_crispr_append_only_v1",
+  "anchor_name": "substrate_cl_crispr_append_only_v1",
+  "run_mode": "full",
+  "N": 4096,
+  "N_BASE": 4096,
+  "D_slab": 819,
+  "n_seeds": 3,
+  "seeds": [
+    "7",
+    "17",
+    "23"
+  ],
+  "J_phases": 5,
+  "m_per_phase": 400,
+  "arms": [
+    "ARM_BASELINE_STATIC",
+    "ARM_FUSED_W_CFRPE_HEBBIAN",
+    "ARM_APPEND_ONLY_NEW_DIMS",
+    "ARM_APPEND_ONLY_PLUS_CFRPE"
+  ],
+  "primary_arm": "ARM_APPEND_ONLY_PLUS_CFRPE",
+  "config_version": "cl-crispr-v1: N_base=4096 D_slab=819 J=5 M=400 alpha_fast=1.0 alpha_cfrpe=0.05 alpha_slow=0.1 recency=4.0 replay_passes=10 cfrpe_passes=5 noise_frac=0.2 retrieve_steps=5 run_mode=full",
+  "corpus_provenance": "synthetic_bipolar_atoms_per_domain_slab_partition",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_synthetic_bipolar_crispr_4arm",
+  "per_arm_aggregate": {
+    "ARM_BASELINE_STATIC": {
+      "n_seeds": 3,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.25,
+      "mean_flops": 13438550016.0,
+      "mean_compute_per_update": 33596375.04,
+      "mean_total_slabs": 1.0,
+      "mean_final_routing_acc": NaN,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_FUSED_W_CFRPE_HEBBIAN": {
+      "n_seeds": 3,
+      "mean_forgetting_p1": 0.6611111111111111,
+      "std_forgetting_p1": 0.053575837561071975,
+      "cv_forgetting_p1": 0.0810390820251509,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.08472222222222221,
+      "mean_flops": 1410628321280.0,
+      "mean_compute_per_update": 705314160.64,
+      "mean_total_slabs": 1.0,
+      "mean_final_routing_acc": NaN,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.43333333333333335
+          ],
+          [
+            0.9833333333333333,
+            0.0,
+            0.0
+          ],
+          [
+            0.6833333333333333,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.31666666666666665,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.48333333333333334
+          ],
+          [
+            0.9666666666666667,
+            0.0,
+            0.0
+          ],
+          [
+            0.6,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.3,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.5166666666666667
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.7166666666666667,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.4,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_APPEND_ONLY_NEW_DIMS": {
+      "n_seeds": 3,
+      "mean_forgetting_p1": 0.005555555555555556,
+      "std_forgetting_p1": 0.009622504486493762,
+      "cv_forgetting_p1": 1.7320508075688772,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.0,
+      "mean_flops": 2686397805.0,
+      "mean_compute_per_update": 1343198.9025,
+      "mean_total_slabs": 5.0,
+      "mean_final_routing_acc": 1.0,
+      "phase_recalls_per_seed": [
+        [
+          [
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.016666666666666666
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.016666666666666666
+          ],
+          [
+            0.016666666666666666,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_APPEND_ONLY_PLUS_CFRPE": {
+      "n_seeds": 3,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.0,
+      "mean_flops": 29533606830.0,
+      "mean_compute_per_update": 14766803.415,
+      "mean_total_slabs": 5.0,
+      "mean_final_routing_acc": 1.0,
+      "phase_recalls_per_seed": [
+        [
+          [
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CRISPR_MOAT only (no plasticity rescue): APPEND_ONLY forget=0.006 < 0.1 AND slabs=5 >= J=5; APPEND_PLUS_CFRPE missed plasticity bar (transfer=0.000 or forget=0.000). Structural-commitment works; plasticity needs work. APPEND_ONLY forget=0.006 transfer=0.000 slabs=5.0 route_acc=1.000; APPEND_PLUS_CFRPE forget=0.000 transfer=0.000 route_acc=1.000 cv=0.000; FUSED_W forget=0.661; BASELINE p1_initial=1.000",
+  "summary": "HARD_PASS: ARM_APPEND_ONLY_PLUS_CFRPE forget=0.000 transfer=0.000 routing=1.000 slabs=5.0",
+  "elapsed_s": 313.4311013221741
+}

@@ -1,0 +1,138 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Best tanh arm (ARM_TANH_BETA_0p5) bpc=7.3753; ARM_BASELINE bpc=7.2332; lift=-0.1421 < 0.02 (or negative). Continuous-tanh attractor dynamics do NOT improve substrate-LM BPC over no-cleanup baseline at this encoder/N regime. ARM_SIGN_HOPFIELD_3ITER bpc=7.3753 (lift_vs_base=-0.1421; REPRODUCES v1 HARD_FAIL (sign converges fast)). WHAT_THIS_DOES_NOT_SHOW: (1) whether tanh dynamics help with DIFFERENT encoders; (2) whether effect persists at N_DIM=8192 (run at N_DIM=4096); (3) whether the optimal beta generalizes beyond word-bigram BPC metric.",
+  "arm_summary": {
+    "ARM_BASELINE_NO_CLEANUP": {
+      "bpc_mean": 7.233208656311035,
+      "bpc_std": 0.002710370119120066,
+      "bpc_cv": 0.0003747120051286292,
+      "top1_mean": 0.2869333333333333,
+      "mrr_mean": 0.2975728571428578,
+      "raw_bpc_at_T1_L1_mean": 11.666051546732584,
+      "best_T_mean": 0.05000000000000001,
+      "best_lam_mean": 0.6999999999999998,
+      "best_lam_values": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "n_seeds": 3
+    },
+    "ARM_SIGN_HOPFIELD_3ITER": {
+      "bpc_mean": 7.375316619873047,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.27876666666666666,
+      "mrr_mean": 0.2814408862433863,
+      "raw_bpc_at_T1_L1_mean": 11.701903025309244,
+      "best_T_mean": 0.01,
+      "best_lam_mean": 1.0,
+      "best_lam_values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 3
+    },
+    "ARM_TANH_BETA_0p5": {
+      "bpc_mean": 7.375316619873047,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.27876666666666666,
+      "mrr_mean": 0.2815550000000004,
+      "raw_bpc_at_T1_L1_mean": 11.699091911315918,
+      "best_T_mean": 0.01,
+      "best_lam_mean": 1.0,
+      "best_lam_values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 3
+    },
+    "ARM_TANH_BETA_1p0": {
+      "bpc_mean": 7.375316619873047,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.27876666666666666,
+      "mrr_mean": 0.2815138888888888,
+      "raw_bpc_at_T1_L1_mean": 11.700562795003256,
+      "best_T_mean": 0.01,
+      "best_lam_mean": 1.0,
+      "best_lam_values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 3
+    },
+    "ARM_TANH_BETA_2p0": {
+      "bpc_mean": 7.375316619873047,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.27876666666666666,
+      "mrr_mean": 0.28146208994708993,
+      "raw_bpc_at_T1_L1_mean": 11.70125643412272,
+      "best_T_mean": 0.01,
+      "best_lam_mean": 1.0,
+      "best_lam_values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 3
+    },
+    "ARM_TANH_BETA_5p0": {
+      "bpc_mean": 7.375316619873047,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.27876666666666666,
+      "mrr_mean": 0.2814424867724869,
+      "raw_bpc_at_T1_L1_mean": 11.701644897460938,
+      "best_T_mean": 0.01,
+      "best_lam_mean": 1.0,
+      "best_lam_values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_seeds": 3
+    },
+    "ARM_UNIGRAM": {
+      "bpc_mean": 7.683793544769287,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.26915,
+      "mrr_mean": NaN,
+      "raw_bpc_at_T1_L1_mean": NaN,
+      "best_T_mean": NaN,
+      "best_lam_mean": NaN,
+      "best_lam_values": [],
+      "n_seeds": 3
+    }
+  },
+  "bpc_baseline_mean": 7.233208656311035,
+  "bpc_sign_3iter_mean": 7.375316619873047,
+  "bpc_tanh_0p5_mean": 7.375316619873047,
+  "bpc_tanh_1p0_mean": 7.375316619873047,
+  "bpc_tanh_2p0_mean": 7.375316619873047,
+  "bpc_tanh_5p0_mean": 7.375316619873047,
+  "bpc_unigram_mean": 7.683793544769287,
+  "best_tanh_arm": "ARM_TANH_BETA_0p5",
+  "bpc_best_tanh_mean": 7.375316619873047,
+  "lift_best_tanh_vs_baseline": -0.14210796356201172,
+  "lift_sign_vs_baseline": -0.14210796356201172,
+  "sanity_baseline_delta": 0.006408656311035266,
+  "n_seeds": 3,
+  "config_version": "substrate_continuous_tanh_attractor_dynamics_v1; N_DIM=4096 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full f=0.050 amplitude_scale=4.472 n_iter=3 bands HP=0.05 chain=0.15 mid=[0.02,0.05] cv_max=0.05 sanity_baseline_ref=7.2268 sanity_tol=0.0500",
+  "pre_reg": {
+    "HARD_PASS": "any ARM_TANH_BETA beats ARM_BASELINE by >=0.05 bits",
+    "CHAIN_GRADE_BONUS": "lift >= 0.15 bits AND bpc < 7.1052",
+    "MIDDLE_BAND": "lift in [0.02,0.05]",
+    "HARD_FAIL": "all ARM_TANH_BETA <= ARM_BASELINE (lift < 0.02)",
+    "SANITY_RAIL": "ARM_BASELINE_NO_CLEANUP within 0.05 of 7.2268",
+    "CV_MAX": 0.05
+  },
+  "elapsed_s": 0.0,
+  "summary": "Best tanh arm (ARM_TANH_BETA_0p5) bpc=7.3753; ARM_BASELINE bpc=7.2332; lift=-0.1421 < 0.02 (or negative). Continuous-tanh attractor dynamics do NOT improve substrate-LM BPC over no-cleanup baseline at this encoder/N regime. ARM_SIGN_HOPFIELD_3ITER bpc=7.3753 (lift_vs_base=-0.1421; REPRODUCES v1 HARD_FAIL (sign converges fast)). WHAT_THIS_DOES_NOT_SHOW: (1) whether tanh dynamics help with DIFFERENT encoders; (2) whether effect persists at N_DIM=8192 (run at N_DIM=4096); (3) whether the optimal beta generalizes beyond word-bigram BPC metric."
+}

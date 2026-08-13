@@ -1,0 +1,933 @@
+{
+  "anchor_name": "resonator_ksweep_reachability_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "WALL_FUNDAMENTAL (HARD_FAIL): p_basin(K6)=0.0000 < 0.01 (or oracle_any=0.000 < 0.10) -- basin measure craters toward the clustering/condensation regime; no realistic R rescues it (R_to_95=inf). CONFIRMS the CG_META basin-proliferation algorithmic wall at K*<=6. Honest negative. traj: K3(orc=0.992,p=0.3804,R95=7) K4(orc=0.806,p=0.1511,R95=19) K5(orc=0.000,p=0.0000,R95=inf) K6(orc=0.000,p=0.0000,R95=inf)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7083333333333334,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_verifier_T000_R10": {
+          "plurality": 0.7083333333333334,
+          "verifier": 0.7583333333333333,
+          "oracle_any": 0.7583333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.1333333333333333,
+          "distinct_wrong_configs": 45,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_verifier_T100_R10": {
+          "plurality": 0.925,
+          "verifier": 0.9833333333333333,
+          "oracle_any": 0.9833333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.591666666666667,
+          "distinct_wrong_configs": 190,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_verifier_T200_R10": {
+          "plurality": 0.925,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.55,
+          "distinct_wrong_configs": 186,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_verifier_T350_R10": {
+          "plurality": 0.9333333333333333,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.591666666666667,
+          "distinct_wrong_configs": 190,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_verifier_T500_R10": {
+          "plurality": 0.9333333333333333,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.8333333333333335,
+          "distinct_wrong_configs": 220,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.15833333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_verifier_T000_R10": {
+          "plurality": 0.15,
+          "verifier": 0.2833333333333333,
+          "oracle_any": 0.2833333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.9583333333333333,
+          "distinct_wrong_configs": 201,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_verifier_T100_R10": {
+          "plurality": 0.35833333333333334,
+          "verifier": 0.7083333333333334,
+          "oracle_any": 0.7083333333333334,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.208333333333334,
+          "distinct_wrong_configs": 1020,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_verifier_T200_R10": {
+          "plurality": 0.4666666666666667,
+          "verifier": 0.7833333333333333,
+          "oracle_any": 0.7833333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.041666666666666,
+          "distinct_wrong_configs": 991,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_verifier_T350_R10": {
+          "plurality": 0.5083333333333333,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.066666666666666,
+          "distinct_wrong_configs": 992,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_verifier_T500_R10": {
+          "plurality": 0.4666666666666667,
+          "verifier": 0.825,
+          "oracle_any": 0.825,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.166666666666666,
+          "distinct_wrong_configs": 999,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K5_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K5_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K5_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K5_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K5_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K5_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K6_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K6_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K6_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K6_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K6_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K6_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "850f881e44b3ad4faa8a294a8cc78b94bb6a72a06d0075dbb548e80aa4ff6994",
+        "K3_verifier_T000_R10": "6c699f66022922f6b933280305c8fa21cc94a6ebddbc983785ff9dc77a79b85d",
+        "K3_verifier_T000_R10_plurality": "594df8565384c5212fe96dfa07f9dabf4e96fcd3d7c04851951350851f94ab76",
+        "K3_verifier_T100_R10": "b06d0127f62c4983ea872a858400cd20111f50351a853edda48b3345d27e6ff3",
+        "K3_verifier_T100_R10_plurality": "8ba6399e69dbc505eb93f5bd305e074a8ce29c3c89637d0a2386df5f2badb1e9",
+        "K3_verifier_T200_R10": "a5e38b8ed351b1a2e624c623753d5f7c51801f8ceb15df7ae575164ae5742151",
+        "K3_verifier_T200_R10_plurality": "3fa565a45d2a90be94f729872a8f02bcb33f7f5e8cd52d96ab3f8f25a05759e2",
+        "K3_verifier_T350_R10": "a5e38b8ed351b1a2e624c623753d5f7c51801f8ceb15df7ae575164ae5742151",
+        "K3_verifier_T350_R10_plurality": "82649e631f4b1e058831ad558e42e3c6fc9ca8e1ed9747ba91906ca0c4e0bf62",
+        "K3_verifier_T500_R10": "a5e38b8ed351b1a2e624c623753d5f7c51801f8ceb15df7ae575164ae5742151",
+        "K3_verifier_T500_R10_plurality": "6fc2aaeea49222b8a83ed2099b8ada135e9359e74f57889e45247c7766f847b2",
+        "K4_baseline_T0_R1": "49afd1283c5d1e82d493e8e3378f76bf4e52819725f7266adb2989b65429f201",
+        "K4_verifier_T000_R10": "c054a5252d369966929e63235f538f9dda7fc2b0fb30d4adb5b7208e6357cdfb",
+        "K4_verifier_T000_R10_plurality": "2e3f9069d7e6e1cfab25f49182355f055c30f8a1b2b867b8a46f395261166a23",
+        "K4_verifier_T100_R10": "00870843e8de32064bff3904f5395b4eb7e61009ac64db5a5fa1d20c908ade81",
+        "K4_verifier_T100_R10_plurality": "4bbb783252282ec5d4e87154b20f9b9d412ec74b3b822375b19f0e9de4a3cc4f",
+        "K4_verifier_T200_R10": "4362c671e5165edf8c58d274b5a768479aefba0b1f7ca5b541081442e05995bf",
+        "K4_verifier_T200_R10_plurality": "1f8c8e7b23f60de1bdbbaeadc8792dcd2f74c06cb23dff52e150235fba095373",
+        "K4_verifier_T350_R10": "a9e48658b61096f23daa5f8cbcd18a4d03a227ad5021b179fd47bfb5438ab927",
+        "K4_verifier_T350_R10_plurality": "daab19d4d6aa4a1905f4e84b0f1532b7c4c24f8ce8431f86571e7a159efeb96e",
+        "K4_verifier_T500_R10": "003d8a48149cdcce726efb5ffd52b4220329e1f0de8441a96a4851f121cf6bd3",
+        "K4_verifier_T500_R10_plurality": "54979fdf6e96b8ce84606fe9c2b5c05528851083ea7863021cc62f3c04f6d94c",
+        "K5_baseline_T0_R1": "a1225a48cbaeb4ef7358cba2b967be7ebe28a4c6220f40b8d011ad9688e2c464",
+        "K5_verifier_T000_R10": "b753ccd86627949f253ca21e1e15c43064f1215fb6e107ef3fb406bd3f95e121",
+        "K5_verifier_T000_R10_plurality": "dcc3301b70611948232675aaf8973cc3d2515c0b7039f6ff4c198fcdde31c3a0",
+        "K5_verifier_T100_R10": "5186d8fafb126b445ecf6cd7cae17c45e41d76f7797f71c224b93ef85e2b2251",
+        "K5_verifier_T100_R10_plurality": "43885a44e3e83b54bd1aadb7a0a55f2dd414516c9c4734e472786c818788ec4a",
+        "K5_verifier_T200_R10": "c1804c54882fe879d9a8d1cfcc990f5a7de46483608801c39ed76da75e499c25",
+        "K5_verifier_T200_R10_plurality": "d82a4f0eb1d28d9f622c3d66deb95f5e49d55d51d6b2ac8f184f91aab3931fe3",
+        "K5_verifier_T350_R10": "fbc10d255c315e53a852d51c5de8738efd344058f0daed592250b390bc9bca51",
+        "K5_verifier_T350_R10_plurality": "f7c41efb6ba9f1394b64506d1aa6b3c998e09bbdc81c8764261d672b4535f4c5",
+        "K5_verifier_T500_R10": "2c858730b603e737f9e1390c5b075ff8bf1488fac6ba4760410fb108b7c45334",
+        "K5_verifier_T500_R10_plurality": "eba80ac60805b7102475a67730377e3410ff86db0d672ec35957cf839662107b",
+        "K6_baseline_T0_R1": "8d9861835d4e3df26c5e7fe0dda88a53b820f98592b1b0f094b3f8d16c57ab68",
+        "K6_verifier_T000_R10": "7415ce7167ada57317953e65046d2bc8a94846c052ad4a9a3347518775444677",
+        "K6_verifier_T000_R10_plurality": "5b126ea570d7e91641097e86b6dd3619303dd76c52aa73e79680681710e45975",
+        "K6_verifier_T100_R10": "9d66fc45950543941e14fad99f9ec6f71ab470ad7a9b1ad908ecd22fa2760029",
+        "K6_verifier_T100_R10_plurality": "76b713568650953fa0ccc72002b7c8fa1a0881e62a92130fedbc0589b5190207",
+        "K6_verifier_T200_R10": "096cf4f14f31f2244b6bc7e9ed3bfb05528e8df4e4bdec45233cd018252e3430",
+        "K6_verifier_T200_R10_plurality": "ad08bac35a49fcbaa1f28aaf1d4fea52166ab6546e90b8b7b57161c3e2904c57",
+        "K6_verifier_T350_R10": "85f126f9abca4afa6f806f3ac52e5fb2a83cc1648f043634ccc3330c195fe0fb",
+        "K6_verifier_T350_R10_plurality": "3c69030593fb06715e919452aed821300600fc220ba3f37d42e4dca319de4ac5",
+        "K6_verifier_T500_R10": "70aa1299f4f402580646448b3decea3b9803adbeb93a23f36ccfb5f378544c2b",
+        "K6_verifier_T500_R10_plurality": "b721edd17260e0cd3a0deac97c004a14fba6987e132ed1b9149fef6089f4ad87"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_ksweep_reachability_v1,N=4096,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783478691.408749
+    },
+    {
+      "seed": 7,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7833333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_verifier_T000_R10": {
+          "plurality": 0.7833333333333333,
+          "verifier": 0.8416666666666667,
+          "oracle_any": 0.8416666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.1333333333333333,
+          "distinct_wrong_configs": 35,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_verifier_T100_R10": {
+          "plurality": 0.9416666666666667,
+          "verifier": 0.975,
+          "oracle_any": 0.975,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.4166666666666665,
+          "distinct_wrong_configs": 173,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_verifier_T200_R10": {
+          "plurality": 0.9083333333333333,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.566666666666667,
+          "distinct_wrong_configs": 189,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_verifier_T350_R10": {
+          "plurality": 0.9333333333333333,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.625,
+          "distinct_wrong_configs": 196,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_verifier_T500_R10": {
+          "plurality": 0.9833333333333333,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.6416666666666666,
+          "distinct_wrong_configs": 194,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.09166666666666666,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_verifier_T000_R10": {
+          "plurality": 0.10833333333333334,
+          "verifier": 0.19166666666666668,
+          "oracle_any": 0.19166666666666668,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.975,
+          "distinct_wrong_configs": 214,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_verifier_T100_R10": {
+          "plurality": 0.4166666666666667,
+          "verifier": 0.7916666666666666,
+          "oracle_any": 0.7916666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.2,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_verifier_T200_R10": {
+          "plurality": 0.425,
+          "verifier": 0.7833333333333333,
+          "oracle_any": 0.7833333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.216666666666667,
+          "distinct_wrong_configs": 1012,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_verifier_T350_R10": {
+          "plurality": 0.4666666666666667,
+          "verifier": 0.7916666666666666,
+          "oracle_any": 0.7916666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.166666666666666,
+          "distinct_wrong_configs": 1004,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_verifier_T500_R10": {
+          "plurality": 0.5083333333333333,
+          "verifier": 0.825,
+          "oracle_any": 0.825,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.233333333333333,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K5_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K5_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K5_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K5_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K5_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K5_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K6_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K6_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K6_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K6_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K6_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K6_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "c358c5bc506387b7d4e4e7b7eabc6435b6cd310630af345d6b42644ead251013",
+        "K3_verifier_T000_R10": "3ae2c4a192aeb8897afefa684df4cdcb876c0ca2aad9417758b0dac3730a4a0b",
+        "K3_verifier_T000_R10_plurality": "7f2c4d31c007a6d6a78e96cf244069c4fb6cf3ccd9e774cd6c5c6cb8183dd6cd",
+        "K3_verifier_T100_R10": "0f5967def9af068482a5cbe1e275df20798f3dfa2e4401650d42a4aff3d43eb5",
+        "K3_verifier_T100_R10_plurality": "ef6509651069eafe10a9d943b006207bd11d927f91fa7d89a5cde84116e3ca3d",
+        "K3_verifier_T200_R10": "e7b51699be71a3cfa0361b4092caa94f158a2b5d74c72663e37e116cda3e7c81",
+        "K3_verifier_T200_R10_plurality": "ef57dbefc17d3ca56a4427c19fbb0e9d8b08bf3b45d2035570f4f058f1e958f4",
+        "K3_verifier_T350_R10": "e7b51699be71a3cfa0361b4092caa94f158a2b5d74c72663e37e116cda3e7c81",
+        "K3_verifier_T350_R10_plurality": "bb064eb2a46365ffcb926e28a733662535da8c97adb7c61edc8d36ab66df1fdf",
+        "K3_verifier_T500_R10": "e7b51699be71a3cfa0361b4092caa94f158a2b5d74c72663e37e116cda3e7c81",
+        "K3_verifier_T500_R10_plurality": "77e9d6b36a3264233c92bb36f58153eff9dd09c7c2ba80cc55ac2394e6e16e63",
+        "K4_baseline_T0_R1": "b0b4206b7d2533d8371622d07891f4c9f7ef9ec7264542b1a8f556d713ae522d",
+        "K4_verifier_T000_R10": "09ca717da3bdff86cf70a9699d5162ab44e6cdb91f22f827ade088a410d07be8",
+        "K4_verifier_T000_R10_plurality": "1dc23cc8aff36d55d428bcdc331572df037589d40c8c8a8a226f51d8ea7c62fe",
+        "K4_verifier_T100_R10": "c3a470159f2b74cf721974384cc62738f20d31831114a046f3d287773aa660cc",
+        "K4_verifier_T100_R10_plurality": "2e0e0ff4bd6b3832b13f59c336ebd5483d6a6cf95ace2b2ce5831172784d7e72",
+        "K4_verifier_T200_R10": "986dac9cdcddd45d96510da2950f6bc6576bdb9ea75ef8a4403a97876a2c5990",
+        "K4_verifier_T200_R10_plurality": "172cea32e767e771cc76ccd310c4745831c439f65ad7fa10d1073305add82065",
+        "K4_verifier_T350_R10": "654ec9ceceb86ec20d36ac2d3fc3ae2603bb1a9c56a63c65f9390ac54158eeef",
+        "K4_verifier_T350_R10_plurality": "08dac7092d7ad6ef54e530ec8110ea94bdd5f70d934caa01ddde3095ead4bcb6",
+        "K4_verifier_T500_R10": "304e9b9bf270543c8b8d9f7c830ad2c4522b562a65607264ab113450b22eae1a",
+        "K4_verifier_T500_R10_plurality": "2fa0fe3a070af61191c16c79d180796d6620147885af56f9ec6dc8c4ec5116c0",
+        "K5_baseline_T0_R1": "312f55cdffd134481bec9c353e884f68650de867944437ddadaa8a45e936981f",
+        "K5_verifier_T000_R10": "46c759b1c1879d88d58610fe57d3e791d59099ae857dbe78b15438c4cc328b37",
+        "K5_verifier_T000_R10_plurality": "706b50ed0cf32cf8e1f895bae8010d584a56099b5cf478fb5cd6f487055452de",
+        "K5_verifier_T100_R10": "506d42f57b3463080077b2208342c14605b02074bdb144dbc9f1f6de00f8c3f2",
+        "K5_verifier_T100_R10_plurality": "e2b13a599d0100e2ded26ab9a4f2642dd2c31b5c554fbbb58ce5de9f83ed27b0",
+        "K5_verifier_T200_R10": "11acbb177ae1c538d7e5c26cf8ee9f04f565ef14bd24795015737cc7a6db00f4",
+        "K5_verifier_T200_R10_plurality": "94792fca9b8149de0c58407458d7ef8cf6bf6ea5c67ee64a8f47f298c9b91040",
+        "K5_verifier_T350_R10": "105d00b2ea9664da1649fe7f53c5d735d239d1794d02bad9fb034b099f77840e",
+        "K5_verifier_T350_R10_plurality": "6c028d804b86d561f859febdebf5aada10d3df7537196d4859ddc48067ffd235",
+        "K5_verifier_T500_R10": "a272da1fcb493cc297f2a89a0e289c7fbc7cce02b4e88b3a1d24e038816328d3",
+        "K5_verifier_T500_R10_plurality": "03a434b9a1f893f25e37a1fc02152eafabaf4ae4ae04c40b278c7e1bba95d319",
+        "K6_baseline_T0_R1": "3697ea5895b6f9b4866ec5a94069a7d3129b8fa8c63e720b79d5dc83fb964bb2",
+        "K6_verifier_T000_R10": "158cb16ad9553d140160d496fcb99a41a865707e43a97c5bc6803743214ecdb6",
+        "K6_verifier_T000_R10_plurality": "9f10839d1728dc81fe222370563e943a488582a8b731244c861e05aa66e0672b",
+        "K6_verifier_T100_R10": "743065719fd53fc2ea391610475cd267b23fe371c9eb1d67529222fb1ea4b61d",
+        "K6_verifier_T100_R10_plurality": "cb33371b8895e237cc7a7c1c47be0f3475f6c5bd78534c6d626ff8b075dfa0e0",
+        "K6_verifier_T200_R10": "763072779ab7ff100bcb8653c0e8e7722b94eb816b3434d1258c8bb03c571d26",
+        "K6_verifier_T200_R10_plurality": "97e327da63fe1cb6eda89e0ea11f6f208210c0a17c6ac444318976d8c104fa2a",
+        "K6_verifier_T350_R10": "dcaa795a67c76444afd752e139fa48423422d513d1d10124054270bff5813741",
+        "K6_verifier_T350_R10_plurality": "c7c36dc8a0a877957616a5ca4ef09ef59c549c7f3ce51473d1a1438af0153199",
+        "K6_verifier_T500_R10": "b916c0a634aeca43af5e410083d2494044d86e7082fccf7ef0be89e78875f800",
+        "K6_verifier_T500_R10_plurality": "8d35f14eb2aa72841f3e64b80f066874f3073dd7c39564aec4b581f570a451db"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_ksweep_reachability_v1,N=4096,M=30",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783479836.874846
+    },
+    {
+      "seed": 13,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.7333333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_verifier_T000_R10": {
+          "plurality": 0.7583333333333333,
+          "verifier": 0.7916666666666666,
+          "oracle_any": 0.7916666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.1,
+          "distinct_wrong_configs": 37,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_verifier_T100_R10": {
+          "plurality": 0.9083333333333333,
+          "verifier": 0.975,
+          "oracle_any": 0.975,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.7,
+          "distinct_wrong_configs": 206,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_verifier_T200_R10": {
+          "plurality": 0.925,
+          "verifier": 0.975,
+          "oracle_any": 0.975,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.6166666666666667,
+          "distinct_wrong_configs": 197,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_verifier_T350_R10": {
+          "plurality": 0.9083333333333333,
+          "verifier": 0.975,
+          "oracle_any": 0.975,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.816666666666667,
+          "distinct_wrong_configs": 221,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_verifier_T500_R10": {
+          "plurality": 0.9,
+          "verifier": 0.9916666666666667,
+          "oracle_any": 0.9916666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.816666666666667,
+          "distinct_wrong_configs": 218,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.15,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_verifier_T000_R10": {
+          "plurality": 0.175,
+          "verifier": 0.26666666666666666,
+          "oracle_any": 0.26666666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.9666666666666666,
+          "distinct_wrong_configs": 204,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_verifier_T100_R10": {
+          "plurality": 0.4,
+          "verifier": 0.7416666666666667,
+          "oracle_any": 0.7416666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.266666666666667,
+          "distinct_wrong_configs": 1023,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_verifier_T200_R10": {
+          "plurality": 0.4583333333333333,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.216666666666667,
+          "distinct_wrong_configs": 1010,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_verifier_T350_R10": {
+          "plurality": 0.4166666666666667,
+          "verifier": 0.8083333333333333,
+          "oracle_any": 0.8083333333333333,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.308333333333334,
+          "distinct_wrong_configs": 1020,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_verifier_T500_R10": {
+          "plurality": 0.38333333333333336,
+          "verifier": 0.7666666666666667,
+          "oracle_any": 0.7666666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.175,
+          "distinct_wrong_configs": 1009,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K5_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K5_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K5_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K5_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K5_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K5_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K6_baseline_T0_R1": {
+          "plurality": 0.0,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K6_verifier_T000_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.0,
+          "distinct_wrong_configs": 240,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K6_verifier_T100_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K6_verifier_T200_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K6_verifier_T350_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K6_verifier_T500_R10": {
+          "plurality": 0.0,
+          "verifier": 0.0,
+          "oracle_any": 0.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 10.0,
+          "distinct_wrong_configs": 1200,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "7b721e9652aeb462715f6908337f2a56b04aa77de44b0930812e1ed0d45967b7",
+        "K3_verifier_T000_R10": "b298672140087115fb8431656d639e498eebcf14d72906c492a7d88cc1107349",
+        "K3_verifier_T000_R10_plurality": "481712db044c4c13f250cc645a7c9707f5b8125192e62c4712064849761c7e2c",
+        "K3_verifier_T100_R10": "ff39977748a75bd1979ed1db1b007f6171a06eea837a954ad76fae8fe9e30089",
+        "K3_verifier_T100_R10_plurality": "065bae14493293b1ab7da08a36090d7a98cc4e2e038c87fa088970c4d6953de2",
+        "K3_verifier_T200_R10": "03dad209628dfda01b76e0dc7fb43fdedeea5fd2f4d8dd9470075c4d85f57b2d",
+        "K3_verifier_T200_R10_plurality": "51ecdd2d2762578320607ff8bcded435c81ec357c2ca2bdf3bb00ada21fdf124",
+        "K3_verifier_T350_R10": "ca88854137b3fe5cc3f0c5e45d41c154396e8c4ce57b6192aca489dc16a66c42",
+        "K3_verifier_T350_R10_plurality": "9dc8d4ee60b731198126392188817fe114e8060fdcc4c19bf6432e05f9c98445",
+        "K3_verifier_T500_R10": "7bd67f4fc64305ab5488b6ff7d1fc7fa2863092e5bcb173da1a9d3da286f91d0",
+        "K3_verifier_T500_R10_plurality": "0c65d7d3d3e9f2efe21434a424ebb52bea3253eefd33e7da745657d6f850e395",
+        "K4_baseline_T0_R1": "198c40f5284bcf703da8df6de55e7881849a7cc8f89a338df6402bcb3bb75c03",
+        "K4_verifier_T000_R10": "7d0aa5cc8ed4e38c6b0ef04a15dd24820909f3a0466ee38d9c511bf997f7166a",
+        "K4_verifier_T000_R10_plurality": "5e85334a80b74507fbc7623e364303d780f9d7c9a30456320ee5b6710d37b87f",
+        "K4_verifier_T100_R10": "b2e1a22c725fd096e694f3659f8025ac5c92591f8a9103b385531a1c93abe2ad",
+        "K4_verifier_T100_R10_plurality": "25d5f98c8fac6f97a960c0d1f71c24950f7283c7b7d345e277cbd29fca796b72",
+        "K4_verifier_T200_R10": "e7b7cd042523a20c27d3ac314b6cd497e0ac5753d2b9670700124b4aa859d57c",
+        "K4_verifier_T200_R10_plurality": "138c00673b57a97098a5b9c4edea50717cc579004fae6417057aff543ccea5f3",
+        "K4_verifier_T350_R10": "4d2786c3b3f04002f67146fadcaf31103a65705571bd5e34833db01e26ccce71",
+        "K4_verifier_T350_R10_plurality": "2322be6c445e195a4af1cfad925c7e363966e759946c8ee1de3c9a324741bfe0",
+        "K4_verifier_T500_R10": "d34d8451a3e9043251f959171c1ebadf998dfb19ddcedd7e79f2663feaf972f3",
+        "K4_verifier_T500_R10_plurality": "18e10760338ed78b109134dfcf6a01f5b44f7b14fcc34135eb10362c5776f23c",
+        "K5_baseline_T0_R1": "305f98a50b1da40aef5bc75c051b6017ee50a79d148771b0c2739aac41b991c6",
+        "K5_verifier_T000_R10": "f312bdff2000779cf0a080f77e0ed937960091562a7eda86628feecb1ceb4773",
+        "K5_verifier_T000_R10_plurality": "73f987459a80528a736eabd1b0b3b255181194209dde4155c632b9966ced8499",
+        "K5_verifier_T100_R10": "f3276f9f5fc558cb7d4d14cb39490ccb67e2fb62f1c0e70305f4ee8235ffe9d0",
+        "K5_verifier_T100_R10_plurality": "fc17fd2e5a1720c252d8b3a3ca305d1aeb2dd7afb09d5ad6d7baef29422e3672",
+        "K5_verifier_T200_R10": "2b9ff9b264a07d9885526ec74dedaea649bd77ab1ea87e67cea2d7347f4156b6",
+        "K5_verifier_T200_R10_plurality": "4e810c9aac87b80c6f02e2e6eacc6f9ba1340b06987801f476daebef96d0ad14",
+        "K5_verifier_T350_R10": "ff7fd0cab5ef6c1e2dff0644869d05d2a92680009735b1efa026041fcc90ceaf",
+        "K5_verifier_T350_R10_plurality": "a04fc1bd23fb3177fa3d718e26536864a82486e3970223c6ea1cc2397addd885",
+        "K5_verifier_T500_R10": "50be60844c532e4eaf824612b84031d302d233a537f8529e0763198de1fedb7f",
+        "K5_verifier_T500_R10_plurality": "a2ad41d5bb9b91e27bb2186691bac42fc7929ad90e9c595914d37ea7477233eb",
+        "K6_baseline_T0_R1": "17ef7369cc3d590fe873d31c97b89908802968e7789ac7468a6378babf6d747e",
+        "K6_verifier_T000_R10": "692cbc6347fe134bb2766c54f86142705ba766d6b5f63dbb208928b85e43f548",
+        "K6_verifier_T000_R10_plurality": "3876c2f37c97572654f1919af1ae7004dfa3cfb35b3afc116f0bce6df4972118",
+        "K6_verifier_T100_R10": "8f112f2db4afaaa3ccd11f62a715f8fa15d4e2c0e512d53022cec37182bbd06d",
+        "K6_verifier_T100_R10_plurality": "a276f5846b58a32272fc60106b14c5224eb43e28e73aec317499a0ba397eeb41",
+        "K6_verifier_T200_R10": "0d43c9f9440f034faf2bd2303b67f75b0029d0f161c23a76661d73cb124dde2c",
+        "K6_verifier_T200_R10_plurality": "433b8217f07eccc615f773026579e5c3af634aa5a80f009cbf4fa3d0ccee19cf",
+        "K6_verifier_T350_R10": "fbf2029dff9ccc8fc367a78709db27aa1186d0963c0482c09e216dfa398889f3",
+        "K6_verifier_T350_R10_plurality": "c5dba72ca57fba0f0619bf6d355569a86e700a6f597ef7e1202f3f8cf4e97d2c",
+        "K6_verifier_T500_R10": "675975d87dfddcf291ebe59070a0d8494fe36fa1aa3a9ec41aa340f4591e9a59",
+        "K6_verifier_T500_R10_plurality": "a2ecd83edf07ce547d77b218e0cb2e09ce3558f1624324876894620285552f89"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "full",
+      "config_version": "ANCHOR=resonator_ksweep_reachability_v1,N=4096,M=30",
+      "_ckpt_key": "13",
+      "_partial_written_at": 1783481016.2353897
+    }
+  ],
+  "detail": {
+    "trajectory": {
+      "3": {
+        "best_t0": 0.5,
+        "oracle_any_best": 0.9916666666666667,
+        "p_basin": 0.38044213374586455,
+        "R_to_95": 7.0
+      },
+      "4": {
+        "best_t0": 0.5,
+        "oracle_any_best": 0.8055555555555555,
+        "p_basin": 0.15105500176092845,
+        "R_to_95": 19.0
+      },
+      "5": {
+        "best_t0": 0.1,
+        "oracle_any_best": 0.0,
+        "p_basin": 0.0,
+        "R_to_95": Infinity
+      },
+      "6": {
+        "best_t0": 0.1,
+        "oracle_any_best": 0.0,
+        "p_basin": 0.0,
+        "R_to_95": Infinity
+      }
+    },
+    "baseline_by_K": {
+      "3": 0.7416666666666667,
+      "4": 0.13333333333333333,
+      "5": 0.0,
+      "6": 0.0
+    },
+    "p_basin_decline_ratios": {
+      "K4/K3": 0.39705118955576363,
+      "K5/K4": 0.0,
+      "K6/K5": Infinity
+    },
+    "verifier_le_oracle_invariant_violations": 0,
+    "R_fixed": 10,
+    "bands": {
+      "budget_floor": 0.05,
+      "wall_ceil": 0.01,
+      "oracle_crater": 0.1
+    },
+    "positive_control_ok": true,
+    "positive_control": {
+      "K3_oracle": 0.9916666666666667,
+      "K3_band": [
+        0.95,
+        1.0
+      ],
+      "K3_ok": true,
+      "K4_oracle": 0.8055555555555555,
+      "K4_band": [
+        0.72,
+        0.9
+      ],
+      "K4_ok": true
+    },
+    "arms_differ_verified": true,
+    "smoke_discriminator_spread": 0.9916666666666667,
+    "smoke_discriminator_declines": true,
+    "smoke_discriminator_fired": true
+  },
+  "config": {
+    "N": 4096,
+    "M": 30,
+    "MAXIT": 60,
+    "R": 10,
+    "TR": 120,
+    "T0_GRID": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "K_GRID": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "SEEDS": [
+      3,
+      7,
+      13
+    ],
+    "EXPECTED_N_UNITS": 60
+  },
+  "elapsed_s": 3423.7477462000097,
+  "summary": "WALL_FUNDAMENTAL (HARD_FAIL): p_basin(K6)=0.0000 < 0.01 (or oracle_any=0.000 < 0.10) -- basin measure craters toward the clustering/condensation regime; no realistic R rescues it (R_to_95=inf). CONFIRMS the CG_META basin-proliferation algorithmic wall at K*<=6. Honest negative. traj: K3(orc=0.992,p=0.3804,R95=7) K4(orc=0.806,p=0.1511,R95=19) K5(orc=0.000,p=0.0000,R95=inf) K6(orc=0.000,p=0.0000,R95=inf)"
+}

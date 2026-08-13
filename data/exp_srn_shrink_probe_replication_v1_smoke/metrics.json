@@ -1,0 +1,203 @@
+{
+  "verdict": "HARD_FAIL_REPLICATION",
+  "verdict_msg": "SINGLE-SEED NOISE: SHRINK does NOT replicate its POS-probe advantage over FIXED across seeds (delta_rep>=+0.03 on only 0/3 seeds; 3-seed mean acc_shrink_full=0.566 vs acc_fixed_full=0.601, delta_rep=+-0.035 < +0.03) -- the seed-7 +6.4pt was a single-seed fluke; efficiency-lever thread CLOSED negative.",
+  "summary": "HARD_FAIL_REPLICATION: SINGLE-SEED NOISE: SHRINK does NOT replicate its POS-probe advantage over FIXED across seeds (delta_rep>=+0.03 on only 0",
+  "elapsed_s": 4.82,
+  "ts_iso": "2026-07-18T10:09:03.312624+00:00",
+  "anchor_name": "srn_shrink_probe_replication_v1",
+  "mode": "smoke",
+  "config": {
+    "n_sents": 800,
+    "vocab_size": 200,
+    "min_count": 3,
+    "d": 64,
+    "d_min": 8,
+    "n_stages": 4,
+    "k": 4,
+    "epochs": 8,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "min_members": 6,
+    "probe_folds": 3,
+    "probe_seed": 0
+  },
+  "d_low": 8,
+  "capacity_schedules": {
+    "shrink": [
+      64,
+      64,
+      32,
+      32,
+      16,
+      16,
+      8,
+      8
+    ],
+    "fixed": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      64
+    ]
+  },
+  "corpus": {
+    "n_sentences": 800,
+    "n_sequences": 716,
+    "n_tokens": 8991,
+    "vocab_size": 200,
+    "n_gold_words": 188,
+    "n_categories": 7,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON"
+    ],
+    "majority_baseline_acc": 0.4521,
+    "metric": "logistic_5fold_stratified_POS_probe_accuracy"
+  },
+  "arms": [
+    "SHRINK",
+    "FIXED",
+    "RANDOM_CODE"
+  ],
+  "probed_reps": [
+    "SHRINK_full",
+    "FIXED_full",
+    "SHRINK_pca_dlow",
+    "FIXED_pca_dlow",
+    "SHRINK_active_dlow",
+    "RANDOM_CODE_full"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "acc_shrink_full": 0.5482,
+      "acc_fixed_full": 0.6015,
+      "std_shrink_full": 0.0462,
+      "std_fixed_full": 0.0571,
+      "folds_shrink_full": [
+        0.5079,
+        0.5238,
+        0.6129
+      ],
+      "folds_fixed_full": [
+        0.5397,
+        0.5873,
+        0.6774
+      ],
+      "acc_shrink_pca8": 0.559,
+      "acc_fixed_pca8": 0.5906,
+      "acc_shrink_active8": 0.452,
+      "acc_randomcode_full": 0.4415,
+      "sh_ce": 4.2422,
+      "fx_ce": 3.505,
+      "delta_rep": -0.0533,
+      "delta_geo": -0.0317,
+      "pca_recovers": 0.0424
+    },
+    {
+      "seed": 13,
+      "acc_shrink_full": 0.564,
+      "acc_fixed_full": 0.5958,
+      "std_shrink_full": 0.0241,
+      "std_fixed_full": 0.0177,
+      "folds_shrink_full": [
+        0.5556,
+        0.5397,
+        0.5968
+      ],
+      "folds_fixed_full": [
+        0.5714,
+        0.6032,
+        0.6129
+      ],
+      "acc_shrink_pca8": 0.6067,
+      "acc_fixed_pca8": 0.596,
+      "acc_shrink_active8": 0.5056,
+      "acc_randomcode_full": 0.4415,
+      "sh_ce": 4.2255,
+      "fx_ce": 3.5301,
+      "delta_rep": -0.0318,
+      "delta_geo": 0.0107,
+      "pca_recovers": 0.032
+    },
+    {
+      "seed": 19,
+      "acc_shrink_full": 0.5853,
+      "acc_fixed_full": 0.6066,
+      "std_shrink_full": 0.0365,
+      "std_fixed_full": 0.0302,
+      "folds_shrink_full": [
+        0.5873,
+        0.5397,
+        0.629
+      ],
+      "folds_fixed_full": [
+        0.5714,
+        0.6032,
+        0.6452
+      ],
+      "acc_shrink_pca8": 0.6068,
+      "acc_fixed_pca8": 0.6173,
+      "acc_shrink_active8": 0.5003,
+      "acc_randomcode_full": 0.4415,
+      "sh_ce": 4.2038,
+      "fx_ce": 3.5226,
+      "delta_rep": -0.0212,
+      "delta_geo": -0.0105,
+      "pca_recovers": 0.032
+    }
+  ],
+  "aggregate": {
+    "acc_shrink_full_mean": 0.5658,
+    "acc_fixed_full_mean": 0.6013,
+    "acc_shrink_pca8_mean": 0.5908,
+    "acc_fixed_pca8_mean": 0.6013,
+    "acc_randomcode_full_mean": 0.4415,
+    "delta_rep_mean": -0.0354,
+    "delta_geo_mean": -0.0105,
+    "rep_seeds": 0,
+    "geo_seeds": 0,
+    "n_seeds": 3,
+    "maj_needed": 2,
+    "M_rep": 0.03,
+    "M_geo": 0.03,
+    "seed7_origin_delta_rep": 0.064
+  },
+  "gates": {
+    "cardinality_ok": true,
+    "metric_fires": true,
+    "baseline_above_chance": true,
+    "baseline_in_band": true,
+    "rep_pass": false,
+    "geo_pass": false,
+    "rep_absent": true,
+    "geo_absent": true,
+    "arms_differ_verified": true,
+    "sanity_ok": true
+  },
+  "arm_digests": {
+    "SHRINK": "992764e2880b027caa19476915cabd90d115d569e58a00c898ccb0b904e79bd3",
+    "FIXED": "ce3fde9f293bd4f70559119874364cebfa01563954fc57492dd1fd192daefbfd",
+    "RANDOM_CODE": "eaf2a154bec341ddc0fb12446667f737fde6eb58176162588560467cd8aad75e"
+  },
+  "crlb_n_a": "no capacity noise floor; discriminator is a held-out logistic probe-accuracy gap",
+  "compute_architecture": "sequential_CPU_justified_wall_under_10min_verbatim_parent_learner",
+  "storage_strategy": "no_storage_no_composition_representation_probe_cell",
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "calibration_check": "default_ok_for_this_regime"
+}

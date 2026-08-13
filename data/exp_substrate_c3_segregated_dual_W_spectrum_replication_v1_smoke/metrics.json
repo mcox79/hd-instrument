@@ -1,0 +1,240 @@
+{
+  "anchor": "substrate_c3_segregated_dual_W_spectrum_replication_v1",
+  "anchor_name": "substrate_c3_segregated_dual_W_spectrum_replication_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_DIM": 4096,
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "J_phases": 3,
+  "m_per_phase": 200,
+  "arms": [
+    "ARM_BASELINE_STATIC",
+    "ARM_DISCRETE_ADD",
+    "ARM_FUSED_W_CFRPE_HEBBIAN",
+    "ARM_SEGREGATED_DUAL_W_NAIVE",
+    "ARM_SEGREGATED_DUAL_W_ONE_WAY_REPLAY"
+  ],
+  "primary_arm": "ARM_SEGREGATED_DUAL_W_ONE_WAY_REPLAY",
+  "harness_control_arm": "ARM_FUSED_W_CFRPE_HEBBIAN",
+  "config_version": "c3-segregated-dual-W-v1: N_DIM=4096 J=3 M=200 alpha_fast=1.0 alpha_slow=0.1 alpha_cfrpe=0.05 recency_weight=4.0 n_replay_passes=5 n_cfrpe_passes=3 noise_frac=0.2 retrieve_steps=5 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_atoms_per_domain_permutation",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_synthetic_bipolar_segregated_dual_W_5arm",
+  "per_arm_aggregate": {
+    "ARM_BASELINE_STATIC": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.5,
+      "mean_flops": 6727663616.0,
+      "mean_compute_per_update": 33638318.08,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_DISCRETE_ADD": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 20182990848.0,
+      "mean_compute_per_update": 33638318.08,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    "ARM_FUSED_W_CFRPE_HEBBIAN": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 1.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 1.0,
+      "mean_flops": 242044895232.0,
+      "mean_compute_per_update": 403408158.72,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    "ARM_SEGREGATED_DUAL_W_NAIVE": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.025000000000000022,
+      "std_forgetting_p1": 0.1767766952966369,
+      "cv_forgetting_p1": 7.071067811865469,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.2,
+      "mean_flops": 141129940992.0,
+      "mean_compute_per_update": 235216568.32,
+      "phase_recalls_per_seed": [
+        [
+          [
+            0.4
+          ],
+          [
+            0.5,
+            0.0
+          ],
+          [
+            0.5,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            0.45
+          ],
+          [
+            0.45,
+            0.0
+          ],
+          [
+            0.3,
+            0.0,
+            0.0
+          ]
+        ]
+      ]
+    },
+    "ARM_SEGREGATED_DUAL_W_ONE_WAY_REPLAY": {
+      "n_seeds": 2,
+      "mean_forgetting_p1": 0.0,
+      "std_forgetting_p1": 0.0,
+      "cv_forgetting_p1": 0.0,
+      "mean_transfer_final": 0.0,
+      "std_transfer_final": 0.0,
+      "mean_retention_pre_p_final": 0.5125,
+      "mean_flops": 242044895232.0,
+      "mean_compute_per_update": 403408158.72,
+      "phase_recalls_per_seed": [
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          [
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.05,
+            0.0
+          ]
+        ]
+      ]
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SMOKE_STRUCTURAL_OK: smoke alpha_total below cliff regime; verdict bands only meaningful at FULL J=5/M=400 alpha=0.488. PRIMARY(one-way-replay) forgetting=0.000 transfer=0.000 cv=0.000; FUSED_W forgetting=0.000 (delta=0.000); NAIVE_dual_W forgetting=0.025; DISCRETE forgetting=0.000; BASELINE p1_initial_recall=1.000",
+  "summary": "MIDDLE_BAND: PRIMARY(one-way-replay) forgetting_p1=0.000 transfer=0.000 vs FUSED_W forgetting=0.000",
+  "elapsed_s": 143.4059510231018
+}

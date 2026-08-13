@@ -1,0 +1,827 @@
+{
+  "anchor": "substrate_continual_NREM_replay_v1",
+  "anchor_name": "substrate_continual_NREM_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_PARTIAL_REPLAY_REDUCES_DRIFT: replay reduces drift by 0.5733 >= 0.3 but full HARD_PASS conditions not all met (best_low=False cliff=True cv_ok=False strict_better=True). arms: ARM_BASELINE_NO_REPLAY=fin_forget=0.8833+/-0.0309 | ARM_REPLAY_EVERY_100=fin_forget=0.3100+/-0.0497 | ARM_REPLAY_EVERY_500=fin_forget=0.4833+/-0.0170 | ARM_REPLAY_EVERY_1000=fin_forget=0.6367+/-0.0287",
+  "headline": "HARD_PASS_PARTIAL_REPLAY_REDUCES_DRIFT: replay reduces drift by 0.5733 >= 0.3 but full HARD_PASS conditions not all met (best_low=False cliff=True cv_ok=False strict_better=True). arms: ARM_BASELINE_NO_REPLAY=fin_forget=0.8833+/-0.0309 | ARM_REPLAY_EVERY_100=fin_forget=0.3100+/-0.0497 | ARM_REPLAY_EVERY_500=fin_forget=0.4833+/-0.0170 | ARM_REPLAY_EVERY_1000=fin_forget=0.6367+/-0.0287",
+  "n_seeds": 3,
+  "N": 4096,
+  "run_mode": "full",
+  "n_cycles": 2500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_REPLAY",
+    "ARM_REPLAY_EVERY_100",
+    "ARM_REPLAY_EVERY_500",
+    "ARM_REPLAY_EVERY_1000"
+  ],
+  "replay_frac": 0.2,
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_REPLAY": {
+        "mean_final_forget": 0.8833333333333333,
+        "std": 0.030912061651652372,
+        "cv": 0.03499478677545552,
+        "per_seed": [
+          0.84,
+          0.9,
+          0.91
+        ]
+      },
+      "ARM_REPLAY_EVERY_100": {
+        "mean_final_forget": 0.31,
+        "std": 0.049665548085837785,
+        "cv": 0.1602114454381864,
+        "per_seed": [
+          0.33999999999999997,
+          0.35,
+          0.24
+        ]
+      },
+      "ARM_REPLAY_EVERY_500": {
+        "mean_final_forget": 0.48333333333333334,
+        "std": 0.016996731711975965,
+        "cv": 0.03516565181788131,
+        "per_seed": [
+          0.5,
+          0.45999999999999996,
+          0.49
+        ]
+      },
+      "ARM_REPLAY_EVERY_1000": {
+        "mean_final_forget": 0.6366666666666667,
+        "std": 0.02867441755680874,
+        "cv": 0.04503835218346922,
+        "per_seed": [
+          0.6,
+          0.6699999999999999,
+          0.64
+        ]
+      }
+    },
+    "best_replay_arm": "ARM_REPLAY_EVERY_100",
+    "baseline_curve_max_forget": 0.91,
+    "baseline_cliff_cycle": 2500,
+    "drift_reduction_abs": 0.5733333333333333,
+    "honest_scope": "NREM-replay primitive over 2500 cycles N=4096; 4 arms: baseline + 3 replay intervals; forget metric on first 100 atoms"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_REPLAY": {
+          "arm": "ARM_BASELINE_NO_REPLAY",
+          "replay_interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.87,
+              "forget": 0.13
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.55,
+              "forget": 0.44999999999999996
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.22,
+              "forget": 0.78
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.16,
+              "forget": 0.84
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.16,
+          "final_forget": 0.84,
+          "elapsed_s": 334.9192934036255
+        },
+        "ARM_REPLAY_EVERY_100": {
+          "arm": "ARM_REPLAY_EVERY_100",
+          "replay_interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.62,
+              "forget": 0.38
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.77,
+              "forget": 0.22999999999999998
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.57,
+              "forget": 0.43000000000000005
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.71,
+              "forget": 0.29000000000000004
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.61,
+              "forget": 0.39
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.66,
+              "forget": 0.33999999999999997
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.63,
+              "forget": 0.37
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.67,
+              "forget": 0.32999999999999996
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.66,
+              "forget": 0.33999999999999997
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.66,
+          "final_forget": 0.33999999999999997,
+          "elapsed_s": 1015.9222617149353
+        },
+        "ARM_REPLAY_EVERY_500": {
+          "arm": "ARM_REPLAY_EVERY_500",
+          "replay_interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.29,
+              "forget": 0.71
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.14,
+              "forget": 0.86
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.4,
+              "forget": 0.6
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.4,
+              "forget": 0.6
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.5,
+              "forget": 0.5
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.5,
+              "forget": 0.5
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.5,
+          "final_forget": 0.5,
+          "elapsed_s": 450.6383125782013
+        },
+        "ARM_REPLAY_EVERY_1000": {
+          "arm": "ARM_REPLAY_EVERY_1000",
+          "replay_interval": 1000,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.24,
+              "forget": 0.76
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.4,
+              "forget": 0.6
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.4,
+              "forget": 0.6
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.4,
+          "final_forget": 0.6,
+          "elapsed_s": 379.61496233940125
+        }
+      },
+      "elapsed_s": 2181.2076227664948,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782461072.7851815
+    },
+    {
+      "seed": 13,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_REPLAY": {
+          "arm": "ARM_BASELINE_NO_REPLAY",
+          "replay_interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.86,
+              "forget": 0.14
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.51,
+              "forget": 0.49
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.27,
+              "forget": 0.73
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.1,
+              "forget": 0.9
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.1,
+          "final_forget": 0.9,
+          "elapsed_s": 333.54099678993225
+        },
+        "ARM_REPLAY_EVERY_100": {
+          "arm": "ARM_REPLAY_EVERY_100",
+          "replay_interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.56,
+              "forget": 0.43999999999999995
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.82,
+              "forget": 0.18000000000000005
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.55,
+              "forget": 0.44999999999999996
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.63,
+              "forget": 0.37
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.56,
+              "forget": 0.43999999999999995
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.62,
+              "forget": 0.38
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.59,
+              "forget": 0.41000000000000003
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.59,
+              "forget": 0.41000000000000003
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.65,
+              "forget": 0.35
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.65,
+          "final_forget": 0.35,
+          "elapsed_s": 1036.9674654006958
+        },
+        "ARM_REPLAY_EVERY_500": {
+          "arm": "ARM_REPLAY_EVERY_500",
+          "replay_interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.34,
+              "forget": 0.6599999999999999
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.2,
+              "forget": 0.8
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.37,
+              "forget": 0.63
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.37,
+              "forget": 0.63
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.46,
+              "forget": 0.54
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.46,
+              "forget": 0.54
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.54,
+              "forget": 0.45999999999999996
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.54,
+              "forget": 0.45999999999999996
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.54,
+          "final_forget": 0.45999999999999996,
+          "elapsed_s": 439.5208492279053
+        },
+        "ARM_REPLAY_EVERY_1000": {
+          "arm": "ARM_REPLAY_EVERY_1000",
+          "replay_interval": 1000,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.15,
+              "forget": 0.85
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.15,
+              "forget": 0.85
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.15,
+              "forget": 0.85
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.15,
+              "forget": 0.85
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.33,
+              "forget": 0.6699999999999999
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.33,
+              "forget": 0.6699999999999999
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.33,
+          "final_forget": 0.6699999999999999,
+          "elapsed_s": 411.94101905822754
+        }
+      },
+      "elapsed_s": 2222.1282951831818,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782463294.9418614
+    },
+    {
+      "seed": 19,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_REPLAY": {
+          "arm": "ARM_BASELINE_NO_REPLAY",
+          "replay_interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.99,
+              "forget": 0.010000000000000009
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.78,
+              "forget": 0.21999999999999997
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.53,
+              "forget": 0.47
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.2,
+              "forget": 0.8
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.09,
+              "forget": 0.91
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.09,
+          "final_forget": 0.91,
+          "elapsed_s": 327.0708055496216
+        },
+        "ARM_REPLAY_EVERY_100": {
+          "arm": "ARM_REPLAY_EVERY_100",
+          "replay_interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.62,
+              "forget": 0.38
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.8,
+              "forget": 0.19999999999999996
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.59,
+              "forget": 0.41000000000000003
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.75,
+              "forget": 0.25
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.65,
+              "forget": 0.35
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.66,
+              "forget": 0.33999999999999997
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.72,
+              "forget": 0.28
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.71,
+              "forget": 0.29000000000000004
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.76,
+              "forget": 0.24
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.76,
+          "final_forget": 0.24,
+          "elapsed_s": 998.1380527019501
+        },
+        "ARM_REPLAY_EVERY_500": {
+          "arm": "ARM_REPLAY_EVERY_500",
+          "replay_interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 0.29,
+              "forget": 0.71
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 0.22,
+              "forget": 0.78
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.34,
+              "forget": 0.6599999999999999
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.34,
+              "forget": 0.6599999999999999
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.45,
+              "forget": 0.55
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.45,
+              "forget": 0.55
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.51,
+              "forget": 0.49
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.51,
+              "forget": 0.49
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.51,
+          "final_forget": 0.49,
+          "elapsed_s": 455.3773069381714
+        },
+        "ARM_REPLAY_EVERY_1000": {
+          "arm": "ARM_REPLAY_EVERY_1000",
+          "replay_interval": 1000,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.21,
+              "forget": 0.79
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.21,
+              "forget": 0.79
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.21,
+              "forget": 0.79
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.21,
+              "forget": 0.79
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.36,
+              "forget": 0.64
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.36,
+              "forget": 0.64
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.36,
+          "final_forget": 0.64,
+          "elapsed_s": 414.589875459671
+        }
+      },
+      "elapsed_s": 2195.300190925598,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782465490.270006
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_NREM_replay_4arm_continual_writes",
+  "elapsed_s": 6598.853501796722,
+  "summary": "HARD_PASS_PARTIAL_REPLAY_REDUCES_DRIFT: replay reduces drift by 0.5733 >= 0.3 but full HARD_PASS conditions not all met (best_low=False cliff=True cv_ok=False strict_better=True). arms: ARM_BASELINE_N",
+  "honest_scope": "NREM-replay primitive over 2500 cycles N=4096; 4 arms: baseline + 3 replay intervals; forget metric on first 100 atoms",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls)"
+}

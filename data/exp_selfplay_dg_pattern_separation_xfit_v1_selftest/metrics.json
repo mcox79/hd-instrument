@@ -1,0 +1,25 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS discriminator telemetry-sensitive + DG decorrelates + pipeline exercised",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.8048870000056922,
+  "discriminator_selftest": {
+    "corr_planted_high": 0.7727272727272723,
+    "corr_planted_indep": -0.06638382216308654,
+    "e2e_tied_corr": 1.0,
+    "e2e_separated_corr": -0.05426137522008722,
+    "dg_input_cos": 0.5063054989144619,
+    "dg_code_cos": 0.16943187531417533,
+    "dg_decorr_gap": 0.3368736236002865
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 131,
+    "n_edges": 252,
+    "median_degree": 2.0,
+    "mean_degree": 3.8473282442748094,
+    "frac_deg_ge_2": 1.0
+  }
+}

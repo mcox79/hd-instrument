@@ -1,0 +1,264 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_INT8_PARETO_OPTIMAL: INT8=FP32 within 0.005 recall at M=[40000, 80000] | INT8_bpf<=0.3xFP32_bpf | int8_cv<0.1 at all M | BINARY<INT8 anchor OK | positive_control matches FP32 exactly | n_seeds=1 | per_M={40000: {'fp32_recall_mean': 0.4000000059604645, 'int8_recall_mean': 0.4007500112056732, 'binary_recall_mean': 0.226500004529953, 'positive_control_recall_mean': 0.4000000059604645, 'fp32_bpf_mean': 1463.9104, 'int8_bpf_mean': 366.6924, 'int8_over_fp32_bpf_ratio': 0.25048828125, 'int8_recall_gap_vs_fp32': 0.0007500052452087402, 'int8_cv': 0.0, 'fp32_cv': 0.0, 'parity_ok': True, 'compression_ok': True, 'int8_cv_ok': True, 'fp32_cv_ok': True, 'binary_underperforms': True, 'positive_control_matches': True}, 80000: {'fp32_recall_mean': 0.11125000566244125, 'int8_recall_mean': 0.1118750050663948, 'binary_recall_mean': 0.06037500128149986, 'positive_control_recall_mean': 0.11125000566244125, 'fp32_bpf_mean': 731.9552, 'int8_bpf_mean': 183.3462, 'int8_over_fp32_bpf_ratio': 0.25048828125, 'int8_recall_gap_vs_fp32': 0.0006249994039535522, 'int8_cv': 0.0, 'fp32_cv': 0.0, 'parity_ok': True, 'compression_ok': True, 'int8_cv_ok': True, 'fp32_cv_ok': True, 'binary_underperforms': True, 'positive_control_matches': True}}",
+  "summary": "HARD_PASS_INT8_PARETO_OPTIMAL: INT8=FP32 within 0.005 recall at M=[40000, 80000] | INT8_bpf<=0.3xFP32_bpf | int8_cv<0.1 at all M | BINARY<INT8 anchor OK | positive_control matches FP32 exactly | n_seeds=1 | per_M={40000: {'fp32_recall_mean': 0.4000000059604645, 'int8_recall_mean': 0.4007500112056732, 'binary_recall_mean': 0.226500004529953, 'positive_control_recall_mean': 0.4000000059604645, 'fp32",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "arms": [
+    "FP32_DENSE",
+    "INT8_DENSE",
+    "BINARY_DENSE",
+    "POSITIVE_CONTROL_NO_QUANT"
+  ],
+  "M_sweep": [
+    40000,
+    80000
+  ],
+  "per_M_gate": {
+    "40000": {
+      "fp32_recall_mean": 0.4000000059604645,
+      "int8_recall_mean": 0.4007500112056732,
+      "binary_recall_mean": 0.226500004529953,
+      "positive_control_recall_mean": 0.4000000059604645,
+      "fp32_bpf_mean": 1463.9104,
+      "int8_bpf_mean": 366.6924,
+      "int8_over_fp32_bpf_ratio": 0.25048828125,
+      "int8_recall_gap_vs_fp32": 0.0007500052452087402,
+      "int8_cv": 0.0,
+      "fp32_cv": 0.0,
+      "parity_ok": true,
+      "compression_ok": true,
+      "int8_cv_ok": true,
+      "fp32_cv_ok": true,
+      "binary_underperforms": true,
+      "positive_control_matches": true
+    },
+    "80000": {
+      "fp32_recall_mean": 0.11125000566244125,
+      "int8_recall_mean": 0.1118750050663948,
+      "binary_recall_mean": 0.06037500128149986,
+      "positive_control_recall_mean": 0.11125000566244125,
+      "fp32_bpf_mean": 731.9552,
+      "int8_bpf_mean": 183.3462,
+      "int8_over_fp32_bpf_ratio": 0.25048828125,
+      "int8_recall_gap_vs_fp32": 0.0006249994039535522,
+      "int8_cv": 0.0,
+      "fp32_cv": 0.0,
+      "parity_ok": true,
+      "compression_ok": true,
+      "int8_cv_ok": true,
+      "fp32_cv_ok": true,
+      "binary_underperforms": true,
+      "positive_control_matches": true
+    }
+  },
+  "stats_cross_seed": {
+    "FP32_DENSE__M40000": {
+      "recall_mean": 0.4000000059604645,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1463.9104
+    },
+    "FP32_DENSE__M80000": {
+      "recall_mean": 0.11125000566244125,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 731.9552
+    },
+    "INT8_DENSE__M40000": {
+      "recall_mean": 0.4007500112056732,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 366.6924
+    },
+    "INT8_DENSE__M80000": {
+      "recall_mean": 0.1118750050663948,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 183.3462
+    },
+    "BINARY_DENSE__M40000": {
+      "recall_mean": 0.226500004529953,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 45.7472
+    },
+    "BINARY_DENSE__M80000": {
+      "recall_mean": 0.06037500128149986,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 22.8736
+    },
+    "POSITIVE_CONTROL_NO_QUANT__M40000": {
+      "recall_mean": 0.4000000059604645,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 1463.9104
+    },
+    "POSITIVE_CONTROL_NO_QUANT__M80000": {
+      "recall_mean": 0.11125000566244125,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "bytes_per_fact_mean": 731.9552
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 8,
+  "observed_n_units_per_seed": [
+    8
+  ],
+  "mechanism_hashes_distinct": true,
+  "int8_parity_all_M": true,
+  "int8_compression_all_M": true,
+  "int8_cv_all_M": true,
+  "fp32_cv_all_M": true,
+  "binary_underperforms_all_M": true,
+  "positive_control_matches_all_M": true,
+  "per_seed": [
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "per_unit": {
+        "FP32_DENSE__M40000": {
+          "arm": "FP32_DENSE",
+          "M": 40000,
+          "recall": 0.4000000059604645,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 58556416,
+          "bytes_per_fact": 1463.9104,
+          "elapsed_s": 0.248,
+          "mechanism_hash": "3defd940d340e362e860bc22c312a0cff5933efe19e355d2cc3fa473bfe550b2",
+          "seed": 13
+        },
+        "INT8_DENSE__M40000": {
+          "arm": "INT8_DENSE",
+          "M": 40000,
+          "recall": 0.4007500112056732,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 14667696,
+          "bytes_per_fact": 366.6924,
+          "elapsed_s": 0.191,
+          "mechanism_hash": "ea88004071a8a0a4692a4fee2e91520fa0b6d46eef4f709f9d7e3b45d41d1988",
+          "seed": 13
+        },
+        "BINARY_DENSE__M40000": {
+          "arm": "BINARY_DENSE",
+          "M": 40000,
+          "recall": 0.226500004529953,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 1829888,
+          "bytes_per_fact": 45.7472,
+          "elapsed_s": 0.213,
+          "mechanism_hash": "4918004a8b425d7439c5b048901a30d09a7028eb8434e426be8192fbfaaf1a7d",
+          "seed": 13
+        },
+        "POSITIVE_CONTROL_NO_QUANT__M40000": {
+          "arm": "POSITIVE_CONTROL_NO_QUANT",
+          "M": 40000,
+          "recall": 0.4000000059604645,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 58556416,
+          "bytes_per_fact": 1463.9104,
+          "elapsed_s": 0.15,
+          "mechanism_hash": "a0ba5b7d67781cde1b85e6ba0c8115957e3a6f2ecf99898d6691562abe666423",
+          "seed": 13
+        },
+        "FP32_DENSE__M80000": {
+          "arm": "FP32_DENSE",
+          "M": 80000,
+          "recall": 0.11125000566244125,
+          "n_facts": 80000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 58556416,
+          "bytes_per_fact": 731.9552,
+          "elapsed_s": 0.295,
+          "mechanism_hash": "27bde63cb456228c3997de05834889f4cfc555389bc928e369c849b1430fe276",
+          "seed": 13
+        },
+        "INT8_DENSE__M80000": {
+          "arm": "INT8_DENSE",
+          "M": 80000,
+          "recall": 0.1118750050663948,
+          "n_facts": 80000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 14667696,
+          "bytes_per_fact": 183.3462,
+          "elapsed_s": 0.297,
+          "mechanism_hash": "718fbb00d6d926727a59ccf0ee5b97defa210c1ecd02a6b2ce9a4abccec03ddb",
+          "seed": 13
+        },
+        "BINARY_DENSE__M80000": {
+          "arm": "BINARY_DENSE",
+          "M": 80000,
+          "recall": 0.06037500128149986,
+          "n_facts": 80000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 1829888,
+          "bytes_per_fact": 22.8736,
+          "elapsed_s": 0.294,
+          "mechanism_hash": "8a817e5e542efc06c8023c6111cd40dd2e0a9dba7b609b87b02553b588db6b77",
+          "seed": 13
+        },
+        "POSITIVE_CONTROL_NO_QUANT__M80000": {
+          "arm": "POSITIVE_CONTROL_NO_QUANT",
+          "M": 80000,
+          "recall": 0.11125000566244125,
+          "n_facts": 80000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 2048,
+          "bytes_total": 58556416,
+          "bytes_per_fact": 731.9552,
+          "elapsed_s": 0.287,
+          "mechanism_hash": "6d474a5f581555e0a29ee54b43bb02124876488c3b700e0861dc19548ed73ea5",
+          "seed": 13
+        }
+      },
+      "M_sweep": [
+        40000,
+        80000
+      ],
+      "arms": [
+        "FP32_DENSE",
+        "INT8_DENSE",
+        "BINARY_DENSE",
+        "POSITIVE_CONTROL_NO_QUANT"
+      ],
+      "anchor_name": "substrate_bytes_per_fact_pareto_v5_seed_13",
+      "config_version": "ANCHOR=substrate_bytes_per_fact_pareto_v5_seed_13,arms=[FP32_DENSE,INT8_DENSE,BINARY_DENSE,POSITIVE_CONTROL_NO_QUANT],N_DIM_DENSE=2048,M_sweep_full=[40000,80000],M_sweep_smoke=[40000,80000],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=13,mode=full,discriminator=INT8_parity_AND_compression_at_M40k_AND_M80k+cross_seed_cv_lt_0p10,parity_tol=0.005,compression_ratio_max=0.30,cross_seed_cv_max=0.10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782889188.9911437
+    }
+  ],
+  "topK": 1,
+  "INT8_PARITY_TOLERANCE": 0.005,
+  "INT8_COMPRESSION_MAX_RATIO": 0.3,
+  "CROSS_SEED_CV_MAX": 0.1,
+  "anchor_name": "substrate_bytes_per_fact_pareto_v5_seed_13",
+  "elapsed_s": 2.46,
+  "ts_iso": "2026-07-01T06:59:49Z",
+  "pid": 24120,
+  "config_version": "ANCHOR=substrate_bytes_per_fact_pareto_v5_seed_13,arms=[FP32_DENSE,INT8_DENSE,BINARY_DENSE,POSITIVE_CONTROL_NO_QUANT],N_DIM_DENSE=2048,M_sweep_full=[40000,80000],M_sweep_smoke=[40000,80000],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=13,mode=full,discriminator=INT8_parity_AND_compression_at_M40k_AND_M80k+cross_seed_cv_lt_0p10,parity_tol=0.005,compression_ratio_max=0.30,cross_seed_cv_max=0.10,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v5_bytes_per_fact_pareto_int8_specialization_chunked",
+  "backend": "cuda:NVIDIA GeForce RTX 4060 Ti",
+  "seed": 13,
+  "corpus_provenance": "synthetic_uniform_KG_5000ent_100rel_M_sweep_40k_80k_holdout_10pct_queries"
+}

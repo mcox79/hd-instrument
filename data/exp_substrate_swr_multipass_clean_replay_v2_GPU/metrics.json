@@ -1,0 +1,279 @@
+{
+  "anchor_name": "substrate_swr_multipass_clean_replay_v2_GPU",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (SWR_MULTIPASS_CEILING_CONFIRMED): all N_REPLAY arms >= 0.9 (clean replay reaches near-DIRECT). M=2048 N_h=8192 N_c=2048 alpha_simple=0.250 mode=full ARM_REPLAY_1=0.985 ARM_REPLAY_2=0.985 ARM_REPLAY_5=0.985 ARM_REPLAY_10=0.985 ARM_REPLAY_20=0.985 | best_arm=ARM_REPLAY_1 best_recall=0.985 best_lift=+0.000 R_REPLAY_1=0.985",
+  "summary": "n_seeds=3 M=2048 N_h=8192 N_c=2048 N_replay=(1, 2, 5, 10, 20) mode=full device=cuda swr_multipass_clean_replay",
+  "elapsed_s": 2.712599039077759,
+  "config_version": "ANCHOR=substrate_swr_multipass_clean_replay_v2_GPU,M=2048,N_h=8192,N_c=2048,alpha_simple=0.250,N_REPLAY=(1, 2, 5, 10, 20),SEEDS=7-17-23,RUN_MODE=full,DEVICE=cuda,hardening=METARULE_AF+METARULE_AH+METARULE_H+SWR_MULTIPASS_CLEAN",
+  "M": 2048,
+  "N_c": 2048,
+  "N_h": 8192,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "backend": "torch",
+  "device": "cuda",
+  "n_seeds": 3,
+  "expected_n_units": 15,
+  "cardinality_ok": true,
+  "run_mode": "full",
+  "alpha_simple": 0.25,
+  "N_replay_values": [
+    1,
+    2,
+    5,
+    10,
+    20
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_REPLAY_1",
+      "N_replay": 1,
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_REPLAY_2",
+      "N_replay": 2,
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_REPLAY_5",
+      "N_replay": 5,
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_REPLAY_10",
+      "N_replay": 10,
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_REPLAY_20",
+      "N_replay": 20,
+      "recall_mean": 0.9850260416666666,
+      "recall_std": 0.0008299185406238257,
+      "n_seeds_ok": 3
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.9798166751861572,
+      "arms": [
+        {
+          "arm_name": "ARM_REPLAY_1",
+          "N_replay": 1,
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 0.22698050737380981,
+          "n_total_writes": 2048,
+          "arm_hash": "55c6bebf6f02a61b",
+          "alpha_simple": 0.25,
+          "wall_s": 0.14703726768493652,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_2",
+          "N_replay": 2,
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 0.45396101474761963,
+          "n_total_writes": 4096,
+          "arm_hash": "6c5f91355dd8db39",
+          "alpha_simple": 0.25,
+          "wall_s": 0.025998592376708984,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_5",
+          "N_replay": 5,
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 1.1349025964736938,
+          "n_total_writes": 10240,
+          "arm_hash": "9400cc758d279785",
+          "alpha_simple": 0.25,
+          "wall_s": 0.040514469146728516,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_10",
+          "N_replay": 10,
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 2.2698051929473877,
+          "n_total_writes": 20480,
+          "arm_hash": "b1715f5f50d7ff8c",
+          "alpha_simple": 0.25,
+          "wall_s": 0.06416821479797363,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_20",
+          "N_replay": 20,
+          "seed": 7,
+          "recall_cortex": 0.9853515625,
+          "n_items": 2048,
+          "cortex_norm": 4.539610385894775,
+          "n_total_writes": 40960,
+          "arm_hash": "039ebed48c7593fb",
+          "alpha_simple": 0.25,
+          "wall_s": 0.07053351402282715,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.8406202793121338,
+      "arms": [
+        {
+          "arm_name": "ARM_REPLAY_1",
+          "N_replay": 1,
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 0.2255333662033081,
+          "n_total_writes": 2048,
+          "arm_hash": "15ce5a378edeac52",
+          "alpha_simple": 0.25,
+          "wall_s": 0.03961491584777832,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_2",
+          "N_replay": 2,
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 0.4510667324066162,
+          "n_total_writes": 4096,
+          "arm_hash": "844e20e130f22193",
+          "alpha_simple": 0.25,
+          "wall_s": 0.048244476318359375,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_5",
+          "N_replay": 5,
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 1.1276668310165405,
+          "n_total_writes": 10240,
+          "arm_hash": "ddc91ec5c5135a8e",
+          "alpha_simple": 0.25,
+          "wall_s": 0.03614974021911621,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_10",
+          "N_replay": 10,
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 2.255333662033081,
+          "n_total_writes": 20480,
+          "arm_hash": "7747b68c22753747",
+          "alpha_simple": 0.25,
+          "wall_s": 0.04432225227355957,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_20",
+          "N_replay": 20,
+          "seed": 17,
+          "recall_cortex": 0.98583984375,
+          "n_items": 2048,
+          "cortex_norm": 4.510667324066162,
+          "n_total_writes": 40960,
+          "arm_hash": "23a20d6bb582ba27",
+          "alpha_simple": 0.25,
+          "wall_s": 0.0913245677947998,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 0.7792727947235107,
+      "arms": [
+        {
+          "arm_name": "ARM_REPLAY_1",
+          "N_replay": 1,
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 0.2273990362882614,
+          "n_total_writes": 2048,
+          "arm_hash": "9bb8765ce0b0719a",
+          "alpha_simple": 0.25,
+          "wall_s": 0.028055906295776367,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_2",
+          "N_replay": 2,
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 0.4547980725765228,
+          "n_total_writes": 4096,
+          "arm_hash": "0b478c5d93d51045",
+          "alpha_simple": 0.25,
+          "wall_s": 0.026080608367919922,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_5",
+          "N_replay": 5,
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 1.1369951963424683,
+          "n_total_writes": 10240,
+          "arm_hash": "053ac82431f3f6bd",
+          "alpha_simple": 0.25,
+          "wall_s": 0.04100370407104492,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_10",
+          "N_replay": 10,
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 2.2739903926849365,
+          "n_total_writes": 20480,
+          "arm_hash": "996e4bf05547c162",
+          "alpha_simple": 0.25,
+          "wall_s": 0.07838082313537598,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_REPLAY_20",
+          "N_replay": 20,
+          "seed": 23,
+          "recall_cortex": 0.98388671875,
+          "n_items": 2048,
+          "cortex_norm": 4.547980785369873,
+          "n_total_writes": 40960,
+          "arm_hash": "58d60b4efa0c4898",
+          "alpha_simple": 0.25,
+          "wall_s": 0.08114910125732422,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

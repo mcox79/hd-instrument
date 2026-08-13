@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_hierarchical_bank_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=9 SMOKE=6; 3 structures registered: ['flat', 'partition_by_source', 'hierarchical_2level']; CRLB flat_64K_SNR=0.358 partition_M_eff8000_SNR=1.012; sanity flat: M=200 N=1024 rec=0.205 route_acc=1.000; sanity partition_by_source: M=200 N=1024 rec=1.000 route_acc=1.000; sanity hierarchical_2level: M=200 N=1024 rec=0.680 route_acc=0.680; partition 1.000 >= HP_LO 0.8; hierarchical 0.680 >= MB_LO 0.5; flat=0.205; router sanity: routing_acc=0.6800 in [0.50, 1.000] (Q-guard defers to smoke/full at scale); distinctness sanity: 3/3 structure pairs distinct",
+  "summary": "cardinality FULL=9 SMOKE=6; 3 structures registered: ['flat', 'partition_by_source', 'hierarchical_2level']; CRLB flat_64K_SNR=0.358 partition_M_eff8000_SNR=1.012; sanity flat: M=200 N=1024 rec=0.205 route_acc=1.000; sanity partition_by_source: M=200 N=1024 rec=1.000 route_acc=1.000; sanity hierarchical_2level: M=200 N=1024 rec=0.680 route_acc=0.680; partition 1.000 >= HP_LO 0.8; hierarchical 0.680 >= MB_LO 0.5; flat=0.205; router sanity: routing_acc=0.6800 in [0.50, 1.000] (Q-guard defers to smoke/full at scale); distinctness sanity: 3/3 structure pairs distinct",
+  "elapsed_s": 4.7,
+  "ts_iso": "2026-07-01T03:59:40Z",
+  "pid": 11844,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_hierarchical_bank_v1_seed_7,structures=[flat,partition_by_source,hierarchical_2level],encoder=bipolar_numpy,N=8192,SEED=7,mode=selftest,M_full=[4000,16000,64000],M_smoke=[4000,64000],n_super_banks=8,CUE_ROUTE_COS=0.85,CUE_COS=0.70,expected_n_full=9,expected_n_smoke=6,HP_CAP_LIFT=1.20,HP_ROUTE_MIN=0.95,HP_ROUTE_MAX=0.995,HF_ROUTE_MIN=0.85,MB_LIFT_SMOKE=1.10,META_RULE_AX_AY_AR_Q_AT_AG,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_hierarchical_bank_numpy",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

@@ -1,0 +1,981 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_FULL_3seeds_N4096_Mmax10000_DENSE_noise1.000_cap10000_pur0.800_COMP_noise0.065_cap10_pur0.738_HPnoise=False_HPcap=False_HPcluster=False_endpoint=True_elapsed_1579.4s",
+  "elapsed_s": 1579.4065611362457,
+  "summary": {
+    "anchor": "sparse_engram_allocation_smoke_v1",
+    "config_version": "sparse_engram_allocation_smoke_v1: 5 arms (DENSE / K100 / K50 / K20 / K10_COMPETITIVE); N_DIM=4096 M_MAX=10000 N_EVAL=200 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0]; HP: noise-sigma=1.5 recall_floor=0.10 AND capacity-lift>=2.0x AND cluster-gap>=0.10",
+    "run_mode": "full",
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "N_DIM": 4096,
+    "M_MAX": 10000,
+    "N_EVAL": 200,
+    "SIGMA_TEST": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "M_SWEEP": [
+      10,
+      100,
+      500,
+      1000,
+      2500,
+      5000,
+      10000
+    ],
+    "arms": {
+      "ARM_DENSE_BASELINE": {
+        "noise_recall_mean": 1.0,
+        "noise_recall_std": 0.0,
+        "capacity_mean": 10000.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.7999999999999999,
+        "purity_std": 0.16329931618554522
+      },
+      "ARM_SPARSE_K100": {
+        "noise_recall_mean": 0.9933333333333333,
+        "noise_recall_std": 0.004714045207910321,
+        "capacity_mean": 10000.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.9,
+        "purity_std": 0.0
+      },
+      "ARM_SPARSE_K50": {
+        "noise_recall_mean": 0.805,
+        "noise_recall_std": 0.02677063067368166,
+        "capacity_mean": 10000.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.8283333333333335,
+        "purity_std": 0.05104464277037851
+      },
+      "ARM_SPARSE_K20": {
+        "noise_recall_mean": 0.19499999999999998,
+        "noise_recall_std": 0.008164965809277256,
+        "capacity_mean": 2500.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.7816666666666667,
+        "purity_std": 0.07352248333370928
+      },
+      "ARM_SPARSE_K10_COMPETITIVE": {
+        "noise_recall_mean": 0.065,
+        "noise_recall_std": 0.01224744871391589,
+        "capacity_mean": 10.0,
+        "capacity_std": 0.0,
+        "purity_mean": 0.7383333333333333,
+        "purity_std": 0.0590668171555645
+      }
+    },
+    "hp_gates": {
+      "hp_noise_ok": false,
+      "hp_cap_ok": false,
+      "hp_cluster_ok": false,
+      "endpoint_ok": true,
+      "hp_noise_floor": 0.1,
+      "hp_noise_sigma": 1.5,
+      "hp_capacity_lift_mult": 2.0,
+      "hp_cluster_gap": 0.1
+    },
+    "hf_gates": {
+      "hf_noise": true,
+      "hf_cap": true,
+      "hf_cluster": true
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 10000,
+      "run_mode": "full",
+      "arms": {
+        "ARM_DENSE_BASELINE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 0.8,
+          "arm_elapsed_s": 1.488574504852295
+        },
+        "ARM_SPARSE_K100": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.95
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.92
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.91
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.87
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.87
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 0.9,
+          "arm_elapsed_s": 5.926745176315308
+        },
+        "ARM_SPARSE_K50": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.8
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.99,
+              "sigma_2.0": 0.81
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.96,
+              "sigma_2.0": 0.69
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.9,
+              "sigma_2.0": 0.645
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.845,
+              "sigma_2.0": 0.51
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.85,
+              "sigma_2.0": 0.435
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.84,
+              "sigma_2.0": 0.395
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 0.84,
+          "cluster_purity": 0.785,
+          "arm_elapsed_s": 6.457669496536255
+        },
+        "ARM_SPARSE_K20": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.9,
+              "sigma_2.0": 0.8
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.91,
+              "sigma_1.5": 0.62,
+              "sigma_2.0": 0.41
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.915,
+              "sigma_1.5": 0.465,
+              "sigma_2.0": 0.165
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.89,
+              "sigma_1.5": 0.39,
+              "sigma_2.0": 0.18
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.85,
+              "sigma_1.5": 0.285,
+              "sigma_2.0": 0.145
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.765,
+              "sigma_1.5": 0.22,
+              "sigma_2.0": 0.085
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.71,
+              "sigma_1.5": 0.205,
+              "sigma_2.0": 0.06
+            }
+          },
+          "capacity_at_sigma_1p0": 2500,
+          "noise_recall_sigma_1.5": 0.205,
+          "cluster_purity": 0.87,
+          "arm_elapsed_s": 6.257343292236328
+        },
+        "ARM_SPARSE_K10_COMPETITIVE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.9,
+              "sigma_1.5": 0.9,
+              "sigma_2.0": 0.4
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.76,
+              "sigma_1.5": 0.43,
+              "sigma_2.0": 0.21
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.595,
+              "sigma_1.5": 0.2,
+              "sigma_2.0": 0.055
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.42,
+              "sigma_1.5": 0.13,
+              "sigma_2.0": 0.05
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.335,
+              "sigma_1.5": 0.075,
+              "sigma_2.0": 0.035
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.99,
+              "sigma_1.0": 0.31,
+              "sigma_1.5": 0.05,
+              "sigma_2.0": 0.03
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.99,
+              "sigma_1.0": 0.205,
+              "sigma_1.5": 0.05,
+              "sigma_2.0": 0.04
+            }
+          },
+          "capacity_at_sigma_1p0": 10,
+          "noise_recall_sigma_1.5": 0.05,
+          "cluster_purity": 0.775,
+          "arm_elapsed_s": 872.5284473896027
+        }
+      },
+      "elapsed_s": 892.6617772579193,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782253159.3738148
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 10000,
+      "run_mode": "full",
+      "arms": {
+        "ARM_DENSE_BASELINE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 1.0,
+          "arm_elapsed_s": 66.9342794418335
+        },
+        "ARM_SPARSE_K100": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.995,
+              "sigma_2.0": 0.965
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.93
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.915
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.995,
+              "sigma_2.0": 0.91
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.99,
+              "sigma_2.0": 0.905
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 0.99,
+          "cluster_purity": 0.9,
+          "arm_elapsed_s": 31.440978527069092
+        },
+        "ARM_SPARSE_K50": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.98,
+              "sigma_2.0": 0.85
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.925,
+              "sigma_2.0": 0.625
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.945,
+              "sigma_2.0": 0.62
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.86,
+              "sigma_2.0": 0.515
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.83,
+              "sigma_2.0": 0.495
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.775,
+              "sigma_2.0": 0.41
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 0.775,
+          "cluster_purity": 0.9,
+          "arm_elapsed_s": 30.598087787628174
+        },
+        "ARM_SPARSE_K20": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.5
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.97,
+              "sigma_1.5": 0.7,
+              "sigma_2.0": 0.3
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.915,
+              "sigma_1.5": 0.465,
+              "sigma_2.0": 0.28
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.84,
+              "sigma_1.5": 0.43,
+              "sigma_2.0": 0.18
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.87,
+              "sigma_1.5": 0.3,
+              "sigma_2.0": 0.115
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.78,
+              "sigma_1.5": 0.27,
+              "sigma_2.0": 0.12
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.735,
+              "sigma_1.5": 0.185,
+              "sigma_2.0": 0.07
+            }
+          },
+          "capacity_at_sigma_1p0": 2500,
+          "noise_recall_sigma_1.5": 0.185,
+          "cluster_purity": 0.69,
+          "arm_elapsed_s": 28.79227066040039
+        },
+        "ARM_SPARSE_K10_COMPETITIVE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.6,
+              "sigma_2.0": 0.8
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.67,
+              "sigma_1.5": 0.36,
+              "sigma_2.0": 0.2
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.515,
+              "sigma_1.5": 0.19,
+              "sigma_2.0": 0.075
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.48,
+              "sigma_1.5": 0.14,
+              "sigma_2.0": 0.045
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.99,
+              "sigma_1.0": 0.385,
+              "sigma_1.5": 0.105,
+              "sigma_2.0": 0.015
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.295,
+              "sigma_1.5": 0.075,
+              "sigma_2.0": 0.025
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.98,
+              "sigma_1.0": 0.235,
+              "sigma_1.5": 0.08,
+              "sigma_2.0": 0.025
+            }
+          },
+          "capacity_at_sigma_1p0": 10,
+          "noise_recall_sigma_1.5": 0.08,
+          "cluster_purity": 0.785,
+          "arm_elapsed_s": 282.9828863143921
+        }
+      },
+      "elapsed_s": 440.75237488746643,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782253600.678557
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 10000,
+      "run_mode": "full",
+      "arms": {
+        "ARM_DENSE_BASELINE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 1.0,
+          "cluster_purity": 0.6,
+          "arm_elapsed_s": 6.744282960891724
+        },
+        "ARM_SPARSE_K100": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 1.0
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.99
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.975
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.925
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.865
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.91
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.99,
+              "sigma_2.0": 0.82
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 0.99,
+          "cluster_purity": 0.9,
+          "arm_elapsed_s": 6.5027852058410645
+        },
+        "ARM_SPARSE_K50": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 1.0,
+              "sigma_2.0": 0.8
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.94,
+              "sigma_2.0": 0.85
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.94,
+              "sigma_2.0": 0.715
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.905,
+              "sigma_2.0": 0.565
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.835,
+              "sigma_2.0": 0.555
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.99,
+              "sigma_1.5": 0.8,
+              "sigma_2.0": 0.455
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.995,
+              "sigma_1.5": 0.8,
+              "sigma_2.0": 0.435
+            }
+          },
+          "capacity_at_sigma_1p0": 10000,
+          "noise_recall_sigma_1.5": 0.8,
+          "cluster_purity": 0.8,
+          "arm_elapsed_s": 6.729552984237671
+        },
+        "ARM_SPARSE_K20": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 1.0,
+              "sigma_1.5": 0.8,
+              "sigma_2.0": 0.7
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.96,
+              "sigma_1.5": 0.7,
+              "sigma_2.0": 0.42
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.88,
+              "sigma_1.5": 0.53,
+              "sigma_2.0": 0.225
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.925,
+              "sigma_1.5": 0.375,
+              "sigma_2.0": 0.215
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.825,
+              "sigma_1.5": 0.36,
+              "sigma_2.0": 0.13
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.77,
+              "sigma_1.5": 0.25,
+              "sigma_2.0": 0.065
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.695,
+              "sigma_1.5": 0.195,
+              "sigma_2.0": 0.07
+            }
+          },
+          "capacity_at_sigma_1p0": 2500,
+          "noise_recall_sigma_1.5": 0.195,
+          "cluster_purity": 0.785,
+          "arm_elapsed_s": 6.214871168136597
+        },
+        "ARM_SPARSE_K10_COMPETITIVE": {
+          "recall_grid": {
+            "M_10": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.9,
+              "sigma_1.5": 0.6,
+              "sigma_2.0": 0.8
+            },
+            "M_100": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.74,
+              "sigma_1.5": 0.41,
+              "sigma_2.0": 0.19
+            },
+            "M_500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.56,
+              "sigma_1.5": 0.22,
+              "sigma_2.0": 0.075
+            },
+            "M_1000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.435,
+              "sigma_1.5": 0.115,
+              "sigma_2.0": 0.06
+            },
+            "M_2500": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 1.0,
+              "sigma_1.0": 0.385,
+              "sigma_1.5": 0.12,
+              "sigma_2.0": 0.02
+            },
+            "M_5000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.29,
+              "sigma_1.5": 0.05,
+              "sigma_2.0": 0.015
+            },
+            "M_10000": {
+              "sigma_0.0": 1.0,
+              "sigma_0.5": 0.995,
+              "sigma_1.0": 0.27,
+              "sigma_1.5": 0.065,
+              "sigma_2.0": 0.01
+            }
+          },
+          "capacity_at_sigma_1p0": 10,
+          "noise_recall_sigma_1.5": 0.065,
+          "cluster_purity": 0.655,
+          "arm_elapsed_s": 219.80091667175293
+        }
+      },
+      "elapsed_s": 245.99240899085999,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782253846.7468982
+    }
+  }
+}

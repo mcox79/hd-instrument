@@ -1,0 +1,80 @@
+{
+  "anchor_name": "substrate_two_codebook_sparse_storage_dense_compose_v1",
+  "verdict": "READOUT_DEGENERATE",
+  "verdict_msg": "READOUT_DEGENERATE: ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE raw_bpc near vocab entropy; two-codebook architecture not evaluated. Needs recalibration. | uni=bpc7.7378 | ARM_ALL_SPARSE_RANK1=bpc7.3065 | ARM_ALL_DENSE_RANK1=bpc7.6128 | ARM_SPARSE_STORAGE_DENSE_COMPOSE=bpc7.8309(lift=-0.5244) | ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE=bpc7.8919(lift=-0.5854)cv=0.0002",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "SEEDS": [
+    7,
+    17,
+    23
+  ],
+  "ARMS": [
+    "ARM_UNIGRAM",
+    "ARM_ALL_SPARSE_RANK1",
+    "ARM_ALL_DENSE_RANK1",
+    "ARM_SPARSE_STORAGE_DENSE_COMPOSE",
+    "ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE"
+  ],
+  "SPARSE_BIPOLAR_F": 0.05,
+  "CFRPE_LR": 0.5,
+  "N_STEPS": 1000,
+  "lift_primary": -0.5854,
+  "lift_two_codebook_only": -0.5244,
+  "provenance_ok": true,
+  "dense_not_degenerate": true,
+  "degen_arms": [
+    "ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE",
+    "ARM_ALL_SPARSE_RANK1",
+    "ARM_SPARSE_STORAGE_DENSE_COMPOSE",
+    "ARM_ALL_DENSE_RANK1"
+  ],
+  "pre_reg": {
+    "HARD_PASS_LIFT": 0.2,
+    "CHAIN_GRADE_BONUS_LIFT": 0.3,
+    "HARD_FAIL_LIFT": 0.05,
+    "CFRPE_CHAIN_GRADE_BPC": 7.1052,
+    "BASELINE_SPARSE_BPC": 7.3065,
+    "PROVENANCE_TOL": 0.05
+  },
+  "n_seeds_complete": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0,
+        "bpc_cv": 0.0,
+        "n_seeds": 3
+      },
+      "ARM_ALL_SPARSE_RANK1": {
+        "bpc_mean": 7.3065,
+        "bpc_std": 0.0132,
+        "bpc_cv": 0.0018,
+        "n_seeds": 3
+      },
+      "ARM_ALL_DENSE_RANK1": {
+        "bpc_mean": 7.6128,
+        "bpc_std": 0.0028,
+        "bpc_cv": 0.0004,
+        "n_seeds": 3
+      },
+      "ARM_SPARSE_STORAGE_DENSE_COMPOSE": {
+        "bpc_mean": 7.8309,
+        "bpc_std": 0.0016,
+        "bpc_cv": 0.0002,
+        "n_seeds": 3
+      },
+      "ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE": {
+        "bpc_mean": 7.8919,
+        "bpc_std": 0.0015,
+        "bpc_cv": 0.0002,
+        "n_seeds": 3
+      }
+    }
+  },
+  "elapsed_s": 721.1,
+  "summary": "READOUT_DEGENERATE: ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE raw_bpc near vocab entropy; two-codebook architecture not evaluated. Needs recalibration. | uni=bpc7.7378 | ARM_ALL_SPARSE_RANK1=bpc7.3065 | ARM_ALL_DENSE_RANK1=bpc7.6128 | ARM_SPARSE_STORAGE_DENSE_COMPOSE=bpc7.8309(lift=-0.5244) | ARM_SPARSE_STORAGE_DENSE_COMPOSE_PLUS_CFRPE=bpc7.8919(lift=-0.5854)cv=0.0002"
+}

@@ -1,0 +1,11 @@
+{
+  "anchor_name": "trigram_downstream_ingest_probe_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "IMPORT_CRASH: SystemExit: 0",
+  "summary": "IMPORT_CRASH: SystemExit: 0",
+  "elapsed_s": 0.0,
+  "ts_iso": "2026-06-27T22:16:33Z",
+  "pid": 6232,
+  "_traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_trigram_downstream_ingest_probe_v1.py\", line 488, in <module>\n    sys.exit(rc)\nSystemExit: 0\n",
+  "_hardening_marker": "v1_trigram_downstream_ingest_probe_import_crash"
+}

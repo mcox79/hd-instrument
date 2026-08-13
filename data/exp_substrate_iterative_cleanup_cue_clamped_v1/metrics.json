@@ -1,0 +1,53 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ARM_CLAMPED best alpha=0.3: acc=0.2250 lift=+0.0750 >= 0.05 vs ARM_SINGLE_STEP acc=0.1500. CV=0.0000 <= 0.1 (stable). ARM_CURRENT (alpha=0.0) acc=0.1250 lift=-0.0250 (confirms self-consistent collapse). Brain-canonical cue-clamping rescues multi-iter cleanup. Attractor LM +46.6% perplexity mechanism confirmed in substrate. ; WHAT_THIS_DOES_NOT_SHOW: (1) whether cue-clamping helps at production N=8192 scale; (2) whether result generalizes beyond random Gaussian codebooks; (3) whether alpha optimal value varies with noise level or M/N ratio.",
+  "arm_summary": {
+    "ARM_SINGLE_STEP": {
+      "accuracy_mean": 0.15,
+      "accuracy_std": 0.0,
+      "accuracy_cv": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_CURRENT": {
+      "accuracy_mean": 0.125,
+      "accuracy_std": 0.0,
+      "accuracy_cv": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_CLAMPED_ALPHA_03": {
+      "accuracy_mean": 0.225,
+      "accuracy_std": 0.0,
+      "accuracy_cv": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_CLAMPED_ALPHA_05": {
+      "accuracy_mean": 0.125,
+      "accuracy_std": 0.0,
+      "accuracy_cv": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_CLAMPED_ALPHA_07": {
+      "accuracy_mean": 0.125,
+      "accuracy_std": 0.0,
+      "accuracy_cv": 0.0,
+      "n_seeds": 1
+    }
+  },
+  "acc_single_step": 0.15,
+  "acc_current_a00": 0.125,
+  "acc_clamped_a03": 0.225,
+  "acc_clamped_a05": 0.125,
+  "acc_clamped_a07": 0.125,
+  "lift_best_vs_ss": 0.07500000000000001,
+  "n_seeds": 1,
+  "noise_sigma": 0.8912509381337456,
+  "snr_db": 2.0,
+  "config_version": "substrate_iterative_cleanup_cue_clamped_v1; N_DIM=256 M=64 N_TRIALS=40 MAX_STEPS=8 SNR_DB=2.0 noise_sigma=0.8913 SEEDS=[0] ARMS=['ARM_SINGLE_STEP', 'ARM_CURRENT', 'ARM_CLAMPED_ALPHA_03', 'ARM_CLAMPED_ALPHA_05', 'ARM_CLAMPED_ALPHA_07'] mode=smoke bands HP_acc=0.05 HP_cv=0.10 HF=0.02 mid=[0.02,0.05]",
+  "pre_reg": {
+    "HARD_PASS": "best ARM_CLAMPED acc >= ARM_SINGLE_STEP + 0.05 AND cv <= 0.1",
+    "HARD_FAIL": "all ARM_CLAMPED within +-0.02 of ARM_SINGLE_STEP",
+    "MIDDLE_BAND": "lift in [0.02,0.05]"
+  },
+  "elapsed_s": 0.0,
+  "summary": "ARM_CLAMPED best alpha=0.3: acc=0.2250 lift=+0.0750 >= 0.05 vs ARM_SINGLE_STEP acc=0.1500. CV=0.0000 <= 0.1 (stable). ARM_CURRENT (alpha=0.0) acc=0.1250 lift=-0.0250 (confirms self-consistent collapse). Brain-canonical cue-clamping rescues multi-iter cleanup. Attractor LM +46.6% perplexity mechanism confirmed in substrate. ; WHAT_THIS_DOES_NOT_SHOW: (1) whether cue-clamping helps at production N=8192 scale; (2) whether result generalizes beyond random Gaussian codebooks; (3) whether alpha optimal value varies with noise level or M/N ratio."
+}

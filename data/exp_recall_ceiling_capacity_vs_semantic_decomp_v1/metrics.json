@@ -1,0 +1,298 @@
+{
+  "verdict": "HARD_SEMANTIC",
+  "verdict_msg": "HARD_SEMANTIC | RECALL PRIMARY(faithful N=4096): FULL_recall=0.511 D=+0.401 (sem_gain=+0.489 [fidelity=+0.489 corr=+0.255] cap_gain=+0.088) -> HARD_SEMANTIC. CAPACITY-SATURATION control(starved N=64): cap_gain_starved=+0.441 vs cap_gain_provisioned=+0.088 lever_fires=True. COS-TO-TARGET ceiling: N-effect=0.0029739171266555953 vs teacher-effect=+0.463 -> SEMANTIC. Load-bearing rank(recall): semantic_fidelity(+0.489) > semantic_correlation(+0.255) > capacity(+0.088). slopes dR/dN=1.88e-05 dR/dSigmaE=-1.179 dR/dRho=-0.980.",
+  "summary": "HARD_SEMANTIC: recall-ceiling decomposition (full)",
+  "run_mode": "full",
+  "elapsed_s": 271.18152529996587,
+  "ts_iso": "2026-07-08T10:01:54.452366+00:00",
+  "anchor_name": "recall_ceiling_capacity_vs_semantic_decomp_v1",
+  "cardinality_ok": true,
+  "expected_n_units": 10,
+  "n_units": 10,
+  "primary_verdict": "HARD_SEMANTIC",
+  "control_lever_fires": true,
+  "cap_gain_starved": 0.44066666666666665,
+  "cap_gain_provisioned": 0.088,
+  "D_primary": 0.40133333333333326,
+  "D_control": -0.013666666666666693,
+  "cos_ceiling_verdict": "SEMANTIC",
+  "cos_N_effect": 0.0029739171266555953,
+  "cos_teacher_effect": 0.4632006764411926,
+  "load_bearing_ranking": [
+    [
+      "semantic_fidelity",
+      0.48933333333333334
+    ],
+    [
+      "semantic_correlation",
+      0.255
+    ],
+    [
+      "capacity",
+      0.088
+    ]
+  ],
+  "primary_regime": {
+    "N": 4096,
+    "N_high": 16384,
+    "V": 20000,
+    "G": 200,
+    "rho": 0.5,
+    "se": 1.5,
+    "se_lo": 0.4,
+    "nq": 600
+  },
+  "control_regime": {
+    "N": 64,
+    "N_high": 512,
+    "V": 20000,
+    "G": 200,
+    "rho": 0.0,
+    "se": 0.6,
+    "se_lo": 0.3,
+    "nq": 600
+  },
+  "primary_agg": {
+    "n_seeds": 5,
+    "recall_mean": {
+      "FULL": 0.5106666666666667,
+      "CAP_IDEAL": 0.5986666666666667,
+      "SEM_IDEAL": 1.0,
+      "ORACLE": 1.0,
+      "SEM_FIDELITY_IDEAL": 1.0,
+      "SEM_CORR_IDEAL": 0.7656666666666667
+    },
+    "cos_to_target_mean": {
+      "FULL": 0.19916064739227296,
+      "CAP_IDEAL": 0.20025516748428346,
+      "SEM_IDEAL": 0.6623173832893372,
+      "ORACLE": 0.6628152370452881,
+      "SEM_FIDELITY_IDEAL": 0.6623613238334656,
+      "SEM_CORR_IDEAL": 0.19975195229053497
+    },
+    "gains_mean": {
+      "capacity_gain": 0.088,
+      "semantic_gain": 0.48933333333333334,
+      "fidelity_gain": 0.48933333333333334,
+      "correlation_gain": 0.255,
+      "oracle_gap": 0.48933333333333334,
+      "D": 0.40133333333333326,
+      "interaction": -0.088
+    },
+    "gains_cv": {
+      "capacity_gain": 0.1921765286964518,
+      "semantic_gain": 0.02526871524658232,
+      "fidelity_gain": 0.02526871524658232,
+      "correlation_gain": 0.0815292346641187,
+      "oracle_gap": 0.02526871524658232,
+      "D": 0.017302879282391742,
+      "interaction": 0.1921765286964518
+    },
+    "D_per_seed": [
+      0.41000000000000003,
+      0.3966666666666666,
+      0.3916666666666667,
+      0.4,
+      0.4083333333333333
+    ],
+    "FULL_recall_per_seed": [
+      0.5033333333333333,
+      0.5083333333333333,
+      0.5016666666666667,
+      0.505,
+      0.535
+    ]
+  },
+  "control_agg": {
+    "n_seeds": 5,
+    "recall_mean": {
+      "FULL": 0.5593333333333333,
+      "CAP_IDEAL": 1.0,
+      "SEM_IDEAL": 0.9863333333333333,
+      "ORACLE": 1.0,
+      "SEM_FIDELITY_IDEAL": 0.9863333333333333,
+      "SEM_CORR_IDEAL": 0.5593333333333333
+    },
+    "cos_to_target_mean": {
+      "FULL": 0.5280208230018616,
+      "CAP_IDEAL": 0.5266210913658143,
+      "SEM_IDEAL": 0.7408437609672547,
+      "ORACLE": 0.7404804825782776,
+      "SEM_FIDELITY_IDEAL": 0.7408437609672547,
+      "SEM_CORR_IDEAL": 0.5280208230018616
+    },
+    "gains_mean": {
+      "capacity_gain": 0.44066666666666665,
+      "semantic_gain": 0.42699999999999994,
+      "fidelity_gain": 0.42699999999999994,
+      "correlation_gain": 0.0,
+      "oracle_gap": 0.44066666666666665,
+      "D": -0.013666666666666693,
+      "interaction": -0.42699999999999994
+    },
+    "gains_cv": {
+      "capacity_gain": 0.03160753769406377,
+      "semantic_gain": 0.03297222807485217,
+      "fidelity_gain": 0.03297222807485217,
+      "correlation_gain": 0.0,
+      "oracle_gap": 0.03160753769406377,
+      "D": 0.14221833889866553,
+      "interaction": 0.03297222807485217
+    },
+    "D_per_seed": [
+      -0.013333333333333308,
+      -0.01666666666666672,
+      -0.011666666666666714,
+      -0.015000000000000013,
+      -0.011666666666666714
+    ],
+    "FULL_recall_per_seed": [
+      0.585,
+      0.555,
+      0.5433333333333333,
+      0.5533333333333333,
+      0.56
+    ]
+  },
+  "sensitivity_slopes": {
+    "dRecall_dN": 1.87717013888889e-05,
+    "dRecall_dSigmaE": -1.1791666666666658,
+    "dRecall_dRho": -0.9800000000000001
+  },
+  "sensitivity_sweeps": {
+    "N": [
+      {
+        "x": 64.0,
+        "recall": 0.006,
+        "cos_to_target": 0.19728125035762786
+      },
+      {
+        "x": 128.0,
+        "recall": 0.022,
+        "cos_to_target": 0.19757812321186066
+      },
+      {
+        "x": 256.0,
+        "recall": 0.08199999999999999,
+        "cos_to_target": 0.1987708330154419
+      },
+      {
+        "x": 512.0,
+        "recall": 0.18633333333333335,
+        "cos_to_target": 0.199609375
+      },
+      {
+        "x": 1024.0,
+        "recall": 0.33566666666666667,
+        "cos_to_target": 0.19895898401737214
+      },
+      {
+        "x": 2048.0,
+        "recall": 0.44699999999999995,
+        "cos_to_target": 0.19914453327655793
+      },
+      {
+        "x": 4096.0,
+        "recall": 0.5106666666666667,
+        "cos_to_target": 0.19916064739227296
+      },
+      {
+        "x": 8192.0,
+        "recall": 0.5623333333333334,
+        "cos_to_target": 0.20010831952095032
+      },
+      {
+        "x": 16384.0,
+        "recall": 0.5986666666666667,
+        "cos_to_target": 0.20025516748428346
+      }
+    ],
+    "sigma_e": [
+      {
+        "x": 0.4,
+        "recall": 1.0,
+        "cos_to_target": 0.6623613238334656
+      },
+      {
+        "x": 0.6,
+        "recall": 1.0,
+        "cos_to_target": 0.52675861120224
+      },
+      {
+        "x": 0.8,
+        "recall": 1.0,
+        "cos_to_target": 0.4180558264255524
+      },
+      {
+        "x": 1.0,
+        "recall": 0.9870000000000001,
+        "cos_to_target": 0.33365690112113955
+      },
+      {
+        "x": 1.2,
+        "recall": 0.8766666666666666,
+        "cos_to_target": 0.26897884011268614
+      },
+      {
+        "x": 1.4,
+        "recall": 0.6483333333333334,
+        "cos_to_target": 0.21953336596488954
+      },
+      {
+        "x": 1.6,
+        "recall": 0.4050000000000001,
+        "cos_to_target": 0.18125911056995392
+      },
+      {
+        "x": 1.8,
+        "recall": 0.23399999999999999,
+        "cos_to_target": 0.15156201124191285
+      }
+    ],
+    "rho": [
+      {
+        "x": 0.0,
+        "recall": 0.7656666666666667,
+        "cos_to_target": 0.19975195229053497
+      },
+      {
+        "x": 0.2,
+        "recall": 0.748,
+        "cos_to_target": 0.19913671910762787
+      },
+      {
+        "x": 0.4,
+        "recall": 0.6573333333333333,
+        "cos_to_target": 0.19922347068786622
+      },
+      {
+        "x": 0.6,
+        "recall": 0.356,
+        "cos_to_target": 0.19925228059291838
+      },
+      {
+        "x": 0.8,
+        "recall": 0.09266666666666666,
+        "cos_to_target": 0.19902099668979645
+      },
+      {
+        "x": 0.9,
+        "recall": 0.03633333333333334,
+        "cos_to_target": 0.19902327358722688
+      }
+    ]
+  },
+  "cos_to_target_N_range": 0.0029739171266555953,
+  "bands": {
+    "D_margin": 0.15,
+    "gain_floor": 0.2,
+    "ctrl_lever_floor": 0.2
+  },
+  "seeds": [
+    7,
+    13,
+    19,
+    23,
+    29
+  ]
+}

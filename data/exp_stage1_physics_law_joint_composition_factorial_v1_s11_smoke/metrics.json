@@ -1,0 +1,343 @@
+{
+  "phase_map": [
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "d9a415936186e224",
+      "bundle_hash": "bc27ac6ab73a22f6",
+      "output_hash": "794c2794db3abedb",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.12
+    },
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.45,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "5b07e6ee8a985732",
+      "bundle_hash": "9eaa22e9ad7d54ae",
+      "output_hash": "0e2155bec905151e",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.114
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "35d834aaf1811756",
+      "bundle_hash": "dfa1f788d4107732",
+      "output_hash": "f12bef76648d0d33",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.119
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.45,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "8cdf983fef96ee9f",
+      "bundle_hash": "c374e2ee1b095fb7",
+      "output_hash": "678f8620f07af87f",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.09
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "ac383067c2e9393e",
+      "bundle_hash": "5fe808e7864ce9a0",
+      "output_hash": "dfc348a022e9aec1",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.127
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.45,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "3bf0a83cc0e3b66a",
+      "bundle_hash": "ac53f83fea76d3a2",
+      "output_hash": "738e418705bf587c",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.106
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "BUNDLED",
+      "TR": 40,
+      "acc": 0.0,
+      "shard_hash": "a3757e07288d41b2",
+      "bundle_hash": "ec9f92c1966e5818",
+      "output_hash": "9b56b4ff73b3a02b",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.108,
+      "is_bundled_pc": true
+    }
+  ],
+  "expected_n_units": 7,
+  "observed_n_units": 7,
+  "cardinality_ok": true,
+  "mech_output_hash_agg": {
+    "modern_hopfield": "7e58a6dd1f03f936",
+    "iterative_cosine": "340cd0fb960b113b",
+    "soft_energy_attractor": "ee2af1ab629d00e4"
+  },
+  "n_distinct_mechanisms": 3,
+  "pc_reproduce_iterative_cosine_regime": {
+    "M": 800,
+    "N": 2048,
+    "F": 1,
+    "L": 2,
+    "corruption": 0.2,
+    "acc": 1.0,
+    "threshold": 0.75,
+    "pass": true
+  },
+  "bundle_pc_result": {
+    "regime": {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2
+    },
+    "bundle_acc": 0.0,
+    "sharded_at_same_regime_acc": 1.0,
+    "storage_gap_sharded_minus_bundled": 1.0
+  },
+  "mechanism_variation_at_cliff": {
+    "M800_N2048_F1_L2_c0.45": 0.0
+  },
+  "max_mechanism_variation_at_cliff": 0.0,
+  "per_axis_marginals": {
+    "cleanup_mechanism": {
+      "modern_hopfield": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 2
+      },
+      "iterative_cosine": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 2
+      },
+      "soft_energy_attractor": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 2
+      }
+    },
+    "M": {
+      "800": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 6
+      }
+    },
+    "N": {
+      "2048": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 6
+      }
+    },
+    "F": {
+      "1": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 6
+      }
+    },
+    "L": {
+      "2": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 6
+      }
+    },
+    "corruption": {
+      "0.2": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 3
+      },
+      "0.45": {
+        "mean_acc": 1.0,
+        "std_acc": 0.0,
+        "n": 3
+      }
+    }
+  },
+  "grand_mean_sharded": 1.0,
+  "axis_pair_interactions": {
+    "cleanup_mechanism_x_M": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_800": 0.0,
+        "iterative_cosine_800": 0.0,
+        "soft_energy_attractor_800": 0.0
+      }
+    },
+    "cleanup_mechanism_x_N": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_2048": 0.0,
+        "iterative_cosine_2048": 0.0,
+        "soft_energy_attractor_2048": 0.0
+      }
+    },
+    "cleanup_mechanism_x_F": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_1": 0.0,
+        "iterative_cosine_1": 0.0,
+        "soft_energy_attractor_1": 0.0
+      }
+    },
+    "cleanup_mechanism_x_L": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_2": 0.0,
+        "iterative_cosine_2": 0.0,
+        "soft_energy_attractor_2": 0.0
+      }
+    },
+    "cleanup_mechanism_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_0.2": 0.0,
+        "modern_hopfield_0.45": 0.0,
+        "iterative_cosine_0.2": 0.0,
+        "iterative_cosine_0.45": 0.0,
+        "soft_energy_attractor_0.2": 0.0,
+        "soft_energy_attractor_0.45": 0.0
+      }
+    },
+    "M_x_N": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "800_2048": 0.0
+      }
+    },
+    "M_x_F": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "800_1": 0.0
+      }
+    },
+    "M_x_L": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "800_2": 0.0
+      }
+    },
+    "M_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "800_0.2": 0.0,
+        "800_0.45": 0.0
+      }
+    },
+    "N_x_F": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "2048_1": 0.0
+      }
+    },
+    "N_x_L": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "2048_2": 0.0
+      }
+    },
+    "N_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "2048_0.2": 0.0,
+        "2048_0.45": 0.0
+      }
+    },
+    "F_x_L": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "1_2": 0.0
+      }
+    },
+    "F_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "1_0.2": 0.0,
+        "1_0.45": 0.0
+      }
+    },
+    "L_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "2_0.2": 0.0,
+        "2_0.45": 0.0
+      }
+    }
+  },
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "avg_peak_mem_mb": -1.0,
+  "elapsed_seed_s": 0.81,
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SMOKE: mechanism_variation_fails_at_cliff: max cross-mechanism variation at cliff corr=0.45=0.000 (expected >= 0.05)",
+  "summary": "HARD_FAIL_SMOKE: mechanism_variation_fails_at_cliff: max cross-mechanism variation at cliff corr=0.45=0.000 (expected >= 0.05)",
+  "smoke_gate_pass": false,
+  "smoke_gate_reason": "mechanism_variation_fails_at_cliff: max cross-mechanism variation at cliff corr=0.45=0.000 (expected >= 0.05)",
+  "anchor_name": "stage1_physics_law_joint_composition_factorial_v1_s11",
+  "elapsed_s": 1.05,
+  "ts_iso": "2026-07-03T17:39:10Z",
+  "pid": 13660,
+  "config_version": "ANCHOR=stage1_physics_law_joint_composition_factorial_v1_s11,regime=sharded_FHRR_chain_composition_option_Y,cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],M=[200,800,3200],N=[2048,8192],F=[1,4],L=[2,5],corr=[0.20,0.45],SEED=11,mode=smoke,BUNDLED_PC_regime=fixed_M800_N8192_F1_L2_corr0.20_iterative_cosine,beta=8.0,alpha_soft=0.5,expected_n_full=145,expected_n_smoke=7,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_physics_law_joint_composition_factorial_v1_chunked",
+  "backend": "torch.cpu",
+  "seed": 11,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_sharded_fhrr_chain_composition_factorial_v1",
+  "n_llm_calls": 0
+}

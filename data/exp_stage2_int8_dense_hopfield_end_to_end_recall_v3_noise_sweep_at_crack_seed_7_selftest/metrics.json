@@ -1,0 +1,14 @@
+{
+  "anchor_name": "stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: fp32=1.000 fp16=1.000 int8=1.000 int4=1.000 bpf_int4=2116.4 bpf_int8=4168.7 bpf_fp16=8209.1 bpf_fp32=16418.1 mem_factor(int8/fp32)=0.254 int4_err=0.0217",
+  "summary": "selftest OK: fp32=1.000 fp16=1.000 int8=1.000 int4=1.000 bpf_int4=2116.4 bpf_int8=4168.7 bpf_fp16=8209.1 bpf_fp32=16418.1 mem_factor(int8/fp32)=0.254 int4_err=0.0217",
+  "elapsed_s": 0.38,
+  "ts_iso": "2026-07-02T02:03:03Z",
+  "pid": 10660,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=stage2_int8_dense_hopfield_end_to_end_recall_v3_noise_sweep_at_crack_seed_7,arms=[FP32,FP16,INT8,INT4],M_sweep_full=[10000,100000,160000],M_sweep_smoke=[100000],N_fixed_full=8192,N_fixed_smoke=4096,sigma_sweep_full=[0.20,0.35,0.42,0.45,0.48,0.55],sigma_sweep_smoke=[0.45],n_ent=5000,n_rel=100,query_frac=0.10,topK=1,SEED=7,mode=selftest,discriminator=NOISE_CLIFF_AUTO_SELECT@M160k_bestsigma,HP_META_RULE_Q_ARMS_RANGE_MIN=0.03,HP_META_RULE_Q_FP32_UPPER=0.98,HP_INT8_PARETO_CLIFF_TOL=0.05,HP_INT4_BREAKS_DELTA=0.20,HP_PRE_CRACK_FREE_TOL=0.01,HP_PRE_CRACK_SIGMA_MAX=0.42,HP_MEMORY_FACTOR_MAX=0.35,cv_hp=0.08,cv_mb=0.10,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab)+inline_int4,hardening=L1startmarker+L2crashdiag+L3perunitckpt+CHUNKED_PER_SEED",
+  "_hardening_marker": "v3_stage2_int8_pareto_noise_cliff_chunked",
+  "_phase": "selftest_done",
+  "backend": "cpu"
+}

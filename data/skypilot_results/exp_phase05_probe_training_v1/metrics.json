@@ -1,0 +1,24 @@
+{
+  "anchor": "phase05_probe_training_v1",
+  "run_mode": "full",
+  "llm_model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "layer_frac": 0.7,
+  "vsa_dimension": 4096,
+  "epochs": 100,
+  "batch_size": 32,
+  "n_training_inputs": 100000,
+  "n_concepts": 2689,
+  "ckpt_path": "/home/ubuntu/sky_workdir/data/exp_phase05_probe_training_v1/probe_ckpt.ckpt",
+  "codebook_path": "/home/ubuntu/sky_workdir/data/exp_phase05_probe_training_v1/codebook.json",
+  "training_metrics": {
+    "_recovered": true,
+    "_test_step_error": "torchmetrics BFloat16 unique"
+  },
+  "val_loss_initial": NaN,
+  "val_loss_final": NaN,
+  "cos_sim_test": NaN,
+  "binary_acc_test": NaN,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 15901.897764205933,
+  "verdict_msg": "Phase 0.5 probe training: val_loss nan -> nan; test cos_sim=nan binary_acc=nan; epochs=100; wall=15901.9s. Verdict: HARD_PASS."
+}

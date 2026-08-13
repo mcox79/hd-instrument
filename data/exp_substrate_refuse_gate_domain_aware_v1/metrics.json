@@ -1,0 +1,194 @@
+{
+  "anchor_name": "substrate_refuse_gate_domain_aware_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_COMPOSITION_TIES_BEST_SINGLE: AUDIT_ALONE[in_answer=1.000 out_refuse=1.000 f1=1.000] INTENT_ALONE[in_answer=0.990 out_refuse=1.000 f1=0.995] AUDIT+INTENT[in_answer=0.990 out_refuse=1.000 f1=0.995 cv=0.004] | best_single_f1=1.000",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "substrateRefuseGateDomainAware-v1: N=8192 V_C_IN=600 N_QUERIES_PER_DOMAIN=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full HP_in_answer>=0.85 HP_out_refuse>=0.85 HP_cv<=0.07 HP_partial_lift>=0.02 MID_tie_tol=0.02 intent_thr=0.03 audit_thr=0.50",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "n_queries_per_domain": 100,
+      "config_version": "substrateRefuseGateDomainAware-v1: N=8192 V_C_IN=600 N_QUERIES_PER_DOMAIN=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full HP_in_answer>=0.85 HP_out_refuse>=0.85 HP_cv<=0.07 HP_partial_lift>=0.02 MID_tie_tol=0.02 intent_thr=0.03 audit_thr=0.50",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_alone": {
+        "in_answer_rate": 1.0,
+        "out_refuse_rate": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 100,
+          "in_refused": 0,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.1
+      },
+      "arm_intent_alone": {
+        "in_answer_rate": 1.0,
+        "out_refuse_rate": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 100,
+          "in_refused": 0,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_plus_intent": {
+        "in_answer_rate": 1.0,
+        "out_refuse_rate": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 100,
+          "in_refused": 0,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.09
+      },
+      "elapsed_s": 0.3,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782418203.9572666
+    },
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "n_queries_per_domain": 100,
+      "config_version": "substrateRefuseGateDomainAware-v1: N=8192 V_C_IN=600 N_QUERIES_PER_DOMAIN=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full HP_in_answer>=0.85 HP_out_refuse>=0.85 HP_cv<=0.07 HP_partial_lift>=0.02 MID_tie_tol=0.02 intent_thr=0.03 audit_thr=0.50",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_alone": {
+        "in_answer_rate": 1.0,
+        "out_refuse_rate": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 100,
+          "in_refused": 0,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.1
+      },
+      "arm_intent_alone": {
+        "in_answer_rate": 0.99,
+        "out_refuse_rate": 1.0,
+        "f1": 0.995,
+        "precision": 0.9901,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 99,
+          "in_refused": 1,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_plus_intent": {
+        "in_answer_rate": 0.99,
+        "out_refuse_rate": 1.0,
+        "f1": 0.995,
+        "precision": 0.9901,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 99,
+          "in_refused": 1,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.1
+      },
+      "elapsed_s": 0.3,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782418204.3055446
+    },
+    {
+      "seed": 19,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C_IN": 600,
+      "n_queries_per_domain": 100,
+      "config_version": "substrateRefuseGateDomainAware-v1: N=8192 V_C_IN=600 N_QUERIES_PER_DOMAIN=100 in_cats=['animals', 'geography', 'tools'] out_cats=['medical', 'legal', 'financial'] seeds=[11, 13, 19] mode=full HP_in_answer>=0.85 HP_out_refuse>=0.85 HP_cv<=0.07 HP_partial_lift>=0.02 MID_tie_tol=0.02 intent_thr=0.03 audit_thr=0.50",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_alone": {
+        "in_answer_rate": 1.0,
+        "out_refuse_rate": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 100,
+          "in_refused": 0,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.09
+      },
+      "arm_intent_alone": {
+        "in_answer_rate": 0.98,
+        "out_refuse_rate": 1.0,
+        "f1": 0.9901,
+        "precision": 0.9804,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 98,
+          "in_refused": 2,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_plus_intent": {
+        "in_answer_rate": 0.98,
+        "out_refuse_rate": 1.0,
+        "f1": 0.9901,
+        "precision": 0.9804,
+        "recall": 1.0,
+        "confusion": {
+          "in_total": 100,
+          "out_total": 100,
+          "in_answered": 98,
+          "in_refused": 2,
+          "out_refused": 100,
+          "out_answered": 0
+        },
+        "elapsed_s_arm": 0.09
+      },
+      "elapsed_s": 0.3,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782418204.6441464
+    }
+  ],
+  "elapsed_s": 1.1,
+  "summary": "MIDDLE_BAND_COMPOSITION_TIES_BEST_SINGLE: AUDIT_ALONE[in_answer=1.000 out_refuse=1.000 f1=1.000] INTENT_ALONE[in_answer=0.990 out_refuse=1.000 f1=0.995] AUDIT+INTENT[in_answer=0.990 out_refuse=1.000 f1=0.995 cv=0.004] | best_single_f1=1.000",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Domain-aware refuse-gate composition. Intent classifier + audit primitive compose for domain-specialized refuse. Each primitive does one job well; composition is the new mechanism. Pre-reg per preregs/2026-06-25_substrate_refuse_gate_domain_aware_v1.md."
+}

@@ -1,0 +1,788 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MECH beats the re-fit QUADRATIC on per-seed ABSOLUTE error at the far/critical folds AND holds across seeds (cv<=0.15) in a majority -- the a-priori forward model genuinely generalizes out of range (promote MM->CG-candidate): FARCRIT mech_MAE=0.307 quad_MAE=0.630 mech_beats_pooled=True | per-fold mech-beats-quad=6/6 | CROSS-SEED n=5 cv_mech=0.041 cv_ok=True frac_seeds_mech_beats=1.00 (5/5) majority=True | sensitive=True (spread_folds=6) | C1=True C2=True",
+  "summary": "HARD_PASS | FARCRIT mech_MAE=0.307 quad_MAE=0.630 mech_beats=True | cv=0.041 cv_ok=True maj=True(5/5) sensitive=True | C1=True C2=True | oor=[0.42, 0.5, 0.6, 0.65, 0.72, 0.8, 0.91, 1.02]",
+  "elapsed_s": 2.811541599978227,
+  "run_mode": "self_test",
+  "anchor_name": "reasoning_depth_mech_survival_abserr_vs_quad_v2",
+  "data_source": "mock_synthetic_known_curved_law_per_seed",
+  "control_rng_seed": 20260708,
+  "n_telemetry_seeds": 5,
+  "telemetry_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "cardinality_seeds_ok": true,
+  "out_of_range_split_fill": 0.3516,
+  "farcrit_split_fill": 0.55,
+  "critical_split_fill": 0.82,
+  "train_fills": [
+    0.06,
+    0.09,
+    0.11,
+    0.15,
+    0.2,
+    0.28,
+    0.35
+  ],
+  "out_of_range_fills": [
+    0.42,
+    0.5,
+    0.6,
+    0.65,
+    0.72,
+    0.8,
+    0.91,
+    1.02
+  ],
+  "farcrit_fills": [
+    0.6,
+    0.65,
+    0.72,
+    0.8,
+    0.91,
+    1.02
+  ],
+  "n_out_of_range_folds": 8,
+  "expected_out_of_range_folds": 8,
+  "n_farcrit_folds": 6,
+  "expected_farcrit_folds": 6,
+  "cardinality_ok": true,
+  "censored_fills": [],
+  "all_fills": [
+    0.06,
+    0.09,
+    0.11,
+    0.15,
+    0.2,
+    0.28,
+    0.35,
+    0.42,
+    0.5,
+    0.6,
+    0.65,
+    0.72,
+    0.8,
+    0.91,
+    1.02
+  ],
+  "out_of_range_eval": {
+    "mech": {
+      "MAE": 0.306,
+      "per_fold_err": [
+        0.285,
+        0.321,
+        0.248,
+        0.309,
+        0.323,
+        0.323,
+        0.331,
+        0.311
+      ],
+      "preds": [
+        2.405,
+        2.074,
+        1.73,
+        1.591,
+        1.429,
+        1.28,
+        1.122,
+        1.0
+      ]
+    },
+    "affine": {
+      "MAE": 1.191,
+      "per_fold_err": [
+        0.816,
+        0.98,
+        1.069,
+        1.199,
+        1.288,
+        1.352,
+        1.412,
+        1.411
+      ],
+      "preds": [
+        2.936,
+        2.733,
+        2.551,
+        2.48,
+        2.394,
+        2.309,
+        2.203,
+        2.1
+      ]
+    },
+    "quad": {
+      "MAE": 0.586,
+      "per_fold_err": [
+        0.411,
+        0.494,
+        0.506,
+        0.604,
+        0.655,
+        0.681,
+        0.691,
+        0.642
+      ],
+      "preds": [
+        2.531,
+        2.247,
+        1.988,
+        1.885,
+        1.761,
+        1.637,
+        1.482,
+        1.331
+      ]
+    },
+    "lookup": {
+      "MAE": 1.513,
+      "per_fold_err": [
+        0.665,
+        1.033,
+        1.303,
+        1.504,
+        1.679,
+        1.829,
+        1.995,
+        2.096
+      ],
+      "preds": [
+        2.785,
+        2.785,
+        2.785,
+        2.785,
+        2.785,
+        2.785,
+        2.785,
+        2.785
+      ]
+    },
+    "const": {
+      "MAE": 4.501,
+      "per_fold_err": [
+        3.653,
+        4.021,
+        4.291,
+        4.492,
+        4.667,
+        4.817,
+        4.983,
+        5.084
+      ],
+      "preds": [
+        5.773,
+        5.773,
+        5.773,
+        5.773,
+        5.773,
+        5.773,
+        5.773,
+        5.773
+      ]
+    }
+  },
+  "out_of_range_actual_depths": [
+    2.12,
+    1.753,
+    1.482,
+    1.281,
+    1.106,
+    0.957,
+    0.791,
+    0.689
+  ],
+  "abserr_analysis": {
+    "per_fold_mech_abserr": [
+      0.285,
+      0.321,
+      0.248,
+      0.309,
+      0.323,
+      0.323,
+      0.331,
+      0.311
+    ],
+    "per_fold_quad_abserr": [
+      0.411,
+      0.494,
+      0.506,
+      0.604,
+      0.655,
+      0.681,
+      0.691,
+      0.642
+    ],
+    "near_fold_idx": [
+      0,
+      1
+    ],
+    "far_fold_idx": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "critical_fold_idx": [
+      6,
+      7
+    ],
+    "farcrit_fold_idx": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "near_fills": [
+      0.42,
+      0.5
+    ],
+    "far_fills": [
+      0.6,
+      0.65,
+      0.72,
+      0.8
+    ],
+    "critical_fills": [
+      0.91,
+      1.02
+    ],
+    "farcrit_fills": [
+      0.6,
+      0.65,
+      0.72,
+      0.8,
+      0.91,
+      1.02
+    ],
+    "mech_mae_near": 0.303,
+    "quad_mae_near": 0.4525,
+    "mech_mae_farcrit": 0.3075,
+    "quad_mae_farcrit": 0.6298,
+    "mech_mae_critical": 0.321,
+    "quad_mae_critical": 0.6665,
+    "mech_beats_quad_farcrit_pooled": true,
+    "per_farcrit_fold_mech_beats_quad": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "n_farcrit_folds_mech_beats_quad": 6,
+    "farcrit_split_fill": 0.55,
+    "critical_split_fill": 0.82
+  },
+  "per_seed_abserr": [
+    {
+      "seed": 0,
+      "farcrit_actual": [
+        1.467,
+        1.327,
+        1.115,
+        0.969,
+        0.769,
+        0.734
+      ],
+      "mech_abserr_farcrit": [
+        0.263,
+        0.264,
+        0.314,
+        0.312,
+        0.352,
+        0.266
+      ],
+      "quad_abserr_farcrit": [
+        0.521,
+        0.559,
+        0.646,
+        0.669,
+        0.713,
+        0.597
+      ],
+      "mech_mae_farcrit": 0.2952,
+      "quad_mae_farcrit": 0.6174,
+      "mech_beats_quad": true
+    },
+    {
+      "seed": 1,
+      "farcrit_actual": [
+        1.509,
+        1.242,
+        1.105,
+        0.952,
+        0.815,
+        0.739
+      ],
+      "mech_abserr_farcrit": [
+        0.221,
+        0.348,
+        0.324,
+        0.328,
+        0.306,
+        0.261
+      ],
+      "quad_abserr_farcrit": [
+        0.479,
+        0.643,
+        0.656,
+        0.685,
+        0.667,
+        0.592
+      ],
+      "mech_mae_farcrit": 0.2982,
+      "quad_mae_farcrit": 0.6203,
+      "mech_beats_quad": true
+    },
+    {
+      "seed": 2,
+      "farcrit_actual": [
+        1.478,
+        1.241,
+        1.18,
+        1.0,
+        0.755,
+        0.702
+      ],
+      "mech_abserr_farcrit": [
+        0.252,
+        0.35,
+        0.249,
+        0.281,
+        0.366,
+        0.298
+      ],
+      "quad_abserr_farcrit": [
+        0.51,
+        0.645,
+        0.581,
+        0.638,
+        0.726,
+        0.629
+      ],
+      "mech_mae_farcrit": 0.2993,
+      "quad_mae_farcrit": 0.6215,
+      "mech_beats_quad": true
+    },
+    {
+      "seed": 3,
+      "farcrit_actual": [
+        1.465,
+        1.281,
+        1.075,
+        0.936,
+        0.798,
+        0.644
+      ],
+      "mech_abserr_farcrit": [
+        0.265,
+        0.31,
+        0.354,
+        0.345,
+        0.324,
+        0.356
+      ],
+      "quad_abserr_farcrit": [
+        0.523,
+        0.604,
+        0.686,
+        0.702,
+        0.684,
+        0.687
+      ],
+      "mech_mae_farcrit": 0.3255,
+      "quad_mae_farcrit": 0.6477,
+      "mech_beats_quad": true
+    },
+    {
+      "seed": 4,
+      "farcrit_actual": [
+        1.492,
+        1.316,
+        1.054,
+        0.927,
+        0.816,
+        0.626
+      ],
+      "mech_abserr_farcrit": [
+        0.238,
+        0.275,
+        0.375,
+        0.353,
+        0.306,
+        0.374
+      ],
+      "quad_abserr_farcrit": [
+        0.497,
+        0.57,
+        0.706,
+        0.71,
+        0.666,
+        0.704
+      ],
+      "mech_mae_farcrit": 0.32,
+      "quad_mae_farcrit": 0.6422,
+      "mech_beats_quad": true
+    }
+  ],
+  "cross_seed_robustness": {
+    "n_seeds": 5,
+    "per_seed_mech_mae_farcrit": [
+      0.2952,
+      0.2982,
+      0.2993,
+      0.3255,
+      0.32
+    ],
+    "per_seed_quad_mae_farcrit": [
+      0.6174,
+      0.6203,
+      0.6215,
+      0.6477,
+      0.6422
+    ],
+    "mean_mech_mae_farcrit": 0.3076,
+    "mean_quad_mae_farcrit": 0.6298,
+    "cv_mech_mae_farcrit": 0.0407,
+    "cv_ok": true,
+    "frac_seeds_mech_beats_quad": 1.0,
+    "n_seeds_mech_beats_quad": 5,
+    "majority_mech_beats_quad": true
+  },
+  "telemetry_sensitivity": {
+    "telemetry_sensitive": true,
+    "n_farcrit_folds_with_cross_seed_spread": 6,
+    "n_farcrit_nonfloored_folds": 3,
+    "per_fold_cross_seed_mech_abserr_std": {
+      "0.6": 0.0164,
+      "0.65": 0.0358,
+      "0.72": 0.043,
+      "0.8": 0.0258,
+      "0.91": 0.0245,
+      "1.02": 0.0461
+    },
+    "per_fold_pooled_actual": {
+      "0.6": 1.482,
+      "0.65": 1.281,
+      "0.72": 1.106,
+      "0.8": 0.957,
+      "0.91": 0.791,
+      "1.02": 0.689
+    },
+    "zero_spread_nonfloored_folds": [],
+    "metric_analytically_pinned": false
+  },
+  "farcrit_degeneracy_check": {
+    "farcrit_fills": [
+      0.6,
+      0.65,
+      0.72,
+      0.8,
+      0.91,
+      1.02
+    ],
+    "farcrit_actual_depths": [
+      1.482,
+      1.281,
+      1.106,
+      0.957,
+      0.791,
+      0.689
+    ],
+    "n_farcrit_dead_below_1": 3,
+    "n_farcrit_folds": 6,
+    "all_farcrit_folds_dead": false,
+    "farcrit_depth_std": 0.2738
+  },
+  "farcrit_folds_dead": false,
+  "law_params": {
+    "mech_s": 0.57,
+    "mech_kappa": 0.28,
+    "affine_a": 1.9882916398344581,
+    "affine_b": 0.7444244737005249,
+    "quad_c2c1c0": [
+      -0.0292400855447316,
+      1.1117335812479863,
+      1.1640911624419674
+    ]
+  },
+  "forward_split_horizons": [
+    {
+      "train_max_fill": 0.11,
+      "n_test_folds": 12,
+      "mech_MAE": 0.246,
+      "quad_MAE": 0.877,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.15,
+      "n_test_folds": 11,
+      "mech_MAE": 0.268,
+      "quad_MAE": 0.903,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.2,
+      "n_test_folds": 10,
+      "mech_MAE": 0.293,
+      "quad_MAE": 0.767,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.28,
+      "n_test_folds": 9,
+      "mech_MAE": 0.323,
+      "quad_MAE": 0.662,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.35,
+      "n_test_folds": 8,
+      "mech_MAE": 0.306,
+      "quad_MAE": 0.586,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.42,
+      "n_test_folds": 7,
+      "mech_MAE": 0.266,
+      "quad_MAE": 0.39,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.5,
+      "n_test_folds": 6,
+      "mech_MAE": 0.223,
+      "quad_MAE": 0.275,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.6,
+      "n_test_folds": 5,
+      "mech_MAE": 0.196,
+      "quad_MAE": 0.229,
+      "mech_beats_quad": true
+    },
+    {
+      "train_max_fill": 0.65,
+      "n_test_folds": 4,
+      "mech_MAE": 0.201,
+      "quad_MAE": 0.173,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.72,
+      "n_test_folds": 3,
+      "mech_MAE": 0.163,
+      "quad_MAE": 0.119,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.8,
+      "n_test_folds": 2,
+      "mech_MAE": 0.158,
+      "quad_MAE": 0.068,
+      "mech_beats_quad": false
+    },
+    {
+      "train_max_fill": 0.91,
+      "n_test_folds": 1,
+      "mech_MAE": 0.132,
+      "quad_MAE": 0.008,
+      "mech_beats_quad": false
+    }
+  ],
+  "frac_horizons_mech_beats_quad": 0.6666666666666666,
+  "control1_scramble_mech_law": {
+    "real_full_landscape_mae": 0.145184309820242,
+    "scrambled_mean_mae": 2.3333384585367725,
+    "scrambled_p10_mae": 1.9131411498506112,
+    "real_below_scrambled_p10": true,
+    "real_beats_scrambled_mean_margin": true,
+    "mech_s": 0.7083333333333334,
+    "mech_kappa": 0.15,
+    "n_boot": 300,
+    "scramble_method": "permute_collT_depth_pairing_full_landscape_then_refit_mech",
+    "firing_criterion": "real_below_p10 AND real_beats_mean over FULL landscape"
+  },
+  "control1_fires": true,
+  "control2_scramble_curve": {
+    "T_real_spearman_fill_depth": -1.0,
+    "abs_T_real": 1.0,
+    "null_p90": 0.42499999999999993,
+    "null_mean": 0.21265892857142854,
+    "real_outside_null": true,
+    "scramble_destroys_signal_margin": true,
+    "margin_c2": 0.2,
+    "T_scrambled_reported_not_gating": 0.07857142857142857,
+    "n_perm": 2000,
+    "firing_criterion": "abs_T_real > null_p90 AND (abs_T_real - null_mean) > MARGIN_C2"
+  },
+  "control2_fires": true,
+  "arms_differ_verified": true,
+  "arms_identical_pairs": [],
+  "arm_digests": {
+    "mech": "387af70d50dfc37efff5ee381d28c33ca23a52b687eddd0e8780643fc78c7751",
+    "affine": "d3add263b5b5b7c442cd325d6d91061bf5d338d8d2ffa37bb788a35b6678ff8f",
+    "quad": "a492c57610adc962203347a0d348cf8f487d346cdea9f5855f7a018458a816af",
+    "lookup": "780bcaa9a4b1fab7404f04af8343a529b4268741e126bc5d3a4f01f075dbd48f",
+    "const": "47157fb2c10782a4e976583d34c6b2a7c3bf11f3eae632bf3afbd6b57d1ec826"
+  },
+  "telemetry_generation_check": null,
+  "monitor_proposal": {
+    "out_of_range_fills": [
+      0.42,
+      0.5,
+      0.6,
+      0.65,
+      0.72,
+      0.8,
+      0.91,
+      1.02
+    ],
+    "farcrit_fills": [
+      0.6,
+      0.65,
+      0.72,
+      0.8,
+      0.91,
+      1.02
+    ],
+    "train_envelope_max_fill": 0.35,
+    "mech_predicted_depths": [
+      2.405,
+      2.074,
+      1.73,
+      1.591,
+      1.429,
+      1.28,
+      1.122,
+      1.0
+    ],
+    "quad_predicted_depths": [
+      2.531,
+      2.247,
+      1.988,
+      1.885,
+      1.761,
+      1.637,
+      1.482,
+      1.331
+    ],
+    "actual_depths": [
+      2.12,
+      1.753,
+      1.482,
+      1.281,
+      1.106,
+      0.957,
+      0.791,
+      0.689
+    ],
+    "mech_farcrit_MAE": 0.3075,
+    "quad_farcrit_MAE": 0.6298,
+    "law": "mechanistic transmission-coefficient survival: p_hop=1-s*coll_theo, coll_d=coll0*(1+kappa*(d-1)), D*=argmax_D prod p_hop>=FLOOR",
+    "law_coeffs": {
+      "s_interference": 0.57,
+      "kappa_accumulation": 0.28
+    },
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. Substrate never applies this itself (USER-LOCKED)."
+  },
+  "observed_levels": {
+    "0.06": {
+      "depth": 9.976,
+      "collT": 0.0516,
+      "source": "mock"
+    },
+    "0.09": {
+      "depth": 7.675,
+      "collT": 0.0774,
+      "source": "mock"
+    },
+    "0.11": {
+      "depth": 6.713,
+      "collT": 0.0946,
+      "source": "mock"
+    },
+    "0.15": {
+      "depth": 5.453,
+      "collT": 0.129,
+      "source": "mock"
+    },
+    "0.2": {
+      "depth": 4.41,
+      "collT": 0.172,
+      "source": "mock"
+    },
+    "0.28": {
+      "depth": 3.401,
+      "collT": 0.2408,
+      "source": "mock"
+    },
+    "0.35": {
+      "depth": 2.785,
+      "collT": 0.301,
+      "source": "mock"
+    },
+    "0.42": {
+      "depth": 2.12,
+      "collT": 0.3612,
+      "source": "mock"
+    },
+    "0.5": {
+      "depth": 1.753,
+      "collT": 0.43,
+      "source": "mock"
+    },
+    "0.6": {
+      "depth": 1.482,
+      "collT": 0.516,
+      "source": "mock"
+    },
+    "0.65": {
+      "depth": 1.281,
+      "collT": 0.559,
+      "source": "mock"
+    },
+    "0.72": {
+      "depth": 1.106,
+      "collT": 0.6192,
+      "source": "mock"
+    },
+    "0.8": {
+      "depth": 0.957,
+      "collT": 0.688,
+      "source": "mock"
+    },
+    "0.91": {
+      "depth": 0.791,
+      "collT": 0.7826,
+      "source": "mock"
+    },
+    "1.02": {
+      "depth": 0.689,
+      "collT": 0.8772,
+      "source": "mock"
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "analysis cell; telemetry-gen reuses VET'd keyslots generator (own noise floor characterized)",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "gen_prints_per_fold_flush_progress; eval is fast cpu (no long loop)",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "GENUINE-test replacement for the v1 far-fold cell whose margin discriminator was analytically PINNED (VET commit 2fae452d1). Discriminator = per-seed ABSOLUTE OOR error |mech_pred-actual| (telemetry-sensitive; actual never cancels) vs a RE-FIT QUADRATIC at the FAR/CRITICAL folds (fill 0.60-1.02, incl percolation-critical where quad crosses zero). HARD_PASS = mech beats quad at far/crit AND cross-seed cv<=0.15 AND mech beats quad in a MAJORITY of seeds AND controls fire (promote MM->CG-cand). HARD_FAIL = quad ties/beats mech at far/crit (stays MM) OR metric analytically pinned. MIDDLE = mixed.",
+  "ts_iso": "2026-07-08T08:24:29.816644+00:00"
+}

@@ -1,0 +1,555 @@
+{
+  "phase_map": [
+    {
+      "binding_operation": "circular_convolution",
+      "encoder_family": "hrr_real",
+      "N": 1024,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.82,
+      "top1_random": 0.02,
+      "discriminator": 0.8,
+      "calibration_cos_q0_x": 0.7987,
+      "calibration_target_cos": 0.8,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.135,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "circular_convolution",
+      "encoder_family": "hrr_real",
+      "N": 1024,
+      "corruption_frac": 0.25,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.52,
+      "top1_random": 0.04,
+      "discriminator": 0.48,
+      "calibration_cos_q0_x": 0.5023,
+      "calibration_target_cos": 0.5,
+      "verdict_tier_per_point": "MIDDLE_BAND",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.019,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "circular_convolution",
+      "encoder_family": "hrr_real",
+      "N": 1024,
+      "corruption_frac": 0.475,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.02,
+      "top1_random": 0.02,
+      "discriminator": 0.0,
+      "calibration_cos_q0_x": 0.0431,
+      "calibration_target_cos": 0.05,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.019,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "element_wise_fhrr",
+      "encoder_family": "fhrr",
+      "N": 1024,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.96,
+      "top1_random": 0.0,
+      "discriminator": 0.96,
+      "calibration_cos_q0_x": 0.8035,
+      "calibration_target_cos": 0.8,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.012,
+      "bind_output_shape": [
+        50,
+        512
+      ],
+      "unbind_output_shape": [
+        50,
+        512
+      ],
+      "f_codebook_shape": [
+        50,
+        512
+      ],
+      "expands_dim": false,
+      "dtype_label": "complex64",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "element_wise_fhrr",
+      "encoder_family": "fhrr",
+      "N": 1024,
+      "corruption_frac": 0.25,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.48,
+      "top1_random": 0.0,
+      "discriminator": 0.48,
+      "calibration_cos_q0_x": 0.4991,
+      "calibration_target_cos": 0.5,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "bind_output_shape": [
+        50,
+        512
+      ],
+      "unbind_output_shape": [
+        50,
+        512
+      ],
+      "f_codebook_shape": [
+        50,
+        512
+      ],
+      "expands_dim": false,
+      "dtype_label": "complex64",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "element_wise_fhrr",
+      "encoder_family": "fhrr",
+      "N": 1024,
+      "corruption_frac": 0.475,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.04,
+      "top1_random": 0.04,
+      "discriminator": 0.0,
+      "calibration_cos_q0_x": 0.0498,
+      "calibration_target_cos": 0.05,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "bind_output_shape": [
+        50,
+        512
+      ],
+      "unbind_output_shape": [
+        50,
+        512
+      ],
+      "f_codebook_shape": [
+        50,
+        512
+      ],
+      "expands_dim": false,
+      "dtype_label": "complex64",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "hadamard_real",
+      "encoder_family": "binary_bipolar",
+      "N": 1024,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.84,
+      "top1_random": 0.04,
+      "discriminator": 0.8,
+      "calibration_cos_q0_x": 0.8057,
+      "calibration_target_cos": 0.8,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.014,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "hadamard_real",
+      "encoder_family": "binary_bipolar",
+      "N": 1024,
+      "corruption_frac": 0.25,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.44,
+      "top1_random": 0.0,
+      "discriminator": 0.44,
+      "calibration_cos_q0_x": 0.5035,
+      "calibration_target_cos": 0.5,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.009,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "hadamard_real",
+      "encoder_family": "binary_bipolar",
+      "N": 1024,
+      "corruption_frac": 0.475,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.0,
+      "top1_random": 0.02,
+      "discriminator": -0.02,
+      "calibration_cos_q0_x": 0.0561,
+      "calibration_target_cos": 0.05,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.012,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        1024
+      ],
+      "f_codebook_shape": [
+        50,
+        1024
+      ],
+      "expands_dim": false,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "outer_product_tensor",
+      "encoder_family": "binary_bipolar_outer",
+      "N": 1024,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.68,
+      "top1_random": 0.02,
+      "discriminator": 0.66,
+      "calibration_cos_q0_x": 0.85,
+      "calibration_target_cos": 0.8,
+      "verdict_tier_per_point": "MIDDLE_BAND",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.006,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        32
+      ],
+      "f_codebook_shape": [
+        50,
+        32
+      ],
+      "expands_dim": true,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "outer_product_tensor",
+      "encoder_family": "binary_bipolar_outer",
+      "N": 1024,
+      "corruption_frac": 0.25,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.26,
+      "top1_random": 0.0,
+      "discriminator": 0.26,
+      "calibration_cos_q0_x": 0.5094,
+      "calibration_target_cos": 0.5,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.004,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        32
+      ],
+      "f_codebook_shape": [
+        50,
+        32
+      ],
+      "expands_dim": true,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    },
+    {
+      "binding_operation": "outer_product_tensor",
+      "encoder_family": "binary_bipolar_outer",
+      "N": 1024,
+      "corruption_frac": 0.475,
+      "cleanup_iters": 3,
+      "M_items": 50,
+      "seed": 7,
+      "top1_mechanism": 0.04,
+      "top1_random": 0.04,
+      "discriminator": 0.0,
+      "calibration_cos_q0_x": 0.1063,
+      "calibration_target_cos": 0.05,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.005,
+      "bind_output_shape": [
+        50,
+        1024
+      ],
+      "unbind_output_shape": [
+        50,
+        32
+      ],
+      "f_codebook_shape": [
+        50,
+        32
+      ],
+      "expands_dim": true,
+      "dtype_label": "float32",
+      "crlb_bundle_noise_floor": 0.9491
+    }
+  ],
+  "per_op_summary": {
+    "circular_convolution": {
+      "encoder_family": "hrr_real",
+      "expands_dim": false,
+      "top1_mean": 0.4533,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 1,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      },
+      "cliff_locator": {
+        "N1024": 0.475
+      },
+      "avg_elapsed_per_point_s": 0.058
+    },
+    "element_wise_fhrr": {
+      "encoder_family": "fhrr",
+      "expands_dim": false,
+      "top1_mean": 0.4933,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "cliff_locator": {
+        "N1024": 0.25
+      },
+      "avg_elapsed_per_point_s": 0.011
+    },
+    "hadamard_real": {
+      "encoder_family": "binary_bipolar",
+      "expands_dim": false,
+      "top1_mean": 0.4267,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "cliff_locator": {
+        "N1024": 0.25
+      },
+      "avg_elapsed_per_point_s": 0.012
+    },
+    "outer_product_tensor": {
+      "encoder_family": "binary_bipolar_outer",
+      "expands_dim": true,
+      "top1_mean": 0.3267,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 1,
+        "FLOOR": 1,
+        "HARD_FAIL": 1
+      },
+      "cliff_locator": {
+        "N1024": 0.25
+      },
+      "avg_elapsed_per_point_s": 0.005
+    }
+  },
+  "op_tiers": {
+    "circular_convolution": "COMPETITIVE_BINDING",
+    "element_wise_fhrr": "COMPETITIVE_BINDING",
+    "hadamard_real": "DOMINATED_BINDING",
+    "outer_product_tensor": "DOMINATED_BINDING"
+  },
+  "op_pair_distinctness": {
+    "circular_convolution_vs_element_wise_fhrr": true,
+    "circular_convolution_vs_hadamard_real": true,
+    "circular_convolution_vs_outer_product_tensor": true,
+    "element_wise_fhrr_vs_hadamard_real": true,
+    "element_wise_fhrr_vs_outer_product_tensor": true,
+    "hadamard_real_vs_outer_product_tensor": true
+  },
+  "n_pairs_differ": 6,
+  "arms_differ_per_op": {
+    "circular_convolution": {
+      "mechanism_hash": "b65bae78278b13654230191e2885932dc61405443433d2978e863a4965d23d0f",
+      "random_hash": "c0fff6c4a6eee38a97c0ba1294b6f22918ab165d3c079a2971c95830b7acde97",
+      "differ": true
+    },
+    "element_wise_fhrr": {
+      "mechanism_hash": "f9e4ea05fc1df073709054dd873ed41f090fe2b446b7359a3d80f028ce220fe7",
+      "random_hash": "4cd3f72ee216c9a1bb345e075162bc04e7f044663777715dede99c3a00e713ab",
+      "differ": true
+    },
+    "hadamard_real": {
+      "mechanism_hash": "837d0eb69a4cb992b1285c327330443387d815e47d0c981e69509e9cc5862cf5",
+      "random_hash": "35f235569d5806f6068bd95d843728cc29d238d98622656c01fe4b6e9b723752",
+      "differ": true
+    },
+    "outer_product_tensor": {
+      "mechanism_hash": "4b5fc08aa358738183e3d54e1de486bac90088a1a63a8daccedfdf7a9466fcee",
+      "random_hash": "dbbb561fc1cd39cafa2fce172df5f3b5c9e1fb175fdf288644ff9432d2ea3c21",
+      "differ": true
+    }
+  },
+  "positive_control_result": {
+    "target": {
+      "binding_operation": "circular_convolution",
+      "N": 1024,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 3,
+      "top1_floor": 0.3
+    },
+    "measured_top1": 0.82,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "observed_n_units": 12,
+  "tier_counts": {
+    "SATURATED": 1,
+    "HARD_PASS": 2,
+    "MIDDLE_BAND": 2,
+    "FLOOR": 4,
+    "HARD_FAIL": 3
+  },
+  "n_discriminating": 4,
+  "crlb_predictions": {
+    "N1024": 0.9491
+  },
+  "gpu_util_estimate": 0.0,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta": 8.0,
+  "disc_frac_per_op": {
+    "circular_convolution": 0.667,
+    "element_wise_fhrr": 0.0,
+    "hadamard_real": 0.333,
+    "outer_product_tensor": 0.333
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 12/12 pts; sat=1 hp=2 mb=2 floor=4 fail=3; 4-binding-distinct; positive_control@circular_convolution top1=0.820; op_tiers={'circular_convolution': 'COMPETITIVE_BINDING', 'element_wise_fhrr': 'COMPETITIVE_BINDING', 'hadamard_real': 'DOMINATED_BINDING', 'outer_product_tensor': 'DOMINATED_BINDING'}; disc_frac_per_op={'circular_convolution': 0.667, 'element_wise_fhrr': 0.0, 'hadamard_real': 0.333, 'outer_product_tensor': 0.333}; gpu_util~0.00",
+  "summary": "HARD_PASS_SMOKE: 12/12 pts; sat=1 hp=2 mb=2 floor=4 fail=3; 4-binding-distinct; positive_control@circular_convolution top1=0.820; op_tiers={'circular_convolution': 'COMPETITIVE_BINDING', 'element_wise_fhrr': 'COMPETITIVE_BINDING', 'hadamard_real': 'DOMINATED_BINDING', 'outer_product_tensor': 'DOMINATED_BINDING'}; disc_frac_per_op={'circular_convolution': 0.667, 'element_wise_fhrr': 0.0, 'hadamard_real': 0.333, 'outer_product_tensor': 0.333}; gpu_util~0.00",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + arms_differ(4 ops) + 4-distinct-ops + positive_control_pass + discriminator_fires",
+  "anchor_name": "substrate_pc_binding_operation_family_phase_diagram_v1_seed_7",
+  "elapsed_s": 0.09,
+  "ts_iso": "2026-06-30T17:36:12Z",
+  "pid": 22084,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_pc_binding_operation_family_phase_diagram_v1_seed_7,bindings=[circular_convolution,element_wise_fhrr,hadamard_real,outer_product_tensor],N=[1024,4096,8192],SEED=7,mode=smoke,corruption=[0.10,0.25,0.40,0.475],iters=[3],M=100,beta=8.0,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=48,expected_n_smoke=12,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_pc_binding_op_family_phase_diagram_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_4_binding_op_family_pc",
+  "n_llm_calls": 0
+}

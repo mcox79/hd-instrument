@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_task_vector_K_extended_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "selftest OK: TV(K=50)=1.000, TV(K=1000)=0.300, per_q_len=10, agg_verdict=MIDDLE_BAND, backend=numpy.cpu",
+  "summary": "selftest OK: TV(K=50)=1.000, TV(K=1000)=0.300, per_q_len=10, agg_verdict=MIDDLE_BAND, backend=numpy.cpu",
+  "elapsed_s": 12.57,
+  "ts_iso": "2026-07-01T13:23:34Z",
+  "pid": 16624,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_task_vector_K_extended_v1_seed_7,N=8192,SEED=7,mode=selftest,K=[50,100,200,500,1000],V=10,ov=0.0,V_ENTS_POOL=1000,n_queries_full=100,n_queries_smoke=100,arms=[TASK_VECTOR,RANDOM_VECTOR,ORACLE],expected_n_full=1500,expected_n_smoke=300,referent=v3_task_vector_K_cliff_phase_diagram_v3_MB_2026-06-28,lever=K_axis_extended_reach_50_to_1000,hardening=L1early+L2perarm+L3outertry+L4importsentinel+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_taskvec_K_extended_chunked",
+  "_phase": "selftest_done",
+  "backend": "numpy.cpu"
+}

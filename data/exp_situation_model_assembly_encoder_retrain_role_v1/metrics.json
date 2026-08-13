@@ -1,0 +1,328 @@
+{
+  "verdict": "MIDDLE",
+  "verdict_msg": "Direction moved but no bar cleared. Worst-of-4 (role,order) decode 0.681->0.738 (lift_ok=False abs_ok=False); order-sensitivity 0.066->0.050 (improved=True); LOOP gap_closed=0.489 oracle 0.737->0.855 ref_span=0.977 (loop_ok=True); anti-collapse wmc=0.222 (ok=True); premise OS=0.066; posonly swapped S=0.069 P=0.069. canon S=0.856/0.800->0.894/0.825 swap S=0.844/0.681->0.881/0.738. Reported with trajectory.",
+  "summary": "MIDDLE | chance=0.0500 | Direction moved but no bar cleared. Worst-of-4 (role,order) decode 0.681->0.738 (lift_ok=False abs_ok=False); order-sensitivity 0.066->0.050 (improved=True); LO",
+  "run_mode": "grid",
+  "elapsed_s": 269.6711399999913,
+  "ts_iso": "2026-07-31T12:08:18.333202+00:00",
+  "anchor_name": "situation_model_assembly_encoder_retrain_role_v1",
+  "chance": 0.05,
+  "bands": {
+    "chance": 0.05,
+    "hard_pass_bars": {
+      "posonly_fail_max": 0.35,
+      "headroom_min": 0.15,
+      "decode_lift_min": 0.1,
+      "decode_pass_abs": 0.75,
+      "loop_gap_close_min": 0.25,
+      "loop_lift_min": 0.08,
+      "wc_min": 0.1
+    },
+    "frozen_order_sensitivity": 0.06562499999999999,
+    "tuned_order_sensitivity": 0.04999999999999999,
+    "os_improved": true,
+    "premise_fires": true,
+    "positional_headroom": 0.31875,
+    "span_swapped_worst": 1.0,
+    "frozen_worst_of4": 0.68125,
+    "tuned_worst_of4": 0.7375,
+    "wc4_lift": 0.05625000000000002,
+    "posonly_swapped": {
+      "S": 0.06875,
+      "P": 0.06875
+    },
+    "posonly_fails_swapped": true,
+    "span_swapped": {
+      "S": 1.0,
+      "P": 1.0
+    },
+    "frozen_canonical": {
+      "S": 0.85625,
+      "P": 0.8
+    },
+    "frozen_swapped": {
+      "S": 0.84375,
+      "P": 0.68125
+    },
+    "tuned_swapped": {
+      "S": 0.88125,
+      "P": 0.7375
+    },
+    "tuned_canonical": {
+      "S": 0.89375,
+      "P": 0.825
+    },
+    "decode_lift_ok": false,
+    "decode_abs_ok": false,
+    "ties": false,
+    "loop_oracle_frozen": 0.7373792270531401,
+    "loop_oracle_tuned": 0.8545289855072463,
+    "loop_ref_span": 0.9771739130434783,
+    "loop_gap_closed_frac": 0.4885419289851419,
+    "loop_lift": 0.11714975845410625,
+    "loop_ok": true,
+    "loop_stage_frozen": {
+      "S": 0.95807007466973,
+      "P": 0.8770821367030442,
+      "ENT": 0.8342922899884925,
+      "MARK": 0.8743509865005192
+    },
+    "loop_stage_tuned": {
+      "S": 0.9781734635267088,
+      "P": 0.9121194715680643,
+      "ENT": 0.9344073647871116,
+      "MARK": 0.9190031152647975
+    },
+    "oracle_type_frozen": {
+      "a_name_maintenance": 0.8,
+      "b_competitive_coref": 0.6875,
+      "c_overwrite": 0.7246376811594203
+    },
+    "oracle_type_tuned": {
+      "a_name_maintenance": 0.9,
+      "b_competitive_coref": 0.8375,
+      "c_overwrite": 0.8260869565217391
+    },
+    "wc_tuned": {
+      "within": 0.31346962697183095,
+      "cross": 0.09122420205320748,
+      "within_minus_cross": 0.22224542491862348,
+      "s_vs_p_cos": 0.456246027102073
+    },
+    "wc_frozen": {
+      "within": 0.32495457674531886,
+      "cross": 0.09262257562432852,
+      "within_minus_cross": 0.23233200112099034,
+      "s_vs_p_cos": 0.4958114132285118
+    },
+    "anticollapse_ok": true,
+    "collapse": false,
+    "floors_ok": true,
+    "floor_notes": [],
+    "filler_split": {
+      "train": [
+        1,
+        2,
+        4,
+        7,
+        9,
+        11,
+        12,
+        13,
+        14,
+        18
+      ],
+      "held": [
+        0,
+        3,
+        5,
+        6,
+        8,
+        10,
+        15,
+        16,
+        17,
+        19
+      ]
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "n_units_done": 1,
+  "construction_audit": {
+    "n": 300,
+    "shortcut_accs": {
+      "global_last|a_name_maintenance": 0.006666666666666667,
+      "global_last|b_competitive_coref": 0.01,
+      "global_last|c_overwrite": 0.010676156583629894,
+      "most_frequent|a_name_maintenance": 0.07,
+      "most_frequent|b_competitive_coref": 0.06333333333333334,
+      "most_frequent|c_overwrite": 0.05693950177935943
+    },
+    "label_max_share_a": 0.08,
+    "frac_overwrite_wellposed": 0.9366666666666666,
+    "fails": []
+  },
+  "per_condition": [
+    {
+      "name": "role_d1_s7",
+      "depth": 1,
+      "nctx": 60,
+      "steps": 200,
+      "seed": 7,
+      "eval_n": 160,
+      "loop_n": 80,
+      "ft_seconds": 212.76187520008534,
+      "n_trainable_params": 3153408,
+      "ft_final": {
+        "loss": 0.8055880665779114,
+        "l_align": 0.04979383200407028,
+        "l_push": 0.7266889214515686,
+        "vic_var": 0.029103439301252365,
+        "vic_cov": 1.8423129404254723e-06
+      },
+      "decode": {
+        "canonical": {
+          "frozen_role_attn": {
+            "S": 0.85625,
+            "P": 0.8
+          },
+          "tuned_role_attn": {
+            "S": 0.89375,
+            "P": 0.825
+          },
+          "span": {
+            "S": 1.0,
+            "P": 1.0
+          },
+          "position_only": {
+            "S": 1.0,
+            "P": 1.0
+          }
+        },
+        "swapped": {
+          "frozen_role_attn": {
+            "S": 0.84375,
+            "P": 0.68125
+          },
+          "tuned_role_attn": {
+            "S": 0.88125,
+            "P": 0.7375
+          },
+          "span": {
+            "S": 1.0,
+            "P": 1.0
+          },
+          "position_only": {
+            "S": 0.06875,
+            "P": 0.06875
+          }
+        }
+      },
+      "wc_tuned": {
+        "within": 0.31346962697183095,
+        "cross": 0.09122420205320748,
+        "within_minus_cross": 0.22224542491862348,
+        "s_vs_p_cos": 0.456246027102073
+      },
+      "wc_frozen": {
+        "within": 0.32495457674531886,
+        "cross": 0.09262257562432852,
+        "within_minus_cross": 0.23233200112099034,
+        "s_vs_p_cos": 0.4958114132285118
+      },
+      "loop": {
+        "oracle_frozen_loop": 0.7373792270531401,
+        "oracle_tuned_loop": 0.8545289855072463,
+        "ref_span_loop": 0.9771739130434783,
+        "gap_closed_frac": 0.4885419289851419,
+        "oracle_frozen_type": {
+          "a_name_maintenance": 0.8,
+          "b_competitive_coref": 0.6875,
+          "c_overwrite": 0.7246376811594203
+        },
+        "oracle_tuned_type": {
+          "a_name_maintenance": 0.9,
+          "b_competitive_coref": 0.8375,
+          "c_overwrite": 0.8260869565217391
+        },
+        "ref_span_type": {
+          "a_name_maintenance": 0.975,
+          "b_competitive_coref": 1.0,
+          "c_overwrite": 0.9565217391304348
+        },
+        "stage_frozen": {
+          "S": 0.95807007466973,
+          "P": 0.8770821367030442,
+          "ENT": 0.8342922899884925,
+          "MARK": 0.8743509865005192
+        },
+        "stage_tuned": {
+          "S": 0.9781734635267088,
+          "P": 0.9121194715680643,
+          "ENT": 0.9344073647871116,
+          "MARK": 0.9190031152647975
+        },
+        "floors_tuned": {
+          "random_addr": {
+            "a_name_maintenance": 0.0375,
+            "b_competitive_coref": 0.0625,
+            "c_overwrite": 0.08695652173913043
+          },
+          "no_coref": {
+            "a_name_maintenance": 0.75,
+            "b_competitive_coref": 0.075,
+            "c_overwrite": 0.7101449275362319
+          },
+          "wrongrole": {
+            "a_name_maintenance": 0.05,
+            "b_competitive_coref": 0.05,
+            "c_overwrite": 0.028985507246376812
+          },
+          "shuffled": {
+            "a_name_maintenance": 0.025,
+            "b_competitive_coref": 0.0625,
+            "c_overwrite": 0.08695652173913043
+          }
+        },
+        "most_recent": {
+          "a_name_maintenance": 0.0125,
+          "b_competitive_coref": 0.0,
+          "c_overwrite": 0.028985507246376812
+        },
+        "n_passages": 80
+      },
+      "train_colors": [
+        1,
+        2,
+        4,
+        7,
+        9,
+        11,
+        12,
+        13,
+        14,
+        18
+      ],
+      "held_colors": [
+        0,
+        3,
+        5,
+        6,
+        8,
+        10,
+        15,
+        16,
+        17,
+        19
+      ]
+    }
+  ],
+  "params": {
+    "DIM": 1024,
+    "V_FILL": 20,
+    "DEPTH": 1,
+    "LR": 0.0001,
+    "W_ALIGN": 1.0,
+    "W_PUSH": 1.0,
+    "W_VIC": 1.0,
+    "PUSH_MARGIN": 0.2,
+    "conditions": [
+      {
+        "name": "role_d1_s7",
+        "depth": 1,
+        "nctx": 60,
+        "steps": 200,
+        "seed": 7,
+        "eval_n": 160,
+        "loop_n": 80
+      }
+    ]
+  },
+  "arms_differ_verified": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns",
+  "progress_logging": "print_flush_true"
+}

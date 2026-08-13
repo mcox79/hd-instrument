@@ -1,0 +1,148 @@
+{
+  "anchor_name": "resonator_theta_gamma_peel_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ESCAPE_CONFIRMED (HARD_PASS): theta-gamma slot peel rescues BOTH crater-K's -- slot_peel(K5)=1.000 slot_peel(K6)=1.000 >= 0.30 while vanilla_oracle_any(K5)=0.000 (R=10 ceiling, verifier-generous) fires the wall. Expansion-independent (N=4096, no expansion). The K-way joint-factorization wall is ESCAPABLE by sequential phase-slot re-encoding + peel-off deflation; SEARCH DYNAMICS changed, not capacity. traj: K3(van_orc=1.000,peel=1.000) K4(van_orc=0.800,peel=1.000) K5(van_orc=0.000,peel=1.000) K6(van_orc=0.000,peel=1.000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by_arm": {
+        "K3": {
+          "vanilla_oracle_any": 1.0,
+          "vanilla_verifier": 1.0,
+          "slot_nodeflate_acc": 1.0,
+          "slot_peel_acc": 1.0,
+          "K": 3,
+          "R": 10,
+          "T0_vanilla": 0.5,
+          "TR": 30
+        },
+        "K4": {
+          "vanilla_oracle_any": 0.8,
+          "vanilla_verifier": 0.8,
+          "slot_nodeflate_acc": 1.0,
+          "slot_peel_acc": 1.0,
+          "K": 4,
+          "R": 10,
+          "T0_vanilla": 0.5,
+          "TR": 30
+        },
+        "K5": {
+          "vanilla_oracle_any": 0.0,
+          "vanilla_verifier": 0.0,
+          "slot_nodeflate_acc": 1.0,
+          "slot_peel_acc": 1.0,
+          "K": 5,
+          "R": 10,
+          "T0_vanilla": 0.5,
+          "TR": 30
+        },
+        "K6": {
+          "vanilla_oracle_any": 0.0,
+          "vanilla_verifier": 0.0,
+          "slot_nodeflate_acc": 1.0,
+          "slot_peel_acc": 1.0,
+          "K": 6,
+          "R": 10,
+          "T0_vanilla": 0.5,
+          "TR": 30
+        }
+      },
+      "arms_hashes": {
+        "K3_vanilla": "a4521c42f53875f5a8615a752f2eb9e0dee7bb84e58e18948751c3c6820d64a2",
+        "K3_slot_peel": "a4521c42f53875f5a8615a752f2eb9e0dee7bb84e58e18948751c3c6820d64a2",
+        "K3_slot_nodeflate": "a4521c42f53875f5a8615a752f2eb9e0dee7bb84e58e18948751c3c6820d64a2",
+        "K4_vanilla": "f3424265a69f4922276eb26447d940a32b15aeacf5ad94081030be92354fd696",
+        "K4_slot_peel": "dfbcdf66fc5c89123cbed07915d71e5230af8f223a226c6c2a46cab712db58ec",
+        "K4_slot_nodeflate": "dfbcdf66fc5c89123cbed07915d71e5230af8f223a226c6c2a46cab712db58ec",
+        "K5_vanilla": "34d685ced2a24f1a3e32bfa4c7bf6e70e955f19192cf5e13540fbbcb9d434c57",
+        "K5_slot_peel": "d2c243ba18595e2a56622fae7144c381251b5502c675b866b336a413ea92dafa",
+        "K5_slot_nodeflate": "d2c243ba18595e2a56622fae7144c381251b5502c675b866b336a413ea92dafa",
+        "K6_vanilla": "9627ad50e68006dde0b8640ddd84b42fbf246e82d8d4a17aa0e879a95e4bb245",
+        "K6_slot_peel": "bf97a11220306a555fbe286601fb59d01e0a4c4ba105751579ad16212a950c68",
+        "K6_slot_nodeflate": "bf97a11220306a555fbe286601fb59d01e0a4c4ba105751579ad16212a950c68"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_theta_gamma_peel_v1,N=4096,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783489275.2163303
+    }
+  ],
+  "detail": {
+    "trajectory": {
+      "3": {
+        "vanilla_oracle_any": 1.0,
+        "vanilla_verifier": 1.0,
+        "slot_nodeflate_acc": 1.0,
+        "slot_peel_acc": 1.0
+      },
+      "4": {
+        "vanilla_oracle_any": 0.8,
+        "vanilla_verifier": 0.8,
+        "slot_nodeflate_acc": 1.0,
+        "slot_peel_acc": 1.0
+      },
+      "5": {
+        "vanilla_oracle_any": 0.0,
+        "vanilla_verifier": 0.0,
+        "slot_nodeflate_acc": 1.0,
+        "slot_peel_acc": 1.0
+      },
+      "6": {
+        "vanilla_oracle_any": 0.0,
+        "vanilla_verifier": 0.0,
+        "slot_nodeflate_acc": 1.0,
+        "slot_peel_acc": 1.0
+      }
+    },
+    "bands": {
+      "slot_peel_hp": 0.3,
+      "k5_oracle_crater": 0.1,
+      "k3_band": [
+        0.95,
+        1.0
+      ],
+      "k4_band": [
+        0.72,
+        0.9
+      ]
+    },
+    "positive_control": {
+      "K3_oracle": 1.0,
+      "K3_ok": true,
+      "K4_oracle": 0.8,
+      "K4_ok": true,
+      "K5_oracle": 0.0,
+      "K5_wall_fires": true
+    },
+    "positive_control_ok": true,
+    "expansion_independent": true,
+    "arms_differ_verified": true,
+    "smoke_escape_lift_k5": 1.0,
+    "smoke_vanilla_declines": true,
+    "smoke_discriminator_fired": true
+  },
+  "config": {
+    "N": 4096,
+    "M": 30,
+    "MAXIT": 60,
+    "R": 10,
+    "T0_VANILLA": 0.5,
+    "TR": 30,
+    "K_GRID": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "SEEDS": [
+      3
+    ],
+    "EXPECTED_N_UNITS": 4
+  },
+  "elapsed_s": 101.87340399999812,
+  "summary": "ESCAPE_CONFIRMED (HARD_PASS): theta-gamma slot peel rescues BOTH crater-K's -- slot_peel(K5)=1.000 slot_peel(K6)=1.000 >= 0.30 while vanilla_oracle_any(K5)=0.000 (R=10 ceiling, verifier-generous) fires the wall. Expansion-independent (N=4096, no expansion). The K-way joint-factorization wall is ESCAPABLE by sequential phase-slot re-encoding + peel-off deflation; SEARCH DYNAMICS changed, not capacity. traj: K3(van_orc=1.000,peel=1.000) K4(van_orc=0.800,peel=1.000) K5(van_orc=0.000,peel=1.000) K6(van_orc=0.000,peel=1.000)"
+}

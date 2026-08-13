@@ -1,0 +1,377 @@
+{
+  "anchor_name": "substrate_gen_lm_replay_propose_score_commit_v10_unforgiving_n8192_gpu",
+  "verdict": "INCONCLUSIVE",
+  "verdict_msg": "INCONCLUSIVE_COMPOUNDING_NOT_ACCUMULATOR_SPECIFIC (D1b): ACCUM body_drift=+0.132 but REPLAY body_drift=+0.093 (gap=+0.040 < 0.1). REPLAY does NOT stay bounded relative to ACCUMULATE -- both arms drift with depth, so the compounding is not specific to the accumulator data structure. RE-SPEC. @L14 N=4096 chance~1/W=0.167 | goal_reach: ORACLE_fid(ptok)=1.000 REPLAY=1.000(ptok=0.361 div=1.000) ACCUM=0.338 RANDOM=0.175 PROPOSE_ONLY=1.000 | body_token_acc(artifact-free): REPLAY=0.312 ACCUM=0.351 RANDOM=0.215 PROPOSE_ONLY=0.238 | REP-ACCUM(gr)=+0.662 REP-RANDOM(gr)=+0.825 sel_value(REP-PO,body)=+0.073 REP-RANDOM(body)=+0.096 | ACCUM body_drift(L4->L14)=+0.132 (>0=compounds) REPLAY body_drift=+0.093 (~0=bounded) cv=0.000",
+  "N": 4096,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 1,
+  "headline_L": 14,
+  "l_grid": [
+    4,
+    14
+  ],
+  "width": 6,
+  "out_deg": 4,
+  "n_inst": 80,
+  "r_cand": 40,
+  "chance": 0.16667,
+  "gate_tau": 0.05,
+  "beta": 1.0,
+  "lambda_acc": 0.65,
+  "expected_n_units": 10,
+  "margins": {
+    "accum": 0.2,
+    "redundancy": 0.15,
+    "no_recomb_band": 0.05,
+    "drift_min": 0.1,
+    "replay_flat_max": 0.06,
+    "oracle_floor": 0.9,
+    "cv_max": 0.15,
+    "diversity_min": 0.1
+  },
+  "scale_preview": {
+    "N": 8192,
+    "body_acc_by_L": {
+      "4": 0.48333,
+      "14": 0.35096
+    },
+    "body_drift": 0.13237,
+    "drift_min": 0.1,
+    "fires": true,
+    "elapsed_s": 50.2
+  },
+  "arm_digests": {
+    "ORACLE": "8cc8e470075415c789473cd83e137e6d88eaf63cc20fa09e7e468fd618456efc",
+    "REPLAY": "13e551493f660c028b041f3cd33b6e37d4cadf20fafd96e2c76fa7d4b24c3176",
+    "ACCUMULATE": "85ba88383e4675ebbaf8fa59150549540319218d46c3fd0c8e80bff21468ed11",
+    "RANDOM_RESTART": "baefaa366966ffa868776bc00c6f6a5684ceeb72962d06575cf2e2c57e85ddbb",
+    "REPLAY_PROPOSE_ONLY": "2d5a03c3c302ac100b97bbcca638f75ac7aac9feaaa56fd6c8df076a9fc0003b"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "per_unit": [
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.9375,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 4,
+          "N": 4096,
+          "V": 30,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.553125,
+          "body_token_acc": 0.4041666666666667,
+          "per_position_acc": [
+            0.4625,
+            0.2875,
+            0.4625,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.4625,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 4,
+          "N": 4096,
+          "V": 30,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.4375,
+          "body_token_acc": 0.48333333333333334,
+          "per_position_acc": [
+            0.5375,
+            0.55,
+            0.3625,
+            0.3
+          ],
+          "goal_reach": 0.3,
+          "committed_diversity": 0.075,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 4,
+          "N": 4096,
+          "V": 30,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.2375,
+          "body_token_acc": 0.22916666666666666,
+          "per_position_acc": [
+            0.225,
+            0.2125,
+            0.25,
+            0.2625
+          ],
+          "goal_reach": 0.2625,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 4,
+          "N": 4096,
+          "V": 30,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.43125,
+          "body_token_acc": 0.24166666666666667,
+          "per_position_acc": [
+            0.2375,
+            0.175,
+            0.3125,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.9875,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 4,
+          "N": 4096,
+          "V": 30,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 14,
+          "N": 4096,
+          "V": 90,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.3607142857142857,
+          "body_token_acc": 0.31153846153846154,
+          "per_position_acc": [
+            0.5375,
+            0.5,
+            0.275,
+            0.2625,
+            0.2875,
+            0.3,
+            0.2625,
+            0.3,
+            0.2625,
+            0.3,
+            0.225,
+            0.25,
+            0.2875,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 14,
+          "N": 4096,
+          "V": 90,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.35,
+          "body_token_acc": 0.35096153846153844,
+          "per_position_acc": [
+            0.5,
+            0.55,
+            0.4375,
+            0.35,
+            0.2875,
+            0.25,
+            0.225,
+            0.425,
+            0.175,
+            0.3,
+            0.3125,
+            0.4,
+            0.35,
+            0.3375
+          ],
+          "goal_reach": 0.3375,
+          "committed_diversity": 0.075,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 14,
+          "N": 4096,
+          "V": 90,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.2125,
+          "body_token_acc": 0.2153846153846154,
+          "per_position_acc": [
+            0.2875,
+            0.2,
+            0.275,
+            0.2625,
+            0.225,
+            0.225,
+            0.2625,
+            0.1375,
+            0.2,
+            0.1625,
+            0.1875,
+            0.2,
+            0.175,
+            0.175
+          ],
+          "goal_reach": 0.175,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 14,
+          "N": 4096,
+          "V": 90,
+          "width": 6,
+          "chance": 0.1667
+        },
+        {
+          "per_token_acc": 0.29285714285714287,
+          "body_token_acc": 0.23846153846153847,
+          "per_position_acc": [
+            0.3125,
+            0.2875,
+            0.2625,
+            0.225,
+            0.2125,
+            0.2375,
+            0.2875,
+            0.225,
+            0.175,
+            0.1625,
+            0.175,
+            0.2125,
+            0.325,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 14,
+          "N": 4096,
+          "V": 90,
+          "width": 6,
+          "chance": 0.1667
+        }
+      ],
+      "peak_gpu_gb": 0.0,
+      "elapsed_s": 33.8696608543396,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783564711.700559
+    }
+  ],
+  "curves": {
+    "ORACLE": {
+      "L4": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.9375
+      },
+      "L14": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    },
+    "REPLAY": {
+      "L4": {
+        "per_token_acc": 0.55312,
+        "body_token_acc": 0.40417,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.4625
+      },
+      "L14": {
+        "per_token_acc": 0.36071,
+        "body_token_acc": 0.31154,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    },
+    "ACCUMULATE": {
+      "L4": {
+        "per_token_acc": 0.4375,
+        "body_token_acc": 0.48333,
+        "goal_reach": 0.3,
+        "committed_diversity": 0.075
+      },
+      "L14": {
+        "per_token_acc": 0.35,
+        "body_token_acc": 0.35096,
+        "goal_reach": 0.3375,
+        "committed_diversity": 0.075
+      }
+    },
+    "RANDOM_RESTART": {
+      "L4": {
+        "per_token_acc": 0.2375,
+        "body_token_acc": 0.22917,
+        "goal_reach": 0.2625,
+        "committed_diversity": 1.0
+      },
+      "L14": {
+        "per_token_acc": 0.2125,
+        "body_token_acc": 0.21538,
+        "goal_reach": 0.175,
+        "committed_diversity": 1.0
+      }
+    },
+    "REPLAY_PROPOSE_ONLY": {
+      "L4": {
+        "per_token_acc": 0.43125,
+        "body_token_acc": 0.24167,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.9875
+      },
+      "L14": {
+        "per_token_acc": 0.29286,
+        "body_token_acc": 0.23846,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    }
+  },
+  "elapsed_s": 33.8696608543396,
+  "summary": "INCONCLUSIVE_COMPOUNDING_NOT_ACCUMULATOR_SPECIFIC (D1b): ACCUM body_drift=+0.132 but REPLAY body_drift=+0.093 (gap=+0.040 < 0.1). REPLAY does NOT stay bounded relative to ACCUMULATE -- both arms drift with depth, so the compounding is not specific to the accumulator data structure. RE-SPEC. @L14 N=4096 chance~1/W=0.167 | goal_reach: ORACLE_fid(ptok)=1.000 REPLAY=1.000(ptok=0.361 div=1.000) ACCUM=0.338 RANDOM=0.175 PROPOSE_ONLY=1.000 | body_token_acc(artifact-free): REPLAY=0.312 ACCUM=0.351 RANDOM=0.215 PROPOSE_ONLY=0.238 | REP-ACCUM(gr)=+0.662 REP-RANDOM(gr)=+0.825 sel_value(REP-PO,body)=+0.073 REP-RANDOM(body)=+0.096 | ACCUM body_drift(L4->L14)=+0.132 (>0=compounds) REPLAY body_drift=+0.093 (~0=bounded) cv=0.000"
+}

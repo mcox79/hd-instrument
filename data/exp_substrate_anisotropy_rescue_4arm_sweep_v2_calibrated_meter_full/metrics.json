@@ -1,0 +1,346 @@
+{
+  "anchor_name": "substrate_anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CHAIN-GRADE-CANDIDATE: ARM B_fly_lsh = 0.997 >= 0.80 at M=10000 AND cv = 0.001 <= 0.05 across 3 seeds AND meter D = 1.000 >= 0.80 -> cerebellar/fly-LSH-style sparse-fan-in rescues anisotropy collapse on real Pythia keys (raw collapsed to 0.018). [Q-DISCIPLINE: Bfly=0.9967 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: Bchar=1.0000 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: C=0.9960 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: D=1.0000 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.018 | A=0.051(Ap=0.062) Bfly=0.997 Bchar=1.000 C=0.996 | D_meter=1.000 | cv_Bfly=0.001 cv_Bchar=0.000 cv_D=0.000 | rel_Bfly/D=0.997 rel_Bchar/D=1.000",
+  "summary": "CHAIN-GRADE-CANDIDATE: ARM B_fly_lsh = 0.997 >= 0.80 at M=10000 AND cv = 0.001 <= 0.05 across 3 seeds AND meter D = 1.000 >= 0.80 -> cerebellar/fly-LSH-style sparse-fan-in rescues anisotropy collapse on real Pythia keys (raw collapsed to 0.018). [Q-DISCIPLINE: Bfly=0.9967 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: Bchar=1.0000 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: C=0.9960 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] [Q-DISCIPLINE: D=1.0000 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.018 | A=0.051(Ap=0.062) Bfly=0.997 Bchar=1.000 C=0.996 | D_meter=1.000 | cv_Bfly=0.001 cv_Bchar=0.000 cv_D=0.000 | rel_Bfly/D=0.997 rel_Bchar/D=1.000",
+  "run_mode": "full",
+  "model": "EleutherAI/pythia-2.8b",
+  "proj_dim": 768,
+  "M_SWEEP": [
+    1000,
+    3000,
+    10000
+  ],
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "detail": {
+    "M_eval": 10000,
+    "arm1_raw": 0.018,
+    "arm_A": 0.0507,
+    "arm_Ap_dense": 0.062,
+    "arm_B_fly_lsh": 0.9967,
+    "arm_B_charikar": 1.0,
+    "arm_C": 0.996,
+    "arm_D_meter": 1.0,
+    "cv_arm_B_fly_lsh": 0.0006,
+    "cv_arm_B_charikar": 0.0,
+    "cv_arm_D": 0.0,
+    "rel_B_fly_lsh_over_D": 0.9967,
+    "rel_B_charikar_over_D": 1.0,
+    "rel_C_over_D": 0.996,
+    "n_seeds": 3,
+    "bands": {
+      "HP_LSH": 0.8,
+      "HP_PARTIAL_LSH": 0.6,
+      "METER_FLOOR": 0.8,
+      "CV_HP": 0.05,
+      "CV_PARTIAL": 0.07,
+      "HF_LSH": 0.4,
+      "REL_PROMISE": 0.8,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "v2_calibrated_meter(A-cerebellar-K5/A'-dense / B_fly_lsh / B_charikar / C-compose / D-attn-beta-sweep) | expand5x kwta0.10 flytopk20 | beta_mults=[1.0, 4.0, 16.0, 64.0] | seeds=[11, 13, 19] | M=[1000, 3000, 10000] | FP32_GPU | bands locked",
+    "cites": [
+      "anisotropy_rescue_4arm_sweep_v1_gpu",
+      "dense_kv_whitening_revival_v1_gpu",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017",
+      "Charikar2002_hyperplane_lsh",
+      "research_deep_dive_partial_open_capabilities_2026-06-25"
+    ],
+    "meter_calibrated": true
+  },
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "gpu_max_mem_alloc_mb": 5249.0,
+  "metrics_source": "measured_gpu_anisotropy_rescue_4arm_v2_calibrated_meter",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_M": {
+        "M1000": {
+          "arm1_raw": 0.113,
+          "arm_A": 0.515,
+          "arm_Ap_dense": 0.65,
+          "arm_B_fly_lsh": 1.0,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.999,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M3000": {
+          "arm1_raw": 0.04,
+          "arm_A": 0.172,
+          "arm_Ap_dense": 0.2407,
+          "arm_B_fly_lsh": 1.0,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.9987,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M10000": {
+          "arm1_raw": 0.0187,
+          "arm_A": 0.0507,
+          "arm_Ap_dense": 0.062,
+          "arm_B_fly_lsh": 0.998,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.996,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        }
+      },
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782434860.0640228
+    },
+    {
+      "seed": 13,
+      "by_M": {
+        "M1000": {
+          "arm1_raw": 0.124,
+          "arm_A": 0.511,
+          "arm_Ap_dense": 0.626,
+          "arm_B_fly_lsh": 1.0,
+          "arm_B_charikar": 1.0,
+          "arm_C": 1.0,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M3000": {
+          "arm1_raw": 0.0393,
+          "arm_A": 0.1593,
+          "arm_Ap_dense": 0.2087,
+          "arm_B_fly_lsh": 1.0,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.9993,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M10000": {
+          "arm1_raw": 0.0173,
+          "arm_A": 0.0573,
+          "arm_Ap_dense": 0.0627,
+          "arm_B_fly_lsh": 0.9967,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.996,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        }
+      },
+      "_ckpt_key": "s13",
+      "_partial_written_at": 1782434992.424726
+    },
+    {
+      "seed": 19,
+      "by_M": {
+        "M1000": {
+          "arm1_raw": 0.14,
+          "arm_A": 0.519,
+          "arm_Ap_dense": 0.64,
+          "arm_B_fly_lsh": 1.0,
+          "arm_B_charikar": 1.0,
+          "arm_C": 1.0,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M3000": {
+          "arm1_raw": 0.0407,
+          "arm_A": 0.1607,
+          "arm_Ap_dense": 0.2113,
+          "arm_B_fly_lsh": 0.9987,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.998,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        },
+        "M10000": {
+          "arm1_raw": 0.018,
+          "arm_A": 0.0467,
+          "arm_Ap_dense": 0.0607,
+          "arm_B_fly_lsh": 0.9967,
+          "arm_B_charikar": 1.0,
+          "arm_C": 0.996,
+          "arm_D": 1.0,
+          "arm_D_best_beta_mult": 1.0,
+          "arm_D_per_beta": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              4.0,
+              1.0
+            ],
+            [
+              16.0,
+              1.0
+            ],
+            [
+              64.0,
+              1.0
+            ]
+          ],
+          "B_storage_bits_per_mem": 238.1
+        }
+      },
+      "_ckpt_key": "s19",
+      "_partial_written_at": 1782435169.6625376
+    }
+  ],
+  "elapsed_s": 461.6876287460327
+}

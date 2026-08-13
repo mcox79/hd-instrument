@@ -1,0 +1,178 @@
+{
+  "anchor_name": "substrate_compose_lock_in_frequency_stacking_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: SHARED=inf CROSS_LAYER=inf LOCK_IN=inf PLUS=inf best_lockin=LOCK_IN_PLUS_CROSS(inf) margin_vs_shared=nan lockin_lift_vs_shared=nan rail_cross=7.1700 shared_band=[7.20,7.95] cvs={shared=nan cross=nan lockin=nan plus=nan} rails=['SHARED_W_OOB(inf not in [7.20,7.95])', 'CROSS_LAYER_RAIL_OFF(inf vs 7.17 +/- 0.10)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cpu",
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.15
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.62 GiB is allocated by PyTorch, and 2.57 G",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.02
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.01
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.56 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.22 GiB is allocated by PyTorch, and 89.07 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.89
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cuda",
+      "elapsed_s": 34.3,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782397513.3067515
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.03
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.62 GiB is allocated by PyTorch, and 2.57 G",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.02
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.01
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.56 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.22 GiB is allocated by PyTorch, and 89.07 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.88
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cuda",
+      "elapsed_s": 1.5,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782397514.8583536
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.02
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.62 GiB is allocated by PyTorch, and 2.57 G",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.02
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.69 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.17 GiB is allocated by PyTorch, and 12.90 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.01
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "compute_failed": true,
+          "compute_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.05 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.56 GiB is free. 6.80 GiB allowed; Of the allocated memory 4.22 GiB is allocated by PyTorch, and 89.07 ",
+          "bpc_best": Infinity,
+          "top1_acc": NaN,
+          "elapsed_s_arm": 0.88
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cuda",
+      "elapsed_s": 1.2,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782397516.112124
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "MIDDLE_BAND: SHARED=inf CROSS_LAYER=inf LOCK_IN=inf PLUS=inf best_lockin=LOCK_IN_PLUS_CROSS(inf) margin_vs_shared=nan lockin_lift_vs_shared=nan rail_cross=7.1700 shared_band=[7.20,7.95] cvs={shared=nan cross=nan lockin=nan plus=nan} rails=['SHARED_W_OOB(inf not in [7.20,7.95])', 'CROSS_LAYER_RAIL_OFF(inf vs 7.17 +/- 0.10)']",
+  "DESIGN_NOTE": "USER directive 2026-06-24 (Barrier 3 alt): temporal frequency-division separation across plasticity rules. Lane 1; shared+cross-layer controls + within-arm ablation."
+}

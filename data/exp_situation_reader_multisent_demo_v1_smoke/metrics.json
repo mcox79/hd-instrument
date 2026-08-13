@@ -1,0 +1,66 @@
+{
+  "verdict": "DEMONSTRATED",
+  "verdict_msg": "multi-sentence situation reader DEMONSTRATED: composes=True coref=0.531(band[.30,.60]=True) validity_gate(ss_xsent=0.000==0)=True TIME margin=+0.474(MECH 0.895 vs TEXT 0.421) CAUSE margin=+0.636(NET 1.000 vs MR 0.364; reducible=True) memory_rt=0.630",
+  "summary": "DEMONSTRATED: 6/6 gates",
+  "elapsed_s": 6.01,
+  "anchor_name": "situation_reader_multisent_demo_v1",
+  "mode": "smoke",
+  "ts_iso": "2026-07-24T07:52:26.058924+00:00",
+  "n_books": 3,
+  "gates": {
+    "DEMO_COMPOSES": true,
+    "COREF_REAL_IN_BAND": true,
+    "VALIDITY_GATE_FIRES": true,
+    "TIMELINE_REAL": true,
+    "CAUSATION_REAL": true,
+    "MEMORY_GLASSBOX": true
+  },
+  "arms_differ_verified": true,
+  "coref": {
+    "overall_acc": 0.5309,
+    "n_targets": 162,
+    "xsent_acc": 0.6429,
+    "n_xsent": 42,
+    "single_sentence_xsent_acc": 0.0,
+    "validity_gate_fires": true,
+    "note": "single-sentence baseline structurally blind cross-sentence (29506 gate)"
+  },
+  "roles": {
+    "single_sentence_f1_CITED": 0.6423,
+    "source": "29502 do/have consolidated reader, McGuffey LCCP gold",
+    "note": "extracted+shown glass-box on LitBank; NOT re-scored (no LitBank role gold)"
+  },
+  "timeline": {
+    "mech_acc": 0.8947,
+    "text_acc": 0.4211,
+    "margin": 0.4737,
+    "mech_flashback_acc": 1.0,
+    "text_flashback_acc": 0.2,
+    "n_hard_pairs": 19,
+    "n_flashback_items": 4,
+    "arms_differ": true
+  },
+  "causation": {
+    "causal_net_hard_acc": 1.0,
+    "most_recent_hard_acc": 0.3636,
+    "margin": 0.6364,
+    "most_recent_nonadj_acc": 0.0,
+    "causal_net_nonadj_acc": 1.0,
+    "n_hard": 11,
+    "reducible_to_connective_else_recency": true,
+    "reducibility_mismatches": 0,
+    "arms_differ": true
+  },
+  "memory": {
+    "roundtrip_rate": 0.6296,
+    "n_ok": 17,
+    "n_probes": 27,
+    "note": "Cowan-4 focus recent-event round-trip; capacity-limited forgetting (29511)"
+  },
+  "totals": {
+    "n_entities": 253,
+    "n_events": 209,
+    "n_situation_models": 3
+  },
+  "honest_frame": "CONSOLIDATION + DEMONSTRATION of banked modules, NOT a new capability. Composed accuracy modest (coref ~0.45 propagates). Causation REDUCIBLE to connective-else-recency (plausibility NOT isolated, 29515)."
+}

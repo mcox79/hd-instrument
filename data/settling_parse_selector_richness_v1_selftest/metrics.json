@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices",
+  "summary": "CELL_CRASHED: IndexError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_settling_parse_selector_richness_v1.py\", line 669, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_settling_parse_selector_richness_v1.py\", line 647, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_settling_parse_selector_richness_v1.py\", line 617, in self_test\n    res = score_item(it, cb_normed, roles, N_DIM, BETA, t_max=3, tail_k=2)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_settling_parse_selector_richness_v1.py\", line 283, in score_item\n    s0_v = compose_candidate(roles, codebook_normed_np, v, n1, p, n2, attach_word=v)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_settling_parse_selector_richness_v1.py\", line 244, in compose_candidate\n    hd_bind(roles[\"R_VERB\"], _to_torch(code[v])),\n                                       ~~~~^^^\nIndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices\n",
+  "ts_iso": "2026-07-20T12:26:22.144938+00:00",
+  "pid": 17416,
+  "anchor_name": "settling_parse_selector_richness_v1"
+}

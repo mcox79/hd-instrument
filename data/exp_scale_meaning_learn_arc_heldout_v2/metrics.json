@@ -1,0 +1,355 @@
+{
+  "verdict": "HARD_PASS_CLEAN_WIN",
+  "verdict_msg": "HARD_PASS_CLEAN_WIN: from-scratch text-at-scale BEATS grounding on held-out-NEW SEMANTIC. PRIMARY=ARM_FUSE_ZAVG PRIMARY-RAW=0.0500 (>=0.03, per-seed min=0.0492); text_alone-RAW=0.0387; RAW_TEXT-RANDOM=0.1034; raw=0.5968 text=0.6356 feq(naive)=0.6045 zavg=0.6469 wtuned=0.6277 primary=0.6469; well_covered_margin=0.0490; RELATIONAL rel_raw=0.5617 rel_text=0.6327 rel_text_margin=0.0710 (headroom)",
+  "summary": "HARD_PASS_CLEAN_WIN: from-scratch text-at-scale BEATS grounding on held-out-NEW SEMANTIC. PRIMARY=ARM_FUSE_ZAVG PRIMARY-RAW=0.0500 (>=0.03, per-seed min=0.0492); text_alone-RAW=0.0387; RAW_TEXT-RANDOM=0.1034; raw=0.5968 text=0.6356 feq(naive)=0.6045 zavg=0.6469 wtuned=0.6277 primary=0.6469; well_covered_margin=0.0490; RELATIONAL rel_raw=0.5617 rel_text=0.6327 rel_text_margin=0.0710 (headroom)",
+  "anchor_name": "scale_meaning_learn_arc_heldout_v2",
+  "run_mode": "full",
+  "ts_iso": "2026-07-27T16:01:25.863087+00:00",
+  "device": "cuda",
+  "cuda": true,
+  "n_seeds": 2,
+  "results_summary": {
+    "primary_arm_selected": [
+      "ARM_FUSE_ZAVG",
+      "ARM_FUSE_ZAVG"
+    ],
+    "w_star_per_seed": [
+      0.9,
+      0.9
+    ],
+    "semantic_raw_grounding": 0.5968416109382539,
+    "semantic_text": 0.6355814996693429,
+    "semantic_fused_eq_naive": 0.6044768596968556,
+    "semantic_fuse_zavg": 0.6468813647526594,
+    "semantic_fuse_wtuned": 0.6276508155531659,
+    "semantic_primary": 0.6468813647526594,
+    "semantic_random_init": 0.5322100341166243,
+    "semantic_collapse": 0.49644254929024134,
+    "semantic_popularity": 0.496758082059174,
+    "semantic_margin_primary_minus_raw": 0.05003975381440545,
+    "semantic_margin_primary_min": 0.049190453920225585,
+    "semantic_margin_text_minus_raw": 0.03873988873108891,
+    "semantic_margin_text_min": 0.03715158936580243,
+    "learning_text_minus_random": 0.10337146555271864,
+    "well_covered_margin": 0.04903829343279492,
+    "relational_raw": 0.5617170034260908,
+    "relational_text": 0.632749856374317,
+    "relational_fused_eq": 0.5679152898575537,
+    "relational_fuse_zavg": 0.6024507059535223,
+    "relational_fuse_wtuned": 0.6082786426231567,
+    "relational_collapse": 0.49121950094355415,
+    "relational_popularity": 0.5105744545790911,
+    "relational_text_minus_raw": 0.07103285294822637,
+    "n_query_min": 797,
+    "validity": true,
+    "trained_tokens": [
+      121082196,
+      121082196
+    ]
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "run_mode": "full",
+      "elapsed_s": 10206.477605199994,
+      "w_star": 0.9,
+      "selected_arm": "ARM_FUSE_ZAVG",
+      "fusion_select": {
+        "w_star": 0.9,
+        "selected_arm": "ARM_FUSE_ZAVG",
+        "n_query_train": 1500,
+        "train_arm_auc": {
+          "ARM_RAW_GROUNDING": 0.6070608889519525,
+          "ARM_RAW_TEXT": 0.6186576384078702,
+          "ARM_FUSED_EQ": 0.6125142835993117,
+          "ARM_FUSE_ZAVG": 0.6437508644814579,
+          "ARM_FUSE_WTUNED": 0.6125142835993117,
+          "ARM_RANDOM_INIT": 0.5270955041964286,
+          "ARM_COLLAPSE_SHUFFLE": 0.49940704254820784,
+          "ARM_POPULARITY": 0.497076545280176
+        },
+        "train_wtuned_by_w": {
+          "0.0": 0.6070608889519525,
+          "0.1": 0.6099268441881712,
+          "0.2": 0.6103476068360375,
+          "0.3": 0.6108555927454913,
+          "0.4": 0.61154593433149,
+          "0.5": 0.6125142835993117,
+          "0.6": 0.6139214699087212,
+          "0.7": 0.6162186792771557,
+          "0.8": 0.6204067585147285,
+          "0.9": 0.6302200215780056,
+          "1.0": 0.6186576384078702
+        },
+        "train_candidate_auc": {
+          "ARM_RAW_TEXT": 0.6186576384078702,
+          "ARM_FUSE_ZAVG": 0.6437508644814579,
+          "ARM_FUSE_WTUNED": 0.6302200215780056
+        }
+      },
+      "n_well_covered": 674,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.5968416109382539,
+        "ARM_RAW_TEXT": 0.6339932003040564,
+        "ARM_FUSED_EQ": 0.603087588377363,
+        "ARM_FUSE_ZAVG": 0.6460320648584795,
+        "ARM_FUSE_WTUNED": 0.6211196433874745,
+        "ARM_FUSE_SELECTED": 0.6460320648584795,
+        "ARM_RANDOM_INIT": 0.5316321318795401,
+        "ARM_COLLAPSE_SHUFFLE": 0.49495357319010713,
+        "ARM_POPULARITY": 0.496758082059174,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 797,
+        "_n_concepts": 800
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.5930751753600751,
+        "ARM_RAW_TEXT": 0.6315912724553482,
+        "ARM_FUSED_EQ": 0.5994978205745085,
+        "ARM_FUSE_ZAVG": 0.6414636230360438,
+        "ARM_FUSE_WTUNED": 0.6173437110355005,
+        "ARM_FUSE_SELECTED": 0.6414636230360438,
+        "ARM_RANDOM_INIT": 0.5293368232459565,
+        "ARM_COLLAPSE_SHUFFLE": 0.5050089506562646,
+        "ARM_POPULARITY": 0.49801618721945473,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 672,
+        "_n_concepts": 674
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5602857140479233,
+        "ARM_RAW_TEXT": 0.6407445089333272,
+        "ARM_FUSED_EQ": 0.5633159936234001,
+        "ARM_FUSE_ZAVG": 0.6015201232898081,
+        "ARM_FUSE_WTUNED": 0.6026093671529015,
+        "ARM_COLLAPSE_SHUFFLE": 0.48422785976806826,
+        "ARM_POPULARITY": 0.5098813720818305,
+        "_n_query": 596,
+        "_n_shards": 16
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "c4c034781b460212745a5b1d8d94cec6248c7f8ca4df47b62a02b4bc413706ef",
+        "ARM_RAW_TEXT": "8ec8481c7998ce72f34576090b5f2910fbebc20edf8f142d3c21a1136a6d3fc1",
+        "ARM_RANDOM_INIT": "e4f97c9c73f880675b5f04dea49aff1fcc65c6eda901b48ce9e1ea6f67e87047"
+      },
+      "mention_rep_coverage": 1.0,
+      "final_mlm_loss": 3.910449504852295,
+      "trained_tokens": 121082196,
+      "corpus_stats": {
+        "n_read": 10000000,
+        "n_kept": 8923418,
+        "n_dup": 67749,
+        "n_lowq": 1008833,
+        "dup_rate": 0.0067749,
+        "total_alpha_tokens": 158090891
+      },
+      "collect_meta": {
+        "n_train_lines": 5461047,
+        "n_held_lines": 3462371,
+        "bpe_sample": 400000,
+        "train_tokens_available": 79893563,
+        "scrub_terms": 6457
+      },
+      "split_meta": {
+        "n_eligible": 15715,
+        "n_heldout": 800,
+        "n_train_eval": 14915,
+        "median_mentions_eligible": 655.0,
+        "median_mentions_heldout": 655.0
+      },
+      "bpe_size": 16000,
+      "checkpoint_saved": true,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1785157852.5526588
+    },
+    "13": {
+      "seed": 13,
+      "run_mode": "full",
+      "elapsed_s": 10205.20440670001,
+      "w_star": 0.9,
+      "selected_arm": "ARM_FUSE_ZAVG",
+      "fusion_select": {
+        "w_star": 0.9,
+        "selected_arm": "ARM_FUSE_ZAVG",
+        "n_query_train": 1499,
+        "train_arm_auc": {
+          "ARM_RAW_GROUNDING": 0.5973514553928907,
+          "ARM_RAW_TEXT": 0.6296818246907439,
+          "ARM_FUSED_EQ": 0.6075546418252588,
+          "ARM_FUSE_ZAVG": 0.6432442917646962,
+          "ARM_FUSE_WTUNED": 0.6075546418252588,
+          "ARM_RANDOM_INIT": 0.5294228334412778,
+          "ARM_COLLAPSE_SHUFFLE": 0.4996075734669723,
+          "ARM_POPULARITY": 0.4978613054409568
+        },
+        "train_wtuned_by_w": {
+          "0.0": 0.5973514553928907,
+          "0.1": 0.6016494679897822,
+          "0.2": 0.6026028627707242,
+          "0.3": 0.6038132041126052,
+          "0.4": 0.6053959791568004,
+          "0.5": 0.6075546418252588,
+          "0.6": 0.6106259272824296,
+          "0.7": 0.6152925017505221,
+          "0.8": 0.6229877799558715,
+          "0.9": 0.636484538583688,
+          "1.0": 0.6296818246907439
+        },
+        "train_candidate_auc": {
+          "ARM_RAW_TEXT": 0.6296818246907439,
+          "ARM_FUSE_ZAVG": 0.6432442917646962,
+          "ARM_FUSE_WTUNED": 0.636484538583688
+        }
+      },
+      "n_well_covered": 674,
+      "semantic_all": {
+        "ARM_RAW_GROUNDING": 0.5968416109382539,
+        "ARM_RAW_TEXT": 0.6371697990346293,
+        "ARM_FUSED_EQ": 0.6058661310163482,
+        "ARM_FUSE_ZAVG": 0.6477306646468393,
+        "ARM_FUSE_WTUNED": 0.6341819877188574,
+        "ARM_FUSE_SELECTED": 0.6477306646468393,
+        "ARM_RANDOM_INIT": 0.5327879363537084,
+        "ARM_COLLAPSE_SHUFFLE": 0.4979315253903755,
+        "ARM_POPULARITY": 0.496758082059174,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 797,
+        "_n_concepts": 800
+      },
+      "semantic_well_covered": {
+        "ARM_RAW_GROUNDING": 0.5930751753600751,
+        "ARM_RAW_TEXT": 0.6340304191318012,
+        "ARM_FUSED_EQ": 0.6022632095649021,
+        "ARM_FUSE_ZAVG": 0.6427633145496964,
+        "ARM_FUSE_WTUNED": 0.629997694224985,
+        "ARM_FUSE_SELECTED": 0.6427633145496964,
+        "ARM_RANDOM_INIT": 0.5323801694997244,
+        "ARM_COLLAPSE_SHUFFLE": 0.4948302846202175,
+        "ARM_POPULARITY": 0.49801618721945473,
+        "_selected_arm": "ARM_FUSE_ZAVG",
+        "_w_star": 0.9,
+        "_n_query": 672,
+        "_n_concepts": 674
+      },
+      "relational": {
+        "ARM_RAW_GROUNDING": 0.5631482928042582,
+        "ARM_RAW_TEXT": 0.6247552038153069,
+        "ARM_FUSED_EQ": 0.5725145860917074,
+        "ARM_FUSE_ZAVG": 0.6033812886172366,
+        "ARM_FUSE_WTUNED": 0.6139479180934119,
+        "ARM_COLLAPSE_SHUFFLE": 0.49821114211904005,
+        "ARM_POPULARITY": 0.5112675370763519,
+        "_n_query": 596,
+        "_n_shards": 16
+      },
+      "arm_digests": {
+        "ARM_RAW_GROUNDING": "c4c034781b460212745a5b1d8d94cec6248c7f8ca4df47b62a02b4bc413706ef",
+        "ARM_RAW_TEXT": "2ec9e256233e683fe592e505789fa55f6f66dd0fafc8254406612ecd3fa7f217",
+        "ARM_RANDOM_INIT": "5c146490c643317a7b34a5c63fd90f3cf6b24b77bdd24b1e72b04f83372fe926"
+      },
+      "mention_rep_coverage": 1.0,
+      "final_mlm_loss": 4.006968021392822,
+      "trained_tokens": 121082196,
+      "corpus_stats": {
+        "n_read": 10000000,
+        "n_kept": 8923418,
+        "n_dup": 67749,
+        "n_lowq": 1008833,
+        "dup_rate": 0.0067749,
+        "total_alpha_tokens": 158090891
+      },
+      "collect_meta": {
+        "n_train_lines": 5461047,
+        "n_held_lines": 3462371,
+        "bpe_sample": 400000,
+        "train_tokens_available": 79893563,
+        "scrub_terms": 6457
+      },
+      "split_meta": {
+        "n_eligible": 15715,
+        "n_heldout": 800,
+        "n_train_eval": 14915,
+        "median_mentions_eligible": 655.0,
+        "median_mentions_heldout": 655.0
+      },
+      "bpe_size": 16000,
+      "checkpoint_saved": true,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1785168085.845958
+    }
+  },
+  "bands": {
+    "hp_margin_over_raw": 0.03,
+    "raw_signal_min": 0.55,
+    "collapse_band": [
+      0.44,
+      0.56
+    ],
+    "min_query": 120,
+    "well_covered_min": 100
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 2,
+  "elapsed_s": 20411.682011900004,
+  "structured_gate_claims": [
+    {
+      "gate_name": "collapse_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "collapse=0.4964 band=(0.44, 0.56)"
+    },
+    {
+      "gate_name": "popularity_in_band",
+      "measured": 1.0,
+      "threshold": 1.0,
+      "op": "==",
+      "gate_verdict": true,
+      "note": "pop=0.4968"
+    },
+    {
+      "gate_name": "raw_grounding_signal",
+      "measured": 0.5968416109382539,
+      "threshold": 0.55,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "raw grounding must be a real signal"
+    },
+    {
+      "gate_name": "power_min_query",
+      "measured": 797.0,
+      "threshold": 120.0,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "held-out query power floor"
+    },
+    {
+      "gate_name": "primary_beats_raw_margin",
+      "measured": 0.05003975381440545,
+      "threshold": 0.03,
+      "op": ">=",
+      "gate_verdict": true,
+      "note": "PRIMARY(best-honest fusion)-RAW semantic"
+    },
+    {
+      "gate_name": "primary_beats_raw_per_seed_min",
+      "measured": 0.049190453920225585,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "per-seed min PRIMARY margin"
+    },
+    {
+      "gate_name": "learning_real_text_over_random",
+      "measured": 0.10337146555271864,
+      "threshold": 0.0,
+      "op": ">",
+      "gate_verdict": true,
+      "note": "RAW_TEXT - RANDOM_INIT"
+    }
+  ]
+}

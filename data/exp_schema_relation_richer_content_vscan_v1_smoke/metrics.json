@@ -1,0 +1,566 @@
+{
+  "anchor": "schema_relation_richer_content_vscan_v1",
+  "anchor_name": "schema_relation_richer_content_vscan_v1",
+  "run_mode": "smoke",
+  "N": 8192,
+  "N_DIM": 8192,
+  "device": "cpu",
+  "torch_ok": true,
+  "relations_semantic": [
+    "AtLocation",
+    "CausesDesire"
+  ],
+  "relations_neg_baseline": [
+    "DerivedFrom"
+  ],
+  "content_encodings": [
+    "bge_semantic",
+    "gsbc"
+  ],
+  "arms": [
+    "REAL",
+    "SHUFFLED"
+  ],
+  "eval_modes": [
+    "inductive",
+    "transductive"
+  ],
+  "scorer_slots": [
+    "FROZEN",
+    "JOINT"
+  ],
+  "config_grid": [
+    {
+      "name": "V100",
+      "V": 100,
+      "M": 200,
+      "rels": [
+        "AtLocation",
+        "CausesDesire"
+      ],
+      "encs": [
+        "bge_semantic"
+      ]
+    },
+    {
+      "name": "V300",
+      "V": 300,
+      "M": 300,
+      "rels": [
+        "AtLocation",
+        "CausesDesire"
+      ],
+      "encs": [
+        "bge_semantic"
+      ]
+    }
+  ],
+  "frozen_hp": {
+    "df": 384,
+    "steps": 2000,
+    "lr": 1.0,
+    "tau": 0.05,
+    "l2": 0.001
+  },
+  "joint_hp": {
+    "h": 256,
+    "df": 128,
+    "dropout": 0.1,
+    "lr": 0.002,
+    "wd": 0.001,
+    "steps": 500,
+    "tau": 0.1
+  },
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "expected_n_units": 40,
+  "n_units_counted": 40,
+  "n_units_failed": 0,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "FROZEN_real": "57b4580e817b513aae322bc6d23e96872911cf87f0f9a5598c69c8191c00ad1e",
+    "FROZEN_shuf": "68da036ba9ef6438a14828830db820509ae287c7b8a498a57ba933670914e1b4",
+    "JOINT_real": "92935dc2ac8c9762bb648ed5695199e4601f460b4ff8ffdf09279e4f1c84de82",
+    "JOINT_shuf": "6865d9519873cd3daecf242e4670527665d97c3b80cffad3cb0b3514f41d034e"
+  },
+  "bind_roundtrip": 1.0000000596046463,
+  "synth_rot_clean": {
+    "GLOBAL": 1.0
+  },
+  "synth_content_map": {
+    "GLOBAL": 0.03,
+    "FROZEN": 0.205,
+    "frozen_adv": 0.175
+  },
+  "synth_nonlinear_content": {
+    "FROZEN": 0.1,
+    "JOINT": 0.20666666666666667,
+    "joint_adv": 0.10666666666666666
+  },
+  "discriminator_fires_frozen": true,
+  "discriminator_fires_joint": true,
+  "gate_d_positive_control": {
+    "_note": "gate_d_skipped_in_smoke_full_regime_positive_control"
+  },
+  "gate_d_ok": true,
+  "v_scan_curve_joint_vs_frozen": {
+    "V100": {
+      "AtLocation|bge_semantic": {
+        "frozen_rms": 0.05,
+        "joint_rms": 0.0,
+        "joint_minus_frozen": -0.05,
+        "joint_real": 0.1
+      },
+      "CausesDesire|bge_semantic": {
+        "frozen_rms": 0.0667,
+        "joint_rms": 0.1167,
+        "joint_minus_frozen": 0.05,
+        "joint_real": 0.1833
+      }
+    },
+    "V300": {
+      "AtLocation|bge_semantic": {
+        "frozen_rms": 0.0,
+        "joint_rms": 0.0,
+        "joint_minus_frozen": 0.0,
+        "joint_real": 0.0167
+      },
+      "CausesDesire|bge_semantic": {
+        "frozen_rms": 0.0667,
+        "joint_rms": 0.0833,
+        "joint_minus_frozen": 0.0167,
+        "joint_real": 0.0833
+      }
+    },
+    "V1000": {}
+  },
+  "records": [
+    {
+      "config": "V100",
+      "V": 100,
+      "M": 200,
+      "rel": "AtLocation",
+      "enc": "bge_semantic",
+      "is_sem": true,
+      "is_neg_watchdog": false,
+      "frozen_rms": 0.05,
+      "frozen_real": 0.06666666666666667,
+      "frozen_shuf": 0.016666666666666666,
+      "joint_rms": 0.0,
+      "joint_real": 0.1,
+      "joint_shuf": 0.1,
+      "joint_minus_frozen": -0.05,
+      "joint_gain": 0.09000000000000001,
+      "joint_rmm": 0.1,
+      "chance": 0.01,
+      "meanobj_ind": 0.0
+    },
+    {
+      "config": "V100",
+      "V": 100,
+      "M": 200,
+      "rel": "CausesDesire",
+      "enc": "bge_semantic",
+      "is_sem": true,
+      "is_neg_watchdog": false,
+      "frozen_rms": 0.06666666666666667,
+      "frozen_real": 0.11666666666666667,
+      "frozen_shuf": 0.05,
+      "joint_rms": 0.11666666666666665,
+      "joint_real": 0.18333333333333332,
+      "joint_shuf": 0.06666666666666667,
+      "joint_minus_frozen": 0.04999999999999999,
+      "joint_gain": 0.1733333333333333,
+      "joint_rmm": 0.016666666666666663,
+      "chance": 0.01,
+      "meanobj_ind": 0.16666666666666666
+    },
+    {
+      "config": "V300",
+      "V": 300,
+      "M": 300,
+      "rel": "AtLocation",
+      "enc": "bge_semantic",
+      "is_sem": true,
+      "is_neg_watchdog": false,
+      "frozen_rms": 0.0,
+      "frozen_real": 0.016666666666666666,
+      "frozen_shuf": 0.016666666666666666,
+      "joint_rms": 0.0,
+      "joint_real": 0.016666666666666666,
+      "joint_shuf": 0.016666666666666666,
+      "joint_minus_frozen": 0.0,
+      "joint_gain": 0.013333333333333332,
+      "joint_rmm": 0.016666666666666666,
+      "chance": 0.0033333333333333335,
+      "meanobj_ind": 0.0
+    },
+    {
+      "config": "V300",
+      "V": 300,
+      "M": 300,
+      "rel": "CausesDesire",
+      "enc": "bge_semantic",
+      "is_sem": true,
+      "is_neg_watchdog": false,
+      "frozen_rms": 0.06666666666666667,
+      "frozen_real": 0.06666666666666667,
+      "frozen_shuf": 0.0,
+      "joint_rms": 0.08333333333333333,
+      "joint_real": 0.08333333333333333,
+      "joint_shuf": 0.0,
+      "joint_minus_frozen": 0.016666666666666663,
+      "joint_gain": 0.08,
+      "joint_rmm": 0.06666666666666667,
+      "chance": 0.0033333333333333335,
+      "meanobj_ind": 0.016666666666666666
+    }
+  ],
+  "jt_wins": [],
+  "win_rels": [],
+  "win_encs": [],
+  "expansion_criterion_met": false,
+  "best_joint_rms_at_V300plus": 0.0833,
+  "best_joint_minus_frozen_at_V300plus": 0.0167,
+  "enc_unavailable": {},
+  "joint_unavailable": 0,
+  "meta_per_relenc": {
+    "V100|AtLocation|bge_semantic": {
+      "V_eff": 100,
+      "m_eff": 200,
+      "chance": 0.01,
+      "n_ind": 60,
+      "n_trans": 60
+    },
+    "V100|CausesDesire|bge_semantic": {
+      "V_eff": 100,
+      "m_eff": 200,
+      "chance": 0.01,
+      "n_ind": 60,
+      "n_trans": 60
+    },
+    "V300|AtLocation|bge_semantic": {
+      "V_eff": 300,
+      "m_eff": 300,
+      "chance": 0.0033333333333333335,
+      "n_ind": 60,
+      "n_trans": 60
+    },
+    "V300|CausesDesire|bge_semantic": {
+      "V_eff": 300,
+      "m_eff": 300,
+      "chance": 0.0033333333333333335,
+      "n_ind": 60,
+      "n_trans": 60
+    }
+  },
+  "hp_scope": {
+    "JOINT_REAL_inductive_SEMANTIC_at_V>=300": [
+      "HARD_PASS",
+      "HARD_FAIL",
+      "MIDDLE_BAND"
+    ],
+    "FROZEN": [
+      "frozen_baseline_to_beat_not_a_win"
+    ],
+    "DerivedFrom": [
+      "surface_negative_watchdog_NOT_HP"
+    ],
+    "SHUFFLED": [],
+    "MEAN_OBJECT": [],
+    "SYNTH": []
+  },
+  "bands": {
+    "HP_RMS_MIN": 0.2075,
+    "HP_REAL_GAIN_MIN": 0.2075,
+    "HP_RMM_MIN": 0.05,
+    "IMPROVE_MIN": 0.02,
+    "RMS_SIGNAL_MIN": 0.05,
+    "FROZEN_ADV_MIN": 0.05,
+    "JOINT_ADV_MIN": 0.05,
+    "SYNTH_CLEAN_MIN": 0.9,
+    "GATE_D_TOL": 0.06
+  },
+  "cells_aggregate": {
+    "V100|AtLocation|bge_semantic|FROZEN|REAL|inductive": {
+      "mean": 0.06666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|FROZEN|REAL|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|FROZEN|SHUFFLED|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|FROZEN|SHUFFLED|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|JOINT|REAL|inductive": {
+      "mean": 0.1,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|JOINT|REAL|transductive": {
+      "mean": 0.05,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|JOINT|SHUFFLED|inductive": {
+      "mean": 0.1,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|JOINT|SHUFFLED|transductive": {
+      "mean": 0.06666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|AtLocation|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|transductive": {
+      "mean": 0.05,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|FROZEN|REAL|inductive": {
+      "mean": 0.11666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|FROZEN|REAL|transductive": {
+      "mean": 0.11666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|FROZEN|SHUFFLED|inductive": {
+      "mean": 0.05,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|FROZEN|SHUFFLED|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|JOINT|REAL|inductive": {
+      "mean": 0.18333333333333332,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|JOINT|REAL|transductive": {
+      "mean": 0.08333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|JOINT|SHUFFLED|inductive": {
+      "mean": 0.06666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|JOINT|SHUFFLED|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|inductive": {
+      "mean": 0.16666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V100|CausesDesire|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|FROZEN|REAL|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|FROZEN|REAL|transductive": {
+      "mean": 0.1,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|FROZEN|SHUFFLED|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|FROZEN|SHUFFLED|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|JOINT|REAL|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|JOINT|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|JOINT|SHUFFLED|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|JOINT|SHUFFLED|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|AtLocation|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|FROZEN|REAL|inductive": {
+      "mean": 0.06666666666666667,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|FROZEN|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|FROZEN|SHUFFLED|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|FROZEN|SHUFFLED|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|JOINT|REAL|inductive": {
+      "mean": 0.08333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|JOINT|REAL|transductive": {
+      "mean": 0.03333333333333333,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|JOINT|SHUFFLED|inductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|JOINT|SHUFFLED|transductive": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|inductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "V300|CausesDesire|bge_semantic|MEAN_OBJECT|MEAN_OBJECT|transductive": {
+      "mean": 0.016666666666666666,
+      "std": 0.0,
+      "n": 1
+    }
+  },
+  "gate_diagnostics": {
+    "bind_roundtrip": 1.0000000596046463,
+    "arms_differ_ok": true,
+    "good_units": 40,
+    "expected_n_units": 40,
+    "synth_rot_clean": {
+      "GLOBAL": 1.0
+    },
+    "synth_content_map": {
+      "GLOBAL": 0.03,
+      "FROZEN": 0.205,
+      "frozen_adv": 0.175
+    },
+    "synth_nonlinear_content": {
+      "FROZEN": 0.1,
+      "JOINT": 0.20666666666666667,
+      "joint_adv": 0.10666666666666666
+    },
+    "discriminator_fires_frozen": true,
+    "discriminator_fires_joint": true,
+    "gate_d_positive_control": {
+      "_note": "gate_d_skipped_in_smoke_full_regime_positive_control"
+    },
+    "gate_d_ok": true,
+    "v_scan_curve_joint_vs_frozen": {
+      "V100": {
+        "AtLocation|bge_semantic": {
+          "frozen_rms": 0.05,
+          "joint_rms": 0.0,
+          "joint_minus_frozen": -0.05,
+          "joint_real": 0.1
+        },
+        "CausesDesire|bge_semantic": {
+          "frozen_rms": 0.0667,
+          "joint_rms": 0.1167,
+          "joint_minus_frozen": 0.05,
+          "joint_real": 0.1833
+        }
+      },
+      "V300": {
+        "AtLocation|bge_semantic": {
+          "frozen_rms": 0.0,
+          "joint_rms": 0.0,
+          "joint_minus_frozen": 0.0,
+          "joint_real": 0.0167
+        },
+        "CausesDesire|bge_semantic": {
+          "frozen_rms": 0.0667,
+          "joint_rms": 0.0833,
+          "joint_minus_frozen": 0.0167,
+          "joint_real": 0.0833
+        }
+      },
+      "V1000": {}
+    },
+    "jt_wins": [],
+    "win_rels": [],
+    "win_encs": [],
+    "expansion_criterion_met": false,
+    "best_joint_minus_frozen_at_V300plus": 0.0167,
+    "best_joint_rms_at_V300plus": 0.0833,
+    "enc_unavailable": {},
+    "joint_unavailable": 0,
+    "device": "cpu"
+  },
+  "corpus_provenance": "conceptnet5_en_100k_real_triples",
+  "encoding_provenance": {
+    "bge_semantic": "BAAI/bge-small-en-v1.5_bounded_cache_centered_projected",
+    "gsbc": "bge-large-en-v1.5->GSBC_EXPAND2X_student_sparse_code_cache"
+  },
+  "allow_synthetic": false,
+  "n_generative_llm_calls": 0,
+  "metrics_source": "measured_gpu_torch_joint_encoder_vs_frozen_scorer_vscan",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_ONE_TO_MANY_CEILING_GENUINE: richer jointly-trained content does NOT beat the FROZEN baseline at V>=300 (best joint-minus-frozen=0.0167 < 0.02) while discriminators fired -> the one-to-many entropy ceiling on thin generic-sentence content at realistic vocab is GENUINE for this task class; content-enrichment at this granularity is not the lever (needs structured attributes / multi-sentence descriptions). dev=cpu fires[frozen=True,joint=True] synthCONTENT(G=0.03,FZ=0.20,adv+0.17) synthNONLIN(FZ=0.10,JT=0.21,adv+0.11) | V300+ best_joint_rms=0.0833 best_joint-frozen=0.0167",
+  "summary": "HARD_FAIL: best_joint_rms@V300+=0.0833 best_joint-frozen@V300+=0.0167 expansion_met=False",
+  "elapsed_s": 15.022450685501099
+}

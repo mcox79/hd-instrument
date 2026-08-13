@@ -1,0 +1,190 @@
+{
+  "anchor_name": "substrate_pc_hierarchy_text8_lm_v2",
+  "anchor": "substrate_pc_hierarchy_text8_lm_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "PC_HIERARCHY HARD_FAIL: both ARM_PC_2_LAYER (bpc=7.801) and ARM_PC_5_LAYER (bpc=7.976) failed to beat ARM_RANK1_HEBBIAN (bpc=7.800); multi-layer PC hierarchy adds no lift; rank-1 is the structural cap regardless of depth; the brain-existence-proof does NOT transfer to substrate-style sign() discrete-vector PC. PC_HIERARCHY ARM_UNIGRAM=bpc5.391 | ARM_RANK1_HEBBIAN_NO_HIERARCHY=bpc7.800 | ARM_PC_2_LAYER=bpc7.801 | ARM_PC_5_LAYER=bpc7.976 | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 1024,
+  "N": 1024,
+  "N_TRAIN": 1500,
+  "N_HELD": 300,
+  "VOCAB_CAP": 300,
+  "PC_2_LAYER_DEPTH": 2,
+  "PC_5_LAYER_DEPTH": 5,
+  "ALPHA_GRID": [
+    0.01,
+    0.05,
+    0.1
+  ],
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_RANK1_HEBBIAN_NO_HIERARCHY",
+    "ARM_PC_2_LAYER",
+    "ARM_PC_5_LAYER"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_best_mean": 5.3907,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "best_alpha_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_RANK1_HEBBIAN_NO_HIERARCHY": {
+        "bpc_best_mean": 7.8004,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "best_alpha_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_2_LAYER": {
+        "bpc_best_mean": 7.8014,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "best_alpha_mean": 0.1,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_5_LAYER": {
+        "bpc_best_mean": 7.9763,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "best_alpha_mean": 0.01,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "decisive_arm": "ARM_PC_5_LAYER",
+    "rank1_bpc": 7.8004,
+    "pc2_bpc": 7.8014,
+    "pc5_bpc": 7.9763,
+    "pc5_cv": 0.0,
+    "pc5_lift_over_rank1": -0.1759000000000004,
+    "pc2_lift_over_rank1": -0.001000000000000334,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_pc5_lift_over_rank1": 1.0,
+    "hp_pc5_bpc_bar": 7.5,
+    "hf_no_lift_tolerance": 0.0,
+    "hp_bpc_cv_max": 0.1,
+    "PC_2_LAYER_DEPTH": 2,
+    "PC_5_LAYER_DEPTH": 5,
+    "ALPHA_GRID": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "CONFIG_VERSION": "substrate_pc_hierarchy_text8_lm_v2; bugfix=PC_W_init_variance_scaled_gauss; N_DIM=1024 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_HEBBIAN_NO_HIERARCHY', 'ARM_PC_2_LAYER', 'ARM_PC_5_LAYER'] seeds=[0] mode=smoke alpha_grid=[0.01, 0.05, 0.1] pc2_depth=2 pc5_depth=5 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu; bands HP_pc5_lift_over_rank1>=1.00 HP_pc5_bpc<7.500 HF_no_lift_tol=0.00 cv_max=0.10",
+    "honest_scope": "Isolated multi-layer PC hierarchy as substrate-as-LM (Friston/Rao-Ballard). 4 arms ascending in PC depth (0 -> rank1 -> 2 -> 5 layers). Decisive arm = ARM_PC_5_LAYER vs ARM_RANK1_HEBBIAN_NO_HIERARCHY (rank-1 ceiling). HARD_PASS = pc5 beats rank1 by >=1.00 bits AND clears unigram bar (<7.500). HARD_FAIL = both PC arms BPC >= rank1 (no hierarchy lift; rank-1 is structural cap). MIDDLE_BAND = PC arms beat rank1 but don't beat unigram floor.",
+    "cites": [
+      "preregs/2026-06-23_substrate_pc_hierarchy_text8_lm_v1.md",
+      "experiments/exp_predictive_coding_hierarchy_smoke_v1.py",
+      "experiments/exp_substrate_as_lm_composed_primitives_GPU_v1.py",
+      "USER_2026-06-23_substrate_rank1_cap_may_break_with_multi_layer_hierarchy",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_pc_hierarchy_text8_lm_v2_bug1_fix",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_best": 5.3907,
+          "n_test": 184,
+          "best_alpha": NaN
+        },
+        "ARM_RANK1_HEBBIAN_NO_HIERARCHY": {
+          "bpc_best": 7.8004,
+          "best_alpha": NaN,
+          "n_test": 184,
+          "wall_encode_s": 0.11,
+          "wall_ingest_s": 0.02,
+          "wall_recall_s": 0.01
+        },
+        "ARM_PC_2_LAYER": {
+          "bpc_best": 7.8014,
+          "best_alpha": 0.1,
+          "best_dev_bpc": 7.8484,
+          "bpc_per_alpha_dev": {
+            "0.01": 7.8531,
+            "0.05": 7.8559,
+            "0.1": 7.8484
+          },
+          "bpc_per_alpha_test": {
+            "0.01": 7.8105,
+            "0.05": 7.8014,
+            "0.1": 7.8014
+          },
+          "recon_err_quarter": 0.9921,
+          "recon_err_end": 0.9921,
+          "n_test": 92,
+          "wall_encode_s": 0.11,
+          "wall_ingest_s": 0.44,
+          "wall_recall_s": 0.06
+        },
+        "ARM_PC_5_LAYER": {
+          "bpc_best": 7.9763,
+          "best_alpha": 0.01,
+          "best_dev_bpc": 7.8704,
+          "bpc_per_alpha_dev": {
+            "0.01": 7.8704,
+            "0.05": 7.9687,
+            "0.1": 7.9583
+          },
+          "bpc_per_alpha_test": {
+            "0.01": 7.9763,
+            "0.05": 7.9511,
+            "0.1": 7.9866
+          },
+          "recon_err_quarter": 0.9921,
+          "recon_err_end": 0.9921,
+          "n_test": 92,
+          "wall_encode_s": 0.11,
+          "wall_ingest_s": 0.98,
+          "wall_recall_s": 0.09
+        }
+      },
+      "V": 300,
+      "N": 1024,
+      "N_DIM": 1024,
+      "N_TRAIN": 1500,
+      "N_HELD": 300,
+      "VOCAB_CAP": 300,
+      "PC_2_LAYER_DEPTH": 2,
+      "PC_5_LAYER_DEPTH": 5,
+      "ALPHA_GRID": [
+        0.01,
+        0.05,
+        0.1
+      ],
+      "run_mode": "smoke",
+      "config_version": "substrate_pc_hierarchy_text8_lm_v2; bugfix=PC_W_init_variance_scaled_gauss; N_DIM=1024 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_HEBBIAN_NO_HIERARCHY', 'ARM_PC_2_LAYER', 'ARM_PC_5_LAYER'] seeds=[0] mode=smoke alpha_grid=[0.01, 0.05, 0.1] pc2_depth=2 pc5_depth=5 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu; bands HP_pc5_lift_over_rank1>=1.00 HP_pc5_bpc<7.500 HF_no_lift_tol=0.00 cv_max=0.10",
+      "elapsed_s_seed": 1.81,
+      "device": "cpu",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782257080.3500166
+    }
+  ],
+  "elapsed_s": 1.8850204944610596,
+  "summary": "PC_HIERARCHY HARD_FAIL: both ARM_PC_2_LAYER (bpc=7.801) and ARM_PC_5_LAYER (bpc=7.976) failed to beat ARM_RANK1_HEBBIAN (bpc=7.800); multi-layer PC hierarchy adds no lift; rank-1 is the structural cap regardless of depth; the brain-existenc",
+  "substrate_only_decode_gate": "TRUE (substrate-native PC hierarchy; char_trigram is open static lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_pc_hierarchy_text8_lm_v2; bugfix=PC_W_init_variance_scaled_gauss; N_DIM=1024 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_RANK1_HEBBIAN_NO_HIERARCHY', 'ARM_PC_2_LAYER', 'ARM_PC_5_LAYER'] seeds=[0] mode=smoke alpha_grid=[0.01, 0.05, 0.1] pc2_depth=2 pc5_depth=5 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu; bands HP_pc5_lift_over_rank1>=1.00 HP_pc5_bpc<7.500 HF_no_lift_tol=0.00 cv_max=0.10",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

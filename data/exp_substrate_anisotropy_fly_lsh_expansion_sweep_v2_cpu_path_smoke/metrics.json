@@ -1,0 +1,143 @@
+{
+  "anchor_name": "substrate_anisotropy_fly_lsh_expansion_sweep_v2_cpu_path",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_INCONCLUSIVE: expansion sweep did not cleanly separate. raw=0.035 | FLY_8x=0.623(cv=nan) FLY_64x=0.720(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | trans=['8x->64x: 0.623->0.720 ok=True', '64x->512x: 0.720->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "summary": "MIDDLE_BAND_INCONCLUSIVE: expansion sweep did not cleanly separate. raw=0.035 | FLY_8x=0.623(cv=nan) FLY_64x=0.720(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | trans=['8x->64x: 0.623->0.720 ok=True', '64x->512x: 0.720->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "expansion_factors_active": [
+    8,
+    64
+  ],
+  "expansion_factors_canonical": [
+    8,
+    64,
+    512,
+    4096
+  ],
+  "ab_control_expansion": 4096,
+  "M_EVAL": 400,
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "detail": {
+    "raw": 0.035,
+    "by_expansion": {
+      "8": 0.6225,
+      "64": 0.72,
+      "512": null,
+      "4096": null
+    },
+    "by_expansion_cv": {
+      "8": null,
+      "64": null,
+      "512": null,
+      "4096": null
+    },
+    "ab_control_at_max": null,
+    "ab_control_cv": null,
+    "AB_CONTROL_EXPANSION": 4096,
+    "monotonic_in_expansion": true,
+    "transitions": [
+      [
+        8,
+        64,
+        0.6225,
+        0.72,
+        true
+      ],
+      [
+        64,
+        512,
+        0.72,
+        NaN,
+        null
+      ],
+      [
+        512,
+        4096,
+        NaN,
+        NaN,
+        null
+      ]
+    ],
+    "M_eval": 400,
+    "n_seeds": 1,
+    "bands": {
+      "HP_BRAIN_EXPANSION": 0.85,
+      "HP_VS_CONTROL_MARGIN": 0.1,
+      "HP_CONTROL_ALSO": 0.85,
+      "HP_CONTROL_OVER_RAW": 0.5,
+      "MONOTONIC_TOL": 0.02,
+      "HF_NO_LIFT_VS_8X": 0.02,
+      "HF_CONTROL_DOMINATES": 0.05,
+      "CV_HP": 0.05,
+      "CV_PARTIAL": 0.07,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "expansionSweepV2CpuPath(fly_lsh K_FANIN=5 KWTA_FRAC=0.020 FLY_TOPK_FRAC=0.0050) | PROJ_DIM=768 C=256 expansions=[8, 64] ab_control=4096x | window=16t shift=1 | seeds=[11] M_EVAL=400 encoder=EleutherAI/pythia-160m | HP_4096x>=0.85 vs_control_margin>=0.10 cv_HP<=0.05 Q_sat>=0.995 | PURE_NUMPY_NO_TORCH_NO_GPU_CAP mem_budget_gb=12.0",
+    "cites": [
+      "anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+      "anisotropy_fly_lsh_expansion_ratio_sweep_v1_GPU_OOM",
+      "anisotropy_rescue_M100k_adversarial_similarity_keys_v2_batched",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017",
+      "USER_geometric_intuition_2026-06-25"
+    ]
+  },
+  "compute_path": "pure_numpy_cpu_no_torch_no_gpu",
+  "mem_budget_gb": 12.0,
+  "mem_peak_estimates_gb": {
+    "fly_8x": 0.253,
+    "fly_64x": 0.259,
+    "raw": 0.008,
+    "ab_control_4096x": 1.282
+  },
+  "metrics_source": "measured_cpu_anisotropy_fly_lsh_expansion_sweep_v2_cpu_path",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.035
+        },
+        "arm_fly_lsh_8x": {
+          "top1": 0.6225,
+          "d_p": 6144,
+          "FLY_TOPK": 30,
+          "expansion": 8,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 2.17
+        },
+        "arm_fly_lsh_64x": {
+          "top1": 0.72,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "expansion": 64,
+          "mechanism": "fly_lsh_sparse_fanin_cpu",
+          "elapsed_s_arm": 34.84
+        },
+        "arm_ab_control_64x": {
+          "top1": 0.72,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "expansion": 64,
+          "mechanism": "ab_control_dense_gaussian_cpu",
+          "elapsed_s_arm": 3.09
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        8,
+        64
+      ],
+      "AB_CONTROL_EXPANSION": 64,
+      "encoder_elapsed_s": 429.13,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782449184.2754338
+    }
+  ],
+  "elapsed_s": 469.35044836997986,
+  "DESIGN_NOTE": "USER-directed 2026-06-25 v4 CPU-path: three GPU OOMs (v1 GPU sweep + v2_batched + v3) on 8GB GPU blocked the brain-scale (4096x) expansion test. Route via pure-numpy on remote_cpu_queue (no GPU cap; ~16GB RAM headroom). M reduced 10k->2k for CPU feasibility; mechanism, bands, and discriminator preserved. Expansion grid changed to [8, 64, 512, 4096] for cleaner monotonicity. Adversarial-similarity keys (stride-1 windows; same as v2_batched) for the discriminator regime. AB_CONTROL_4096x retained as LSH-vs-generic discriminator. FINAL anisotropy program cell: outcome locks substrate-product positioning for anisotropy gap (brain-scale rescue confirmed | expansion-only mechanism | bypass-only)."
+}

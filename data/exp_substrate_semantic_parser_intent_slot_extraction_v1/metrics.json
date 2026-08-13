@@ -1,0 +1,234 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate_full intent=0.898 slot=1.000; shuffled_slot=0.017; intent_only=0.023",
+  "summary": "HARD_PASS",
+  "elapsed_s": 15.3535489999922,
+  "anchor_name": "substrate_semantic_parser_intent_slot_extraction_v1",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N_INTENTS": 50,
+  "N_ROLES": 5,
+  "ROLE_NAMES": [
+    "SUBJECT",
+    "OBJECT",
+    "ATTRIBUTE",
+    "TIME",
+    "LOCATION"
+  ],
+  "SLOT_DICT_SIZE_PER_ROLE": 100,
+  "n_train": 500,
+  "n_test": 200,
+  "seeds_run": [
+    11,
+    17,
+    23
+  ],
+  "expected_n_units": 15,
+  "n_units_observed": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "calibration_check": "default_ok_for_this_regime",
+  "storage_strategy": "sharded",
+  "per_arm_per_seed": {
+    "ARM_BASELINE_SYMBOLIC": {
+      "11": {
+        "intent_acc": 1.0,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "17": {
+        "intent_acc": 1.0,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "23": {
+        "intent_acc": 1.0,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "ARM_SUBSTRATE_FULL": {
+      "11": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "17": {
+        "intent_acc": 0.865,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "23": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 1.0,
+        "slot_fill_per_role": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "ARM_INTENT_ONLY": {
+      "11": {
+        "intent_acc": 0.035,
+        "slot_fill_overall": 0.015,
+        "slot_fill_per_role": [
+          0.005,
+          0.005,
+          0.02,
+          0.03,
+          0.015
+        ]
+      },
+      "17": {
+        "intent_acc": 0.015,
+        "slot_fill_overall": 0.01,
+        "slot_fill_per_role": [
+          0.01,
+          0.01,
+          0.02,
+          0.01,
+          0.0
+        ]
+      },
+      "23": {
+        "intent_acc": 0.02,
+        "slot_fill_overall": 0.003,
+        "slot_fill_per_role": [
+          0.005,
+          0.0,
+          0.0,
+          0.01,
+          0.0
+        ]
+      }
+    },
+    "ARM_M16_ROUTER": {
+      "11": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 0.03,
+        "slot_fill_per_role": [
+          0.025,
+          0.03,
+          0.03,
+          0.045,
+          0.02
+        ]
+      },
+      "17": {
+        "intent_acc": 0.865,
+        "slot_fill_overall": 0.014,
+        "slot_fill_per_role": [
+          0.025,
+          0.0,
+          0.03,
+          0.01,
+          0.005
+        ]
+      },
+      "23": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 0.019,
+        "slot_fill_per_role": [
+          0.01,
+          0.0,
+          0.02,
+          0.03,
+          0.035
+        ]
+      }
+    },
+    "ARM_SHUFFLED_ROLE_KEYS": {
+      "11": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 0.02,
+        "slot_fill_per_role": [
+          0.02,
+          0.015,
+          0.01,
+          0.035,
+          0.02
+        ]
+      },
+      "17": {
+        "intent_acc": 0.865,
+        "slot_fill_overall": 0.013,
+        "slot_fill_per_role": [
+          0.01,
+          0.03,
+          0.01,
+          0.005,
+          0.01
+        ]
+      },
+      "23": {
+        "intent_acc": 0.915,
+        "slot_fill_overall": 0.018,
+        "slot_fill_per_role": [
+          0.01,
+          0.0,
+          0.025,
+          0.03,
+          0.025
+        ]
+      }
+    }
+  },
+  "per_seed_digests": {
+    "11": {
+      "ARM_BASELINE_SYMBOLIC": "709e4dc610c74459d640cc119a605de1335f315a92c6ba883ee18c0570758d7a",
+      "ARM_SUBSTRATE_FULL": "be11ebd42b91c006117523ad72df2dfa0f485bb0b09f655dcd13e6154db8195d",
+      "ARM_INTENT_ONLY": "4ab0d9233604396d42cc0a5285ce99b7ead2c7550cd81c400fb9244c0ff0401e",
+      "ARM_M16_ROUTER": "cfb39cdb7b7f6ab937e58261770412c8b023660bdd398c6fc125f6d5f19b2228",
+      "ARM_SHUFFLED_ROLE_KEYS": "7807b609d368d2ab4c80d4540a2e0369c2a538798c2201b0eea343a7c1435f7f"
+    },
+    "17": {
+      "ARM_BASELINE_SYMBOLIC": "5aa01bce22999271772dff7d761caadf9eddcc318180c430559052b3e1ea767c",
+      "ARM_SUBSTRATE_FULL": "7706f441d9e4e945971dc8532c980a3de12d3d7f52f04438ff808aecd0ce17c4",
+      "ARM_INTENT_ONLY": "f0cd127fb6592f10aef41b312633b334b43d353203dc2a1370f8cd69ed2dff67",
+      "ARM_M16_ROUTER": "264e884f422f1518dc2b88e72f82723d3d80397e4f25b2ec1e948d81246d7219",
+      "ARM_SHUFFLED_ROLE_KEYS": "884347a31f642d79a295c34297ec7150c45ffb431b06dd520f214c0a42a00336"
+    },
+    "23": {
+      "ARM_BASELINE_SYMBOLIC": "2dae769db81dfd39d184285b487e595271712728ea13f8a41aba5d952aba5119",
+      "ARM_SUBSTRATE_FULL": "af49d6afe695880a21e04f830763934e881b126f4f791dc411c8e620f7650ce0",
+      "ARM_INTENT_ONLY": "1def5bee9aba37409c63c71c06eb2ac901fe1e855ca66c79c2e7913eed62e0ad",
+      "ARM_M16_ROUTER": "6acc398d8f5c8c8f8360c135c20d5b2c8d396541d74fb31d6926f2d1f1dfa414",
+      "ARM_SHUFFLED_ROLE_KEYS": "f41b1191ed0203735f01206abe062cb995b6bbf64a71d90eb2260ed725df3d4d"
+    }
+  },
+  "ts_iso": "2026-07-02T20:16:40.860012+00:00"
+}

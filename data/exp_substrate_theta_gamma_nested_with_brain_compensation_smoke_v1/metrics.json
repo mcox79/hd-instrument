@@ -1,0 +1,326 @@
+{
+  "anchor_name": "substrate_theta_gamma_nested_with_brain_compensation_smoke_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_1: brain_full adds nothing over nested_baseline (+<=0.03) at ALL sigmas. Pivot to TDM-gating Anchor 2. N=512 M=50 sparse_f=0.02 tau=0.3; single@16=0.9958 brain_full@16=0.0625 nested_base@16=0.9125 nested_sparse@16=0.0375 nested_cleanup@16=0.9042; brain_full@32=0.0375 single@32=0.6917; criteria=A:False B:False C:False; hf_flags=1:True 2:True 3:False",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config": {
+    "N_DIM": 512,
+    "M": 50,
+    "K_GAMMA": 31,
+    "K_THETA": 1,
+    "P_SINGLE": 32,
+    "P_THETA": 4,
+    "P_GAMMA": 7,
+    "SIGMAS": [
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0
+    ],
+    "N_EVAL": 80,
+    "SPARSE_F": 0.02,
+    "CLEANUP_TAU": 0.3
+  },
+  "summary": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.9958333333333332,
+      "sigma_32.0": 0.6916666666666668,
+      "sigma_64.0": 0.25
+    },
+    "ARM_NESTED_BASELINE": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.9125,
+      "sigma_32.0": 0.3541666666666667,
+      "sigma_64.0": 0.08333333333333333
+    },
+    "ARM_NESTED_SPARSE": {
+      "sigma_4.0": 0.4666666666666666,
+      "sigma_8.0": 0.1416666666666667,
+      "sigma_16.0": 0.0375,
+      "sigma_32.0": 0.041666666666666664,
+      "sigma_64.0": 0.016666666666666666
+    },
+    "ARM_NESTED_CLEANUP": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 0.9041666666666668,
+      "sigma_32.0": 0.325,
+      "sigma_64.0": 0.09583333333333334
+    },
+    "ARM_NESTED_BRAIN_FULL": {
+      "sigma_4.0": 0.4291666666666667,
+      "sigma_8.0": 0.13333333333333333,
+      "sigma_16.0": 0.0625,
+      "sigma_32.0": 0.0375,
+      "sigma_64.0": 0.02916666666666667
+    },
+    "ARM_SINGLE_LOCKIN_SPARSE": {
+      "sigma_4.0": 0.8083333333333332,
+      "sigma_8.0": 0.35000000000000003,
+      "sigma_16.0": 0.10000000000000002,
+      "sigma_32.0": 0.0375,
+      "sigma_64.0": 0.029166666666666664
+    }
+  },
+  "cv": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.005917211558046403,
+      "sigma_32.0": 0.045080209479204075,
+      "sigma_64.0": 0.12247448713915889
+    },
+    "ARM_NESTED_BASELINE": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.011184884670242833,
+      "sigma_32.0": 0.16885529522832146,
+      "sigma_64.0": 0.2549509756796393
+    },
+    "ARM_NESTED_SPARSE": {
+      "sigma_4.0": 0.07680647559859487,
+      "sigma_8.0": 0.29116161578269606,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.37416573867739417,
+      "sigma_64.0": 0.7071067811865476
+    },
+    "ARM_NESTED_CLEANUP": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.023497785776925285,
+      "sigma_32.0": 0.031403714651066415,
+      "sigma_64.0": 0.5032972566430532
+    },
+    "ARM_NESTED_BRAIN_FULL": {
+      "sigma_4.0": 0.13097803459448581,
+      "sigma_8.0": 0.31868871959954903,
+      "sigma_16.0": 0.43204937989385733,
+      "sigma_32.0": 0.7200822998230956,
+      "sigma_64.0": 0.5345224838248488
+    },
+    "ARM_SINGLE_LOCKIN_SPARSE": {
+      "sigma_4.0": 0.007289760630789125,
+      "sigma_8.0": 0.10514001031342676,
+      "sigma_16.0": 0.30618621784789724,
+      "sigma_32.0": 0.4714045207910317,
+      "sigma_64.0": 0.20203050891044214
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 512,
+      "M": 50,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.9875,
+          "sigma_32.0": 0.7,
+          "sigma_64.0": 0.25
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.9,
+          "sigma_32.0": 0.325,
+          "sigma_64.0": 0.075
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 0.425,
+          "sigma_8.0": 0.0875,
+          "sigma_16.0": 0.0375,
+          "sigma_32.0": 0.0375,
+          "sigma_64.0": 0.025
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.925,
+          "sigma_32.0": 0.325,
+          "sigma_64.0": 0.075
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 0.3625,
+          "sigma_8.0": 0.175,
+          "sigma_16.0": 0.1,
+          "sigma_32.0": 0.025,
+          "sigma_64.0": 0.0125
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 0.8125,
+          "sigma_8.0": 0.3,
+          "sigma_16.0": 0.1,
+          "sigma_32.0": 0.025,
+          "sigma_64.0": 0.025
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 32,
+      "P_THETA": 4,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0
+      ],
+      "N_EVAL": 80,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 0.4129326343536377,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782264620.8230617
+    },
+    "17": {
+      "seed": 17,
+      "N": 512,
+      "M": 50,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 0.725,
+          "sigma_64.0": 0.2125
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.9125,
+          "sigma_32.0": 0.3,
+          "sigma_64.0": 0.0625
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 0.5125,
+          "sigma_8.0": 0.15,
+          "sigma_16.0": 0.0375,
+          "sigma_32.0": 0.0625,
+          "sigma_64.0": 0.0
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.9125,
+          "sigma_32.0": 0.3125,
+          "sigma_64.0": 0.1625
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 0.425,
+          "sigma_8.0": 0.15,
+          "sigma_16.0": 0.05,
+          "sigma_32.0": 0.075,
+          "sigma_64.0": 0.05
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 0.8,
+          "sigma_8.0": 0.3875,
+          "sigma_16.0": 0.0625,
+          "sigma_32.0": 0.025,
+          "sigma_64.0": 0.025
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 32,
+      "P_THETA": 4,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0
+      ],
+      "N_EVAL": 80,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 0.40001559257507324,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782264621.2359948
+    },
+    "23": {
+      "seed": 23,
+      "N": 512,
+      "M": 50,
+      "run_mode": "smoke",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 0.65,
+          "sigma_64.0": 0.2875
+        },
+        "ARM_NESTED_BASELINE": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.925,
+          "sigma_32.0": 0.4375,
+          "sigma_64.0": 0.1125
+        },
+        "ARM_NESTED_SPARSE": {
+          "sigma_4.0": 0.4625,
+          "sigma_8.0": 0.1875,
+          "sigma_16.0": 0.0375,
+          "sigma_32.0": 0.025,
+          "sigma_64.0": 0.025
+        },
+        "ARM_NESTED_CLEANUP": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 0.875,
+          "sigma_32.0": 0.3375,
+          "sigma_64.0": 0.05
+        },
+        "ARM_NESTED_BRAIN_FULL": {
+          "sigma_4.0": 0.5,
+          "sigma_8.0": 0.075,
+          "sigma_16.0": 0.0375,
+          "sigma_32.0": 0.0125,
+          "sigma_64.0": 0.025
+        },
+        "ARM_SINGLE_LOCKIN_SPARSE": {
+          "sigma_4.0": 0.8125,
+          "sigma_8.0": 0.3625,
+          "sigma_16.0": 0.1375,
+          "sigma_32.0": 0.0625,
+          "sigma_64.0": 0.0375
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 32,
+      "P_THETA": 4,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0
+      ],
+      "N_EVAL": 80,
+      "SPARSE_F": 0.02,
+      "CLEANUP_TAU": 0.3,
+      "elapsed_s": 0.3940896987915039,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782264621.6621716
+    }
+  },
+  "elapsed_s": 1.5250823497772217
+}

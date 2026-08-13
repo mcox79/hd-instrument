@@ -1,0 +1,298 @@
+{
+  "phase_map": [
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "K": 50,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 3.963,
+      "bundle_hash": "4afd96018cacf07668f118d4df757a96ad0d43fdc32552ecebc398a16840f134",
+      "positions_hash": "f8ddf8a2b3915b775c9734a2f0fc5d483e045c771717d05a929f6b82964b820f",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "K": 500,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.68,
+      "top1_random": 0.0,
+      "discriminator": 0.68,
+      "band": "MB",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 3.552,
+      "bundle_hash": "4a40ea2873a521820abca4e4bbf89be0ad3737b4488e867211913911306dd4e3",
+      "positions_hash": "165a772eeac5bc3f3e9858d76fc0f74aa1b7716f9885efe9d2453ad202e0efb7",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "CYCLIC_SHIFT",
+      "encoder_family": "bipolar",
+      "K": 2000,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.04,
+      "top1_random": 0.0,
+      "discriminator": 0.04,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 4.135,
+      "bundle_hash": "e65ec8ab0fdf6452adba9799ffa91208ddbf5229b2adf680a119aaab55cdde1e",
+      "positions_hash": "dbe1f180f1888f2d5a76c9f6d678f263e3a027702d19cf1c70e8f453f3b8225e",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "K": 50,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 3.336,
+      "bundle_hash": "fa6b1a6dfa841df5ec9f6b8080632822ae7083b0afe539e6ea7e7d558d6436bb",
+      "positions_hash": "b317a379270140ef442e8357694ece4766ed8a92cc6cb771445604a8930342aa",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "K": 500,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.66,
+      "top1_random": 0.0,
+      "discriminator": 0.66,
+      "band": "MB",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 3.636,
+      "bundle_hash": "06de241fd85d4ae56caac08a9d6ba0d43fe7ab699ddd257c369397c86556ecfa",
+      "positions_hash": "dfccbfbde6e00601d02d688374d84b6f97e48f2a2f220f2c43bbcc065091d585",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "RANDOM_PERMUTATION",
+      "encoder_family": "bipolar",
+      "K": 2000,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.06,
+      "top1_random": 0.0,
+      "discriminator": 0.06,
+      "band": "FLOOR",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 14.879,
+      "bundle_hash": "4b42f18a1f8dbc298f4c60a135ea5c426cbbd728b52accd6c96229ccf50c0830",
+      "positions_hash": "d294acc440a1b6d865ec9b40af089576139a74fcc76de8745b13dbf0950a699e",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "K": 50,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "band": "SAT",
+      "suspect_saturation": true,
+      "elapsed_per_point_s": 6.783,
+      "bundle_hash": "0c1257bfdec82c6c45ac5400de063754c605e5d71a9e39b8dfcb1a6ecd63abb2",
+      "positions_hash": "f69d4d43d92edfff595191a24ccbf68fe56757e0a8c9ca97f73c979132d54d54",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "K": 500,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.7,
+      "top1_random": 0.0,
+      "discriminator": 0.7,
+      "band": "MB",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 7.165,
+      "bundle_hash": "33d2aed5a5739ee5fd85870811b3a6d0891f84ae44b2e455ce21a60bc85f0542",
+      "positions_hash": "76ed12c01cb3028f0113a4c37857cb8fa939587a53d7d1ace353f9a59c8cec7e",
+      "bundle_shape": [
+        8192
+      ]
+    },
+    {
+      "order_operation": "PHASE_ROTATION",
+      "encoder_family": "hrr_real",
+      "K": 2000,
+      "N_DIM": 8192,
+      "n_queries": 50,
+      "seed": 19,
+      "top1_substrate": 0.18,
+      "top1_random": 0.0,
+      "discriminator": 0.18,
+      "band": "TRANSITION",
+      "suspect_saturation": false,
+      "elapsed_per_point_s": 12.411,
+      "bundle_hash": "d7d98e35df2bf99762aafc580168f0bf5fba5c46f08c1dae5aac254b6e48b5b3",
+      "positions_hash": "dd040eb1c55192ff8bb9e5d9a56147cbc2d48a4fe544973c9a5ae2ea5cbd1e69",
+      "bundle_shape": [
+        8192
+      ]
+    }
+  ],
+  "per_op_summary": {
+    "CYCLIC_SHIFT": {
+      "encoder_family": "bipolar",
+      "top1_sub_mean": 0.5733,
+      "top1_rand_mean": 0.0,
+      "K_star": 500,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 1,
+        "FLOOR": 1,
+        "TRANSITION": 0
+      },
+      "cv_across_K": 0.6961,
+      "bundle_hash_prefix": "4afd96018cacf076",
+      "positions_hash_prefix": "f8ddf8a2b3915b77"
+    },
+    "RANDOM_PERMUTATION": {
+      "encoder_family": "bipolar",
+      "top1_sub_mean": 0.5733,
+      "top1_rand_mean": 0.0,
+      "K_star": 500,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 1,
+        "FLOOR": 1,
+        "TRANSITION": 0
+      },
+      "cv_across_K": 0.6778,
+      "bundle_hash_prefix": "fa6b1a6dfa841df5",
+      "positions_hash_prefix": "b317a379270140ef"
+    },
+    "PHASE_ROTATION": {
+      "encoder_family": "hrr_real",
+      "top1_sub_mean": 0.6267,
+      "top1_rand_mean": 0.0,
+      "K_star": 500,
+      "band_counts": {
+        "SAT": 1,
+        "MB": 1,
+        "FLOOR": 0,
+        "TRANSITION": 1
+      },
+      "cv_across_K": 0.5406,
+      "bundle_hash_prefix": "0c1257bfdec82c6c",
+      "positions_hash_prefix": "f69d4d43d92edfff"
+    }
+  },
+  "K_star_per_op": {
+    "CYCLIC_SHIFT": 500,
+    "RANDOM_PERMUTATION": 500,
+    "PHASE_ROTATION": 500
+  },
+  "K_star_log10_sep_pairs": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": 0.0,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": 0.0,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": 0.0
+  },
+  "n_ops_distinct_from_baseline": 0,
+  "ops_distinct_from_baseline": [],
+  "op_pair_bundle_distinctness": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": true,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": true,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": true
+  },
+  "op_pair_positions_distinctness": {
+    "CYCLIC_SHIFT_vs_RANDOM_PERMUTATION": true,
+    "CYCLIC_SHIFT_vs_PHASE_ROTATION": true,
+    "RANDOM_PERMUTATION_vs_PHASE_ROTATION": true
+  },
+  "n_pairs_bundle_differ": 3,
+  "n_pairs_positions_differ": 3,
+  "op_bundle_hashes": {
+    "CYCLIC_SHIFT": "4afd96018cacf07668f118d4df757a96ad0d43fdc32552ecebc398a16840f134",
+    "RANDOM_PERMUTATION": "fa6b1a6dfa841df5ec9f6b8080632822ae7083b0afe539e6ea7e7d558d6436bb",
+    "PHASE_ROTATION": "0c1257bfdec82c6c45ac5400de063754c605e5d71a9e39b8dfcb1a6ecd63abb2"
+  },
+  "op_positions_hashes": {
+    "CYCLIC_SHIFT": "f8ddf8a2b3915b775c9734a2f0fc5d483e045c771717d05a929f6b82964b820f",
+    "RANDOM_PERMUTATION": "b317a379270140ef442e8357694ece4766ed8a92cc6cb771445604a8930342aa",
+    "PHASE_ROTATION": "f69d4d43d92edfff595191a24ccbf68fe56757e0a8c9ca97f73c979132d54d54"
+  },
+  "cv_per_op": {
+    "CYCLIC_SHIFT": 0.6961,
+    "RANDOM_PERMUTATION": 0.6778,
+    "PHASE_ROTATION": 0.5406
+  },
+  "max_cv": 0.6961,
+  "n_suspect_saturation": 3,
+  "positive_control_result": {
+    "order_operation": "CYCLIC_SHIFT",
+    "K": 50,
+    "top1_floor_required": 0.8,
+    "measured_top1": 1.0,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 9,
+  "observed_n_units": 9,
+  "tier_counts": {
+    "SAT": 3,
+    "MB": 3,
+    "FLOOR": 2,
+    "TRANSITION": 1
+  },
+  "device": "cpu",
+  "gpu_name": "cpu",
+  "regime": "order_binding_family_K_sweep_N8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_ORDER_BINDING_INVARIANT: all 3 ops K* within +/-0.05 log10 (max_sep=0.000); K_star_per_op={'CYCLIC_SHIFT': 500, 'RANDOM_PERMUTATION': 500, 'PHASE_ROTATION': 500}; substantive negative -- order-binding is capability-family-invariant at WM regime",
+  "summary": "HARD_FAIL_ORDER_BINDING_INVARIANT: all 3 ops K* within +/-0.05 log10 (max_sep=0.000); K_star_per_op={'CYCLIC_SHIFT': 500, 'RANDOM_PERMUTATION': 500, 'PHASE_ROTATION': 500}; substantive negative -- order-binding is capability-family-invariant at WM regime",
+  "anchor_name": "substrate_order_binding_family_v1_seed_19",
+  "elapsed_s": 62.61,
+  "ts_iso": "2026-07-01T04:07:56Z",
+  "pid": 21340,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_order_binding_family_v1_seed_19,order_ops=[CYCLIC_SHIFT,RANDOM_PERMUTATION,PHASE_ROTATION],N_DIM=8192,SEED=19,mode=full,K_FULL=[50,500,2000],K_SMOKE=[50,500,2000],n_q_full=50,n_q_smoke=5,V_ITEMS=2500,V_POS=2500,expected_n_full=9,expected_n_smoke=9,discriminator=K_star_log10_sep_min0.15_from_CYCLIC_baseline,bands=SAT0.90_MB[0.30,0.70]_FLOOR0.10,hardening=L1startmarker+L2crashdiag_exceptException+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_order_binding_family_chunked",
+  "backend": "numpy.cpu",
+  "seed": 19,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_3_order_binding_op_family_v1",
+  "n_llm_calls": 0,
+  "research_handoff": "research_phase_diagram_gap_analysis_next_cells_2026-07-01.md#2"
+}

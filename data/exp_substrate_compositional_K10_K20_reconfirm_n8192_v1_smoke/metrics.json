@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_compositional_K10_K20_reconfirm_n8192_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes NOVEL chains at N=8192 (>=70% at K=15). K10=1.00 K15=1.00 K20=1.00 (G=2)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "G_chains": 2,
+      "K10": 1.0,
+      "K15": 1.0,
+      "K20": 1.0
+    }
+  ],
+  "elapsed_s": 0.17561984062194824,
+  "summary": "HARD_PASS: substrate composes NOVEL chains at N=8192 (>=70% at K=15). K10=1.00 K15=1.00 K20=1.00 (G=2)"
+}

@@ -1,0 +1,193 @@
+{
+  "verdict": "HARD_FAIL_META_RULE_Q_NON_DISCRIMINATING",
+  "verdict_msg": "HARD_FAIL_META_RULE_Q: at discriminator point (N=4096 M=40000 sigma=0.2) baseline FP32=1.000 saturated=True at_floor=False arms_range=0.000",
+  "summary": "HARD_FAIL_META_RULE_Q: at discriminator point (N=4096 M=40000 sigma=0.2) baseline FP32=1.000 saturated=True at_floor=False arms_range=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "arms": [
+    "FP32",
+    "FP16",
+    "INT8",
+    "INT4"
+  ],
+  "M_sweep": [
+    40000
+  ],
+  "N_fixed": 4096,
+  "sigma_sweep": [
+    0.2
+  ],
+  "discriminator_point": {
+    "N": 4096,
+    "M": 40000,
+    "sigma": 0.2,
+    "FP32_recall": 1.0,
+    "FP16_recall": 1.0,
+    "INT8_recall": 1.0,
+    "INT4_recall": 1.0,
+    "INT8_gap_vs_FP32": 0.0,
+    "INT4_drop_vs_FP32": 0.0,
+    "arms_range": 0.0
+  },
+  "hp_int8_pareto_cg": true,
+  "hp_int4_breaks": false,
+  "hp_pre_crack_free": false,
+  "hp_post_crack_collapse": null,
+  "hp_memory_factor": true,
+  "hp_gates_cleared": 2,
+  "hp_gates_total": 3,
+  "pre_crack_details": {},
+  "post_crack_details": {},
+  "max_pre_crack_gap": Infinity,
+  "post_crack_max_recall_sigma_0p2": 1.0,
+  "max_memory_factor_int8_vs_fp32": 0.250244140625,
+  "max_cv_across_arms": 0.0,
+  "meta_rule_q_baseline_in_band": false,
+  "meta_rule_q_arms_range": 0.0,
+  "stats_cross_seed": {
+    "FP32__M40000__N4096__sigma0.20": {
+      "recall_cosine_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 6.353,
+      "bytes_per_fact_mean": 3766.6816,
+      "n_seeds": 1
+    },
+    "FP16__M40000__N4096__sigma0.20": {
+      "recall_cosine_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 6.66,
+      "bytes_per_fact_mean": 1883.3408,
+      "n_seeds": 1
+    },
+    "INT8__M40000__N4096__sigma0.20": {
+      "recall_cosine_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 7.455,
+      "bytes_per_fact_mean": 942.59,
+      "n_seeds": 1
+    },
+    "INT4__M40000__N4096__sigma0.20": {
+      "recall_cosine_mean": 1.0,
+      "recall_std": 0.0,
+      "recall_cv": 0.0,
+      "wall_s_mean": 7.702,
+      "bytes_per_fact_mean": 471.7548,
+      "n_seeds": 1
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units_per_seed": 4,
+  "observed_n_units_per_seed": [
+    4
+  ],
+  "mechanism_hashes_distinct": true,
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "per_unit": {
+        "FP32__M40000__N4096__sigma0.20": {
+          "arm": "FP32",
+          "M": 40000,
+          "N": 4096,
+          "sigma": 0.2,
+          "recall_cosine_mean": 1.0,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 150667264,
+          "bytes_per_fact": 3766.6816,
+          "wall_s": 6.353,
+          "mechanism_hash": "a4101c4da86c89fe5ffb0744222d213ba6ec04e33b6cda697be7e8e5474201f4",
+          "seed": 7
+        },
+        "FP16__M40000__N4096__sigma0.20": {
+          "arm": "FP16",
+          "M": 40000,
+          "N": 4096,
+          "sigma": 0.2,
+          "recall_cosine_mean": 1.0,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 75333632,
+          "bytes_per_fact": 1883.3408,
+          "wall_s": 6.66,
+          "mechanism_hash": "aadc8eb96139c8be1b287dfcc07978f0b026534f551e93ff3c4765a1ed189752",
+          "seed": 7
+        },
+        "INT8__M40000__N4096__sigma0.20": {
+          "arm": "INT8",
+          "M": 40000,
+          "N": 4096,
+          "sigma": 0.2,
+          "recall_cosine_mean": 1.0,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 37703600,
+          "bytes_per_fact": 942.59,
+          "wall_s": 7.455,
+          "mechanism_hash": "fdc9470268793fe0095e61fdd94ecacebf5d10181a82703115786f24ad86682c",
+          "seed": 7
+        },
+        "INT4__M40000__N4096__sigma0.20": {
+          "arm": "INT4",
+          "M": 40000,
+          "N": 4096,
+          "sigma": 0.2,
+          "recall_cosine_mean": 1.0,
+          "n_facts": 40000,
+          "n_ent": 5000,
+          "n_rel": 100,
+          "n_dim": 4096,
+          "bytes_total": 18870192,
+          "bytes_per_fact": 471.7548,
+          "wall_s": 7.702,
+          "mechanism_hash": "2205f8414adcfb5184dd13255632b226c71774eac1fbd921d5ba230a79956615",
+          "seed": 7
+        }
+      },
+      "M_sweep": [
+        40000
+      ],
+      "N_fixed": 4096,
+      "sigma_sweep": [
+        0.2
+      ],
+      "arms": [
+        "FP32",
+        "FP16",
+        "INT8",
+        "INT4"
+      ],
+      "anchor_name": "stage2_int8_dense_hopfield_end_to_end_recall_v2_crack_regime_seed_7",
+      "config_version": "ANCHOR=stage2_int8_dense_hopfield_end_to_end_recall_v2_crack_regime_seed_7,arms=[FP32,FP16,INT8,INT4],M_sweep_full=[1000,10000,40000,80000,160000,320000],M_sweep_smoke=[40000],N_fixed_full=8192,N_fixed_smoke=4096,sigma_sweep_full=[0.0,0.2,0.5],sigma_sweep_smoke=[0.2],n_ent_full=5000,n_rel_full=100,n_ent_smoke=5000,n_rel_smoke=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=4gate(INT8_PARETO_CG+INT4_BREAKS+PRE_CRACK_FREE+POST_CRACK_COLLAPSE)@N8192_M160k_sigma0.2,HP_INT8_PARETO_CG_TOL=0.05,HP_INT4_BREAKS_DELTA=0.20,HP_PRE_CRACK_FREE_TOL=0.01,HP_POST_CRACK_COLLAPSE_MAX=0.30,HP_MEMORY_FACTOR_MAX=0.35,cv_hp=0.08,cv_mb=0.10,saturation_ceil=0.98,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab)+inline_int4,hardening=L1startmarker+L2crashdiag+L3perunitckpt+CHUNKED_PER_SEED",
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782955755.0936317
+    }
+  ],
+  "topK": 1,
+  "HP_INT8_PARETO_CG_TOL": 0.05,
+  "HP_INT4_BREAKS_DELTA": 0.2,
+  "HP_PRE_CRACK_FREE_TOL": 0.01,
+  "HP_POST_CRACK_COLLAPSE_MAX": 0.3,
+  "HP_MEMORY_FACTOR_MAX": 0.35,
+  "CROSS_SEED_CV_MAX_HP": 0.08,
+  "CROSS_SEED_CV_MAX_MB": 0.1,
+  "anchor_name": "stage2_int8_dense_hopfield_end_to_end_recall_v2_crack_regime_seed_7",
+  "elapsed_s": 28.85,
+  "ts_iso": "2026-07-02T01:29:15Z",
+  "pid": 10872,
+  "config_version": "ANCHOR=stage2_int8_dense_hopfield_end_to_end_recall_v2_crack_regime_seed_7,arms=[FP32,FP16,INT8,INT4],M_sweep_full=[1000,10000,40000,80000,160000,320000],M_sweep_smoke=[40000],N_fixed_full=8192,N_fixed_smoke=4096,sigma_sweep_full=[0.0,0.2,0.5],sigma_sweep_smoke=[0.2],n_ent_full=5000,n_rel_full=100,n_ent_smoke=5000,n_rel_smoke=100,query_frac=0.10,topK=1,SEED=7,mode=smoke,discriminator=4gate(INT8_PARETO_CG+INT4_BREAKS+PRE_CRACK_FREE+POST_CRACK_COLLAPSE)@N8192_M160k_sigma0.2,HP_INT8_PARETO_CG_TOL=0.05,HP_INT4_BREAKS_DELTA=0.20,HP_PRE_CRACK_FREE_TOL=0.01,HP_POST_CRACK_COLLAPSE_MAX=0.30,HP_MEMORY_FACTOR_MAX=0.35,cv_hp=0.08,cv_mb=0.10,saturation_ceil=0.98,compose=hdlab.int8_dense.quantize_int8_dense(commit c3ca7dab)+inline_int4,hardening=L1startmarker+L2crashdiag+L3perunitckpt+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_stage2_int8_pareto_crack_regime_chunked",
+  "backend": "cpu",
+  "seed": 7,
+  "corpus_provenance": "synthetic_uniform_KG_5000ent_100rel_N_fixed_8192_M_sweep_1k_10k_40k_80k_160k_320k_sigma_sweep_0.0_0.2_0.5_holdout_10pct_queries_crack_regime_v2_amendment"
+}

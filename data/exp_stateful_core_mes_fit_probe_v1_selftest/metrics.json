@@ -1,0 +1,36 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_tag": "SELFTEST_PASS",
+  "verdict_msg": "self-test PASS: schedules (lr_at/temp_at) + shape-classifier (4 synthetic shapes) + gap-B AND per-slot-only forward_probe + train_loop (both paths, temp-anneal + gentle-init) exercised at N~8; gapb final=0.7015 perslot final=0.7062",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 16.977448200108483,
+  "ts_iso": "2026-07-29T22:35:11.430235+00:00",
+  "pid": 37068,
+  "anchor_name": "stateful_core_mes_fit_probe_v1",
+  "run_mode": "selftest",
+  "exercised_entrypoints": [
+    "SlotAttentionWM.step",
+    "_total_grad_norm",
+    "classify_shape",
+    "encode_clause_batch_tok",
+    "forward_probe_gapb",
+    "forward_probe_perslot",
+    "lr_at",
+    "temp_at",
+    "train_loop"
+  ],
+  "st_gapb": {
+    "final_loss": 0.7015,
+    "shape": "STUCK_FLAT"
+  },
+  "st_perslot": {
+    "final_loss": 0.7062,
+    "shape": "STUCK_FLAT"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "cell_chunked": false,
+  "defensive_error_checking": "passed_all_4_patterns"
+}

@@ -1,0 +1,515 @@
+{
+  "anchor_name": "substrate_owned_predictive_coding_encoder_v1",
+  "anchor": "substrate_owned_predictive_coding_encoder_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "PATH_C HARD_FAIL: no PC arm beats word2vec (4.905). Substrate-owned PC encoder does not win on fair-comparison harness; pivot encoder strategy. PATH_C unigram=4.905 | ARM_CHAR_TRIGRAM_FRESH_W=bpc4.905(lift_w2v=0.000) | ARM_WORD2VEC_FRESH_W=bpc4.905(lift_w2v=0.000) | ARM_SUBSTRATE_PC_BASIC=bpc4.905(lift_w2v=0.000) | ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN=bpc4.905(lift_w2v=0.000) | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 500,
+  "N_HELD": 200,
+  "VOCAB_CAP": 200,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 512,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "PC_ALPHA_GRID": [
+    0.01,
+    0.05,
+    0.1
+  ],
+  "PC_BETA_GRID": [
+    1.0,
+    2.0,
+    5.0
+  ],
+  "PC_F_SPARSE_GRID": [
+    0.03,
+    0.05,
+    0.1
+  ],
+  "PC_PASSES_GRID": [
+    1,
+    3
+  ],
+  "PC_TRAINING_TOKENS": 500,
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_CHAR_TRIGRAM_FRESH_W",
+    "ARM_WORD2VEC_FRESH_W",
+    "ARM_SUBSTRATE_PC_BASIC",
+    "ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 4.9046,
+        "bpc_std": 0.0
+      },
+      "ARM_CHAR_TRIGRAM_FRESH_W": {
+        "bpc_best_mean": 4.9046,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.3032,
+        "best_lambda_mean": 0.0,
+        "cleanup_recall_sigma1.5_mean": 0.0156,
+        "wordsim25_spearman_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "lift_over_word2vec_bits": 0.0
+      },
+      "ARM_WORD2VEC_FRESH_W": {
+        "bpc_best_mean": 4.9046,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.4462,
+        "best_lambda_mean": 0.0,
+        "cleanup_recall_sigma1.5_mean": 0.0312,
+        "wordsim25_spearman_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "lift_over_word2vec_bits": 0.0
+      },
+      "ARM_SUBSTRATE_PC_BASIC": {
+        "bpc_best_mean": 4.9046,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.4461,
+        "best_lambda_mean": 0.0,
+        "cleanup_recall_sigma1.5_mean": 0.0547,
+        "wordsim25_spearman_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "lift_over_word2vec_bits": 0.0
+      },
+      "ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN": {
+        "bpc_best_mean": 4.9046,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.4757,
+        "best_lambda_mean": 0.0,
+        "cleanup_recall_sigma1.5_mean": 0.0234,
+        "wordsim25_spearman_mean": NaN,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "lift_over_trigram_bits": 0.0,
+        "lift_over_word2vec_bits": 0.0,
+        "hp_bpc_unigram_ok": true,
+        "hp_lift_over_w2v_ok": false,
+        "hp_cleanup_ok": false,
+        "hp_cv_ok": true,
+        "hp_all": false
+      }
+    },
+    "trigram_mean_bpc": 4.9046,
+    "word2vec_mean_bpc": 4.9046,
+    "pc_full_arm": "ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN",
+    "pc_full_hp_all": false,
+    "pc_loses_to_w2v": true,
+    "all_arms_fail_unigram": false,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_bpc_unigram_bar": 7.738,
+    "hp_lift_over_word2vec": 0.3,
+    "hp_cleanup_recall_bar": 0.2,
+    "hp_bpc_cv_max": 0.05,
+    "CONFIG_VERSION": "substrate_owned_predictive_coding_encoder_v1; N_DIM=512 PRETRAIN_DIM=300 N_TRAIN=500 N_HELD=200 VOCAB_CAP=200 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_SUBSTRATE_PC_BASIC', 'ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN'] seeds=[0] mode=smoke INGEST_CHUNK=4096 RECALL_BATCH=512 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] pc_train_tokens=500 basic_alphas=[0.05] basic_passes=[1] full_alphas=[0.05] full_betas=[2.0] full_fsparse=[0.05] full_passes=[1] recall_sigmas=[0.5, 1.0, 1.5]; bands HP_lift_over_w2v>=0.30 HP_bpc<7.738 HP_cleanup>=0.20 cv_max=0.05",
+    "honest_scope": "Path C TESTED SOLUTION: substrate-owned 3-layer PC encoder (sign-quantised, Hebbian-PC, Tonegawa lock-in, sparse-bipolar) on fresh-W BPC harness matched verbatim to fresh_W_bpc_per_encoder_v2. HARD_PASS iff PC_FULL beats word2vec by >=0.30 bits AND beats unigram AND cleanup>=0.20 at sigma=1.5 AND cv<=0.05. HARD_FAIL iff PC arms do NOT beat word2vec OR all arms >= unigram (substrate-W bottleneck).",
+    "cites": [
+      "preregs/2026-06-23_substrate_owned_predictive_coding_encoder_v1.md",
+      "preregs/2026-06-23_fresh_W_bpc_per_encoder_v2.md",
+      "experiments/exp_fresh_W_bpc_per_encoder_v2.py",
+      "experiments/exp_predictive_coding_hierarchy_smoke_v1.py",
+      "USER_2026-06-23_Path_C_substrate_owned_encoder_is_the_answer",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24",
+      "USER_2026-06-22_empowered_to_experiment_where_lit_says_dismissed",
+      "Rao_Ballard_1999_predictive_coding",
+      "Friston_2005_active_inference",
+      "Bastos_2012_canonical_microcircuits_PC",
+      "Tonegawa_engram_allocation_competitive_routing"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_owned_predictive_coding_encoder_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 4.9046,
+          "n_test": 54
+        },
+        "ARM_CHAR_TRIGRAM_FRESH_W": {
+          "bpc_raw": 7.3032,
+          "bpc_best": 4.9046,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.2271,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.2271,
+            "0.1": 5.3549,
+            "0.3": 5.6828,
+            "0.5": 6.0885,
+            "0.7": 6.552,
+            "1.0": 7.323
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 4.9046,
+            "0.1": 5.0635,
+            "0.3": 5.4525,
+            "0.5": 5.9186,
+            "0.7": 6.4422,
+            "1.0": 7.3032
+          },
+          "n_dev": 53,
+          "n_test": 54,
+          "wall_encode_s": 0.13,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {},
+          "sanity": {
+            "arm": "ARM_CHAR_TRIGRAM_FRESH_W",
+            "tests": {
+              "S4_wordsim_spearman": {
+                "spearman": NaN,
+                "n_pairs": 0,
+                "bar": 0.15,
+                "passed": false
+              }
+            },
+            "all_passed": true
+          },
+          "cleanup_recall": {
+            "sigma_0.50": 0.2109,
+            "sigma_1.00": 0.0469,
+            "sigma_1.50": 0.0156
+          },
+          "wordsim25": {
+            "spearman": NaN,
+            "n_pairs": 0
+          },
+          "best_cfg": {}
+        },
+        "ARM_WORD2VEC_FRESH_W": {
+          "bpc_raw": 7.4462,
+          "bpc_best": 4.9046,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.2271,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.2271,
+            "0.1": 5.3672,
+            "0.3": 5.7244,
+            "0.5": 6.1636,
+            "0.7": 6.6625,
+            "1.0": 7.4873
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 4.9046,
+            "0.1": 5.0728,
+            "0.3": 5.4864,
+            "0.5": 5.9818,
+            "0.7": 6.537,
+            "1.0": 7.4462
+          },
+          "n_dev": 53,
+          "n_test": 54,
+          "wall_encode_s": 121.92,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "n_hit": 185,
+            "n_miss": 15,
+            "n_vocab": 200,
+            "pretrain_dim": 300
+          },
+          "sanity": {
+            "arm": "ARM_WORD2VEC_FRESH_W",
+            "tests": {
+              "S4_wordsim_spearman": {
+                "spearman": NaN,
+                "n_pairs": 0,
+                "bar": 0.15,
+                "passed": false
+              }
+            },
+            "all_passed": true
+          },
+          "cleanup_recall": {
+            "sigma_0.50": 0.2266,
+            "sigma_1.00": 0.0391,
+            "sigma_1.50": 0.0312
+          },
+          "wordsim25": {
+            "spearman": NaN,
+            "n_pairs": 0
+          },
+          "best_cfg": {}
+        },
+        "ARM_SUBSTRATE_PC_BASIC": {
+          "bpc_raw": 7.4461,
+          "bpc_best": 4.9046,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.2271,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.2271,
+            "0.1": 5.3545,
+            "0.3": 5.6857,
+            "0.5": 6.0985,
+            "0.7": 6.5717,
+            "1.0": 7.3599
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 4.9046,
+            "0.1": 5.0691,
+            "0.3": 5.4792,
+            "0.5": 5.9747,
+            "0.7": 6.5318,
+            "1.0": 7.4461
+          },
+          "n_dev": 53,
+          "n_test": 54,
+          "wall_encode_s": 0.86,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "best_cfg": {
+              "alpha": 0.05,
+              "n_passes": 1,
+              "beta": null,
+              "f_sparse": null,
+              "ws_spearman_stage1": NaN
+            },
+            "sweep_log": [
+              {
+                "alpha": 0.05,
+                "n_passes": 1,
+                "beta": null,
+                "f_sparse": null,
+                "ws_spearman": NaN,
+                "wall_train_s": 0.27
+              }
+            ],
+            "pc_meta": {
+              "per_pass_mean_recon_err": {
+                "L1": [
+                  28.2105
+                ],
+                "L2": [
+                  22.9997
+                ],
+                "L3": [
+                  22.989
+                ]
+              },
+              "n_train_tokens": 500,
+              "n_passes": 1,
+              "alpha": 0.05,
+              "beta": null,
+              "use_lock_in": false,
+              "wall_train_s": 0.35,
+              "n_updates": 2
+            }
+          },
+          "sanity": {
+            "arm": "ARM_SUBSTRATE_PC_BASIC",
+            "tests": {
+              "S1_recon_cos": {
+                "value": 0.6196,
+                "bar": 0.4,
+                "passed": true
+              },
+              "S3_recon_decreases": {
+                "first": null,
+                "last": null,
+                "passed": true,
+                "note": "single_pass_skip"
+              },
+              "S4_wordsim_spearman": {
+                "spearman": NaN,
+                "n_pairs": 0,
+                "bar": 0.15,
+                "passed": false
+              }
+            },
+            "all_passed": true
+          },
+          "cleanup_recall": {
+            "sigma_0.50": 0.2188,
+            "sigma_1.00": 0.0391,
+            "sigma_1.50": 0.0547
+          },
+          "wordsim25": {
+            "spearman": NaN,
+            "n_pairs": 0
+          },
+          "best_cfg": {
+            "alpha": 0.05,
+            "n_passes": 1,
+            "beta": null,
+            "f_sparse": null,
+            "ws_spearman_stage1": NaN
+          }
+        },
+        "ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN": {
+          "bpc_raw": 7.4757,
+          "bpc_best": 4.9046,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.2271,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.2271,
+            "0.1": 5.3513,
+            "0.3": 5.6749,
+            "0.5": 6.0797,
+            "0.7": 6.5445,
+            "1.0": 7.3199
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 4.9046,
+            "0.1": 5.0748,
+            "0.3": 5.4928,
+            "0.5": 5.9936,
+            "0.7": 6.5551,
+            "1.0": 7.4757
+          },
+          "n_dev": 53,
+          "n_test": 54,
+          "wall_encode_s": 1.04,
+          "wall_ingest_s": 0.0,
+          "wall_recall_s": 0.0,
+          "encoder_meta": {
+            "best_cfg": {
+              "alpha": 0.05,
+              "n_passes": 1,
+              "beta": 2.0,
+              "f_sparse": 0.05,
+              "ws_spearman_stage1": NaN
+            },
+            "sweep_log": [
+              {
+                "alpha": 0.05,
+                "n_passes": 1,
+                "beta": 2.0,
+                "f_sparse": 0.05,
+                "ws_spearman": NaN,
+                "wall_train_s": 0.43
+              }
+            ],
+            "pc_meta": {
+              "per_pass_mean_recon_err": {
+                "L1": [
+                  28.2105
+                ],
+                "L2": [
+                  22.9997
+                ],
+                "L3": [
+                  22.989
+                ]
+              },
+              "n_train_tokens": 500,
+              "n_passes": 1,
+              "alpha": 0.05,
+              "beta": 2.0,
+              "use_lock_in": true,
+              "wall_train_s": 0.34,
+              "n_updates": 2
+            }
+          },
+          "sanity": {
+            "arm": "ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN",
+            "tests": {
+              "S1_recon_cos": {
+                "value": 0.6196,
+                "bar": 0.4,
+                "passed": true
+              },
+              "S2_excit_evolution": {
+                "std_over_mean": 0.0,
+                "bar": 0.05,
+                "passed": false
+              },
+              "S3_recon_decreases": {
+                "first": null,
+                "last": null,
+                "passed": true,
+                "note": "single_pass_skip"
+              },
+              "S4_wordsim_spearman": {
+                "spearman": NaN,
+                "n_pairs": 0,
+                "bar": 0.15,
+                "passed": false
+              },
+              "S5_sparse_bipolar": {
+                "actual_f": 0.0508,
+                "target_f": 0.05,
+                "range": [
+                  0.025,
+                  0.075
+                ],
+                "passed": true
+              }
+            },
+            "all_passed": false
+          },
+          "cleanup_recall": {
+            "sigma_0.50": 0.2188,
+            "sigma_1.00": 0.0234,
+            "sigma_1.50": 0.0234
+          },
+          "wordsim25": {
+            "spearman": NaN,
+            "n_pairs": 0
+          },
+          "best_cfg": {
+            "alpha": 0.05,
+            "n_passes": 1,
+            "beta": 2.0,
+            "f_sparse": 0.05,
+            "ws_spearman_stage1": NaN
+          }
+        }
+      },
+      "V": 200,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 500,
+      "N_HELD": 200,
+      "VOCAB_CAP": 200,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "smoke",
+      "config_version": "substrate_owned_predictive_coding_encoder_v1; N_DIM=512 PRETRAIN_DIM=300 N_TRAIN=500 N_HELD=200 VOCAB_CAP=200 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_SUBSTRATE_PC_BASIC', 'ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN'] seeds=[0] mode=smoke INGEST_CHUNK=4096 RECALL_BATCH=512 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] pc_train_tokens=500 basic_alphas=[0.05] basic_passes=[1] full_alphas=[0.05] full_betas=[2.0] full_fsparse=[0.05] full_passes=[1] recall_sigmas=[0.5, 1.0, 1.5]; bands HP_lift_over_w2v>=0.30 HP_bpc<7.738 HP_cleanup>=0.20 cv_max=0.05",
+      "elapsed_s_seed": 124.69,
+      "device": "cpu",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782252112.1773443
+    }
+  ],
+  "elapsed_s": 124.86715769767761,
+  "summary": "PATH_C HARD_FAIL: no PC arm beats word2vec (4.905). Substrate-owned PC encoder does not win on fair-comparison harness; pivot encoder strategy. PATH_C unigram=4.905 | ARM_CHAR_TRIGRAM_FRESH_W=bpc4.905(lift_w2v=0.000) | ARM_WORD2VEC_FRESH_W=",
+  "substrate_only_decode_gate": "TRUE (substrate-native fresh Hebbian W per arm; substrate-PC trained without backprop; word2vec is open-weight static lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_owned_predictive_coding_encoder_v1; N_DIM=512 PRETRAIN_DIM=300 N_TRAIN=500 N_HELD=200 VOCAB_CAP=200 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_FRESH_W', 'ARM_WORD2VEC_FRESH_W', 'ARM_SUBSTRATE_PC_BASIC', 'ARM_SUBSTRATE_PC_PLUS_SPARSE_BIPOLAR_PLUS_LOCK_IN'] seeds=[0] mode=smoke INGEST_CHUNK=4096 RECALL_BATCH=512 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] pc_train_tokens=500 basic_alphas=[0.05] basic_passes=[1] full_alphas=[0.05] full_betas=[2.0] full_fsparse=[0.05] full_passes=[1] recall_sigmas=[0.5, 1.0, 1.5]; bands HP_lift_over_w2v>=0.30 HP_bpc<7.738 HP_cleanup>=0.20 cv_max=0.05",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

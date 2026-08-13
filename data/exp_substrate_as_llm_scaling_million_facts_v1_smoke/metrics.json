@@ -1,0 +1,128 @@
+{
+  "anchor": "substrate_as_llm_scaling_million_facts_v1",
+  "anchor_name": "substrate_as_llm_scaling_million_facts_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best_substrate=1.000(SPARSE_VQ_KEYS) lift=0.000 cv=0.000; bands not crossed. dense_recall=1.000 sparse_recall=1.000 mult_recall=1.000 best=1.000(SPARSE_VQ_KEYS) lift=0.000 cv_best=0.000 n_llm=0",
+  "n_seeds": 1,
+  "N": 2048,
+  "N_DIM": 2048,
+  "M": 4000,
+  "N_PROBES": 200,
+  "NOISE_FRAC": 0.05,
+  "SPARSITY": 0.05,
+  "K_ANCHORS": 100,
+  "D_RELATIONS": 100,
+  "arms": [
+    "DENSE_HEBBIAN",
+    "SPARSE_VQ_KEYS",
+    "MULTIPLICATIVE_COMP"
+  ],
+  "run_mode": "smoke",
+  "device": "cpu",
+  "config_version": "substrate-as-llm-scaling-million-facts-v1: N_DIM=2048 M=4000 N_PROBES=200 noise=0.050 sparsity=0.050 K_anchors=100 D_relations=100 ingest_chunk=1024 arms=DENSE_HEBBIAN,SPARSE_VQ_KEYS,MULTIPLICATIVE_COMP run_mode=smoke device=cpu; bands HP_recall=0.85 HP_lift=0.30 HP_cv=0.05 HF_recall=0.40",
+  "allow_synthetic": true,
+  "corpus_provenance": "synthetic_bipolar_keys_values",
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_recall_at_1": {
+      "DENSE_HEBBIAN": 1.0,
+      "SPARSE_VQ_KEYS": 1.0,
+      "MULTIPLICATIVE_COMP": 1.0
+    },
+    "mean_recall_at_5": {
+      "DENSE_HEBBIAN": 1.0,
+      "SPARSE_VQ_KEYS": 1.0,
+      "MULTIPLICATIVE_COMP": 1.0
+    },
+    "cv_recall_at_1": {
+      "DENSE_HEBBIAN": 0.0,
+      "SPARSE_VQ_KEYS": 0.0,
+      "MULTIPLICATIVE_COMP": 0.0
+    },
+    "mean_score_correct": {
+      "DENSE_HEBBIAN": 0.5400511026382446,
+      "SPARSE_VQ_KEYS": 0.5415023565292358,
+      "MULTIPLICATIVE_COMP": 0.5430678725242615
+    },
+    "mean_score_decoy": {
+      "DENSE_HEBBIAN": -0.0013171711470931768,
+      "SPARSE_VQ_KEYS": -0.0010793621186167002,
+      "MULTIPLICATIVE_COMP": 0.001725651673041284
+    },
+    "dense_hebbian_recall_at_1": 1.0,
+    "sparse_vq_keys_recall_at_1": 1.0,
+    "multiplicative_comp_recall_at_1": 1.0,
+    "best_substrate_recall_at_1": 1.0,
+    "best_substrate_arm": "SPARSE_VQ_KEYS",
+    "best_substrate_cv": 0.0,
+    "lift_best_substrate_vs_dense": 0.0,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Substrate-as-LLM storage scaling. Synthetic (key, value) facts. N_DIM=2048 M=4000 N_PROBES=200 NOISE_FRAC=0.050. 3-arm Fix #16 discriminator: DENSE_HEBBIAN (expected-fail CAN-FAIL control) vs SPARSE_VQ_KEYS (sparsity=0.050) vs MULTIPLICATIVE_COMP (K=100 anchors x D=100 relations). Single-W per arm; one-shot ingest; substrate-only-decode gate enforced (n_llm=0). Pairs with substrate_native_qa_hotpotqa_v1 (storage at scale + real-benchmark generation = substrate-as-LLM-substitute chain)."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 2048,
+      "M": 4000,
+      "run_mode": "smoke",
+      "config_version": "substrate-as-llm-scaling-million-facts-v1: N_DIM=2048 M=4000 N_PROBES=200 noise=0.050 sparsity=0.050 K_anchors=100 D_relations=100 ingest_chunk=1024 arms=DENSE_HEBBIAN,SPARSE_VQ_KEYS,MULTIPLICATIVE_COMP run_mode=smoke device=cpu; bands HP_recall=0.85 HP_lift=0.30 HP_cv=0.05 HF_recall=0.40",
+      "elapsed_s": 1.6283693313598633,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782178900.0487976,
+      "per_unit": [
+        {
+          "arm": "DENSE_HEBBIAN",
+          "seed": 1,
+          "n_dim": 2048,
+          "m_facts": 4000,
+          "n_probes": 200,
+          "sparsity": 0.05,
+          "noise_frac": 0.05,
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_score_correct": 0.5400511026382446,
+          "mean_score_decoy": -0.0013171711470931768,
+          "ingest_wall_s": 0.3346545696258545,
+          "recall_wall_s": 0.19252586364746094
+        },
+        {
+          "arm": "SPARSE_VQ_KEYS",
+          "seed": 1,
+          "n_dim": 2048,
+          "m_facts": 4000,
+          "n_probes": 200,
+          "sparsity": 0.05,
+          "noise_frac": 0.05,
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_score_correct": 0.5415023565292358,
+          "mean_score_decoy": -0.0010793621186167002,
+          "ingest_wall_s": 0.44175148010253906,
+          "recall_wall_s": 0.2795562744140625
+        },
+        {
+          "arm": "MULTIPLICATIVE_COMP",
+          "seed": 1,
+          "n_dim": 2048,
+          "m_facts": 4000,
+          "n_probes": 200,
+          "sparsity": 0.05,
+          "noise_frac": 0.05,
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_score_correct": 0.5430678725242615,
+          "mean_score_decoy": 0.001725651673041284,
+          "ingest_wall_s": 0.26784610748291016,
+          "recall_wall_s": 0.11150193214416504
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_substrate_as_llm_scaling_million_facts_3arm",
+  "elapsed_s": 1.6579270362854004,
+  "summary": "MIDDLE_BAND: best_substrate=1.000(SPARSE_VQ_KEYS) lift=0.000 cv=0.000; bands not crossed. dense_recall=1.000 sparse_recall=1.000 mult_recall=1.000 best=1.000(SPARSE_VQ_KEYS) lift=0.000 cv_best=0.000 n"
+}

@@ -1,0 +1,217 @@
+{
+  "anchor": "substrate_continual_NREM_replay_v1",
+  "anchor_name": "substrate_continual_NREM_replay_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: replay provides drift_reduction=0.0667 (between 0.05 and 0.3). best_arm=ARM_REPLAY_EVERY_100. arms: ARM_BASELINE_NO_REPLAY=fin_forget=0.4000+/-0.0000 | ARM_REPLAY_EVERY_100=fin_forget=0.3333+/-0.0000 | ARM_REPLAY_EVERY_500=fin_forget=0.4000+/-0.0000 | ARM_REPLAY_EVERY_1000=fin_forget=0.4000+/-0.0000",
+  "headline": "MIDDLE_BAND: replay provides drift_reduction=0.0667 (between 0.05 and 0.3). best_arm=ARM_REPLAY_EVERY_100. arms: ARM_BASELINE_NO_REPLAY=fin_forget=0.4000+/-0.0000 | ARM_REPLAY_EVERY_100=fin_forget=0.3333+/-0.0000 | ARM_REPLAY_EVERY_500=fin_forget=0.4000+/-0.0000 | ARM_REPLAY_EVERY_1000=fin_forget=0.4000+/-0.0000",
+  "n_seeds": 1,
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_cycles": 500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_REPLAY",
+    "ARM_REPLAY_EVERY_100",
+    "ARM_REPLAY_EVERY_500",
+    "ARM_REPLAY_EVERY_1000"
+  ],
+  "replay_frac": 0.2,
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_REPLAY": {
+        "mean_final_forget": 0.4,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.4
+        ]
+      },
+      "ARM_REPLAY_EVERY_100": {
+        "mean_final_forget": 0.33333333333333337,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.33333333333333337
+        ]
+      },
+      "ARM_REPLAY_EVERY_500": {
+        "mean_final_forget": 0.4,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.4
+        ]
+      },
+      "ARM_REPLAY_EVERY_1000": {
+        "mean_final_forget": 0.4,
+        "std": 0.0,
+        "cv": 0.0,
+        "per_seed": [
+          0.4
+        ]
+      }
+    },
+    "best_replay_arm": "ARM_REPLAY_EVERY_100",
+    "baseline_curve_max_forget": 0.4,
+    "baseline_cliff_cycle": 500,
+    "drift_reduction_abs": 0.06666666666666665,
+    "honest_scope": "NREM-replay primitive over 500 cycles N=1024; 4 arms: baseline + 3 replay intervals; forget metric on first 30 atoms"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 1024,
+      "run_mode": "smoke",
+      "n_cycles": 500,
+      "arms": {
+        "ARM_BASELINE_NO_REPLAY": {
+          "arm": "ARM_BASELINE_NO_REPLAY",
+          "replay_interval": null,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.7333333333333333,
+              "forget": 0.2666666666666667
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6,
+              "forget": 0.4
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6,
+          "final_forget": 0.4,
+          "elapsed_s": 5.725271224975586
+        },
+        "ARM_REPLAY_EVERY_100": {
+          "arm": "ARM_REPLAY_EVERY_100",
+          "replay_interval": 100,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 0.7,
+              "forget": 0.30000000000000004
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 0.23333333333333334,
+              "forget": 0.7666666666666666
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.5666666666666667,
+              "forget": 0.43333333333333335
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6666666666666666,
+              "forget": 0.33333333333333337
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6666666666666666,
+          "final_forget": 0.33333333333333337,
+          "elapsed_s": 8.504743814468384
+        },
+        "ARM_REPLAY_EVERY_500": {
+          "arm": "ARM_REPLAY_EVERY_500",
+          "replay_interval": 500,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.7333333333333333,
+              "forget": 0.2666666666666667
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6,
+              "forget": 0.4
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6,
+          "final_forget": 0.4,
+          "elapsed_s": 5.3789849281311035
+        },
+        "ARM_REPLAY_EVERY_1000": {
+          "arm": "ARM_REPLAY_EVERY_1000",
+          "replay_interval": 1000,
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.7333333333333333,
+              "forget": 0.2666666666666667
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.6,
+              "forget": 0.4
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.6,
+          "final_forget": 0.4,
+          "elapsed_s": 4.733938932418823
+        }
+      },
+      "elapsed_s": 24.350821495056152,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782446703.1789398
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_NREM_replay_4arm_continual_writes",
+  "elapsed_s": 24.444127321243286,
+  "summary": "MIDDLE_BAND: replay provides drift_reduction=0.0667 (between 0.05 and 0.3). best_arm=ARM_REPLAY_EVERY_100. arms: ARM_BASELINE_NO_REPLAY=fin_forget=0.4000+/-0.0000 | ARM_REPLAY_EVERY_100=fin_forget=0.3",
+  "honest_scope": "NREM-replay primitive over 500 cycles N=1024; 4 arms: baseline + 3 replay intervals; forget metric on first 30 atoms",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls)"
+}

@@ -1,0 +1,577 @@
+{
+  "anchor_name": "substrate_multihop_phase_diagram_depth_VC_NChains_v1",
+  "verdict": "SMOKE_GATE_FAIL",
+  "verdict_msg": "SMOKE_GATE_FAIL: cardinality_ok=True arm_discrim_count=4 arm_discrim_ok=True saturation_observed=True regime_fail_observed=False arms_differ_all=True sat_corner_ok=False cross_cell_ok=True fail_corner_ok=False gpu_util_ok=False gpu_util_mean=0.0 all_pass=False | smoke phase_map: (d=5,V_C=200,N=50,sub=0.940,rand=0.000,tier=HARD_PASS,sat=False) (d=15,V_C=200,N=200,sub=0.820,rand=0.000,tier=HARD_PASS,sat=False) (d=5,V_C=16000,N=50,sub=1.000,rand=0.000,tier=HARD_PASS,sat=True) (d=15,V_C=16000,N=200,sub=0.990,rand=0.000,tier=HARD_PASS,sat=True)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "substrateMultihopPhaseDiagramDepthVCNChainsV1: N=8192 depths=[5, 8, 10, 12, 15] V_Cs=[200, 1000, 5000, 16000] N_chains_set=[50, 200] N_partitions=20 max_W_depth=15 V_P=10 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE_BIPOLAR p_step_anchor=0.9859 V_C_anchor=200 N_chains_anchor=200 n_full=40 n_smoke=4 gpu_floor=50.0",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 8192,
+      "config_version": "substrateMultihopPhaseDiagramDepthVCNChainsV1: N=8192 depths=[5, 8, 10, 12, 15] V_Cs=[200, 1000, 5000, 16000] N_chains_set=[50, 200] N_partitions=20 max_W_depth=15 V_P=10 seeds=[11] mode=smoke encoder=SUBSTRATE_NATIVE_BIPOLAR p_step_anchor=0.9859 V_C_anchor=200 N_chains_anchor=200 n_full=40 n_smoke=4 gpu_floor=50.0",
+      "phase_map": [
+        {
+          "depth": 5,
+          "V_C": 200,
+          "N_chains": 50,
+          "top1_substrate": 0.94,
+          "top1_random": 0.0,
+          "top1_pred": 0.9824,
+          "HP": 0.5,
+          "HF": 0.25,
+          "random_floor": 0.005,
+          "per_step_acc_substrate": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.94
+          ],
+          "per_step_acc_random": [
+            0.0,
+            0.0,
+            0.02,
+            0.0,
+            0.0
+          ],
+          "arms_differ_sha256": true,
+          "sha256_substrate": "298c95cec05cb630",
+          "sha256_random": "3f8d0cc4baadf4e0",
+          "verdict_tier_per_point": "HARD_PASS",
+          "saturated": false,
+          "discriminator_fires": true,
+          "n_partitions": 20,
+          "part_size": 10,
+          "elapsed_s_point": 0.36
+        },
+        {
+          "depth": 15,
+          "V_C": 200,
+          "N_chains": 200,
+          "top1_substrate": 0.82,
+          "top1_random": 0.0,
+          "top1_pred": 0.808,
+          "HP": 0.5,
+          "HF": 0.25,
+          "random_floor": 0.005,
+          "per_step_acc_substrate": [
+            0.965,
+            0.945,
+            0.89,
+            0.87,
+            0.87,
+            0.845,
+            0.86,
+            0.845,
+            0.845,
+            0.845,
+            0.83,
+            0.82,
+            0.8,
+            0.805,
+            0.82
+          ],
+          "per_step_acc_random": [
+            0.005,
+            0.0,
+            0.005,
+            0.01,
+            0.005,
+            0.0,
+            0.005,
+            0.005,
+            0.0,
+            0.02,
+            0.0,
+            0.0,
+            0.005,
+            0.02,
+            0.0
+          ],
+          "arms_differ_sha256": true,
+          "sha256_substrate": "c84c860d363ebf3f",
+          "sha256_random": "f7847a22b7ac7c46",
+          "verdict_tier_per_point": "HARD_PASS",
+          "saturated": false,
+          "discriminator_fires": true,
+          "n_partitions": 20,
+          "part_size": 10,
+          "elapsed_s_point": 3.69
+        },
+        {
+          "depth": 5,
+          "V_C": 16000,
+          "N_chains": 50,
+          "top1_substrate": 1.0,
+          "top1_random": 0.0,
+          "top1_pred": 0.2414,
+          "HP": 0.1,
+          "HF": 0.05,
+          "random_floor": 6.3e-05,
+          "per_step_acc_substrate": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "per_step_acc_random": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "arms_differ_sha256": true,
+          "sha256_substrate": "378c8a68649b0a5b",
+          "sha256_random": "da5ff18e22485bfd",
+          "verdict_tier_per_point": "HARD_PASS",
+          "saturated": true,
+          "discriminator_fires": true,
+          "n_partitions": 20,
+          "part_size": 800,
+          "elapsed_s_point": 1.76
+        },
+        {
+          "depth": 15,
+          "V_C": 16000,
+          "N_chains": 200,
+          "top1_substrate": 0.99,
+          "top1_random": 0.0,
+          "top1_pred": 0.0,
+          "HP": 0.05,
+          "HF": 0.02,
+          "random_floor": 6.3e-05,
+          "per_step_acc_substrate": [
+            1.0,
+            0.995,
+            0.995,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99,
+            0.99
+          ],
+          "per_step_acc_random": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.005,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "arms_differ_sha256": true,
+          "sha256_substrate": "fc73852cc35dfea3",
+          "sha256_random": "32e4a8326337309e",
+          "verdict_tier_per_point": "HARD_PASS",
+          "saturated": true,
+          "discriminator_fires": true,
+          "n_partitions": 20,
+          "part_size": 800,
+          "elapsed_s_point": 5.45
+        }
+      ],
+      "gpu_util_pct_mean": 0.0,
+      "gpu_util_pct_max": 0.0,
+      "gpu_util_n_samples": 0,
+      "gpu_avail": true,
+      "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+      "gpu_max_mem_alloc_mb": 2747.73,
+      "expected_n_points": 4,
+      "observed_n_points": 4,
+      "cardinality_ok": true,
+      "elapsed_s": 11.3,
+      "_llm_forward_calls_at_inference": 0,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782664926.5036814
+    }
+  ],
+  "elapsed_s": 11.3,
+  "summary": "SMOKE_GATE_FAIL: cardinality_ok=True arm_discrim_count=4 arm_discrim_ok=True saturation_observed=True regime_fail_observed=False arms_differ_all=True sat_corner_ok=False cross_cell_ok=True fail_corner_ok=False gpu_util_ok=False gpu_util_mean=0.0 all_pass=False | smoke phase_map: (d=5,V_C=200,N=50,sub=0.940,rand=0.000,tier=HARD_PASS,sat=False) (d=15,V_C=200,N=200,sub=0.820,rand=0.000,tier=HARD_PASS,sat=False) (d=5,V_C=16000,N=50,sub=1.000,rand=0.000,tier=HARD_PASS,sat=True) (d=15,V_C=16000,N=200,sub=0.990,rand=0.000,tier=HARD_PASS,sat=True)",
+  "_llm_forward_calls_at_inference": 0,
+  "gpu_avail": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "phase_bands_pre_reg": [
+    {
+      "depth": 5,
+      "V_C": 200,
+      "N_chains": 50,
+      "top1_pred": 0.9824,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 8,
+      "V_C": 200,
+      "N_chains": 50,
+      "top1_pred": 0.972,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 10,
+      "V_C": 200,
+      "N_chains": 50,
+      "top1_pred": 0.9651,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 12,
+      "V_C": 200,
+      "N_chains": 50,
+      "top1_pred": 0.9583,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 15,
+      "V_C": 200,
+      "N_chains": 50,
+      "top1_pred": 0.9481,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 5,
+      "V_C": 200,
+      "N_chains": 200,
+      "top1_pred": 0.9314,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 8,
+      "V_C": 200,
+      "N_chains": 200,
+      "top1_pred": 0.8925,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 10,
+      "V_C": 200,
+      "N_chains": 200,
+      "top1_pred": 0.8675,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 12,
+      "V_C": 200,
+      "N_chains": 200,
+      "top1_pred": 0.8432,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 15,
+      "V_C": 200,
+      "N_chains": 200,
+      "top1_pred": 0.808,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.005
+    },
+    {
+      "depth": 5,
+      "V_C": 1000,
+      "N_chains": 50,
+      "top1_pred": 0.915,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 8,
+      "V_C": 1000,
+      "N_chains": 50,
+      "top1_pred": 0.8675,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 10,
+      "V_C": 1000,
+      "N_chains": 50,
+      "top1_pred": 0.8372,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 12,
+      "V_C": 1000,
+      "N_chains": 50,
+      "top1_pred": 0.808,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 15,
+      "V_C": 1000,
+      "N_chains": 50,
+      "top1_pred": 0.7661,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 5,
+      "V_C": 1000,
+      "N_chains": 200,
+      "top1_pred": 0.7009,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 8,
+      "V_C": 1000,
+      "N_chains": 200,
+      "top1_pred": 0.5664,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 10,
+      "V_C": 1000,
+      "N_chains": 200,
+      "top1_pred": 0.4913,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 12,
+      "V_C": 1000,
+      "N_chains": 200,
+      "top1_pred": 0.4262,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 15,
+      "V_C": 1000,
+      "N_chains": 200,
+      "top1_pred": 0.3444,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.001
+    },
+    {
+      "depth": 5,
+      "V_C": 5000,
+      "N_chains": 50,
+      "top1_pred": 0.6414,
+      "HP": 0.5,
+      "HF": 0.25,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 8,
+      "V_C": 5000,
+      "N_chains": 50,
+      "top1_pred": 0.4913,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 10,
+      "V_C": 5000,
+      "N_chains": 50,
+      "top1_pred": 0.4114,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 12,
+      "V_C": 5000,
+      "N_chains": 50,
+      "top1_pred": 0.3444,
+      "HP": 0.25,
+      "HF": 0.1,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 15,
+      "V_C": 5000,
+      "N_chains": 50,
+      "top1_pred": 0.2638,
+      "HP": 0.1,
+      "HF": 0.05,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 5,
+      "V_C": 5000,
+      "N_chains": 200,
+      "top1_pred": 0.1692,
+      "HP": 0.1,
+      "HF": 0.05,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 8,
+      "V_C": 5000,
+      "N_chains": 200,
+      "top1_pred": 0.0583,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 10,
+      "V_C": 5000,
+      "N_chains": 200,
+      "top1_pred": 0.0286,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 12,
+      "V_C": 5000,
+      "N_chains": 200,
+      "top1_pred": 0.0141,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 15,
+      "V_C": 5000,
+      "N_chains": 200,
+      "top1_pred": 0.0048,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 0.0002
+    },
+    {
+      "depth": 5,
+      "V_C": 16000,
+      "N_chains": 50,
+      "top1_pred": 0.2414,
+      "HP": 0.1,
+      "HF": 0.05,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 8,
+      "V_C": 16000,
+      "N_chains": 50,
+      "top1_pred": 0.1029,
+      "HP": 0.1,
+      "HF": 0.05,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 10,
+      "V_C": 16000,
+      "N_chains": 50,
+      "top1_pred": 0.0583,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 12,
+      "V_C": 16000,
+      "N_chains": 50,
+      "top1_pred": 0.033,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 15,
+      "V_C": 16000,
+      "N_chains": 50,
+      "top1_pred": 0.0141,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 5,
+      "V_C": 16000,
+      "N_chains": 200,
+      "top1_pred": 0.0034,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 8,
+      "V_C": 16000,
+      "N_chains": 200,
+      "top1_pred": 0.0001,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 10,
+      "V_C": 16000,
+      "N_chains": 200,
+      "top1_pred": 0.0,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 12,
+      "V_C": 16000,
+      "N_chains": 200,
+      "top1_pred": 0.0,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    },
+    {
+      "depth": 15,
+      "V_C": 16000,
+      "N_chains": 200,
+      "top1_pred": 0.0,
+      "HP": 0.05,
+      "HF": 0.02,
+      "random_floor": 6.25e-05
+    }
+  ],
+  "expected_n_full": 40,
+  "expected_n_smoke": 4,
+  "DESIGN_NOTE": "LAYER1_PHASE_DIAGRAM_MAP_substrate_multihop_depth_VC_NChains: Maps the (depth x V_C x N_chains) cube for multi-hop substrate. Anchored on v1 chain-grade 15-hop=0.808 at (15, 200, 200). Sweep axes 5 depths x 4 V_C x 2 N_chains = 40 phase points. Per-point SUBSTRATE arm (partition-routed oracle cleanup) vs RANDOM arm (uniform pick floor). Arms-differ SHA-256 enforced at every point. Per-point bands track empirical p_step model anchored at v1. Smoke 4 corners; full 40 points; GPU util >= 50% gate per Fix #24."
+}

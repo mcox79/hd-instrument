@@ -1,0 +1,985 @@
+{
+  "anchor_name": "substrate_stage1_apply_exp1_bridge_entity_coverage_smoke_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_BRIDGE_ENTITY_COVERAGE: main=0.982 >= 0.62 (strict floor); bridge entity recoverable via char-trigram fuzzy match on hop-1 chunks. Entity-extraction is NOT the bottleneck; PPR-walk (Exp 2) viable. main=0.982 | pos_ctl=1.000 | neg_ctl=0.000 | total_failed=55 | cardinality_ok=True arms_differ_ok=True",
+  "summary": "HARD_PASS_BRIDGE_ENTITY_COVERAGE: main=0.982 >= 0.62 (strict floor); bridge entity recoverable via char-trigram fuzzy match on hop-1 chunks. Entity-extraction is NOT the bottleneck; PPR-walk (Exp 2) viable. main=0.982 | pos_ctl=1.000 | neg_ctl=0.000 | total_failed=55 | cardinality_ok=True arms_differ_ok=True",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "n_dim_trigram": 1024,
+  "cosine_thresh": 0.5,
+  "neg_ctl_uuid": "Xzqppqzt",
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_failed": 19,
+      "n_queries_total": 20,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_MAIN_BRIDGE_COVERAGE": {
+          "match_rate": 1.0,
+          "n_hits": 19,
+          "n": 19
+        },
+        "ARM_POS_CTL_BRIDGE_INJECTED": {
+          "match_rate": 1.0,
+          "n_hits": 19,
+          "n": 19
+        },
+        "ARM_NEG_CTL_UUID_BRIDGE": {
+          "match_rate": 0.0,
+          "n_hits": 0,
+          "n": 19
+        }
+      },
+      "arm_digests": {
+        "ARM_MAIN_BRIDGE_COVERAGE": "b755ad6bc9bec377",
+        "ARM_POS_CTL_BRIDGE_INJECTED": "b755ad6bc9bec377",
+        "ARM_NEG_CTL_UUID_BRIDGE": "9a71a1d7a6961303"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [
+        [
+          "ARM_MAIN_BRIDGE_COVERAGE",
+          "ARM_POS_CTL_BRIDGE_INJECTED",
+          "MAIN saturated >= 0.95; POS_CTL injection adds no new hit signal"
+        ]
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge": "Bexley",
+          "chunks_text_len": 153,
+          "main_matched": [
+            "Bexley",
+            "Delft",
+            "Erie",
+            "Loam",
+            "Quill",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 1,
+          "bridge": "Tern",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Bexley",
+            "Gulch",
+            "Osek",
+            "Pome",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 2,
+          "bridge": "Pome",
+          "chunks_text_len": 136,
+          "main_matched": [
+            "Bexley",
+            "Hara",
+            "Loam",
+            "Pome",
+            "Riva",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 3,
+          "bridge": "Alton",
+          "chunks_text_len": 155,
+          "main_matched": [
+            "Alton",
+            "Bexley",
+            "Gulch",
+            "Hara",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 4,
+          "bridge": "Quill",
+          "chunks_text_len": 143,
+          "main_matched": [
+            "Coral",
+            "Delft",
+            "Erie",
+            "Mesa",
+            "Quill",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 5,
+          "bridge": "Gulch",
+          "chunks_text_len": 156,
+          "main_matched": [
+            "Bexley",
+            "Delft",
+            "Fjord",
+            "Gulch",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 6,
+          "bridge": "Mesa",
+          "chunks_text_len": 136,
+          "main_matched": [
+            "Alton",
+            "Juno",
+            "Mesa",
+            "Nord",
+            "Osek"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 8,
+          "bridge": "Delft",
+          "chunks_text_len": 137,
+          "main_matched": [
+            "Delft",
+            "Erie",
+            "Loam",
+            "Mesa",
+            "Osek"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 9,
+          "bridge": "Juno",
+          "chunks_text_len": 150,
+          "main_matched": [
+            "Coral",
+            "Delft",
+            "Iona",
+            "Juno",
+            "Loam"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 10,
+          "bridge": "Quill",
+          "chunks_text_len": 140,
+          "main_matched": [
+            "Gulch",
+            "Hara",
+            "Iona",
+            "Kelm",
+            "Quill",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 11,
+          "bridge": "Mesa",
+          "chunks_text_len": 144,
+          "main_matched": [
+            "Alton",
+            "Coral",
+            "Delft",
+            "Loam",
+            "Mesa",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 12,
+          "bridge": "Solt",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Gulch",
+            "Mesa",
+            "Osek",
+            "Riva",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 13,
+          "bridge": "Iona",
+          "chunks_text_len": 144,
+          "main_matched": [
+            "Bexley",
+            "Iona",
+            "Juno",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 14,
+          "bridge": "Juno",
+          "chunks_text_len": 139,
+          "main_matched": [
+            "Delft",
+            "Juno",
+            "Mesa",
+            "Osek"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 15,
+          "bridge": "Coral",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Coral",
+            "Juno",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 16,
+          "bridge": "Osek",
+          "chunks_text_len": 139,
+          "main_matched": [
+            "Gulch",
+            "Hara",
+            "Kelm",
+            "Osek",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 17,
+          "bridge": "Bexley",
+          "chunks_text_len": 148,
+          "main_matched": [
+            "Alton",
+            "Bexley",
+            "Delft",
+            "Juno",
+            "Riva",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 18,
+          "bridge": "Gulch",
+          "chunks_text_len": 143,
+          "main_matched": [
+            "Bexley",
+            "Gulch",
+            "Juno",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 19,
+          "bridge": "Alton",
+          "chunks_text_len": 142,
+          "main_matched": [
+            "Alton",
+            "Fjord",
+            "Iona",
+            "Kelm",
+            "Nord",
+            "Pome",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        }
+      ],
+      "elapsed_s": 10.489272400009213
+    },
+    {
+      "seed": 17,
+      "n_failed": 19,
+      "n_queries_total": 20,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_MAIN_BRIDGE_COVERAGE": {
+          "match_rate": 0.9473684210526315,
+          "n_hits": 18,
+          "n": 19
+        },
+        "ARM_POS_CTL_BRIDGE_INJECTED": {
+          "match_rate": 1.0,
+          "n_hits": 19,
+          "n": 19
+        },
+        "ARM_NEG_CTL_UUID_BRIDGE": {
+          "match_rate": 0.0,
+          "n_hits": 0,
+          "n": 19
+        }
+      },
+      "arm_digests": {
+        "ARM_MAIN_BRIDGE_COVERAGE": "8d5739543cf37836",
+        "ARM_POS_CTL_BRIDGE_INJECTED": "b755ad6bc9bec377",
+        "ARM_NEG_CTL_UUID_BRIDGE": "9a71a1d7a6961303"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge": "Coral",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Alton",
+            "Coral",
+            "Iona",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 1,
+          "bridge": "Nord",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Coral",
+            "Erie",
+            "Gulch",
+            "Loam",
+            "Nord",
+            "Pome"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 2,
+          "bridge": "Kelm",
+          "chunks_text_len": 148,
+          "main_matched": [
+            "Bexley",
+            "Delft",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 3,
+          "bridge": "Bexley",
+          "chunks_text_len": 141,
+          "main_matched": [
+            "Bexley",
+            "Fjord",
+            "Nord",
+            "Pome",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 4,
+          "bridge": "Mesa",
+          "chunks_text_len": 143,
+          "main_matched": [
+            "Alton",
+            "Delft",
+            "Fjord",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 5,
+          "bridge": "Riva",
+          "chunks_text_len": 136,
+          "main_matched": [
+            "Iona",
+            "Nord",
+            "Riva",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 6,
+          "bridge": "Solt",
+          "chunks_text_len": 148,
+          "main_matched": [
+            "Coral",
+            "Iona",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 7,
+          "bridge": "Hara",
+          "chunks_text_len": 149,
+          "main_matched": [
+            "Coral",
+            "Fjord",
+            "Hara",
+            "Mesa",
+            "Quill",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 8,
+          "bridge": "Pome",
+          "chunks_text_len": 142,
+          "main_matched": [
+            "Bexley",
+            "Nord",
+            "Pome",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 9,
+          "bridge": "Juno",
+          "chunks_text_len": 141,
+          "main_matched": [
+            "Erie",
+            "Fjord",
+            "Juno",
+            "Kelm",
+            "Nord",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 10,
+          "bridge": "Gulch",
+          "chunks_text_len": 147,
+          "main_matched": [
+            "Bexley",
+            "Fjord",
+            "Gulch",
+            "Kelm",
+            "Osek",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 11,
+          "bridge": "Iona",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Gulch",
+            "Iona",
+            "Kelm",
+            "Pome",
+            "Solt",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 12,
+          "bridge": "Kelm",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Gulch",
+            "Kelm",
+            "Pome",
+            "Riva",
+            "Solt",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 13,
+          "bridge": "Erie",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Erie",
+            "Fjord",
+            "Iona",
+            "Nord",
+            "Osek",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 14,
+          "bridge": "Mesa",
+          "chunks_text_len": 151,
+          "main_matched": [
+            "Coral",
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 15,
+          "bridge": "Nord",
+          "chunks_text_len": 140,
+          "main_matched": [
+            "Hara",
+            "Kelm",
+            "Loam",
+            "Nord",
+            "Quill",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 17,
+          "bridge": "Juno",
+          "chunks_text_len": 150,
+          "main_matched": [
+            "Alton",
+            "Bexley",
+            "Juno",
+            "Kelm",
+            "Nord",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 18,
+          "bridge": "Alton",
+          "chunks_text_len": 152,
+          "main_matched": [
+            "Alton",
+            "Gulch",
+            "Hara",
+            "Quill"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 19,
+          "bridge": "Mesa",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Fjord",
+            "Hara",
+            "Kelm",
+            "Osek",
+            "Pome",
+            "Riva"
+          ],
+          "main_hit": false,
+          "pos_hit": true,
+          "neg_hit": false
+        }
+      ],
+      "elapsed_s": 0.906560699979309
+    },
+    {
+      "seed": 23,
+      "n_failed": 17,
+      "n_queries_total": 20,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_MAIN_BRIDGE_COVERAGE": {
+          "match_rate": 1.0,
+          "n_hits": 17,
+          "n": 17
+        },
+        "ARM_POS_CTL_BRIDGE_INJECTED": {
+          "match_rate": 1.0,
+          "n_hits": 17,
+          "n": 17
+        },
+        "ARM_NEG_CTL_UUID_BRIDGE": {
+          "match_rate": 0.0,
+          "n_hits": 0,
+          "n": 17
+        }
+      },
+      "arm_digests": {
+        "ARM_MAIN_BRIDGE_COVERAGE": "9a9b2044395f8de3",
+        "ARM_POS_CTL_BRIDGE_INJECTED": "9a9b2044395f8de3",
+        "ARM_NEG_CTL_UUID_BRIDGE": "cbc2ec5c4c82d284"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [
+        [
+          "ARM_MAIN_BRIDGE_COVERAGE",
+          "ARM_POS_CTL_BRIDGE_INJECTED",
+          "MAIN saturated >= 0.95; POS_CTL injection adds no new hit signal"
+        ]
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge": "Riva",
+          "chunks_text_len": 140,
+          "main_matched": [
+            "Coral",
+            "Juno",
+            "Osek",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 2,
+          "bridge": "Loam",
+          "chunks_text_len": 149,
+          "main_matched": [
+            "Coral",
+            "Gulch",
+            "Loam",
+            "Osek"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 3,
+          "bridge": "Pome",
+          "chunks_text_len": 147,
+          "main_matched": [
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Osek",
+            "Pome"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 4,
+          "bridge": "Tern",
+          "chunks_text_len": 150,
+          "main_matched": [
+            "Fjord",
+            "Gulch",
+            "Kelm",
+            "Osek",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 5,
+          "bridge": "Loam",
+          "chunks_text_len": 149,
+          "main_matched": [
+            "Coral",
+            "Gulch",
+            "Loam",
+            "Osek"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 6,
+          "bridge": "Mesa",
+          "chunks_text_len": 144,
+          "main_matched": [
+            "Bexley",
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 7,
+          "bridge": "Mesa",
+          "chunks_text_len": 144,
+          "main_matched": [
+            "Bexley",
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 8,
+          "bridge": "Fjord",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Pome",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 9,
+          "bridge": "Bexley",
+          "chunks_text_len": 152,
+          "main_matched": [
+            "Bexley",
+            "Fjord",
+            "Iona",
+            "Juno",
+            "Loam",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 11,
+          "bridge": "Hara",
+          "chunks_text_len": 142,
+          "main_matched": [
+            "Bexley",
+            "Delft",
+            "Hara",
+            "Riva",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 12,
+          "bridge": "Solt",
+          "chunks_text_len": 139,
+          "main_matched": [
+            "Coral",
+            "Hara",
+            "Kelm",
+            "Solt",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 14,
+          "bridge": "Bexley",
+          "chunks_text_len": 145,
+          "main_matched": [
+            "Bexley",
+            "Kelm",
+            "Nord",
+            "Osek",
+            "Riva",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 15,
+          "bridge": "Nord",
+          "chunks_text_len": 150,
+          "main_matched": [
+            "Bexley",
+            "Erie",
+            "Loam",
+            "Nord",
+            "Quill",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 16,
+          "bridge": "Alton",
+          "chunks_text_len": 146,
+          "main_matched": [
+            "Alton",
+            "Coral",
+            "Delft",
+            "Erie",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 17,
+          "bridge": "Mesa",
+          "chunks_text_len": 141,
+          "main_matched": [
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Osek",
+            "Riva"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 18,
+          "bridge": "Gulch",
+          "chunks_text_len": 144,
+          "main_matched": [
+            "Fjord",
+            "Gulch",
+            "Loam",
+            "Riva",
+            "Solt"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        },
+        {
+          "qi": 19,
+          "bridge": "Delft",
+          "chunks_text_len": 143,
+          "main_matched": [
+            "Bexley",
+            "Delft",
+            "Kelm",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "main_hit": true,
+          "pos_hit": true,
+          "neg_hit": false
+        }
+      ],
+      "elapsed_s": 0.8988641000178177
+    }
+  ],
+  "per_arm_mean_rate": {
+    "ARM_MAIN_BRIDGE_COVERAGE": 0.9818181818181818,
+    "ARM_POS_CTL_BRIDGE_INJECTED": 1.0,
+    "ARM_NEG_CTL_UUID_BRIDGE": 0.0
+  },
+  "expected_n_units": 9,
+  "actual_n_units": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "char-trigram cosine is a rate not a shift; no noise-floor CRLB applies",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "elapsed_s": 12.295379200018942,
+  "ts_iso": "2026-07-03T13:46:06.136691+00:00"
+}

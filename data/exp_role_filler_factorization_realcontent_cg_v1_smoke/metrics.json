@@ -1,0 +1,219 @@
+{
+  "anchor_name": "role_filler_factorization_realcontent_cg_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_CG_CANDIDATE",
+  "verdict_msg": "HARD_PASS_CG_CANDIDATE | SYN(control) F_held=1.000 gap=0.983 | REAL F_held=1.000 FLAT_held=0.133 gap=0.867 corr=0.209 | WHIT F_held=1.000 corr=0.099 | posctrl=True mustfail=True realgen=True realbreak=False whiten_fix=False chance=0.333",
+  "summary": "HARD_PASS_CG_CANDIDATE | SYN(control) F_held=1.000 gap=0.983 | REAL F_held=1.000 FLAT_held=0.133 gap=0.867 corr=0.209 | WHIT F_held=1.000 corr=0.099 | posctrl=True mustfail=True realgen=True realbreak=False whiten_fix=False chance=0.333",
+  "elapsed_s": 2.0601980999927036,
+  "ts_iso": "2026-07-19T04:01:12.977680+00:00",
+  "config": {
+    "n_dim": 2048,
+    "n_roles": 4,
+    "n_fillers": 24,
+    "m": 3,
+    "held_per_role": 2,
+    "diversity_levels": [
+      8,
+      64
+    ],
+    "n_test": 120,
+    "seeds": [
+      7,
+      13
+    ],
+    "conditions": [
+      "synthetic_orthogonal",
+      "glove_real",
+      "glove_whitened"
+    ]
+  },
+  "chance": 0.3333333333333333,
+  "aggregate": {
+    "verdict": "HARD_PASS_CG_CANDIDATE",
+    "chance": 0.3333333333333333,
+    "per_condition": {
+      "synthetic_orthogonal": {
+        "curve_mean": [
+          {
+            "D": 8,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.21666666666666667,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3875,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9008891582489014
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.016666666666666666,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3833333333333333,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9886839985847473
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": 0.0013693853397853673,
+          "content_cos_median": 0.0017707808874547482,
+          "content_cos_p90": 0.022355719469487667,
+          "content_cos_max": 0.04886503890156746
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.016666666666666666,
+        "gap_heldout_hi": 0.9833333333333333,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.3833333333333333,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.36666666666666664,
+        "g_hat_cos_hi": 0.9886839985847473
+      },
+      "glove_real": {
+        "curve_mean": [
+          {
+            "D": 8,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.2625,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3625,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.8795757293701172
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.13333333333333333,
+            "factored_indist": 1.0,
+            "flat_indist": 0.37083333333333335,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9670567512512207
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": 0.2090768814086914,
+          "content_cos_median": 0.19784502685070038,
+          "content_cos_p90": 0.28407084941864014,
+          "content_cos_max": 0.4926381856203079
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.13333333333333333,
+        "gap_heldout_hi": 0.8666666666666667,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.37083333333333335,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.23750000000000002,
+        "g_hat_cos_hi": 0.9670567512512207
+      },
+      "glove_whitened": {
+        "curve_mean": [
+          {
+            "D": 8,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.1,
+            "factored_indist": 1.0,
+            "flat_indist": 0.37916666666666665,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.895095556974411
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.020833333333333332,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3666666666666667,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9821090400218964
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": 0.09903087094426155,
+          "content_cos_median": 0.09622983634471893,
+          "content_cos_p90": 0.14049093425273895,
+          "content_cos_max": 0.23190966993570328
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.020833333333333332,
+        "gap_heldout_hi": 0.9791666666666666,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.3666666666666667,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.3458333333333334,
+        "g_hat_cos_hi": 0.9821090400218964
+      }
+    },
+    "positive_control_reproduces_v1": true,
+    "real_must_fail_control_fired": true,
+    "real_generalizes": true,
+    "real_breaks": false,
+    "whitening_restores": false,
+    "can_fail_both_ways": true
+  },
+  "stress_map": {
+    "rows": [
+      {
+        "m": 3,
+        "beta": 2.4,
+        "content_cos_mean": 0.01651092804968357,
+        "factored_vocab_heldout": 0.30833333333333335,
+        "factored_present_heldout": 0.5333333333333333,
+        "g_hat_cos": 0.12921465933322906
+      },
+      {
+        "m": 3,
+        "beta": 0.8,
+        "content_cos_mean": 0.5963138341903687,
+        "factored_vocab_heldout": 0.24166666666666667,
+        "factored_present_heldout": 0.5666666666666667,
+        "g_hat_cos": 0.1293981671333313
+      },
+      {
+        "m": 10,
+        "beta": 2.4,
+        "content_cos_mean": 0.01651092804968357,
+        "factored_vocab_heldout": 0.7,
+        "factored_present_heldout": 0.8333333333333334,
+        "g_hat_cos": 0.23260043561458588
+      },
+      {
+        "m": 10,
+        "beta": 0.8,
+        "content_cos_mean": 0.5963138341903687,
+        "factored_vocab_heldout": 0.0,
+        "factored_present_heldout": 0.13333333333333333,
+        "g_hat_cos": 0.23185007274150848
+      }
+    ],
+    "whiten_probe": {
+      "m": 10,
+      "beta": 0.8,
+      "whiten_kpc": 3,
+      "raw_content_cos": 0.5963138341903687,
+      "whitened_content_cos": 0.5239114165306091,
+      "raw_factored_vocab": 0.0,
+      "whitened_factored_vocab": 0.0,
+      "whitening_restores": false,
+      "note": "top-PC whitening reduces GloVe anisotropy but at low beta the content-correlation FLOOR is set by the encoding bandwidth (content_cos>=exp(-beta^2) even for orthogonal GloVe), so decorrelating GloVe cannot fix the extreme-correlation break there; the effective fix is a higher-bandwidth/sparser content code (more orthogonal FHRR)."
+    }
+  },
+  "arms_differ_hashes": {
+    "glove_real_factored_pred_hash": "5fb012d58581c4873c9adf35f27cbb6c71f99bbd2b5e2730ff840a9b1d51f996",
+    "glove_real_flat_pred_hash": "bee4e0e870ac31d7dc459eb7fbdebf38b0561a66732494a8b090bab791ea4220"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "factored_pred": "car",
+    "flat_pred": "dog",
+    "dog_cat_cos": 0.491,
+    "dog_car_cos": 0.193,
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "content_source": "REAL GloVe-wiki-gigaword-300 (Pennington et al. 2014); FHRR phase-encoded",
+  "notes": "CHAIN-GRADE PROMOTION gate: structure-content factorization on REAL correlated grounded content (GloVe). HARD_PASS_CG_CANDIDATE = compositional generalization on real correlated content where flat fails (brain-faithful native bind); still uses a CURATED relation set (controlled roles) -- full real-text-from-reading with REAL extracted relations (ConceptNet/SVO) is the further step. CLAIM-VET-pending."
+}

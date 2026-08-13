@@ -1,0 +1,140 @@
+{
+  "anchor_name": "soft_topK_cleanup_distribution_preserving_v1",
+  "config_version": "N=8192,V_C=64,K_TOP=5,HOP=5,EPS=0.150,N_EVAL=200,N_HELDOUT=100,T_GRID=0.05-0.1-0.2-0.5-1-2-5,ARMS=3,SEEDS=11,BANDS=HP_LIFT>=0.030/ECE<=0.150/ENT[0.40,0.90]/RAIL<=0.020,ENCODER=SUBSTRATE_NATIVE,SYNTH=True",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: R11 lift=+0.000 <= 0.010 (no top-1 advantage). BASELINE_top1@hop5=0.005 SOFT_top1=0.010 R11_top1=0.005 lift_soft=+0.005 lift_r11=+0.000 BASELINE_ECE=0.036 SOFT_ECE=0.192 R11_ECE=0.208 BASELINE_Hratio=0.935 SOFT_Hratio=1.000 R11_Hratio=1.000 T*=0.5 rail_diff=0.0000 rail_pass=True n_llm=0 (N=8192 V_C=64 K=5 HOP=5 eps=0.15 mode=smoke seeds=1)",
+  "summary": "HARD_FAIL: R11 lift=+0.000 <= 0.010 (no top-1 advantage). BASELINE_top1@hop5=0.005 SOFT_top1=0.010 R11_top1=0.005 lift_soft=+0.005 lift_r11=+0.000 BASELINE_ECE=0.036 SOFT_ECE=0.192 R11_ECE=0.208 BASELINE_Hratio=0.935 SOFT_Hratio=1.000 R11_Hratio=1.000 T*=0.5 rail_diff=0.0000 rail_pass=True n_llm=0 (N=8192 V_C=64 K=5 HOP=5 eps=0.15 mode=smoke seeds=1)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N_DIM": 8192,
+  "V_C": 64,
+  "K_TOP": 5,
+  "HOP_DEPTH": 5,
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "corpus_provenance_real": false,
+  "allow_synthetic": true,
+  "all_arms": [
+    "ARM_BASELINE_TOP1_ARGMAX",
+    "ARM_SOFT_TOPK_DISTRIBUTION",
+    "ARM_SOFT_TOPK_R11_TEMPERATURE_SCALED"
+  ],
+  "pre_reg_bands": {
+    "HARD_PASS_LIFT_THRESHOLD": 0.03,
+    "HARD_PASS_ECE_MAX": 0.15,
+    "HARD_PASS_ENTROPY_RATIO_LO": 0.4,
+    "HARD_PASS_ENTROPY_RATIO_HI": 0.9,
+    "MIDDLE_BAND_LIFT_LO": 0.01,
+    "MIDDLE_BAND_ECE_MAX": 0.25,
+    "RAIL_TOP1_TOLERANCE": 0.02,
+    "P_HARD_PASS": 0.55,
+    "P_MIDDLE": 0.25,
+    "P_HARD_FAIL": 0.2
+  },
+  "zero_llm_calls_at_inference": true,
+  "per_seed": [
+    {
+      "seed": 11,
+      "N_DIM": 8192,
+      "V_C": 64,
+      "K_TOP": 5,
+      "HOP_DEPTH": 5,
+      "n_chains_eval": 200,
+      "n_chains_heldout": 100,
+      "epsilon_noise": 0.15,
+      "run_mode": "smoke",
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "corpus_provenance_real": false,
+      "allow_synthetic": true,
+      "cross_cell_rail": {
+        "agreement_pred_pred_ref": 1.0,
+        "rail_top1_local": 0.005,
+        "rail_top1_reference": 0.005,
+        "rail_top1_diff": 0.0
+      },
+      "cross_cell_rail_pass": true,
+      "r11_temperature_star": 0.5,
+      "r11_t_to_nll": {
+        "0.05": 13.630898475646973,
+        "0.1": 13.239677429199219,
+        "0.2": 12.956682205200195,
+        "0.5": 12.59366226196289,
+        "1": 12.594626426696777,
+        "2": 12.594818115234375,
+        "5": 12.594883918762207
+      },
+      "arm_metrics": {
+        "ARM_BASELINE_TOP1_ARGMAX": {
+          "arm": "ARM_BASELINE_TOP1_ARGMAX",
+          "top1_per_hop": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005
+          ],
+          "top1_hop_last": 0.005,
+          "entropy_per_hop_nats": [
+            1.6091949939727783,
+            1.5051504373550415,
+            1.5051013231277466,
+            1.5051289796829224,
+            1.505165696144104
+          ],
+          "ece_hop_last": 0.036369248293340206,
+          "temperature_used": 1.0,
+          "entropy_ratio": 0.9353532056597772
+        },
+        "ARM_SOFT_TOPK_DISTRIBUTION": {
+          "arm": "ARM_SOFT_TOPK_DISTRIBUTION",
+          "top1_per_hop": [
+            0.005,
+            0.005,
+            0.015,
+            0.02,
+            0.01
+          ],
+          "top1_hop_last": 0.01,
+          "entropy_per_hop_nats": [
+            1.6091949939727783,
+            1.6093600988388062,
+            1.6093941926956177,
+            1.6094021797180176,
+            1.6094026565551758
+          ],
+          "ece_hop_last": 0.19223461113870144,
+          "temperature_used": 1.0,
+          "entropy_ratio": 1.0001290474946636,
+          "lift_vs_baseline": 0.005
+        },
+        "ARM_SOFT_TOPK_R11_TEMPERATURE_SCALED": {
+          "arm": "ARM_SOFT_TOPK_R11_TEMPERATURE_SCALED",
+          "top1_per_hop": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005
+          ],
+          "top1_hop_last": 0.005,
+          "entropy_per_hop_nats": [
+            1.6084449291229248,
+            1.6084784269332886,
+            1.6085176467895508,
+            1.6085511445999146,
+            1.6085991859436035
+          ],
+          "ece_hop_last": 0.20816936623305082,
+          "temperature_used": 0.5,
+          "entropy_ratio": 1.0000959043221722,
+          "lift_vs_baseline": 0.0
+        }
+      },
+      "lift_soft_vs_baseline": 0.005,
+      "lift_r11_vs_baseline": 0.0,
+      "n_llm_calls": 0,
+      "zero_llm_calls_at_inference": true,
+      "elapsed_s": 2.955599546432495
+    }
+  ],
+  "elapsed_s": 3.013495683670044
+}

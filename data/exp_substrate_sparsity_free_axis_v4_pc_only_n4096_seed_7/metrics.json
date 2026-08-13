@@ -1,0 +1,401 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HP_SPARSITY_PC_AXIS_CG: monotone rho<=-0.80 on all 5 M-levels; in-band [0.30,0.90] on all 15 points; cross-seed cv<0.05 everywhere; random-floor chance; per_M_summary={'PC_M800': {'regime': 'PC', 'M_or_K': 800, 'sparsity_range': 0.1775, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.7887, 0.72, 0.6112]}, 'PC_M1000': {'regime': 'PC', 'M_or_K': 1000, 'sparsity_range': 0.188, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.73, 0.686, 0.542]}, 'PC_M1500': {'regime': 'PC', 'M_or_K': 1500, 'sparsity_range': 0.194, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.638, 0.5927, 0.444]}, 'PC_M2000': {'regime': 'PC', 'M_or_K': 2000, 'sparsity_range': 0.222, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.5915, 0.507, 0.3695]}, 'PC_M2500': {'regime': 'PC', 'M_or_K': 2500, 'sparsity_range': 0.242, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.5468, 0.4844, 0.3048]}}",
+  "summary": "HP_SPARSITY_PC_AXIS_CG: monotone rho<=-0.80 on all 5 M-levels; in-band [0.30,0.90] on all 15 points; cross-seed cv<0.05 everywhere; random-floor chance; per_M_summary={'PC_M800': {'regime': 'PC', 'M_or_K': 800, 'sparsity_range': 0.1775, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.7887, 0.72, 0.6112]}, 'PC_M1000': {'regime': 'PC', 'M_or_K': 1000, 'sparsity_range': 0.188, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.73, 0.686, 0.542]}, 'PC_M1500': {'regime': 'PC', 'M_or_K': 1500, 'sparsity_range': 0.194, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.638, 0.5927, 0.444]}, 'PC_M2000': {'regime': 'PC', 'M_or_K': 2000, 'sparsity_range': 0.222, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.5915, 0.507, 0.3695]}, 'PC_M2500': {'regime': 'PC', 'M_or_K': 2500, 'sparsity_range': 0.242, 'spearman_rho_top1_vs_alpha': -1.0, 'max_seed_cv': 0.0, 'alphas_swept': [0.05, 0.1, 0.2], 'top1_by_alpha': [0.5468, 0.4844, 0.3048]}}",
+  "per_M_summary": {
+    "PC_M800": {
+      "regime": "PC",
+      "M_or_K": 800,
+      "sparsity_range": 0.1775,
+      "spearman_rho_top1_vs_alpha": -1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.7887,
+        0.72,
+        0.6112
+      ]
+    },
+    "PC_M1000": {
+      "regime": "PC",
+      "M_or_K": 1000,
+      "sparsity_range": 0.188,
+      "spearman_rho_top1_vs_alpha": -1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.73,
+        0.686,
+        0.542
+      ]
+    },
+    "PC_M1500": {
+      "regime": "PC",
+      "M_or_K": 1500,
+      "sparsity_range": 0.194,
+      "spearman_rho_top1_vs_alpha": -1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.638,
+        0.5927,
+        0.444
+      ]
+    },
+    "PC_M2000": {
+      "regime": "PC",
+      "M_or_K": 2000,
+      "sparsity_range": 0.222,
+      "spearman_rho_top1_vs_alpha": -1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.5915,
+        0.507,
+        0.3695
+      ]
+    },
+    "PC_M2500": {
+      "regime": "PC",
+      "M_or_K": 2500,
+      "sparsity_range": 0.242,
+      "spearman_rho_top1_vs_alpha": -1.0,
+      "max_seed_cv": 0.0,
+      "alphas_swept": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "top1_by_alpha": [
+        0.5468,
+        0.4844,
+        0.3048
+      ]
+    }
+  },
+  "agg_rows": [
+    {
+      "regime": "PC",
+      "M_or_K": 800,
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 0.7887,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0025,
+      "discriminator_mean": 0.7862,
+      "per_seed_top1": [
+        0.7887
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 800,
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 0.72,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0037,
+      "discriminator_mean": 0.7163,
+      "per_seed_top1": [
+        0.72
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 800,
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 0.6112,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0025,
+      "discriminator_mean": 0.6087,
+      "per_seed_top1": [
+        0.6112
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1000,
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 0.73,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.001,
+      "discriminator_mean": 0.729,
+      "per_seed_top1": [
+        0.73
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1000,
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 0.686,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.001,
+      "discriminator_mean": 0.685,
+      "per_seed_top1": [
+        0.686
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1000,
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 0.542,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.001,
+      "discriminator_mean": 0.541,
+      "per_seed_top1": [
+        0.542
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1500,
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 0.638,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0,
+      "discriminator_mean": 0.638,
+      "per_seed_top1": [
+        0.638
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1500,
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 0.5927,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0013,
+      "discriminator_mean": 0.5914,
+      "per_seed_top1": [
+        0.5927
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 1500,
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 0.444,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.002,
+      "discriminator_mean": 0.442,
+      "per_seed_top1": [
+        0.444
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2000,
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 0.5915,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0005,
+      "discriminator_mean": 0.591,
+      "per_seed_top1": [
+        0.5915
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2000,
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 0.507,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0,
+      "discriminator_mean": 0.507,
+      "per_seed_top1": [
+        0.507
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2000,
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 0.3695,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0005,
+      "discriminator_mean": 0.369,
+      "per_seed_top1": [
+        0.3695
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2500,
+      "sparsity_frac": 0.05,
+      "top1_mechanism_mean": 0.5468,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0012,
+      "discriminator_mean": 0.5456,
+      "per_seed_top1": [
+        0.5468
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2500,
+      "sparsity_frac": 0.1,
+      "top1_mechanism_mean": 0.4844,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0004,
+      "discriminator_mean": 0.484,
+      "per_seed_top1": [
+        0.4844
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    },
+    {
+      "regime": "PC",
+      "M_or_K": 2500,
+      "sparsity_frac": 0.2,
+      "top1_mechanism_mean": 0.3048,
+      "top1_mechanism_std": 0.0,
+      "seed_cv": 0.0,
+      "top1_random_mean": 0.0004,
+      "discriminator_mean": 0.3044,
+      "per_seed_top1": [
+        0.3048
+      ],
+      "per_seed_tier": [
+        "HARD_PASS"
+      ],
+      "arms_differ_all_seeds": true,
+      "n_seeds_at_point": 1
+    }
+  ],
+  "per_seed": {
+    "7": {
+      "observed_n_units": 15,
+      "cardinality_ok": true
+    }
+  },
+  "expected_n_units_per_seed": 15,
+  "observed_n_units": 15,
+  "cardinality_ok": true,
+  "positive_control_pc_ok": true,
+  "hp_pc_monotone_all_M": true,
+  "hp_pc_in_band_all_points": true,
+  "hp_cross_seed_tight_all_points": true,
+  "hp_random_floor_chance": true,
+  "hp_arms_differ_all_points": true,
+  "hf_saturation_points": [],
+  "hf_crumble_points": [],
+  "REQUIRED_FIELDS_check": [
+    "verdict",
+    "verdict_msg",
+    "elapsed_s",
+    "summary"
+  ],
+  "anchor_name": "substrate_sparsity_free_axis_v4_pc_only_n4096_seed_7",
+  "elapsed_s": 16.29,
+  "ts_iso": "2026-07-01T19:42:53Z",
+  "pid": 41632,
+  "run_mode": "full",
+  "config_version": "ANCHOR=substrate_sparsity_free_axis_v4_pc_only_n4096_seed_7,encoder=hrr_real,sparsity=[0.05,0.10,0.20],M=[800,1000,1500,2000,2500],regimes=[PC],N=4096,SEED=7,mode=full,pc_c=0.60,pc_T=1,beta=8.0,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=15,expected_n_smoke=15,design_kind=SPARSITY_FREE_AXIS_V4_PC_ONLY,parent_refs=[sparsity_free_axis_v2_PC_MEASURED_HP,v3_arch_bug_finding],WM_STATUS=RETIRED_ARCH_BUG_v2core_line_419_vals_corr_unused_in_readout,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v4_sparsity_free_axis_pc_only_chunked",
+  "backend": "torch.cuda",
+  "seed": 7,
+  "n_seeds": 1,
+  "N": 4096,
+  "corpus_provenance": "synthetic_sparsity_free_axis_v4_pc_only",
+  "n_llm_calls": 0,
+  "design_kind": "SPARSITY_FREE_AXIS_V4_PC_ONLY"
+}

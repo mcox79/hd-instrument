@@ -1,0 +1,377 @@
+{
+  "verdict": "MEANING_MATCH_PASS",
+  "verdict_msg": "MEANING_MATCH=MEANING_MATCH_PASS (semantic AUC=0.960 sep=0.507 vs lexical sep=-0.400; gap=0.907); ARC CLIMB_RISING: char_full_easy=0.354 -> semantic_full_easy=0.396 (delta=+0.042, vs_scramble=+0.149)",
+  "summary": "MEANING_MATCH_PASS | ARC CLIMB_RISING delta=+0.042",
+  "elapsed_s": 145.1,
+  "ts_iso": "2026-07-24T15:37:47.481912+00:00",
+  "anchor_name": "semantic_hd_encoder_meaning_match_v1",
+  "mode": "full",
+  "n_dim": 2048,
+  "pretrain_dim": 300,
+  "glove_model": "glove-wiki-gigaword-300",
+  "alpha_synonym": 0.5,
+  "beta_hypernym": 0.3,
+  "max_synsets": 3,
+  "seed": 20260724,
+  "meaning_match_verdict": "MEANING_MATCH_PASS",
+  "meaning_match": {
+    "semantic_hd": {
+      "auc_pos_vs_falsefriend": 0.9604,
+      "mean_positive_sim": 0.633,
+      "mean_synonym_sim": 0.7108,
+      "mean_related_sim": 0.5242,
+      "mean_falsefriend_sim": 0.1265,
+      "separation": 0.5066
+    },
+    "glove_only_hd": {
+      "auc_pos_vs_falsefriend": 0.9646,
+      "mean_positive_sim": 0.5564,
+      "mean_synonym_sim": 0.6065,
+      "mean_related_sim": 0.4862,
+      "mean_falsefriend_sim": 0.099,
+      "separation": 0.4574
+    },
+    "char_trigram_lexical": {
+      "auc_pos_vs_falsefriend": 0.0,
+      "mean_positive_sim": 0.0166,
+      "mean_synonym_sim": 0.0043,
+      "mean_related_sim": 0.0338,
+      "mean_falsefriend_sim": 0.4165,
+      "separation": -0.3999
+    },
+    "semantic_scramble": {
+      "auc_pos_vs_falsefriend": 0.6646,
+      "mean_positive_sim": 0.2084,
+      "mean_synonym_sim": 0.2022,
+      "mean_related_sim": 0.2171,
+      "mean_falsefriend_sim": 0.1551,
+      "separation": 0.0533
+    }
+  },
+  "meaning_match_pair_table": [
+    {
+      "a": "big",
+      "b": "large",
+      "label": "synonym",
+      "semantic_hd": 0.8385,
+      "char_trigram_lexical": -0.0234
+    },
+    {
+      "a": "sick",
+      "b": "ill",
+      "label": "synonym",
+      "semantic_hd": 0.7233,
+      "char_trigram_lexical": 0.0244
+    },
+    {
+      "a": "happy",
+      "b": "glad",
+      "label": "synonym",
+      "semantic_hd": 0.797,
+      "char_trigram_lexical": 0.0186
+    },
+    {
+      "a": "quick",
+      "b": "fast",
+      "label": "synonym",
+      "semantic_hd": 0.5964,
+      "char_trigram_lexical": -0.0264
+    },
+    {
+      "a": "buy",
+      "b": "purchase",
+      "label": "synonym",
+      "semantic_hd": 0.805,
+      "char_trigram_lexical": 0.0254
+    },
+    {
+      "a": "smart",
+      "b": "intelligent",
+      "label": "synonym",
+      "semantic_hd": 0.5707,
+      "char_trigram_lexical": -0.0273
+    },
+    {
+      "a": "begin",
+      "b": "start",
+      "label": "synonym",
+      "semantic_hd": 0.8267,
+      "char_trigram_lexical": 0.001
+    },
+    {
+      "a": "small",
+      "b": "tiny",
+      "label": "synonym",
+      "semantic_hd": 0.7064,
+      "char_trigram_lexical": -0.0059
+    },
+    {
+      "a": "doctor",
+      "b": "physician",
+      "label": "synonym",
+      "semantic_hd": 0.8532,
+      "char_trigram_lexical": -0.0137
+    },
+    {
+      "a": "movie",
+      "b": "film",
+      "label": "synonym",
+      "semantic_hd": 0.9015,
+      "char_trigram_lexical": -0.0127
+    },
+    {
+      "a": "automobile",
+      "b": "car",
+      "label": "synonym",
+      "semantic_hd": 0.7838,
+      "char_trigram_lexical": -0.0225
+    },
+    {
+      "a": "rock",
+      "b": "stone",
+      "label": "synonym",
+      "semantic_hd": 0.8576,
+      "char_trigram_lexical": -0.0371
+    },
+    {
+      "a": "usa",
+      "b": "america",
+      "label": "synonym",
+      "semantic_hd": 0.6913,
+      "char_trigram_lexical": 0.0117
+    },
+    {
+      "a": "tv",
+      "b": "television",
+      "label": "synonym",
+      "semantic_hd": 0.0,
+      "char_trigram_lexical": 0.1484
+    },
+    {
+      "a": "cat",
+      "b": "kitten",
+      "label": "related",
+      "semantic_hd": 0.51,
+      "char_trigram_lexical": 0.0
+    },
+    {
+      "a": "dog",
+      "b": "puppy",
+      "label": "related",
+      "semantic_hd": 0.6238,
+      "char_trigram_lexical": 0.0146
+    },
+    {
+      "a": "sun",
+      "b": "star",
+      "label": "related",
+      "semantic_hd": 0.3537,
+      "char_trigram_lexical": 0.0137
+    },
+    {
+      "a": "water",
+      "b": "liquid",
+      "label": "related",
+      "semantic_hd": 0.6353,
+      "char_trigram_lexical": -0.0107
+    },
+    {
+      "a": "king",
+      "b": "queen",
+      "label": "related",
+      "semantic_hd": 0.649,
+      "char_trigram_lexical": 0.0234
+    },
+    {
+      "a": "hand",
+      "b": "finger",
+      "label": "related",
+      "semantic_hd": 0.5222,
+      "char_trigram_lexical": 0.0986
+    },
+    {
+      "a": "rain",
+      "b": "cloud",
+      "label": "related",
+      "semantic_hd": 0.3543,
+      "char_trigram_lexical": 0.0107
+    },
+    {
+      "a": "teacher",
+      "b": "student",
+      "label": "related",
+      "semantic_hd": 0.6755,
+      "char_trigram_lexical": -0.0088
+    },
+    {
+      "a": "bird",
+      "b": "feather",
+      "label": "related",
+      "semantic_hd": 0.3996,
+      "char_trigram_lexical": 0.0508
+    },
+    {
+      "a": "tree",
+      "b": "leaf",
+      "label": "related",
+      "semantic_hd": 0.5184,
+      "char_trigram_lexical": 0.1455
+    },
+    {
+      "a": "ate",
+      "b": "late",
+      "label": "false_friend",
+      "semantic_hd": 0.1226,
+      "char_trigram_lexical": 0.373
+    },
+    {
+      "a": "hair",
+      "b": "chair",
+      "label": "false_friend",
+      "semantic_hd": 0.1494,
+      "char_trigram_lexical": 0.4385
+    },
+    {
+      "a": "mind",
+      "b": "mint",
+      "label": "false_friend",
+      "semantic_hd": 0.0846,
+      "char_trigram_lexical": 0.4326
+    },
+    {
+      "a": "bread",
+      "b": "read",
+      "label": "false_friend",
+      "semantic_hd": 0.1559,
+      "char_trigram_lexical": 0.4453
+    },
+    {
+      "a": "corn",
+      "b": "cord",
+      "label": "false_friend",
+      "semantic_hd": 0.0654,
+      "char_trigram_lexical": 0.4453
+    },
+    {
+      "a": "band",
+      "b": "sand",
+      "label": "false_friend",
+      "semantic_hd": 0.1726,
+      "char_trigram_lexical": 0.4473
+    },
+    {
+      "a": "pear",
+      "b": "spear",
+      "label": "false_friend",
+      "semantic_hd": 0.173,
+      "char_trigram_lexical": 0.4268
+    },
+    {
+      "a": "cold",
+      "b": "gold",
+      "label": "false_friend",
+      "semantic_hd": 0.084,
+      "char_trigram_lexical": 0.4473
+    },
+    {
+      "a": "four",
+      "b": "pour",
+      "label": "false_friend",
+      "semantic_hd": 0.0,
+      "char_trigram_lexical": 0.4414
+    },
+    {
+      "a": "sing",
+      "b": "sting",
+      "label": "false_friend",
+      "semantic_hd": 0.2574,
+      "char_trigram_lexical": 0.2676
+    }
+  ],
+  "n_positive_pairs": 24,
+  "n_false_friend_pairs": 10,
+  "bands_test1": {
+    "HP_sem_auc": 0.8,
+    "HP_sem_sep": 0.15,
+    "HP_sem_minus_lex_sep": 0.15,
+    "HF_sem_auc": 0.6
+  },
+  "alias_resolution_demo": {
+    "usa_synonyms": {
+      "word": "usa",
+      "in_glove": true,
+      "wn_synonyms": [
+        "america",
+        "army",
+        "the states",
+        "u. s. army",
+        "u.s.",
+        "u.s.a.",
+        "united states",
+        "united states army"
+      ],
+      "wn_hypernyms": [
+        "agency",
+        "authority",
+        "bureau",
+        "federal agency",
+        "government agency",
+        "office"
+      ]
+    },
+    "cos_usa_america_semantic": 0.6913,
+    "cos_usa_america_lexical": 0.0117
+  },
+  "wordnet_ablation": {
+    "glove_only_auc": 0.9646,
+    "glove_only_separation": 0.4574,
+    "glove_plus_wordnet_auc": 0.9604,
+    "glove_plus_wordnet_separation": 0.5066,
+    "wordnet_separation_lift": 0.0492
+  },
+  "arc_climb_verdict": "CLIMB_RISING",
+  "arc_climb": {
+    "n_questions_easy": 1000,
+    "store_size": 25349,
+    "chance": 0.2503,
+    "control_random": 0.25,
+    "char_trigram_baseline_easy": 0.28,
+    "char_trigram_full_easy": 0.354,
+    "semantic_full_easy": 0.396,
+    "semantic_scramble_easy": 0.247,
+    "delta_semantic_minus_char_full_easy": 0.042,
+    "delta_semantic_minus_scramble_easy": 0.149,
+    "char_trigram_climb_easy": 0.074,
+    "semantic_climb_easy": 0.116,
+    "anisotropy_char_store": 0.122,
+    "anisotropy_semantic_store": 0.5881,
+    "arms_differ_verified": true,
+    "arm_store_hashes": {
+      "char_store": "5b76db39d035823b34939dcaed9df88002efd9a6fd44e78022a66d9e2a40525c",
+      "semantic_store": "a793b499ac6e5b6e6d1ebbdccb11c1e97453177a1bf97103da9077d8a95dbb32",
+      "scramble_store": "6cc202f8b9ae9359519be4a11b0e53d829a623f5409bcd164ba9572927ece071"
+    }
+  },
+  "arc_banked_char_floor_ref_on_disk": {
+    "source": "data/exp_arc_knowledge_scale_ingest_climb_v1/metrics.json",
+    "full_ingest_acc_easy": 0.3733,
+    "note": "recomputed in-regime here; not trusted blindly"
+  },
+  "bands_test2": {
+    "CLIMB_RISE": 0.02,
+    "CLIMB_SCRAMBLE_MARGIN": 0.02
+  },
+  "honest_bars": {
+    "capacity_correlation": "semantic store anisotropy (mean pairwise cos)=0.5881 vs char-trigram=0.1220; higher anisotropy = correlated codes = more cleanup crosstalk (banked correlation-hurts-capacity). NOT whitened here.",
+    "glassbox_mix": "WordNet-structure (inspectable) separation lift over GloVe-only=+0.0492; distributional GloVe does the bulk of the separation, WordNet adds alias/synonym structure.",
+    "ann_note": "fuzzy conflict-retrieval in the fact-store needs sub-linear SIMILARITY search (ANN/LSH), separate from this encoder + the exact O(1) hash. NOT built here (noted per contract)."
+  },
+  "fused_vocab_size": 39844,
+  "encoder_hit_miss": {
+    "n_hit": 30374,
+    "n_miss": 9470
+  },
+  "overall_core": "PASS_CORE",
+  "wired_vs_stubbed": "WIRED: SemanticHDEncoder (WordNet+GloVe->JL-projected HD), meaning-matching proof, ARC-Easy climb (store held fixed, encoder swapped), scramble + WordNet-ablation controls, anisotropy measurement. STUBBED/NOTED-NOT-BUILT: whitening/decorrelation; ANN/LSH sub-linear retrieval; multiword-token content_words handling (single-token pairs tested; alias demo via direct fused()).",
+  "contract": "INLINE-LOCAL; store LOCAL-ONLY + UNCOMMITTED; no push/remote-persist; VET-PENDING"
+}

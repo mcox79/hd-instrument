@@ -1,0 +1,537 @@
+{
+  "phase_map": [
+    {
+      "geometry_family": "random_uniform",
+      "M": 10000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 0.0,
+      "latency_total_s": 0.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "d75f3cc74ed526f6",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.019,
+      "extra": {
+        "P": 64,
+        "N": 2048
+      }
+    },
+    {
+      "geometry_family": "random_uniform",
+      "M": 10000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 1.958,
+      "latency_total_s": 0.001,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "aeb8798f24f9ad5b",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.027,
+      "extra": {
+        "P": 256,
+        "N": 2048
+      }
+    },
+    {
+      "geometry_family": "random_uniform",
+      "M": 100000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 0.0,
+      "latency_total_s": 0.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "7608118a50a079c7",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.012,
+      "extra": {
+        "P": 64,
+        "N": 2048
+      }
+    },
+    {
+      "geometry_family": "random_uniform",
+      "M": 100000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 3.915,
+      "latency_total_s": 0.002,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "3e2014b21deec8ec",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.022,
+      "extra": {
+        "P": 256,
+        "N": 2048
+      }
+    },
+    {
+      "geometry_family": "learned_supervised",
+      "M": 10000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 0.992,
+      "latency_total_s": 0.0005,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "ec8769e08dc3d1e2",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "sigma_centroid": 0.1
+      }
+    },
+    {
+      "geometry_family": "learned_supervised",
+      "M": 10000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 3.835,
+      "latency_total_s": 0.002,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "a965d6f6f746b2ad",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.022,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "sigma_centroid": 0.1
+      }
+    },
+    {
+      "geometry_family": "learned_supervised",
+      "M": 100000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 0.0,
+      "latency_total_s": 0.0,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "f3dcf474d61178ac",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.013,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "sigma_centroid": 0.1
+      }
+    },
+    {
+      "geometry_family": "learned_supervised",
+      "M": 100000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 4.048,
+      "latency_total_s": 0.0021,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "9f387a494b9199dd",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.02,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "sigma_centroid": 0.1
+      }
+    },
+    {
+      "geometry_family": "hierarchical_2_level",
+      "M": 10000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 2.105,
+      "latency_total_s": 0.0011,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "0b86ec8ad3c2c795",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.012,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "G": 8,
+        "fine_per_group": 8
+      }
+    },
+    {
+      "geometry_family": "hierarchical_2_level",
+      "M": 10000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 3.905,
+      "latency_total_s": 0.002,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "d3e5650f76d2987f",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.02,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "G": 16,
+        "fine_per_group": 16
+      }
+    },
+    {
+      "geometry_family": "hierarchical_2_level",
+      "M": 100000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 1.918,
+      "latency_total_s": 0.001,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "445409da3725ad44",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "G": 8,
+        "fine_per_group": 8
+      }
+    },
+    {
+      "geometry_family": "hierarchical_2_level",
+      "M": 100000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 1.0,
+      "route_acc_self": 1.0,
+      "clean_sanity": 1.0,
+      "latency_us_per_query": 3.903,
+      "latency_total_s": 0.002,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "anchors_hash": "e7c67956f3ec7753",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.02,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "G": 16,
+        "fine_per_group": 16
+      }
+    },
+    {
+      "geometry_family": "hash_based_LSH",
+      "M": 10000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 0.18555,
+      "route_acc_self": 0.18555,
+      "clean_sanity": 0.01562,
+      "latency_us_per_query": 0.0,
+      "latency_total_s": 0.0,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "anchors_hash": "77d598a443faa21b",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "n_planes": 6
+      }
+    },
+    {
+      "geometry_family": "hash_based_LSH",
+      "M": 10000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 0.12891,
+      "route_acc_self": 0.12891,
+      "clean_sanity": 0.00391,
+      "latency_us_per_query": 1.902,
+      "latency_total_s": 0.001,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "anchors_hash": "24957f27f1133f88",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.016,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "n_planes": 8
+      }
+    },
+    {
+      "geometry_family": "hash_based_LSH",
+      "M": 100000,
+      "P": 64,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 0.20703,
+      "route_acc_self": 0.20703,
+      "clean_sanity": 0.01758,
+      "latency_us_per_query": 0.0,
+      "latency_total_s": 0.0,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "anchors_hash": "c71aa0b50795f0fd",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.01,
+      "extra": {
+        "P": 64,
+        "N": 2048,
+        "n_planes": 6
+      }
+    },
+    {
+      "geometry_family": "hash_based_LSH",
+      "M": 100000,
+      "P": 256,
+      "N": 2048,
+      "n_probe": 512,
+      "route_acc": 0.09766,
+      "route_acc_self": 0.09766,
+      "clean_sanity": 0.0,
+      "latency_us_per_query": 1.953,
+      "latency_total_s": 0.001,
+      "verdict_tier_per_point": "HARD_FAIL",
+      "saturation_flag": false,
+      "anchors_hash": "e0973a45f8aa80ba",
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.016,
+      "extra": {
+        "P": 256,
+        "N": 2048,
+        "n_planes": 8
+      }
+    }
+  ],
+  "per_geometry_summary": {
+    "random_uniform": {
+      "route_acc_mean": 1.0,
+      "latency_us_mean": 1.468,
+      "latency_us_median": 0.979,
+      "tier_counts": {
+        "SATURATED": 4,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.0,
+      "route_acc_per_phase_point": {
+        "M10000_P64": 1.0,
+        "M10000_P256": 1.0,
+        "M100000_P64": 1.0,
+        "M100000_P256": 1.0
+      },
+      "latency_per_phase_point": {
+        "M10000_P64": 0.0,
+        "M10000_P256": 1.958,
+        "M100000_P64": 0.0,
+        "M100000_P256": 3.915
+      }
+    },
+    "learned_supervised": {
+      "route_acc_mean": 1.0,
+      "latency_us_mean": 2.219,
+      "latency_us_median": 2.413,
+      "tier_counts": {
+        "SATURATED": 4,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.0,
+      "route_acc_per_phase_point": {
+        "M10000_P64": 1.0,
+        "M10000_P256": 1.0,
+        "M100000_P64": 1.0,
+        "M100000_P256": 1.0
+      },
+      "latency_per_phase_point": {
+        "M10000_P64": 0.992,
+        "M10000_P256": 3.835,
+        "M100000_P64": 0.0,
+        "M100000_P256": 4.048
+      }
+    },
+    "hierarchical_2_level": {
+      "route_acc_mean": 1.0,
+      "latency_us_mean": 2.958,
+      "latency_us_median": 3.004,
+      "tier_counts": {
+        "SATURATED": 4,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 0
+      },
+      "discriminating_fraction": 0.0,
+      "route_acc_per_phase_point": {
+        "M10000_P64": 1.0,
+        "M10000_P256": 1.0,
+        "M100000_P64": 1.0,
+        "M100000_P256": 1.0
+      },
+      "latency_per_phase_point": {
+        "M10000_P64": 2.105,
+        "M10000_P256": 3.905,
+        "M100000_P64": 1.918,
+        "M100000_P256": 3.903
+      }
+    },
+    "hash_based_LSH": {
+      "route_acc_mean": 0.15479,
+      "latency_us_mean": 0.964,
+      "latency_us_median": 0.951,
+      "tier_counts": {
+        "SATURATED": 0,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 0,
+        "HARD_FAIL": 4
+      },
+      "discriminating_fraction": 0.0,
+      "route_acc_per_phase_point": {
+        "M10000_P64": 0.18555,
+        "M10000_P256": 0.12891,
+        "M100000_P64": 0.20703,
+        "M100000_P256": 0.09766
+      },
+      "latency_per_phase_point": {
+        "M10000_P64": 0.0,
+        "M10000_P256": 1.902,
+        "M100000_P64": 0.0,
+        "M100000_P256": 1.953
+      }
+    }
+  },
+  "geometry_tiers": {
+    "random_uniform": "COMPETITIVE_GEOMETRY",
+    "learned_supervised": "COMPETITIVE_GEOMETRY",
+    "hierarchical_2_level": "COMPETITIVE_GEOMETRY",
+    "hash_based_LSH": "DOMINATED_GEOMETRY"
+  },
+  "chain_grade_candidates_at_largest_M": {
+    "random_uniform": {
+      "best_M": 100000,
+      "best_P": 64,
+      "best_route_acc": 1.0,
+      "best_latency_us": 0.0,
+      "chain_grade_target_met": true
+    },
+    "learned_supervised": {
+      "best_M": 100000,
+      "best_P": 64,
+      "best_route_acc": 1.0,
+      "best_latency_us": 0.0,
+      "chain_grade_target_met": true
+    },
+    "hierarchical_2_level": {
+      "best_M": 100000,
+      "best_P": 64,
+      "best_route_acc": 1.0,
+      "best_latency_us": 1.918,
+      "chain_grade_target_met": true
+    },
+    "hash_based_LSH": {
+      "best_M": 100000,
+      "best_P": 64,
+      "best_route_acc": 0.20703,
+      "best_latency_us": 0.0,
+      "chain_grade_target_met": false
+    }
+  },
+  "positive_control_result": {
+    "target": {
+      "geometry_family": "random_uniform",
+      "M": 10000,
+      "P": 64,
+      "route_acc_floor": 0.85
+    },
+    "measured_route_acc": 1.0,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 16,
+  "observed_n_units": 16,
+  "tier_counts": {
+    "SATURATED": 12,
+    "HARD_PASS": 0,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 0,
+    "HARD_FAIL": 4
+  },
+  "n_discriminating": 0,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "cue_cos": 0.7,
+  "n_probe": 512,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_SMOKE: all_floor_geometry: hash_based_LSH all phase points FLOOR/HARD_FAIL (4/4); sat=12 hp=0 mb=0 floor=0 fail=4",
+  "summary": "HARD_FAIL_SMOKE: all_floor_geometry: hash_based_LSH all phase points FLOOR/HARD_FAIL (4/4); sat=12 hp=0 mb=0 floor=0 fail=4",
+  "smoke_gate_pass": false,
+  "smoke_gate_reason": "all_floor_geometry: hash_based_LSH all phase points FLOOR/HARD_FAIL (4/4)",
+  "anchor_name": "substrate_routing_geometry_family_phase_diagram_v1_seed_7",
+  "elapsed_s": 0.39,
+  "ts_iso": "2026-06-30T17:42:28Z",
+  "pid": 12828,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_routing_geometry_family_phase_diagram_v1_seed_7,geometries=[random_uniform,learned_supervised,hierarchical_2_level,hash_based_LSH],M_full=[1000000,5000000,10000000],P_full=[64,256,1024],N_full=8192,n_probe_full=4096,M_smoke=[10000,100000],P_smoke=[64,256],N_smoke=2048,n_probe_smoke=512,SEED=7,mode=smoke,cue_cos=0.70,expected_n_full=36,expected_n_smoke=16,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_routing_geometry_family_phase_diagram_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_4_partition_geometry_storage_free",
+  "n_llm_calls": 0,
+  "zero_llm_calls_at_inference": true
+}

@@ -1,0 +1,553 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "MECH-vs-LOOKUP MARGIN GROWS with extrapolation distance AND holds across seeds -- a-priori forward model genuinely generalizes further out-of-range: POOLED far_margin=1.012 near_margin=0.163 (far-near=0.849) all_far_beat=True grows=True monotone=True spearman=1.000 | CROSS-SEED n=2 frac_grows=1.00 frac_all_far=1.00 median_spear=0.971 robust=True | C1=True C2=True",
+  "summary": "HARD_PASS | far_margin=1.012 near_margin=0.163 grows=True all_far_beat=True monotone=True | C1=True C2=True | oor=[0.4219, 0.501, 0.5977, 0.6504, 0.7207, 0.7998]",
+  "elapsed_s": 107.48343130000285,
+  "run_mode": "smoke",
+  "anchor_name": "reasoning_depth_mech_survival_farfold_extrapolation_v1",
+  "data_source": "landed_plus_generated_near_far_smoke",
+  "control_rng_seed": 20260708,
+  "n_telemetry_seeds": 2,
+  "telemetry_seeds": [
+    7,
+    17
+  ],
+  "cardinality_seeds_ok": true,
+  "out_of_range_split_fill": 0.3516,
+  "near_far_split_fill": 0.62,
+  "train_fills": [
+    0.0703,
+    0.0879,
+    0.1055,
+    0.1406,
+    0.1758,
+    0.2109,
+    0.2812,
+    0.3516
+  ],
+  "out_of_range_fills": [
+    0.4219,
+    0.501,
+    0.5977,
+    0.6504,
+    0.7207,
+    0.7998
+  ],
+  "far_fills": [
+    0.6504,
+    0.7207,
+    0.7998
+  ],
+  "n_out_of_range_folds": 6,
+  "expected_out_of_range_folds": 6,
+  "cardinality_ok": true,
+  "censored_fills": [
+    0.0527
+  ],
+  "all_fills": [
+    0.0703,
+    0.0879,
+    0.1055,
+    0.1406,
+    0.1758,
+    0.2109,
+    0.2812,
+    0.3516,
+    0.4219,
+    0.501,
+    0.5977,
+    0.6504,
+    0.7207,
+    0.7998
+  ],
+  "out_of_range_eval": {
+    "mech": {
+      "MAE": 0.562,
+      "per_fold_err": [
+        0.728,
+        0.713,
+        0.27,
+        0.585,
+        0.882,
+        0.197
+      ],
+      "preds": [
+        3.728,
+        3.213,
+        2.77,
+        2.585,
+        2.382,
+        2.197
+      ]
+    },
+    "affine": {
+      "MAE": 0.989,
+      "per_fold_err": [
+        1.098,
+        1.127,
+        0.713,
+        1.034,
+        1.33,
+        0.632
+      ],
+      "preds": [
+        4.098,
+        3.627,
+        3.213,
+        3.034,
+        2.83,
+        2.632
+      ]
+    },
+    "quad": {
+      "MAE": 1.057,
+      "per_fold_err": [
+        0.331,
+        0.625,
+        1.342,
+        1.156,
+        1.017,
+        1.871
+      ],
+      "preds": [
+        2.669,
+        1.875,
+        1.158,
+        0.844,
+        0.483,
+        0.129
+      ]
+    },
+    "lookup": {
+      "MAE": 1.15,
+      "per_fold_err": [
+        0.4,
+        0.9,
+        0.9,
+        1.4,
+        1.9,
+        1.4
+      ],
+      "preds": [
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4,
+        3.4
+      ]
+    },
+    "const": {
+      "MAE": 7.981,
+      "per_fold_err": [
+        7.231,
+        7.731,
+        7.731,
+        8.231,
+        8.731,
+        8.231
+      ],
+      "preds": [
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231,
+        10.231
+      ]
+    }
+  },
+  "out_of_range_actual_depths": [
+    3.0,
+    2.5,
+    2.5,
+    2.0,
+    1.5,
+    2.0
+  ],
+  "margin_growth_analysis": {
+    "per_fold_margin_lookupErr_minus_mechErr": [
+      -0.328,
+      0.187,
+      0.63,
+      0.815,
+      1.018,
+      1.203
+    ],
+    "near_fold_idx": [
+      0,
+      1,
+      2
+    ],
+    "far_fold_idx": [
+      3,
+      4,
+      5
+    ],
+    "near_fills": [
+      0.4219,
+      0.501,
+      0.5977
+    ],
+    "far_fills": [
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "near_margin_mean": 0.163,
+    "far_margin_mean": 1.012,
+    "far_minus_near_margin": 0.849,
+    "all_far_folds_mech_beats_lookup": true,
+    "margin_grows_far_gt_near": true,
+    "spearman_fill_margin": 1.0,
+    "monotone_growing_margin": true,
+    "near_far_split_fill": 0.62
+  },
+  "per_seed_margin_growth": [
+    {
+      "seed": 7,
+      "per_fold_margin": [
+        -0.328,
+        0.187,
+        0.17,
+        0.815,
+        1.018,
+        1.203
+      ],
+      "near_margin_mean": 0.0097,
+      "far_margin_mean": 1.012,
+      "far_minus_near_margin": 1.0023,
+      "margin_grows": true,
+      "all_far_beat_lookup": true,
+      "spearman_fill_margin": 0.9429,
+      "monotone_growing_margin": true
+    },
+    {
+      "seed": 17,
+      "per_fold_margin": [
+        -0.328,
+        0.187,
+        0.63,
+        0.815,
+        1.018,
+        1.203
+      ],
+      "near_margin_mean": 0.163,
+      "far_margin_mean": 1.012,
+      "far_minus_near_margin": 0.849,
+      "margin_grows": true,
+      "all_far_beat_lookup": true,
+      "spearman_fill_margin": 1.0,
+      "monotone_growing_margin": true
+    }
+  ],
+  "cross_seed_robustness": {
+    "n_seeds": 2,
+    "frac_seeds_margin_grows": 1.0,
+    "frac_seeds_all_far_beat_lookup": 1.0,
+    "frac_seeds_monotone": 1.0,
+    "median_per_seed_spearman": 0.9714499999999999,
+    "min_per_seed_spearman": 0.9429,
+    "mean_far_minus_near_margin": 0.92565,
+    "std_far_minus_near_margin": 0.07665,
+    "per_seed_far_minus_near": [
+      1.0023,
+      0.849
+    ]
+  },
+  "far_degeneracy_check": {
+    "far_fills": [
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "far_actual_depths": [
+      2.0,
+      1.5,
+      2.0
+    ],
+    "n_far_floored_below_1": 0,
+    "n_far_folds": 3,
+    "all_far_folds_floored": false,
+    "far_depth_std": 0.2357
+  },
+  "far_folds_floored": false,
+  "law_params": {
+    "mech_s": 0.49,
+    "mech_kappa": 0.005,
+    "affine_a": 1.875270056281815,
+    "affine_b": 1.7570634205196394,
+    "quad_c2c1c0": [
+      -0.14039177938388223,
+      3.284171109334231,
+      -1.26061448990966
+    ]
+  },
+  "forward_split_horizons": [
+    {
+      "train_max_fill": 0.1055,
+      "n_test_folds": 11,
+      "mech_MAE": 1.405,
+      "lookup_MAE": 10.268,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.1406,
+      "n_test_folds": 10,
+      "mech_MAE": 0.806,
+      "lookup_MAE": 6.015,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.1758,
+      "n_test_folds": 9,
+      "mech_MAE": 0.67,
+      "lookup_MAE": 4.828,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.2109,
+      "n_test_folds": 8,
+      "mech_MAE": 1.107,
+      "lookup_MAE": 5.563,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.2812,
+      "n_test_folds": 7,
+      "mech_MAE": 0.856,
+      "lookup_MAE": 2.586,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.3516,
+      "n_test_folds": 6,
+      "mech_MAE": 0.562,
+      "lookup_MAE": 1.15,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.4219,
+      "n_test_folds": 5,
+      "mech_MAE": 0.482,
+      "lookup_MAE": 0.9,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.501,
+      "n_test_folds": 4,
+      "mech_MAE": 0.437,
+      "lookup_MAE": 0.5,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.5977,
+      "n_test_folds": 3,
+      "mech_MAE": 0.509,
+      "lookup_MAE": 0.667,
+      "mech_beats_lookup": true
+    },
+    {
+      "train_max_fill": 0.6504,
+      "n_test_folds": 2,
+      "mech_MAE": 0.443,
+      "lookup_MAE": 0.25,
+      "mech_beats_lookup": false
+    },
+    {
+      "train_max_fill": 0.7207,
+      "n_test_folds": 1,
+      "mech_MAE": 0.103,
+      "lookup_MAE": 0.5,
+      "mech_beats_lookup": true
+    }
+  ],
+  "frac_horizons_mech_beats_lookup": 0.9090909090909091,
+  "control1_scramble_mech_law": {
+    "real_full_landscape_mae": 0.6402952394912412,
+    "scrambled_mean_mae": 4.625710745116654,
+    "scrambled_p10_mae": 3.8632119300456926,
+    "real_below_scrambled_p10": true,
+    "real_beats_scrambled_mean_margin": true,
+    "mech_s": 0.5,
+    "mech_kappa": 0.0,
+    "n_boot": 300,
+    "scramble_method": "permute_collT_depth_pairing_full_landscape_then_refit_mech",
+    "firing_criterion": "real_below_p10 AND real_beats_mean over FULL landscape"
+  },
+  "control1_fires": true,
+  "control2_scramble_curve": {
+    "T_real_spearman_fill_depth": -0.9780219780219781,
+    "abs_T_real": 0.9780219780219781,
+    "null_p90": 0.45054945054945056,
+    "null_mean": 0.22194065934065932,
+    "real_outside_null": true,
+    "scramble_destroys_signal_margin": true,
+    "margin_c2": 0.2,
+    "T_scrambled_reported_not_gating": 0.7274725274725276,
+    "n_perm": 2000,
+    "firing_criterion": "abs_T_real > null_p90 AND (abs_T_real - null_mean) > MARGIN_C2"
+  },
+  "control2_fires": true,
+  "arms_differ_verified": true,
+  "arms_identical_pairs": [],
+  "arm_digests": {
+    "mech": "afdb825f09d4d73edeb4bd1362f58ec01ecc06c9253b40ed9377ac381b8d8c67",
+    "affine": "0a3abb640bb767300ff122220839999d9073c25f3941c028d0cc2c5b8f6d9501",
+    "quad": "6e8a409bac76301536be94d8e19195b4b94a68b7d0f5a1b6bd3c9b267a82600c",
+    "lookup": "5d496f16a99baeca782acfbcbd06d2a05d601fb6a667e5447be6d9347b7fa212",
+    "const": "50e6e3204b9d2fa904aea7afa475b2d318efb51d97e0a0b4282e98e47f5f00fd"
+  },
+  "telemetry_generation_check": {
+    "generated_fills": [
+      0.4219,
+      0.501,
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "n_telemetry_seeds": 2,
+    "telemetry_seeds": [
+      7,
+      17
+    ],
+    "sane": true
+  },
+  "monitor_proposal": {
+    "out_of_range_fills": [
+      0.4219,
+      0.501,
+      0.5977,
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "near_fills": [
+      0.4219,
+      0.501,
+      0.5977
+    ],
+    "far_fills": [
+      0.6504,
+      0.7207,
+      0.7998
+    ],
+    "train_envelope_max_fill": 0.3516,
+    "mech_predicted_depths": [
+      3.728,
+      3.213,
+      2.77,
+      2.585,
+      2.382,
+      2.197
+    ],
+    "actual_depths": [
+      3.0,
+      2.5,
+      2.5,
+      2.0,
+      1.5,
+      2.0
+    ],
+    "per_fold_margin": [
+      -0.328,
+      0.187,
+      0.63,
+      0.815,
+      1.018,
+      1.203
+    ],
+    "law": "mechanistic transmission-coefficient survival: p_hop=1-s*coll_theo, coll_d=coll0*(1+kappa*(d-1)), D*=argmax_D prod p_hop>=FLOOR",
+    "law_coeffs": {
+      "s_interference": 0.49,
+      "kappa_accumulation": 0.005
+    },
+    "monitor_not_control": true,
+    "apply_decision_owner": "human_or_hdi_exp_dev",
+    "note": "PROPOSAL ONLY. Substrate never applies this itself (USER-LOCKED)."
+  },
+  "observed_levels": {
+    "0.0703": {
+      "depth": 17.25,
+      "collT": 0.0677,
+      "source": "landed"
+    },
+    "0.0879": {
+      "depth": 15.25,
+      "collT": 0.0839,
+      "source": "landed"
+    },
+    "0.1055": {
+      "depth": 14.65,
+      "collT": 0.0998,
+      "source": "landed"
+    },
+    "0.1406": {
+      "depth": 9.85,
+      "collT": 0.1309,
+      "source": "landed"
+    },
+    "0.1758": {
+      "depth": 8.15,
+      "collT": 0.1609,
+      "source": "landed"
+    },
+    "0.2109": {
+      "depth": 8.3,
+      "collT": 0.1898,
+      "source": "landed"
+    },
+    "0.2812": {
+      "depth": 5.0,
+      "collT": 0.2448,
+      "source": "landed"
+    },
+    "0.3516": {
+      "depth": 3.4,
+      "collT": 0.2961,
+      "source": "landed"
+    },
+    "0.4219": {
+      "depth": 3.0,
+      "collT": 0.3439,
+      "source": "generated"
+    },
+    "0.501": {
+      "depth": 2.5,
+      "collT": 0.3938,
+      "source": "generated"
+    },
+    "0.5977": {
+      "depth": 2.5,
+      "collT": 0.4497,
+      "source": "generated"
+    },
+    "0.6504": {
+      "depth": 2.0,
+      "collT": 0.478,
+      "source": "generated"
+    },
+    "0.7207": {
+      "depth": 1.5,
+      "collT": 0.5134,
+      "source": "generated"
+    },
+    "0.7998": {
+      "depth": 2.0,
+      "collT": 0.5505,
+      "source": "generated"
+    }
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "analysis cell; telemetry-gen reuses VET'd keyslots generator (own noise floor characterized)",
+  "discriminator_reachability": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "defensive_error_checking": "gen_prints_per_fold_flush_progress; eval is fast cpu (no long loop)",
+  "progress_logging": "print_flush_true",
+  "calibration_check": "default_ok_for_this_regime",
+  "honest_bound": "Envelope-push of the VET'd mechanistic reasoning-depth extrapolation. Tests whether the mech-vs-nearest-lookup MARGIN GROWS at further-out-of-range folds (fill 0.65/0.72/0.80). HARD_PASS = far-margin > near-margin AND every far fold beats lookup AND monotone-growing margin AND controls fire (a-priori forward model generalizes). HARD_FAIL = margin does not grow / mech ties-or-loses far out (the +17.5% win was 2-fold luck) -> escalate to percolation-critical-fill drill.",
+  "ts_iso": "2026-07-08T07:21:36.938363+00:00"
+}

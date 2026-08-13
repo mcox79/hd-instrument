@@ -1,0 +1,122 @@
+{
+  "anchor": "substrate_cortical_schema_extraction_compositional_generalization_v1",
+  "anchor_name": "substrate_cortical_schema_extraction_compositional_generalization_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL_SIGNAL: max_schema_lift=0.1000 >= 0.05 (best_arm=ARM_FEATURE_BASED_SCHEMA=0.4733) but COMBINED insufficient (comb=0.3600 lift=-0.0133). arms: ARM_NO_SCHEMA_BASELINE=0.3733+/-0.0660 | ARM_CAPABILITY_BASED_SCHEMA=0.2933+/-0.0929 | ARM_FEATURE_BASED_SCHEMA=0.4733+/-0.0772 | ARM_COMBINED_SCHEMAS=0.3600+/-0.0653",
+  "headline": "MIDDLE_BAND_PARTIAL_SIGNAL: max_schema_lift=0.1000 >= 0.05 (best_arm=ARM_FEATURE_BASED_SCHEMA=0.4733) but COMBINED insufficient (comb=0.3600 lift=-0.0133). arms: ARM_NO_SCHEMA_BASELINE=0.3733+/-0.0660 | ARM_CAPABILITY_BASED_SCHEMA=0.2933+/-0.0929 | ARM_FEATURE_BASED_SCHEMA=0.4733+/-0.0772 | ARM_COMBINED_SCHEMAS=0.3600+/-0.0653",
+  "n_seeds": 3,
+  "N": 8192,
+  "run_mode": "full",
+  "n_categories": 5,
+  "instances_per_category": 20,
+  "heldout_per_category": 10,
+  "chance": 0.2,
+  "arms_tested": [
+    "ARM_NO_SCHEMA_BASELINE",
+    "ARM_CAPABILITY_BASED_SCHEMA",
+    "ARM_FEATURE_BASED_SCHEMA",
+    "ARM_COMBINED_SCHEMAS"
+  ],
+  "detail": {
+    "arms_aggregate": {
+      "ARM_NO_SCHEMA_BASELINE": {
+        "mean_heldout_top1": 0.3733333333333333,
+        "std": 0.06599663291074441,
+        "cv": 0.17677669529663684,
+        "per_seed": [
+          0.42,
+          0.28,
+          0.42
+        ]
+      },
+      "ARM_CAPABILITY_BASED_SCHEMA": {
+        "mean_heldout_top1": 0.2933333333333333,
+        "std": 0.09285592184789412,
+        "cv": 0.31655427902691186,
+        "per_seed": [
+          0.42,
+          0.26,
+          0.2
+        ]
+      },
+      "ARM_FEATURE_BASED_SCHEMA": {
+        "mean_heldout_top1": 0.47333333333333333,
+        "std": 0.07717224601860148,
+        "cv": 0.16303995637732707,
+        "per_seed": [
+          0.58,
+          0.4,
+          0.44
+        ]
+      },
+      "ARM_COMBINED_SCHEMAS": {
+        "mean_heldout_top1": 0.36000000000000004,
+        "std": 0.06531972647421808,
+        "cv": 0.18144368465060576,
+        "per_seed": [
+          0.44,
+          0.28,
+          0.36
+        ]
+      }
+    },
+    "best_schema_arm": "ARM_FEATURE_BASED_SCHEMA",
+    "chance": 0.2,
+    "honest_scope": "Schema-extraction compositional gen test; N=8192 5 cats x 20 train + 10 heldout per cat; chance=0.2000; baseline=ARM_NO_SCHEMA"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_NO_SCHEMA_BASELINE": 0.42,
+        "ARM_CAPABILITY_BASED_SCHEMA": 0.42,
+        "ARM_FEATURE_BASED_SCHEMA": 0.58,
+        "ARM_COMBINED_SCHEMAS": 0.44
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.11097860336303711,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782469641.66544
+    },
+    {
+      "seed": 13,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_NO_SCHEMA_BASELINE": 0.28,
+        "ARM_CAPABILITY_BASED_SCHEMA": 0.26,
+        "ARM_FEATURE_BASED_SCHEMA": 0.4,
+        "ARM_COMBINED_SCHEMAS": 0.28
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.11167597770690918,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782469641.7931445
+    },
+    {
+      "seed": 19,
+      "N": 8192,
+      "run_mode": "full",
+      "arms": {
+        "ARM_NO_SCHEMA_BASELINE": 0.42,
+        "ARM_CAPABILITY_BASED_SCHEMA": 0.2,
+        "ARM_FEATURE_BASED_SCHEMA": 0.44,
+        "ARM_COMBINED_SCHEMAS": 0.36
+      },
+      "n_heldout_total": 50,
+      "chance": 0.2,
+      "elapsed_s": 0.11190509796142578,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782469641.9050496
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_cortical_schema_extraction_4arm",
+  "elapsed_s": 0.4299287796020508,
+  "summary": "MIDDLE_BAND_PARTIAL_SIGNAL: max_schema_lift=0.1000 >= 0.05 (best_arm=ARM_FEATURE_BASED_SCHEMA=0.4733) but COMBINED insufficient (comb=0.3600 lift=-0.0133). arms: ARM_NO_SCHEMA_BASELINE=0.3733+/-0.0660",
+  "honest_scope": "Schema-extraction compositional gen test; N=8192 5 cats x 20 train + 10 heldout per cat; chance=0.2000; baseline=ARM_NO_SCHEMA",
+  "substrate_only_decode_gate": "N/A (compositional-gen primitive cell; zero LLM forward calls)"
+}

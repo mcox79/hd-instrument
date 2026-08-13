@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_wm_chunked_vs_flat_K_scaling_v1",
+  "verdict": "RUNNING",
+  "verdict_msg": "RUNNING: seed=17 (2/2)",
+  "summary": "RUNNING: seed=17 (2/2)",
+  "elapsed_s": 557.2,
+  "ts_iso": "2026-06-27T22:34:09Z",
+  "pid": 34596,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_wm_chunked_vs_flat_K_scaling_v1,N=8192,K_GRID=[50, 200],seeds=[7, 17],n_queries=50,distractors=200,mode=smoke,HP_lift_K500>=0.20,HP_cv<=0.10,expected_n=16,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_substrate_wm_chunked_vs_flat_k",
+  "_phase": "seed_running",
+  "_current_seed": 17
+}

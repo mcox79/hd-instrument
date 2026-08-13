@@ -1,0 +1,803 @@
+{
+  "anchor_name": "substrate_spoke3_hippocampal_encoder_bipolar_vs_gaussian_filler_smoke_2026_07_03",
+  "verdict": "HARD_FAIL_COSINE_STILL_SATURATES_AT_GAUSSIAN",
+  "verdict_msg": "HF: Skunkworks Gaussian-JL analytical prediction ALSO FAILS at Gaussian regime. HP1: COSINE_GAUSSIAN r@1=1.0000 > 0.9 (baseline STILL saturates). HIPPO_GAUSSIAN r@1=0.5000 (HP2=False). Separation HIPPO-COSINE at Gaussian=-0.5000 (HP3=False). BIPOLAR reference: HIPPO r@1=0.5167 COSINE r@1=1.0000 DG_ONLY r@1=0.6926666666666668 (HP4=True). Interpretation: analytical model has deeper limitation than just bipolar-determinism; W2 discriminative-regime may not be achievable with this primitive at cluster_cos-0.90 geometry regardless of filler encoding. HONEST SCOPE: prediction refuted at both bipolar AND Gaussian; route to research 2x-drill on primitive-substrate scale-sensitivity. SECONDARY: HIPPO mechanism ALSO below 0.6 at BOTH geometries (bipolar=0.5167, gaussian=0.5000); harder codebook (cluster_cos~0.90 vs Cell 4's ~0.64) crushes HIPPO too. DG_ONLY_B=0.6926666666666668 DG_ONLY_G=0.6626666666666666. Even at HP2-passing HIPPO, HP3 separation likely negative because cosine saturates at 1.000.",
+  "summary": "HF: Skunkworks Gaussian-JL analytical prediction ALSO FAILS at Gaussian regime. HP1: COSINE_GAUSSIAN r@1=1.0000 > 0.9 (baseline STILL saturates). HIPPO_GAUSSIAN r@1=0.5000 (HP2=False). Separation HIPPO-COSINE at Gaussian=-0.5000 (HP3=False). BIPOLAR reference: HIPPO r@1=0.5167 COSINE r@1=1.0000 DG_ONLY r@1=0.6926666666666668 (HP4=True). Interpretation: analytical model has deeper limitation than just bipolar-determinism; W2 discriminative-regime may not be achievable with this primitive at cluster_cos-0.90 geometry regardless of filler encoding. HONEST SCOPE: prediction refuted at both bipolar AND Gaussian; route to research 2x-drill on primitive-substrate scale-sensitivity. SECONDARY: HIPPO mechanism ALSO below 0.6 at BOTH geometries (bipolar=0.5167, gaussian=0.5000); harder codebook (cluster_cos~0.90 vs Cell 4's ~0.64) crushes HIPPO too. DG_ONLY_B=0.6926666666666668 DG_ONLY_G=0.6626666666666666. Even at HP2-passing HIPPO, HP3 separation likely negative because cosine saturates at 1.000.",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_arms": 8,
+  "n_dim": 2048,
+  "dg_dim": 8192,
+  "dg_sparsity_target": 0.02,
+  "n_pairs": 500,
+  "corruption": 0.75,
+  "cluster_size": 5,
+  "flip_frac_bipolar": 0.026,
+  "gaussian_cluster_rho": 0.9,
+  "tf_capacity_theoretical": 1047.0286075303177,
+  "expected_n_units": 24,
+  "actual_n_units": 24,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_exempted": [
+    {
+      "arm_pair": [
+        "ARM_RANDOM_BASELINE_BIPOLAR",
+        "ARM_RANDOM_BASELINE_GAUSSIAN"
+      ],
+      "reason": "Both are chance-floor arms; _encode_random draws fresh random bipolar vectors keyed on seed, independent of geometry. Bit-identical query is the correct chance-floor semantic (measures the same thing regardless of ground-truth episode geometry)."
+    }
+  ],
+  "baseline_in_band_check": {
+    "arms": [
+      "ARM_RANDOM_BASELINE_BIPOLAR",
+      "ARM_RANDOM_BASELINE_GAUSSIAN"
+    ],
+    "chance_r1": 0.002,
+    "band_max_r1": 0.01,
+    "observed_r1_mean_bipolar": 0.0026666666666666666,
+    "observed_r1_mean_gaussian": 0.0026666666666666666
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "hp_scope": {
+    "HP1": [
+      "ARM_COSINE_BASELINE_GAUSSIAN"
+    ],
+    "HP2": [
+      "ARM_HIPPO_GAUSSIAN"
+    ],
+    "HP3": [
+      "ARM_HIPPO_GAUSSIAN",
+      "ARM_COSINE_BASELINE_GAUSSIAN"
+    ],
+    "HP4": [
+      "ARM_COSINE_BASELINE_BIPOLAR"
+    ],
+    "HF_baseline_in_band": [
+      "ARM_RANDOM_BASELINE_BIPOLAR",
+      "ARM_RANDOM_BASELINE_GAUSSIAN"
+    ],
+    "HF_dg_sparse_rate": [
+      "ARM_HIPPO_BIPOLAR",
+      "ARM_HIPPO_GAUSSIAN"
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "per_arm": {
+        "ARM_HIPPO_BIPOLAR": {
+          "recall_at_1": 0.528,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.6993666666666665,
+          "intra_pair_cos_mean": 0.7106377340555191,
+          "inter_pair_cos_mean": 0.002830705139786005,
+          "signal_to_noise_ratio": 251.04618777399108,
+          "arm_name": "ARM_HIPPO_BIPOLAR",
+          "encoder_kind": "hippocampal",
+          "geometry": "bipolar",
+          "role": "load_bearing_regression",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.7374877000111155,
+          "fit_wall_s": 0.33597759998519905,
+          "arm_wall_s": 2.4846026000159327,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020281982421875,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": {
+          "recall_at_1": 0.662,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.794066666666666,
+          "intra_pair_cos_mean": 0.13093396928161383,
+          "inter_pair_cos_mean": 4.8824249461176805e-06,
+          "signal_to_noise_ratio": 26817.405434102486,
+          "arm_name": "ARM_HIPPO_DG_ONLY_BIPOLAR",
+          "encoder_kind": "dg_only",
+          "geometry": "bipolar",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.23874859997886233,
+          "fit_wall_s": 0.12929620000068098,
+          "arm_wall_s": 0.47158110002055764,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020281982421875,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_BIPOLAR": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.4999999701976776,
+          "inter_pair_cos_mean": 0.0028632809408009052,
+          "signal_to_noise_ratio": 174.62483791681987,
+          "arm_name": "ARM_COSINE_BASELINE_BIPOLAR",
+          "encoder_kind": "cosine",
+          "geometry": "bipolar",
+          "role": "regression_hp4",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.0220168000087142,
+          "arm_wall_s": 0.050589000020409,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_BIPOLAR": {
+          "recall_at_1": 0.006,
+          "recall_at_5": 0.02,
+          "mean_reciprocal_rank": 0.017773188861723337,
+          "intra_pair_cos_mean": 0.0005097655836973418,
+          "inter_pair_cos_mean": 0.0014667966170236468,
+          "signal_to_noise_ratio": 0.34753665080829926,
+          "arm_name": "ARM_RANDOM_BASELINE_BIPOLAR",
+          "encoder_kind": "random",
+          "geometry": "bipolar",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.019756399997277185,
+          "arm_wall_s": 0.04549859999679029,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        },
+        "ARM_HIPPO_GAUSSIAN": {
+          "recall_at_1": 0.5,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.6881333333333327,
+          "intra_pair_cos_mean": 0.7059500831365585,
+          "inter_pair_cos_mean": 0.0019085609819740057,
+          "signal_to_noise_ratio": 369.88605017294304,
+          "arm_name": "ARM_HIPPO_GAUSSIAN",
+          "encoder_kind": "hippocampal",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp2_hp3",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.6085479000175837,
+          "fit_wall_s": 0.3463618000096176,
+          "arm_wall_s": 1.0886136000044644,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": {
+          "recall_at_1": 0.67,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.8072999999999992,
+          "intra_pair_cos_mean": 0.128865865111351,
+          "inter_pair_cos_mean": 0.00041463415254838765,
+          "signal_to_noise_ratio": 310.79414061607577,
+          "arm_name": "ARM_HIPPO_DG_ONLY_GAUSSIAN",
+          "encoder_kind": "dg_only",
+          "geometry": "gaussian",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.2629937000165228,
+          "fit_wall_s": 0.11189080000622198,
+          "arm_wall_s": 0.4641698000195902,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_GAUSSIAN": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.5005880919098854,
+          "inter_pair_cos_mean": -0.0005913292407058179,
+          "signal_to_noise_ratio": 846.5471643383934,
+          "arm_name": "ARM_COSINE_BASELINE_GAUSSIAN",
+          "encoder_kind": "cosine",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp1",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.018135299993446097,
+          "arm_wall_s": 0.043182299996260554,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_GAUSSIAN": {
+          "recall_at_1": 0.006,
+          "recall_at_5": 0.02,
+          "mean_reciprocal_rank": 0.017773188861723337,
+          "intra_pair_cos_mean": 0.0005097655836973418,
+          "inter_pair_cos_mean": 0.0014667966170236468,
+          "signal_to_noise_ratio": 0.34753665080829926,
+          "arm_name": "ARM_RANDOM_BASELINE_GAUSSIAN",
+          "encoder_kind": "random",
+          "geometry": "gaussian",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.021886600006837398,
+          "arm_wall_s": 0.0468381000100635,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPO_BIPOLAR": "0be045b1108a2c8f",
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": "627ee57361ecd1cd",
+        "ARM_COSINE_BASELINE_BIPOLAR": "a588e5f034ac5027",
+        "ARM_HIPPO_GAUSSIAN": "6eb42e3d81433a2b",
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": "164124ec7fba16b5",
+        "ARM_COSINE_BASELINE_GAUSSIAN": "05dbbc92d821eca3",
+        "ARM_RANDOM_BASELINE_BIPOLAR_exempted": "45d0148ae45fa175",
+        "ARM_RANDOM_BASELINE_GAUSSIAN_exempted": "45d0148ae45fa175"
+      },
+      "cluster_cos_observed_by_geometry": {
+        "bipolar": 0.8989257687330245,
+        "gaussian": 0.8989370387792587
+      },
+      "seed_elapsed_s": 4.806646600016393
+    },
+    {
+      "seed": 17,
+      "per_arm": {
+        "ARM_HIPPO_BIPOLAR": {
+          "recall_at_1": 0.502,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.694266666666666,
+          "intra_pair_cos_mean": 0.7108072912693024,
+          "inter_pair_cos_mean": 0.004356456454843283,
+          "signal_to_noise_ratio": 163.16180332275871,
+          "arm_name": "ARM_HIPPO_BIPOLAR",
+          "encoder_kind": "hippocampal",
+          "geometry": "bipolar",
+          "role": "load_bearing_regression",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.5549507999967318,
+          "fit_wall_s": 0.355466000008164,
+          "arm_wall_s": 1.0303726999845821,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020294677734375,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": {
+          "recall_at_1": 0.692,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.8185666666666663,
+          "intra_pair_cos_mean": 0.13111112279444934,
+          "inter_pair_cos_mean": 0.0011306157102808356,
+          "signal_to_noise_ratio": 115.96435606036503,
+          "arm_name": "ARM_HIPPO_DG_ONLY_BIPOLAR",
+          "encoder_kind": "dg_only",
+          "geometry": "bipolar",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.312856099975761,
+          "fit_wall_s": 0.11647239999729209,
+          "arm_wall_s": 0.5293530999915674,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020294677734375,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_BIPOLAR": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.4999999701976776,
+          "inter_pair_cos_mean": 0.004734374117106199,
+          "signal_to_noise_ratio": 105.61057445610014,
+          "arm_name": "ARM_COSINE_BASELINE_BIPOLAR",
+          "encoder_kind": "cosine",
+          "geometry": "bipolar",
+          "role": "regression_hp4",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.02114389999769628,
+          "arm_wall_s": 0.05106360002537258,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_BIPOLAR": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.012,
+          "mean_reciprocal_rank": 0.013868207364628796,
+          "intra_pair_cos_mean": 0.0004609374925494194,
+          "inter_pair_cos_mean": 0.0009257809724658728,
+          "signal_to_noise_ratio": 0.4978904365702018,
+          "arm_name": "ARM_RANDOM_BASELINE_BIPOLAR",
+          "encoder_kind": "random",
+          "geometry": "bipolar",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.022577299998374656,
+          "arm_wall_s": 0.05457349997595884,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        },
+        "ARM_HIPPO_GAUSSIAN": {
+          "recall_at_1": 0.494,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.6881999999999993,
+          "intra_pair_cos_mean": 0.7083763263225555,
+          "inter_pair_cos_mean": 0.004814181476831436,
+          "signal_to_noise_ratio": 147.14366912250048,
+          "arm_name": "ARM_HIPPO_GAUSSIAN",
+          "encoder_kind": "hippocampal",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp2_hp3",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.697044200001983,
+          "fit_wall_s": 0.3845431999943685,
+          "arm_wall_s": 1.2203436999989208,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": {
+          "recall_at_1": 0.68,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.814333333333333,
+          "intra_pair_cos_mean": 0.12879269413650035,
+          "inter_pair_cos_mean": 0.0008292683633044362,
+          "signal_to_noise_ratio": 155.30882382066554,
+          "arm_name": "ARM_HIPPO_DG_ONLY_GAUSSIAN",
+          "encoder_kind": "dg_only",
+          "geometry": "gaussian",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.3392955999879632,
+          "fit_wall_s": 0.1493445999803953,
+          "arm_wall_s": 0.5759814000048209,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_GAUSSIAN": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.500372861802578,
+          "inter_pair_cos_mean": 0.0026440280489623547,
+          "signal_to_noise_ratio": 189.2464272453345,
+          "arm_name": "ARM_COSINE_BASELINE_GAUSSIAN",
+          "encoder_kind": "cosine",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp1",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.01920170002267696,
+          "arm_wall_s": 0.05008820001967251,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_GAUSSIAN": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.012,
+          "mean_reciprocal_rank": 0.013868207364628796,
+          "intra_pair_cos_mean": 0.0004609374925494194,
+          "inter_pair_cos_mean": 0.0009257809724658728,
+          "signal_to_noise_ratio": 0.4978904365702018,
+          "arm_name": "ARM_RANDOM_BASELINE_GAUSSIAN",
+          "encoder_kind": "random",
+          "geometry": "gaussian",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.0199723000114318,
+          "arm_wall_s": 0.045767599978717044,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPO_BIPOLAR": "e1a960c95989781f",
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": "cb67e9803f83367b",
+        "ARM_COSINE_BASELINE_BIPOLAR": "da75533f2209a6b5",
+        "ARM_HIPPO_GAUSSIAN": "cb571a7c2dc72060",
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": "c5f2c46635d83d1c",
+        "ARM_COSINE_BASELINE_GAUSSIAN": "f71e7f3f391035e5",
+        "ARM_RANDOM_BASELINE_BIPOLAR_exempted": "3cc41dee7525227f",
+        "ARM_RANDOM_BASELINE_GAUSSIAN_exempted": "3cc41dee7525227f"
+      },
+      "cluster_cos_observed_by_geometry": {
+        "bipolar": 0.8987304586172103,
+        "gaussian": 0.9007313859462738
+      },
+      "seed_elapsed_s": 3.6694224000093527
+    },
+    {
+      "seed": 23,
+      "per_arm": {
+        "ARM_HIPPO_BIPOLAR": {
+          "recall_at_1": 0.52,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.7061333333333326,
+          "intra_pair_cos_mean": 0.7144222565889359,
+          "inter_pair_cos_mean": 0.006150917150080204,
+          "signal_to_noise_ratio": 116.14889928725837,
+          "arm_name": "ARM_HIPPO_BIPOLAR",
+          "encoder_kind": "hippocampal",
+          "geometry": "bipolar",
+          "role": "load_bearing_regression",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.5655695000023115,
+          "fit_wall_s": 0.4997202999948058,
+          "arm_wall_s": 1.174696000001859,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020306396484375,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": {
+          "recall_at_1": 0.724,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.8389999999999994,
+          "intra_pair_cos_mean": 0.13196856358647346,
+          "inter_pair_cos_mean": 0.0002809489378705621,
+          "signal_to_noise_ratio": 469.7243726448028,
+          "arm_name": "ARM_HIPPO_DG_ONLY_BIPOLAR",
+          "encoder_kind": "dg_only",
+          "geometry": "bipolar",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.2704215999983717,
+          "fit_wall_s": 0.1453001000045333,
+          "arm_wall_s": 0.5124736000143457,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020306396484375,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_BIPOLAR": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.4999999701976776,
+          "inter_pair_cos_mean": 0.0034531245473772287,
+          "signal_to_noise_ratio": 144.7963904393328,
+          "arm_name": "ARM_COSINE_BASELINE_BIPOLAR",
+          "encoder_kind": "cosine",
+          "geometry": "bipolar",
+          "role": "regression_hp4",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.043829800008097664,
+          "arm_wall_s": 0.0694532000052277,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_BIPOLAR": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.008,
+          "mean_reciprocal_rank": 0.0132539440476748,
+          "intra_pair_cos_mean": 0.0012988279944984242,
+          "inter_pair_cos_mean": 0.0006347654853016138,
+          "signal_to_noise_ratio": 2.04615409087858,
+          "arm_name": "ARM_RANDOM_BASELINE_BIPOLAR",
+          "encoder_kind": "random",
+          "geometry": "bipolar",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.02108770000631921,
+          "arm_wall_s": 0.046441100013908,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        },
+        "ARM_HIPPO_GAUSSIAN": {
+          "recall_at_1": 0.506,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.694866666666666,
+          "intra_pair_cos_mean": 0.7106277225017548,
+          "inter_pair_cos_mean": 0.007156862411648035,
+          "signal_to_noise_ratio": 99.293193249766,
+          "arm_name": "ARM_HIPPO_GAUSSIAN",
+          "encoder_kind": "hippocampal",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp2_hp3",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.5663534000050277,
+          "fit_wall_s": 0.5896848999836948,
+          "arm_wall_s": 1.2913668999972288,
+          "arm_diag": {
+            "encoder": "hippocampal",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "ca3_n_written": 500,
+            "partial_cue_fraction_zeroed": 0.75,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.477541870779803
+          }
+        },
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": {
+          "recall_at_1": 0.638,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 0.7877333333333326,
+          "intra_pair_cos_mean": 0.12868293795734645,
+          "inter_pair_cos_mean": 0.00042682926869019866,
+          "signal_to_noise_ratio": 301.4857400764312,
+          "arm_name": "ARM_HIPPO_DG_ONLY_GAUSSIAN",
+          "encoder_kind": "dg_only",
+          "geometry": "gaussian",
+          "role": "ablation",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.2567542000033427,
+          "fit_wall_s": 0.1436472000204958,
+          "arm_wall_s": 0.4963389000040479,
+          "arm_diag": {
+            "encoder": "dg_only",
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02001953125,
+            "partial_cue_fraction_zeroed": 0.75,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_BASELINE_GAUSSIAN": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.4990816974639893,
+          "inter_pair_cos_mean": 0.003567655570805073,
+          "signal_to_noise_ratio": 139.8906614046734,
+          "arm_name": "ARM_COSINE_BASELINE_GAUSSIAN",
+          "encoder_kind": "cosine",
+          "geometry": "gaussian",
+          "role": "load_bearing_hp1",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.018446400004904717,
+          "arm_wall_s": 0.04632380002294667,
+          "arm_diag": {
+            "encoder": "cosine_baseline",
+            "input_dim": 2048,
+            "partial_cue_fraction_zeroed": 0.75
+          }
+        },
+        "ARM_RANDOM_BASELINE_GAUSSIAN": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.008,
+          "mean_reciprocal_rank": 0.0132539440476748,
+          "intra_pair_cos_mean": 0.0012988279944984242,
+          "inter_pair_cos_mean": 0.0006347654853016138,
+          "signal_to_noise_ratio": 2.04615409087858,
+          "arm_name": "ARM_RANDOM_BASELINE_GAUSSIAN",
+          "encoder_kind": "random",
+          "geometry": "gaussian",
+          "role": "chance_floor",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.018490099988412112,
+          "arm_wall_s": 0.05423529999097809,
+          "arm_diag": {
+            "encoder": "random",
+            "input_dim": 2048
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPO_BIPOLAR": "9041924957057f4d",
+        "ARM_HIPPO_DG_ONLY_BIPOLAR": "7de9edcc794346e9",
+        "ARM_COSINE_BASELINE_BIPOLAR": "dcec57d02a6d5061",
+        "ARM_HIPPO_GAUSSIAN": "6ce04d63c11e8726",
+        "ARM_HIPPO_DG_ONLY_GAUSSIAN": "ab528ca38eec1217",
+        "ARM_COSINE_BASELINE_GAUSSIAN": "d0130212fefee858",
+        "ARM_RANDOM_BASELINE_BIPOLAR_exempted": "b8d3288d773fb13e",
+        "ARM_RANDOM_BASELINE_GAUSSIAN_exempted": "b8d3288d773fb13e"
+      },
+      "cluster_cos_observed_by_geometry": {
+        "bipolar": 0.8992187404632568,
+        "gaussian": 0.9003668737411499
+      },
+      "seed_elapsed_s": 3.807873000012478
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_HIPPO_BIPOLAR": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.5166666666666667,
+      "recall_at_1_std": 0.010873004286866737,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 0.6999222222222216,
+      "intra_pair_cos_mean": 0.7119557606379191,
+      "inter_pair_cos_mean": 0.004446026248236497,
+      "arm_wall_s_mean": 1.563223766667458,
+      "fit_wall_s_mean": 0.3970546333293896,
+      "dg_sparse_rate_mean": 0.02029435221354167
+    },
+    "ARM_HIPPO_DG_ONLY_BIPOLAR": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.6926666666666668,
+      "recall_at_1_std": 0.02531578339473001,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 0.8172111111111106,
+      "intra_pair_cos_mean": 0.13133788522084555,
+      "inter_pair_cos_mean": 0.00047214902436583844,
+      "arm_wall_s_mean": 0.5044692666754903,
+      "fit_wall_s_mean": 0.1303562333341688,
+      "dg_sparse_rate_mean": 0.02029435221354167
+    },
+    "ARM_COSINE_BASELINE_BIPOLAR": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 1.0,
+      "recall_at_1_std": 0.0,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 1.0,
+      "intra_pair_cos_mean": 0.4999999701976776,
+      "inter_pair_cos_mean": 0.0036835932017614446,
+      "arm_wall_s_mean": 0.05703526668366976,
+      "fit_wall_s_mean": 0.02899683333816938
+    },
+    "ARM_RANDOM_BASELINE_BIPOLAR": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0026666666666666666,
+      "recall_at_1_std": 0.0024944382578492943,
+      "recall_at_5_mean": 0.013333333333333334,
+      "mrr_mean": 0.014965113424675644,
+      "intra_pair_cos_mean": 0.0007565103569150618,
+      "inter_pair_cos_mean": 0.0010091143582637112,
+      "arm_wall_s_mean": 0.04883773332888571,
+      "fit_wall_s_mean": 0.021140466667323683
+    },
+    "ARM_HIPPO_GAUSSIAN": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.5,
+      "recall_at_1_std": 0.00489897948556636,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 0.6903999999999993,
+      "intra_pair_cos_mean": 0.7083180439869562,
+      "inter_pair_cos_mean": 0.004626534956817825,
+      "arm_wall_s_mean": 1.2001080666668713,
+      "fit_wall_s_mean": 0.4401966333292269,
+      "dg_sparse_rate_mean": 0.02001953125
+    },
+    "ARM_HIPPO_DG_ONLY_GAUSSIAN": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.6626666666666666,
+      "recall_at_1_std": 0.01791337179005922,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 0.8031222222222216,
+      "intra_pair_cos_mean": 0.12878049906839928,
+      "inter_pair_cos_mean": 0.0005569105948476741,
+      "arm_wall_s_mean": 0.512163366676153,
+      "fit_wall_s_mean": 0.1349608666690377,
+      "dg_sparse_rate_mean": 0.02001953125
+    },
+    "ARM_COSINE_BASELINE_GAUSSIAN": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 1.0,
+      "recall_at_1_std": 0.0,
+      "recall_at_5_mean": 1.0,
+      "mrr_mean": 1.0,
+      "intra_pair_cos_mean": 0.5000142170588175,
+      "inter_pair_cos_mean": 0.0018734514596872032,
+      "arm_wall_s_mean": 0.04653143334629325,
+      "fit_wall_s_mean": 0.018594466673675925
+    },
+    "ARM_RANDOM_BASELINE_GAUSSIAN": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0026666666666666666,
+      "recall_at_1_std": 0.0024944382578492943,
+      "recall_at_5_mean": 0.013333333333333334,
+      "mrr_mean": 0.014965113424675644,
+      "intra_pair_cos_mean": 0.0007565103569150618,
+      "inter_pair_cos_mean": 0.0010091143582637112,
+      "arm_wall_s_mean": 0.04894699999325288,
+      "fit_wall_s_mean": 0.020116333335560437
+    }
+  },
+  "elapsed_s": 12.304608199978247,
+  "ts_iso_end": "2026-07-03T05:36:46.729227+00:00"
+}

@@ -1,0 +1,160 @@
+{
+  "anchor_name": "substrate_self_map_v2d_discriminator_corrected_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: v2d discriminator-corrected ALSO fails; substrate self-mapping truly null. ARI_real=0.0000 ARI_shuf=1.0000 ARI_ratio=0.00 (pass 2.0) | size_real=2.00 size_shuf=0.00 size_ratio=0.00 (pass 1.5) | n_clusters_real=16.0 n_clusters_shuf=20.0 | recall=1.000 (pass 0.95 / fail 0.50) | cv_ARI=0.000 (pass 0.20) | n_llm=0",
+  "summary": "HARD_FAIL: v2d discriminator-corrected ALSO fails; substrate self-mapping truly null. ARI_real=0.0000 ARI_shuf=1.0000 ARI_ratio=0.00 (pass 2.0) | size_real=2.00 size_shuf=0.00 size_ratio=0.00 (pass 1.5) | n_clusters_real=16.0 n_clusters_shuf=20.0 | recall=1.000 (pass 0.95 / fail 0.50) | cv_ARI=0.000 (pass 0.20) | n_llm=0",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N1024 max_ingest=5000 n_anchors=20 n_rel_samples=8 kset=12 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "N": 1024,
+      "run_mode": "smoke",
+      "config_version": "v2d-discriminator-corrected: char_trigram + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster; FULL-Store admit; PRIMARY discriminator = ARI(clustering, v1_families); SECONDARY = mean_cluster_size_real/shuf; N1024 max_ingest=5000 n_anchors=20 n_rel_samples=8 kset=12 bands ARI>=0.10 ratio>=2.0 size_ratio>=1.5 recall>=0.95 cv<=0.20",
+      "n_chain_grade_atoms": 450,
+      "n_atoms_universe": 177331,
+      "n_relation_types": 33,
+      "n_triples": 5000,
+      "n_anchors": 20,
+      "n_anchors_in_v1_family": 2,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 65.1,
+      "t_encoding_s": 4.4,
+      "t_arm_real_s": 26.1,
+      "t_arm_shuf_s": 26.2,
+      "real": {
+        "n_clusters": 16,
+        "ari": 0.0,
+        "mean_cluster_size": 2.0,
+        "coherence": 0.3143,
+        "avg_jaccard_vs_v1": 0.025,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 1,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 1,
+            "best_v1_family": "topology",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          }
+        ],
+        "n_cross_family_arrows_total": 2,
+        "n_new_cross_family_arrows": 2,
+        "new_arrows_examples": [
+          "EXP_q_a3_l107_cross_layer_composition_v1_n16384",
+          "EXP_q_b1_bisect_d276_v1_n16384"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 20,
+        "ari": 1.0,
+        "mean_cluster_size": 0.0,
+        "coherence": 0.0,
+        "avg_jaccard_vs_v1": 0.02
+      },
+      "discriminator": {
+        "ari_real": 0.0,
+        "ari_shuf": 1.0,
+        "ari_ratio": 0.0,
+        "size_real": 2.0,
+        "size_shuf": 0.0,
+        "size_ratio": 999.0
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782195646.2792647
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 66.5,
+  "DESIGN_NOTE": "REVIVAL of v2c HARD_FAIL. v2c used cluster_COUNT_gap as discriminator (real has MORE clusters than shuffle). Hypothesis: that direction is INVERTED -- real relations BUNDLE chain-grade anchors into LARGER coherent clusters; shuffle FRAGMENTS them. v2d swaps in ARI(real, v1_families) vs ARI(shuf, v1_families) as PRIMARY discriminator and mean_cluster_size_real/shuf as SECONDARY. Reuses all v2c primitives (char_trigram + KGStore_multivalue_Hebbian + 2hop_Jaccard_cluster); ONLY discriminator changes."
+}

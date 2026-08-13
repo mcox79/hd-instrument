@@ -1,0 +1,40 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS: planted power x affiliation channel flips SOCIAL reach positive; sensorimotor+VAD (affect kept) fails it; scramble collapses; affect-ablation fires; power/affiliation non-redundant; arms differ. {'social_sim_without': 0.2947, 'social_sim_with': 0.7621, 'social_reach_without': 0.667, 'social_reach_with': 1.0, 'social_sim_scrambled': -0.0897, 'physical_reach_with': 0.667, 'vad_kept_in_without': ['arousal', 'dominance', 'valence'], 'correlation_gate': {'per_new_channel': {'col7': {'max_abs_r': -0.166, 'redundant': False}, 'col8': {'max_abs_r': -0.189, 'redundant': False}}, 'redundant_any': False}, 'mech_fires': True, 'reach_moves': True, 'scramble_fires': True, 'affect_ablation_fires': True, 'corr_ok': True, 'arms_differ': True, 'phys_ok': True}",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.00992520002182573,
+  "mechanism_selftest": {
+    "social_sim_without": 0.2947,
+    "social_sim_with": 0.7621,
+    "social_reach_without": 0.667,
+    "social_reach_with": 1.0,
+    "social_sim_scrambled": -0.0897,
+    "physical_reach_with": 0.667,
+    "vad_kept_in_without": [
+      "arousal",
+      "dominance",
+      "valence"
+    ],
+    "correlation_gate": {
+      "per_new_channel": {
+        "col7": {
+          "max_abs_r": -0.166,
+          "redundant": false
+        },
+        "col8": {
+          "max_abs_r": -0.189,
+          "redundant": false
+        }
+      },
+      "redundant_any": false
+    },
+    "mech_fires": true,
+    "reach_moves": true,
+    "scramble_fires": true,
+    "affect_ablation_fires": true,
+    "corr_ok": true,
+    "arms_differ": true,
+    "phys_ok": true
+  }
+}

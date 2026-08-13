@@ -1,0 +1,554 @@
+{
+  "anchor_name": "single_edge_grounding_hd_binding_verbnet_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS_SINGLE_EDGE_GROUNDING",
+  "verdict_msg": "verdict=HARD_PASS_SINGLE_EDGE_GROUNDING | difficulty_on=True store_solved=True generalizes_both=True (G1=True G2=True) wrong_edge_must_fail_fires=True superposition_solves_all=True memorization_solves_train_but_fails_gen=True | n_units=50 cardinality_ok=True verbnet_available=True",
+  "summary": "verdict=HARD_PASS_SINGLE_EDGE_GROUNDING | difficulty_on=True store_solved=True generalizes_both=True (G1=True G2=True) wrong_edge_must_fail_fires=True superposition_solves_all=True memorization_solves_train_but_fails_gen=True | n_units=50 cardinality_ok=True verbnet_available=True",
+  "elapsed_s": 0.03163100004894659,
+  "ts_iso": "2026-07-20T15:32:04.187548+00:00",
+  "n_dim": 1024,
+  "seed": 20260720,
+  "margin_thresh": 0.1,
+  "gate": {
+    "difficulty_on": true,
+    "store_solved": true,
+    "generalizes_G1": true,
+    "generalizes_G2": true,
+    "generalizes_both": true,
+    "generalizes_any": true,
+    "build_edge_leaks_to_eat": false,
+    "eat_edge_leaks_to_build": false,
+    "wrong_edge_must_fail_fires": true,
+    "superposition_solves_all": true,
+    "memorization_solves_train": true,
+    "memorization_fails_gen": true
+  },
+  "hard_fail_reasons": [],
+  "by_arm": {
+    "WEB_EMPTY": [
+      {
+        "item": "T1",
+        "verb_class": "BUILD",
+        "true_noun": "fort",
+        "false_noun": "river",
+        "score_true": 0.0,
+        "score_false": 0.0,
+        "margin": 0.0,
+        "predicted": "fort",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.0,
+          "LOCATION": 0.0,
+          "FOOD": 0.0
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "The girl built a fort by the river.",
+        "item_role": "stored_train"
+      },
+      {
+        "item": "G1",
+        "verb_class": "BUILD",
+        "true_noun": "cabin",
+        "false_noun": "lake",
+        "score_true": 0.0,
+        "score_false": 0.0,
+        "margin": 0.0,
+        "predicted": "cabin",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.0,
+          "LOCATION": 0.0,
+          "FOOD": 0.0
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "He built a cabin near the lake.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "G2",
+        "verb_class": "BUILD",
+        "true_noun": "bridge",
+        "false_noun": "valley",
+        "score_true": 0.0,
+        "score_false": 0.0,
+        "margin": 0.0,
+        "predicted": "bridge",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.0,
+          "LOCATION": 0.0,
+          "FOOD": 0.0
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "They built a bridge across the valley.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "X1",
+        "verb_class": "EAT",
+        "true_noun": "soup",
+        "false_noun": "kitchen",
+        "score_true": 0.0,
+        "score_false": 0.0,
+        "margin": 0.0,
+        "predicted": "soup",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.0,
+          "LOCATION": 0.0,
+          "FOOD": 0.0
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "She ate the soup in the kitchen.",
+        "item_role": "crossverb_control"
+      },
+      {
+        "item": "X2",
+        "verb_class": "EAT",
+        "true_noun": "bread",
+        "false_noun": "barn",
+        "score_true": 0.0,
+        "score_false": 0.0,
+        "margin": 0.0,
+        "predicted": "bread",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.0,
+          "LOCATION": 0.0,
+          "FOOD": 0.0
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "He ate the bread near the barn.",
+        "item_role": "crossverb_control"
+      }
+    ],
+    "WEB_BUILD_EDGE": [
+      {
+        "item": "T1",
+        "verb_class": "BUILD",
+        "true_noun": "fort",
+        "false_noun": "river",
+        "score_true": 1.0,
+        "score_false": -0.026078,
+        "margin": 1.026078,
+        "predicted": "fort",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 1.0,
+          "LOCATION": -0.026078,
+          "FOOD": 0.000469
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "The girl built a fort by the river.",
+        "item_role": "stored_train"
+      },
+      {
+        "item": "G1",
+        "verb_class": "BUILD",
+        "true_noun": "cabin",
+        "false_noun": "lake",
+        "score_true": 1.0,
+        "score_false": -0.026078,
+        "margin": 1.026078,
+        "predicted": "cabin",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 1.0,
+          "LOCATION": -0.026078,
+          "FOOD": 0.000469
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "He built a cabin near the lake.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "G2",
+        "verb_class": "BUILD",
+        "true_noun": "bridge",
+        "false_noun": "valley",
+        "score_true": 1.0,
+        "score_false": -0.026078,
+        "margin": 1.026078,
+        "predicted": "bridge",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 1.0,
+          "LOCATION": -0.026078,
+          "FOOD": 0.000469
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "They built a bridge across the valley.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "X1",
+        "verb_class": "EAT",
+        "true_noun": "soup",
+        "false_noun": "kitchen",
+        "score_true": -0.005719,
+        "score_false": 0.008227,
+        "margin": -0.013947,
+        "predicted": "kitchen",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.037752,
+          "LOCATION": 0.008227,
+          "FOOD": -0.005719
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "She ate the soup in the kitchen.",
+        "item_role": "crossverb_control"
+      },
+      {
+        "item": "X2",
+        "verb_class": "EAT",
+        "true_noun": "bread",
+        "false_noun": "barn",
+        "score_true": -0.005719,
+        "score_false": 0.008227,
+        "margin": -0.013947,
+        "predicted": "barn",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.037752,
+          "LOCATION": 0.008227,
+          "FOOD": -0.005719
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "He ate the bread near the barn.",
+        "item_role": "crossverb_control"
+      }
+    ],
+    "WEB_EAT_EDGE_ONLY": [
+      {
+        "item": "T1",
+        "verb_class": "BUILD",
+        "true_noun": "fort",
+        "false_noun": "river",
+        "score_true": -0.005719,
+        "score_false": 0.02108,
+        "margin": -0.0268,
+        "predicted": "river",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.005719,
+          "LOCATION": 0.02108,
+          "FOOD": -0.037752
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "The girl built a fort by the river.",
+        "item_role": "stored_train"
+      },
+      {
+        "item": "G1",
+        "verb_class": "BUILD",
+        "true_noun": "cabin",
+        "false_noun": "lake",
+        "score_true": -0.005719,
+        "score_false": 0.02108,
+        "margin": -0.0268,
+        "predicted": "lake",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.005719,
+          "LOCATION": 0.02108,
+          "FOOD": -0.037752
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "He built a cabin near the lake.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "G2",
+        "verb_class": "BUILD",
+        "true_noun": "bridge",
+        "false_noun": "valley",
+        "score_true": -0.005719,
+        "score_false": 0.02108,
+        "margin": -0.0268,
+        "predicted": "valley",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.005719,
+          "LOCATION": 0.02108,
+          "FOOD": -0.037752
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "They built a bridge across the valley.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "X1",
+        "verb_class": "EAT",
+        "true_noun": "soup",
+        "false_noun": "kitchen",
+        "score_true": 1.0,
+        "score_false": 0.020552,
+        "margin": 0.979448,
+        "predicted": "soup",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.000469,
+          "LOCATION": 0.020552,
+          "FOOD": 1.0
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "She ate the soup in the kitchen.",
+        "item_role": "crossverb_control"
+      },
+      {
+        "item": "X2",
+        "verb_class": "EAT",
+        "true_noun": "bread",
+        "false_noun": "barn",
+        "score_true": 1.0,
+        "score_false": 0.020552,
+        "margin": 0.979448,
+        "predicted": "bread",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.000469,
+          "LOCATION": 0.020552,
+          "FOOD": 1.0
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "He ate the bread near the barn.",
+        "item_role": "crossverb_control"
+      }
+    ],
+    "WEB_BOTH_EDGES": [
+      {
+        "item": "T1",
+        "verb_class": "BUILD",
+        "true_noun": "fort",
+        "false_noun": "river",
+        "score_true": 0.994281,
+        "score_false": -0.004998,
+        "margin": 0.999278,
+        "predicted": "fort",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.994281,
+          "LOCATION": -0.004998,
+          "FOOD": -0.037283
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "The girl built a fort by the river.",
+        "item_role": "stored_train"
+      },
+      {
+        "item": "G1",
+        "verb_class": "BUILD",
+        "true_noun": "cabin",
+        "false_noun": "lake",
+        "score_true": 0.994281,
+        "score_false": -0.004998,
+        "margin": 0.999278,
+        "predicted": "cabin",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.994281,
+          "LOCATION": -0.004998,
+          "FOOD": -0.037283
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "He built a cabin near the lake.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "G2",
+        "verb_class": "BUILD",
+        "true_noun": "bridge",
+        "false_noun": "valley",
+        "score_true": 0.994281,
+        "score_false": -0.004998,
+        "margin": 0.999278,
+        "predicted": "bridge",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.994281,
+          "LOCATION": -0.004998,
+          "FOOD": -0.037283
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "They built a bridge across the valley.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "X1",
+        "verb_class": "EAT",
+        "true_noun": "soup",
+        "false_noun": "kitchen",
+        "score_true": 0.994281,
+        "score_false": 0.02878,
+        "margin": 0.965501,
+        "predicted": "soup",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.037283,
+          "LOCATION": 0.02878,
+          "FOOD": 0.994281
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "She ate the soup in the kitchen.",
+        "item_role": "crossverb_control"
+      },
+      {
+        "item": "X2",
+        "verb_class": "EAT",
+        "true_noun": "bread",
+        "false_noun": "barn",
+        "score_true": 0.994281,
+        "score_false": 0.02878,
+        "margin": 0.965501,
+        "predicted": "bread",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.037283,
+          "LOCATION": 0.02878,
+          "FOOD": 0.994281
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "He ate the bread near the barn.",
+        "item_role": "crossverb_control"
+      }
+    ],
+    "WEB_MEMORIZATION": [
+      {
+        "item": "T1",
+        "verb_class": "BUILD",
+        "true_noun": "fort",
+        "false_noun": "river",
+        "score_true": 1.0,
+        "score_false": -0.026078,
+        "margin": 1.026078,
+        "predicted": "fort",
+        "resolved_correct": true,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 1.0,
+          "LOCATION": -0.026078,
+          "FOOD": 0.000469
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "The girl built a fort by the river.",
+        "item_role": "stored_train"
+      },
+      {
+        "item": "G1",
+        "verb_class": "BUILD",
+        "true_noun": "cabin",
+        "false_noun": "lake",
+        "score_true": 0.000269,
+        "score_false": -0.004629,
+        "margin": 0.004898,
+        "predicted": "cabin",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.000269,
+          "LOCATION": -0.004629,
+          "FOOD": 0.020285
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "He built a cabin near the lake.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "G2",
+        "verb_class": "BUILD",
+        "true_noun": "bridge",
+        "false_noun": "valley",
+        "score_true": -0.026518,
+        "score_false": -0.033046,
+        "margin": 0.006528,
+        "predicted": "bridge",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.026518,
+          "LOCATION": -0.033046,
+          "FOOD": -0.018756
+        },
+        "cleanup_argmax_type": "FOOD",
+        "sentence": "They built a bridge across the valley.",
+        "item_role": "heldout_generalization"
+      },
+      {
+        "item": "X1",
+        "verb_class": "EAT",
+        "true_noun": "soup",
+        "false_noun": "kitchen",
+        "score_true": -0.009324,
+        "score_false": -0.00858,
+        "margin": -0.000744,
+        "predicted": "kitchen",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": -0.013132,
+          "LOCATION": -0.00858,
+          "FOOD": -0.009324
+        },
+        "cleanup_argmax_type": "LOCATION",
+        "sentence": "She ate the soup in the kitchen.",
+        "item_role": "crossverb_control"
+      },
+      {
+        "item": "X2",
+        "verb_class": "EAT",
+        "true_noun": "bread",
+        "false_noun": "barn",
+        "score_true": -0.016301,
+        "score_false": 0.001528,
+        "margin": -0.017829,
+        "predicted": "barn",
+        "resolved_correct": false,
+        "cleanup_codebook_scores": {
+          "ARTIFACT": 0.032218,
+          "LOCATION": 0.001528,
+          "FOOD": -0.016301
+        },
+        "cleanup_argmax_type": "ARTIFACT",
+        "sentence": "He ate the bread near the barn.",
+        "item_role": "crossverb_control"
+      }
+    ]
+  },
+  "web_hashes": {
+    "WEB_EMPTY": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+    "WEB_BUILD_EDGE": "5a3b092b6881cb3967b2e00f400592843d808ef7d3bf87a711a831f99752f279",
+    "WEB_EAT_EDGE_ONLY": "ca3c7cd826cf60ccaddcc0a7e7e4e5e78260d78bf1da4cff2cbb6dd8d073c14e",
+    "WEB_BOTH_EDGES": "915005da283b50a733feaeb6be463ad87afc340dcb5398e69d76eede1a60dd95",
+    "WEB_MEMORIZATION": "40c9e7ff9296393f117f9d9fc05f9e8e17fd23b7067d922bb59936e84a59553e"
+  },
+  "verbnet_facts": {
+    "verbnet_available": true,
+    "build_classids": [
+      "build-26.1-1"
+    ],
+    "eat_classids": [
+      "eat-39.1-1"
+    ],
+    "build_26_1_themroles": [
+      "Agent",
+      "Material",
+      "Product",
+      "Beneficiary",
+      "Asset"
+    ],
+    "build_has_product_role": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 50,
+  "n_units": 50,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n/a": "categorical resolved/not-resolved margin-threshold metric over an exact-recovery FHRR binding; no argmax-capacity CRLB formula applies; see prereg THEORETICAL section for the applicable closed-form exact-recovery + O(1/sqrt(N_DIM)) cross-talk analysis",
+  "claim_ceiling": "Single-edge existence-proof measurement on a small hand-authored sentence set; not a claim about scale, corpus coverage, or novel-noun generalization (that is the separate 29379-82 CG). Demonstrates storage-format + recall + verb-class generalization via genuine HD binding, not a dict.",
+  "REQUIRED_FIELDS": [
+    "verdict",
+    "gate",
+    "by_arm",
+    "web_hashes",
+    "verbnet_facts",
+    "cardinality_ok",
+    "arms_differ_verified"
+  ]
+}

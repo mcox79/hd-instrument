@@ -1,0 +1,34 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS: planted magnitude channel flips MATH_NUMERAL reach positive; sensorimotor-only fails it; scramble collapses; magnitude non-redundant; arms differ. {'math_sim_without': 0.2354, 'math_sim_with': 0.5131, 'math_reach_without': 0.583, 'math_reach_with': 0.833, 'math_sim_scrambled': 0.1524, 'physical_reach_with': 1.0, 'correlation_gate': {'per_new_channel': {'col4': {'max_abs_r': -0.162, 'redundant': False}, 'col5': {'max_abs_r': -0.279, 'redundant': False}}, 'redundant_any': False}, 'mech_fires': True, 'reach_moves': True, 'scramble_fires': True, 'corr_ok': True, 'arms_differ': True, 'phys_ok': True}",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.01534649997483939,
+  "mechanism_selftest": {
+    "math_sim_without": 0.2354,
+    "math_sim_with": 0.5131,
+    "math_reach_without": 0.583,
+    "math_reach_with": 0.833,
+    "math_sim_scrambled": 0.1524,
+    "physical_reach_with": 1.0,
+    "correlation_gate": {
+      "per_new_channel": {
+        "col4": {
+          "max_abs_r": -0.162,
+          "redundant": false
+        },
+        "col5": {
+          "max_abs_r": -0.279,
+          "redundant": false
+        }
+      },
+      "redundant_any": false
+    },
+    "mech_fires": true,
+    "reach_moves": true,
+    "scramble_fires": true,
+    "corr_ok": true,
+    "arms_differ": true,
+    "phys_ok": true
+  }
+}

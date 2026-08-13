@@ -1,0 +1,490 @@
+{
+  "phase_map": [
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.85,
+      "shard_hash": "aa40ba45ce449e87",
+      "bundle_hash": "d74f9f721abc2cc9",
+      "output_hash": "8234960f70a50f85",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.311
+    },
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.675,
+      "shard_hash": "ebc392a18d5c6ab9",
+      "bundle_hash": "4eb1f686965c97b6",
+      "output_hash": "25d998dc123e9b82",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 1.874
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.75,
+      "shard_hash": "4dfd42761d912b6f",
+      "bundle_hash": "892562365c8cd6b6",
+      "output_hash": "334a72f263317a25",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.273
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.625,
+      "shard_hash": "3b88e8cde48c3121",
+      "bundle_hash": "51c142e069713aae",
+      "output_hash": "63857002e24edf1d",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 1.994
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.65,
+      "shard_hash": "b513e6c7beb3241e",
+      "bundle_hash": "261923fceb5de7e5",
+      "output_hash": "3a2613ddf1905f9a",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.197
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 0.825,
+      "shard_hash": "31d1ee3431e70c26",
+      "bundle_hash": "4c6569ab65e790d8",
+      "output_hash": "35b6447e1a30f7fa",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 1.921
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "9fb24d30b4ad5d57",
+      "bundle_hash": "9f304f440eb70946",
+      "output_hash": "5071bb3f355a5af6",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.099,
+      "is_saturation_pc": true
+    }
+  ],
+  "expected_n_units": 7,
+  "observed_n_units": 7,
+  "cardinality_ok": true,
+  "mech_output_hash_agg": {
+    "modern_hopfield": "653c82f9d6852841",
+    "iterative_cosine": "ca00543adad39125",
+    "soft_energy_attractor": "69c37adef7ea1dd4"
+  },
+  "n_distinct_mechanisms": 3,
+  "saturation_pc_result": {
+    "regime": {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED"
+    },
+    "acc": 1.0,
+    "threshold": 0.95,
+    "pass": true
+  },
+  "main_grid_mean_acc": 0.7292,
+  "main_grid_min_acc": 0.625,
+  "main_grid_max_acc": 0.85,
+  "escapes_saturation_ceiling": true,
+  "in_band_fraction": 1.0,
+  "in_band_n": 6,
+  "non_saturated_band": [
+    0.3,
+    0.95
+  ],
+  "per_F_mech_variance": {
+    "1": {
+      "per_cell_mech_variance": {
+        "M6400_N512_c0.85": 0.2
+      },
+      "max_mech_variance": 0.2
+    },
+    "16": {
+      "per_cell_mech_variance": {
+        "M6400_N512_c0.85": 0.2
+      },
+      "max_mech_variance": 0.2
+    }
+  },
+  "per_F_mech_variance_in_band": {
+    "1": {
+      "per_cell_mech_variance_in_band": {
+        "M6400_N512_c0.85": 0.2
+      },
+      "max_mech_variance_in_band": 0.2,
+      "n_cells_in_band": 1
+    },
+    "16": {
+      "per_cell_mech_variance_in_band": {
+        "M6400_N512_c0.85": 0.2
+      },
+      "max_mech_variance_in_band": 0.2,
+      "n_cells_in_band": 1
+    }
+  },
+  "max_per_F_mech_variance": 0.2,
+  "max_per_F_mech_variance_in_band": 0.2,
+  "per_axis_marginals": {
+    "cleanup_mechanism": {
+      "modern_hopfield": {
+        "mean_acc": 0.7625,
+        "std_acc": 0.0875,
+        "n": 2
+      },
+      "iterative_cosine": {
+        "mean_acc": 0.6875,
+        "std_acc": 0.0625,
+        "n": 2
+      },
+      "soft_energy_attractor": {
+        "mean_acc": 0.7375,
+        "std_acc": 0.0875,
+        "n": 2
+      }
+    },
+    "F": {
+      "1": {
+        "mean_acc": 0.75,
+        "std_acc": 0.0816,
+        "n": 3
+      },
+      "16": {
+        "mean_acc": 0.7083,
+        "std_acc": 0.085,
+        "n": 3
+      }
+    },
+    "M": {
+      "6400": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    },
+    "N": {
+      "512": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    },
+    "corruption": {
+      "0.85": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    }
+  },
+  "per_axis_marginals_in_band": {
+    "cleanup_mechanism": {
+      "modern_hopfield": {
+        "mean_acc": 0.7625,
+        "std_acc": 0.0875,
+        "n": 2
+      },
+      "iterative_cosine": {
+        "mean_acc": 0.6875,
+        "std_acc": 0.0625,
+        "n": 2
+      },
+      "soft_energy_attractor": {
+        "mean_acc": 0.7375,
+        "std_acc": 0.0875,
+        "n": 2
+      }
+    },
+    "F": {
+      "1": {
+        "mean_acc": 0.75,
+        "std_acc": 0.0816,
+        "n": 3
+      },
+      "16": {
+        "mean_acc": 0.7083,
+        "std_acc": 0.085,
+        "n": 3
+      }
+    },
+    "M": {
+      "6400": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    },
+    "N": {
+      "512": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    },
+    "corruption": {
+      "0.85": {
+        "mean_acc": 0.7292,
+        "std_acc": 0.0859,
+        "n": 6
+      }
+    }
+  },
+  "grand_mean_sharded": 0.7292,
+  "grand_mean_sharded_in_band": 0.7292,
+  "axis_pair_interactions": {
+    "cleanup_mechanism_x_F": {
+      "max_abs_deviation": 0.1084,
+      "deviation_map": {
+        "modern_hopfield_1": 0.0667,
+        "modern_hopfield_16": -0.0666,
+        "iterative_cosine_1": 0.0417,
+        "iterative_cosine_16": -0.0416,
+        "soft_energy_attractor_1": -0.1083,
+        "soft_energy_attractor_16": 0.1084
+      }
+    },
+    "cleanup_mechanism_x_M": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_6400": -0.0,
+        "iterative_cosine_6400": -0.0,
+        "soft_energy_attractor_6400": -0.0
+      }
+    },
+    "cleanup_mechanism_x_N": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_512": -0.0,
+        "iterative_cosine_512": -0.0,
+        "soft_energy_attractor_512": -0.0
+      }
+    },
+    "cleanup_mechanism_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "modern_hopfield_0.85": -0.0,
+        "iterative_cosine_0.85": -0.0,
+        "soft_energy_attractor_0.85": -0.0
+      }
+    },
+    "F_x_M": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "1_6400": -0.0,
+        "16_6400": 0.0
+      }
+    },
+    "F_x_N": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "1_512": -0.0,
+        "16_512": 0.0
+      }
+    },
+    "F_x_corruption": {
+      "max_abs_deviation": 0.0,
+      "deviation_map": {
+        "1_0.85": -0.0,
+        "16_0.85": 0.0
+      }
+    },
+    "M_x_N": {
+      "max_abs_deviation": 0.0001,
+      "deviation_map": {
+        "6400_512": -0.0001
+      }
+    },
+    "M_x_corruption": {
+      "max_abs_deviation": 0.0001,
+      "deviation_map": {
+        "6400_0.85": -0.0001
+      }
+    },
+    "N_x_corruption": {
+      "max_abs_deviation": 0.0001,
+      "deviation_map": {
+        "512_0.85": -0.0001
+      }
+    }
+  },
+  "axis_pair_interactions_in_band": {
+    "cleanup_mechanism_x_F": {
+      "max_abs_deviation_in_band": 0.1084,
+      "deviation_map_in_band": {
+        "modern_hopfield_1": 0.0667,
+        "modern_hopfield_16": -0.0666,
+        "iterative_cosine_1": 0.0417,
+        "iterative_cosine_16": -0.0416,
+        "soft_energy_attractor_1": -0.1083,
+        "soft_energy_attractor_16": 0.1084
+      }
+    },
+    "cleanup_mechanism_x_M": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "modern_hopfield_6400": -0.0,
+        "iterative_cosine_6400": -0.0,
+        "soft_energy_attractor_6400": -0.0
+      }
+    },
+    "cleanup_mechanism_x_N": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "modern_hopfield_512": -0.0,
+        "iterative_cosine_512": -0.0,
+        "soft_energy_attractor_512": -0.0
+      }
+    },
+    "cleanup_mechanism_x_corruption": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "modern_hopfield_0.85": -0.0,
+        "iterative_cosine_0.85": -0.0,
+        "soft_energy_attractor_0.85": -0.0
+      }
+    },
+    "F_x_M": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "1_6400": -0.0,
+        "16_6400": 0.0
+      }
+    },
+    "F_x_N": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "1_512": -0.0,
+        "16_512": 0.0
+      }
+    },
+    "F_x_corruption": {
+      "max_abs_deviation_in_band": 0.0,
+      "deviation_map_in_band": {
+        "1_0.85": -0.0,
+        "16_0.85": 0.0
+      }
+    },
+    "M_x_N": {
+      "max_abs_deviation_in_band": 0.0001,
+      "deviation_map_in_band": {
+        "6400_512": -0.0001
+      }
+    },
+    "M_x_corruption": {
+      "max_abs_deviation_in_band": 0.0001,
+      "deviation_map_in_band": {
+        "6400_0.85": -0.0001
+      }
+    },
+    "N_x_corruption": {
+      "max_abs_deviation_in_band": 0.0001,
+      "deviation_map_in_band": {
+        "512_0.85": -0.0001
+      }
+    }
+  },
+  "F_x_cleanup_max_abs_deviation": 0.1084,
+  "F_x_cleanup_max_abs_deviation_in_band": 0.1084,
+  "mech_ranking_by_F_in_band": {
+    "1": {
+      "ranking": [
+        "modern_hopfield",
+        "iterative_cosine",
+        "soft_energy_attractor"
+      ],
+      "means": {
+        "modern_hopfield": 0.85,
+        "iterative_cosine": 0.75,
+        "soft_energy_attractor": 0.65
+      }
+    },
+    "16": {
+      "ranking": [
+        "soft_energy_attractor",
+        "modern_hopfield",
+        "iterative_cosine"
+      ],
+      "means": {
+        "modern_hopfield": 0.675,
+        "iterative_cosine": 0.625,
+        "soft_energy_attractor": 0.825
+      }
+    }
+  },
+  "mech_ranking_crossover": true,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "avg_peak_mem_mb": -1.0,
+  "elapsed_seed_s": 6.95,
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 7/7 pts; smoke_gate_pass: cardinality_ok + 3-mech-distinct + saturation_pc_pass=1.0000 + escapes_saturation_ceiling(mean_acc=0.7292<0.95) + informational_max_per_F_mech_var_in_band=0.2000",
+  "summary": "HARD_PASS_SMOKE: 7/7 pts; smoke_gate_pass: cardinality_ok + 3-mech-distinct + saturation_pc_pass=1.0000 + escapes_saturation_ceiling(mean_acc=0.7292<0.95) + informational_max_per_F_mech_var_in_band=0.2000",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + 3-mech-distinct + saturation_pc_pass=1.0000 + escapes_saturation_ceiling(mean_acc=0.7292<0.95) + informational_max_per_F_mech_var_in_band=0.2000",
+  "anchor_name": "stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1_s7",
+  "elapsed_s": 7.07,
+  "ts_iso": "2026-07-03T19:45:47Z",
+  "pid": 31028,
+  "config_version": "ANCHOR=stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1_s7,regime=sharded_FHRR_chain_composition_NON_SATURATED_probe_3_revival,cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],F=[1,4,8,16],M=[800,3200,6400],N=[512,2048],L=2(fixed),corr=[0.70,0.85,0.90],SEED=7,mode=smoke,SATURATION_PC_regime=fixed_SHARDED_F1_M800_N2048_L2_corr0.20_iterative_cosine,non_saturated_band=[0.30,0.95],beta=8.0,alpha_soft=0.5,expected_n_full=217,expected_n_smoke=7,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_regime_probe_6_non_saturated_v1_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_sharded_fhrr_chain_composition_topology_x_cleanup_non_saturated_probe_v1",
+  "n_llm_calls": 0
+}

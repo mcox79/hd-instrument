@@ -1,0 +1,784 @@
+{
+  "anchor_name": "substrate_activity_energy_confidence_signal_v3_reconstruction_err_multiseed_multiregime",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_REC_ERR_MULTIREGIME_MULTISEED: REC AUC low=0.972 high=0.919 cv low=0.007 high=0.025 both regimes clear >=0.65 with cv<0.15; deterministic contamination verified; M1.11 Confidence Header CG-eligible for hdlab extraction. | REC_low=0.972(cv=0.007) REC_high=0.919(cv=0.025) rn_low=0.463 rn_high=0.524 disp_H/L=0.95",
+  "summary": "HARD_PASS_REC_ERR_MULTIREGIME_MULTISEED: REC AUC low=0.972 high=0.919 cv low=0.007 high=0.025 both regimes clear >=0.65 with cv<0.15; deterministic contamination verified; M1.11 Confidence Header CG-eligible for hdlab extraction. | REC_low=0.972(cv=0.007) REC_high=0.919(cv=0.025) rn_low=0.463 rn_high=0.524 disp_H/L=0.95",
+  "N": 8192,
+  "n_clusters": 60,
+  "per_cluster": 60,
+  "n_items": 3600,
+  "n_test_queries_per_unit": 200,
+  "topk": 10,
+  "beta": 8.0,
+  "intra_cos": 0.35,
+  "regimes": [
+    {
+      "name": "REGIME_LOW",
+      "p_target": 0.2
+    },
+    {
+      "name": "REGIME_HIGH",
+      "p_target": 0.5
+    }
+  ],
+  "run_mode": "full",
+  "device": "cuda",
+  "n_seeds": 5,
+  "seeds": [
+    11,
+    17,
+    23,
+    29,
+    37
+  ],
+  "n_arms": 4,
+  "arms": [
+    "ARM_RECONSTRUCTION_ERR",
+    "ARM_DELTA_E",
+    "ARM_SIGMA_J",
+    "ARM_ABLATED_RANDOM"
+  ],
+  "load_bearing_arm": "ARM_RECONSTRUCTION_ERR",
+  "arm_summaries": {
+    "ARM_RECONSTRUCTION_ERR": {
+      "REGIME_LOW": {
+        "arm": "ARM_RECONSTRUCTION_ERR",
+        "regime": "REGIME_LOW",
+        "n_seeds": 5,
+        "auc_mean": 0.97234375,
+        "auc_std": 0.006518453372925182,
+        "auc_cv": 0.006703856915751432,
+        "aucs": [
+          0.9834375,
+          0.97140625,
+          0.96296875,
+          0.97234375,
+          0.9715625
+        ]
+      },
+      "REGIME_HIGH": {
+        "arm": "ARM_RECONSTRUCTION_ERR",
+        "regime": "REGIME_HIGH",
+        "n_seeds": 5,
+        "auc_mean": 0.9189999999999999,
+        "auc_std": 0.023339751498248667,
+        "auc_cv": 0.02539690043335002,
+        "aucs": [
+          0.8911,
+          0.9502,
+          0.8961,
+          0.9175,
+          0.9401
+        ]
+      }
+    },
+    "ARM_DELTA_E": {
+      "REGIME_LOW": {
+        "arm": "ARM_DELTA_E",
+        "regime": "REGIME_LOW",
+        "n_seeds": 5,
+        "auc_mean": 0.7189375000000001,
+        "auc_std": 0.035803745657752066,
+        "auc_cv": 0.04980091545892663,
+        "aucs": [
+          0.6946875,
+          0.7890625,
+          0.70921875,
+          0.7096875,
+          0.69203125
+        ]
+      },
+      "REGIME_HIGH": {
+        "arm": "ARM_DELTA_E",
+        "regime": "REGIME_HIGH",
+        "n_seeds": 5,
+        "auc_mean": 0.6821400000000001,
+        "auc_std": 0.045495608579290366,
+        "auc_cv": 0.06669541234833078,
+        "aucs": [
+          0.6225,
+          0.7257,
+          0.6362,
+          0.6924,
+          0.7339
+        ]
+      }
+    },
+    "ARM_SIGMA_J": {
+      "REGIME_LOW": {
+        "arm": "ARM_SIGMA_J",
+        "regime": "REGIME_LOW",
+        "n_seeds": 5,
+        "auc_mean": 0.20190625,
+        "auc_std": 0.032782039432820535,
+        "auc_cv": 0.16236267789045922,
+        "aucs": [
+          0.22296875,
+          0.13859375,
+          0.20125,
+          0.22375,
+          0.22296875
+        ]
+      },
+      "REGIME_HIGH": {
+        "arm": "ARM_SIGMA_J",
+        "regime": "REGIME_HIGH",
+        "n_seeds": 5,
+        "auc_mean": 0.24966,
+        "auc_std": 0.035419858836534056,
+        "auc_cv": 0.14187238178536432,
+        "aucs": [
+          0.2897,
+          0.2172,
+          0.29,
+          0.2462,
+          0.2052
+        ]
+      }
+    },
+    "ARM_ABLATED_RANDOM": {
+      "REGIME_LOW": {
+        "arm": "ARM_ABLATED_RANDOM",
+        "regime": "REGIME_LOW",
+        "n_seeds": 5,
+        "auc_mean": 0.46346874999999993,
+        "auc_std": 0.04964713376041963,
+        "auc_cv": 0.10712077947093443,
+        "aucs": [
+          0.55046875,
+          0.46234375,
+          0.41,
+          0.4734375,
+          0.42109375
+        ]
+      },
+      "REGIME_HIGH": {
+        "arm": "ARM_ABLATED_RANDOM",
+        "regime": "REGIME_HIGH",
+        "n_seeds": 5,
+        "auc_mean": 0.5241,
+        "auc_std": 0.05127077140047729,
+        "auc_cv": 0.09782631444471912,
+        "aucs": [
+          0.46,
+          0.5777,
+          0.5915,
+          0.4959,
+          0.4954
+        ]
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 11,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.9834375,
+      "risk_hash_prefix": "9e965c7afb29c602",
+      "risk_mean": 9.422717266716063e-05,
+      "risk_std": 1.5943256812533946e-06,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 11,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.6946875,
+      "risk_hash_prefix": "2401c282ba097faa",
+      "risk_mean": 0.31363993883132935,
+      "risk_std": 0.0009224974201060832,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 11,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.22296875,
+      "risk_hash_prefix": "8715e53e26376ef4",
+      "risk_mean": 1.9515916109085083,
+      "risk_std": 0.0037341865245252848,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 11,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.55046875,
+      "risk_hash_prefix": "aeec65dffba77c8f",
+      "risk_mean": 0.5003875935555687,
+      "risk_std": 0.28362731607517405,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 11,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.8911,
+      "risk_hash_prefix": "56a8ffa11e83bcfb",
+      "risk_mean": 9.946590580511838e-05,
+      "risk_std": 1.5385530787170865e-06,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 11,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.6225,
+      "risk_hash_prefix": "53f5e1f55eafeadd",
+      "risk_mean": 0.32653456926345825,
+      "risk_std": 0.0008366801775991917,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 11,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.2897,
+      "risk_hash_prefix": "1561aae90d601867",
+      "risk_mean": 1.9393455982208252,
+      "risk_std": 0.003623883705586195,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 11,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.46,
+      "risk_hash_prefix": "e0ab1e1cfb5914eb",
+      "risk_mean": 0.5091501417870256,
+      "risk_std": 0.2842321770536195,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 17,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.97140625,
+      "risk_hash_prefix": "84329ce5d17277a1",
+      "risk_mean": 8.84690962266177e-05,
+      "risk_std": 1.6463367273900076e-06,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 17,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.7890625,
+      "risk_hash_prefix": "9d1dcd18871665f8",
+      "risk_mean": 0.3134852647781372,
+      "risk_std": 0.0008208210929296911,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 17,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.13859375,
+      "risk_hash_prefix": "6c073efef0fe4663",
+      "risk_mean": 1.9518921375274658,
+      "risk_std": 0.0034619399812072515,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 17,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.46234375,
+      "risk_hash_prefix": "9e689dc6dd81fdd9",
+      "risk_mean": 0.5090779149687872,
+      "risk_std": 0.29887471756914513,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 17,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.9502,
+      "risk_hash_prefix": "47c101bd90e437a4",
+      "risk_mean": 0.00010127542191185057,
+      "risk_std": 1.8570048041510745e-06,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 17,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.7257,
+      "risk_hash_prefix": "762d72bd12d1fafe",
+      "risk_mean": 0.3265586197376251,
+      "risk_std": 0.0009495601407252252,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 17,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.2172,
+      "risk_hash_prefix": "827b5a4a453628fb",
+      "risk_mean": 1.9393789768218994,
+      "risk_std": 0.004105108790099621,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 17,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.5777,
+      "risk_hash_prefix": "28617498b988b031",
+      "risk_mean": 0.4713806296628951,
+      "risk_std": 0.2762110606106998,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 23,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.96296875,
+      "risk_hash_prefix": "589cc71cbfc85bb0",
+      "risk_mean": 8.802834781818092e-05,
+      "risk_std": 1.3870346720068483e-06,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 23,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.70921875,
+      "risk_hash_prefix": "f84c3e8a2314bb04",
+      "risk_mean": 0.31342461705207825,
+      "risk_std": 0.0008508205646649003,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 23,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.20125,
+      "risk_hash_prefix": "d0352371b53410d8",
+      "risk_mean": 1.951990008354187,
+      "risk_std": 0.0033617564477026463,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 23,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.41,
+      "risk_hash_prefix": "553ebc11d3415afd",
+      "risk_mean": 0.5128012774478691,
+      "risk_std": 0.29879558703016873,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 23,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.8961,
+      "risk_hash_prefix": "cc2d28f98a6f3a61",
+      "risk_mean": 0.00010056311293737963,
+      "risk_std": 1.4936371144358418e-06,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 23,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.6362,
+      "risk_hash_prefix": "0d24fc6debb16f9a",
+      "risk_mean": 0.32658272981643677,
+      "risk_std": 0.0007857608143240213,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 23,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.29,
+      "risk_hash_prefix": "18f24f6535c011c2",
+      "risk_mean": 1.939119815826416,
+      "risk_std": 0.0034745216835290194,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 23,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.5915,
+      "risk_hash_prefix": "a9fc288cfd1ae984",
+      "risk_mean": 0.5044949577143332,
+      "risk_std": 0.2815851621603636,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 29,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.97234375,
+      "risk_hash_prefix": "364bcd9e926a36a5",
+      "risk_mean": 9.169613622361794e-05,
+      "risk_std": 1.7466163626522757e-06,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 29,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.7096875,
+      "risk_hash_prefix": "ddfd252f30bc7e80",
+      "risk_mean": 0.3133436441421509,
+      "risk_std": 0.000953671638853848,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 29,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.22375,
+      "risk_hash_prefix": "609b3a98627a2533",
+      "risk_mean": 1.9524683952331543,
+      "risk_std": 0.0039047931786626577,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 29,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.4734375,
+      "risk_hash_prefix": "e1763c654d810b19",
+      "risk_mean": 0.4866737157084693,
+      "risk_std": 0.2753138529967177,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 29,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.9175,
+      "risk_hash_prefix": "603cacb6c57bbdb6",
+      "risk_mean": 0.00010067059338325635,
+      "risk_std": 1.7269553609366994e-06,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 29,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.6924,
+      "risk_hash_prefix": "d57f88a8aef66d6d",
+      "risk_mean": 0.3265397548675537,
+      "risk_std": 0.0008944487199187279,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 29,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.2462,
+      "risk_hash_prefix": "83290cae6ae8b479",
+      "risk_mean": 1.9393380880355835,
+      "risk_std": 0.003961250185966492,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 29,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.4959,
+      "risk_hash_prefix": "dfafc45536f4a769",
+      "risk_mean": 0.49417911227975336,
+      "risk_std": 0.27583954108524755,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 37,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.9715625,
+      "risk_hash_prefix": "111d6268742dc5f8",
+      "risk_mean": 9.323383710579947e-05,
+      "risk_std": 1.4506490515486803e-06,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 37,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.69203125,
+      "risk_hash_prefix": "f5a5bfcddd574df1",
+      "risk_mean": 0.313567191362381,
+      "risk_std": 0.0009085111087188125,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 37,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.22296875,
+      "risk_hash_prefix": "2fe994a62b43ad2f",
+      "risk_mean": 1.9517861604690552,
+      "risk_std": 0.0037718284875154495,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 37,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "auc": 0.42109375,
+      "risk_hash_prefix": "6ad3c904e30fb99a",
+      "risk_mean": 0.5052113747825548,
+      "risk_std": 0.2813955862029148,
+      "contamination_rate": 0.2,
+      "n_kb": 3600,
+      "n_false": 120
+    },
+    {
+      "arm": "ARM_RECONSTRUCTION_ERR",
+      "seed": 37,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.9401,
+      "risk_hash_prefix": "4fdc2d22b339829c",
+      "risk_mean": 0.00010214327630819753,
+      "risk_std": 1.6002795746317133e-06,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_DELTA_E",
+      "seed": 37,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.7339,
+      "risk_hash_prefix": "e0013418f15cc271",
+      "risk_mean": 0.3266335427761078,
+      "risk_std": 0.0009099771268665791,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_SIGMA_J",
+      "seed": 37,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.2052,
+      "risk_hash_prefix": "b1f18cab0138e855",
+      "risk_mean": 1.9389865398406982,
+      "risk_std": 0.003997599706053734,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    },
+    {
+      "arm": "ARM_ABLATED_RANDOM",
+      "seed": 37,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "auc": 0.4954,
+      "risk_hash_prefix": "cc7ae7cccc8520de",
+      "risk_mean": 0.4766668077494189,
+      "risk_std": 0.2891308428943098,
+      "contamination_rate": 0.5,
+      "n_kb": 3600,
+      "n_false": 300
+    }
+  ],
+  "per_unit_records": [
+    {
+      "seed": 11,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "n_kb": 3600,
+      "n_false": 120,
+      "contamination_rate": 0.2
+    },
+    {
+      "seed": 11,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "n_kb": 3600,
+      "n_false": 300,
+      "contamination_rate": 0.5
+    },
+    {
+      "seed": 17,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "n_kb": 3600,
+      "n_false": 120,
+      "contamination_rate": 0.2
+    },
+    {
+      "seed": 17,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "n_kb": 3600,
+      "n_false": 300,
+      "contamination_rate": 0.5
+    },
+    {
+      "seed": 23,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "n_kb": 3600,
+      "n_false": 120,
+      "contamination_rate": 0.2
+    },
+    {
+      "seed": 23,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "n_kb": 3600,
+      "n_false": 300,
+      "contamination_rate": 0.5
+    },
+    {
+      "seed": 29,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "n_kb": 3600,
+      "n_false": 120,
+      "contamination_rate": 0.2
+    },
+    {
+      "seed": 29,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "n_kb": 3600,
+      "n_false": 300,
+      "contamination_rate": 0.5
+    },
+    {
+      "seed": 37,
+      "regime": "REGIME_LOW",
+      "p_target": 0.2,
+      "n_kb": 3600,
+      "n_false": 120,
+      "contamination_rate": 0.2
+    },
+    {
+      "seed": 37,
+      "regime": "REGIME_HIGH",
+      "p_target": 0.5,
+      "n_kb": 3600,
+      "n_false": 300,
+      "contamination_rate": 0.5
+    }
+  ],
+  "failed_units": [],
+  "elapsed_s": 7.655687570571899,
+  "cardinality_ok": true,
+  "expected_n_units": 40,
+  "observed_n_units": 40,
+  "arms_differ_verified": true,
+  "v1_baseline_combined_2_auc": 0.571,
+  "v2_baseline_rec_err_mean_auc_3seed": null
+}

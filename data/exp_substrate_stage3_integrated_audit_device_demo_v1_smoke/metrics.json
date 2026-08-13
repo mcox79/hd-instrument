@@ -1,0 +1,205 @@
+{
+  "anchor_name": "substrate_stage3_integrated_audit_device_demo_v1",
+  "verdict": "HARD_PASS_INTEGRATED_AUDIT_DEVICE",
+  "verdict_msg": "HARD_PASS_INTEGRATED_AUDIT_DEVICE: pipeline meets ALL category targets (in_ans=1.000 in_conf=0.900 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.22ms cv=0.000) + per-primitive sanity preserved | PIPELINE[in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.22ms] AUDIT_ONLY[in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.16ms] NO_REFUSE[in_ans=1.000 out_ref=0.000 near_ref=0.000 uncert_corr=0.040 p95=0.14ms] | SANITY[audit_rel_near=1.000 intent_in_acc=1.000 kv_recall=1.000 health_fr=0.000]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "stage3IntegratedAuditDevice-v1: N=2048 V_C_IN=120 V_C_OUT=120 V_rel_in=8 V_rel_out=8 M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke HP_in_answer>=0.85 HP_in_conf>=0.70 HP_out_refuse>=0.85 HP_near_refuse>=0.85 HP_uncertain_lc_or_ref>=0.70 HP_latency_p95<=5.0ms HP_cv<=0.07 sanity_audit_rel>=0.70 sanity_intent_acc>=0.70 sanity_health_fr<=0.10 sanity_kv_recall>=0.75 subj_thr=0.40 rel_thr=0.40 intent_thr=0.03 health_thr=0.30 csp_lc_iters=5",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 120,
+      "V_C_OUT": 120,
+      "M_KV": 2000,
+      "n_queries_per_cat": {
+        "PURE_IN_DOMAIN": 25,
+        "PURE_OUT_OF_DOMAIN": 25,
+        "NEAR_DOMAIN_MIXED": 25,
+        "IN_DOMAIN_UNCERTAIN": 25
+      },
+      "config_version": "stage3IntegratedAuditDevice-v1: N=2048 V_C_IN=120 V_C_OUT=120 V_rel_in=8 V_rel_out=8 M_KV=2000 d_kv=768 C_kv=256 sigma_kv=0.10 n_q_in=25 n_q_out=25 n_q_near=25 n_q_uncertain=25 seeds=[11] mode=smoke HP_in_answer>=0.85 HP_in_conf>=0.70 HP_out_refuse>=0.85 HP_near_refuse>=0.85 HP_uncertain_lc_or_ref>=0.70 HP_latency_p95<=5.0ms HP_cv<=0.07 sanity_audit_rel>=0.70 sanity_intent_acc>=0.70 sanity_health_fr<=0.10 sanity_kv_recall>=0.75 subj_thr=0.40 rel_thr=0.40 intent_thr=0.03 health_thr=0.30 csp_lc_iters=5",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_individual_primitives_parallel": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "n_total": 25,
+            "per_primitive": {
+              "audit_rel_refuse_rate": 0.0,
+              "intent_in_acc": 1.0,
+              "kv_recall": 1.0,
+              "graph_health_false_refuse": 0.0
+            },
+            "latency_p50_ms": 0.14,
+            "latency_p95_ms": 0.207
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "n_total": 25,
+            "per_primitive": {
+              "audit_rel_refuse_rate": 1.0,
+              "intent_in_acc": 0.0,
+              "kv_recall": 0.0,
+              "graph_health_false_refuse": 0.0
+            },
+            "latency_p50_ms": 0.018,
+            "latency_p95_ms": 0.028
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "n_total": 25,
+            "per_primitive": {
+              "audit_rel_refuse_rate": 1.0,
+              "intent_in_acc": 0.0,
+              "kv_recall": 1.0,
+              "graph_health_false_refuse": 0.0
+            },
+            "latency_p50_ms": 0.139,
+            "latency_p95_ms": 0.158
+          },
+          "IN_DOMAIN_UNCERTAIN": {
+            "n_total": 25,
+            "per_primitive": {
+              "audit_rel_refuse_rate": 1.0,
+              "intent_in_acc": 1.0,
+              "kv_recall": 1.0,
+              "graph_health_false_refuse": 0.0
+            },
+            "latency_p50_ms": 0.137,
+            "latency_p95_ms": 0.167
+          }
+        },
+        "elapsed_s_arm": 0.02
+      },
+      "arm_pipeline_composed": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.9,
+            "latency_p50_ms": 0.155,
+            "latency_p95_ms": 0.224,
+            "n_total": 25
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.003,
+            "latency_p95_ms": 0.02,
+            "n_total": 25
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.003,
+            "latency_p95_ms": 0.017,
+            "n_total": 25
+          },
+          "IN_DOMAIN_UNCERTAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.016,
+            "latency_p95_ms": 0.016,
+            "n_total": 25
+          }
+        },
+        "elapsed_s_arm": 0.01
+      },
+      "arm_audit_only_rail": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.9935,
+            "latency_p50_ms": 0.145,
+            "latency_p95_ms": 0.157,
+            "n_total": 25
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.013,
+            "latency_p95_ms": 0.017,
+            "n_total": 25
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.013,
+            "latency_p95_ms": 0.014,
+            "n_total": 25
+          },
+          "IN_DOMAIN_UNCERTAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.0,
+            "latency_p50_ms": 0.014,
+            "latency_p95_ms": 0.022,
+            "n_total": 25
+          }
+        },
+        "elapsed_s_arm": 0.01
+      },
+      "arm_no_refuse_rail": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 1.0,
+            "avg_confidence": 0.991,
+            "latency_p50_ms": 0.13,
+            "latency_p95_ms": 0.142,
+            "n_total": 25
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 0.0,
+            "avg_confidence": 0.9918,
+            "latency_p50_ms": 0.126,
+            "latency_p95_ms": 0.135,
+            "n_total": 25
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 0.0,
+            "avg_confidence": 0.9639,
+            "latency_p50_ms": 0.129,
+            "latency_p95_ms": 0.144,
+            "n_total": 25
+          },
+          "IN_DOMAIN_UNCERTAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "correct_rate": 0.04,
+            "avg_confidence": 0.9664,
+            "latency_p50_ms": 0.129,
+            "latency_p95_ms": 0.145,
+            "n_total": 25
+          }
+        },
+        "elapsed_s_arm": 0.01
+      },
+      "elapsed_s": 0.1,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782421365.435123
+    }
+  ],
+  "elapsed_s": 0.1,
+  "summary": "HARD_PASS_INTEGRATED_AUDIT_DEVICE: pipeline meets ALL category targets (in_ans=1.000 in_conf=0.900 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.22ms cv=0.000) + per-primitive sanity preserved | PIPELINE[in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.22ms] AUDIT_ONLY[in_ans=1.000 out_ref=1.000 near_ref=1.000 uncert_corr=1.000 p95=0.16ms] NO_REFUSE[in_ans=1.000 out_ref=0.000 near_ref=0.000 uncert_corr=0.040 p95=0.14ms] | SANITY[audit_rel_near=1.000 intent_in_acc=1.000 kv_recall=1.000 health_fr=0.000]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Stage 3 integrated audit-device demo composing all chain-grade primitives. Per USER directive 2026-06-25: show all required aspects chain-grade then test composed. Pre-reg per preregs/2026-06-25_substrate_stage3_integrated_audit_device_demo_v1.md."
+}

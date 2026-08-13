@@ -1,0 +1,960 @@
+{
+  "verdict": "CORRECTION_NO_EFFECT",
+  "verdict_msg": "[CORRECTION_NO_EFFECT] VerbNet affectedness lexicon correction (6 vetted verbs: burn,fix,open,shut,upset,write) | INDEPENDENT gold who-affected binary, ORIGINAL -> CORRECTED: UD-primary(N=13)=0.7692->0.7692(d=0.0) McGv1(N=12)=0.9167->0.9167 McGv2(N=12)=0.9167->0.9167 POOLED(N=37)=0.8649->0.8649(d=0.0) | fixes=0 regressions=0 no_regression=True | scoreboard UD-primary budget closed=0.0 (0/3 orig-wrong) | only_intended_verbs=True arms_differ=False ud_in_band=True | HONEST: correcting known-wrong entries improving them is partly EXPECTED; the tested claim is uniform-rule-fixes-a-class-without-regression + error-budget-closed.",
+  "summary": "CORRECTION_NO_EFFECT",
+  "elapsed_s": 3.95,
+  "run_mode": "smoke",
+  "anchor_name": "verbnet_affectedness_lexicon_correction_v1",
+  "ts_iso": "2026-07-21T22:02:08.178347+00:00",
+  "is_probe_flag": true,
+  "note": "Vetted ASSIGNMENT-correction of 6 systematically under-graded change-of-state/effected verbs (fix/burn/write seeds from scoreboard atom 29417; open/shut/upset from bounded gold-occurring candidate-pool audit) in the VerbNet affectedness lexicon; measured on 3 INDEPENDENT golds. WordNet DOMINANT-sense used as an independent cross-check (NOT the VerbNet grade we grade by). leave DELIBERATELY EXCLUDED (dominant sense = departure/motion; would regress 5 none). Corrected copy is SEPARATE; production lexicon unmutated. LOCAL-only; no push/remote-persist; no atom bank (skunkworks VETs after land).",
+  "correction_set": [
+    {
+      "lemma": "fix",
+      "old_type": "other",
+      "old_graded": 0.1,
+      "new_type": "change_of_state",
+      "new_graded": 0.9,
+      "wordnet_vet": "repair.v.01 [COS, TOP synset]: restore by replacing a part / putting together"
+    },
+    {
+      "lemma": "burn",
+      "old_type": "motion",
+      "old_graded": 0.275,
+      "new_type": "change_of_state",
+      "new_graded": 0.9,
+      "wordnet_vet": "burn.v.01 'destroy by fire' (TOP); burn.v.03 [COS] 'undergo combustion'"
+    },
+    {
+      "lemma": "write",
+      "old_type": "cognition",
+      "old_graded": 0.1,
+      "new_type": "effected",
+      "new_graded": 0.7,
+      "wordnet_vet": "write.v.01 [CREATE, TOP synset]: produce a literary work"
+    },
+    {
+      "lemma": "open",
+      "old_type": "other",
+      "old_graded": 0.175,
+      "new_type": "change_of_state",
+      "new_graded": 0.9,
+      "wordnet_vet": "open.v.01 'cause to open / become open' (TOP); open.v.03 [COS] 'become open'"
+    },
+    {
+      "lemma": "shut",
+      "old_type": "other",
+      "old_graded": 0.2,
+      "new_type": "change_of_state",
+      "new_graded": 0.9,
+      "wordnet_vet": "close.v.02 [COS]: become closed (shut -> close synset)"
+    },
+    {
+      "lemma": "upset",
+      "old_type": "other",
+      "old_graded": 0.2,
+      "new_type": "change_of_state",
+      "new_graded": 0.9,
+      "wordnet_vet": "upset.v.01 [COS, TOP synset]: disturb the balance or stability of"
+    }
+  ],
+  "excluded_verbs": {
+    "leave": "TOP synset leave.v.01 = 'go away from a place' (MOTION/departure); gold {none:5,patient:1} -> blindly raising it FIXES 1 but BREAKS 5. WordNet dominant sense supports EXCLUSION."
+  },
+  "corrected_lexicon_copy": "D:\\AI\\hd-instrument\\data\\verbnet_affectedness_lexicon_v1_corrected\\lexicon.json",
+  "only_intended_verbs_changed": true,
+  "changed_lemmas": [
+    "burn",
+    "fix",
+    "open",
+    "shut",
+    "upset",
+    "write"
+  ],
+  "original": {
+    "ud_primary_acc": 0.7692,
+    "ud_primary_n": 13,
+    "ud_primary_correct": 10,
+    "ud_all_acc": 0.7857,
+    "ud_all_n": 14,
+    "mcg1_acc": 0.9167,
+    "mcg1_n": 12,
+    "mcg1_correct": 11,
+    "mcg2_acc": 0.9167,
+    "mcg2_n": 12,
+    "mcg2_correct": 11,
+    "pooled_acc": 0.8649,
+    "pooled_n": 37,
+    "pooled_correct": 32
+  },
+  "corrected": {
+    "ud_primary_acc": 0.7692,
+    "ud_primary_n": 13,
+    "ud_primary_correct": 10,
+    "ud_all_acc": 0.7857,
+    "ud_all_n": 14,
+    "mcg1_acc": 0.9167,
+    "mcg1_n": 12,
+    "mcg1_correct": 11,
+    "mcg2_acc": 0.9167,
+    "mcg2_n": 12,
+    "mcg2_correct": 11,
+    "pooled_acc": 0.8649,
+    "pooled_n": 37,
+    "pooled_correct": 32
+  },
+  "deltas": {
+    "ud_primary": 0.0,
+    "pooled": 0.0
+  },
+  "flips": {
+    "ud": {
+      "fixes": [],
+      "regressions": [],
+      "n_fixes": 0,
+      "n_regressions": 0
+    },
+    "mcg1": {
+      "fixes": [],
+      "regressions": [],
+      "n_fixes": 0,
+      "n_regressions": 0
+    },
+    "mcg2": {
+      "fixes": [],
+      "regressions": [],
+      "n_fixes": 0,
+      "n_regressions": 0
+    }
+  },
+  "total_fixes": 0,
+  "total_regressions": 0,
+  "no_regression": true,
+  "scoreboard_error_budget": {
+    "ud_primary_wrong_under_original": 3,
+    "ud_primary_fixed_by_correction": 0,
+    "fraction_closed": 0.0,
+    "fixed_ids": [],
+    "note": "fraction of the ORIGINAL UD-primary base_gate errors closed by the lexicon correction; residual errors are parse/POS misses (pred_none) or over-fires on target_not_affected verbs -- NOT lexicon under-grading, so out of scope here."
+  },
+  "arms_differ_verified": false,
+  "decision_digests": {
+    "original": "c650882f25c950031e71ce5d680f2f2f662fa4442b8a5948528ee69c95227caf",
+    "corrected": "c650882f25c950031e71ce5d680f2f2f662fa4442b8a5948528ee69c95227caf"
+  },
+  "per_instance": {
+    "ud_original": [
+      {
+        "id": "u01",
+        "verb": "watched",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "hostage",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u02",
+        "verb": "enjoyed",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "animations",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u03",
+        "verb": "noticed",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "lot",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u04",
+        "verb": "wants",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "power",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u05",
+        "verb": "see",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "you",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u06",
+        "verb": "seen",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "materials",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u07",
+        "verb": "knew",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "case",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u08",
+        "verb": "checked",
+        "type": "target_not_affected",
+        "ambiguous": true,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "service",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u09",
+        "verb": "met",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": true,
+        "pred_surf": null,
+        "base_force_none": false,
+        "correct": true
+      },
+      {
+        "id": "u10",
+        "verb": "met",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "conference",
+        "base_force_none": false,
+        "correct": false
+      },
+      {
+        "id": "u11",
+        "verb": "called",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "message",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u12",
+        "verb": "reach",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "me",
+        "base_force_none": false,
+        "correct": false
+      },
+      {
+        "id": "u13",
+        "verb": "called",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "them",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u14",
+        "verb": "reach",
+        "type": "none",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "moon",
+        "base_force_none": false,
+        "correct": false
+      }
+    ],
+    "ud_corrected": [
+      {
+        "id": "u01",
+        "verb": "watched",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "hostage",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u02",
+        "verb": "enjoyed",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "animations",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u03",
+        "verb": "noticed",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "lot",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u04",
+        "verb": "wants",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "power",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u05",
+        "verb": "see",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "you",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u06",
+        "verb": "seen",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "materials",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u07",
+        "verb": "knew",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "case",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u08",
+        "verb": "checked",
+        "type": "target_not_affected",
+        "ambiguous": true,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "service",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u09",
+        "verb": "met",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": true,
+        "pred_surf": null,
+        "base_force_none": false,
+        "correct": true
+      },
+      {
+        "id": "u10",
+        "verb": "met",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "conference",
+        "base_force_none": false,
+        "correct": false
+      },
+      {
+        "id": "u11",
+        "verb": "called",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "message",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u12",
+        "verb": "reach",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "me",
+        "base_force_none": false,
+        "correct": false
+      },
+      {
+        "id": "u13",
+        "verb": "called",
+        "type": "target_not_affected",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "them",
+        "base_force_none": true,
+        "correct": true
+      },
+      {
+        "id": "u14",
+        "verb": "reach",
+        "type": "none",
+        "ambiguous": false,
+        "gold_yes": false,
+        "pred_none": false,
+        "pred_surf": "moon",
+        "base_force_none": false,
+        "correct": false
+      }
+    ],
+    "mcg1_original": [
+      {
+        "id": "m01",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m02",
+        "verb": "has",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "pen",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m03",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m04",
+        "verb": "ran",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m05",
+        "verb": "run",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m06",
+        "verb": "catch",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m07",
+        "verb": "catch",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m08",
+        "verb": "pat",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": false
+      },
+      {
+        "id": "m09",
+        "verb": "fed",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "hen",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m10",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m11",
+        "verb": "left",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "nest",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m12",
+        "verb": "see",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "eggs",
+        "comb_none": true,
+        "correct": true
+      }
+    ],
+    "mcg1_corrected": [
+      {
+        "id": "m01",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m02",
+        "verb": "has",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "pen",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m03",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m04",
+        "verb": "ran",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m05",
+        "verb": "run",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m06",
+        "verb": "catch",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m07",
+        "verb": "catch",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m08",
+        "verb": "pat",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "rab",
+        "comb_none": false,
+        "correct": false
+      },
+      {
+        "id": "m09",
+        "verb": "fed",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "hen",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "m10",
+        "verb": "is",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m11",
+        "verb": "left",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "nest",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "m12",
+        "verb": "see",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "eggs",
+        "comb_none": true,
+        "correct": true
+      }
+    ],
+    "mcg2_original": [
+      {
+        "id": "h01",
+        "verb": "fed",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "hen",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h02",
+        "verb": "swim",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h03",
+        "verb": "run",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h04",
+        "verb": "see",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "duck",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h05",
+        "verb": "touch",
+        "type": "negated",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "nest",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h06",
+        "verb": "look at",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h07",
+        "verb": "has",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "hat",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h08",
+        "verb": "left",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "top",
+        "comb_none": true,
+        "correct": false
+      },
+      {
+        "id": "h09",
+        "verb": "put",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "pet",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h10",
+        "verb": "sing",
+        "type": "effected",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "song",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h11",
+        "verb": "are",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h12",
+        "verb": "swim",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      }
+    ],
+    "mcg2_corrected": [
+      {
+        "id": "h01",
+        "verb": "fed",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "hen",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h02",
+        "verb": "swim",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h03",
+        "verb": "run",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h04",
+        "verb": "see",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "duck",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h05",
+        "verb": "touch",
+        "type": "negated",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "nest",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h06",
+        "verb": "look at",
+        "type": "target_not_affected",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h07",
+        "verb": "has",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": false,
+        "pred_surf": "hat",
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h08",
+        "verb": "left",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "top",
+        "comb_none": true,
+        "correct": false
+      },
+      {
+        "id": "h09",
+        "verb": "put",
+        "type": "patient",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "pet",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h10",
+        "verb": "sing",
+        "type": "effected",
+        "gold_none": false,
+        "pred_none": false,
+        "pred_surf": "song",
+        "comb_none": false,
+        "correct": true
+      },
+      {
+        "id": "h11",
+        "verb": "are",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      },
+      {
+        "id": "h12",
+        "verb": "swim",
+        "type": "none",
+        "gold_none": true,
+        "pred_none": true,
+        "pred_surf": null,
+        "comb_none": true,
+        "correct": true
+      }
+    ]
+  },
+  "design_gate": {
+    "real_baseline": "ORIGINAL lexicon gate; UD-primary reproduces scoreboard sb.score_row base_gate 0.7692 as a positive control (Gate-D reproducer)",
+    "one_variable": "the lexicon (ORIGINAL vs CORRECTED); front-end/reader/gold all fixed",
+    "can_fail": "corrected<=original+1e-9 (no lift) OR net regression (regressions>=fixes) OR corrected differs on any UNINTENDED verb/field",
+    "difficulty_on": "INDEPENDENT UD semantic gold (0.769, not saturated) + McGuffey v1 + v2",
+    "hard_pass_band": "UD-primary corrected >= 0.83 AND pooled lift>0 AND zero net regressions AND only-intended-verbs-changed",
+    "honest_frame": "correcting KNOWN-wrong entries and improving THOSE cases is partly EXPECTED; measured value = uniform vetted rule fixes a CLASS without regression + how much scoreboard error budget it closes. Corrections generalize only BY LOOKUP, never by learning (meaning=assignment).",
+    "final_metrics_atomicity": "tmp_replace",
+    "crlb_n/a": "accuracy on labeled gold; no capacity/argmax noise floor",
+    "calibration_check": "default_ok_for_this_regime (0.35 threshold = builder spot-check 94.4%)",
+    "baseline_in_band": true
+  },
+  "credit": "VerbNet (Kipper-Schuler 2005); Levin 1993; Dowty 1991 proto-patient; Beavers 2011; WordNet (Fellbaum 1998) as independent dominant-sense cross-check; scoreboard atom 29417; v1/v2 hand-lexicon + held-out gate cells."
+}

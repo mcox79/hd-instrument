@@ -1,0 +1,438 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | ARM_GRAPH_REPULSION Z=497.90 (min=453.21) lift_over_lexical_floor=348.93 off_margin_vs_control=0.9876 prim_dim_collapsed=False | control Z=21.42 offcos=0.9914 ablation_collapses=True | floor(random-init) Z=148.97 lexical_leak_diag=True | secondary(SimGRACE) Z=149.34 | subgraph n=10577 E=34659 med_deg=3.0 | BGE_ref=True",
+  "summary": "HARD_PASS | ARM_GRAPH_REPULSION Z=497.90 (min=453.21) lift_over_lexical_floor=348.93 off_margin_vs_control=0.9876 prim_dim_collapsed=False | control Z=21.42 offcos=0.9914 ablation_collapses=True | flo",
+  "run_mode": "full",
+  "elapsed_s": 290.3774728999706,
+  "anchor_name": "teacher_free_relational_encoder_cn_subgraph_v1",
+  "ts_iso": "2026-07-08T15:34:29.337835+00:00",
+  "n_seeds": 5,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    29
+  ],
+  "config": {
+    "n_nodes": 12000,
+    "seeds": [
+      7,
+      13,
+      17,
+      23,
+      29
+    ],
+    "epochs": 100,
+    "batch": 512,
+    "k_rewire": 150,
+    "code_dim": 256,
+    "feat_dim": 8192,
+    "temp": 0.1,
+    "lr": 0.008,
+    "lambda_cov": 1.0,
+    "lambda_var": 1.0,
+    "simgrace_sigma": 0.05,
+    "n_offtarget_pairs": 150000
+  },
+  "subgraph_meta": {
+    "n_lines": 189654,
+    "n_cn_edges": 178979,
+    "n_nodes": 10577,
+    "n_edges": 34659,
+    "median_degree": 3.0,
+    "mean_degree": 6.553654155242508,
+    "frac_deg_ge_2": 1.0
+  },
+  "gates": {
+    "primary_band": "HARD_PASS",
+    "hard_pass_z": 2.0,
+    "hard_fail_z": 1.0,
+    "offtarget_margin_hp": 0.03,
+    "z_primary_mean": 497.8965653904532,
+    "z_primary_min": 453.2072089257192,
+    "floor_random_init_z": 148.96554797975216,
+    "lift_over_lexical_floor": 348.93101741070103,
+    "off_target_margin_vs_control": 0.9876146622541042,
+    "primary_dim_collapsed": false,
+    "ablation_collapses": true,
+    "mechanism_fires_above_floor": true,
+    "lexical_leak_warning_diagnostic": true,
+    "secondary_z_mean": 149.33918474544242
+  },
+  "arms_aggregate": {
+    "ARM_GRAPH_REPULSION": {
+      "modularity_z_mean": 497.8965653904532,
+      "modularity_z_std": 36.46826377565362,
+      "modularity_z_min": 453.2072089257192,
+      "modularity_z_max": 552.8290956775994,
+      "off_target_cosine_mean": 0.0038152252151081338,
+      "collapsed_any": false,
+      "collapsed_all": false,
+      "n_seeds": 5
+    },
+    "ARM_NO_REPULSION": {
+      "modularity_z_mean": 21.419494037094164,
+      "modularity_z_std": 4.540802857342425,
+      "modularity_z_min": 17.253115036143914,
+      "modularity_z_max": 29.49775034719817,
+      "off_target_cosine_mean": 0.9914298874692123,
+      "collapsed_any": false,
+      "collapsed_all": false,
+      "n_seeds": 5
+    },
+    "ARM_SIMGRACE_REPULSION": {
+      "modularity_z_mean": 149.33918474544242,
+      "modularity_z_std": 8.267723606883118,
+      "modularity_z_min": 139.36497751002378,
+      "modularity_z_max": 163.13759084352395,
+      "off_target_cosine_mean": -3.7484411902104814e-05,
+      "collapsed_any": false,
+      "collapsed_all": false,
+      "n_seeds": 5
+    },
+    "ARM_RANDOM_INIT": {
+      "modularity_z_mean": 148.96554797975216,
+      "modularity_z_std": 9.319576128886972,
+      "modularity_z_min": 138.6191239176951,
+      "modularity_z_max": 163.26345163203547,
+      "off_target_cosine_mean": 0.009756314631473582,
+      "collapsed_any": false,
+      "collapsed_all": false,
+      "n_seeds": 5
+    },
+    "ARM_BGE_REFERENCE": {
+      "modularity_z_mean": 342.0120005501966,
+      "modularity_z_std": 27.43056525122163,
+      "modularity_z_min": 296.662644362429,
+      "modularity_z_max": 375.8964541822018,
+      "off_target_cosine_mean": 0.4762575185881456,
+      "collapsed_any": false,
+      "collapsed_all": false,
+      "n_seeds": 5
+    }
+  },
+  "bge_reference_present": true,
+  "discriminator_selftest": {
+    "z_struct": 130.7750131359597,
+    "z_rand": -0.5071685378332424,
+    "z_pert": 20.67278609045823,
+    "frac_top_collapse": 0.9989625607526272,
+    "frac_top_struct": 0.07656940880972639,
+    "collapse_detected": true,
+    "struct_not_collapsed": true
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "ARM_GRAPH_REPULSION": {
+        "modularity_z": 552.8290956775994,
+        "m_true": 0.266287624835968,
+        "null_mean": 0.008847265768175324,
+        "null_std": 0.00046567802071316363,
+        "off_target_cosine": 0.004012119093164802,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014192546685120102,
+        "effective_rank": 254.52985233219175,
+        "min_dim_std": 0.05625351518392563,
+        "collapsed": false,
+        "train_s": 11.11733069998445
+      },
+      "ARM_NO_REPULSION": {
+        "modularity_z": 23.22792255283732,
+        "m_true": 0.9944292306900024,
+        "null_mean": 0.9933745423952739,
+        "null_std": 4.540605352585497e-05,
+        "off_target_cosine": 0.9915482696497441,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014179725033296429,
+        "effective_rank": 253.63021484329164,
+        "min_dim_std": 0.004880344960838556,
+        "collapsed": false,
+        "train_s": 10.628316799993627
+      },
+      "ARM_SIMGRACE_REPULSION": {
+        "modularity_z": 139.36497751002378,
+        "m_true": 0.06833335012197495,
+        "null_mean": 0.00029777177413810324,
+        "null_std": 0.00048818275267861614,
+        "off_target_cosine": 0.00019539037398217868,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.023382132039690598,
+        "effective_rank": 206.370377320282,
+        "min_dim_std": 0.040377359837293625,
+        "collapsed": false,
+        "train_s": 13.826740599994082
+      },
+      "ARM_RANDOM_INIT": {
+        "modularity_z": 141.212555616477,
+        "m_true": 0.07179544866085052,
+        "null_mean": 0.009823672485848268,
+        "null_std": 0.00043885457567465234,
+        "off_target_cosine": 0.009711939964072469,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013235331182280997,
+        "effective_rank": 255.41652871821995,
+        "min_dim_std": 0.05809423699975014,
+        "collapsed": false,
+        "train_s": 6.271491799969226
+      },
+      "ARM_BGE_REFERENCE": {
+        "modularity_z": 337.17334530007014,
+        "off_target_cosine": 0.47596739916463693,
+        "frac_var_top_1pct": 0.022486303913123912,
+        "effective_rank": 350.3212794349225,
+        "collapsed": false,
+        "non_gating": true
+      }
+    },
+    {
+      "ARM_GRAPH_REPULSION": {
+        "modularity_z": 462.1542937539894,
+        "m_true": 0.2675641179084778,
+        "null_mean": 0.010118543350448211,
+        "null_std": 0.0005570554640244695,
+        "off_target_cosine": 0.004290702620502561,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014033280432633565,
+        "effective_rank": 254.46417114155696,
+        "min_dim_std": 0.05624733492732048,
+        "collapsed": false,
+        "train_s": 10.661059500009287
+      },
+      "ARM_NO_REPULSION": {
+        "modularity_z": 17.253115036143914,
+        "m_true": 0.9943823218345642,
+        "null_mean": 0.9933464908599854,
+        "null_std": 6.003733078976392e-05,
+        "off_target_cosine": 0.9916858249901732,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.01398093334165231,
+        "effective_rank": 253.8810192368994,
+        "min_dim_std": 0.004677786026149988,
+        "collapsed": false,
+        "train_s": 10.617085999983829
+      },
+      "ARM_SIMGRACE_REPULSION": {
+        "modularity_z": 148.15144591344745,
+        "m_true": 0.06933106482028961,
+        "null_mean": 0.00037663971752105376,
+        "null_std": 0.00046543200896637137,
+        "off_target_cosine": -0.0002861997792093704,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.022658644523792654,
+        "effective_rank": 209.82588769543895,
+        "min_dim_std": 0.041374221444129944,
+        "collapsed": false,
+        "train_s": 12.97348260000581
+      },
+      "ARM_RANDOM_INIT": {
+        "modularity_z": 163.26345163203547,
+        "m_true": 0.07287856191396713,
+        "null_mean": 0.010737179989616076,
+        "null_std": 0.00038062028765878245,
+        "off_target_cosine": 0.010085522950128652,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013244362759671823,
+        "effective_rank": 255.45083579595294,
+        "min_dim_std": 0.05888880416750908,
+        "collapsed": false,
+        "train_s": 6.701108200009912
+      },
+      "ARM_BGE_REFERENCE": {
+        "modularity_z": 336.0014409769475,
+        "off_target_cosine": 0.47628339640696843,
+        "frac_var_top_1pct": 0.022486303913123912,
+        "effective_rank": 350.3212794349225,
+        "collapsed": false,
+        "non_gating": true
+      }
+    },
+    {
+      "ARM_GRAPH_REPULSION": {
+        "modularity_z": 514.6671758906972,
+        "m_true": 0.2664918005466461,
+        "null_mean": 0.009213933730497956,
+        "null_std": 0.0004998917336643745,
+        "off_target_cosine": 0.003702322595139655,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013922707333260264,
+        "effective_rank": 254.60231606408908,
+        "min_dim_std": 0.05690264701843262,
+        "collapsed": false,
+        "train_s": 10.739155999966897
+      },
+      "ARM_NO_REPULSION": {
+        "modularity_z": 29.49775034719817,
+        "m_true": 0.9944977164268494,
+        "null_mean": 0.9935180175304413,
+        "null_std": 3.321266486008783e-05,
+        "off_target_cosine": 0.9918367132536571,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014280803518685192,
+        "effective_rank": 253.98374583909825,
+        "min_dim_std": 0.004860066343098879,
+        "collapsed": false,
+        "train_s": 10.65394920000108
+      },
+      "ARM_SIMGRACE_REPULSION": {
+        "modularity_z": 143.1727971884888,
+        "m_true": 0.06893925368785858,
+        "null_mean": 0.00028707570406065014,
+        "null_std": 0.0004795057394416655,
+        "off_target_cosine": -4.142375103508433e-05,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.023778668285013575,
+        "effective_rank": 210.79773499231274,
+        "min_dim_std": 0.041830629110336304,
+        "collapsed": false,
+        "train_s": 12.824249700002838
+      },
+      "ARM_RANDOM_INIT": {
+        "modularity_z": 145.60040861522532,
+        "m_true": 0.0725046917796135,
+        "null_mean": 0.009938169699162246,
+        "null_std": 0.00042971391821979205,
+        "off_target_cosine": 0.009984260173114016,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013601832944951313,
+        "effective_rank": 255.40576406379213,
+        "min_dim_std": 0.05926411226391792,
+        "collapsed": false,
+        "train_s": 6.443111100001261
+      },
+      "ARM_BGE_REFERENCE": {
+        "modularity_z": 375.8964541822018,
+        "off_target_cosine": 0.4763737995384137,
+        "frac_var_top_1pct": 0.022486303913123912,
+        "effective_rank": 350.3212794349225,
+        "collapsed": false,
+        "non_gating": true
+      }
+    },
+    {
+      "ARM_GRAPH_REPULSION": {
+        "modularity_z": 506.62505270426055,
+        "m_true": 0.26563817262649536,
+        "null_mean": 0.008402463837216297,
+        "null_std": 0.0005077437592480033,
+        "off_target_cosine": 0.0038694200825753313,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014462278853282485,
+        "effective_rank": 254.6489478422972,
+        "min_dim_std": 0.05525742843747139,
+        "collapsed": false,
+        "train_s": 10.596986600023229
+      },
+      "ARM_NO_REPULSION": {
+        "modularity_z": 19.209783625264937,
+        "m_true": 0.9942582249641418,
+        "null_mean": 0.9931417723496755,
+        "null_std": 5.8118958351929845e-05,
+        "off_target_cosine": 0.9911881136900187,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014054690830388307,
+        "effective_rank": 254.0543936418252,
+        "min_dim_std": 0.0048142001032829285,
+        "collapsed": false,
+        "train_s": 10.031342500005849
+      },
+      "ARM_SIMGRACE_REPULSION": {
+        "modularity_z": 163.13759084352395,
+        "m_true": 0.0690813660621643,
+        "null_mean": 0.00040107573211571433,
+        "null_std": 0.0004209961050358062,
+        "off_target_cosine": 6.095586305794616e-05,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.02259278382685449,
+        "effective_rank": 209.34982949569732,
+        "min_dim_std": 0.03913697600364685,
+        "collapsed": false,
+        "train_s": 13.117561599996407
+      },
+      "ARM_RANDOM_INIT": {
+        "modularity_z": 138.6191239176951,
+        "m_true": 0.0716245248913765,
+        "null_mean": 0.008962857496614258,
+        "null_std": 0.0004520420099608154,
+        "off_target_cosine": 0.009569704874468347,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013254615686077302,
+        "effective_rank": 255.33699090709212,
+        "min_dim_std": 0.057373762130737305,
+        "collapsed": false,
+        "train_s": 6.242416499997489
+      },
+      "ARM_BGE_REFERENCE": {
+        "modularity_z": 364.32611792933477,
+        "off_target_cosine": 0.4764176246480147,
+        "frac_var_top_1pct": 0.022486303913123912,
+        "effective_rank": 350.3212794349225,
+        "collapsed": false,
+        "non_gating": true
+      }
+    },
+    {
+      "ARM_GRAPH_REPULSION": {
+        "modularity_z": 453.2072089257192,
+        "m_true": 0.2663237452507019,
+        "null_mean": 0.00833324162599941,
+        "null_std": 0.0005692550748171951,
+        "off_target_cosine": 0.00320156168415832,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013948950195611085,
+        "effective_rank": 254.62607553763578,
+        "min_dim_std": 0.05519625544548035,
+        "collapsed": false,
+        "train_s": 10.616894900042098
+      },
+      "ARM_NO_REPULSION": {
+        "modularity_z": 17.90889862402649,
+        "m_true": 0.9940402507781982,
+        "null_mean": 0.9929207571347555,
+        "null_std": 6.251046850758669e-05,
+        "off_target_cosine": 0.9908905157624682,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.014069932353896725,
+        "effective_rank": 254.1741021848942,
+        "min_dim_std": 0.0052107106894254684,
+        "collapsed": false,
+        "train_s": 9.960029300011229
+      },
+      "ARM_SIMGRACE_REPULSION": {
+        "modularity_z": 152.86911227172814,
+        "m_true": 0.06847605854272842,
+        "null_mean": 0.0003373042742969782,
+        "null_std": 0.00044573264838035647,
+        "off_target_cosine": -0.00011614476630619416,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.02327483597244368,
+        "effective_rank": 212.34324805927707,
+        "min_dim_std": 0.040793176740407944,
+        "collapsed": false,
+        "train_s": 12.813364800007548
+      },
+      "ARM_RANDOM_INIT": {
+        "modularity_z": 156.1322001173279,
+        "m_true": 0.07181692868471146,
+        "null_mean": 0.009296382113049428,
+        "null_std": 0.0004004333925012267,
+        "off_target_cosine": 0.009430145195584433,
+        "n_offtarget_pairs": 150000,
+        "frac_var_top_1pct": 0.013114384185714723,
+        "effective_rank": 255.4411828433892,
+        "min_dim_std": 0.058331798762083054,
+        "collapsed": false,
+        "train_s": 6.64000539999688
+      },
+      "ARM_BGE_REFERENCE": {
+        "modularity_z": 296.662644362429,
+        "off_target_cosine": 0.4762453731826941,
+        "frac_var_top_1pct": 0.022486303913123912,
+        "effective_rank": 350.3212794349225,
+        "collapsed": false,
+        "non_gating": true
+      }
+    }
+  ]
+}

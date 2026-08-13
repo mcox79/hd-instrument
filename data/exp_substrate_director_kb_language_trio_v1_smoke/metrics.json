@@ -1,0 +1,37 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "smoke_only; arm_ok=True",
+  "elapsed_s": 125.91,
+  "summary": {
+    "anchor": "substrate_director_kb_language_trio_v1",
+    "smoke": true,
+    "N_DIM": 2048,
+    "seed": 17,
+    "schema_version": "v1",
+    "schema_hash": "a008340d025b0c29cd6ef4b87d8bbb010638ba8cfce071a6238cec8a6094535a",
+    "arms": [
+      {
+        "arm": "ARM_INGEST_LANGUAGE_TRIO_SMOKE",
+        "ok": true,
+        "elapsed_s": 125.721,
+        "caps": {
+          "wordnet": 100,
+          "verbnet": 10,
+          "framenet": 50
+        },
+        "n_triples": 2284,
+        "n_entities": 1713,
+        "n_relations": 64,
+        "per_class_triples": {
+          "framenet": 1628,
+          "verbnet": 133,
+          "wordnet": 523
+        },
+        "out_dir": "D:\\AI\\hd-instrument\\data\\exp_substrate_director_kb_language_trio_v1_smoke\\_arm_smoke\\kb"
+      }
+    ],
+    "verdict": "HARD_PASS",
+    "verdict_msg": "smoke_only; arm_ok=True",
+    "elapsed_s": 125.91
+  }
+}

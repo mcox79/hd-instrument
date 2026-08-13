@@ -1,0 +1,47 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "SELFTEST_PASS (hard-renders + token-copy-proof + drift-guard + tiny-seed + arms-differ)",
+  "summary": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "elapsed_s": 66.6340777000878,
+  "ts_iso": "2026-07-31T10:34:56.062919+00:00",
+  "anchor_name": "situation_model_harder_construction_generalization_v1",
+  "chance": 0.05,
+  "selftest": {
+    "audit_fails": [],
+    "tokencopy_easy": 1.0,
+    "tokencopy_hard": 0.75,
+    "tiny_frozen_hard_loop": 0.5074074074074074,
+    "tiny_robust_hard_loop": 0.5814814814814814,
+    "tiny_transfer_hard_loop": 0.5814814814814814,
+    "tiny_oracle_hard_loop": 0.7185185185185187,
+    "train_colors": [
+      1,
+      2,
+      4,
+      7,
+      9,
+      11,
+      12,
+      13,
+      14,
+      18
+    ],
+    "held_colors": [
+      0,
+      3,
+      5,
+      6,
+      8,
+      10,
+      15,
+      16,
+      17,
+      19
+    ],
+    "arms_differ_verified": true
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace"
+}

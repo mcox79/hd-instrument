@@ -1,0 +1,424 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "run_mode": "smoke",
+  "verdict_msg": "MIDDLE_BAND || partial: MATH numeral sim 0.213 operation sim -0.127; scramble null + corr-ok but below +0.15 pass bar or ablation weak -> investigate before scaling || MATH sim with=-0.1267 without=-0.1267 scr=-0.1462 | MATH_NUMERAL sim with=0.2134 without=0.1969 scr=0.2162 || corr_redundant=False new_selected=['magnitude'] || source=cn n=3000",
+  "summary": "partial: MATH numeral sim 0.213 operation sim -0.127; scramble null + corr-ok but below +0.15 pass bar or ablation weak -> investigate before scaling",
+  "elapsed_s": 3.599229399987962,
+  "reach": {
+    "verdict": "MIDDLE_BAND",
+    "one_line": "partial: MATH numeral sim 0.213 operation sim -0.127; scramble null + corr-ok but below +0.15 pass bar or ablation weak -> investigate before scaling",
+    "math_sim_with": -0.1267,
+    "math_sim_without": -0.1267,
+    "math_sim_scrambled": -0.1462,
+    "numeral_sim_with": 0.2134,
+    "numeral_sim_without": 0.1969,
+    "numeral_sim_scrambled": 0.2162,
+    "numeral_reach_with": 0.3529,
+    "ablation_numeral_rel": 0.0773,
+    "ablation_math_rel": null,
+    "correlation_redundant": false,
+    "scramble_ok_numeral": true,
+    "scramble_ok_math": true,
+    "bands": {
+      "MATH_SIM_PASS": 0.15,
+      "SCR_MAX_SIM": 0.05,
+      "ABLATION_MIN_REL": 0.5,
+      "SIM_FLOOR": 0.3,
+      "REDUNDANT_R": 0.7
+    },
+    "meta": {
+      "source": "cn",
+      "graph_meta": {
+        "n_edges_scanned": 178979,
+        "n_adj_nodes": 3000,
+        "n_seed_in_graph": 503,
+        "n_nodes": 3000,
+        "n_edges": 10476
+      },
+      "core_provenance": {
+        "n_nsm_primes": 70,
+        "n_nsm_molecules": 54,
+        "n_kernel_proxy": 300,
+        "n_core_union": 385,
+        "n_numeral_anchors": 24,
+        "n_core_with_anchors": 401
+      },
+      "correlation_gate": {
+        "per_new_channel": {
+          "magnitude": {
+            "max_abs_r": 0.644,
+            "vs": "aoa",
+            "redundant": false
+          },
+          "ordinality": {
+            "max_abs_r": 0.0,
+            "vs": null,
+            "redundant": false
+          }
+        },
+        "redundant_any": false
+      },
+      "channels_with": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa",
+        "magnitude"
+      ],
+      "channels_without": [
+        "concreteness",
+        "valence",
+        "arousal",
+        "dominance",
+        "visual",
+        "haptic",
+        "auditory",
+        "gustatory",
+        "olfactory",
+        "interoceptive",
+        "aoa"
+      ],
+      "new_selected": [
+        "magnitude"
+      ],
+      "probe_coverage": {
+        "PHYSICAL": 17,
+        "ABSTRACT": 15,
+        "EMOTIONAL": 16,
+        "MATHEMATICAL": 16,
+        "SOCIAL": 15,
+        "TEMPORAL": 15,
+        "MATH_NUMERAL": 17
+      },
+      "computed_meta": {
+        "acf_used": false,
+        "acf_n": 0
+      },
+      "n_seeds": 2
+    }
+  },
+  "meta": {
+    "source": "cn",
+    "graph_meta": {
+      "n_edges_scanned": 178979,
+      "n_adj_nodes": 3000,
+      "n_seed_in_graph": 503,
+      "n_nodes": 3000,
+      "n_edges": 10476
+    },
+    "core_provenance": {
+      "n_nsm_primes": 70,
+      "n_nsm_molecules": 54,
+      "n_kernel_proxy": 300,
+      "n_core_union": 385,
+      "n_numeral_anchors": 24,
+      "n_core_with_anchors": 401
+    },
+    "correlation_gate": {
+      "per_new_channel": {
+        "magnitude": {
+          "max_abs_r": 0.644,
+          "vs": "aoa",
+          "redundant": false
+        },
+        "ordinality": {
+          "max_abs_r": 0.0,
+          "vs": null,
+          "redundant": false
+        }
+      },
+      "redundant_any": false
+    },
+    "channels_with": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa",
+      "magnitude"
+    ],
+    "channels_without": [
+      "concreteness",
+      "valence",
+      "arousal",
+      "dominance",
+      "visual",
+      "haptic",
+      "auditory",
+      "gustatory",
+      "olfactory",
+      "interoceptive",
+      "aoa"
+    ],
+    "new_selected": [
+      "magnitude"
+    ],
+    "probe_coverage": {
+      "PHYSICAL": 17,
+      "ABSTRACT": 15,
+      "EMOTIONAL": 16,
+      "MATHEMATICAL": 16,
+      "SOCIAL": 15,
+      "TEMPORAL": 15,
+      "MATH_NUMERAL": 17
+    },
+    "computed_meta": {
+      "acf_used": false,
+      "acf_n": 0
+    },
+    "n_seeds": 2
+  },
+  "seed_rows": [
+    {
+      "seed": 7,
+      "with_magnitude": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5008666333253092,
+          "mean_sim_scrambled": 0.5676488511020172,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.09166057800610995,
+          "mean_sim_scrambled": -0.10576220539166534,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.3515311571067731,
+          "mean_sim_scrambled": 0.37496656758055796,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.12667453527456762,
+          "mean_sim_scrambled": -0.1461629253168088,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "SOCIAL": {
+          "reach": 0.0,
+          "reach_scrambled": 0.0,
+          "mean_sim": -0.3018593782150374,
+          "mean_sim_scrambled": -0.32342076237325434,
+          "n_probes": 15,
+          "n_reached": 0
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.04692899083090028,
+          "mean_sim_scrambled": -0.0597278065120549,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "MATH_NUMERAL": {
+          "reach": 0.35294117647058826,
+          "reach_scrambled": 0.35294117647058826,
+          "mean_sim": 0.21337775122289396,
+          "mean_sim_scrambled": 0.21175241674314868,
+          "n_probes": 17,
+          "n_reached": 6
+        }
+      },
+      "without_magnitude": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5008666333253092,
+          "mean_sim_scrambled": 0.5676488511020172,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.09166057800610995,
+          "mean_sim_scrambled": -0.10576220539166534,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.3515311571067731,
+          "mean_sim_scrambled": 0.37496656758055796,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.12667453527456762,
+          "mean_sim_scrambled": -0.1461629253168088,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "SOCIAL": {
+          "reach": 0.0,
+          "reach_scrambled": 0.0,
+          "mean_sim": -0.3018593782150374,
+          "mean_sim_scrambled": -0.32342076237325434,
+          "n_probes": 15,
+          "n_reached": 0
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.04692899083090028,
+          "mean_sim_scrambled": -0.0597278065120549,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "MATH_NUMERAL": {
+          "reach": 0.35294117647058826,
+          "reach_scrambled": 0.35294117647058826,
+          "mean_sim": 0.19687418184933966,
+          "mean_sim_scrambled": 0.22312407276258497,
+          "n_probes": 17,
+          "n_reached": 6
+        }
+      }
+    },
+    {
+      "seed": 13,
+      "with_magnitude": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5008666333253092,
+          "mean_sim_scrambled": 0.5676488511020172,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.09166057800610995,
+          "mean_sim_scrambled": -0.10576220539166534,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.3515311571067731,
+          "mean_sim_scrambled": 0.37496656758055796,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.12667453527456762,
+          "mean_sim_scrambled": -0.1461629253168088,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "SOCIAL": {
+          "reach": 0.0,
+          "reach_scrambled": 0.0,
+          "mean_sim": -0.3018593782150374,
+          "mean_sim_scrambled": -0.32342076237325434,
+          "n_probes": 15,
+          "n_reached": 0
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.04692899083090028,
+          "mean_sim_scrambled": -0.0597278065120549,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "MATH_NUMERAL": {
+          "reach": 0.35294117647058826,
+          "reach_scrambled": 0.35294117647058826,
+          "mean_sim": 0.21337775122289396,
+          "mean_sim_scrambled": 0.22057074689260678,
+          "n_probes": 17,
+          "n_reached": 6
+        }
+      },
+      "without_magnitude": {
+        "PHYSICAL": {
+          "reach": 0.8823529411764706,
+          "reach_scrambled": 0.8823529411764706,
+          "mean_sim": 0.5008666333253092,
+          "mean_sim_scrambled": 0.5676488511020172,
+          "n_probes": 17,
+          "n_reached": 15
+        },
+        "ABSTRACT": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.09166057800610995,
+          "mean_sim_scrambled": -0.10576220539166534,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "EMOTIONAL": {
+          "reach": 0.625,
+          "reach_scrambled": 0.625,
+          "mean_sim": 0.3515311571067731,
+          "mean_sim_scrambled": 0.37496656758055796,
+          "n_probes": 16,
+          "n_reached": 10
+        },
+        "MATHEMATICAL": {
+          "reach": 0.2,
+          "reach_scrambled": 0.2,
+          "mean_sim": -0.12667453527456762,
+          "mean_sim_scrambled": -0.1461629253168088,
+          "n_probes": 15,
+          "n_reached": 3
+        },
+        "SOCIAL": {
+          "reach": 0.0,
+          "reach_scrambled": 0.0,
+          "mean_sim": -0.3018593782150374,
+          "mean_sim_scrambled": -0.32342076237325434,
+          "n_probes": 15,
+          "n_reached": 0
+        },
+        "TEMPORAL": {
+          "reach": 0.21428571428571427,
+          "reach_scrambled": 0.21428571428571427,
+          "mean_sim": -0.04692899083090028,
+          "mean_sim_scrambled": -0.0597278065120549,
+          "n_probes": 14,
+          "n_reached": 3
+        },
+        "MATH_NUMERAL": {
+          "reach": 0.35294117647058826,
+          "reach_scrambled": 0.35294117647058826,
+          "mean_sim": 0.19687418184933966,
+          "mean_sim_scrambled": 0.22312407276258497,
+          "n_probes": 17,
+          "n_reached": 6
+        }
+      }
+    }
+  ]
+}

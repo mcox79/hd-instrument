@@ -1,0 +1,291 @@
+{
+  "verdict": "HARD_FAIL_3_GRADED_BUT_NOT_MEANINGFUL_NULL_GOLD_CORRELATION",
+  "verdict_msg": "fitted_beta=3.0 (grid=[0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 20.0], fit_acc=0.667) | oom_above_floor: B=1.59 C=1.05 D=2.96 (floor_variance(A,full)=7.461e-10, hist_ref=1.479e-05) | EVAL acc: A=0.500 B=0.625 C=0.583 D=0.500 G3=0.625 | EVAL rho vs gold: A=-0.108 B=0.063 C=-0.128 D=-0.030 | C convergence-class (full, pooled n=96): 1-2step=0 multi-step=96 nonconv=0 | must_fail_D_fires=True | HP={1:False,2:False,3:False,4:True} HF={1:False,2:False,3:True,4:False} | cardinality_ok=True arms_differ=True",
+  "summary": "HARD_FAIL_3_GRADED_BUT_NOT_MEANINGFUL_NULL_GOLD_CORRELATION: fitted_beta=3.0 (grid=[0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 20.0], fit_acc=0.667) | oom_above_floor: B=1.59 C=1.05 D=2.96 (floor_variance(A,full)=7.461e-10, hist_ref=1.479e-05) | EVAL acc: A=0.500 B=0.",
+  "elapsed_s": 368.2423052000231,
+  "anchor_name": "settling_fix_learned_recurrent_v1",
+  "run_mode": "full",
+  "ts_iso": "2026-07-20T14:33:06.471155+00:00",
+  "config": {
+    "vocab_size": 12000,
+    "V": 12000,
+    "n_dim": 1024,
+    "min_count": 5,
+    "n_tokens": 17000000,
+    "seed": 7,
+    "n_per_class": 24,
+    "n_items": 48,
+    "beta_high": 20.0,
+    "t_max_a": 6,
+    "t_max_fix": 8,
+    "alpha_damping": 0.25,
+    "beta_grid": [
+      0.5,
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      12.0,
+      20.0
+    ],
+    "tail_k": 2,
+    "conv_rel_thresh": 0.05
+  },
+  "item_meta": {
+    "n_v_avail": 24,
+    "n_n_avail": 92,
+    "n_v_used": 24,
+    "n_n_used": 24
+  },
+  "fit_eval_split": {
+    "n_fit": 24,
+    "n_eval": 24,
+    "fit_keys": [
+      "analyzed_families_by_arrangements",
+      "closed_share_in_trading",
+      "completed_acquisition_in_transaction",
+      "had_falling_over_direction",
+      "has_stocks_in_mind",
+      "interpret_delay_as_indication",
+      "is_justification_on_level",
+      "made_remarks_to_gathering",
+      "sell_fleet_because_costs",
+      "sent_waves_through_market",
+      "strip_bill_of_provisions",
+      "warned_citizens_against_game",
+      "has_offer_for_shares",
+      "imagine_romance_in_question",
+      "is_manifestation_of_capacity",
+      "joins_agencies_with_interests",
+      "listed_shares_of_companies",
+      "marks_start_of_year",
+      "open_can_of_worms",
+      "proposed_offering_of_shares",
+      "received_contract_for_engines",
+      "said_family_of_computers",
+      "see_reaction_to_explosion",
+      "take_look_at_situation"
+    ],
+    "eval_keys": [
+      "are_date_as_average",
+      "awarded_account_to_office",
+      "called_attention_to_matter",
+      "had_recording_for_investors",
+      "had_revenue_from_businesses",
+      "identify_dialects_over_telephone",
+      "impose_tax_on_chemicals",
+      "is_operator_with_interest",
+      "met_press_for_time",
+      "purchased_bonds_in_transactions",
+      "substituted_product_in_tests",
+      "withdrew_application_because_notice",
+      "collect_users_of_services",
+      "expect_resolution_to_anything",
+      "had_lock_on_market",
+      "included_deposits_at_outlets",
+      "increased_staff_of_representatives",
+      "is_part_of_board",
+      "is_thrust_on_side",
+      "passed_periods_in_history",
+      "reported_thousands_of_tons",
+      "speed_collection_of_tax",
+      "was_line_to_exchanges",
+      "wins_slot_in_ratings"
+    ]
+  },
+  "fitted_beta": 3.0,
+  "fit_acc": 0.6666666666666666,
+  "fit_grid_results": {
+    "0.5": 0.625,
+    "1.0": 0.625,
+    "2.0": 0.6666666666666666,
+    "3.0": 0.6666666666666666,
+    "5.0": 0.625,
+    "8.0": 0.5833333333333334,
+    "12.0": 0.5416666666666666,
+    "20.0": 0.5416666666666666
+  },
+  "fit_grid_margins": {
+    "0.5": 3.306319316228231e-05,
+    "1.0": 3.3097962538401284e-05,
+    "2.0": 3.3323963483174644e-05,
+    "3.0": 3.361950318018595e-05,
+    "5.0": 3.472715616226196e-05,
+    "8.0": 3.6990890900293984e-05,
+    "12.0": 4.137307405471802e-05,
+    "20.0": 6.594260533650716e-05
+  },
+  "g3_baseline": {
+    "acc_full": 0.5833333333333334,
+    "acc_eval": 0.625
+  },
+  "agg_full": {
+    "A": {
+      "n_items": 48,
+      "acc": 0.5208333333333334,
+      "rho": -0.060356057316543636,
+      "variance": 7.461181472039829e-10,
+      "mean_residual": 4.268313447634379e-05,
+      "mean_iters": 2.875,
+      "n_1_2_step": 12,
+      "n_multi_step": 84,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 25,
+        "spurious": 23,
+        "non_convergent": 0
+      }
+    },
+    "B": {
+      "n_items": 48,
+      "acc": 0.5833333333333334,
+      "rho": 0.11908380373425966,
+      "variance": 2.911804115378182e-08,
+      "mean_residual": 0.0014704347898562749,
+      "mean_iters": 8.822916666666666,
+      "n_1_2_step": 0,
+      "n_multi_step": 17,
+      "n_nonconvergent": 79,
+      "breakdown": {
+        "correct": 4,
+        "spurious": 5,
+        "non_convergent": 39
+      }
+    },
+    "C": {
+      "n_items": 48,
+      "acc": 0.625,
+      "rho": 0.10681719496309162,
+      "variance": 8.338009837741442e-09,
+      "mean_residual": 0.001056958610812823,
+      "mean_iters": 7.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 96,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 30,
+        "spurious": 18,
+        "non_convergent": 0
+      }
+    },
+    "D": {
+      "n_items": 48,
+      "acc": 0.5416666666666666,
+      "rho": 0.07685627442466347,
+      "variance": 6.736529983471703e-07,
+      "mean_residual": 0.05120858550071716,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 96,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 48
+      }
+    }
+  },
+  "agg_eval": {
+    "A": {
+      "n_items": 24,
+      "acc": 0.5,
+      "rho": -0.10782608695652172,
+      "variance": 8.5981016403891e-10,
+      "mean_residual": 4.881434142589569e-05,
+      "mean_iters": 2.9166666666666665,
+      "n_1_2_step": 4,
+      "n_multi_step": 44,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 12,
+        "spurious": 12,
+        "non_convergent": 0
+      }
+    },
+    "B": {
+      "n_items": 24,
+      "acc": 0.625,
+      "rho": 0.0626086956521739,
+      "variance": 3.2395940331565576e-08,
+      "mean_residual": 0.0015052581826845806,
+      "mean_iters": 8.916666666666666,
+      "n_1_2_step": 0,
+      "n_multi_step": 4,
+      "n_nonconvergent": 44,
+      "breakdown": {
+        "correct": 2,
+        "spurious": 0,
+        "non_convergent": 22
+      }
+    },
+    "C": {
+      "n_items": 24,
+      "acc": 0.5833333333333334,
+      "rho": -0.12782608695652173,
+      "variance": 8.80129905838572e-09,
+      "mean_residual": 0.0010663482050100963,
+      "mean_iters": 7.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 48,
+      "n_nonconvergent": 0,
+      "breakdown": {
+        "correct": 14,
+        "spurious": 10,
+        "non_convergent": 0
+      }
+    },
+    "D": {
+      "n_items": 24,
+      "acc": 0.5,
+      "rho": -0.029565217391304344,
+      "variance": 5.355687700717457e-07,
+      "mean_residual": 0.051209053645531334,
+      "mean_iters": 9.0,
+      "n_1_2_step": 0,
+      "n_multi_step": 0,
+      "n_nonconvergent": 48,
+      "breakdown": {
+        "correct": 0,
+        "spurious": 0,
+        "non_convergent": 24
+      }
+    }
+  },
+  "orders_of_magnitude_above_floor_full": {
+    "B": 1.5913545524090937,
+    "C": 1.0482548001028775,
+    "D": 2.9556286440169948
+  },
+  "floor_variance_measured_this_run": 7.461181472039829e-10,
+  "noise_floor_historical_reference": 1.4789402484893799e-05,
+  "must_fail_D_fires": true,
+  "hard_pass_gates": {
+    "HP1_oom_ge_3": false,
+    "HP2_rho_or_beats_g3": false,
+    "HP3_beats_A_and_D": false,
+    "HP4_beta_below_ceiling_and_multistep": true
+  },
+  "hard_fail_gates": {
+    "HF1_pinned_at_floor": false,
+    "HF2_does_not_beat_D": false,
+    "HF3_graded_not_meaningful": true,
+    "HF4_beta_refits_to_ceiling": false
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 192,
+  "n_units_done": 192,
+  "per_unit_failures": {},
+  "arms_differ_verified": true,
+  "arms_differ_detail": {
+    "A_vs_B": true,
+    "A_vs_C": true,
+    "A_vs_D": true,
+    "B_vs_C": true,
+    "B_vs_D": true,
+    "C_vs_D": true
+  },
+  "arms_differ_hash_basis": "raw_residual_trajectories_not_predictions_only",
+  "crlb_n/a": "residual/coherence discrimination test; no argmax-capacity noise floor of the CRLB form; this cell's floor is empirically measured fresh from variant A each run.",
+  "prior_art": "Rabovsky/Hansen/McClelland2018 settling residual; Ramsauer2021 inverse-temp fixed-point-class; arXiv:2311.18434 fittable beta_c; arXiv:2506.05178 Hopfield/EBM/diffusion zero-noise-limit unification; reuses exp_settling_parse_selector_richness_v1 codebook/item/role/settle machinery verbatim"
+}

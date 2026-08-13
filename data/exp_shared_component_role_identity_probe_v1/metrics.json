@@ -1,0 +1,78 @@
+{
+  "verdict": "SHARED_IS_MIXED",
+  "verdict_msg": "both shared (0.5067) and residual (0.9533) held-out-role nc_acc clear 0.4167: whitening throws away SOME real role signal (partial self-sabotage), not pure nuisance. CAVEAT: random-projection floor control (nc_heldout=0.3800) did NOT stay near chance -- the decoder pipeline itself may leak label info through dimensionality; treat the shared/residual comparison with reduced confidence.",
+  "summary": "SHARED_IS_MIXED | shared_heldout=0.5067 residual_heldout=0.9533 random_floor_heldout=0.3800 | both shared (0.5067) and residual (0.9533) held-out-role nc_acc clear 0.4167: whitening throws away SOME real role signal (partial self-sabo",
+  "chance_15": 0.06666666666666667,
+  "chance_12": 0.08333333333333333,
+  "shared_nuisance_max": 0.21666666666666667,
+  "signal_min": 0.41666666666666663,
+  "m_shared": 8,
+  "var_share": {
+    "top1": 0.25383523757295745,
+    "top4": 0.5959116642217938,
+    "top8": 0.7281165389201203
+  },
+  "probes": {
+    "full": {
+      "parametric_trainrole_eval_acc": 0.7316666666666667,
+      "nc_trainrole_eval_acc": 0.8283333333333334,
+      "nc_heldout_role_eval_acc": 0.8933333333333333
+    },
+    "shared": {
+      "parametric_trainrole_eval_acc": 0.4066666666666667,
+      "nc_trainrole_eval_acc": 0.3883333333333333,
+      "nc_heldout_role_eval_acc": 0.5066666666666667
+    },
+    "residual": {
+      "parametric_trainrole_eval_acc": 0.84,
+      "nc_trainrole_eval_acc": 0.82,
+      "nc_heldout_role_eval_acc": 0.9533333333333334
+    },
+    "random_floor": {
+      "parametric_trainrole_eval_acc": 0.3516666666666667,
+      "nc_trainrole_eval_acc": 0.405,
+      "nc_heldout_role_eval_acc": 0.38
+    }
+  },
+  "random_floor_ok": false,
+  "role_split": {
+    "train_roles": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14
+    ],
+    "held_out_roles": [
+      6,
+      11,
+      13
+    ]
+  },
+  "n_cached_sentences": 3015,
+  "encoder": "real_v2_frozen",
+  "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+  "fit_shape": [
+    750,
+    512
+  ],
+  "eval_shape": [
+    750,
+    512
+  ],
+  "run_mode": "full",
+  "elapsed_s": 11.486857100157067,
+  "ts_iso": "2026-07-30T17:15:56.128679+00:00",
+  "anchor_name": "shared_component_role_identity_probe_v1",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
+}

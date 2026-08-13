@@ -1,0 +1,49 @@
+{
+  "verdict": "WHOLESENT_ARM_COMPLETE",
+  "verdict_tag": "INTERMEDIATE",
+  "verdict_msg": "OUR-ENCODER WHOLE-SENTENCE arm (held-out N=800, seeds=[7, 13]): trained={7: 0.7662, 13: 0.7662} mean=0.7662; random-init(our-enc) dist={7: 0.8125, 13: 0.8075, 101: 0.7887, 20250101: 0.8163, 424242: 0.79} mean=0.8030; gap=-0.0368 z=-1.52 p=0.9355 sig=False MDE(2sig)=0.0484. SIDE-BY-SIDE: our-whole-sentence=0.7662 vs BGE-whole-sentence=0.67 vs our-clause-mean=0.50. INTERPRETATION: INTERMEDIATE (our whole-sentence between chance and BGE; partial encoder + partial architecture)",
+  "summary": "OUR-ENCODER WHOLE-SENTENCE arm (held-out N=800, seeds=[7, 13]): trained={7: 0.7662, 13: 0.7662} mean=0.7662; random-init(our-enc) dist={7: 0.8125, 13: 0.8075, 101: 0.7887, 20250101: 0.8163, 424242: 0.",
+  "elapsed_s": 120.69921609992161,
+  "ts_iso": "2026-07-30T03:24:24.893572+00:00",
+  "pid": 21088,
+  "anchor_name": "stateful_core_mes_data_sufficient_gate_v1",
+  "run_mode": "wholesent",
+  "device": "cpu",
+  "our_encoder_wholesent_trained": {
+    "7": 0.76625,
+    "13": 0.76625
+  },
+  "our_encoder_wholesent_mean": 0.76625,
+  "our_encoder_wholesent_randominit": {
+    "7": 0.8125,
+    "13": 0.8075,
+    "101": 0.78875,
+    "20250101": 0.81625,
+    "424242": 0.79
+  },
+  "power": {
+    "ri_mean": 0.8030000000000002,
+    "ri_std": 0.012826973532365313,
+    "ri_max": 0.81625,
+    "ri_p95": 0.8155,
+    "n_ri_seeds": 5,
+    "se_trained": 0.014962909873249922,
+    "se_diff": 0.02421071398936843,
+    "gap": -0.03675000000000017,
+    "z": -1.5179230160720611,
+    "p_value": 0.9354830965083939,
+    "min_detectable_effect_2sigma": 0.04842142797873686,
+    "beats_ri_max": false,
+    "significant": false
+  },
+  "ref_bge_wholesent": 0.67,
+  "ref_our_clause_mean": 0.5,
+  "model_max_len": 128,
+  "used_max_len": 96,
+  "n_eval": 800,
+  "interpretation": "INTERMEDIATE (our whole-sentence between chance and BGE; partial encoder + partial architecture)",
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "final_metrics_atomicity": "tmp_replace"
+}

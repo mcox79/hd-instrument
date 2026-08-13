@@ -1,0 +1,271 @@
+{
+  "anchor_name": "substrate_role_tagged_compositional_generalization_on_concept_KG_v1",
+  "verdict": "HARD_PASS_CHAIN_GRADE",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE: NO_ROLES=0.167 | ORTHO=0.167 | CLUSTERED=0.333 | GRAMMATICAL=0.083 | HYBRID=1.000 | best=ARM_HYBRID_ROLE_PLUS_CONCEPT_LABELS(1.000 cv=0.000) | lift_vs_no_roles=0.833 | clustered_vs_ortho=0.167 | train_no_roles=0.708 chance=0.125 rails=[]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "subRT_compgen-v1: 5 arms x role-codebook constructions on concept-KG; V_cat=4 V_inst_per_cat=8 V_roles=6 V_preds=8 heldout=8 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_top1=0.85 HP_CG_lift=0.20 HP_top1=0.70 HP_lift=0.15 cv_max=0.05 HF_tol=0.05",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "config_version": "subRT_compgen-v1: 5 arms x role-codebook constructions on concept-KG; V_cat=4 V_inst_per_cat=8 V_roles=6 V_preds=8 heldout=8 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_top1=0.85 HP_CG_lift=0.20 HP_top1=0.70 HP_lift=0.15 cv_max=0.05 HF_tol=0.05",
+      "heldout_instances": [
+        0,
+        6,
+        15,
+        11,
+        19,
+        20,
+        30,
+        28
+      ],
+      "cat_action_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "arms": {
+        "ARM_NO_ROLES": {
+          "trained_top1": 0.8333,
+          "heldout_top1": 0.25,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "elapsed_s_arm": 10.94
+        },
+        "ARM_ROLES_ORTHOGONAL_RANDOM": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.25,
+          "heldout_top3": 0.75,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": -0.0,
+            "mean_within_cluster_B": -0.0,
+            "mean_cross_cluster": -0.0
+          },
+          "elapsed_s_arm": 11.29
+        },
+        "ARM_ROLES_SEMANTICALLY_CLUSTERED": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.375,
+          "heldout_top3": 0.625,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.6916,
+            "mean_within_cluster_B": 0.6916,
+            "mean_cross_cluster": -0.0002
+          },
+          "elapsed_s_arm": 10.12
+        },
+        "ARM_GRAMMATICAL_ROLE_BINDING": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.125,
+          "heldout_top3": 0.625,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": -0.0,
+            "mean_within_cluster_B": -0.0,
+            "mean_cross_cluster": -0.0
+          },
+          "elapsed_s_arm": 19.81
+        },
+        "ARM_HYBRID_ROLE_PLUS_CONCEPT_LABELS": {
+          "trained_top1": 1.0,
+          "heldout_top1": 1.0,
+          "heldout_top3": 1.0,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": -0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": 0.0
+          },
+          "elapsed_s_arm": 21.86
+        }
+      },
+      "elapsed_s": 74.0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782399074.5311735
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "config_version": "subRT_compgen-v1: 5 arms x role-codebook constructions on concept-KG; V_cat=4 V_inst_per_cat=8 V_roles=6 V_preds=8 heldout=8 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_top1=0.85 HP_CG_lift=0.20 HP_top1=0.70 HP_lift=0.15 cv_max=0.05 HF_tol=0.05",
+      "heldout_instances": [
+        1,
+        0,
+        10,
+        12,
+        20,
+        21,
+        27,
+        30
+      ],
+      "cat_action_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "arms": {
+        "ARM_NO_ROLES": {
+          "trained_top1": 0.7917,
+          "heldout_top1": 0.125,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "elapsed_s_arm": 13.34
+        },
+        "ARM_ROLES_ORTHOGONAL_RANDOM": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.25,
+          "heldout_top3": 0.5,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": 0.0
+          },
+          "elapsed_s_arm": 11.49
+        },
+        "ARM_ROLES_SEMANTICALLY_CLUSTERED": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.5,
+          "heldout_top3": 0.75,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.6916,
+            "mean_within_cluster_B": 0.6905,
+            "mean_cross_cluster": 0.0003
+          },
+          "elapsed_s_arm": 12.55
+        },
+        "ARM_GRAMMATICAL_ROLE_BINDING": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.125,
+          "heldout_top3": 0.625,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": 0.0
+          },
+          "elapsed_s_arm": 18.84
+        },
+        "ARM_HYBRID_ROLE_PLUS_CONCEPT_LABELS": {
+          "trained_top1": 1.0,
+          "heldout_top1": 1.0,
+          "heldout_top3": 1.0,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": 0.0
+          },
+          "elapsed_s_arm": 18.99
+        }
+      },
+      "elapsed_s": 75.2,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782399149.7589126
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "config_version": "subRT_compgen-v1: 5 arms x role-codebook constructions on concept-KG; V_cat=4 V_inst_per_cat=8 V_roles=6 V_preds=8 heldout=8 N=8192 seeds=[7, 17, 23] mode=full; bands HP_CG_top1=0.85 HP_CG_lift=0.20 HP_top1=0.70 HP_lift=0.15 cv_max=0.05 HF_tol=0.05",
+      "heldout_instances": [
+        2,
+        3,
+        11,
+        14,
+        16,
+        17,
+        26,
+        28
+      ],
+      "cat_action_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "arms": {
+        "ARM_NO_ROLES": {
+          "trained_top1": 0.7083,
+          "heldout_top1": 0.125,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "elapsed_s_arm": 10.77
+        },
+        "ARM_ROLES_ORTHOGONAL_RANDOM": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.0,
+          "heldout_top3": 0.625,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": -0.0
+          },
+          "elapsed_s_arm": 11.74
+        },
+        "ARM_ROLES_SEMANTICALLY_CLUSTERED": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.125,
+          "heldout_top3": 0.625,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.6912,
+            "mean_within_cluster_B": 0.6898,
+            "mean_cross_cluster": -0.001
+          },
+          "elapsed_s_arm": 9.95
+        },
+        "ARM_GRAMMATICAL_ROLE_BINDING": {
+          "trained_top1": 1.0,
+          "heldout_top1": 0.0,
+          "heldout_top3": 0.5,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": 0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": -0.0
+          },
+          "elapsed_s_arm": 19.98
+        },
+        "ARM_HYBRID_ROLE_PLUS_CONCEPT_LABELS": {
+          "trained_top1": 1.0,
+          "heldout_top1": 1.0,
+          "heldout_top3": 1.0,
+          "n_trained": 24,
+          "n_heldout": 8,
+          "role_inner_products": {
+            "mean_within_cluster_A": -0.0,
+            "mean_within_cluster_B": 0.0,
+            "mean_cross_cluster": 0.0
+          },
+          "elapsed_s_arm": 21.1
+        }
+      },
+      "elapsed_s": 73.6,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782399223.322839
+    }
+  ],
+  "elapsed_s": 222.9,
+  "summary": "HARD_PASS_CHAIN_GRADE: NO_ROLES=0.167 | ORTHO=0.167 | CLUSTERED=0.333 | GRAMMATICAL=0.083 | HYBRID=1.000 | best=ARM_HYBRID_ROLE_PLUS_CONCEPT_LABELS(1.000 cv=0.000) | lift_vs_no_roles=0.833 | clustered_vs_ortho=0.167 | train_no_roles=0.708 chance=0.125 rails=[]",
+  "DESIGN_NOTE": "USER course-correction 2026-06-24 (Cell B redirect): compositional generalization (heldout subject in known role) on substrate-native concept-KG. NOT text8. Lane 1; ARM_NO_ROLES baseline + 4 role variants; discriminator = orthogonal vs semantically-clustered roles."
+}

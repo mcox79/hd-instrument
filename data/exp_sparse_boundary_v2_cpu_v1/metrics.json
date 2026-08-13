@@ -1,0 +1,72 @@
+{
+  "anchor_name": "sparse_boundary_v2_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "need >=4 f points (got 3)",
+  "run_mode": "smoke",
+  "N": 2048,
+  "fracs": [
+    0.02,
+    0.1,
+    1.0
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "alpha_c_by_f": {
+      "f0.020": 1.0,
+      "f0.100": 0.4,
+      "f1.000": 0.05
+    },
+    "gain_vs_dense_by_f": {
+      "f0.020": 20.0,
+      "f0.100": 8.0,
+      "f1.000": 1.0
+    },
+    "dense_alpha_c": 0.05,
+    "peak_f": 0.02,
+    "peak_alpha_c": 1.0,
+    "peak_gain_vs_dense": 20.0,
+    "crosstalk_onset_f": null,
+    "worst_cv": 0.0,
+    "n_f": 3,
+    "axis": "sparse_fraction_f",
+    "alpha_c_capped_by_f": {
+      "f0.020": true,
+      "f0.100": false,
+      "f1.000": false
+    },
+    "any_capped": true,
+    "honest_claim": "Substrate auto-assoc critical-load alpha_c RISES as sparsity f decreases (PLAIN k-of-N sparse, non-zero-position recall = Willshaw super-capacity); peak gain 20.00x vs dense at f=0.020; crosstalk-onset boundary f*=None. capped-f gains are LOWER BOUNDS (alpha_c hit LOADS max). DISTINCT from the novelty-gated sparse-WRITE rule (exp_substrate_sparse_vs_dense, ~1.4x, multi-step) -- this is plain-sparse-pattern capacity. MEASURED_MECHANISM (Phase-1 sparse-coding safe-sparsity input)."
+  },
+  "metrics_source": "measured_cpu_sparse_capacity_vs_sparsity_fraction_boundary",
+  "per_unit": [
+    {
+      "f": 0.02,
+      "seed": 1,
+      "alpha_c": 1.0,
+      "alpha_c_capped": true,
+      "run_mode": "smoke",
+      "_ckpt_key": "f0p020_s1",
+      "_partial_written_at": 1781967793.9474914
+    },
+    {
+      "f": 0.1,
+      "seed": 1,
+      "alpha_c": 0.4,
+      "alpha_c_capped": false,
+      "run_mode": "smoke",
+      "_ckpt_key": "f0p100_s1",
+      "_partial_written_at": 1781967794.2644994
+    },
+    {
+      "f": 1.0,
+      "seed": 1,
+      "alpha_c": 0.05,
+      "alpha_c_capped": false,
+      "run_mode": "smoke",
+      "_ckpt_key": "f1p000_s1",
+      "_partial_written_at": 1781967794.3452837
+    }
+  ],
+  "elapsed_s": 0.9499680995941162,
+  "summary": "need >=4 f points (got 3)"
+}

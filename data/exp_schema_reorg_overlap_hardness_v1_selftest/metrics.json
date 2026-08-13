@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: separable regime NOT usable (gate broken even when separable): best P=0.7145969498910676 R=0.9375",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_overlap_hardness_v1.py\", line 760, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_overlap_hardness_v1.py\", line 687, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_overlap_hardness_v1.py\", line 628, in self_test\n    assert u_sep, f\"separable regime NOT usable (gate broken even when separable): best P={p_sep} R={r_sep}\"\n           ^^^^^\nAssertionError: separable regime NOT usable (gate broken even when separable): best P=0.7145969498910676 R=0.9375\n",
+  "ts_iso": "2026-07-17T03:01:00.960470+00:00",
+  "pid": 18300,
+  "anchor_name": "schema_reorg_overlap_hardness_v1"
+}

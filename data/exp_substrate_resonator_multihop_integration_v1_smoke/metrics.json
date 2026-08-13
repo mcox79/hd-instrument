@@ -1,0 +1,51 @@
+{
+  "anchor_name": "substrate_resonator_multihop_integration_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Resonator partial gain (top1=0.8000 in [0.70, 0.85), cv=0.000); tune K_SET / beta / tau. sanity_MISMATCH | BONUS_3HOP_CHAIN_GRADE | NAIVE_2HOP top1=0.8125 cv=0.000 (sanity=[0.59,0.69]) | RESONATOR_2HOP top1=0.8000 cv=0.000 (HP>=0.85 cv<=0.05) | RESONATOR_3HOP top1=0.7667 cv=0.000 (bonus>=0.70) | chance=0.0050 V_C=200 V_P=10 N=1024 K_SET=20",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "resmh-v1: dense-bipolar HRR + multivalue-hebbian + 3arm-2/2/3hop; V_C=200 V_P=10 N=1024 K_SET=20 tau=None n2=80 n3=60; bands sanity[0.59,0.69] resHP=0.85 resMB=0.70 r3=0.70 cv<=0.05",
+  "per_seed": [
+    {
+      "seed": 1,
+      "config_version": "resmh-v1: dense-bipolar HRR + multivalue-hebbian + 3arm-2/2/3hop; V_C=200 V_P=10 N=1024 K_SET=20 tau=None n2=80 n3=60; bands sanity[0.59,0.69] resHP=0.85 resMB=0.70 r3=0.70 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 1024,
+      "K_SET": 20,
+      "tau_terminate": null,
+      "run_mode": "smoke",
+      "arm_naive_hebbian_2hop": {
+        "top1": 0.8125,
+        "n_chains": 80,
+        "chance": 0.005
+      },
+      "arm_resonator_2hop": {
+        "top1": 0.8,
+        "top1_accepted": 0.8,
+        "refused_frac": 0.0,
+        "k_set": 20,
+        "tau_terminate": null,
+        "beta": 1024.0,
+        "mean_conf_hop1": 0.9305,
+        "mean_conf_hop2": 0.8319,
+        "n_chains": 80,
+        "chance": 0.005
+      },
+      "arm_resonator_3hop": {
+        "top1": 0.7667,
+        "top1_accepted": 0.7667,
+        "refused_frac": 0.0,
+        "k_set": 20,
+        "tau_terminate": null,
+        "beta": 1024.0,
+        "n_chains": 60,
+        "chance": 0.005
+      },
+      "wall_s": 0.1
+    }
+  ],
+  "elapsed_s": 0.1,
+  "summary": "MIDDLE_BAND: Resonator partial gain (top1=0.8000 in [0.70, 0.85), cv=0.000); tune K_SET / beta / tau. sanity_MISMATCH | BONUS_3HOP_CHAIN_GRADE | NAIVE_2HOP top1=0.8125 cv=0.000 (sanity=[0.59,0.69]) | RESONATOR_2HOP top1=0.8000 cv=0.000 (HP>=0.85 cv<=0.05) | RESONATOR_3HOP top1=0.7667 cv=0.000 (bonus>=0.70) | chance=0.0050 V_C=200 V_P=10 N=1024 K_SET=20",
+  "DESIGN_NOTE": "USER pre-authored DISPATCH 1 (2026-06-24): integrates existing chain-grade Resonator (hdlab.multi_hop.iter_cleanup_chain; CERT 585 K=2) + confidence-tier gating (substrate_72b_R0R1R2) into the concept_kg apples-to-apples harness. Lane 1 substrate-native; ALL arms share same E/R/W per seed; ONE knob varies (composition mechanism: naive vs Modern-Hopfield top-K bundle). PRIMARY = ARM_RESONATOR_2HOP top1. Sanity = ARM_NAIVE_HEBBIAN_2HOP reproduces concept_kg 0.638 baseline +- 0.05. Bonus = ARM_RESONATOR_3HOP >= 0.70 chain-grade."
+}

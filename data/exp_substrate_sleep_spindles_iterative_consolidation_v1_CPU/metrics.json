@@ -1,0 +1,267 @@
+{
+  "anchor_name": "substrate_sleep_spindles_iterative_consolidation_v1_CPU",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial spindle rescue lift +0.239. M=2048 N_h=8192 N_c=2048 alpha_simple=0.250 mode=full ARM_RIPPLE_ONLY=0.219 ARM_SPINDLE_ONLY=0.458 ARM_RIPPLE_THEN_SPINDLE=0.309 ARM_SPINDLE_THEN_RIPPLE=0.248 ARM_INTERLEAVED=0.275 | best_arm=ARM_SPINDLE_ONLY best_lift=+0.239 R_RIPPLE=0.219",
+  "summary": "n_seeds=3 M=2048 N_h=8192 N_c=2048 arms=('ARM_RIPPLE_ONLY', 'ARM_SPINDLE_ONLY', 'ARM_RIPPLE_THEN_SPINDLE', 'ARM_SPINDLE_THEN_RIPPLE', 'ARM_INTERLEAVED') mode=full alpha_simple=0.250 sleep_spindles_iterative_consolidation",
+  "elapsed_s": 1076.7134165763855,
+  "config_version": "ANCHOR=substrate_sleep_spindles_iterative_consolidation_v1_CPU,M=2048,N_h=8192,N_c=2048,alpha_simple=0.250,ARM_NAMES=('ARM_RIPPLE_ONLY', 'ARM_SPINDLE_ONLY', 'ARM_RIPPLE_THEN_SPINDLE', 'ARM_SPINDLE_THEN_RIPPLE', 'ARM_INTERLEAVED'),SEEDS=7-17-23,RUN_MODE=full,backend=numpy,hardening=METARULE_AF+METARULE_AH+METARULE_H+SPINDLE_RIPPLE_SEQUENCE",
+  "M": 2048,
+  "N_c": 2048,
+  "N_h": 8192,
+  "eta_c": 0.005,
+  "eta_spindle": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "backend": "numpy",
+  "n_seeds": 3,
+  "expected_n_units": 15,
+  "cardinality_ok": true,
+  "run_mode": "full",
+  "alpha_simple": 0.25,
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_RIPPLE_ONLY",
+      "recall_mean": 0.21923828125,
+      "recall_std": 0.009324339575131839,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_SPINDLE_ONLY",
+      "recall_mean": 0.45849609375,
+      "recall_std": 0.007699789174814369,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+      "recall_mean": 0.3092447916666667,
+      "recall_std": 0.0017977475613911557,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+      "recall_mean": 0.24772135416666666,
+      "recall_std": 0.006863010625751307,
+      "n_seeds_ok": 3
+    },
+    {
+      "arm_name": "ARM_INTERLEAVED",
+      "recall_mean": 0.275390625,
+      "recall_std": 0.004700367538474496,
+      "n_seeds_ok": 3
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 360.27249455451965,
+      "arms": [
+        {
+          "arm_name": "ARM_RIPPLE_ONLY",
+          "seed": 7,
+          "recall_cortex": 0.212890625,
+          "n_items": 2048,
+          "cortex_norm": 0.7174404886768843,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 0,
+          "arm_hash": "d6cee9274d3e1de4",
+          "alpha_simple": 0.25,
+          "wall_s": 45.1634886264801,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_ONLY",
+          "seed": 7,
+          "recall_cortex": 0.4482421875,
+          "n_items": 2048,
+          "cortex_norm": 0.1823747761415151,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "8fd5d8ffd5ba6854",
+          "alpha_simple": 0.25,
+          "wall_s": 47.06205892562866,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+          "seed": 7,
+          "recall_cortex": 0.3115234375,
+          "n_items": 2048,
+          "cortex_norm": 0.7306047092904563,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "a7eb4b797c77d7f2",
+          "alpha_simple": 0.25,
+          "wall_s": 88.45825839042664,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+          "seed": 7,
+          "recall_cortex": 0.23828125,
+          "n_items": 2048,
+          "cortex_norm": 0.8470302775415335,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "ea02cc4d5c2b2411",
+          "alpha_simple": 0.25,
+          "wall_s": 88.52605414390564,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_INTERLEAVED",
+          "seed": 7,
+          "recall_cortex": 0.2705078125,
+          "n_items": 2048,
+          "cortex_norm": 0.7791978959395701,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2047,
+          "arm_hash": "f66fc74905139529",
+          "alpha_simple": 0.25,
+          "wall_s": 90.61501097679138,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 360.0378415584564,
+      "arms": [
+        {
+          "arm_name": "ARM_RIPPLE_ONLY",
+          "seed": 17,
+          "recall_cortex": 0.21240234375,
+          "n_items": 2048,
+          "cortex_norm": 0.7141345966450079,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 0,
+          "arm_hash": "adcebf8e12929e4a",
+          "alpha_simple": 0.25,
+          "wall_s": 45.4014356136322,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_ONLY",
+          "seed": 17,
+          "recall_cortex": 0.466796875,
+          "n_items": 2048,
+          "cortex_norm": 0.18230372406105055,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "cfa9cc8fcaec5b85",
+          "alpha_simple": 0.25,
+          "wall_s": 46.95895528793335,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+          "seed": 17,
+          "recall_cortex": 0.30908203125,
+          "n_items": 2048,
+          "cortex_norm": 0.7271923740375275,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "5ad11c31bd0deedf",
+          "alpha_simple": 0.25,
+          "wall_s": 90.75859045982361,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+          "seed": 17,
+          "recall_cortex": 0.25048828125,
+          "n_items": 2048,
+          "cortex_norm": 0.8437121908334797,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "50df55d7495b9618",
+          "alpha_simple": 0.25,
+          "wall_s": 88.83820724487305,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_INTERLEAVED",
+          "seed": 17,
+          "recall_cortex": 0.27392578125,
+          "n_items": 2048,
+          "cortex_norm": 0.7754539630063056,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2047,
+          "arm_hash": "0dbe5ab86fa7d7c2",
+          "alpha_simple": 0.25,
+          "wall_s": 87.63401174545288,
+          "arm_status": "OK"
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 356.3515729904175,
+      "arms": [
+        {
+          "arm_name": "ARM_RIPPLE_ONLY",
+          "seed": 23,
+          "recall_cortex": 0.232421875,
+          "n_items": 2048,
+          "cortex_norm": 0.7160064975611707,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 0,
+          "arm_hash": "dd0098bbf70c6216",
+          "alpha_simple": 0.25,
+          "wall_s": 44.535837173461914,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_ONLY",
+          "seed": 23,
+          "recall_cortex": 0.46044921875,
+          "n_items": 2048,
+          "cortex_norm": 0.18218654933862063,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "b326858d313cce94",
+          "alpha_simple": 0.25,
+          "wall_s": 46.57928943634033,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_RIPPLE_THEN_SPINDLE",
+          "seed": 23,
+          "recall_cortex": 0.30712890625,
+          "n_items": 2048,
+          "cortex_norm": 0.7295761025376065,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "25e84ae08f63b66a",
+          "alpha_simple": 0.25,
+          "wall_s": 89.07089877128601,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_SPINDLE_THEN_RIPPLE",
+          "seed": 23,
+          "recall_cortex": 0.25439453125,
+          "n_items": 2048,
+          "cortex_norm": 0.8457779414515081,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2048,
+          "arm_hash": "542be05cc8c22307",
+          "alpha_simple": 0.25,
+          "wall_s": 87.55355191230774,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_INTERLEAVED",
+          "seed": 23,
+          "recall_cortex": 0.28173828125,
+          "n_items": 2048,
+          "cortex_norm": 0.7772540803942952,
+          "n_total_writes": 2048,
+          "n_spindle_corrections": 2047,
+          "arm_hash": "d7ca83fbb86c28b5",
+          "alpha_simple": 0.25,
+          "wall_s": 88.13899087905884,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

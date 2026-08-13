@@ -1,0 +1,211 @@
+{
+  "anchor": "schema_bundle_structural_transfer_v1",
+  "anchor_name": "schema_bundle_structural_transfer_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_DIM": 4096,
+  "K": 10,
+  "sigma": 2.0,
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    13
+  ],
+  "M_sweep": [
+    10,
+    30,
+    50,
+    100,
+    200
+  ],
+  "M_OP": 200,
+  "arms": [
+    "ARM_REAL",
+    "ARM_SHUFFLED",
+    "ARM_MEAN_OBJECT"
+  ],
+  "primary_arm": "ARM_REAL",
+  "control_arms": [
+    "ARM_SHUFFLED",
+    "ARM_MEAN_OBJECT"
+  ],
+  "random_baseline": 0.1,
+  "expected_n_units": 30,
+  "n_units_counted": 30,
+  "n_units_failed": 0,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "arms_differ_digests": {
+    "ARM_REAL": "a06e394a1b368fca60daac28068764f8d0051a21acca23be78ed7aa3864da3e9",
+    "ARM_SHUFFLED": "c73a217e81c0b2543e2535c4d5bfc8bf04de29b6a4b7b5fb9789e86ad2af3bfe",
+    "ARM_MEAN_OBJECT": "67042dfda5683aead81b6055d19c4dba238341f9dd82f49c0e7cc0c19c5f10d1"
+  },
+  "bind_roundtrip": 1.0000000596046463,
+  "hp_scope": {
+    "ARM_REAL": [
+      "HARD_PASS",
+      "HARD_FAIL"
+    ],
+    "ARM_SHUFFLED": [],
+    "ARM_MEAN_OBJECT": []
+  },
+  "per_arm_aggregate": {
+    "ARM_REAL": {
+      "10": {
+        "mean": 0.22749999999999998,
+        "std": 0.024748737341529166,
+        "cv": 0.10878565864408425,
+        "n": 2,
+        "gain": 0.12749999999999997
+      },
+      "30": {
+        "mean": 0.31,
+        "std": 0.028284271247461926,
+        "cv": 0.09123958466923202,
+        "n": 2,
+        "gain": 0.21
+      },
+      "50": {
+        "mean": 0.3675,
+        "std": 0.010606601717798222,
+        "cv": 0.028861501272920333,
+        "n": 2,
+        "gain": 0.26749999999999996
+      },
+      "100": {
+        "mean": 0.5275000000000001,
+        "std": 0.010606601717798222,
+        "cv": 0.02010730183468857,
+        "n": 2,
+        "gain": 0.4275000000000001
+      },
+      "200": {
+        "mean": 0.7175,
+        "std": 0.0035355339059327407,
+        "cv": 0.004927573388059569,
+        "n": 2,
+        "gain": 0.6175
+      }
+    },
+    "ARM_SHUFFLED": {
+      "10": {
+        "mean": 0.1075,
+        "std": 0.017677669529663684,
+        "cv": 0.16444343748524357,
+        "n": 2,
+        "gain": 0.007499999999999993
+      },
+      "30": {
+        "mean": 0.0775,
+        "std": 0.0035355339059327407,
+        "cv": 0.04561979233461601,
+        "n": 2,
+        "gain": -0.022500000000000006
+      },
+      "50": {
+        "mean": 0.0925,
+        "std": 0.0035355339059327407,
+        "cv": 0.03822198817224585,
+        "n": 2,
+        "gain": -0.007500000000000007
+      },
+      "100": {
+        "mean": 0.07500000000000001,
+        "std": 0.014142135623730954,
+        "cv": 0.1885618083164127,
+        "n": 2,
+        "gain": -0.024999999999999994
+      },
+      "200": {
+        "mean": 0.10250000000000001,
+        "std": 0.03181980515339464,
+        "cv": 0.31043712344775254,
+        "n": 2,
+        "gain": 0.0025000000000000022
+      }
+    },
+    "ARM_MEAN_OBJECT": {
+      "10": {
+        "mean": 0.1,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2,
+        "gain": 0.0
+      },
+      "30": {
+        "mean": 0.1,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2,
+        "gain": 0.0
+      },
+      "50": {
+        "mean": 0.1,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2,
+        "gain": 0.0
+      },
+      "100": {
+        "mean": 0.1,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2,
+        "gain": 0.0
+      },
+      "200": {
+        "mean": 0.1,
+        "std": 0.0,
+        "cv": 0.0,
+        "n": 2,
+        "gain": 0.0
+      }
+    }
+  },
+  "gate_diagnostics": {
+    "M_OP": 200,
+    "random_baseline": 0.1,
+    "real_acc_M_OP": 0.7175,
+    "real_gain_M_OP": 0.6175,
+    "real_cv_M_OP": 0.004927573388059569,
+    "shuf_acc_M_OP": 0.10250000000000001,
+    "shuf_gain_M_OP": 0.0025000000000000022,
+    "cind_acc_M_OP": 0.1,
+    "real_minus_cind_M_OP": 0.6175,
+    "real_gain_M10": 0.12749999999999997,
+    "bind_roundtrip": 1.0000000596046463,
+    "arms_differ_ok": true,
+    "n_units": 30,
+    "expected_n_units": 30,
+    "real_curve": {
+      "10": 0.22749999999999998,
+      "30": 0.31,
+      "50": 0.3675,
+      "100": 0.5275000000000001,
+      "200": 0.7175
+    },
+    "shuf_curve": {
+      "10": 0.1075,
+      "30": 0.0775,
+      "50": 0.0925,
+      "100": 0.07500000000000001,
+      "200": 0.10250000000000001
+    },
+    "cind_curve": {
+      "10": 0.1,
+      "30": 0.1,
+      "50": 0.1,
+      "100": 0.1,
+      "200": 0.1
+    }
+  },
+  "corpus_provenance": "synthetic_fhrr_clustered_phasors_dialable_shared_structure",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "metrics_source": "measured_cpu_fhrr_holistic_map_schema_transfer",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SCHEMA_TRANSFER: bundle-schema generalizes to novel same-relation entities above random. real_gain(M200)=+0.618 cv=0.005 shuf_gain=+0.003 real-cind=+0.618 real_gain(M10)=+0.127 | curve real={'10': 0.22749999999999998, '30': 0.31, '50': 0.3675, '100': 0.5275000000000001, '200': 0.7175} shuf={'10': 0.1075, '30': 0.0775, '50': 0.0925, '100': 0.07500000000000001, '200': 0.10250000000000001}",
+  "summary": "HARD_PASS: {'10': 0.22749999999999998, '30': 0.31, '50': 0.3675, '100': 0.5275000000000001, '200': 0.7175}",
+  "elapsed_s": 1.2563283443450928
+}

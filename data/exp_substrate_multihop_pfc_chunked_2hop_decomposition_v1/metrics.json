@@ -1,0 +1,236 @@
+{
+  "anchor_name": "substrate_multihop_pfc_chunked_2hop_decomposition_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_CHUNKING_DOESNT_HELP: BASELINE=0.6500 (sanity_breach_seeds=1/3) SINGLE_CHAIN_5HOP=0.1217 (rail) CHUNKED_5HOP=0.1583 (cv=0.187) CHUNKED_10HOP=0.0283 (cv=0.363) lift_5hop_over_rail=+0.0367 | rails=['SANITY_BREACH(1/3 seeds baseline_mean=0.6500 not in [0.62, 0.68])']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "pfcChunked2hopDecompositionV1: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[5, 10] chunk_size=2 HP_chunked_5hop>=0.50 HP_chunked_10hop>=0.30 HP_cv<=0.07 HP_partial_5hop>=0.30 HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "pointer_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "pfcChunked2hopDecompositionV1: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[5, 10] chunk_size=2 HP_chunked_5hop>=0.50 HP_chunked_10hop>=0.30 HP_cv<=0.07 HP_partial_5hop>=0.30 HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.605,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 6.7
+      },
+      "baseline_sanity_ok": false,
+      "arm_single_chain_5hop": {
+        "top1": 0.145,
+        "per_step_acc": [
+          0.69,
+          0.485,
+          0.31,
+          0.205,
+          0.145
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 18.12
+      },
+      "arm_pfc_chunked_5hop": {
+        "top1": 0.2,
+        "per_chunk_acc": [
+          0.54,
+          0.265,
+          0.2
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          1
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "chunk_size": 2,
+        "elapsed_s_arm": 18.37
+      },
+      "arm_pfc_chunked_10hop": {
+        "top1": 0.04,
+        "per_chunk_acc": [
+          0.54,
+          0.265,
+          0.14,
+          0.08,
+          0.04
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "chunk_size": 2,
+        "elapsed_s_arm": 36.31
+      },
+      "elapsed_s": 83.0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782440494.6621947
+    },
+    {
+      "seed": 17,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "pointer_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "pfcChunked2hopDecompositionV1: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[5, 10] chunk_size=2 HP_chunked_5hop>=0.50 HP_chunked_10hop>=0.30 HP_cv<=0.07 HP_partial_5hop>=0.30 HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.67,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.65
+      },
+      "baseline_sanity_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.645,
+          0.375,
+          0.26,
+          0.2,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 18.49
+      },
+      "arm_pfc_chunked_5hop": {
+        "top1": 0.135,
+        "per_chunk_acc": [
+          0.505,
+          0.265,
+          0.135
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          1
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "chunk_size": 2,
+        "elapsed_s_arm": 18.77
+      },
+      "arm_pfc_chunked_10hop": {
+        "top1": 0.03,
+        "per_chunk_acc": [
+          0.505,
+          0.265,
+          0.125,
+          0.07,
+          0.03
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "chunk_size": 2,
+        "elapsed_s_arm": 34.5
+      },
+      "elapsed_s": 83.9,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782440578.5780559
+    },
+    {
+      "seed": 23,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "K_SET": 20,
+      "baseline_n_chains": 200,
+      "pointer_n_chains": 200,
+      "max_depth": 10,
+      "config_version": "pfcChunked2hopDecompositionV1: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 seeds=[7, 17, 23] mode=full hop_depths=[5, 10] chunk_size=2 HP_chunked_5hop>=0.50 HP_chunked_10hop>=0.30 HP_cv<=0.07 HP_partial_5hop>=0.30 HF_5hop<0.20 baseline_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.675,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 8.81
+      },
+      "baseline_sanity_ok": true,
+      "arm_single_chain_5hop": {
+        "top1": 0.11,
+        "per_step_acc": [
+          0.64,
+          0.415,
+          0.265,
+          0.16,
+          0.11
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 17.92
+      },
+      "arm_pfc_chunked_5hop": {
+        "top1": 0.14,
+        "per_chunk_acc": [
+          0.485,
+          0.22,
+          0.14
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          1
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "chunk_size": 2,
+        "elapsed_s_arm": 17.71
+      },
+      "arm_pfc_chunked_10hop": {
+        "top1": 0.015,
+        "per_chunk_acc": [
+          0.485,
+          0.22,
+          0.135,
+          0.06,
+          0.015
+        ],
+        "chunk_sizes": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "chunk_size": 2,
+        "elapsed_s_arm": 37.67
+      },
+      "elapsed_s": 85.7,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782440664.2832015
+    }
+  ],
+  "elapsed_s": 252.7,
+  "summary": "HARD_FAIL_CHUNKING_DOESNT_HELP: BASELINE=0.6500 (sanity_breach_seeds=1/3) SINGLE_CHAIN_5HOP=0.1217 (rail) CHUNKED_5HOP=0.1583 (cv=0.187) CHUNKED_10HOP=0.0283 (cv=0.363) lift_5hop_over_rail=+0.0367 | rails=['SANITY_BREACH(1/3 seeds baseline_mean=0.6500 not in [0.62, 0.68])']",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "ANGLE 5 revival: PFC task-decomposition chunking. 5-hop chain decomposed as 2+2+1 sub-queries; each sub-query restarts from a CLEAN atomic E[] vector (the cleaned argmax index from previous chunk). 10-hop decomposed as 2+2+2+2+2. WM-scaffold v1 wrote intermediates to scaffold but per-hop was still noisy-state propagation; this cell does TRUE 2-hop sub-queries with chain STATE re-cleaned to atomic E[] between sub-queries."
+}

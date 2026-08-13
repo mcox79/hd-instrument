@@ -1,0 +1,526 @@
+{
+  "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL swr_preplay_constructive_hypothesis_generator (pipeline_top1<0.15): ARM_PREPLAY_FULL recall@10=0.558 novelty=1.000 | ECHO=0.000 RAND=0.000 PARROT_recall=0.000 PARROT_nov=0.000 | lift_echo=+0.558 lift_rand=+0.558 | pipeline_top1=0.108 | diversity=0.074 | cv=0.035 | arms_distinct=True | cardinality_ok=True (60000/60000) | suspect_Q=False | fp_keys={'ARM_PREPLAY_FULL': '448855a57413be56', 'ARM_BASELINE_OBSERVATION_ECHO': '3b9f381b01bed6b9', 'ARM_MEMORY_PARROT': '545847a975c004f9'}",
+  "summary": "HARD_FAIL swr_preplay_constructive_hypothesis_generator (pipeline_top1<0.15): ARM_PREPLAY_FULL recall@10=0.558 novelty=1.000 | ECHO=0.000 RAND=0.000 PARROT_recall=0.000 PARROT_nov=0.000 | lift_echo=+0.558 lift_rand=+0.558 | pipeline_top1=0.108 | diversity=0.074 | cv=0.035 | arms_distinct=True | cardinality_ok=True (60000/60000) | suspect_Q=False | fp_keys={'ARM_PREPLAY_FULL': '448855a57413be56', 'ARM_BASELINE_OBSERVATION_ECHO': '3b9f381b01bed6b9', 'ARM_MEMORY_PARROT': '545847a975c004f9'}",
+  "elapsed_s": 109.9,
+  "ts_iso": "2026-06-28T06:36:16Z",
+  "pid": 17048,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "N": 8192,
+  "V_BANK": 256,
+  "K_CANDS": 10,
+  "N_PROBLEMS": 200,
+  "arms_tested": [
+    "ARM_BASELINE_OBSERVATION_ECHO",
+    "ARM_BASELINE_RANDOM_DRAW",
+    "ARM_MEMORY_PARROT",
+    "ARM_PREPLAY_FULL",
+    "ARM_GEN_SCORE_PIPELINE",
+    "ARM_DIAG_PREPLAY_DIVERSITY"
+  ],
+  "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "per_arm_summary": {
+    "ARM_BASELINE_OBSERVATION_ECHO": {
+      "recall_at_k_mean": 0.0,
+      "recall_at_k_std": 0.0,
+      "recall_at_k_cv": 0.0,
+      "novelty_ratio_mean": 0.0,
+      "diversity_pairwise_cos_mean": 0.005550889931560959,
+      "pipeline_top1_rate_mean": null,
+      "n_seeds": 5
+    },
+    "ARM_BASELINE_RANDOM_DRAW": {
+      "recall_at_k_mean": 0.0,
+      "recall_at_k_std": 0.0,
+      "recall_at_k_cv": 0.0,
+      "novelty_ratio_mean": 1.0,
+      "diversity_pairwise_cos_mean": -5.7845057244816817e-05,
+      "pipeline_top1_rate_mean": null,
+      "n_seeds": 5
+    },
+    "ARM_MEMORY_PARROT": {
+      "recall_at_k_mean": 0.0,
+      "recall_at_k_std": 0.0,
+      "recall_at_k_cv": 0.0,
+      "novelty_ratio_mean": 0.0,
+      "diversity_pairwise_cos_mean": 0.11108101087808608,
+      "pipeline_top1_rate_mean": null,
+      "n_seeds": 5
+    },
+    "ARM_PREPLAY_FULL": {
+      "recall_at_k_mean": 0.558,
+      "recall_at_k_std": 0.019646882704388472,
+      "recall_at_k_cv": 0.03520946721216572,
+      "novelty_ratio_mean": 1.0,
+      "diversity_pairwise_cos_mean": 0.07347785256317002,
+      "pipeline_top1_rate_mean": null,
+      "n_seeds": 5
+    },
+    "ARM_GEN_SCORE_PIPELINE": {
+      "recall_at_k_mean": 0.5730000000000001,
+      "recall_at_k_std": 0.025416530054277645,
+      "recall_at_k_cv": 0.04435694599350374,
+      "novelty_ratio_mean": 1.0,
+      "diversity_pairwise_cos_mean": 0.07671223339116114,
+      "pipeline_top1_rate_mean": 0.10800000000000001,
+      "n_seeds": 5
+    },
+    "ARM_DIAG_PREPLAY_DIVERSITY": {
+      "recall_at_k_mean": 0.568,
+      "recall_at_k_std": 0.039572717874818746,
+      "recall_at_k_cv": 0.06967027794862456,
+      "novelty_ratio_mean": 1.0,
+      "diversity_pairwise_cos_mean": 0.07403358373984521,
+      "pipeline_top1_rate_mean": null,
+      "n_seeds": 5
+    }
+  },
+  "hp_conds": {
+    "recall@10>=0.65": false,
+    "novelty>=0.80": true,
+    "lift_echo>=0.25": true,
+    "lift_rand>=0.40": true,
+    "pipeline_top1>=0.50": false,
+    "diversity<=0.70": true,
+    "cv<0.15": true,
+    "parrot_nov<0.05": true,
+    "arms_distinct": true,
+    "cardinality_ok": true,
+    "not_suspect_Q": true
+  },
+  "hf_conds": {
+    "recall@10<0.30": false,
+    "novelty<0.40": false,
+    "lift_echo<0.05": false,
+    "diversity>0.90": false,
+    "pipeline_top1<0.15": true,
+    "cardinality_breach": false,
+    "suspect_Q": false,
+    "parrot_nov>0.10": false,
+    "arms_NOT_distinct": false
+  },
+  "lift_echo": 0.558,
+  "lift_rand": 0.558,
+  "pipeline_top1": 0.10800000000000001,
+  "arms_distinct": true,
+  "arm_fingerprints_per_seed": [
+    {
+      "ARM_BASELINE_OBSERVATION_ECHO": "fbc1269f3f8e90be",
+      "ARM_BASELINE_RANDOM_DRAW": "567be29d909b991a",
+      "ARM_MEMORY_PARROT": "545847a975c004f9",
+      "ARM_PREPLAY_FULL": "7f7915c4dcdb1bde",
+      "ARM_GEN_SCORE_PIPELINE": "d465f41b2be39ac0",
+      "ARM_DIAG_PREPLAY_DIVERSITY": "2c4d4b9d96367885"
+    },
+    {
+      "ARM_BASELINE_OBSERVATION_ECHO": "241feab852f62c5c",
+      "ARM_BASELINE_RANDOM_DRAW": "61b86a7a8d705ed6",
+      "ARM_MEMORY_PARROT": "24f67fe7b4cdf0b1",
+      "ARM_PREPLAY_FULL": "448855a57413be56",
+      "ARM_GEN_SCORE_PIPELINE": "60f507eedbc06081",
+      "ARM_DIAG_PREPLAY_DIVERSITY": "db5d1fc373fd15bc"
+    },
+    {
+      "ARM_BASELINE_OBSERVATION_ECHO": "f1bece7fa5f49a50",
+      "ARM_BASELINE_RANDOM_DRAW": "2c0ca4ed8c670501",
+      "ARM_MEMORY_PARROT": "97dee970841f2d2a",
+      "ARM_PREPLAY_FULL": "afd450dc4346b8eb",
+      "ARM_GEN_SCORE_PIPELINE": "0fb206c672182296",
+      "ARM_DIAG_PREPLAY_DIVERSITY": "0d3bc9b44f39f971"
+    },
+    {
+      "ARM_BASELINE_OBSERVATION_ECHO": "3b9f381b01bed6b9",
+      "ARM_BASELINE_RANDOM_DRAW": "074d15a9bee5fd7f",
+      "ARM_MEMORY_PARROT": "cbf1c50f8de33f72",
+      "ARM_PREPLAY_FULL": "976bbb3fb8d688fb",
+      "ARM_GEN_SCORE_PIPELINE": "8694c10c88ceb1b1",
+      "ARM_DIAG_PREPLAY_DIVERSITY": "cff54fe2eccd016f"
+    },
+    {
+      "ARM_BASELINE_OBSERVATION_ECHO": "2bd6717e59ceb308",
+      "ARM_BASELINE_RANDOM_DRAW": "7a83cba46765787c",
+      "ARM_MEMORY_PARROT": "e5e4d37b73c076a9",
+      "ARM_PREPLAY_FULL": "34d0ffe573e5dc53",
+      "ARM_GEN_SCORE_PIPELINE": "47cc7913a511fde2",
+      "ARM_DIAG_PREPLAY_DIVERSITY": "26b9dc04dd1b2a32"
+    }
+  ],
+  "fp_keys": {
+    "ARM_PREPLAY_FULL": "448855a57413be56",
+    "ARM_BASELINE_OBSERVATION_ECHO": "3b9f381b01bed6b9",
+    "ARM_MEMORY_PARROT": "545847a975c004f9"
+  },
+  "cardinality_ok": true,
+  "total_events": 60000,
+  "expected_n_units": 60000,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "run_mode": "full",
+      "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+      "per_arm": {
+        "ARM_BASELINE_OBSERVATION_ECHO": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.0057235244597541165,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_BASELINE_RANDOM_DRAW": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": -7.709419632874415e-05,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_MEMORY_PARROT": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.11137914463877678,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_PREPLAY_FULL": {
+          "recall_at_k_mean": 0.525,
+          "recall_at_k_n": 105,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07835420406423509,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_GEN_SCORE_PIPELINE": {
+          "recall_at_k_mean": 0.565,
+          "recall_at_k_n": 113,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07876059700560291,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": 0.115
+        },
+        "ARM_DIAG_PREPLAY_DIVERSITY": {
+          "recall_at_k_mean": 0.51,
+          "recall_at_k_n": 102,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07501544681959786,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_BASELINE_OBSERVATION_ECHO": "fbc1269f3f8e90be",
+        "ARM_BASELINE_RANDOM_DRAW": "567be29d909b991a",
+        "ARM_MEMORY_PARROT": "545847a975c004f9",
+        "ARM_PREPLAY_FULL": "7f7915c4dcdb1bde",
+        "ARM_GEN_SCORE_PIPELINE": "d465f41b2be39ac0",
+        "ARM_DIAG_PREPLAY_DIVERSITY": "2c4d4b9d96367885"
+      },
+      "n_problems": 200,
+      "n_units_seed": 12000
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "run_mode": "full",
+      "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+      "per_arm": {
+        "ARM_BASELINE_OBSERVATION_ECHO": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.005532281009363942,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_BASELINE_RANDOM_DRAW": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": -0.0001593153219324045,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_MEMORY_PARROT": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.11104537699371576,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_PREPLAY_FULL": {
+          "recall_at_k_mean": 0.55,
+          "recall_at_k_n": 110,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07546144986816217,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_GEN_SCORE_PIPELINE": {
+          "recall_at_k_mean": 0.54,
+          "recall_at_k_n": 108,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07179931080696406,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": 0.09
+        },
+        "ARM_DIAG_PREPLAY_DIVERSITY": {
+          "recall_at_k_mean": 0.54,
+          "recall_at_k_n": 108,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07452664822456427,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_BASELINE_OBSERVATION_ECHO": "241feab852f62c5c",
+        "ARM_BASELINE_RANDOM_DRAW": "61b86a7a8d705ed6",
+        "ARM_MEMORY_PARROT": "24f67fe7b4cdf0b1",
+        "ARM_PREPLAY_FULL": "448855a57413be56",
+        "ARM_GEN_SCORE_PIPELINE": "60f507eedbc06081",
+        "ARM_DIAG_PREPLAY_DIVERSITY": "db5d1fc373fd15bc"
+      },
+      "n_problems": 200,
+      "n_units_seed": 12000
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "run_mode": "full",
+      "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+      "per_arm": {
+        "ARM_BASELINE_OBSERVATION_ECHO": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.0055257163420901634,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_BASELINE_RANDOM_DRAW": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 3.431532049944508e-05,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_MEMORY_PARROT": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.11108747780323029,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_PREPLAY_FULL": {
+          "recall_at_k_mean": 0.56,
+          "recall_at_k_n": 112,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.0712205452512717,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_GEN_SCORE_PIPELINE": {
+          "recall_at_k_mean": 0.555,
+          "recall_at_k_n": 111,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07978378171450458,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": 0.09
+        },
+        "ARM_DIAG_PREPLAY_DIVERSITY": {
+          "recall_at_k_mean": 0.585,
+          "recall_at_k_n": 117,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.06933565037455992,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_BASELINE_OBSERVATION_ECHO": "f1bece7fa5f49a50",
+        "ARM_BASELINE_RANDOM_DRAW": "2c0ca4ed8c670501",
+        "ARM_MEMORY_PARROT": "97dee970841f2d2a",
+        "ARM_PREPLAY_FULL": "afd450dc4346b8eb",
+        "ARM_GEN_SCORE_PIPELINE": "0fb206c672182296",
+        "ARM_DIAG_PREPLAY_DIVERSITY": "0d3bc9b44f39f971"
+      },
+      "n_problems": 200,
+      "n_units_seed": 12000
+    },
+    {
+      "seed": 31,
+      "N": 8192,
+      "run_mode": "full",
+      "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+      "per_arm": {
+        "ARM_BASELINE_OBSERVATION_ECHO": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.0055859376548323784,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_BASELINE_RANDOM_DRAW": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": -7.82877690926398e-05,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_MEMORY_PARROT": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.1108448563888669,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_PREPLAY_FULL": {
+          "recall_at_k_mean": 0.575,
+          "recall_at_k_n": 115,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07110944171101437,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_GEN_SCORE_PIPELINE": {
+          "recall_at_k_mean": 0.6,
+          "recall_at_k_n": 120,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07402684292745107,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": 0.11
+        },
+        "ARM_DIAG_PREPLAY_DIVERSITY": {
+          "recall_at_k_mean": 0.625,
+          "recall_at_k_n": 125,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07540544468443841,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_BASELINE_OBSERVATION_ECHO": "3b9f381b01bed6b9",
+        "ARM_BASELINE_RANDOM_DRAW": "074d15a9bee5fd7f",
+        "ARM_MEMORY_PARROT": "cbf1c50f8de33f72",
+        "ARM_PREPLAY_FULL": "976bbb3fb8d688fb",
+        "ARM_GEN_SCORE_PIPELINE": "8694c10c88ceb1b1",
+        "ARM_DIAG_PREPLAY_DIVERSITY": "cff54fe2eccd016f"
+      },
+      "n_problems": 200,
+      "n_units_seed": 12000
+    },
+    {
+      "seed": 41,
+      "N": 8192,
+      "run_mode": "full",
+      "config_version": "ANCHOR=swr_preplay_constructive_hypothesis_generator_v1,N=8192,V=256,K=10,problems=200,seeds=[7, 17, 23, 31, 41],mode=full,HP_recall>=0.65,HP_nov>=0.80,HP_lift_echo>=0.25,HP_pipeline>=0.50,cos_hit=0.70,cos_novel=0.50,expected_n=60000,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+      "anchor_name": "swr_preplay_constructive_hypothesis_generator_v1",
+      "per_arm": {
+        "ARM_BASELINE_OBSERVATION_ECHO": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.005386990191764199,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_BASELINE_RANDOM_DRAW": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": -8.843319369740768e-06,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_MEMORY_PARROT": {
+          "recall_at_k_mean": 0.0,
+          "recall_at_k_n": 0,
+          "novelty_ratio_mean": 0.0,
+          "diversity_pairwise_cos_mean": 0.11104819856584072,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_PREPLAY_FULL": {
+          "recall_at_k_mean": 0.58,
+          "recall_at_k_n": 116,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07124362192116677,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        },
+        "ARM_GEN_SCORE_PIPELINE": {
+          "recall_at_k_mean": 0.605,
+          "recall_at_k_n": 121,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07919063450128305,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": 0.135
+        },
+        "ARM_DIAG_PREPLAY_DIVERSITY": {
+          "recall_at_k_mean": 0.58,
+          "recall_at_k_n": 116,
+          "novelty_ratio_mean": 1.0,
+          "diversity_pairwise_cos_mean": 0.07588472859606554,
+          "n_problems": 200,
+          "n_candidates_per_problem": 10,
+          "pipeline_top1_rate": null
+        }
+      },
+      "arm_fingerprints": {
+        "ARM_BASELINE_OBSERVATION_ECHO": "2bd6717e59ceb308",
+        "ARM_BASELINE_RANDOM_DRAW": "7a83cba46765787c",
+        "ARM_MEMORY_PARROT": "e5e4d37b73c076a9",
+        "ARM_PREPLAY_FULL": "34d0ffe573e5dc53",
+        "ARM_GEN_SCORE_PIPELINE": "47cc7913a511fde2",
+        "ARM_DIAG_PREPLAY_DIVERSITY": "26b9dc04dd1b2a32"
+      },
+      "n_problems": 200,
+      "n_units_seed": 12000
+    }
+  ],
+  "_hardening_marker": "v1_swr_preplay_constructive"
+}

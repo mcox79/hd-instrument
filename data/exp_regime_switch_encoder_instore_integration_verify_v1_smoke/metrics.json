@@ -1,0 +1,103 @@
+{
+  "anchor_name": "regime_switch_encoder_instore_integration_verify_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "IN-STORE INTEGRATION VERIFIED: retrieval delta=0.0010<=0.02 (instore=0.600 vs offline=0.599); key-algebra reload-delta max=0.0000; bit-stable; float32 cosine store metric intact. run_mode=smoke ckpt=substrate_concept_encoder_v6_annealste_seed7_smoke (absolute-vs-0.65 needs FULL checkpoint).",
+  "summary": "IN-STORE INTEGRATION VERIFIED: retrieval delta=0.0010<=0.02 (instore=0.600 vs offline=0.599); key-algebra reload-delta max=0.0000; bit-stable; float32 cosine store metric intact. run_mode=smoke ckpt=substrate_concept_encoder_v6_annealste_seed7_smoke (absolute-vs-0.65 needs FULL checkpoint).",
+  "run_mode": "smoke",
+  "elapsed_s": 18.011667000013404,
+  "ts_iso": "2026-07-05T00:24:03.983036+00:00",
+  "checkpoint_dir": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v6_annealste_seed7_smoke",
+  "teacher_cache": "bge_large_v2_name_1742_49029a5d.npz",
+  "M_concepts": 1500,
+  "n_query": 600,
+  "n_alg_trials": 300,
+  "id_collisions": 3,
+  "store_atoms_loaded": 1497,
+  "pstore_concept_atoms": 1497,
+  "hidden_widths": {
+    "key_hidden": 256,
+    "val_hidden": 256
+  },
+  "gates": {
+    "D_bitstability": {
+      "pass": true,
+      "key_array_equal": true,
+      "value_array_equal": true,
+      "id_order_preserved": true,
+      "key_dtype_reload": "float32",
+      "value_dtype_reload": "float32"
+    },
+    "C_dtype_norm": {
+      "pass": true,
+      "matrix_dtype": "float32",
+      "matrix_shape": [
+        1497,
+        4096
+      ],
+      "store_atom_count": 1497,
+      "expected_dim": 4096,
+      "max_row_norm_dev": 0.0,
+      "is_complex": false,
+      "composite_matches_semantic": true
+    },
+    "F_completeness_addressability": {
+      "pass": true,
+      "atoms_submitted": 1500,
+      "atoms_unique_ids": 1497,
+      "atoms_in_store": 1497,
+      "atoms_in_pstore_concept": 1497,
+      "id_collisions": 3,
+      "finding": "3 duplicate concept-id string(s) in the teacher cache collapse under the id-keyed store; re-encode/ingest MUST assert unique ids or namespace them (completeness risk)."
+    },
+    "A_retrieval_serialization": {
+      "pass": true,
+      "instore_ret_agree10": 0.5998333333333339,
+      "offline_ret_agree10": 0.5988333333333337,
+      "delta": 0.001000000000000223,
+      "tol": 0.02,
+      "known_item_self_rank1_acc": 0.9983333333333333,
+      "note_vs_0.65": "absolute-vs-0.65 valid only on FULL checkpoint; smoke checkpoint offline ret is the local reference"
+    },
+    "B_algebra_serialization": {
+      "pass": true,
+      "keyed_at_J_inmem": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0
+      },
+      "keyed_at_J_reload": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0
+      },
+      "keyed_delta_at_J": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0
+      },
+      "max_keyed_delta": 0.0,
+      "tol": 0.01,
+      "keyed_at_J5_inmem": 1.0,
+      "note_vs_1.00": "keyed@J5 ~ 1.00 target is the FULL-checkpoint measured value; smoke checkpoint may differ. Gate is the reload-vs-inmem DELTA, which is checkpoint-independent."
+    },
+    "E_isotonic_invariance": {
+      "pass": true,
+      "ret_base": 0.5988333333333337,
+      "ret_iso": 0.5978333333333334,
+      "ret_delta": 0.001000000000000223,
+      "base_calib_err": 0.09245996851378968,
+      "iso_calib_err": 0.025054153092219478,
+      "calib_improved": true,
+      "note": "isotonic is weakly-monotone (PAVA plateaus -> ties); ret change within tie-noise band is rank-preserving-up-to-ties, not a break. calib_err must drop (the point of recalibration)."
+    }
+  },
+  "all_gates_pass": true,
+  "failed_gates": [],
+  "offline_full_target_0.65": 0.65
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_seqbind_N_dim_scaling_law_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=70 SMOKE=24; fhrr_unbind_self_inverse_max_diff=1.33e-07; clean_K1_retrieval_pass; arm_distinctness_pass sub_acc=1.0 rnd_acc=0.0; scaling_fit_synthetic_slope=1.0644 R2=0.9964 n_pts=5",
+  "summary": "cardinality FULL=70 SMOKE=24; fhrr_unbind_self_inverse_max_diff=1.33e-07; clean_K1_retrieval_pass; arm_distinctness_pass sub_acc=1.0 rnd_acc=0.0; scaling_fit_synthetic_slope=1.0644 R2=0.9964 n_pts=5",
+  "elapsed_s": 1.34,
+  "ts_iso": "2026-07-01T02:30:04Z",
+  "pid": 13228,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_seqbind_N_dim_scaling_law_v1_seed_7,arms=[SUBSTRATE,RANDOM],N_sweep_full=[2048,4096,8192,16384,32768],N_sweep_smoke=[2048,4096,8192,32768],K_SEQ_full=[50,100,200,500,1000,2000,4000],K_SEQ_smoke=[200,1000,4000],ITEM_VOCAB=10000,POSITION_SLOTS=4096,NOISE_SIGMA=0.05,SEED=7,mode=selftest,expected_n_full=70,expected_n_smoke=24,discriminator=log2_K_cliff_vs_log2_N_linear_fit,HP_R2_FLOOR=0.95,HP_SLOPE=[0.85,1.15],MB_R2=0.80,MB_SLOPE=[0.70,1.30],posctrl_N=8192,posctrl_log2_K_center=log2(1000),posctrl_tol=0.5,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_seqbind_N_dim_scaling_law_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

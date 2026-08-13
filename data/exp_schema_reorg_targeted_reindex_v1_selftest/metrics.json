@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "AssertionError: glass-box detector false-reindexed stable entities: prec=0.2",
+  "summary": "CELL_CRASHED: AssertionError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_targeted_reindex_v1.py\", line 706, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_targeted_reindex_v1.py\", line 615, in main\n    self_test()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_schema_reorg_targeted_reindex_v1.py\", line 591, in self_test\n    assert tg[\"detector_precision\"] >= 0.90, f\"glass-box detector false-reindexed stable entities: prec={tg['detector_precision']}\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: glass-box detector false-reindexed stable entities: prec=0.2\n",
+  "ts_iso": "2026-07-17T02:07:52.985978+00:00",
+  "pid": 22232,
+  "anchor_name": "schema_reorg_targeted_reindex_v1"
+}

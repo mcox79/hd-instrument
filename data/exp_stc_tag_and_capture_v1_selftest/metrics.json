@@ -1,0 +1,12 @@
+{
+  "anchor_name": "stc_tag_and_capture_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: 5 arms structured + tag/cap fields present",
+  "summary": "SELFTEST_OK: 5 arms structured + tag/cap fields present",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-27T19:29:20Z",
+  "pid": 19004,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=stc_tag_and_capture_v1,N=256,NCAT=10,NTRAIN=5,NHELDOUT=5,proto_noise=0.85,alpha=0.0391,J_capture=10,K_decay=5,theta_pct=90.0,eta_fast=1.00,eta_cap=0.05,seeds=[11],mode=smoke,HP_new>=0.50,HP_lift>=0.10,HP_baseline=[0.20,0.70],HP_tag=[0.05,0.30],hardening=L1early+L2perarm+L3outertry+L4importsentinel,FAIRNESS=SAME_SURFACE+TAG_SELECTIVITY_BANDED+BASELINE_NOT_SATURATING",
+  "_hardening_marker": "v1_stc_tag_and_capture"
+}

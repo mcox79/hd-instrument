@@ -1,0 +1,127 @@
+{
+  "anchor_name": "substrate_calibration_isotonic_ECE_primary_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE: ARM_ISOTONIC achieves ECE=0.0137 <= 0.05 AND 33.1x reduction over raw (>=5.0x required); cv=0.000. Substrate HRR cosine confidence IS well-calibratable via isotonic regression on synthetic triples. Closes calibration gap on the correct primary metric (audit-corrected from pearson_r). ECE: raw=0.4538 iso=0.0137 (cv=0.000 ratio=33.1x vs raw) temp=0.4104 (ratio=1.1x) | pearson_r: raw=0.0770 iso=0.1176 | base_accuracy=0.092 cr_r_max~1.108 | sanity_raw_in_band=True",
+  "run_mode": "smoke",
+  "N_DIM": 2048,
+  "F_SPARSE": 0.02,
+  "N_VALUES": 50,
+  "M_TRIPLES": 2000,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_RAW_COSINE": {
+        "ece_mean": 0.4538,
+        "ece_std": 0.0,
+        "ece_cv": 0.0,
+        "ece_per_seed": [
+          0.4538
+        ],
+        "pearson_r_mean": 0.077,
+        "pearson_r_per_seed": [
+          0.077
+        ]
+      },
+      "ARM_ISOTONIC_REGRESSION": {
+        "ece_mean": 0.0137,
+        "ece_std": 0.0,
+        "ece_cv": 0.0,
+        "ece_per_seed": [
+          0.0137
+        ],
+        "pearson_r_mean": 0.1176,
+        "pearson_r_per_seed": [
+          0.1176
+        ]
+      },
+      "ARM_TEMPERATURE_SCALING": {
+        "ece_mean": 0.4104,
+        "ece_std": 0.0,
+        "ece_cv": 0.0,
+        "ece_per_seed": [
+          0.4104
+        ],
+        "pearson_r_mean": 0.0772,
+        "pearson_r_per_seed": [
+          0.0772
+        ],
+        "T_fit_per_seed": [
+          0.01
+        ]
+      }
+    },
+    "raw_ece": 0.4538,
+    "iso_ece": 0.0137,
+    "iso_ece_cv": 0.0,
+    "iso_ratio_vs_raw": 33.12,
+    "temp_ece": 0.4104,
+    "temp_ratio_vs_raw": 1.11,
+    "primary_arm": "ARM_ISOTONIC_REGRESSION",
+    "primary_metric": "ECE",
+    "secondary_pearson_r_iso": 0.1176,
+    "secondary_pearson_r_raw": 0.077,
+    "cramer_rao_r_max_at_this_regime_mean": 1.1083,
+    "base_accuracy_mean": 0.0925,
+    "sanity_raw_ece_in_band": true,
+    "sanity_raw_ece_band": [
+      0.3,
+      0.55
+    ],
+    "n_seeds": 1,
+    "CONFIG_VERSION": "substrate_calibration_isotonic_ECE_primary_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=smoke primary=ARM_ISOTONIC_REGRESSION; primary_metric=ECE bands HP_ece<=0.05 (ratio>=5.0x); HF_ece>=0.15 OR ratio<2.0x; secondary=pearson_r (Cramer-Rao note attached, NOT gating)",
+    "cramer_rao_note": "At base accuracy 0.092 and sigma_score ~ 0.026 (raw cosine std), Pencina-D'Agostino bounds pearson_r(conf, correct) at ~1.108 for AUC=0.55. Pre-reg HARD_PASS on pearson_r >= 0.70 (prior cell) was STRUCTURALLY INFEASIBLE at this regime; THIS cell uses ECE as primary (correct metric for calibration; Niculescu-Mizil-Caruana 2005 ICML).",
+    "honest_scope": "Substrate-native HRR cosine confidence calibration on synthetic concept triples (M=2000, N=2048, f=0.020, 50 values). Calibrators fit on dev split (50%), evaluated on test (50%). PRIMARY metric ECE; secondary pearson_r with Cramer-Rao envelope. Tests CALIBRATION mechanics, not deployment-task AUC. NO transformer comparisons.",
+    "cites": [
+      "preregs/2026-06-24_substrate_calibration_isotonic_ECE_primary_v1.md",
+      "notes/skunkworks_cert_audit_5_HARDFAILS_2026-06-24.md (cell 3 audit)",
+      "notes/research_5cell_cross_HARDFAIL_synthesis_2026-06-24.md",
+      "experiments/exp_substrate_confidence_calibration_isotonic_v1.py (prior cell with wrong-primary)"
+    ]
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_RAW_COSINE": {
+          "ece": 0.4538,
+          "pearson_r": 0.077,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        },
+        "ARM_ISOTONIC_REGRESSION": {
+          "ece": 0.0137,
+          "pearson_r": 0.1176,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        },
+        "ARM_TEMPERATURE_SCALING": {
+          "ece": 0.4104,
+          "pearson_r": 0.0772,
+          "T_fit": 0.01,
+          "n_test": 1000,
+          "accuracy_test": 0.09
+        }
+      },
+      "N_DIM": 2048,
+      "F_SPARSE": 0.02,
+      "N_VALUES": 50,
+      "M_TRIPLES": 2000,
+      "N": 2048,
+      "M": 2000,
+      "run_mode": "smoke",
+      "config_version": "substrate_calibration_isotonic_ECE_primary_v1; N_DIM=2048 f_sparse=0.020 N_VALUES=50 M_TRIPLES=2000 seeds=[7] arms=['ARM_RAW_COSINE', 'ARM_ISOTONIC_REGRESSION', 'ARM_TEMPERATURE_SCALING'] mode=smoke primary=ARM_ISOTONIC_REGRESSION; primary_metric=ECE bands HP_ece<=0.05 (ratio>=5.0x); HF_ece>=0.15 OR ratio<2.0x; secondary=pearson_r (Cramer-Rao note attached, NOT gating)",
+      "raw_conf_mean": 0.0885,
+      "raw_conf_std": 0.0261,
+      "overall_accuracy": 0.0925,
+      "cramer_rao_r_max_at_this_regime": 1.1083,
+      "elapsed_s_seed": 0.39,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782362443.1957731
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS_CHAIN_GRADE: ARM_ISOTONIC achieves ECE=0.0137 <= 0.05 AND 33.1x reduction over raw (>=5.0x required); cv=0.000. Substrate HRR cosine confidence IS well-calibratable via isotonic regression on synthetic triples. Closes calibration gap on the correct primary metric (audit-corrected from pearson_r). ECE: raw=0.4538 iso=0.0137 (cv=0.000 ratio=33.1x vs raw) temp=0.4104 (ratio=1.1x) | pearson_r: raw=0.0770 iso=0.1176 | base_accuracy=0.092 cr_r_max~1.108 | sanity_raw_in_band=True",
+  "substrate_only_decode_gate": "TRUE: numpy-only HRR + sklearn.isotonic fit on dev split only; zero LLM forward calls at inference.",
+  "zero_llm_calls_at_inference": true,
+  "_name_says_smoke_workaround": true
+}

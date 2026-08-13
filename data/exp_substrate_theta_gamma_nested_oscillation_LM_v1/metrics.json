@@ -1,0 +1,206 @@
+{
+  "anchor_name": "substrate_theta_gamma_nested_oscillation_LM_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: nested oscillation adds nothing over single-frequency lock-in across all sigmas tested. N_DIM=4096 M=500 P_single=64 P_theta=8 P_gamma=7 k_gamma=31 k_theta=1; sigma_capacity_single=64.0 sigma_capacity_nested=32.0 cap_ratio=0.500; max_recall_delta=+0.0000; summary_single={'sigma_4.0': 1.0, 'sigma_8.0': 1.0, 'sigma_16.0': 1.0, 'sigma_32.0': 1.0, 'sigma_64.0': 0.9933333333333333, 'sigma_128.0': 0.43333333333333335, 'sigma_256.0': 0.06166666666666667}; summary_nested={'sigma_4.0': 1.0, 'sigma_8.0': 1.0, 'sigma_16.0': 1.0, 'sigma_32.0': 1.0, 'sigma_64.0': 0.7616666666666667, 'sigma_128.0': 0.13166666666666668, 'sigma_256.0': 0.02}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "config": {
+    "N_DIM": 4096,
+    "M": 500,
+    "K_GAMMA": 31,
+    "K_THETA": 1,
+    "P_SINGLE": 64,
+    "P_THETA": 8,
+    "P_GAMMA": 7,
+    "SIGMAS": [
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0,
+      128.0,
+      256.0
+    ],
+    "N_EVAL": 200
+  },
+  "summary": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.9933333333333333,
+      "sigma_128.0": 0.43333333333333335,
+      "sigma_256.0": 0.06166666666666667
+    },
+    "ARM_THETA_GAMMA_NESTED": {
+      "sigma_4.0": 1.0,
+      "sigma_8.0": 1.0,
+      "sigma_16.0": 1.0,
+      "sigma_32.0": 1.0,
+      "sigma_64.0": 0.7616666666666667,
+      "sigma_128.0": 0.13166666666666668,
+      "sigma_256.0": 0.02
+    }
+  },
+  "cv": {
+    "ARM_SINGLE_LOCKIN": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.006277948635526754,
+      "sigma_128.0": 0.021757131728816863,
+      "sigma_256.0": 0.10112587531821467
+    },
+    "ARM_THETA_GAMMA_NESTED": {
+      "sigma_4.0": 0.0,
+      "sigma_8.0": 0.0,
+      "sigma_16.0": 0.0,
+      "sigma_32.0": 0.0,
+      "sigma_64.0": 0.008187434106726356,
+      "sigma_128.0": 0.14652958104797753,
+      "sigma_256.0": 0.5400617248673216
+    }
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.985,
+          "sigma_128.0": 0.44,
+          "sigma_256.0": 0.07
+        },
+        "ARM_THETA_GAMMA_NESTED": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.76,
+          "sigma_128.0": 0.14,
+          "sigma_256.0": 0.005
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0,
+        256.0
+      ],
+      "N_EVAL": 200,
+      "elapsed_s": 19.013610124588013,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782262215.139669
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 1.0,
+          "sigma_128.0": 0.42,
+          "sigma_256.0": 0.055
+        },
+        "ARM_THETA_GAMMA_NESTED": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.755,
+          "sigma_128.0": 0.105,
+          "sigma_256.0": 0.025
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0,
+        256.0
+      ],
+      "N_EVAL": 200,
+      "elapsed_s": 18.432793617248535,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782262233.58069
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "M": 500,
+      "run_mode": "full",
+      "per_arm": {
+        "ARM_SINGLE_LOCKIN": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.995,
+          "sigma_128.0": 0.44,
+          "sigma_256.0": 0.06
+        },
+        "ARM_THETA_GAMMA_NESTED": {
+          "sigma_4.0": 1.0,
+          "sigma_8.0": 1.0,
+          "sigma_16.0": 1.0,
+          "sigma_32.0": 1.0,
+          "sigma_64.0": 0.77,
+          "sigma_128.0": 0.15,
+          "sigma_256.0": 0.03
+        }
+      },
+      "K_GAMMA": 31,
+      "K_THETA": 1,
+      "P_SINGLE": 64,
+      "P_THETA": 8,
+      "P_GAMMA": 7,
+      "SIGMAS": [
+        4.0,
+        8.0,
+        16.0,
+        32.0,
+        64.0,
+        128.0,
+        256.0
+      ],
+      "N_EVAL": 200,
+      "elapsed_s": 19.72204041481018,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782262253.310627
+    }
+  },
+  "elapsed_s": 57.22385907173157
+}

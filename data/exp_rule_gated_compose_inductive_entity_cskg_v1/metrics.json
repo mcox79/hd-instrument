@@ -1,0 +1,1888 @@
+{
+  "verdict": "HARD_FAIL_RULE_GATE_NO_LIFT",
+  "verdict_msg": "HARD_FAIL_RULE_GATE_NO_LIFT || HELD-OUT MRR [nq=3000]: GATED=0.1283 ANCHOR=0.1282 SHUFFLED=0.1281 ALL_2HOP=0.1422 | RANDOM=0.0005 ORACLE=0.1373 POP=0.0001 || lift(GATED-ANCHOR)=0.0001 (HP>=0.0020 FAIL<=0.0005) | selectivity(GATED-SHUFFLED)=0.0001 (>=0.0015) shuffle_lift=-0.0001 | all2hop_lift=0.0140 | ORACLE H=0.1368 ratio=283.2765x fires=True | gate_fired=True admitted g/s/all=16/32/36308 cand=36308 || low-sup(<=3) GATED=0.0572 ANCHOR=0.0572 deg_lift=0.0000 (>=0.0040) | d1 lift=0.0000 d2_3 lift=0.0000 | d8plus GATED=0.1288 ANCHOR=0.1288 ratio=1.0001 (>=0.98) | broken=False | REF anchor=0.12821 oracle=0.13729 | seeds=3",
+  "summary": "HARD_FAIL_RULE_GATE_NO_LIFT || HELD-OUT MRR [nq=3000]: GATED=0.1283 ANCHOR=0.1282 SHUFFLED=0.1281 ALL_2HOP=0.1422 | RANDOM=0.0005 ORACLE=0.1373 POP=0.0001 || lift(GATED-ANCHOR)=0.0001 (HP>=0.0020 FAIL",
+  "run_mode": "full",
+  "elapsed_s": 5331.966058499995,
+  "anchor_name": "rule_gated_compose_inductive_entity_cskg_v1",
+  "ts_iso": "2026-07-14T20:22:58.230994+00:00",
+  "device": "cuda",
+  "n_seeds": 3,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "config": {
+    "k": 24,
+    "epochs": 500,
+    "n_neg": 128,
+    "batch": 8192,
+    "neg_chunk": 16,
+    "ckpt_every": 20,
+    "heldout_entity_frac": 0.15,
+    "support_frac": 0.5,
+    "cskg_max_lines": 0,
+    "k_core": 12,
+    "cskg_max_nodes": 0,
+    "n_heldout_eval": 3000,
+    "min_heldout": 20,
+    "seeds": [
+      7,
+      13,
+      17
+    ]
+  },
+  "gates": {
+    "verdict": "HARD_FAIL_RULE_GATE_NO_LIFT",
+    "ceil_metric": "mrr",
+    "heldout_metric_spectrum": {
+      "RULE_GATED": {
+        "hits@1": 0.052222,
+        "hits@3": 0.125889,
+        "hits@10": 0.278,
+        "hits@100": 0.787889,
+        "mrr": 0.128284
+      },
+      "ANCHOR": {
+        "hits@1": 0.052111,
+        "hits@3": 0.125889,
+        "hits@10": 0.278,
+        "hits@100": 0.787889,
+        "mrr": 0.128209
+      },
+      "SHUFFLED": {
+        "hits@1": 0.051889,
+        "hits@3": 0.125778,
+        "hits@10": 0.278333,
+        "hits@100": 0.787778,
+        "mrr": 0.12815
+      },
+      "ALL_2HOP": {
+        "hits@1": 0.055111,
+        "hits@3": 0.143889,
+        "hits@10": 0.332556,
+        "hits@100": 0.762667,
+        "mrr": 0.142203
+      },
+      "RANDOM": {
+        "hits@1": 0.000111,
+        "hits@3": 0.000222,
+        "hits@10": 0.000333,
+        "hits@100": 0.004,
+        "mrr": 0.000485
+      },
+      "ORACLE": {
+        "hits@1": 0.055556,
+        "hits@3": 0.145333,
+        "hits@10": 0.304667,
+        "hits@100": 0.740111,
+        "mrr": 0.137295
+      },
+      "BASELINE_POP": {
+        "hits@1": 0.0,
+        "hits@3": 0.0,
+        "hits@10": 0.0,
+        "hits@100": 0.0,
+        "mrr": 0.000118
+      }
+    },
+    "heldout_mrr": {
+      "RULE_GATED": 0.128284,
+      "ANCHOR": 0.128209,
+      "SHUFFLED": 0.12815,
+      "ALL_2HOP": 0.142203,
+      "RANDOM": 0.000485,
+      "ORACLE": 0.137295,
+      "BASELINE_POP": 0.000118
+    },
+    "lift_gated_vs_anchor": 7.5e-05,
+    "selectivity_gated_vs_shuffled": 0.000135,
+    "shuffle_lift_vs_anchor": -5.9e-05,
+    "all2hop_lift_vs_anchor": 0.013994,
+    "degree_starved_lift": {
+      "low_support_le3": 0.0,
+      "d1": 0.0,
+      "d2_3": 0.0,
+      "gated_low": 0.057223,
+      "anchor_low": 0.057223,
+      "shuffled_low": 0.056068
+    },
+    "crosstalk_d8plus": {
+      "gated": 0.128805,
+      "anchor": 0.128789,
+      "ratio": 1.0001
+    },
+    "oracle_headroom": 0.13681,
+    "oracle_ratio": 283.28,
+    "n_2hop_admitted_gated": 16,
+    "n_2hop_admitted_shuffled": 32,
+    "n_2hop_admitted_all": 36308,
+    "n_query_scored": 3000,
+    "reference_lines": {
+      "anchor_compose_mrr": 0.12821,
+      "oracle_additive_mrr": 0.13729,
+      "random_codes_mrr": 0.000483
+    },
+    "bands": {
+      "LIFT_ABS": 0.002,
+      "SHUF_MARGIN": 0.0015,
+      "DEG_LIFT_ABS": 0.004,
+      "CROSSTALK_FLOOR": 0.98,
+      "FAIL_ABS": 0.0005,
+      "ORACLE_FIRE_RATIO": 3.0,
+      "ORACLE_FIRE_ABS": 0.003,
+      "GATE_CONF": 0.3,
+      "MIN_SUPPORT": 3,
+      "MIN_CONF": 0.05,
+      "CAP_IN": 64,
+      "CAP_2HOP": 32,
+      "MIN_HELDOUT": 20
+    },
+    "enough_heldout": true,
+    "oracle_fires": true,
+    "gate_fired": true,
+    "broken": false,
+    "selective": false,
+    "lifts_overall": false,
+    "lifts_degstarved": false,
+    "no_crosstalk": true,
+    "hard_pass": false,
+    "hard_fail": true,
+    "middle": false,
+    "top_rules": [
+      {
+        "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+        "conf": 0.4154,
+        "support": 1858
+      },
+      {
+        "rule": "mannerof(x,z) <= entails(x,y) & entails(y,z)",
+        "conf": 0.3333,
+        "support": 4
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+        "conf": 0.2147,
+        "support": 35
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+        "conf": 0.2107,
+        "support": 9420
+      },
+      {
+        "rule": "locatednear(x,z) <= receivesaction(x,y) & locatednear(y,z)",
+        "conf": 0.2095,
+        "support": 31
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & motivatedbygoal(y,z)",
+        "conf": 0.1915,
+        "support": 77
+      },
+      {
+        "rule": "locatednear(x,z) <= mannerof(x,y) & madeof(y,z)",
+        "conf": 0.1875,
+        "support": 3
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+        "conf": 0.1874,
+        "support": 558
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+        "conf": 0.1871,
+        "support": 17665
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & hasproperty(y,z)",
+        "conf": 0.1844,
+        "support": 1284
+      },
+      {
+        "rule": "xreact(x,z) <= xattr(x,y) & xreact(y,z)",
+        "conf": 0.1765,
+        "support": 3
+      },
+      {
+        "rule": "locatednear(x,z) <= capableof(x,y) & locatednear(y,z)",
+        "conf": 0.1687,
+        "support": 15788
+      },
+      {
+        "rule": "locatednear(x,z) <= madeof(x,y) & madeof(y,z)",
+        "conf": 0.1591,
+        "support": 7
+      },
+      {
+        "rule": "mayhaveproperty(x,z) <= receivesaction(x,y) & mayhaveproperty(y,z)",
+        "conf": 0.1579,
+        "support": 6
+      },
+      {
+        "rule": "hasa(x,z) <= usedfor(x,y) & hasa(y,z)",
+        "conf": 0.1564,
+        "support": 795
+      }
+    ]
+  },
+  "mechanism_selftest": {
+    "N": 810,
+    "n_heldout_entities": 121,
+    "n_support": 99,
+    "n_query": 92,
+    "n_cold": 19,
+    "n_rules_train": 3,
+    "n_2hop_cand": 63,
+    "n_2hop_admitted_gated": 11,
+    "n_2hop_admitted_shuffled": 11,
+    "n_2hop_admitted_all": 63,
+    "top_rules": [
+      {
+        "rule": "rC0(x,z) <= rA0(x,y) & rB0(y,z)",
+        "conf": 1.0,
+        "support": 58
+      },
+      {
+        "rule": "rC1(x,z) <= rA1(x,y) & rB1(y,z)",
+        "conf": 1.0,
+        "support": 50
+      },
+      {
+        "rule": "rC2(x,z) <= rA2(x,y) & rB2(y,z)",
+        "conf": 1.0,
+        "support": 58
+      }
+    ],
+    "heldout_mrr": {
+      "RULE_GATED": 0.23586,
+      "ANCHOR": 0.222266,
+      "SHUFFLED": 0.219661,
+      "ALL_2HOP": 0.190405,
+      "RANDOM": 0.007613,
+      "ORACLE": 0.667495,
+      "BASELINE_POP": 0.003555
+    },
+    "n_distinct_sigs": 7,
+    "lift": 0.013594,
+    "gate_vs_shuffle": 0.016199,
+    "anchor_vs_random": 0.214653,
+    "oracle_headroom": 0.659882,
+    "oracle_ratio": 87.68,
+    "oracle_recovers": true,
+    "oracle_fires": true,
+    "anchor_recovers": true,
+    "anchor_beats_random": true,
+    "gate_lifts": true,
+    "gate_selective": true,
+    "gate_fired": true,
+    "pop_at_floor": true,
+    "arms_differ": true,
+    "selftest_verdict": "HARD_PASS_RULE_GATE_LIFTS_ADDITIVE",
+    "validity_preflight_ok": true,
+    "validity_preflight_declared": [
+      "positive_control_passes",
+      "metric_moves",
+      "negative_control_fails_with_margin",
+      "full_gates_exercised_at_selftest",
+      "real_code_path",
+      "substrate_signature(x2)",
+      "guard_baseline_valid"
+    ]
+  },
+  "seed_failures": [],
+  "per_seed": [
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 7,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 359692,
+      "n_heldout_entities": 3862,
+      "n_support": 36254,
+      "n_query_total": 36333,
+      "n_query_scored": 3000,
+      "n_cold": 154,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_GATED": {
+          "hits@1": 0.041,
+          "hits@3": 0.109667,
+          "hits@10": 0.274,
+          "hits@100": 0.798,
+          "mrr": 0.116926
+        },
+        "ANCHOR": {
+          "hits@1": 0.041,
+          "hits@3": 0.109667,
+          "hits@10": 0.274,
+          "hits@100": 0.798,
+          "mrr": 0.116926
+        },
+        "SHUFFLED": {
+          "hits@1": 0.041,
+          "hits@3": 0.109667,
+          "hits@10": 0.274,
+          "hits@100": 0.798,
+          "mrr": 0.116928
+        },
+        "ALL_2HOP": {
+          "hits@1": 0.050667,
+          "hits@3": 0.131,
+          "hits@10": 0.326667,
+          "hits@100": 0.782667,
+          "mrr": 0.136265
+        },
+        "RANDOM": {
+          "hits@1": 0.000333,
+          "hits@3": 0.000333,
+          "hits@10": 0.000667,
+          "hits@100": 0.005,
+          "mrr": 0.000699
+        },
+        "ORACLE": {
+          "hits@1": 0.063667,
+          "hits@3": 0.169333,
+          "hits@10": 0.340667,
+          "hits@100": 0.763333,
+          "mrr": 0.154422
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000118
+        }
+      },
+      "arm_n": {
+        "RULE_GATED": 3000,
+        "ANCHOR": 3000,
+        "SHUFFLED": 3000,
+        "ALL_2HOP": 3000,
+        "RANDOM": 3000,
+        "ORACLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "RULE_GATED": "d305c6743c818b8c",
+        "ANCHOR": "55f88ad73f32c628",
+        "SHUFFLED": "d99f49edef7041c4",
+        "ALL_2HOP": "2625531ca582a3de",
+        "ORACLE": "a75ca29c8167b4b6",
+        "RANDOM": "bd246a3a47808803",
+        "BASELINE_POP": "f8b6da2d4305c360"
+      },
+      "n_rules_train": 190,
+      "n_L2_body_patterns": 126,
+      "n_body_ge_gate": 2,
+      "hub_skipped": 64,
+      "n_2hop_cand": 36231,
+      "n_2hop_admitted_gated": 0,
+      "n_2hop_admitted_shuffled": 26,
+      "n_2hop_admitted_all": 36231,
+      "top_rules": [
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "conf": 0.4154,
+          "support": 1858
+        },
+        {
+          "rule": "mannerof(x,z) <= entails(x,y) & entails(y,z)",
+          "conf": 0.3333,
+          "support": 4
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+          "conf": 0.2147,
+          "support": 35
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2107,
+          "support": 9420
+        },
+        {
+          "rule": "locatednear(x,z) <= receivesaction(x,y) & locatednear(y,z)",
+          "conf": 0.2095,
+          "support": 31
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & motivatedbygoal(y,z)",
+          "conf": 0.1915,
+          "support": 77
+        },
+        {
+          "rule": "locatednear(x,z) <= mannerof(x,y) & madeof(y,z)",
+          "conf": 0.1875,
+          "support": 3
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1874,
+          "support": 558
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1871,
+          "support": 17665
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & hasproperty(y,z)",
+          "conf": 0.1844,
+          "support": 1284
+        },
+        {
+          "rule": "xreact(x,z) <= xattr(x,y) & xreact(y,z)",
+          "conf": 0.1765,
+          "support": 3
+        },
+        {
+          "rule": "locatednear(x,z) <= capableof(x,y) & locatednear(y,z)",
+          "conf": 0.1687,
+          "support": 15788
+        },
+        {
+          "rule": "locatednear(x,z) <= madeof(x,y) & madeof(y,z)",
+          "conf": 0.1591,
+          "support": 7
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= receivesaction(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1579,
+          "support": 6
+        },
+        {
+          "rule": "hasa(x,z) <= usedfor(x,y) & hasa(y,z)",
+          "conf": 0.1564,
+          "support": 795
+        }
+      ],
+      "localization": {
+        "by_support_degree": {
+          "cold": {
+            "RULE_GATED": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 15
+            },
+            "ANCHOR": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 15
+            },
+            "SHUFFLED": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 15
+            },
+            "ALL_2HOP": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 15
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000916,
+              "n": 15
+            },
+            "ORACLE": {
+              "hits": 0.86667,
+              "mrr": 0.637813,
+              "n": 15
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000103,
+              "n": 15
+            }
+          },
+          "d1": {
+            "RULE_GATED": {
+              "hits": 0.0,
+              "mrr": 0.003792,
+              "n": 4
+            },
+            "ANCHOR": {
+              "hits": 0.0,
+              "mrr": 0.003792,
+              "n": 4
+            },
+            "SHUFFLED": {
+              "hits": 0.0,
+              "mrr": 0.003793,
+              "n": 4
+            },
+            "ALL_2HOP": {
+              "hits": 0.0,
+              "mrr": 0.00391,
+              "n": 4
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 5.3e-05,
+              "n": 4
+            },
+            "ORACLE": {
+              "hits": 0.75,
+              "mrr": 0.500667,
+              "n": 4
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.00012,
+              "n": 4
+            }
+          },
+          "d2_3": {
+            "RULE_GATED": {
+              "hits": 0.16667,
+              "mrr": 0.074739,
+              "n": 48
+            },
+            "ANCHOR": {
+              "hits": 0.16667,
+              "mrr": 0.074739,
+              "n": 48
+            },
+            "SHUFFLED": {
+              "hits": 0.16667,
+              "mrr": 0.074739,
+              "n": 48
+            },
+            "ALL_2HOP": {
+              "hits": 0.02083,
+              "mrr": 0.015171,
+              "n": 48
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000105,
+              "n": 48
+            },
+            "ORACLE": {
+              "hits": 0.375,
+              "mrr": 0.173856,
+              "n": 48
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.00012,
+              "n": 48
+            }
+          },
+          "d4_7": {
+            "RULE_GATED": {
+              "hits": 0.29949,
+              "mrr": 0.170522,
+              "n": 197
+            },
+            "ANCHOR": {
+              "hits": 0.29949,
+              "mrr": 0.170522,
+              "n": 197
+            },
+            "SHUFFLED": {
+              "hits": 0.29949,
+              "mrr": 0.170522,
+              "n": 197
+            },
+            "ALL_2HOP": {
+              "hits": 0.20812,
+              "mrr": 0.129251,
+              "n": 197
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000232,
+              "n": 197
+            },
+            "ORACLE": {
+              "hits": 0.32487,
+              "mrr": 0.128044,
+              "n": 197
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.00013,
+              "n": 197
+            }
+          },
+          "d8plus": {
+            "RULE_GATED": {
+              "hits": 0.27595,
+              "mrr": 0.114613,
+              "n": 2736
+            },
+            "ANCHOR": {
+              "hits": 0.27595,
+              "mrr": 0.114613,
+              "n": 2736
+            },
+            "SHUFFLED": {
+              "hits": 0.27595,
+              "mrr": 0.114615,
+              "n": 2736
+            },
+            "ALL_2HOP": {
+              "hits": 0.34284,
+              "mrr": 0.139835,
+              "n": 2736
+            },
+            "RANDOM": {
+              "hits": 0.00073,
+              "mrr": 0.000743,
+              "n": 2736
+            },
+            "ORACLE": {
+              "hits": 0.33772,
+              "mrr": 0.152824,
+              "n": 2736
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.00012,
+              "n": 2736
+            }
+          }
+        },
+        "low_support_le3": {
+          "RULE_GATED": {
+            "hits": 0.1194,
+            "mrr": 0.05378,
+            "n": 67
+          },
+          "ANCHOR": {
+            "hits": 0.1194,
+            "mrr": 0.05378,
+            "n": 67
+          },
+          "SHUFFLED": {
+            "hits": 0.1194,
+            "mrr": 0.05378,
+            "n": 67
+          },
+          "ALL_2HOP": {
+            "hits": 0.01493,
+            "mrr": 0.011112,
+            "n": 67
+          },
+          "RANDOM": {
+            "hits": 0.0,
+            "mrr": 0.000284,
+            "n": 67
+          },
+          "ORACLE": {
+            "hits": 0.50746,
+            "mrr": 0.297238,
+            "n": 67
+          },
+          "BASELINE_POP": {
+            "hits": 0.0,
+            "mrr": 0.000109,
+            "n": 67
+          }
+        },
+        "by_global_degree_tertile": {
+          "low": {
+            "RULE_GATED": {
+              "hits": 0.274,
+              "mrr": 0.116926,
+              "n": 3000
+            },
+            "ANCHOR": {
+              "hits": 0.274,
+              "mrr": 0.116926,
+              "n": 3000
+            },
+            "SHUFFLED": {
+              "hits": 0.274,
+              "mrr": 0.116928,
+              "n": 3000
+            },
+            "ALL_2HOP": {
+              "hits": 0.32667,
+              "mrr": 0.136265,
+              "n": 3000
+            },
+            "RANDOM": {
+              "hits": 0.00067,
+              "mrr": 0.000699,
+              "n": 3000
+            },
+            "ORACLE": {
+              "hits": 0.34067,
+              "mrr": 0.154422,
+              "n": 3000
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000118,
+              "n": 3000
+            }
+          },
+          "mid": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          },
+          "high": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          }
+        },
+        "global_degree_tertile_bounds": [
+          0.0,
+          0.0
+        ],
+        "support_deg_hist": {
+          "cold": 15,
+          "d1": 4,
+          "d2_3": 48,
+          "d4_7": 197,
+          "d8plus": 2736
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 13,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 375272,
+      "n_heldout_entities": 3862,
+      "n_support": 28420,
+      "n_query_total": 28532,
+      "n_query_scored": 3000,
+      "n_cold": 180,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_GATED": {
+          "hits@1": 0.060667,
+          "hits@3": 0.138,
+          "hits@10": 0.286667,
+          "hits@100": 0.796333,
+          "mrr": 0.138153
+        },
+        "ANCHOR": {
+          "hits@1": 0.060333,
+          "hits@3": 0.138,
+          "hits@10": 0.286667,
+          "hits@100": 0.796333,
+          "mrr": 0.13797
+        },
+        "SHUFFLED": {
+          "hits@1": 0.059667,
+          "hits@3": 0.137667,
+          "hits@10": 0.287333,
+          "hits@100": 0.796,
+          "mrr": 0.137783
+        },
+        "ALL_2HOP": {
+          "hits@1": 0.054333,
+          "hits@3": 0.154333,
+          "hits@10": 0.341,
+          "hits@100": 0.772667,
+          "mrr": 0.145536
+        },
+        "RANDOM": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.003333,
+          "mrr": 0.000311
+        },
+        "ORACLE": {
+          "hits@1": 0.042,
+          "hits@3": 0.125,
+          "hits@10": 0.286333,
+          "hits@100": 0.735,
+          "mrr": 0.120369
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000117
+        }
+      },
+      "arm_n": {
+        "RULE_GATED": 3000,
+        "ANCHOR": 3000,
+        "SHUFFLED": 3000,
+        "ALL_2HOP": 3000,
+        "RANDOM": 3000,
+        "ORACLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "RULE_GATED": "4f145aea6929c501",
+        "ANCHOR": "8ef774711df5354b",
+        "SHUFFLED": "e343d8ce5c5b1910",
+        "ALL_2HOP": "ead42ae885bf749b",
+        "ORACLE": "606a84206b87dfda",
+        "RANDOM": "aaf0901800378ec2",
+        "BASELINE_POP": "736cac7d8d56c9b4"
+      },
+      "n_rules_train": 217,
+      "n_L2_body_patterns": 144,
+      "n_body_ge_gate": 1,
+      "hub_skipped": 65,
+      "n_2hop_cand": 35001,
+      "n_2hop_admitted_gated": 18,
+      "n_2hop_admitted_shuffled": 65,
+      "n_2hop_admitted_all": 35001,
+      "top_rules": [
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "conf": 0.4281,
+          "support": 1903
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & locatednear(y,z)",
+          "conf": 0.2972,
+          "support": 709
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & atlocation(y,z)",
+          "conf": 0.2578,
+          "support": 132
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2362,
+          "support": 338
+        },
+        {
+          "rule": "oreact(x,z) <= oreact(x,y) & xreact(y,z)",
+          "conf": 0.2143,
+          "support": 3
+        },
+        {
+          "rule": "hasa(x,z) <= usedfor(x,y) & hasa(y,z)",
+          "conf": 0.2118,
+          "support": 846
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2094,
+          "support": 10718
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & hasproperty(y,z)",
+          "conf": 0.2013,
+          "support": 31
+        },
+        {
+          "rule": "capableof(x,z) <= desires(x,y) & capableof(y,z)",
+          "conf": 0.1984,
+          "support": 51
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & madeof(y,z)",
+          "conf": 0.1897,
+          "support": 33
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1877,
+          "support": 18123
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1853,
+          "support": 576
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= receivesaction(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1842,
+          "support": 7
+        },
+        {
+          "rule": "desires(x,z) <= desires(x,y) & mannerof(y,z)",
+          "conf": 0.1833,
+          "support": 44
+        },
+        {
+          "rule": "locatednear(x,z) <= madeof(x,y) & madeof(y,z)",
+          "conf": 0.1818,
+          "support": 8
+        }
+      ],
+      "localization": {
+        "by_support_degree": {
+          "cold": {
+            "RULE_GATED": {
+              "hits": 0.0,
+              "mrr": 4e-05,
+              "n": 20
+            },
+            "ANCHOR": {
+              "hits": 0.0,
+              "mrr": 4e-05,
+              "n": 20
+            },
+            "SHUFFLED": {
+              "hits": 0.0,
+              "mrr": 4e-05,
+              "n": 20
+            },
+            "ALL_2HOP": {
+              "hits": 0.0,
+              "mrr": 4e-05,
+              "n": 20
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000132,
+              "n": 20
+            },
+            "ORACLE": {
+              "hits": 0.9,
+              "mrr": 0.663688,
+              "n": 20
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000104,
+              "n": 20
+            }
+          },
+          "d1": {
+            "RULE_GATED": {
+              "hits": 0.16667,
+              "mrr": 0.114713,
+              "n": 12
+            },
+            "ANCHOR": {
+              "hits": 0.16667,
+              "mrr": 0.114713,
+              "n": 12
+            },
+            "SHUFFLED": {
+              "hits": 0.08333,
+              "mrr": 0.088967,
+              "n": 12
+            },
+            "ALL_2HOP": {
+              "hits": 0.08333,
+              "mrr": 0.088218,
+              "n": 12
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000242,
+              "n": 12
+            },
+            "ORACLE": {
+              "hits": 0.5,
+              "mrr": 0.283065,
+              "n": 12
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 9.9e-05,
+              "n": 12
+            }
+          },
+          "d2_3": {
+            "RULE_GATED": {
+              "hits": 0.14035,
+              "mrr": 0.083055,
+              "n": 57
+            },
+            "ANCHOR": {
+              "hits": 0.14035,
+              "mrr": 0.083055,
+              "n": 57
+            },
+            "SHUFFLED": {
+              "hits": 0.14035,
+              "mrr": 0.083055,
+              "n": 57
+            },
+            "ALL_2HOP": {
+              "hits": 0.03509,
+              "mrr": 0.019329,
+              "n": 57
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000171,
+              "n": 57
+            },
+            "ORACLE": {
+              "hits": 0.19298,
+              "mrr": 0.072925,
+              "n": 57
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.0001,
+              "n": 57
+            }
+          },
+          "d4_7": {
+            "RULE_GATED": {
+              "hits": 0.22353,
+              "mrr": 0.134476,
+              "n": 255
+            },
+            "ANCHOR": {
+              "hits": 0.22353,
+              "mrr": 0.132319,
+              "n": 255
+            },
+            "SHUFFLED": {
+              "hits": 0.22745,
+              "mrr": 0.132372,
+              "n": 255
+            },
+            "ALL_2HOP": {
+              "hits": 0.14902,
+              "mrr": 0.06917,
+              "n": 255
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000198,
+              "n": 255
+            },
+            "ORACLE": {
+              "hits": 0.25882,
+              "mrr": 0.100422,
+              "n": 255
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000125,
+              "n": 255
+            }
+          },
+          "d8plus": {
+            "RULE_GATED": {
+              "hits": 0.29857,
+              "mrr": 0.140835,
+              "n": 2656
+            },
+            "ANCHOR": {
+              "hits": 0.29857,
+              "mrr": 0.140835,
+              "n": 2656
+            },
+            "SHUFFLED": {
+              "hits": 0.29932,
+              "mrr": 0.140735,
+              "n": 2656
+            },
+            "ALL_2HOP": {
+              "hits": 0.36973,
+              "mrr": 0.156931,
+              "n": 2656
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000327,
+              "n": 2656
+            },
+            "ORACLE": {
+              "hits": 0.28539,
+              "mrr": 0.118475,
+              "n": 2656
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000118,
+              "n": 2656
+            }
+          }
+        },
+        "low_support_le3": {
+          "RULE_GATED": {
+            "hits": 0.11236,
+            "mrr": 0.068668,
+            "n": 89
+          },
+          "ANCHOR": {
+            "hits": 0.11236,
+            "mrr": 0.068668,
+            "n": 89
+          },
+          "SHUFFLED": {
+            "hits": 0.10112,
+            "mrr": 0.065197,
+            "n": 89
+          },
+          "ALL_2HOP": {
+            "hits": 0.03371,
+            "mrr": 0.024283,
+            "n": 89
+          },
+          "RANDOM": {
+            "hits": 0.0,
+            "mrr": 0.000172,
+            "n": 89
+          },
+          "ORACLE": {
+            "hits": 0.39326,
+            "mrr": 0.234014,
+            "n": 89
+          },
+          "BASELINE_POP": {
+            "hits": 0.0,
+            "mrr": 0.000112,
+            "n": 89
+          }
+        },
+        "by_global_degree_tertile": {
+          "low": {
+            "RULE_GATED": {
+              "hits": 0.28667,
+              "mrr": 0.138153,
+              "n": 3000
+            },
+            "ANCHOR": {
+              "hits": 0.28667,
+              "mrr": 0.13797,
+              "n": 3000
+            },
+            "SHUFFLED": {
+              "hits": 0.28733,
+              "mrr": 0.137783,
+              "n": 3000
+            },
+            "ALL_2HOP": {
+              "hits": 0.341,
+              "mrr": 0.145536,
+              "n": 3000
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000311,
+              "n": 3000
+            },
+            "ORACLE": {
+              "hits": 0.28633,
+              "mrr": 0.120369,
+              "n": 3000
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000117,
+              "n": 3000
+            }
+          },
+          "mid": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          },
+          "high": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          }
+        },
+        "global_degree_tertile_bounds": [
+          0.0,
+          0.0
+        ],
+        "support_deg_hist": {
+          "cold": 20,
+          "d1": 12,
+          "d2_3": 57,
+          "d4_7": 255,
+          "d8plus": 2656
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    },
+    {
+      "corpus": "CSKG_CORE_HELDOUT_ENTITY",
+      "seed": 17,
+      "N": 25752,
+      "n_rel": 29,
+      "n_train": 371254,
+      "n_heldout_entities": 3862,
+      "n_support": 31133,
+      "n_query_total": 31232,
+      "n_query_scored": 3000,
+      "n_cold": 155,
+      "heldout_entity_frac": 0.15,
+      "support_frac": 0.5,
+      "arm_hits": {
+        "RULE_GATED": {
+          "hits@1": 0.055,
+          "hits@3": 0.13,
+          "hits@10": 0.273333,
+          "hits@100": 0.769333,
+          "mrr": 0.129774
+        },
+        "ANCHOR": {
+          "hits@1": 0.055,
+          "hits@3": 0.13,
+          "hits@10": 0.273333,
+          "hits@100": 0.769333,
+          "mrr": 0.129731
+        },
+        "SHUFFLED": {
+          "hits@1": 0.055,
+          "hits@3": 0.13,
+          "hits@10": 0.273667,
+          "hits@100": 0.769333,
+          "mrr": 0.129738
+        },
+        "ALL_2HOP": {
+          "hits@1": 0.060333,
+          "hits@3": 0.146333,
+          "hits@10": 0.33,
+          "hits@100": 0.732667,
+          "mrr": 0.144807
+        },
+        "RANDOM": {
+          "hits@1": 0.0,
+          "hits@3": 0.000333,
+          "hits@10": 0.000333,
+          "hits@100": 0.003667,
+          "mrr": 0.000444
+        },
+        "ORACLE": {
+          "hits@1": 0.061,
+          "hits@3": 0.141667,
+          "hits@10": 0.287,
+          "hits@100": 0.722,
+          "mrr": 0.137093
+        },
+        "BASELINE_POP": {
+          "hits@1": 0.0,
+          "hits@3": 0.0,
+          "hits@10": 0.0,
+          "hits@100": 0.0,
+          "mrr": 0.000119
+        }
+      },
+      "arm_n": {
+        "RULE_GATED": 3000,
+        "ANCHOR": 3000,
+        "SHUFFLED": 3000,
+        "ALL_2HOP": 3000,
+        "RANDOM": 3000,
+        "ORACLE": 3000,
+        "BASELINE_POP": 3000
+      },
+      "arm_sigs": {
+        "RULE_GATED": "85445cab74fee02d",
+        "ANCHOR": "6efb4eb00bda3b59",
+        "SHUFFLED": "1e0f3c53453f43fc",
+        "ALL_2HOP": "2c44793f713b3504",
+        "ORACLE": "1a0d61b4aa209953",
+        "RANDOM": "c5968f1d51535fa1",
+        "BASELINE_POP": "88ff172702dc6376"
+      },
+      "n_rules_train": 223,
+      "n_L2_body_patterns": 147,
+      "n_body_ge_gate": 1,
+      "hub_skipped": 65,
+      "n_2hop_cand": 37693,
+      "n_2hop_admitted_gated": 32,
+      "n_2hop_admitted_shuffled": 6,
+      "n_2hop_admitted_all": 37693,
+      "top_rules": [
+        {
+          "rule": "hasa(x,z) <= hasa(x,y) & hasa(y,z)",
+          "conf": 0.3303,
+          "support": 918
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & locatednear(y,z)",
+          "conf": 0.2794,
+          "support": 803
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= receivesaction(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2778,
+          "support": 5
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & xreact(y,z)",
+          "conf": 0.2727,
+          "support": 3
+        },
+        {
+          "rule": "locatednear(x,z) <= desires(x,y) & atlocation(y,z)",
+          "conf": 0.2524,
+          "support": 158
+        },
+        {
+          "rule": "desires(x,z) <= desires(x,y) & createdby(y,z)",
+          "conf": 0.25,
+          "support": 3
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= desires(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2208,
+          "support": 371
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= capableof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.2032,
+          "support": 9242
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= madeof(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1821,
+          "support": 582
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & mayhaveproperty(y,z)",
+          "conf": 0.1815,
+          "support": 18019
+        },
+        {
+          "rule": "locatednear(x,z) <= capableof(x,y) & locatednear(y,z)",
+          "conf": 0.1688,
+          "support": 17200
+        },
+        {
+          "rule": "mayhaveproperty(x,z) <= mayhaveproperty(x,y) & hasproperty(y,z)",
+          "conf": 0.1687,
+          "support": 1655
+        },
+        {
+          "rule": "capableof(x,z) <= desires(x,y) & capableof(y,z)",
+          "conf": 0.1667,
+          "support": 53
+        },
+        {
+          "rule": "xattr(x,z) <= oreact(x,y) & xattr(y,z)",
+          "conf": 0.1667,
+          "support": 7
+        },
+        {
+          "rule": "xreact(x,z) <= xattr(x,y) & xreact(y,z)",
+          "conf": 0.1667,
+          "support": 4
+        }
+      ],
+      "localization": {
+        "by_support_degree": {
+          "cold": {
+            "RULE_GATED": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 12
+            },
+            "ANCHOR": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 12
+            },
+            "SHUFFLED": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 12
+            },
+            "ALL_2HOP": {
+              "hits": 0.0,
+              "mrr": 4.1e-05,
+              "n": 12
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000253,
+              "n": 12
+            },
+            "ORACLE": {
+              "hits": 0.83333,
+              "mrr": 0.641544,
+              "n": 12
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000109,
+              "n": 12
+            }
+          },
+          "d1": {
+            "RULE_GATED": {
+              "hits": 0.2,
+              "mrr": 0.028342,
+              "n": 5
+            },
+            "ANCHOR": {
+              "hits": 0.2,
+              "mrr": 0.028342,
+              "n": 5
+            },
+            "SHUFFLED": {
+              "hits": 0.2,
+              "mrr": 0.028342,
+              "n": 5
+            },
+            "ALL_2HOP": {
+              "hits": 0.2,
+              "mrr": 0.029706,
+              "n": 5
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 5.9e-05,
+              "n": 5
+            },
+            "ORACLE": {
+              "hits": 0.4,
+              "mrr": 0.157776,
+              "n": 5
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000194,
+              "n": 5
+            }
+          },
+          "d2_3": {
+            "RULE_GATED": {
+              "hits": 0.08475,
+              "mrr": 0.060993,
+              "n": 59
+            },
+            "ANCHOR": {
+              "hits": 0.08475,
+              "mrr": 0.060993,
+              "n": 59
+            },
+            "SHUFFLED": {
+              "hits": 0.08475,
+              "mrr": 0.061,
+              "n": 59
+            },
+            "ALL_2HOP": {
+              "hits": 0.0678,
+              "mrr": 0.046245,
+              "n": 59
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000262,
+              "n": 59
+            },
+            "ORACLE": {
+              "hits": 0.13559,
+              "mrr": 0.067717,
+              "n": 59
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000128,
+              "n": 59
+            }
+          },
+          "d4_7": {
+            "RULE_GATED": {
+              "hits": 0.26481,
+              "mrr": 0.140147,
+              "n": 287
+            },
+            "ANCHOR": {
+              "hits": 0.26481,
+              "mrr": 0.140147,
+              "n": 287
+            },
+            "SHUFFLED": {
+              "hits": 0.26829,
+              "mrr": 0.140335,
+              "n": 287
+            },
+            "ALL_2HOP": {
+              "hits": 0.16376,
+              "mrr": 0.094384,
+              "n": 287
+            },
+            "RANDOM": {
+              "hits": 0.0,
+              "mrr": 0.000236,
+              "n": 287
+            },
+            "ORACLE": {
+              "hits": 0.22997,
+              "mrr": 0.096323,
+              "n": 287
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000131,
+              "n": 287
+            }
+          },
+          "d8plus": {
+            "RULE_GATED": {
+              "hits": 0.27986,
+              "mrr": 0.130967,
+              "n": 2637
+            },
+            "ANCHOR": {
+              "hits": 0.27986,
+              "mrr": 0.130918,
+              "n": 2637
+            },
+            "SHUFFLED": {
+              "hits": 0.27986,
+              "mrr": 0.130905,
+              "n": 2637
+            },
+            "ALL_2HOP": {
+              "hits": 0.35571,
+              "mrr": 0.153377,
+              "n": 2637
+            },
+            "RANDOM": {
+              "hits": 0.00038,
+              "mrr": 0.000472,
+              "n": 2637
+            },
+            "ORACLE": {
+              "hits": 0.29389,
+              "mrr": 0.140748,
+              "n": 2637
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000119,
+              "n": 2637
+            }
+          }
+        },
+        "low_support_le3": {
+          "RULE_GATED": {
+            "hits": 0.07895,
+            "mrr": 0.049221,
+            "n": 76
+          },
+          "ANCHOR": {
+            "hits": 0.07895,
+            "mrr": 0.049221,
+            "n": 76
+          },
+          "SHUFFLED": {
+            "hits": 0.07895,
+            "mrr": 0.049226,
+            "n": 76
+          },
+          "ALL_2HOP": {
+            "hits": 0.06579,
+            "mrr": 0.037862,
+            "n": 76
+          },
+          "RANDOM": {
+            "hits": 0.0,
+            "mrr": 0.000248,
+            "n": 76
+          },
+          "ORACLE": {
+            "hits": 0.26316,
+            "mrr": 0.164246,
+            "n": 76
+          },
+          "BASELINE_POP": {
+            "hits": 0.0,
+            "mrr": 0.000113,
+            "n": 76
+          }
+        },
+        "by_global_degree_tertile": {
+          "low": {
+            "RULE_GATED": {
+              "hits": 0.27333,
+              "mrr": 0.129774,
+              "n": 3000
+            },
+            "ANCHOR": {
+              "hits": 0.27333,
+              "mrr": 0.129731,
+              "n": 3000
+            },
+            "SHUFFLED": {
+              "hits": 0.27367,
+              "mrr": 0.129738,
+              "n": 3000
+            },
+            "ALL_2HOP": {
+              "hits": 0.33,
+              "mrr": 0.144807,
+              "n": 3000
+            },
+            "RANDOM": {
+              "hits": 0.00033,
+              "mrr": 0.000444,
+              "n": 3000
+            },
+            "ORACLE": {
+              "hits": 0.287,
+              "mrr": 0.137093,
+              "n": 3000
+            },
+            "BASELINE_POP": {
+              "hits": 0.0,
+              "mrr": 0.000119,
+              "n": 3000
+            }
+          },
+          "mid": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          },
+          "high": {
+            "RULE_GATED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ANCHOR": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "SHUFFLED": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ALL_2HOP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "RANDOM": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "ORACLE": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            },
+            "BASELINE_POP": {
+              "hits": NaN,
+              "mrr": NaN,
+              "n": 0
+            }
+          }
+        },
+        "global_degree_tertile_bounds": [
+          0.0,
+          0.0
+        ],
+        "support_deg_hist": {
+          "cold": 12,
+          "d1": 5,
+          "d2_3": 59,
+          "d4_7": 287,
+          "d8plus": 2637
+        }
+      },
+      "cskg_provenance": {
+        "n_xcut_edges_streamed": 1244862,
+        "k_core": 12,
+        "n_core_nodes": 25752,
+        "n_core_edges": 511164,
+        "n_core_nodes_in_split": 25752,
+        "core_avgdeg": 39.69897483690587,
+        "n_train": 460048,
+        "n_valid": 25558,
+        "n_test": 25558,
+        "n_rel_tokens": 29
+      }
+    }
+  ]
+}

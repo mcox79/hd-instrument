@@ -1,0 +1,312 @@
+{
+  "anchor_name": "sparse_bundling_capacity_per_cost_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: block-sparse bundling capacity DECOUPLES from active-cost -- capacity-per-cost rises 6.2x across N', >=4x the dense-N1024 baseline at LOWER compute; value-thin control did NOT decouple. headline(bsN4096/denseN1024)=6.40x | bs_percost_decouple=6.20x dense=1.60x vt=1.55x | vt/dense@Nhi=1.06 must_fail_fired=True compute_ok=True censored=False",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N_prime_grid": [
+    1024,
+    4096
+  ],
+  "M_codebook": 2048,
+  "k_block": 8,
+  "f_thin": 0.02,
+  "n_trial": 8,
+  "recall_target": 0.9,
+  "expected_n_units": 6,
+  "n_units": 6,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "DENSE": "82d51bc7f8902e6eebb1e31f164f5e2e8c34956332589c51b0c6612bf3cfa273",
+    "BLOCKSPARSE": "aa007605ee3a92de0440cd1a6a672d45f975cfbc1c69992bbce39f46bdb970e6",
+    "VALUE_THIN_FRAC": "41de40895cd8c844190ca05c6bc0b3af120e1d2c64d039dcb84f0d6b71e27c7e"
+  },
+  "facts": {
+    "headline_ratio_bs_hi_vs_dense_lo": 6.397171339008483,
+    "bs_capacity_per_cost_decoupling": 6.202147598954823,
+    "dense_capacity_per_cost_decoupling": 1.5951339706128977,
+    "vt_capacity_per_cost_decoupling": 1.5493922081420541,
+    "vt_ratio_vs_dense_at_Nhi": 1.0619622743237023,
+    "must_fail_control_fired": true,
+    "dense_flat_sanity": true,
+    "any_censored": false,
+    "blocksparse_compute_le_dense1024": true,
+    "bs_J_max": {
+      "lo": 64.16410256410255,
+      "hi": 397.9552346570396
+    },
+    "dense_J_max": {
+      "lo": 62.20799999999999,
+      "hi": 396.92037617554854
+    },
+    "vt_J_max_hi": 421.514465408805,
+    "Nlo": 1024,
+    "Nhi": 4096,
+    "bs_cap_per_cost": {
+      "lo": 8.020512820512819,
+      "hi": 49.74440433212995
+    },
+    "dense_cap_per_cost": {
+      "lo": 0.06074999999999999,
+      "hi": 0.09690438871473353
+    },
+    "vt_cap_per_cost": {
+      "lo": 3.317701149425287,
+      "hi": 5.140420309863476
+    },
+    "bs_cost_hi": 8.0,
+    "dense_cost_lo": 1024.0
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "per_arm": {
+        "DENSE": {
+          "1024": {
+            "J_max": 62.20799999999999,
+            "active_cost": 1024,
+            "cap_per_cost": 0.06074999999999999,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                0.9921875
+              ],
+              [
+                64,
+                0.89453125
+              ]
+            ]
+          },
+          "4096": {
+            "J_max": 396.92037617554854,
+            "active_cost": 4096,
+            "cap_per_cost": 0.09690438871473353,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                1.0
+              ],
+              [
+                64,
+                1.0
+              ],
+              [
+                128,
+                0.990234375
+              ],
+              [
+                256,
+                0.94287109375
+              ],
+              [
+                512,
+                0.864990234375
+              ]
+            ]
+          }
+        },
+        "BLOCKSPARSE": {
+          "1024": {
+            "J_max": 64.16410256410255,
+            "active_cost": 8,
+            "cap_per_cost": 8.020512820512819,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                0.9765625
+              ],
+              [
+                64,
+                0.900390625
+              ],
+              [
+                128,
+                0.748046875
+              ]
+            ]
+          },
+          "4096": {
+            "J_max": 397.9552346570396,
+            "active_cost": 8,
+            "cap_per_cost": 49.74440433212995,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                1.0
+              ],
+              [
+                64,
+                0.994140625
+              ],
+              [
+                128,
+                0.9814453125
+              ],
+              [
+                256,
+                0.9375
+              ],
+              [
+                512,
+                0.869873046875
+              ]
+            ]
+          }
+        },
+        "VALUE_THIN_FRAC": {
+          "1024": {
+            "J_max": 66.35402298850573,
+            "active_cost": 20,
+            "cap_per_cost": 3.317701149425287,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                0.96484375
+              ],
+              [
+                64,
+                0.90625
+              ],
+              [
+                128,
+                0.736328125
+              ]
+            ]
+          },
+          "4096": {
+            "J_max": 421.514465408805,
+            "active_cost": 82,
+            "cap_per_cost": 5.140420309863476,
+            "censored": false,
+            "grid": [
+              [
+                2,
+                1.0
+              ],
+              [
+                4,
+                1.0
+              ],
+              [
+                8,
+                1.0
+              ],
+              [
+                16,
+                1.0
+              ],
+              [
+                32,
+                1.0
+              ],
+              [
+                64,
+                1.0
+              ],
+              [
+                128,
+                0.990234375
+              ],
+              [
+                256,
+                0.9501953125
+              ],
+              [
+                512,
+                0.87255859375
+              ]
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.5550992488861084,
+  "readout_cost_note": "DENSE=O(M*N') full matvec; BLOCKSPARSE=O(M*k) active-set gather; VALUE_THIN_FRAC=O(M*k_frac) active-set; O(M) codebook scan common to all (search relocated not eliminated).",
+  "summary": "HARD_PASS: block-sparse bundling capacity DECOUPLES from active-cost -- capacity-per-cost rises 6.2x across N', >=4x the dense-N1024 baseline at LOWER compute; value-thin control did NOT decouple. headline(bsN4096/denseN1024)=6.40x | bs_percost_decouple=6.20x dense=1.60x vt=1.55x | vt/dense@Nhi=1.06 must_fail_fired=True compute_ok=True censored=False"
+}

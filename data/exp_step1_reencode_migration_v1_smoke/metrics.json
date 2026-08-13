@@ -1,0 +1,185 @@
+{
+  "anchor_name": "step1_reencode_migration_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "STEP-1 RE-ENCODE SMOKE GREEN: unique-id assert FIRES on cross-lane (60 bare dups) AND true-dup (planted qid); qualified-id fix keeps store==1500 (0 collapse) vs bare collapse=60; parity clean self_rank1=1.000 agree=0.534 delta=0.000, discriminator FIRES on corruption (self_rank1=0.701); rollback bit-identical; real-encoder(gsbc_v1) machinery PASS; GSBC keyed@J5=1.000>= 0.95 (shuffled leak 0.000) on real BGE codes. HELD for encoder-choice.",
+  "summary": "STEP-1 RE-ENCODE SMOKE GREEN: unique-id assert FIRES on cross-lane (60 bare dups) AND true-dup (planted qid); qualified-id fix keeps store==1500 (0 collapse) vs bare collapse=60; parity clean self_rank1=1.000 agree=0.534 delta=0.000, discriminator FIRES on corruption (self_rank1=0.701); rollback bit-identical; real-encoder(gsbc_v1) machinery PASS; GSBC keyed@J5=1.000>= 0.95 (shuffled leak 0.000) on real BGE codes. HELD for encoder-choice.",
+  "run_mode": "smoke",
+  "elapsed_s": 15.230372399964835,
+  "ts_iso": "2026-07-05T02:07:43.457841+00:00",
+  "encoder": "gsbc_v1",
+  "M_concepts": 1500,
+  "n_clusters": 50,
+  "planted_cross_lane": 60,
+  "gates": {
+    "G1_completeness_clean": {
+      "pass": true,
+      "atoms_submitted": 1500,
+      "atoms_unique_qualified": 1500,
+      "atoms_in_store": 1500,
+      "assert_fired": false
+    },
+    "G3_parity_clean": {
+      "pass": true,
+      "self_rank1": 1.0,
+      "self_rank1_floor": 0.95,
+      "instore_agree10": 0.534000000000002,
+      "agree_floor": 0.5,
+      "offline_instore_delta": 0.0,
+      "offline_delta_tol": 0.03
+    },
+    "G4_index_consistency": {
+      "pass": true,
+      "matrix_shape": [
+        1500,
+        4096
+      ],
+      "matrix_dtype": "float32",
+      "max_row_norm_dev": 2.384185791015625e-07,
+      "expected_dim": 4096
+    },
+    "G2_uniqueid_assert_cross_lane": {
+      "pass": true,
+      "assert_fired_on_bare_ids": true,
+      "bare_dup_ids_detected": 60,
+      "planted_cross_lane": 60,
+      "forced_bare_store_count": 1440,
+      "silent_collapse_atoms": 60,
+      "note": "qualified-id namespace fix prevents this collapse (ARM A store==M)"
+    },
+    "G2b_uniqueid_assert_true_dup": {
+      "pass": true,
+      "prewrite_assert_fired": true,
+      "strict_add_fired": true,
+      "planted_duplicate_qid": "math::PP-1000"
+    },
+    "G3_parity_discriminator_fires": {
+      "pass": true,
+      "corrupt_frac": 0.3,
+      "n_corrupt": 450,
+      "corrupted_self_rank1": 0.7006666666666667,
+      "clean_self_rank1": 1.0,
+      "self_rank1_floor": 0.95,
+      "note": "parity gate correctly FAILS on row-misalignment (~1% silent-collapse class)"
+    },
+    "G_real_encoder_machinery": {
+      "pass": true,
+      "attempted": true,
+      "encoder": "gsbc_v1",
+      "hidden": {
+        "encoder": "gsbc_expand2x_v12",
+        "arm": "GSBC_EXPAND2X",
+        "out_dim": 8192,
+        "kb": 64,
+        "blk_l": 128,
+        "sparsity_K": 192,
+        "active_frac": 0.0234375,
+        "ckpt": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v12_gwta_seed7\\_ckpt_GSBC_EXPAND2X.pt",
+        "ckpt_step": 8000,
+        "single_code_role": "KEY==VALUE (graded sparse code is both identity and semantic)"
+      },
+      "encoder_out_dim": 8192,
+      "key_shape": [
+        1500,
+        8192
+      ],
+      "value_shape": [
+        1500,
+        8192
+      ],
+      "npz_bit_stable": true,
+      "index_consistency_pass": true,
+      "self_rank1": 1.0,
+      "note": "OOD synthetic -> absolute neighbor-agreement NOT gated; self-address + serialize gated"
+    },
+    "G_gsbc_keyed_j5": {
+      "pass": true,
+      "attempted": true,
+      "J": 5,
+      "algebra_floor": 0.95,
+      "keyed_at_j5_acc": 1.0,
+      "keyed_snr_margin_mean": 0.08287470042705536,
+      "shuffled_key_acc": 0.0,
+      "shuffled_leak_ceil": 0.05,
+      "n_codebook": 800,
+      "n_trials": 80,
+      "real_cache": "bge_large_v2_name_1742_49029a5d.npz",
+      "ckpt_dir": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v12_gwta_seed7",
+      "v12_full_measured_keyed_j5": 1.0,
+      "v12_source": "MEASURED@data/exp_encoder_v12_gsbc_gwta_expansion_v1_seed7/metrics.json:/recovery/GSBC_EXPAND2X/depth_envelope",
+      "note": "recovered ckpt reproduces GSBC bind/unbind cleanup@1 at depth J=5 on REAL BGE codes; shuffled-key control confirms the roundtrip is keyed"
+    },
+    "G5_rollback": {
+      "pass": true,
+      "snapshot_exists": true,
+      "mutation_changed_bytes": true,
+      "restore_bit_identical": true
+    }
+  },
+  "arm_A_clean": {
+    "arm": "A_clean_qualified",
+    "atoms_submitted": 1500,
+    "atoms_unique_ids": 1500,
+    "atoms_in_store": 1500,
+    "index_consistency_pass": true,
+    "matrix_shape": [
+      1500,
+      4096
+    ],
+    "matrix_dtype": "float32",
+    "max_row_norm_dev": 2.384185791015625e-07,
+    "self_rank1": 1.0,
+    "offline_agree10": 0.534000000000002,
+    "instore_agree10": 0.534000000000002,
+    "offline_instore_delta": 0.0,
+    "stored_matrix_sha256": "90058b262a90ab003c56a3126358114d2dbafde6055faba92ff2fa361759bf7e"
+  },
+  "arm_D_corrupt": {
+    "arm": "D_corrupt_parity",
+    "atoms_submitted": 1500,
+    "atoms_unique_ids": 1500,
+    "atoms_in_store": 1500,
+    "index_consistency_pass": true,
+    "matrix_shape": [
+      1500,
+      4096
+    ],
+    "matrix_dtype": "float32",
+    "max_row_norm_dev": 2.384185791015625e-07,
+    "self_rank1": 0.7006666666666667,
+    "offline_agree10": 0.2623333333333336,
+    "instore_agree10": 0.3639333333333328,
+    "offline_instore_delta": 0.10159999999999919,
+    "stored_matrix_sha256": "b26840ea9d651ec37dffd4f55ff1e89aba74a161c16776e490d71cb45a0638f1"
+  },
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_clean_stored": "90058b262a90ab003c56a3126358114d2dbafde6055faba92ff2fa361759bf7e",
+    "D_corrupt_stored": "b26840ea9d651ec37dffd4f55ff1e89aba74a161c16776e490d71cb45a0638f1"
+  },
+  "all_gates_pass": true,
+  "failed_gates": [],
+  "held_for_encoder_choice": true,
+  "cache_177899_dup_id_finding": {
+    "cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+    "n_rows": 177899,
+    "n_unique": 177898,
+    "n_dup_ids": 1,
+    "dup_id": "research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10",
+    "ids_are_bare_not_qualified": true,
+    "implication": "full re-encode must NOT trust bare-id row pairing; rebuild cache with qualified ids or use _qualify_from_store refuse-by-design"
+  },
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "heartbeat_exemption": "smoke wall < 60s; progress via print(flush=True) each arm",
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "crlb_n/a": "infra migration; gates are equality/tolerance asserts not a physics floor",
+  "baseline_in_band": "N/A -- no accuracy baseline arm",
+  "calibration_check": "default_ok_for_this_regime",
+  "discriminator_fires": {
+    "uniqueid_assert": true,
+    "parity_negative_control": true
+  }
+}

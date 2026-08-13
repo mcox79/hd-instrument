@@ -1,0 +1,127 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "readout-lift finding did NOT replicate: 0/1 PRIMARY diag-seeds cleared margin>=0.030 with CI excluding zero. Per-seed margins: {'mlm_v2_seed7__ds20260727': -0.12499999999999989}. SECONDARY: {}",
+  "summary": "readout-lift finding did NOT replicate: 0/1 PRIMARY diag-seeds cleared margin>=0.030 with CI excluding zero. Per-seed margins: {'mlm_v2_seed7__ds20260727': -0.12499999999999989}. SECONDARY: {}",
+  "anchor_name": "relational_readout_promote_v1",
+  "run_mode": "selftest",
+  "ts_iso": "2026-07-28T15:10:11.632337+00:00",
+  "device": "cpu",
+  "cuda": false,
+  "n_units": 1,
+  "per_unit": {
+    "mlm_v2_seed7__ds20260727": {
+      "unit_key": "mlm_v2_seed7__ds20260727",
+      "ckpt_label": "mlm_v2_seed7",
+      "ckpt_path": "D:\\AI\\hd-instrument\\data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt",
+      "diag_seed": 20260727,
+      "arm_group": "PRIMARY",
+      "ckpt_meta": {
+        "seed": 7,
+        "run_mode": "full",
+        "anchor": "scale_meaning_learn_arc_heldout_v2",
+        "w_star_semantic": 0.9,
+        "selected_arm_semantic": "ARM_FUSE_ZAVG",
+        "model_cfg": {
+          "vocab": 16000,
+          "max_len": 128,
+          "d_model": 512,
+          "n_layers": 6,
+          "n_heads": 8,
+          "ffn_mult": 4,
+          "pad_id": 0
+        }
+      },
+      "fit_pairs_meta": {
+        "n_anchors_used": 300,
+        "n_pairs": 128,
+        "n_pos": 64,
+        "n_neg": 64,
+        "leak_check": "PASS_disjoint_from_held"
+      },
+      "probe_fit": {
+        "diag_final_bce": 0.6991456151008606,
+        "diag_weight_moved": 0.7926886081695557,
+        "bilinear_final_bce": 0.9638738036155701,
+        "bilinear_rank": 8,
+        "train_fit_pair_auc": {
+          "cosine": 0.521484375,
+          "diag": 0.524169921875,
+          "bilinear": 0.627197265625
+        }
+      },
+      "held_out_relational_auc": {
+        "BASELINE_COSINE": 0.6666666666666666,
+        "PROBE_DIAG": 0.5416666666666667,
+        "PROBE_BILINEAR": 0.5208333333333334,
+        "FUSE_ZAVG_REF": 0.6736111111111112,
+        "SHUFFLE_CONTROL": 0.4201388888888889,
+        "POPULARITY_CONTROL": 0.5677083333333333,
+        "_n_query": 8
+      },
+      "validity_ok": true,
+      "n_query": 8,
+      "baseline_cosine_auc": 0.6666666666666666,
+      "probe_diag_auc": 0.5416666666666667,
+      "probe_bilinear_auc": 0.5208333333333334,
+      "best_probe": "PROBE_DIAG",
+      "best_probe_auc": 0.5416666666666667,
+      "margin_over_baseline": -0.12499999999999989,
+      "bootstrap_ci": null,
+      "train_corroborates": null,
+      "arms_differ_digests": {
+        "BASELINE_COSINE": "385acc3a9098127e8df7ea5237ede35e5fa2a94a45af843cc095a3fa6937df57",
+        "PROBE_DIAG": "b2ce2d8caccc05b3e0afd4241cb422f6926da9a4094d8f7f3d767840789e1c45",
+        "PROBE_BILINEAR": "e96e2a46a7b03a63c0f30e0a3121b1b2afe0ec6a62ea83f9ebbddebf74509d69",
+        "SHUFFLE_CONTROL": "2bd296bf0bf742fd81e9edc920f6b8c5c6faee4b0b586431066c79280485ef53",
+        "POPULARITY_CONTROL": "9bcc45c6e26cc6d5ccf9933f089c091f79ccba696e881e9581436f0158b5014b"
+      },
+      "unit_pass": false,
+      "failure_class": null,
+      "elapsed_s": 2.0965012999949977,
+      "seed": "mlm_v2_seed7__ds20260727",
+      "_ckpt_key": "mlm_v2_seed7__ds20260727",
+      "_partial_written_at": 1785251411.6002247
+    }
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 1,
+  "got_n_units": 1,
+  "bands": {
+    "hard_pass_margin": 0.03,
+    "validity_band": [
+      0.4,
+      0.6
+    ]
+  },
+  "hp_scope": {
+    "applies_to": [
+      "PRIMARY"
+    ],
+    "informational_only": [
+      "SECONDARY"
+    ]
+  },
+  "diag_cfg": {
+    "run_mode": "selftest",
+    "min_deg": 2,
+    "cap_eval_concepts": 1200,
+    "heldout_count": 80,
+    "min_mentions_eval": 1,
+    "max_lines": 100000,
+    "dedup_cap": 110000,
+    "bpe_sample_lines": 100,
+    "cap_mentions": 4,
+    "max_len": 24,
+    "n_freq_buckets": 3,
+    "max_shards": 6,
+    "encode_batch": 128,
+    "n_anchors": 300,
+    "max_pos": 4,
+    "probe_steps": 30,
+    "bilinear_rank": 8
+  },
+  "elapsed_s_total": 18.012388800038025,
+  "wire_target": "experiments/eval_battery_relational_cloze_v7.py (relational readout arm) + the main reasoning loop's relational nearest-neighbor readout (target to be confirmed at WIRE time by whoever owns capability_registry.jsonl integration)",
+  "known_gap": "No second MLM-v2 training-seed checkpoint exists on disk; PRIMARY replication uses DIAG_SEED variation (fit/eval RNG) on the SAME ckpt_seed_7, not a second independently-trained encoder. SECONDARY relobj_v3 seed_7/seed_13 gives a genuine cross-training-seed check of the MECHANISM (learned readout beats cosine) but on a different objective, not the MLM baseline itself.",
+  "elapsed_s": 2.0965012999949977
+}

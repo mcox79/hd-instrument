@@ -1,0 +1,138 @@
+{
+  "anchor_name": "substrate_anisotropy_fly_lsh_expansion_ratio_sweep_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: expansion sweep inconclusive at this regime. [Q-DISCIPLINE: FLY_64x=0.9950 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.055 | FLY_5x=0.750(cv=nan) FLY_64x=0.995(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | OOM=[] | trans=['5x->64x: 0.750->0.995 ok=True', '64x->512x: 0.995->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "summary": "MIDDLE_BAND_PARTIAL: expansion sweep inconclusive at this regime. [Q-DISCIPLINE: FLY_64x=0.9950 >= 0.995 -- suspect saturation; corpus-may-be-easy; honest under-claim] raw=0.055 | FLY_5x=0.750(cv=nan) FLY_64x=0.995(cv=nan) FLY_512x=nan(cv=nan) FLY_4096x=nan(cv=nan) | AB_CONTROL_4096x=nan(cv=nan) | monotonic=True | OOM=[] | trans=['5x->64x: 0.750->0.995 ok=True', '64x->512x: 0.995->nan ok=None', '512x->4096x: nan->nan ok=None']",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "expansion_factors_active": [
+    5,
+    64
+  ],
+  "expansion_factors_canonical": [
+    5,
+    64,
+    512,
+    4096
+  ],
+  "ab_control_expansion": 4096,
+  "M_EVAL": 400,
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "detail": {
+    "raw": 0.055,
+    "by_expansion": {
+      "5": 0.75,
+      "64": 0.995,
+      "512": null,
+      "4096": null
+    },
+    "by_expansion_cv": {
+      "5": null,
+      "64": null,
+      "512": null,
+      "4096": null
+    },
+    "ab_control_at_max": null,
+    "ab_control_cv": null,
+    "AB_CONTROL_EXPANSION": 4096,
+    "monotonic_in_expansion": true,
+    "oom_levels": [],
+    "transitions": [
+      [
+        5,
+        64,
+        0.75,
+        0.995,
+        true
+      ],
+      [
+        64,
+        512,
+        0.995,
+        NaN,
+        null
+      ],
+      [
+        512,
+        4096,
+        NaN,
+        NaN,
+        null
+      ]
+    ],
+    "M_eval": 400,
+    "n_seeds": 1,
+    "bands": {
+      "HP_BRAIN_EXPANSION": 0.85,
+      "HP_VS_CONTROL_MARGIN": 0.1,
+      "MONOTONIC_TOL": 0.02,
+      "HF_NO_LIFT_VS_5X": 0.02,
+      "CV_HP": 0.05,
+      "CV_PARTIAL": 0.07,
+      "CONTROL_TOO_CLOSE": 0.1,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "expansionRatioSweepV1(fly_lsh K_FANIN=5 KWTA_FRAC=0.020 FLY_TOPK_FRAC=0.0050) | PROJ_DIM=768 C=256 expansions=[5, 64] ab_control=4096x | seeds=[11] M_EVAL=400 encoder=EleutherAI/pythia-160m | HP_4096x>=0.85 vs_control_margin>=0.10 cv_HP<=0.05 Q_sat>=0.995",
+    "cites": [
+      "anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+      "Litwin-Kumar2017_cerebellar",
+      "fly_LSH_Dasgupta2017",
+      "USER_geometric_intuition_2026-06-25"
+    ]
+  },
+  "gpu_avail": false,
+  "gpu_name": "cpu",
+  "gpu_max_mem_alloc_mb": 0.0,
+  "metrics_source": "measured_gpu_anisotropy_fly_lsh_expansion_ratio_sweep",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "arm_raw": {
+          "top1": 0.055
+        },
+        "arm_fly_lsh_5x": {
+          "top1": 0.75,
+          "d_p": 3840,
+          "FLY_TOPK": 20,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 5,
+          "OOM": false,
+          "elapsed_s_arm": 0.25
+        },
+        "arm_fly_lsh_64x": {
+          "top1": 0.995,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 64,
+          "OOM": false,
+          "elapsed_s_arm": 3.41
+        },
+        "arm_ab_control_64x": {
+          "top1": 0.995,
+          "d_p": 49152,
+          "FLY_TOPK": 245,
+          "peak_gpu_mem_mb": 0.0,
+          "expansion": 64,
+          "OOM": false,
+          "mechanism": "ab_control_dense_gaussian",
+          "elapsed_s_arm": 3.0
+        }
+      },
+      "ACTIVE_EXPANSION_FACTORS": [
+        5,
+        64
+      ],
+      "AB_CONTROL_EXPANSION": 64,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782446650.5031323
+    }
+  ],
+  "elapsed_s": 410.77441477775574,
+  "DESIGN_NOTE": "USER-directed Gap 2 (2026-06-25). USER geometric intuition: expand the cone to brain-scale (cerebellar 7M x, fly 40x; v2 tested only 5x). This cell sweeps expansion 5x->4096x with fly-LSH sparse-fan-in mechanism; adds AB_CONTROL (dense Gaussian) at largest expansion to test 'any random projection rescues at this scale' hypothesis. Sparse storage for d_p=3.15M; chunked dense-Gaussian projection for control. Apples-to-apples with v2 via Pythia + contrastive train."
+}

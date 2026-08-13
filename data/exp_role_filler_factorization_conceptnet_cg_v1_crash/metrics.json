@@ -1,0 +1,9 @@
+{
+  "anchor_name": "role_filler_factorization_conceptnet_cg_v1",
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "ValueError: not enough values to unpack (expected 3, got 2)",
+  "summary": "CELL_CRASHED: ValueError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_conceptnet_cg_v1.py\", line 816, in <module>\n    main()\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_conceptnet_cg_v1.py\", line 794, in main\n    chance, hd, per_seed, meta = run_config(\n                                 ^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_conceptnet_cg_v1.py\", line 510, in run_config\n    acc, pp, pf, pl = eval_heldout(test_held, g_true, g_hat, proto, x, knn, nn_index,\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_role_filler_factorization_conceptnet_cg_v1.py\", line 446, in eval_heldout\n    for assign, q, true_f in test_set:\n        ^^^^^^^^^^^^^^^^^\nValueError: not enough values to unpack (expected 3, got 2)\n",
+  "ts_iso": "2026-07-19T05:01:02.959589+00:00"
+}

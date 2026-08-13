@@ -1,0 +1,820 @@
+{
+  "anchor_name": "refuse_gate_V_REL_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CALIBRATION_UNIFORM: rel_sim monotonic under all regimes (clean/moderate/heavy) + spreads {0.019, 0.024, 0.020} within 0.02 (V_REL leak floor scales as sqrt(log V_REL / N) regime-independently; USER's 'does V_REL matter?' -> YES + regime-invariant surface) | clean: relsim_spread=0.019 mono=True relsims=[0.052, 0.06, 0.071] refuse_spread=0.000 || moderate: relsim_spread=0.024 mono=True relsims=[0.048, 0.062, 0.072] refuse_spread=0.000 || heavy: relsim_spread=0.020 mono=True relsims=[0.052, 0.061, 0.072] refuse_spread=0.000 | V_REL=64 clean[in=1.000 near_ref=1.000 near_relsim=0.052] | V_REL=64 moderate[in=1.000 near_ref=1.000 near_relsim=0.048] | V_REL=64 heavy[in=1.000 near_ref=1.000 near_relsim=0.052] | V_REL=256 clean[in=1.000 near_ref=1.000 near_relsim=0.060] | V_REL=256 moderate[in=1.000 near_ref=1.000 near_relsim=0.062] | V_REL=256 heavy[in=1.000 near_ref=1.000 near_relsim=0.061] | V_REL=1024 clean[in=1.000 near_ref=1.000 near_relsim=0.071] | V_REL=1024 moderate[in=1.000 near_ref=1.000 near_relsim=0.072] | V_REL=1024 heavy[in=1.000 near_ref=1.000 near_relsim=0.072] | [Q-NOTE: refuse_rate saturated at 9 cells (expected at THR=0.40 given V_REL ranges); rel_sim_mean is primary signal]",
+  "run_mode": "smoke",
+  "n_units": 9,
+  "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+  "per_unit": [
+    {
+      "seed": 11,
+      "v_rel": 64,
+      "regime": "clean",
+      "p_flip": 0.0,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 64,
+      "V_RELATIONS_OUT": 64,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.056,
+            "subj_sim_std": 0.0091
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 1.0,
+            "rel_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.056,
+            "subj_sim_std": 0.0091,
+            "rel_sim_mean": 0.0539,
+            "rel_sim_std": 0.0086
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 0.052,
+            "rel_sim_std": 0.0109
+          }
+        },
+        "elapsed_s_arm": 0.004
+      },
+      "elapsed_s_unit": 0.02,
+      "_ckpt_key": "seed11_vrel64_clean",
+      "_partial_written_at": 1782920182.23754
+    },
+    {
+      "seed": 11,
+      "v_rel": 64,
+      "regime": "moderate",
+      "p_flip": 0.08,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 64,
+      "V_RELATIONS_OUT": 64,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8411,
+            "subj_sim_std": 0.0103
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0577,
+            "subj_sim_std": 0.0105
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8391,
+            "subj_sim_std": 0.0121
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8411,
+            "subj_sim_std": 0.0103,
+            "rel_sim_mean": 0.8423,
+            "rel_sim_std": 0.0151
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0577,
+            "subj_sim_std": 0.0105,
+            "rel_sim_mean": 0.0509,
+            "rel_sim_std": 0.0087
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.8391,
+            "subj_sim_std": 0.0121,
+            "rel_sim_mean": 0.0483,
+            "rel_sim_std": 0.0098
+          }
+        },
+        "elapsed_s_arm": 0.003
+      },
+      "elapsed_s_unit": 0.02,
+      "_ckpt_key": "seed11_vrel64_moderate",
+      "_partial_written_at": 1782920182.315788
+    },
+    {
+      "seed": 11,
+      "v_rel": 64,
+      "regime": "heavy",
+      "p_flip": 0.2,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 64,
+      "V_RELATIONS_OUT": 64,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.5968,
+            "subj_sim_std": 0.0161
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0583,
+            "subj_sim_std": 0.0077
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.599,
+            "subj_sim_std": 0.0173
+          }
+        },
+        "elapsed_s_arm": 0.003
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.5968,
+            "subj_sim_std": 0.0161,
+            "rel_sim_mean": 0.5982,
+            "rel_sim_std": 0.0174
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0583,
+            "subj_sim_std": 0.0077,
+            "rel_sim_mean": 0.0493,
+            "rel_sim_std": 0.0078
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.599,
+            "subj_sim_std": 0.0173,
+            "rel_sim_mean": 0.052,
+            "rel_sim_std": 0.011
+          }
+        },
+        "elapsed_s_arm": 0.004
+      },
+      "elapsed_s_unit": 0.02,
+      "_ckpt_key": "seed11_vrel64_heavy",
+      "_partial_written_at": 1782920182.358112
+    },
+    {
+      "seed": 11,
+      "v_rel": 256,
+      "regime": "clean",
+      "p_flip": 0.0,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 256,
+      "V_RELATIONS_OUT": 256,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0593,
+            "subj_sim_std": 0.0085
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          }
+        },
+        "elapsed_s_arm": 0.0
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 1.0,
+            "rel_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0593,
+            "subj_sim_std": 0.0085,
+            "rel_sim_mean": 0.0665,
+            "rel_sim_std": 0.0099
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 0.0602,
+            "rel_sim_std": 0.0062
+          }
+        },
+        "elapsed_s_arm": 0.022
+      },
+      "elapsed_s_unit": 0.05,
+      "_ckpt_key": "seed11_vrel256_clean",
+      "_partial_written_at": 1782920182.4777553
+    },
+    {
+      "seed": 11,
+      "v_rel": 256,
+      "regime": "moderate",
+      "p_flip": 0.08,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 256,
+      "V_RELATIONS_OUT": 256,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8417,
+            "subj_sim_std": 0.0088
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.057,
+            "subj_sim_std": 0.0074
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8373,
+            "subj_sim_std": 0.0133
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8417,
+            "subj_sim_std": 0.0088,
+            "rel_sim_mean": 0.8424,
+            "rel_sim_std": 0.0134
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.057,
+            "subj_sim_std": 0.0074,
+            "rel_sim_mean": 0.0638,
+            "rel_sim_std": 0.0074
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.8373,
+            "subj_sim_std": 0.0133,
+            "rel_sim_mean": 0.062,
+            "rel_sim_std": 0.0075
+          }
+        },
+        "elapsed_s_arm": 0.017
+      },
+      "elapsed_s_unit": 0.04,
+      "_ckpt_key": "seed11_vrel256_moderate",
+      "_partial_written_at": 1782920182.5768065
+    },
+    {
+      "seed": 11,
+      "v_rel": 256,
+      "regime": "heavy",
+      "p_flip": 0.2,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 256,
+      "V_RELATIONS_OUT": 256,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.6048,
+            "subj_sim_std": 0.014
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.06,
+            "subj_sim_std": 0.0076
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.5947,
+            "subj_sim_std": 0.0179
+          }
+        },
+        "elapsed_s_arm": 0.003
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.6048,
+            "subj_sim_std": 0.014,
+            "rel_sim_mean": 0.5903,
+            "rel_sim_std": 0.0144
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.06,
+            "subj_sim_std": 0.0076,
+            "rel_sim_mean": 0.0679,
+            "rel_sim_std": 0.009
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.5947,
+            "subj_sim_std": 0.0179,
+            "rel_sim_mean": 0.061,
+            "rel_sim_std": 0.0074
+          }
+        },
+        "elapsed_s_arm": 0.021
+      },
+      "elapsed_s_unit": 0.06,
+      "_ckpt_key": "seed11_vrel256_heavy",
+      "_partial_written_at": 1782920182.706697
+    },
+    {
+      "seed": 11,
+      "v_rel": 1024,
+      "regime": "clean",
+      "p_flip": 0.0,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 1024,
+      "V_RELATIONS_OUT": 1024,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0572,
+            "subj_sim_std": 0.0067
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 1.0,
+            "rel_sim_std": 0.0
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0572,
+            "subj_sim_std": 0.0067,
+            "rel_sim_mean": 0.073,
+            "rel_sim_std": 0.0069
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 1.0,
+            "subj_sim_std": 0.0,
+            "rel_sim_mean": 0.0714,
+            "rel_sim_std": 0.0067
+          }
+        },
+        "elapsed_s_arm": 0.023
+      },
+      "elapsed_s_unit": 0.11,
+      "_ckpt_key": "seed11_vrel1024_clean",
+      "_partial_written_at": 1782920182.868879
+    },
+    {
+      "seed": 11,
+      "v_rel": 1024,
+      "regime": "moderate",
+      "p_flip": 0.08,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 1024,
+      "V_RELATIONS_OUT": 1024,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8428,
+            "subj_sim_std": 0.0115
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0618,
+            "subj_sim_std": 0.0096
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8396,
+            "subj_sim_std": 0.0117
+          }
+        },
+        "elapsed_s_arm": 0.002
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.8428,
+            "subj_sim_std": 0.0115,
+            "rel_sim_mean": 0.8386,
+            "rel_sim_std": 0.0108
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0618,
+            "subj_sim_std": 0.0096,
+            "rel_sim_mean": 0.0732,
+            "rel_sim_std": 0.0059
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.8396,
+            "subj_sim_std": 0.0117,
+            "rel_sim_mean": 0.0723,
+            "rel_sim_std": 0.0075
+          }
+        },
+        "elapsed_s_arm": 0.021
+      },
+      "elapsed_s_unit": 0.1,
+      "_ckpt_key": "seed11_vrel1024_moderate",
+      "_partial_written_at": 1782920183.0428483
+    },
+    {
+      "seed": 11,
+      "v_rel": 1024,
+      "regime": "heavy",
+      "p_flip": 0.2,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C_IN": 150,
+      "V_C_OUT": 150,
+      "V_RELATIONS_IN": 1024,
+      "V_RELATIONS_OUT": 1024,
+      "n_queries_per_category": 20,
+      "config_version": "refuseGateVrelSweep-v1: N=2048 V_C_IN=150 V_C_OUT=150 V_REL_SWEEP=[64, 256, 1024] REGIMES=['clean', 'moderate', 'heavy'] p_flip={'clean': 0.0, 'moderate': 0.08, 'heavy': 0.2} N_QUERIES=20 seeds=[11] mode=smoke sanity_in>=0.85 sanity_out>=0.85 HP_mono_spread>=0.01 HP_clean_var<=0.03 cv<=0.05 subject_thr=0.40 relation_thr=0.40 EXPECTED_N_UNITS=9",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_audit_naive_alone": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.6044,
+            "subj_sim_std": 0.0134
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0601,
+            "subj_sim_std": 0.0096
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.5998,
+            "subj_sim_std": 0.0171
+          }
+        },
+        "elapsed_s_arm": 0.001
+      },
+      "arm_audit_relation_check": {
+        "per_category": {
+          "PURE_IN_DOMAIN": {
+            "refuse_rate": 0.0,
+            "answer_rate": 1.0,
+            "n_refused": 0,
+            "n_answered": 20,
+            "n_total": 20,
+            "subj_sim_mean": 0.6044,
+            "subj_sim_std": 0.0134,
+            "rel_sim_mean": 0.5987,
+            "rel_sim_std": 0.0205
+          },
+          "PURE_OUT_OF_DOMAIN": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.0601,
+            "subj_sim_std": 0.0096,
+            "rel_sim_mean": 0.0749,
+            "rel_sim_std": 0.0079
+          },
+          "NEAR_DOMAIN_MIXED": {
+            "refuse_rate": 1.0,
+            "answer_rate": 0.0,
+            "n_refused": 20,
+            "n_answered": 0,
+            "n_total": 20,
+            "subj_sim_mean": 0.5998,
+            "subj_sim_std": 0.0171,
+            "rel_sim_mean": 0.0723,
+            "rel_sim_std": 0.0064
+          }
+        },
+        "elapsed_s_arm": 0.023
+      },
+      "elapsed_s_unit": 0.1,
+      "_ckpt_key": "seed11_vrel1024_heavy",
+      "_partial_written_at": 1782920183.1824338
+    }
+  ],
+  "elapsed_s": 1.5,
+  "summary": "HARD_PASS_CALIBRATION_UNIFORM: rel_sim monotonic under all regimes (clean/moderate/heavy) + spreads {0.019, 0.024, 0.020} within 0.02 (V_REL leak floor scales as sqrt(log V_REL / N) regime-independently; USER's 'does V_REL matter?' -> YES + regime-invariant surface) | clean: relsim_spread=0.019 mono=True relsims=[0.052, 0.06, 0.071] refuse_spread=0.000 || moderate: relsim_spread=0.024 mono=True relsims=[0.048, 0.062, 0.072] refuse_spread=0.000 || heavy: relsim_spread=0.020 mono=True relsims=[0.052, 0.061, 0.072] refuse_spread=0.000 | V_REL=64 clean[in=1.000 near_ref=1.000 near_relsim=0.052] | V_REL=64 moderate[in=1.000 near_ref=1.000 near_relsim=0.048] | V_REL=64 heavy[in=1.000 near_ref=1.000 near_relsim=0.052] | V_REL=256 clean[in=1.000 near_ref=1.000 near_relsim=0.060] | V_REL=256 moderate[in=1.000 near_ref=1.000 near_relsim=0.062] | V_REL=256 heavy[in=1.000 near_ref=1.000 near_relsim=0.061] | V_REL=1024 clean[in=1.000 near_ref=1.000 near_relsim=0.071] | V_REL=1024 moderate[in=1.000 near_ref=1.000 near_relsim=0.072] | V_REL=1024 heavy[in=1.000 near_ref=1.000 near_relsim=0.072] | [Q-NOTE: refuse_rate saturated at 9 cells (expected at THR=0.40 given V_REL ranges); rel_sim_mean is primary signal]",
+  "_llm_forward_calls_at_inference": 0,
+  "V_REL_SWEEP": [
+    64,
+    256,
+    1024
+  ],
+  "REGIMES": [
+    "clean",
+    "moderate",
+    "heavy"
+  ],
+  "seeds": [
+    11
+  ],
+  "EXPECTED_N_UNITS": 9,
+  "DESIGN_NOTE": "2-axis (V_REL x noise_regime) calibration surface for refuse-gate. V_REL in {64,128,256,512,1024} x regime in {clean, moderate, heavy} (bernoulli_flip_stochastic p_flip=0.00/0.08/0.20) x 3 seeds. Tests whether V_REL choice matters across noise regimes and whether sensitivity is monotonic. Pre-reg per preregs/2026-07-01_refuse_gate_V_REL_sweep_v1.md. Prior work: exp_substrate_refuse_gate_v_rel_extension_v1 (V_REL only, single flip_frac=0.10, RELATION_CHECK saturated 1.000 across all V_REL)."
+}

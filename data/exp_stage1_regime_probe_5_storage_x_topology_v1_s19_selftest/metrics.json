@@ -1,0 +1,14 @@
+{
+  "anchor_name": "stage1_regime_probe_5_storage_x_topology_v1_s19",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=48 SMOKE=5; storage-axis fires: sharded_hash=42082ba208d23cee bundled_hash=2edf175177f9af0c acc_S=1.000 acc_B=0.200; SHARDED PC easy: acc=1.000; F-axis fires: F1_hash=52222d47be3e02ac F4_hash=118e4a911071d5db",
+  "summary": "cardinality FULL=48 SMOKE=5; storage-axis fires: sharded_hash=42082ba208d23cee bundled_hash=2edf175177f9af0c acc_S=1.000 acc_B=0.200; SHARDED PC easy: acc=1.000; F-axis fires: F1_hash=52222d47be3e02ac F4_hash=118e4a911071d5db",
+  "elapsed_s": 0.39,
+  "ts_iso": "2026-07-03T23:56:05Z",
+  "pid": 28624,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=stage1_regime_probe_5_storage_x_topology_v1_s19,regime=FHRR_chain_composition_storage_x_topology_probe,cleanup_mechanism=iterative_cosine(fixed),storage=[SHARDED,BUNDLED],F=[1,2,4,8],M=[200,800,3200],N=4096(fixed),L=2(fixed),corr=[0.20,0.45],SEED=19,mode=selftest,SHARDED_PC_easy_regime=fixed_M200_N4096_F1_L2_corr0.20_iterative_cosine,beta=8.0,alpha_soft=0.5,expected_n_full=48,expected_n_smoke=5,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_regime_probe_5_storage_x_topology_v1_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cuda"
+}

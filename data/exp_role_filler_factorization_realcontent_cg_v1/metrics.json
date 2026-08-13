@@ -1,0 +1,322 @@
+{
+  "anchor_name": "role_filler_factorization_realcontent_cg_v1",
+  "run_mode": "full",
+  "verdict": "HARD_PASS_CG_CANDIDATE",
+  "verdict_msg": "HARD_PASS_CG_CANDIDATE | SYN(control) F_held=1.000 gap=0.992 | REAL F_held=1.000 FLAT_held=0.249 gap=0.751 corr=0.163 | WHIT F_held=1.000 corr=0.104 | posctrl=True mustfail=True realgen=True realbreak=False whiten_fix=False chance=0.333",
+  "summary": "HARD_PASS_CG_CANDIDATE | SYN(control) F_held=1.000 gap=0.992 | REAL F_held=1.000 FLAT_held=0.249 gap=0.751 corr=0.163 | WHIT F_held=1.000 corr=0.104 | posctrl=True mustfail=True realgen=True realbreak=False whiten_fix=False chance=0.333",
+  "elapsed_s": 22.85816679999698,
+  "ts_iso": "2026-07-19T04:14:16.135789+00:00",
+  "config": {
+    "n_dim": 4096,
+    "n_roles": 6,
+    "n_fillers": 64,
+    "m": 3,
+    "held_per_role": 4,
+    "diversity_levels": [
+      4,
+      16,
+      64,
+      256
+    ],
+    "n_test": 300,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "conditions": [
+      "synthetic_orthogonal",
+      "glove_real",
+      "glove_whitened"
+    ]
+  },
+  "chance": 0.3333333333333333,
+  "aggregate": {
+    "verdict": "HARD_PASS_CG_CANDIDATE",
+    "chance": 0.3333333333333333,
+    "per_condition": {
+      "synthetic_orthogonal": {
+        "curve_mean": [
+          {
+            "D": 4,
+            "factored_heldout": 0.9811111111111112,
+            "flat_heldout": 0.32666666666666666,
+            "factored_indist": 0.9655555555555555,
+            "flat_indist": 0.36777777777777776,
+            "factored_heldout_vocab": 0.9411111111111111,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.6429373224576315
+          },
+          {
+            "D": 16,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.2633333333333333,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3622222222222222,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.920255184173584
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.11333333333333333,
+            "factored_indist": 1.0,
+            "flat_indist": 0.35333333333333333,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9838879704475403
+          },
+          {
+            "D": 256,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.007777777777777778,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3844444444444444,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9960134228070577
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": -0.00018956318065950958,
+          "content_cos_median": -0.00027342782899116475,
+          "content_cos_p90": 0.013897713273763657,
+          "content_cos_max": 0.03978902225693067
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.007777777777777778,
+        "gap_heldout_hi": 0.9922222222222222,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.3844444444444444,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.37666666666666665,
+        "g_hat_cos_hi": 0.9960134228070577
+      },
+      "glove_real": {
+        "curve_mean": [
+          {
+            "D": 4,
+            "factored_heldout": 0.9811111111111112,
+            "flat_heldout": 0.35777777777777775,
+            "factored_indist": 0.9655555555555555,
+            "flat_indist": 0.33666666666666667,
+            "factored_heldout_vocab": 0.9388888888888889,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.6440881490707397
+          },
+          {
+            "D": 16,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.2866666666666667,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3066666666666667,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9129571119944254
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.24000000000000002,
+            "factored_indist": 1.0,
+            "flat_indist": 0.3522222222222222,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9773175915082296
+          },
+          {
+            "D": 256,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.2488888888888889,
+            "factored_indist": 1.0,
+            "flat_indist": 0.33444444444444443,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9893084764480591
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": 0.16272364060084024,
+          "content_cos_median": 0.1487434854110082,
+          "content_cos_p90": 0.22882392505804697,
+          "content_cos_max": 0.5567192633946737
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.2488888888888889,
+        "gap_heldout_hi": 0.7511111111111111,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.33444444444444443,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.08555555555555552,
+        "g_hat_cos_hi": 0.9893084764480591
+      },
+      "glove_whitened": {
+        "curve_mean": [
+          {
+            "D": 4,
+            "factored_heldout": 0.9811111111111112,
+            "flat_heldout": 0.38,
+            "factored_indist": 0.9655555555555555,
+            "flat_indist": 0.32555555555555554,
+            "factored_heldout_vocab": 0.94,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.6407925089200338
+          },
+          {
+            "D": 16,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.19333333333333333,
+            "factored_indist": 1.0,
+            "flat_indist": 0.33666666666666667,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9179337422053019
+          },
+          {
+            "D": 64,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.09222222222222222,
+            "factored_indist": 1.0,
+            "flat_indist": 0.37666666666666665,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9808607300122579
+          },
+          {
+            "D": 256,
+            "factored_heldout": 1.0,
+            "flat_heldout": 0.03666666666666667,
+            "factored_indist": 1.0,
+            "flat_indist": 0.38333333333333336,
+            "factored_heldout_vocab": 1.0,
+            "flat_heldout_vocab": 0.0,
+            "g_hat_to_g_true_cos": 0.9929860830307007
+          }
+        ],
+        "content_corr": {
+          "content_cos_mean": 0.10426604251066844,
+          "content_cos_median": 0.10108292102813721,
+          "content_cos_p90": 0.1381716032822927,
+          "content_cos_max": 0.3089747230211894
+        },
+        "factored_heldout_hi": 1.0,
+        "flat_heldout_hi": 0.03666666666666667,
+        "gap_heldout_hi": 0.9633333333333334,
+        "factored_indist_hi": 1.0,
+        "flat_indist_hi": 0.38333333333333336,
+        "factored_gen_drop": 0.0,
+        "flat_gen_drop": 0.3466666666666667,
+        "g_hat_cos_hi": 0.9929860830307007
+      }
+    },
+    "positive_control_reproduces_v1": true,
+    "real_must_fail_control_fired": true,
+    "real_generalizes": true,
+    "real_breaks": false,
+    "whitening_restores": false,
+    "can_fail_both_ways": true
+  },
+  "stress_map": {
+    "rows": [
+      {
+        "m": 3,
+        "beta": 2.4,
+        "content_cos_mean": 0.015490486286580563,
+        "factored_vocab_heldout": 0.27111111111111114,
+        "factored_present_heldout": 0.55,
+        "g_hat_cos": 0.13170686860879263
+      },
+      {
+        "m": 3,
+        "beta": 1.5,
+        "content_cos_mean": 0.1695940395196279,
+        "factored_vocab_heldout": 0.2633333333333333,
+        "factored_present_heldout": 0.5366666666666667,
+        "g_hat_cos": 0.12873265147209167
+      },
+      {
+        "m": 3,
+        "beta": 0.8,
+        "content_cos_mean": 0.5969353318214417,
+        "factored_vocab_heldout": 0.3011111111111111,
+        "factored_present_heldout": 0.5888888888888889,
+        "g_hat_cos": 0.13073232769966125
+      },
+      {
+        "m": 6,
+        "beta": 2.4,
+        "content_cos_mean": 0.015490486286580563,
+        "factored_vocab_heldout": 0.5144444444444445,
+        "factored_present_heldout": 0.6011111111111112,
+        "g_hat_cos": 0.1832121362288793
+      },
+      {
+        "m": 6,
+        "beta": 1.5,
+        "content_cos_mean": 0.1695940395196279,
+        "factored_vocab_heldout": 0.48333333333333334,
+        "factored_present_heldout": 0.6222222222222222,
+        "g_hat_cos": 0.18370588620503744
+      },
+      {
+        "m": 6,
+        "beta": 0.8,
+        "content_cos_mean": 0.5969353318214417,
+        "factored_vocab_heldout": 0.14777777777777779,
+        "factored_present_heldout": 0.46,
+        "g_hat_cos": 0.182722270488739
+      },
+      {
+        "m": 10,
+        "beta": 2.4,
+        "content_cos_mean": 0.015490486286580563,
+        "factored_vocab_heldout": 0.7077777777777778,
+        "factored_present_heldout": 0.7955555555555556,
+        "g_hat_cos": 0.2332806537548701
+      },
+      {
+        "m": 10,
+        "beta": 1.5,
+        "content_cos_mean": 0.1695940395196279,
+        "factored_vocab_heldout": 0.20333333333333334,
+        "factored_present_heldout": 0.6222222222222222,
+        "g_hat_cos": 0.2325855145851771
+      },
+      {
+        "m": 10,
+        "beta": 0.8,
+        "content_cos_mean": 0.5969353318214417,
+        "factored_vocab_heldout": 0.007777777777777778,
+        "factored_present_heldout": 0.15777777777777777,
+        "g_hat_cos": 0.23406807084878287
+      }
+    ],
+    "whiten_probe": {
+      "m": 10,
+      "beta": 0.8,
+      "whiten_kpc": 3,
+      "raw_content_cos": 0.5969353318214417,
+      "whitened_content_cos": 0.5249247352282206,
+      "raw_factored_vocab": 0.007777777777777778,
+      "whitened_factored_vocab": 0.007777777777777778,
+      "whitening_restores": false,
+      "note": "top-PC whitening reduces GloVe anisotropy but at low beta the content-correlation FLOOR is set by the encoding bandwidth (content_cos>=exp(-beta^2) even for orthogonal GloVe), so decorrelating GloVe cannot fix the extreme-correlation break there; the effective fix is a higher-bandwidth/sparser content code (more orthogonal FHRR)."
+    }
+  },
+  "arms_differ_hashes": {
+    "glove_real_factored_pred_hash": "ba5f859da0991248220936023b6f1ba1efc009e91de4f2e605a3926042ecc984",
+    "glove_real_flat_pred_hash": "fb5f69a1e26a796f8bc3e4682604b16d6c96d5199ccc5422031a30281dd96712"
+  },
+  "arms_differ_verified": true,
+  "scaffold_free_witness": {
+    "factored_pred": "car",
+    "flat_pred": "dog",
+    "dog_cat_cos": 0.491,
+    "dog_car_cos": 0.193,
+    "witness": "PASS"
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "content_source": "REAL GloVe-wiki-gigaword-300 (Pennington et al. 2014); FHRR phase-encoded",
+  "notes": "CHAIN-GRADE PROMOTION gate: structure-content factorization on REAL correlated grounded content (GloVe). HARD_PASS_CG_CANDIDATE = compositional generalization on real correlated content where flat fails (brain-faithful native bind); still uses a CURATED relation set (controlled roles) -- full real-text-from-reading with REAL extracted relations (ConceptNet/SVO) is the further step. CLAIM-VET-pending."
+}

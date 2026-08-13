@@ -1,0 +1,101 @@
+{
+  "verdict": "SMOKE_FAIL",
+  "verdict_msg": "SMOKE_FAIL | LTR=0.853 MIN_DEG=0.827 OPT=1.000 | lift=-0.027 cv_md=0.040 opt_gap=+0.173 dim_reduc=0.000 | gpu_p50=nan | n_units=18 | smoke discriminator MISFIRES: MIN_DEG-LTR=-0.027 < 0.05",
+  "summary": "SMOKE_FAIL | LTR=0.853 MIN_DEG=0.827 OPT=1.000 | lift=-0.027 cv_md=0.040 opt_gap=+0.173 dim_reduc=0.000 | gpu_p50=nan | n_units=18 | smoke discriminator MISFIRES: MIN_DEG-LTR=-0.027 < 0.05",
+  "per_arm_summary": {
+    "ARM_LTR_BASELINE": {
+      "mean_accuracy_over_topologies": 0.8533333333333333,
+      "std_accuracy_over_topologies": 0.013333333333333364,
+      "cv_accuracy_over_topologies": 0.015625000000000038,
+      "mean_max_intermediate_dim": 6144.0,
+      "n_units": 2
+    },
+    "ARM_MIN_DEGREE": {
+      "mean_accuracy_over_topologies": 0.8266666666666667,
+      "std_accuracy_over_topologies": 0.033333333333333326,
+      "cv_accuracy_over_topologies": 0.04032258064516128,
+      "mean_max_intermediate_dim": 6144.0,
+      "n_units": 2
+    },
+    "ARM_OPTIMAL_BRUTE_FORCE": {
+      "mean_accuracy_over_topologies": 1.0,
+      "std_accuracy_over_topologies": 0.0,
+      "cv_accuracy_over_topologies": 0.0,
+      "mean_max_intermediate_dim": 6144.0,
+      "n_units": 2
+    }
+  },
+  "per_arm_topology": {
+    "ARM_LTR_BASELINE": {
+      "chain": {
+        "mean_accuracy": 0.8666666666666667,
+        "std_accuracy": 0.033993463423951924,
+        "cv_accuracy": 0.03922322702763684,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      },
+      "star": {
+        "mean_accuracy": 0.84,
+        "std_accuracy": 0.058878405775519,
+        "cv_accuracy": 0.0700933402089512,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      }
+    },
+    "ARM_MIN_DEGREE": {
+      "chain": {
+        "mean_accuracy": 0.7933333333333333,
+        "std_accuracy": 0.05734883511361752,
+        "cv_accuracy": 0.07228844762220696,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      },
+      "star": {
+        "mean_accuracy": 0.86,
+        "std_accuracy": 0.028284271247461926,
+        "cv_accuracy": 0.03288868749704875,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      }
+    },
+    "ARM_OPTIMAL_BRUTE_FORCE": {
+      "chain": {
+        "mean_accuracy": 1.0,
+        "std_accuracy": 0.0,
+        "cv_accuracy": 0.0,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      },
+      "star": {
+        "mean_accuracy": 1.0,
+        "std_accuracy": 0.0,
+        "cv_accuracy": 0.0,
+        "n_seeds": 3,
+        "mean_max_intermediate_dim": 6144.0
+      }
+    }
+  },
+  "ltr_acc": 0.8533333333333333,
+  "min_degree_acc": 0.8266666666666667,
+  "optimal_acc": 1.0,
+  "lift_min_degree_over_ltr": -0.026666666666666616,
+  "min_degree_cv": 0.04032258064516128,
+  "min_degree_vs_optimal_gap": 0.17333333333333334,
+  "intermediate_dim_reduction": 0.0,
+  "gpu_util_p50": NaN,
+  "gpu_util_mean": NaN,
+  "gpu_util_max": NaN,
+  "gpu_util_samples": [],
+  "n_seeds_complete": 3,
+  "expected_n_units": 18,
+  "completed_units": 18,
+  "cardinality_ok": true,
+  "smoke_discriminator_fires": false,
+  "anchor_name": "tensor_network_contraction_ordering_v1",
+  "elapsed_s": 0.7,
+  "ts_iso": "2026-06-27T19:02:06Z",
+  "pid": 24312,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=tensor_network_contraction_ordering_v1,N=2048,V_C=256,depth=3,seeds=[7, 17, 23],topologies=['chain', 'star'],nq=50,mode=smoke,HP_lift>=0.10,HP_cv<=0.10,HP_opt_tol=0.03,HP_dim_reduc>=0.20,HP_gpu_p50>=30,expected_n=18,hardening=L1early+L2pertopology+L3outertry+L4importsentinel,GPU_MANDATE=torch.cuda_batched_einsum",
+  "_hardening_marker": "v1_tensor_network_contraction_ordering"
+}

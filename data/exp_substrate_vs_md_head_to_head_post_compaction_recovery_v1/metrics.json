@@ -1,0 +1,588 @@
+{
+  "verdict": "UNKNOWN",
+  "verdict_msg": "halted_per_META_RULE_J: ARM_LATENCY_HEAD_TO_HEAD,ARM_CONTENT_COMPLETENESS,ARM_FRESHNESS_SAMPLE -- ARM_LATENCY_HEAD_TO_HEAD:substrate_subprocess_errors; ARM_CONTENT_COMPLETENESS:substrate_subprocess_errors; ARM_FRESHNESS_SAMPLE:substrate_subprocess_errors",
+  "elapsed_s": 183.16,
+  "summary": {
+    "anchor": "substrate_vs_md_head_to_head_post_compaction_recovery_v1",
+    "smoke": false,
+    "n_queries": 20,
+    "cardinality_ok": true,
+    "envelope": {
+      "hp_max_substrate_latency_ratio_vs_md": 2.0,
+      "hf_max_substrate_latency_ratio_vs_md": 5.0,
+      "hp_min_content_match_ratio": 0.95,
+      "hf_min_content_match_ratio": 0.7,
+      "hp_max_freshness_lag_minutes": 10,
+      "hf_max_freshness_lag_minutes": 60,
+      "hp_min_fallback_success_ratio": 1.0,
+      "hf_min_fallback_success_ratio": 0.8
+    },
+    "arms": [
+      {
+        "arm": "ARM_LATENCY_HEAD_TO_HEAD",
+        "ok": false,
+        "elapsed_s": 66.662,
+        "halt_reason": "substrate_subprocess_errors",
+        "halts": [
+          "id=1:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=2:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=3:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=4:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=5:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=6:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=7:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=8:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=9:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=10:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+        ],
+        "per_query": [
+          {
+            "id": 1,
+            "bucket": "A",
+            "substrate_s": 3.2264,
+            "md_s": 0.0006,
+            "ratio": 5852.364,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 2,
+            "bucket": "A",
+            "substrate_s": 4.6817,
+            "md_s": 0.0005,
+            "ratio": 8781.961,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 3,
+            "bucket": "A",
+            "substrate_s": 3.1531,
+            "md_s": 0.0005,
+            "ratio": 6064.727,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 4,
+            "bucket": "A",
+            "substrate_s": 3.5293,
+            "md_s": 0.0001,
+            "ratio": 24732.113,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\feedback_discriminator_must_survive_scale_before_full_dispatch_USER_2026-06-26.md"
+          },
+          {
+            "id": 5,
+            "bucket": "A",
+            "substrate_s": 3.2581,
+            "md_s": 0.0004,
+            "ratio": 7667.883,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 6,
+            "bucket": "B",
+            "substrate_s": 3.3828,
+            "md_s": 0.0004,
+            "ratio": 9283.071,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 7,
+            "bucket": "B",
+            "substrate_s": 3.6776,
+            "md_s": 0.0006,
+            "ratio": 5719.502,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 8,
+            "bucket": "B",
+            "substrate_s": 3.5977,
+            "md_s": 0.0005,
+            "ratio": 7917.493,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 9,
+            "bucket": "B",
+            "substrate_s": 3.0617,
+            "md_s": 0.0003,
+            "ratio": 8978.462,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 10,
+            "bucket": "B",
+            "substrate_s": 3.1383,
+            "md_s": 0.0003,
+            "ratio": 9562.044,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 11,
+            "bucket": "C",
+            "substrate_s": 3.0271,
+            "md_s": 0.0004,
+            "ratio": 7712.427,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 12,
+            "bucket": "C",
+            "substrate_s": 3.1128,
+            "md_s": 0.0005,
+            "ratio": 6681.248,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 13,
+            "bucket": "C",
+            "substrate_s": 3.0529,
+            "md_s": 0.0002,
+            "ratio": 13354.566,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\project_session_2026-06-23_strategic_decisions_full_arc.md"
+          },
+          {
+            "id": 14,
+            "bucket": "C",
+            "substrate_s": 3.1443,
+            "md_s": 0.0004,
+            "ratio": 8482.042,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 15,
+            "bucket": "C",
+            "substrate_s": 3.1244,
+            "md_s": 0.0002,
+            "ratio": 15383.739,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\project_session_2026-06-23_FINAL_pickup_state.md"
+          },
+          {
+            "id": 16,
+            "bucket": "D",
+            "substrate_s": 3.0395,
+            "md_s": 0.0003,
+            "ratio": 11790.142,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\feedback_substrate_doesnt_know_anything_stop_testing_against_language_USER_LOCKED_2026-06-26.md"
+          },
+          {
+            "id": 17,
+            "bucket": "D",
+            "substrate_s": 3.0843,
+            "md_s": 0.0002,
+            "ratio": 16022.281,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\feedback_three_smoke_disciplines_no_silent_except_smoke_fires_discriminator_band_floor_inconclusive_2026-06-26.md"
+          },
+          {
+            "id": 18,
+            "bucket": "D",
+            "substrate_s": 3.2363,
+            "md_s": 0.0003,
+            "ratio": 9704.056,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": null
+          },
+          {
+            "id": 19,
+            "bucket": "D",
+            "substrate_s": 3.2301,
+            "md_s": 0.0004,
+            "ratio": 8196.069,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\feedback_fix28_verify_per_arm_metrics_not_summary_verdict_text_2026-06-22.md"
+          },
+          {
+            "id": 20,
+            "bucket": "D",
+            "substrate_s": 3.8956,
+            "md_s": 0.0003,
+            "ratio": 13848.6,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_err": "not_found:C:\\Users\\marsh\\.claude\\projects\\d--AI\\memory\\feedback_fix28_recurring_skunkworks_correct_more_than_director_2026-06-23.md"
+          }
+        ]
+      },
+      {
+        "arm": "ARM_CONTENT_COMPLETENESS",
+        "ok": false,
+        "elapsed_s": 68.014,
+        "halt_reason": "substrate_subprocess_errors",
+        "halts": [
+          "id=1:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=2:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=3:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=4:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=5:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=6:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=7:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=8:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=9:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=10:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+        ],
+        "per_query": [
+          {
+            "id": 1,
+            "bucket": "A",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.037,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 2,
+            "bucket": "A",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.032,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 3,
+            "bucket": "A",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.023,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 4,
+            "bucket": "A",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 5,
+            "bucket": "A",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.039,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 6,
+            "bucket": "B",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.027,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 7,
+            "bucket": "B",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.027,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 8,
+            "bucket": "B",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.033,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 9,
+            "bucket": "B",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.034,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 10,
+            "bucket": "B",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.03,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 11,
+            "bucket": "C",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.018,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 12,
+            "bucket": "C",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.029,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 13,
+            "bucket": "C",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 14,
+            "bucket": "C",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.019,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 15,
+            "bucket": "C",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 16,
+            "bucket": "D",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 17,
+            "bucket": "D",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 18,
+            "bucket": "D",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.063,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 19,
+            "bucket": "D",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 20,
+            "bucket": "D",
+            "substrate_jaccard": 0.0,
+            "md_jaccard": 0.0,
+            "substrate_precision": 0.0,
+            "substrate_recall": 0.0,
+            "substrate_content_preview": "",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          }
+        ]
+      },
+      {
+        "arm": "ARM_FRESHNESS_SAMPLE",
+        "ok": false,
+        "elapsed_s": 17.347,
+        "halt_reason": "substrate_subprocess_errors",
+        "halts": [
+          "file=notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-26.md:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "file=notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-27.md:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "file=data/fleet_waiting_on.md:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "file=data/director_plan.json:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "file=CLAUDE.md:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+        ],
+        "per_file": [
+          {
+            "path": "notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-26.md",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "path": "notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-27.md",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "path": "data/fleet_waiting_on.md",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "path": "data/director_plan.json",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "path": "CLAUDE.md",
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          }
+        ]
+      },
+      {
+        "arm": "ARM_ROBUSTNESS_PARTITION_FAULT",
+        "ok": false,
+        "hf_tripped": false,
+        "elapsed_s": 15.422,
+        "n_queries_tested": 5,
+        "n_fallback_success": 4,
+        "fallback_success_ratio": 0.8,
+        "fault_applied": false,
+        "chunk_dir_path": null,
+        "hp_threshold": 1.0,
+        "hf_threshold": 0.8,
+        "per_query": [
+          {
+            "id": 1,
+            "bucket": "A",
+            "substrate_attempted_during_fault": true,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_fallback_s": 0.0003,
+            "md_overlap_with_gt": 1.0,
+            "fallback_success": true
+          },
+          {
+            "id": 2,
+            "bucket": "A",
+            "substrate_attempted_during_fault": true,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_fallback_s": 0.0004,
+            "md_overlap_with_gt": 0.788,
+            "fallback_success": true
+          },
+          {
+            "id": 3,
+            "bucket": "A",
+            "substrate_attempted_during_fault": true,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_fallback_s": 0.0004,
+            "md_overlap_with_gt": 0.931,
+            "fallback_success": true
+          },
+          {
+            "id": 4,
+            "bucket": "A",
+            "substrate_attempted_during_fault": true,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_fallback_s": 0.0001,
+            "md_overlap_with_gt": 0.0,
+            "fallback_success": false
+          },
+          {
+            "id": 5,
+            "bucket": "A",
+            "substrate_attempted_during_fault": true,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+            "md_fallback_s": 0.0005,
+            "md_overlap_with_gt": 1.0,
+            "fallback_success": true
+          }
+        ]
+      },
+      {
+        "arm": "ARM_SCALE_PROBE",
+        "ok": true,
+        "diagnostic": true,
+        "elapsed_s": 15.719,
+        "n_queries": 5,
+        "n_atoms_in_kb": null,
+        "kb_label": null,
+        "substrate_median_s": null,
+        "substrate_median_jaccard": null,
+        "halts": [
+          "id=1:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=2:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=3:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=4:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n",
+          "id=5:exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+        ],
+        "per_query": [
+          {
+            "id": 1,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 2,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 3,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 4,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          },
+          {
+            "id": 5,
+            "substrate_err": "exit=3 tail=ERROR: --chunk-content requested but no chunk KB built yet. Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.\n"
+          }
+        ]
+      }
+    ],
+    "referent_audit": {
+      "n_substrate_snippets_checked": 0,
+      "n_substrate_snippets_grounded": 0,
+      "samples": []
+    },
+    "drill_design": "notes/research_drill_substrate_vs_md_head_to_head_proof_gate_design_2026-06-27.md",
+    "ground_truth_file": "experiments\\_ground_truth\\substrate_vs_md_v1.jsonl",
+    "n_ground_truth_entries": 20,
+    "auto_flip_disabled": true,
+    "note": "Cell does NOT auto-flip MEMORY.md ritual on HARD_PASS; emits proposal for USER review per drill Sec 9."
+  }
+}

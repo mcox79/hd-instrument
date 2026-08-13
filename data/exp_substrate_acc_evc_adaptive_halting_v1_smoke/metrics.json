@@ -1,0 +1,63 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | accpc[FIXED=0.0333 ADAPT=0.1839 RAND=0.0396 SCR=0.0369 ORC=0.1839] | adapt_vs_fixed=4.517 adapt_vs_random=3.640 scramble_gap=0.799 closure=1.000 | acc[FIXED=0.133 ADAPT=0.733 ORC=0.733] hops[FIXED=4.00 ADAPT=3.99] | corr[A=1.000 S=-0.071] spread=1.60 reach_rank=0.651 repro@DD=0.479 | nav_rail=True baseline_band=True pressure=True repro=True af_collision=False n_seeds=2",
+  "summary": "HARD_PASS | accpc[FIXED=0.0333 ADAPT=0.1839 RAND=0.0396 SCR=0.0369 ORC=0.1839] | adapt_vs_fixed=4.517 adapt_vs_random=3.640 scramble_gap=0.799 closure=1.000 | acc[FIXED=0.133 ADAPT=0.733 ORC=0.733] hops[FIXED=4.00 ADAPT=3.99] | corr[A=1.000 S=-0.071] spread=1.60 reach_rank=0.651 repro@DD=0.479 | nav_rail=True baseline_band=True pressure=True repro=True af_collision=False n_seeds=2",
+  "arm_means": {
+    "FIXED_DD": {
+      "acc": 0.13333333333333333,
+      "mean_hops": 4.0,
+      "accpc": 0.03333333333333333
+    },
+    "FIXED_DD_CEIL": {
+      "acc": 0.07083333333333333,
+      "mean_hops": 6.0,
+      "accpc": 0.011805555555555555
+    },
+    "ADAPTIVE_EVC": {
+      "acc": 0.7333333333333334,
+      "mean_hops": 3.9916666666666667,
+      "accpc": 0.18388338761930922
+    },
+    "RANDOM_DEPTH": {
+      "acc": 0.15833333333333333,
+      "mean_hops": 3.9958333333333336,
+      "accpc": 0.03962982295880638
+    },
+    "SCRAMBLED_HALT": {
+      "acc": 0.15833333333333333,
+      "mean_hops": 4.304166666666667,
+      "accpc": 0.03689163854518185
+    },
+    "ORACLE_HALT": {
+      "acc": 0.7333333333333334,
+      "mean_hops": 3.9916666666666667,
+      "accpc": 0.18388338761930922
+    }
+  },
+  "adaptive_vs_fixed_rel": 4.5165016285792765,
+  "adaptive_vs_random_rel": 3.6400254629057684,
+  "scramble_rel_gap": 0.7993748156219636,
+  "closure": 1.0,
+  "corr_adaptive": 1.0,
+  "corr_scrambled": -0.07127460986393618,
+  "hop_spread": 1.5966068719761712,
+  "reach_rank": 0.6510416666666667,
+  "repro_fixed_atDD": 0.47916666666666663,
+  "nav_rail_ok": true,
+  "baseline_in_band": true,
+  "pressure_ok": true,
+  "repro_ok": true,
+  "reach_fires_ok": true,
+  "af_collision": false,
+  "expected_n_units": 12,
+  "completed_units": 12,
+  "cardinality_ok": true,
+  "n_seeds_complete": 2,
+  "anchor_name": "substrate_acc_evc_adaptive_halting_v1",
+  "elapsed_s": 160.6,
+  "ts_iso": "2026-07-08T13:53:23.929169+00:00",
+  "pid": 27392,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_acc_evc_adaptive_halting_v1,N=2048,V=300,n_ops=4,frozen_dd=4,L_support=[2, 3, 4, 5, 6],d_min=2,d_max=6,seeds=[7, 17],density=0.210,sr_steps=1500,sr_batch=96,rollout_per_V=30,gamma=0.85,lr=0.50,theta_grid=[0.15, 0.25, 0.35, 0.45, 0.55],min_hops=1,n_train_per_L=24,n_test_per_L=24,mode=smoke,device=cpu,expected_n=12,HP_af>=0.15,HP_ar>=0.10,HP_scr>=0.15,HP_corr>=0.30,HP_spread>=0.50,nav_rail>=0.55",
+  "device": "cpu"
+}

@@ -1,0 +1,2443 @@
+{
+  "anchor_name": "stretch2_3_planning_strips_v2_substrate_native_planner_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SUBSTRATE_NATIVE_EQUIVALENCE: FHRR unbind+cleanup recovers ALL action-schema sets (pre/add/del) exactly (all p/r >=0.95) at N=8192. Substrate-native BFS produces bit-identical plans to symbolic BFS (sub=0.500 sym=0.500) at non-oracle goals with symbolic in-band (0.500 in [0.30, 0.85]). Substrate LIBRARY of classical STRIPS action schemas, queried via FHRR bind-inverse + codebook-argmax, drives correct planning. sub=0.500 sym=0.500 gap=0.000 pre_precision=1.000 n=150 n_solvable=75",
+  "summary": "HARD_PASS_SUBSTRATE_NATIVE_EQUIVALENCE: FHRR unbind+cleanup recovers ALL action-schema sets (pre/add/del) exactly (all p/r >=0.95) at N=8192. Substrate-native BFS produces bit-identical plans to symbo",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sub_plan_rate": 0.5,
+      "sym_plan_rate": 0.5,
+      "gap_sym_minus_sub": 0.0,
+      "n_trials": 150,
+      "n_solvable": 75,
+      "sub_pre_precision_mean": 1.0,
+      "sub_pre_recall_mean": 1.0,
+      "sub_add_precision_mean": 1.0,
+      "sub_add_recall_mean": 1.0,
+      "sub_del_precision_mean": 1.0,
+      "sub_del_recall_mean": 1.0,
+      "arms_differ_verified": false,
+      "sub_plans_digest": "d9d23a4090cf2efc468ec57fca2f2943",
+      "sym_plans_digest": "d9d23a4090cf2efc468ec57fca2f2943",
+      "N": 8192,
+      "NPROP": 12,
+      "NACT": 16,
+      "tau_frac": 0.4,
+      "depth_budget": 12,
+      "per_trial": [
+        {
+          "trial": 0,
+          "S0": [
+            0,
+            6
+          ],
+          "G": [
+            0,
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 1,
+          "S0": [
+            1,
+            10
+          ],
+          "G": [
+            1,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 2,
+          "S0": [
+            1,
+            9
+          ],
+          "G": [
+            2,
+            9,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 3,
+          "S0": [
+            4,
+            8
+          ],
+          "G": [
+            3,
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 4,
+          "S0": [
+            2,
+            4,
+            8,
+            11
+          ],
+          "G": [
+            2,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 5,
+          "S0": [
+            0,
+            7
+          ],
+          "G": [
+            1,
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 6,
+          "S0": [
+            0,
+            3,
+            7
+          ],
+          "G": [
+            2
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 7,
+          "S0": [
+            2,
+            4,
+            6
+          ],
+          "G": [
+            7,
+            8,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 8,
+          "S0": [
+            7,
+            8
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 9,
+          "S0": [
+            3,
+            5
+          ],
+          "G": [
+            1,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 10,
+          "S0": [
+            6,
+            7
+          ],
+          "G": [
+            5
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 11,
+          "S0": [
+            5,
+            9
+          ],
+          "G": [
+            3,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 12,
+          "S0": [
+            2,
+            5,
+            7
+          ],
+          "G": [
+            0,
+            2,
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 13,
+          "S0": [
+            4,
+            7,
+            8,
+            10
+          ],
+          "G": [
+            4,
+            8,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 14,
+          "S0": [
+            1,
+            4,
+            10
+          ],
+          "G": [
+            1,
+            8,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 15,
+          "S0": [
+            2,
+            7,
+            9
+          ],
+          "G": [
+            0,
+            2,
+            4
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 16,
+          "S0": [
+            5,
+            9
+          ],
+          "G": [
+            2,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 17,
+          "S0": [
+            1,
+            5,
+            6,
+            11
+          ],
+          "G": [
+            3,
+            5,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 18,
+          "S0": [
+            0,
+            7
+          ],
+          "G": [
+            8,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 19,
+          "S0": [
+            2,
+            3,
+            6,
+            11
+          ],
+          "G": [
+            8,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 20,
+          "S0": [
+            3,
+            5,
+            6
+          ],
+          "G": [
+            7,
+            8,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 21,
+          "S0": [
+            3,
+            4
+          ],
+          "G": [
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 22,
+          "S0": [
+            2,
+            10
+          ],
+          "G": [
+            1
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 23,
+          "S0": [
+            1,
+            3,
+            8,
+            10
+          ],
+          "G": [
+            0,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 24,
+          "S0": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "G": [
+            2
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 25,
+          "S0": [
+            0,
+            4,
+            5,
+            8
+          ],
+          "G": [
+            8
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 26,
+          "S0": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "G": [
+            3,
+            10,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 27,
+          "S0": [
+            6,
+            10,
+            11
+          ],
+          "G": [
+            2,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 28,
+          "S0": [
+            1,
+            3,
+            9
+          ],
+          "G": [
+            0,
+            5,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 29,
+          "S0": [
+            0,
+            3,
+            6,
+            8
+          ],
+          "G": [
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 30,
+          "S0": [
+            1,
+            11
+          ],
+          "G": [
+            2,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 31,
+          "S0": [
+            4,
+            11
+          ],
+          "G": [
+            0,
+            7,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 32,
+          "S0": [
+            2,
+            8,
+            9
+          ],
+          "G": [
+            2,
+            8
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 33,
+          "S0": [
+            4,
+            6,
+            7,
+            11
+          ],
+          "G": [
+            6,
+            7
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 34,
+          "S0": [
+            1,
+            3,
+            4,
+            10
+          ],
+          "G": [
+            10,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 35,
+          "S0": [
+            3,
+            5,
+            7,
+            11
+          ],
+          "G": [
+            3,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 36,
+          "S0": [
+            4,
+            7
+          ],
+          "G": [
+            7
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 37,
+          "S0": [
+            7,
+            11
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 38,
+          "S0": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "G": [
+            6,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 39,
+          "S0": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "G": [
+            0,
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 40,
+          "S0": [
+            0,
+            2,
+            4,
+            6
+          ],
+          "G": [
+            0,
+            5,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 41,
+          "S0": [
+            1,
+            2,
+            8
+          ],
+          "G": [
+            8,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 42,
+          "S0": [
+            3,
+            5,
+            8
+          ],
+          "G": [
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 43,
+          "S0": [
+            0,
+            3,
+            5,
+            9
+          ],
+          "G": [
+            0
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 44,
+          "S0": [
+            2,
+            8
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 45,
+          "S0": [
+            0,
+            2,
+            5,
+            10
+          ],
+          "G": [
+            3,
+            4,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 46,
+          "S0": [
+            5,
+            6,
+            8,
+            10
+          ],
+          "G": [
+            3,
+            4,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 47,
+          "S0": [
+            2,
+            7,
+            9,
+            11
+          ],
+          "G": [
+            5,
+            6,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 48,
+          "S0": [
+            4,
+            5,
+            10
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 49,
+          "S0": [
+            5,
+            7,
+            10
+          ],
+          "G": [
+            5,
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 50,
+          "S0": [
+            0,
+            1,
+            3,
+            9
+          ],
+          "G": [
+            2,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 51,
+          "S0": [
+            0,
+            8
+          ],
+          "G": [
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 52,
+          "S0": [
+            2,
+            3,
+            4,
+            6
+          ],
+          "G": [
+            1
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 53,
+          "S0": [
+            0,
+            4,
+            8
+          ],
+          "G": [
+            2,
+            7
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 54,
+          "S0": [
+            1,
+            8
+          ],
+          "G": [
+            4,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 55,
+          "S0": [
+            5,
+            9,
+            11
+          ],
+          "G": [
+            3,
+            9,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 5,
+          "sub_plan_len": 5
+        },
+        {
+          "trial": 56,
+          "S0": [
+            3,
+            6
+          ],
+          "G": [
+            2,
+            7
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 57,
+          "S0": [
+            0,
+            2,
+            10
+          ],
+          "G": [
+            1,
+            7,
+            8
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 6,
+          "sub_plan_len": 6
+        },
+        {
+          "trial": 58,
+          "S0": [
+            1,
+            6
+          ],
+          "G": [
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 59,
+          "S0": [
+            5,
+            7,
+            8,
+            11
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 60,
+          "S0": [
+            0,
+            2,
+            5,
+            6
+          ],
+          "G": [
+            3
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 61,
+          "S0": [
+            0,
+            5,
+            7,
+            9
+          ],
+          "G": [
+            4,
+            10,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 62,
+          "S0": [
+            9,
+            10,
+            11
+          ],
+          "G": [
+            4,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 63,
+          "S0": [
+            3,
+            10
+          ],
+          "G": [
+            5,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 64,
+          "S0": [
+            7,
+            8
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 65,
+          "S0": [
+            2,
+            3,
+            4,
+            11
+          ],
+          "G": [
+            1
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 66,
+          "S0": [
+            3,
+            4,
+            6,
+            11
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 67,
+          "S0": [
+            1,
+            2,
+            10
+          ],
+          "G": [
+            7
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 68,
+          "S0": [
+            1,
+            5,
+            10
+          ],
+          "G": [
+            2
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 69,
+          "S0": [
+            4,
+            8
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 70,
+          "S0": [
+            4,
+            5,
+            9,
+            11
+          ],
+          "G": [
+            3,
+            4,
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 71,
+          "S0": [
+            1,
+            2,
+            8,
+            11
+          ],
+          "G": [
+            0
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 72,
+          "S0": [
+            9,
+            11
+          ],
+          "G": [
+            2,
+            7,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 73,
+          "S0": [
+            8,
+            9,
+            10
+          ],
+          "G": [
+            3,
+            7,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 7,
+          "sub_plan_len": 7
+        },
+        {
+          "trial": 74,
+          "S0": [
+            1,
+            3,
+            9,
+            11
+          ],
+          "G": [
+            4,
+            9,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 75,
+          "S0": [
+            0,
+            1,
+            7
+          ],
+          "G": [
+            1,
+            5,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 5,
+          "sub_plan_len": 5
+        },
+        {
+          "trial": 76,
+          "S0": [
+            3,
+            9
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 77,
+          "S0": [
+            3,
+            4,
+            8
+          ],
+          "G": [
+            3,
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 78,
+          "S0": [
+            4,
+            11
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 79,
+          "S0": [
+            4,
+            9
+          ],
+          "G": [
+            0,
+            2,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 80,
+          "S0": [
+            2,
+            6,
+            8
+          ],
+          "G": [
+            0,
+            3
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 81,
+          "S0": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 82,
+          "S0": [
+            5,
+            11
+          ],
+          "G": [
+            1,
+            3
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 83,
+          "S0": [
+            2,
+            3,
+            5,
+            11
+          ],
+          "G": [
+            6,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 84,
+          "S0": [
+            0,
+            8
+          ],
+          "G": [
+            2,
+            8,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 85,
+          "S0": [
+            0,
+            9
+          ],
+          "G": [
+            0,
+            1
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 86,
+          "S0": [
+            3,
+            4,
+            6
+          ],
+          "G": [
+            1,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 87,
+          "S0": [
+            0,
+            2,
+            3,
+            10
+          ],
+          "G": [
+            3
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 88,
+          "S0": [
+            0,
+            2
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 89,
+          "S0": [
+            4,
+            6,
+            8,
+            11
+          ],
+          "G": [
+            0,
+            8
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 90,
+          "S0": [
+            5,
+            8,
+            11
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 91,
+          "S0": [
+            1,
+            3,
+            9,
+            10
+          ],
+          "G": [
+            3,
+            6,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 92,
+          "S0": [
+            3,
+            7,
+            9,
+            10
+          ],
+          "G": [
+            7,
+            9,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 93,
+          "S0": [
+            1,
+            6,
+            7
+          ],
+          "G": [
+            5,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 94,
+          "S0": [
+            0,
+            10
+          ],
+          "G": [
+            0
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 95,
+          "S0": [
+            2,
+            3,
+            10
+          ],
+          "G": [
+            4,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 96,
+          "S0": [
+            2,
+            7,
+            8,
+            9
+          ],
+          "G": [
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 97,
+          "S0": [
+            0,
+            3,
+            5,
+            11
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 98,
+          "S0": [
+            1,
+            3,
+            6
+          ],
+          "G": [
+            3,
+            5
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 99,
+          "S0": [
+            4,
+            5,
+            8,
+            9
+          ],
+          "G": [
+            1,
+            5
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 100,
+          "S0": [
+            1,
+            4,
+            6,
+            7
+          ],
+          "G": [
+            4,
+            6,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 101,
+          "S0": [
+            0,
+            4
+          ],
+          "G": [
+            4,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 102,
+          "S0": [
+            2,
+            10
+          ],
+          "G": [
+            1,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 103,
+          "S0": [
+            2,
+            4,
+            5,
+            10
+          ],
+          "G": [
+            6,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 104,
+          "S0": [
+            5,
+            7,
+            8
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 105,
+          "S0": [
+            5,
+            9
+          ],
+          "G": [
+            2
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 106,
+          "S0": [
+            0,
+            8
+          ],
+          "G": [
+            1,
+            2
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 107,
+          "S0": [
+            5,
+            8
+          ],
+          "G": [
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 108,
+          "S0": [
+            3,
+            8,
+            11
+          ],
+          "G": [
+            0,
+            5,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 109,
+          "S0": [
+            1,
+            9
+          ],
+          "G": [
+            0,
+            4,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 110,
+          "S0": [
+            3,
+            9,
+            10
+          ],
+          "G": [
+            0,
+            5
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 111,
+          "S0": [
+            3,
+            6,
+            11
+          ],
+          "G": [
+            3
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 112,
+          "S0": [
+            1,
+            5,
+            9,
+            10
+          ],
+          "G": [
+            1,
+            6,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 113,
+          "S0": [
+            2,
+            5,
+            6,
+            7
+          ],
+          "G": [
+            2,
+            7,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 114,
+          "S0": [
+            0,
+            3,
+            5
+          ],
+          "G": [
+            0,
+            1,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 115,
+          "S0": [
+            1,
+            8
+          ],
+          "G": [
+            2,
+            3,
+            7
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 116,
+          "S0": [
+            2,
+            5,
+            6,
+            10
+          ],
+          "G": [
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 117,
+          "S0": [
+            2,
+            8,
+            11
+          ],
+          "G": [
+            7,
+            10,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 118,
+          "S0": [
+            1,
+            2,
+            3,
+            7
+          ],
+          "G": [
+            2,
+            10,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 119,
+          "S0": [
+            3,
+            4
+          ],
+          "G": [
+            8,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 120,
+          "S0": [
+            1,
+            6,
+            9,
+            10
+          ],
+          "G": [
+            0,
+            2,
+            3
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 121,
+          "S0": [
+            1,
+            4
+          ],
+          "G": [
+            0,
+            2,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 122,
+          "S0": [
+            2,
+            3,
+            8
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 123,
+          "S0": [
+            0,
+            9
+          ],
+          "G": [
+            2,
+            7,
+            9
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 5,
+          "sub_plan_len": 5
+        },
+        {
+          "trial": 124,
+          "S0": [
+            4,
+            8,
+            10
+          ],
+          "G": [
+            8
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 125,
+          "S0": [
+            7,
+            8,
+            10,
+            11
+          ],
+          "G": [
+            2,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 126,
+          "S0": [
+            3,
+            7,
+            11
+          ],
+          "G": [
+            5
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 127,
+          "S0": [
+            4,
+            7
+          ],
+          "G": [
+            6,
+            7,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 128,
+          "S0": [
+            4,
+            9,
+            10
+          ],
+          "G": [
+            2,
+            8,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 129,
+          "S0": [
+            0,
+            4,
+            8
+          ],
+          "G": [
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 130,
+          "S0": [
+            1,
+            2,
+            6
+          ],
+          "G": [
+            1,
+            3,
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 131,
+          "S0": [
+            0,
+            2,
+            5,
+            9
+          ],
+          "G": [
+            1,
+            9,
+            11
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 4,
+          "sub_plan_len": 4
+        },
+        {
+          "trial": 132,
+          "S0": [
+            4,
+            5
+          ],
+          "G": [
+            7
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 133,
+          "S0": [
+            6,
+            7
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 134,
+          "S0": [
+            5,
+            6,
+            7
+          ],
+          "G": [
+            0,
+            3
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 135,
+          "S0": [
+            0,
+            3,
+            6,
+            7
+          ],
+          "G": [
+            1,
+            9,
+            10
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 136,
+          "S0": [
+            1,
+            4,
+            8,
+            9
+          ],
+          "G": [
+            4,
+            10,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 137,
+          "S0": [
+            2,
+            5,
+            7,
+            8
+          ],
+          "G": [
+            0,
+            2,
+            9
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 138,
+          "S0": [
+            0,
+            1,
+            3,
+            7
+          ],
+          "G": [
+            4
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 139,
+          "S0": [
+            2,
+            10,
+            11
+          ],
+          "G": [
+            1
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        },
+        {
+          "trial": 140,
+          "S0": [
+            1,
+            2,
+            3
+          ],
+          "G": [
+            5,
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 141,
+          "S0": [
+            5,
+            7
+          ],
+          "G": [
+            0,
+            2,
+            7
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 142,
+          "S0": [
+            2,
+            7,
+            8,
+            9
+          ],
+          "G": [
+            11
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 143,
+          "S0": [
+            8,
+            9,
+            10
+          ],
+          "G": [
+            3,
+            5,
+            6
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 144,
+          "S0": [
+            0,
+            1,
+            3
+          ],
+          "G": [
+            6
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 2,
+          "sub_plan_len": 2
+        },
+        {
+          "trial": 145,
+          "S0": [
+            6,
+            10
+          ],
+          "G": [
+            1,
+            3,
+            8
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 146,
+          "S0": [
+            5,
+            7,
+            8,
+            11
+          ],
+          "G": [
+            6,
+            8,
+            10
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 147,
+          "S0": [
+            7,
+            10
+          ],
+          "G": [
+            1
+          ],
+          "sym_found": false,
+          "sub_found": false,
+          "sym_plan_len": 0,
+          "sub_plan_len": 0
+        },
+        {
+          "trial": 148,
+          "S0": [
+            4,
+            10
+          ],
+          "G": [
+            2
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 1,
+          "sub_plan_len": 1
+        },
+        {
+          "trial": 149,
+          "S0": [
+            5,
+            9
+          ],
+          "G": [
+            0
+          ],
+          "sym_found": true,
+          "sub_found": true,
+          "sym_plan_len": 3,
+          "sub_plan_len": 3
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 1.1393852233886719,
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": false,
+  "arms_differ_verified": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "cardinality_ok": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "baseline_in_band": true,
+  "progress_logging": "print_flush_true",
+  "compute_architecture": "sequential_cpu_bfs_dependencies"
+}

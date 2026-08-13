@@ -1,0 +1,1104 @@
+{
+  "anchor_name": "sparse_bundling_capacity_decorr_frontend_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_CENSORED: RAW/DECORR J_max clipped at M//2 at DECISION rho(s) ['0.10'] -> capacity is a floor not a real 0.90 crossing at a point the verdict depends on; widen M. RAW-vs-DECORR DECOUPLING [rho=0.00:raw=6.04x/decorr=7.66x(rcos=0.00/dcos=0.00) rho=0.10:raw=2.42x/decorr=7.63x(rcos=0.11/dcos=0.00) rho=0.50:raw=1.81x/decorr=3.13x(rcos=0.50/dcos=0.04)] | tail(0.5): raw=1.81x decorr=3.13x recovery=1.73x (abs Jmax recovery=85.2x) sep_ok=True | mean(0.1): raw=2.42x decorr=7.63x | mustfail_all=True fatal_censor=['0.10'] decorr_saturated_anchor=['0.00'] | decorr f=4x N_exp_hi=16384 build_flops/key=2.62e+05 mem_dim=16384",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "corr_levels": [
+    0.0,
+    0.1,
+    0.5
+  ],
+  "N_prime_grid": [
+    1024,
+    4096
+  ],
+  "M_codebook": 4096,
+  "k_block": 8,
+  "cluster_size": 64,
+  "n_clust": 64,
+  "f_thin": 0.02,
+  "n_trial": 8,
+  "expand_factor": 4,
+  "dg_conn": 16,
+  "dg_proj_seed": 20260716,
+  "recall_target": 0.9,
+  "expected_n_units": 24,
+  "n_units": 24,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "DENSE": "41b83e3a01570623aeff0070a1d5e9c655f5d954b41395e92b1793f9b4eea86b",
+    "BLOCKSPARSE_RAW": "52212d711b54bda34a8696b4a48a69f59c83d0c676142f56feff76c1b6500b73",
+    "BLOCKSPARSE_DECORR": "ca0a134b68ad336f3ba1c2e3e496c8929e1922fc76369f81548f2aa22c0c02e5",
+    "VALUE_THIN_FRAC": "defb7c07d44e931cfef56898dad6324ed6f052ee421ea9758aa21e10a949b0ba"
+  },
+  "facts": {
+    "raw_decoupling_curve": {
+      "0.00": 6.04350405378683,
+      "0.10": 2.4197718631178704,
+      "0.50": 1.806451612903226
+    },
+    "decorr_decoupling_curve": {
+      "0.00": 7.664442326024788,
+      "0.10": 7.628067154541543,
+      "0.50": 3.125857775902089
+    },
+    "raw_within_cluster_cos_curve": {
+      "0.00": 0.003938802083333333,
+      "0.10": 0.10685096153846153,
+      "0.50": 0.49873547676282054
+    },
+    "decorr_within_cluster_cos_curve": {
+      "0.00": 0.0010448061080972474,
+      "0.10": 0.0027318709935897434,
+      "0.50": 0.04227013221153846
+    },
+    "recovery_ratio_curve": {
+      "0.00": 1.2682116629378757,
+      "0.10": 3.1523910459529008,
+      "0.50": 1.7303855545172278
+    },
+    "raw_decoupling_at_tail_rho0p5": 1.806451612903226,
+    "decorr_decoupling_at_tail_rho0p5": 3.125857775902089,
+    "raw_decoupling_at_mean_rho0p1": 2.4197718631178704,
+    "decorr_decoupling_at_mean_rho0p1": 7.628067154541543,
+    "recovery_ratio_at_tail": 1.7303855545172278,
+    "abs_recovery_Jmax_at_tail": 85.15918367346939,
+    "separation_confirmed_at_tail": true,
+    "raw_cos_at_tail": 0.49873547676282054,
+    "decorr_cos_at_tail": 0.04227013221153846,
+    "must_fail_fired_all_rho": true,
+    "any_censored": true,
+    "fatal_censor_decision_rhos": [
+      "0.10"
+    ],
+    "decorr_saturated_at_anchor_rhos_nonfatal": [
+      "0.00"
+    ],
+    "raw_collapsed_at_tail": true,
+    "decorr_build_flops_per_key_hi_at_tail": 262144.0,
+    "decorr_memory_dim_hi_at_tail": 16384.0,
+    "decorr_expand_factor": 4,
+    "rho_realistic_mean": 0.1,
+    "rho_correlated_tail": 0.5,
+    "real_codex_anchor": {
+      "available": true,
+      "n_entities": 2034,
+      "sample": 800,
+      "global_mean_cos": 0.0710216760635376,
+      "global_p99_cos": 0.47970157861709595,
+      "within_neighborhood_relation": "P106",
+      "within_neighborhood_n": 800,
+      "within_neighborhood_mean_cos": 0.1273878663778305,
+      "within_neighborhood_p99_cos": 0.5015503764152527,
+      "NOTE": "cell within-cluster rho maps to within_neighborhood_* (real semantic pocket correlation). realistic MEAN ~0.13 -> rho=0.1; TAIL p99 ~0.50 -> rho=0.5."
+    }
+  },
+  "per_level_facts": {
+    "0.00": {
+      "raw_decoupling": 6.04350405378683,
+      "decorr_decoupling": 7.664442326024788,
+      "dense_decoupling": 1.348218979198478,
+      "vt_decoupling": 1.4194456118042373,
+      "raw_within_cluster_cos": 0.003938802083333333,
+      "decorr_within_cluster_cos": 0.0010448061080972474,
+      "recovery_ratio_decorr_over_raw": 1.2682116629378757,
+      "abs_recovery_Jmax_hi_decorr_over_raw": 7.12780577187357,
+      "must_fail_control_fired": true,
+      "any_censored": true,
+      "raw_censored": false,
+      "decorr_censored": true,
+      "dense_censored": false,
+      "headline_ratio_bs_hi_vs_dense_lo": 35.16483516483517,
+      "raw_J_max_hi": 287.32544987146525,
+      "decorr_J_max_hi": 2048.0,
+      "dense_J_max_lo": 58.239999999999995,
+      "decorr_expand_factor": 4,
+      "decorr_N_exp_hi": 16384.0,
+      "decorr_build_flops_per_key_hi": 262144.0,
+      "decorr_memory_dim_hi": 16384.0
+    },
+    "0.10": {
+      "raw_decoupling": 2.4197718631178704,
+      "decorr_decoupling": 7.628067154541543,
+      "dense_decoupling": 0.648218200576022,
+      "vt_decoupling": 1.1965350967087736,
+      "raw_within_cluster_cos": 0.10685096153846153,
+      "decorr_within_cluster_cos": 0.0027318709935897434,
+      "recovery_ratio_decorr_over_raw": 3.1523910459529008,
+      "abs_recovery_Jmax_hi_decorr_over_raw": 37.2093023255814,
+      "must_fail_control_fired": true,
+      "any_censored": true,
+      "raw_censored": false,
+      "decorr_censored": true,
+      "dense_censored": false,
+      "headline_ratio_bs_hi_vs_dense_lo": 47.91127541589649,
+      "raw_J_max_hi": 55.03999999999999,
+      "decorr_J_max_hi": 2048.0,
+      "dense_J_max_lo": 42.745679012345676,
+      "decorr_expand_factor": 4,
+      "decorr_N_exp_hi": 16384.0,
+      "decorr_build_flops_per_key_hi": 262144.0,
+      "decorr_memory_dim_hi": 16384.0
+    },
+    "0.50": {
+      "raw_decoupling": 1.806451612903226,
+      "decorr_decoupling": 3.125857775902089,
+      "dense_decoupling": 0.3823529411764707,
+      "vt_decoupling": 0.7898514252729035,
+      "raw_within_cluster_cos": 0.49873547676282054,
+      "decorr_within_cluster_cos": 0.04227013221153846,
+      "recovery_ratio_decorr_over_raw": 1.7303855545172278,
+      "abs_recovery_Jmax_hi_decorr_over_raw": 85.15918367346939,
+      "must_fail_control_fired": true,
+      "any_censored": false,
+      "raw_censored": false,
+      "decorr_censored": false,
+      "dense_censored": false,
+      "headline_ratio_bs_hi_vs_dense_lo": 84.15731092436977,
+      "raw_J_max_hi": 4.4799999999999995,
+      "decorr_J_max_hi": 381.5131428571428,
+      "dense_J_max_lo": 4.533333333333331,
+      "decorr_expand_factor": 4,
+      "decorr_N_exp_hi": 16384.0,
+      "decorr_build_flops_per_key_hi": 262144.0,
+      "decorr_memory_dim_hi": 16384.0
+    }
+  },
+  "per_level": {
+    "0.00": [
+      {
+        "seed": 7,
+        "rho": 0.0,
+        "per_arm": {
+          "DENSE": {
+            "1024": {
+              "J_max": 58.239999999999995,
+              "active_cost": 1024,
+              "readout_N": 1024,
+              "cap_per_cost": 0.056874999999999995,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.99609375
+                ],
+                [
+                  64,
+                  0.87890625
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 314.0810933940774,
+              "active_cost": 4096,
+              "readout_N": 4096,
+              "cap_per_cost": 0.07667995444191343,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  1.0
+                ],
+                [
+                  128,
+                  0.9912109375
+                ],
+                [
+                  256,
+                  0.92431640625
+                ],
+                [
+                  512,
+                  0.817138671875
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_RAW": {
+            "1024": {
+              "J_max": 47.54285714285714,
+              "active_cost": 8,
+              "readout_N": 1024,
+              "cap_per_cost": 5.942857142857142,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.953125
+                ],
+                [
+                  64,
+                  0.84375
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 287.32544987146525,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 35.91568123393316,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  0.99609375
+                ],
+                [
+                  128,
+                  0.9755859375
+                ],
+                [
+                  256,
+                  0.91162109375
+                ],
+                [
+                  512,
+                  0.816650390625
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_DECORR": {
+            "1024": {
+              "J_max": 267.2079601990049,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 33.40099502487561,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  0.99609375
+                ],
+                [
+                  128,
+                  0.974609375
+                ],
+                [
+                  256,
+                  0.904296875
+                ],
+                [
+                  512,
+                  0.80615234375
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 2048.0,
+              "active_cost": 8,
+              "readout_N": 16384,
+              "cap_per_cost": 256.0,
+              "censored": true,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  1.0
+                ],
+                [
+                  128,
+                  1.0
+                ],
+                [
+                  256,
+                  0.9970703125
+                ],
+                [
+                  512,
+                  0.99072265625
+                ],
+                [
+                  1024,
+                  0.95849609375
+                ],
+                [
+                  2048,
+                  0.91546630859375
+                ]
+              ]
+            }
+          },
+          "VALUE_THIN_FRAC": {
+            "1024": {
+              "J_max": 53.261016949152534,
+              "active_cost": 20,
+              "readout_N": 1024,
+              "cap_per_cost": 2.663050847457627,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.9765625
+                ],
+                [
+                  64,
+                  0.861328125
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 309.9645788336933,
+              "active_cost": 82,
+              "readout_N": 4096,
+              "cap_per_cost": 3.780055839435284,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  1.0
+                ],
+                [
+                  128,
+                  0.990234375
+                ],
+                [
+                  256,
+                  0.923828125
+                ],
+                [
+                  512,
+                  0.810791015625
+                ]
+              ]
+            }
+          }
+        },
+        "code_cos": {
+          "BLOCKSPARSE_RAW": 0.003938802083333333,
+          "BLOCKSPARSE_DECORR": 0.0010448061080972474
+        },
+        "achieved_global_mean_cos": 0.0002797353663481772
+      }
+    ],
+    "0.10": [
+      {
+        "seed": 7,
+        "rho": 0.1,
+        "per_arm": {
+          "DENSE": {
+            "1024": {
+              "J_max": 42.745679012345676,
+              "active_cost": 1024,
+              "readout_N": 1024,
+              "cap_per_cost": 0.041743827160493824,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.953125
+                ],
+                [
+                  64,
+                  0.794921875
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 110.83410852713178,
+              "active_cost": 4096,
+              "readout_N": 4096,
+              "cap_per_cost": 0.02705910852713178,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  0.9921875
+                ],
+                [
+                  128,
+                  0.8662109375
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_RAW": {
+            "1024": {
+              "J_max": 22.745945945945945,
+              "active_cost": 8,
+              "readout_N": 1024,
+              "cap_per_cost": 2.843243243243243,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  0.984375
+                ],
+                [
+                  16,
+                  0.9609375
+                ],
+                [
+                  32,
+                  0.81640625
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 55.03999999999999,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 6.879999999999999,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  0.9609375
+                ],
+                [
+                  32,
+                  0.94921875
+                ],
+                [
+                  64,
+                  0.880859375
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_DECORR": {
+            "1024": {
+              "J_max": 268.48216704288933,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 33.560270880361166,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  0.998046875
+                ],
+                [
+                  128,
+                  0.9658203125
+                ],
+                [
+                  256,
+                  0.9052734375
+                ],
+                [
+                  512,
+                  0.797119140625
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 2048.0,
+              "active_cost": 8,
+              "readout_N": 16384,
+              "cap_per_cost": 256.0,
+              "censored": true,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  1.0
+                ],
+                [
+                  128,
+                  1.0
+                ],
+                [
+                  256,
+                  0.99853515625
+                ],
+                [
+                  512,
+                  0.989501953125
+                ],
+                [
+                  1024,
+                  0.9521484375
+                ],
+                [
+                  2048,
+                  0.9110107421875
+                ]
+              ]
+            }
+          },
+          "VALUE_THIN_FRAC": {
+            "1024": {
+              "J_max": 56.414814814814804,
+              "active_cost": 20,
+              "readout_N": 1024,
+              "cap_per_cost": 2.82074074074074,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.98046875
+                ],
+                [
+                  64,
+                  0.875
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 276.7594541910331,
+              "active_cost": 82,
+              "readout_N": 4096,
+              "cap_per_cost": 3.375115295012599,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  1.0
+                ],
+                [
+                  128,
+                  0.9833984375
+                ],
+                [
+                  256,
+                  0.91015625
+                ],
+                [
+                  512,
+                  0.784912109375
+                ]
+              ]
+            }
+          }
+        },
+        "code_cos": {
+          "BLOCKSPARSE_RAW": 0.10685096153846153,
+          "BLOCKSPARSE_DECORR": 0.0027318709935897434
+        },
+        "achieved_global_mean_cos": 0.0015117228031158447
+      }
+    ],
+    "0.50": [
+      {
+        "seed": 7,
+        "rho": 0.5,
+        "per_arm": {
+          "DENSE": {
+            "1024": {
+              "J_max": 4.533333333333331,
+              "active_cost": 1024,
+              "readout_N": 1024,
+              "cap_per_cost": 0.0044270833333333315,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  0.90625
+                ],
+                [
+                  8,
+                  0.859375
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 6.933333333333332,
+              "active_cost": 4096,
+              "readout_N": 4096,
+              "cap_per_cost": 0.001692708333333333,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  0.96875
+                ],
+                [
+                  8,
+                  0.875
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_RAW": {
+            "1024": {
+              "J_max": 2.4799999999999995,
+              "active_cost": 8,
+              "readout_N": 1024,
+              "cap_per_cost": 0.30999999999999994,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  0.9375
+                ],
+                [
+                  4,
+                  0.78125
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 4.4799999999999995,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 0.5599999999999999,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  0.9375
+                ],
+                [
+                  4,
+                  0.9375
+                ],
+                [
+                  8,
+                  0.625
+                ]
+              ]
+            }
+          },
+          "BLOCKSPARSE_DECORR": {
+            "1024": {
+              "J_max": 122.05070422535209,
+              "active_cost": 8,
+              "readout_N": 4096,
+              "cap_per_cost": 15.256338028169012,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.99609375
+                ],
+                [
+                  64,
+                  0.962890625
+                ],
+                [
+                  128,
+                  0.8935546875
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 381.5131428571428,
+              "active_cost": 8,
+              "readout_N": 16384,
+              "cap_per_cost": 47.68914285714285,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  1.0
+                ],
+                [
+                  64,
+                  0.998046875
+                ],
+                [
+                  128,
+                  0.986328125
+                ],
+                [
+                  256,
+                  0.94189453125
+                ],
+                [
+                  512,
+                  0.8564453125
+                ]
+              ]
+            }
+          },
+          "VALUE_THIN_FRAC": {
+            "1024": {
+              "J_max": 26.116129032258062,
+              "active_cost": 20,
+              "readout_N": 1024,
+              "cap_per_cost": 1.305806451612903,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  0.9765625
+                ],
+                [
+                  32,
+                  0.85546875
+                ]
+              ]
+            },
+            "4096": {
+              "J_max": 84.57423312883435,
+              "active_cost": 82,
+              "readout_N": 4096,
+              "cap_per_cost": 1.0313930869370043,
+              "censored": false,
+              "grid": [
+                [
+                  2,
+                  1.0
+                ],
+                [
+                  4,
+                  1.0
+                ],
+                [
+                  8,
+                  1.0
+                ],
+                [
+                  16,
+                  1.0
+                ],
+                [
+                  32,
+                  0.99609375
+                ],
+                [
+                  64,
+                  0.951171875
+                ],
+                [
+                  128,
+                  0.7919921875
+                ]
+              ]
+            }
+          }
+        },
+        "code_cos": {
+          "BLOCKSPARSE_RAW": 0.49873547676282054,
+          "BLOCKSPARSE_DECORR": 0.04227013221153846
+        },
+        "achieved_global_mean_cos": 0.0077927750535309315
+      }
+    ]
+  },
+  "elapsed_s": 120.15150737762451,
+  "readout_cost_note": "DENSE=O(M*N'); BLOCKSPARSE_RAW=O(M*k) in N'; BLOCKSPARSE_DECORR=O(M*k) readout in N_exp PLUS one-time front-end build O(M*N_exp*c) and memory O(N_exp); VALUE_THIN_FRAC=O(M*k_frac). The compute-decoupling claim is about per-query READOUT cost (O(k), preserved by DECORR); the front-end build+memory cost is reported separately.",
+  "summary": "MIDDLE_BAND_CENSORED: RAW/DECORR J_max clipped at M//2 at DECISION rho(s) ['0.10'] -> capacity is a floor not a real 0.90 crossing at a point the verdict depends on; widen M. RAW-vs-DECORR DECOUPLING [rho=0.00:raw=6.04x/decorr=7.66x(rcos=0.00/dcos=0.00) rho=0.10:raw=2.42x/decorr=7.63x(rcos=0.11/dcos=0.00) rho=0.50:raw=1.81x/decorr=3.13x(rcos=0.50/dcos=0.04)] | tail(0.5): raw=1.81x decorr=3.13x recovery=1.73x (abs Jmax recovery=85.2x) sep_ok=True | mean(0.1): raw=2.42x decorr=7.63x | mustfail_all=True fatal_censor=['0.10'] decorr_saturated_anchor=['0.00'] | decorr f=4x N_exp_hi=16384 build_flops/key=2.62e+05 mem_dim=16384"
+}

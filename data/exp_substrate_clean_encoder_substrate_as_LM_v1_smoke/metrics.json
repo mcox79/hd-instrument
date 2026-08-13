@@ -1,0 +1,289 @@
+{
+  "anchor_name": "substrate_clean_encoder_substrate_as_LM_v1",
+  "anchor": "substrate_clean_encoder_substrate_as_LM_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "CLEAN_ENC HARD_FAIL_DECISIVE: rail A diverged (A=4.9616 vs ref 7.3065 tol 0.10). Cannot interpret B/C/D. CLEAN_ENC A_W2V_GOOGLE_NEWS=bpc4.9616|top10.3306|mrr0.4154 | B_W2V_TEXT8_ONLY=bpc5.5226|top10.3306|mrr0.4011 | C_RANDOM_PROJECTION=bpc5.2743|top10.3306|mrr0.3914 | D_CHAR_TRIGRAM=bpc5.5226|top10.3306|mrr0.3943 | delta_B_minus_A=0.5610 | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "PRETRAIN_DIM": 300,
+  "INGEST_CHUNK": 512,
+  "RECALL_BATCH": 128,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "arms": [
+    "A_W2V_GOOGLE_NEWS",
+    "B_W2V_TEXT8_ONLY",
+    "C_RANDOM_PROJECTION",
+    "D_CHAR_TRIGRAM"
+  ],
+  "arm_config": {
+    "A_W2V_GOOGLE_NEWS": {
+      "encoder": "w2v_google_news",
+      "training_data": "google_news_100B"
+    },
+    "B_W2V_TEXT8_ONLY": {
+      "encoder": "w2v_text8_only",
+      "training_data": "text8_train_split_only"
+    },
+    "C_RANDOM_PROJECTION": {
+      "encoder": "random_projection",
+      "training_data": "none"
+    },
+    "D_CHAR_TRIGRAM": {
+      "encoder": "char_trigram",
+      "training_data": "none_deterministic_hash"
+    }
+  },
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "A_W2V_GOOGLE_NEWS": {
+        "bpc_best_mean": 4.9616,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4154,
+        "raw_bpc_at_T1_L1_mean": 7.7237,
+        "best_T_for_bpc_mean": 0.1,
+        "best_lambda_for_bpc_mean": 0.5,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "w2v_google_news",
+          "training_data": "google_news_100B"
+        }
+      },
+      "B_W2V_TEXT8_ONLY": {
+        "bpc_best_mean": 5.5226,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.4011,
+        "raw_bpc_at_T1_L1_mean": 7.8157,
+        "best_T_for_bpc_mean": 0.01,
+        "best_lambda_for_bpc_mean": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "w2v_text8_only",
+          "training_data": "text8_train_split_only"
+        }
+      },
+      "C_RANDOM_PROJECTION": {
+        "bpc_best_mean": 5.2743,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.3914,
+        "raw_bpc_at_T1_L1_mean": 7.9019,
+        "best_T_for_bpc_mean": 0.05,
+        "best_lambda_for_bpc_mean": 0.1,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "random_projection",
+          "training_data": "none"
+        }
+      },
+      "D_CHAR_TRIGRAM": {
+        "bpc_best_mean": 5.5226,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "mrr_at_10_mean": 0.3943,
+        "raw_bpc_at_T1_L1_mean": 7.9269,
+        "best_T_for_bpc_mean": 0.01,
+        "best_lambda_for_bpc_mean": 0.0,
+        "n_valid_seeds": 1,
+        "all_seeds_failed": false,
+        "config": {
+          "encoder": "char_trigram",
+          "training_data": "none_deterministic_hash"
+        }
+      }
+    },
+    "rail_A_ok": false,
+    "rail_A_diverge": true,
+    "leakage_delta_B_minus_A": 0.561,
+    "leakage_real": true,
+    "leakage_negligible": false,
+    "leakage_partial": false,
+    "FAIR_HARNESS_REF_BPC": 7.3065,
+    "SANITY_RAIL_TOL": 0.05,
+    "LEAKAGE_REAL_DELTA": 0.3,
+    "LEAKAGE_NEG_TOL": 0.1,
+    "n_seeds": 1,
+    "n_llm_calls": 0,
+    "zero_llm_calls_at_inference": true,
+    "CONFIG_VERSION": "substrate_clean_encoder_substrate_as_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_W2V_GOOGLE_NEWS', 'B_W2V_TEXT8_ONLY', 'C_RANDOM_PROJECTION', 'D_CHAR_TRIGRAM'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 clean_w2v dim=300 window=5 min_count=5 epochs=2 bands rail_tol=0.05 leakage_real=0.30 leakage_neg=0.10",
+    "WHAT_THIS_DOES_NOT_SHOW": "This cell does NOT prove the substrate is a competitive LM in absolute terms. It does NOT diagnose other possible leakage sources (word frequency / tokenization choice). It does NOT replace the WordSim353 / SimLex external encoder benchmarks. It tests whether substrate-as-LM benefits FROM word2vec's pretrained Google-News distributional structure or whether substrate W does most of the work. If clean encoder is under-trained (~17M tokens vs google-news 100B), arm B may land worse for that reason -- itself informative.",
+    "honest_scope": "4-arm encoder-leakage decisive test on fair_harness scaffolding (pure numpy + gensim CPU; rank-1 Hebbian; joint (T,lambda) sweep). N_DIM=512 N_TRAIN=2000 N_HELD=400 V=300 seed=[0]. Arm A (word2vec-google-news; sanity rail) reproduces fair_harness 7.3065. Arm B (clean Word2Vec trained ONLY on text8 train split; PRIMARY) tests whether removing Google-News leakage moves the substrate-as-LM BPC. Arms C/D (random projection + char-trigram; floors) provide context for the magnitude of the A-vs-B delta.",
+    "cites": [
+      "preregs/2026-06-24_substrate_clean_encoder_substrate_as_LM_v1.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py",
+      "experiments/exp_substrate_encoder_ablation_on_fair_harness_v1.py",
+      "experiments/exp_clean_encoder_eval_harness_v1.py"
+    ]
+  },
+  "metrics_source": "measured_cpu_clean_encoder_substrate_as_LM_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "A_W2V_GOOGLE_NEWS": {
+          "bpc_best": 4.9616,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.9487,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4154,
+          "raw_bpc_at_T1_L1": 7.7237,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.83,
+          "config": {
+            "encoder": "w2v_google_news",
+            "training_data": "google_news_100B"
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "B_W2V_TEXT8_ONLY": {
+          "bpc_best": 5.5226,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.3178,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.4011,
+          "raw_bpc_at_T1_L1": 7.8157,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.74,
+          "config": {
+            "encoder": "w2v_text8_only",
+            "training_data": "text8_train_split_only"
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "C_RANDOM_PROJECTION": {
+          "bpc_best": 5.2743,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.08,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.3914,
+          "raw_bpc_at_T1_L1": 7.9019,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.53,
+          "config": {
+            "encoder": "random_projection",
+            "training_data": "none"
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        },
+        "D_CHAR_TRIGRAM": {
+          "bpc_best": 5.5226,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 5.3178,
+          "top1_acc": 0.3306,
+          "mrr_at_10": 0.3943,
+          "raw_bpc_at_T1_L1": 7.9269,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.83,
+          "config": {
+            "encoder": "char_trigram",
+            "training_data": "none_deterministic_hash"
+          },
+          "n_eval_total": 242,
+          "n_held_ctx": 399
+        }
+      },
+      "V": 300,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 300,
+      "PRETRAIN_DIM": 300,
+      "run_mode": "smoke",
+      "config_version": "substrate_clean_encoder_substrate_as_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_W2V_GOOGLE_NEWS', 'B_W2V_TEXT8_ONLY', 'C_RANDOM_PROJECTION', 'D_CHAR_TRIGRAM'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 clean_w2v dim=300 window=5 min_count=5 epochs=2 bands rail_tol=0.05 leakage_real=0.30 leakage_neg=0.10",
+      "elapsed_s_seed": 185.7,
+      "device": "cpu",
+      "encoder_meta": {
+        "A": {
+          "n_hit": 282,
+          "n_miss": 18,
+          "n_vocab": 300,
+          "pretrain_dim": 300,
+          "fallback_to_char_trigram": false,
+          "training_data": "google_news_100B"
+        },
+        "B": {
+          "n_hit": 76,
+          "n_miss": 224,
+          "n_vocab": 300,
+          "pretrain_dim": 300,
+          "fallback_to_char_trigram": false,
+          "training_meta": {
+            "training_data": "text8_train_split_only",
+            "n_train_tokens": 2000,
+            "n_sentences": 2,
+            "chunk_size": 1000,
+            "wv_dim": 300,
+            "wv_vocab_size": 76,
+            "epochs": 2,
+            "window": 5,
+            "min_count": 5,
+            "training_wall_s": 0.3
+          }
+        },
+        "C": {
+          "n_vocab": 300,
+          "encoder_type": "random_projection",
+          "no_training": true
+        },
+        "D": {
+          "n_vocab": 300,
+          "encoder_type": "char_trigram_sparse",
+          "no_training": true
+        }
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782330060.7453728
+    }
+  ],
+  "elapsed_s": 186.2374029159546,
+  "summary": "CLEAN_ENC HARD_FAIL_DECISIVE: rail A diverged (A=4.9616 vs ref 7.3065 tol 0.10). Cannot interpret B/C/D. CLEAN_ENC A_W2V_GOOGLE_NEWS=bpc4.9616|top10.3306|mrr0.4154 | B_W2V_TEXT8_ONLY=bpc5.5226|top10.3306|mrr0.4011 | C_RANDOM_PROJECTION=bpc5",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec/clean-Word2Vec are static open-weight lookups; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_clean_encoder_substrate_as_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['A_W2V_GOOGLE_NEWS', 'B_W2V_TEXT8_ONLY', 'C_RANDOM_PROJECTION', 'D_CHAR_TRIGRAM'] seeds=[0] mode=smoke sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10 clean_w2v dim=300 window=5 min_count=5 epochs=2 bands rail_tol=0.05 leakage_real=0.30 leakage_neg=0.10",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

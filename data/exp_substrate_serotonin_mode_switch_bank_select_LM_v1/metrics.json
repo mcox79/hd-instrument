@@ -1,0 +1,55 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "feature_gated_bpc=7.2291; single_bank_bpc=7.2268; lift=-0.0022 < 0.03; mode-switch does NOT help at same param budget",
+  "arm_summary": {
+    "ARM_UNIGRAM": {
+      "bpc_mean": 7.683793544769287,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.26915,
+      "mrr_mean": NaN,
+      "n_seeds": 3
+    },
+    "ARM_SINGLE_BANK": {
+      "bpc_mean": 7.226830005645752,
+      "bpc_std": 0.0018535028155810302,
+      "bpc_cv": 0.00025647521999729267,
+      "top1_mean": 0.2907,
+      "mrr_mean": 0.3020985714285722,
+      "n_seeds": 3
+    },
+    "ARM_4_BANK_RANDOM_SELECT": {
+      "bpc_mean": 7.242557207743327,
+      "bpc_std": 0.003961430379141565,
+      "bpc_cv": 0.0005469657008585629,
+      "top1_mean": 0.28423333333333334,
+      "mrr_mean": 0.29493719576719585,
+      "n_seeds": 3
+    },
+    "ARM_4_BANK_FEATURE_GATED_SELECT": {
+      "bpc_mean": 7.229052384694417,
+      "bpc_std": 0.0020592712109913825,
+      "bpc_cv": 0.00028486046322631967,
+      "top1_mean": 0.2937,
+      "mrr_mean": 0.30432041005291016,
+      "n_seeds": 3
+    }
+  },
+  "lift_vs_single_bank_bpc": -0.0022223790486650685,
+  "lift_vs_random_bpc": 0.013504823048910097,
+  "gated_bpc_mean": 7.229052384694417,
+  "single_bank_bpc_mean": 7.226830005645752,
+  "random_bpc_mean": 7.242557207743327,
+  "unigram_bpc_mean": 7.683793544769287,
+  "n_seeds": 3,
+  "config_version": "substrate_serotonin_mode_switch_bank_select_LM_v1; N_DIM=8192 N_DIM_BANK=2048 N_BANKS=4 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_UNIGRAM', 'ARM_SINGLE_BANK', 'ARM_4_BANK_RANDOM_SELECT', 'ARM_4_BANK_FEATURE_GATED_SELECT'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] MRR_K=10; bands HP_BPC_margin>=0.100 chain_grade>=0.200 random_margin>=0.100 cv_max=0.05",
+  "pre_reg": {
+    "HARD_PASS": "gated beats single_bank by >=0.1 bits BPC",
+    "CHAIN_GRADE_BONUS": "lift>=0.2 AND gated beats random by >=0.1",
+    "MIDDLE_BAND": "lift in [0.03,0.1]",
+    "HARD_FAIL": "lift < 0.03",
+    "CV_MAX": 0.05
+  },
+  "elapsed_s": 0.0,
+  "summary": "feature_gated_bpc=7.2291; single_bank_bpc=7.2268; lift=-0.0022 < 0.03; mode-switch does NOT help at same param budget"
+}

@@ -1,0 +1,201 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "prediction-LEARNING induces category structure BEYOND static co-occurrence: delta_ami>=+0.02 on 3/3 seeds; ami_learner=0.158 > ami_static=0.098 (random=-0.000)",
+  "summary": "HARD_PASS: prediction-LEARNING induces category structure BEYOND static co-occurrence: delta_ami>=+0.02 on 3/3 seeds; ami_learner=0",
+  "elapsed_s": 103.19,
+  "ts_iso": "2026-07-18T04:43:04.972991+00:00",
+  "anchor_name": "srn_predict_category_v1",
+  "mode": "full",
+  "config": {
+    "n_sents": 8000,
+    "vocab_size": 900,
+    "min_count": 5,
+    "d": 128,
+    "k": 5,
+    "epochs": 16,
+    "batch": 512,
+    "lr": 0.01,
+    "seeds": [
+      7,
+      13,
+      19
+    ],
+    "kmeans_seeds": [
+      0,
+      1,
+      2
+    ],
+    "min_members": 8
+  },
+  "corpus": {
+    "n_sentences": 8000,
+    "n_sequences": 7512,
+    "n_tokens": 100178,
+    "vocab_size": 900,
+    "n_gold_words": 893,
+    "n_categories": 9,
+    "categories": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "DET",
+      "ADP",
+      "PRON",
+      "PRT",
+      "NUM"
+    ],
+    "category_member_counts": {
+      "NOUN": 446,
+      "VERB": 159,
+      "ADJ": 127,
+      "ADV": 56,
+      "DET": 23,
+      "ADP": 48,
+      "PRON": 15,
+      "PRT": 8,
+      "NUM": 11
+    }
+  },
+  "arms": [
+    "LEARNER",
+    "STATIC_PPMI",
+    "RANDOM_CODE"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "kmeans_seed": 0,
+      "pos_ce": 3.2988,
+      "bag_ce": 3.918,
+      "ami_learner_pos": 0.1587,
+      "ami_learner_bag": 0.0731,
+      "ami_static": 0.0984,
+      "ami_random": -0.0013,
+      "nmi_learner_pos": 0.1766,
+      "nmi_static": 0.1178,
+      "purity_learner_pos": 0.5711,
+      "purity_static": 0.5308,
+      "delta_ami": 0.0602,
+      "delta_ami_bag": -0.0254
+    },
+    {
+      "seed": 13,
+      "kmeans_seed": 1,
+      "pos_ce": 3.3026,
+      "bag_ce": 3.9147,
+      "ami_learner_pos": 0.1624,
+      "ami_learner_bag": 0.0983,
+      "ami_static": 0.0974,
+      "ami_random": 0.0021,
+      "nmi_learner_pos": 0.1802,
+      "nmi_static": 0.1166,
+      "purity_learner_pos": 0.5745,
+      "purity_static": 0.5274,
+      "delta_ami": 0.065,
+      "delta_ami_bag": 0.0009
+    },
+    {
+      "seed": 19,
+      "kmeans_seed": 2,
+      "pos_ce": 3.3018,
+      "bag_ce": 3.9165,
+      "ami_learner_pos": 0.1543,
+      "ami_learner_bag": 0.1099,
+      "ami_static": 0.0991,
+      "ami_random": -0.0014,
+      "nmi_learner_pos": 0.1722,
+      "nmi_static": 0.1185,
+      "purity_learner_pos": 0.5465,
+      "purity_static": 0.5364,
+      "delta_ami": 0.0551,
+      "delta_ami_bag": 0.0108
+    }
+  ],
+  "aggregate": {
+    "ami_learner_pos_mean": 0.1585,
+    "ami_learner_bag_mean": 0.0938,
+    "ami_static_mean": 0.0983,
+    "ami_random_mean": -0.0002,
+    "delta_ami_pos_mean": 0.0602,
+    "delta_ami_bag_mean": -0.0045,
+    "nmi_learner_pos_mean": 0.1763,
+    "nmi_static_mean": 0.1176,
+    "hp_seeds": 3,
+    "hf_seeds": 0,
+    "hp_margin": 0.02
+  },
+  "gates": {
+    "metric_fires": true,
+    "baseline_in_band": true,
+    "arms_differ_verified": true
+  },
+  "example_clusters_learner": [
+    {
+      "cluster": 0,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.465,
+      "example_words": [
+        "its",
+        "two",
+        "most",
+        "many",
+        "those",
+        "three",
+        "each",
+        "both"
+      ]
+    },
+    {
+      "cluster": 1,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.491,
+      "example_words": [
+        "the",
+        "a",
+        "his",
+        "this",
+        "an",
+        "one",
+        "their",
+        "last"
+      ]
+    },
+    {
+      "cluster": 2,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.822,
+      "example_words": [
+        "city",
+        "house",
+        "school",
+        "public",
+        "program",
+        "work",
+        "county",
+        "general"
+      ]
+    },
+    {
+      "cluster": 3,
+      "dominant_gold": "NOUN",
+      "dominant_frac": 0.547,
+      "example_words": [
+        "new",
+        "more",
+        "other",
+        "our",
+        "american",
+        "united",
+        "such",
+        "people"
+      ]
+    }
+  ],
+  "secondary_nextword": {
+    "bigram_top1": 0.1684,
+    "learner_top1": 0.1357,
+    "n_test_tokens": 13840,
+    "note": "learner uses trained W output codes (probe-bug fixed)"
+  }
+}

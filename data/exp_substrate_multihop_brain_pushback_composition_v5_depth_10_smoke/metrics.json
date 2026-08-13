@@ -1,0 +1,227 @@
+{
+  "anchor_name": "substrate_multihop_brain_pushback_composition_v5_depth_10",
+  "verdict": "HARD_FAIL_PIPELINE_BROKEN",
+  "verdict_msg": "HARD_FAIL_NO_HEADROOM_DEPTH_10: BASELINE_depth_10=0.1600 BASELINE_depth_8=0.1950 R1_d10=0.1600 R2_d10=0.1600 R3_d10=0.1600 COMBINED_d10=0.1600 (cv=nan) indiv_max_d10=0.1600 (cv=nan) COMBINED_d8=0.2050 (cv=nan) lift_comb_d10=0.0000 lift_comb_d8=0.0100 headroom_d10=0.0000 rail_breach=0/1 cardinality_ok=True expected_units=15 observed_units=15 rails=[]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "brainPushbackComp-v5-depth10: N=2048 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7] depths=[5, 8, 10] max_depth=10 mode=smoke R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_depth10_lift=0.10 HP_depth8_lift=0.07 HP_headroom=0.20 HP_cv<=0.100 MB_lift=[0.03,0.10] HF_easy=0.35 HF_broken=0.02 HF_headroom=0.10 baseline_rail_depth10=[0.02,0.35] expected_arms=5 expected_n_units=15 hardening=L1early+L2perarm+L3outertry+L4importsentinel+sysexitGuard+atomicWrite+armsDifferTest deeper_regime=depth_extend_2_3_5_to_3_5_8_10",
+  "per_seed": [
+    {
+      "_ckpt_key": "7",
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "V_C": 1000,
+      "n_predicates": 10,
+      "n_chains_train": 200,
+      "n_chains_test": 200,
+      "max_depth": 10,
+      "depths": [
+        5,
+        8,
+        10
+      ],
+      "r1_replay_stats": {
+        "n_chains_replayed": 200,
+        "n_shortcuts": 85,
+        "mean_amp": 0.5886001039978195,
+        "max_amp": 0.6569457830554266,
+        "min_amp_seen": 0.5520009192942421,
+        "cohorts": 5,
+        "min_amp": 0.55,
+        "top_K": 30
+      },
+      "config_version": "brainPushbackComp-v5-depth10: N=2048 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 seeds=[7] depths=[5, 8, 10] max_depth=10 mode=smoke R1_top_K=30 R1_cohorts=5 R1_min_amp=0.55 R3_tau=0.30 HP_depth10_lift=0.10 HP_depth8_lift=0.07 HP_headroom=0.20 HP_cv<=0.100 MB_lift=[0.03,0.10] HF_easy=0.35 HF_broken=0.02 HF_headroom=0.10 baseline_rail_depth10=[0.02,0.35] expected_arms=5 expected_n_units=15 hardening=L1early+L2perarm+L3outertry+L4importsentinel+sysexitGuard+atomicWrite+armsDifferTest deeper_regime=depth_extend_2_3_5_to_3_5_8_10",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_depth_5": {
+        "top1": 0.355,
+        "per_step_acc": [
+          0.825,
+          0.675,
+          0.55,
+          0.46,
+          0.355
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 0.6
+      },
+      "arm_baseline_depth_8": {
+        "top1": 0.195,
+        "per_step_acc": [
+          0.825,
+          0.675,
+          0.55,
+          0.46,
+          0.355,
+          0.28,
+          0.245,
+          0.195
+        ],
+        "n_queries": 200,
+        "depth": 8,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 0.98
+      },
+      "arm_baseline_depth_10": {
+        "top1": 0.16,
+        "per_step_acc": [
+          0.825,
+          0.675,
+          0.55,
+          0.46,
+          0.355,
+          0.28,
+          0.245,
+          0.195,
+          0.18,
+          0.16
+        ],
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "baseline_per_hop_cleanup",
+        "elapsed_s_arm": 1.19
+      },
+      "arm_r1_replay_into_w_c_depth_5": {
+        "top1": 0.36,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 1,
+        "shortcut_hit_rate": 0.005,
+        "fallback_used": 199,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 0.77
+      },
+      "arm_r1_replay_into_w_c_depth_8": {
+        "top1": 0.2,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 1,
+        "shortcut_hit_rate": 0.005,
+        "fallback_used": 199,
+        "n_queries": 200,
+        "depth": 8,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 1.13
+      },
+      "arm_r1_replay_into_w_c_depth_10": {
+        "top1": 0.16,
+        "shortcut_attempts": 200,
+        "shortcut_hits": 0,
+        "shortcut_hit_rate": 0.0,
+        "fallback_used": 200,
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "r1_replay_into_w_c",
+        "elapsed_s_arm": 1.37
+      },
+      "arm_r2_pfc_scratchpad_depth_5": {
+        "top1": 0.355,
+        "pfc_writes": 1200,
+        "pfc_reads": 1000,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 23.4
+      },
+      "arm_r2_pfc_scratchpad_depth_8": {
+        "top1": 0.195,
+        "pfc_writes": 1800,
+        "pfc_reads": 1600,
+        "n_queries": 200,
+        "depth": 8,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 36.03
+      },
+      "arm_r2_pfc_scratchpad_depth_10": {
+        "top1": 0.16,
+        "pfc_writes": 2200,
+        "pfc_reads": 2000,
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "r2_pfc_scratchpad",
+        "elapsed_s_arm": 43.29
+      },
+      "arm_r3_bidirectional_depth_5": {
+        "top1": 0.355,
+        "meet_rate": 0.355,
+        "fwd_only_top1": 0.355,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 5.0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 1.45
+      },
+      "arm_r3_bidirectional_depth_8": {
+        "top1": 0.2,
+        "meet_rate": 0.2,
+        "fwd_only_top1": 0.195,
+        "bwd_only_top1": 0.005,
+        "mean_meet_step": 7.8,
+        "n_queries": 200,
+        "depth": 8,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 2.69
+      },
+      "arm_r3_bidirectional_depth_10": {
+        "top1": 0.16,
+        "meet_rate": 0.18,
+        "fwd_only_top1": 0.16,
+        "bwd_only_top1": 0.0,
+        "mean_meet_step": 9.22,
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "r3_bidirectional_meet_in_middle",
+        "elapsed_s_arm": 3.16
+      },
+      "arm_combined_r1_r2_r3_depth_5": {
+        "top1": 0.36,
+        "shortcut_hits": 1,
+        "meet_hits": 71,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 5,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 40.2
+      },
+      "arm_combined_r1_r2_r3_depth_8": {
+        "top1": 0.205,
+        "shortcut_hits": 1,
+        "meet_hits": 40,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 8,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 63.61
+      },
+      "arm_combined_r1_r2_r3_depth_10": {
+        "top1": 0.16,
+        "shortcut_hits": 0,
+        "meet_hits": 32,
+        "fallback_fwd_hits": 0,
+        "n_queries": 200,
+        "depth": 10,
+        "mechanism": "combined_r1_r2_r3",
+        "elapsed_s_arm": 79.74
+      },
+      "separate_w_assertion_held": true,
+      "elapsed_s": 300.0,
+      "_partial_written_at": 1782621103.5708702
+    }
+  ],
+  "elapsed_s": 300.6,
+  "summary": "HARD_FAIL_NO_HEADROOM_DEPTH_10: BASELINE_depth_10=0.1600 BASELINE_depth_8=0.1950 R1_d10=0.1600 R2_d10=0.1600 R3_d10=0.1600 COMBINED_d10=0.1600 (cv=nan) indiv_max_d10=0.1600 (cv=nan) COMBINED_d8=0.2050 (cv=nan) lift_comb_d10=0.0000 lift_comb_d8=0.0100 headroom_d10=0.0000 rail_breach=0/1 cardinality_ok=True expected_units=15 observed_units=15 rails=[]",
+  "expected_n_units": 15,
+  "expected_arms": [
+    "baseline",
+    "r1_replay_into_w_c",
+    "r2_pfc_scratchpad",
+    "r3_bidirectional",
+    "combined_r1_r2_r3"
+  ],
+  "_llm_forward_calls_at_inference": 0,
+  "_hardening_marker": "v5_depth_10",
+  "DESIGN_NOTE": "V5 DEPTH EXTENSION over v4_harder_regime: REVERTS v4's N_chains_train 200->1000 + V_C 1000->2000 (v4 smoke pushed baseline UP to 0.875 -- wrong direction; reinforced not crosstalked). Returns to v3 config (200 train, V_C=1000) and EXTENDS HOP_DEPTHS [2,3,5] -> [3,5,8,10] with max_depth=10. v3 per-step decay was [0.91, 0.855, 0.76, 0.64, 0.56]; extending to depth 10 lands natural baseline ~0.18 inside discriminating [0.05, 0.25] band. Substrate-product insight: substrate already chain-grade composes at depth 5; test mechanisms DEEPER not denser. HARD_PASS requires ARM_COMBINED@depth_10 - ARM_BASELINE@depth_10 >= 0.10 (or depth_8 lift>=0.07, or indiv_max headroom>=0.20). META_RULE_AH atomic metrics write via tmp+os.replace; META_RULE_AF arms-must-differ warn-check at smoke depth_10."
+}

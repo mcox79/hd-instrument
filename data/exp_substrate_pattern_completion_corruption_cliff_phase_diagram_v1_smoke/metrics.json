@@ -1,0 +1,135 @@
+{
+  "anchor_name": "substrate_pattern_completion_corruption_cliff_phase_diagram_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 6/6 corner points; saturated=2 hard_pass=0 middle=0 floor=4 fail=0; arms_differ=True; gpu_util~0.00",
+  "summary": "HARD_PASS_SMOKE: 6/6 corner points; saturated=2 hard_pass=0 middle=0 floor=4 fail=0; arms_differ=True; gpu_util~0.00",
+  "elapsed_s": 1.525782585144043,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "phase_map": [
+    {
+      "N": 2048,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 1.0,
+      "top1_random": 0.005,
+      "discriminator": 0.995,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.228,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 2048,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 0.0,
+      "top1_random": 0.01,
+      "discriminator": -0.01,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.079,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 2048,
+      "corruption_frac": 0.95,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.069,
+      "crlb_1step_cliff_prediction": 0.464
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.1,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 1.0,
+      "top1_random": 0.01,
+      "discriminator": 0.99,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.333,
+      "crlb_1step_cliff_prediction": 0.4873
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 0.005,
+      "top1_random": 0.01,
+      "discriminator": -0.005,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.408,
+      "crlb_1step_cliff_prediction": 0.4873
+    },
+    {
+      "N": 16384,
+      "corruption_frac": 0.95,
+      "cleanup_iters": 5,
+      "M_items": 200,
+      "seed": 11,
+      "top1_substrate": 0.0,
+      "top1_random": 0.0,
+      "discriminator": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.372,
+      "crlb_1step_cliff_prediction": 0.4873
+    }
+  ],
+  "cliff_locator": {
+    "iters_5": {
+      "N_2048": 0.5,
+      "N_16384": 0.5
+    }
+  },
+  "arms_differ_sha256": {
+    "substrate_hash": "6f3a5139f6dbc9fbbd44b8295266616f126674a3e5d28a3358e1231bcaf66fdb",
+    "random_hash": "7dab3e559df4135f92cdbecb9c4194b9f7aee950e123018386ecfbd8fd06cd85",
+    "differ": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "observed_n_units": 6,
+  "crlb_predictions_1step": {
+    "2048": 0.4640342591718537,
+    "16384": 0.4872841903850099
+  },
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass",
+  "tier_counts": {
+    "SATURATED": 2,
+    "HARD_PASS": 0,
+    "MIDDLE_BAND": 0,
+    "FLOOR": 4,
+    "HARD_FAIL": 0
+  },
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "gpu_util_estimate": 0.0,
+  "beta": 8.0,
+  "corpus_provenance": "synthetic_substrate_bipolar_codebook_pattern_completion_corruption_cliff",
+  "config_version": "ANCHOR=substrate_pattern_completion_corruption_cliff_phase_diagram_v1,N=[2048, 16384],corruption=[0.1, 0.5, 0.95],iters=[5],M=200,seed=11,RUN_MODE=smoke,BETA=8.0",
+  "n_llm_calls": 0
+}

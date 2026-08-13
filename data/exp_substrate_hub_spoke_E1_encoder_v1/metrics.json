@@ -1,0 +1,1234 @@
+{
+  "anchor_name": "substrate_hub_spoke_E1_encoder_v1",
+  "anchor": "substrate_hub_spoke_E1_encoder_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HUB_SPOKE_E1 HARD_FAIL: ALL hub-spoke arms bpc >= 7.600 (federation doesn't help; principle may not transfer to substrate). HUB_SPOKE_E1 uni=bpc7.738|top10.2171 | ARM_BASELINE_PATH_C_SINGLE=bpc7.667|cv0.002|top10.2171|mrr0.2766 | ARM_HUB_SPOKE_3SPOKE=bpc7.707|cv0.003|top10.2172|mrr0.2771 | ARM_HUB_SPOKE_5SPOKE=bpc7.707|cv0.003|top10.2174|mrr0.2766 | ARM_HUB_SPOKE_WITH_CFRPE=bpc7.707|cv0.003|top10.2172|mrr0.2771 | best_hub=ARM_HUB_SPOKE_5SPOKE bpc=7.707 cv=0.003 | sanity_rail=OK delta=0.048 | n_llm=0",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "PC_ALPHA": 0.05,
+  "PC_BETA": 2.0,
+  "PC_N_LAYERS": 3,
+  "PC_N_PASSES": 1,
+  "PC_TRAINING_TOKENS": 100000,
+  "SPARSE_BIPOLAR_F": 0.02,
+  "N_SPOKES_ARM2": 3,
+  "N_SPOKES_ARM3": 5,
+  "N_SPOKES_ARM4": 3,
+  "CFRPE_ETA": 0.02,
+  "CFRPE_N_STEPS": 50,
+  "arms": [
+    "ARM_BASELINE_PATH_C_SINGLE",
+    "ARM_HUB_SPOKE_3SPOKE",
+    "ARM_HUB_SPOKE_5SPOKE",
+    "ARM_HUB_SPOKE_WITH_CFRPE"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0,
+        "top1_mean": 0.2171,
+        "top1_std": 0.0,
+        "mrr_mean": 0.2761,
+        "mrr_std": 0.0
+      },
+      "ARM_BASELINE_PATH_C_SINGLE": {
+        "bpc_best_mean": 7.6665,
+        "bpc_best_std": 0.012,
+        "bpc_best_cv": 0.0016,
+        "top1_acc_mean": 0.2171,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.2766,
+        "mrr_at_10_std": 0.0001,
+        "raw_bpc_at_T1_L1_mean": 11.7645,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_3SPOKE": {
+        "bpc_best_mean": 7.7071,
+        "bpc_best_std": 0.0228,
+        "bpc_best_cv": 0.003,
+        "top1_acc_mean": 0.2172,
+        "top1_acc_std": 0.0006,
+        "mrr_at_10_mean": 0.2771,
+        "mrr_at_10_std": 0.0008,
+        "raw_bpc_at_T1_L1_mean": 11.7615,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_5SPOKE": {
+        "bpc_best_mean": 7.7067,
+        "bpc_best_std": 0.026,
+        "bpc_best_cv": 0.0034,
+        "top1_acc_mean": 0.2174,
+        "top1_acc_std": 0.0004,
+        "mrr_at_10_mean": 0.2766,
+        "mrr_at_10_std": 0.0001,
+        "raw_bpc_at_T1_L1_mean": 11.7791,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_HUB_SPOKE_WITH_CFRPE": {
+        "bpc_best_mean": 7.7071,
+        "bpc_best_std": 0.0228,
+        "bpc_best_cv": 0.003,
+        "top1_acc_mean": 0.2172,
+        "top1_acc_std": 0.0006,
+        "mrr_at_10_mean": 0.2771,
+        "mrr_at_10_std": 0.0008,
+        "raw_bpc_at_T1_L1_mean": 11.7615,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "primary_arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+    "best_hub_arm": "ARM_HUB_SPOKE_5SPOKE",
+    "best_hub_bpc": 7.7067,
+    "best_hub_cv": 0.0034,
+    "sanity_rail_ok": true,
+    "sanity_rail_delta": 0.0481,
+    "sanity_rail_ref": 7.6184,
+    "sanity_rail_tol": 0.1,
+    "degen_arms": [
+      "ARM_BASELINE_PATH_C_SINGLE",
+      "ARM_HUB_SPOKE_3SPOKE",
+      "ARM_HUB_SPOKE_5SPOKE",
+      "ARM_HUB_SPOKE_WITH_CFRPE"
+    ],
+    "vocab_entropy_uniform_bits": 11.9658,
+    "any_substrate_clears_unigram_bpc": true,
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "hp_bpc_max": 7.2,
+    "cg_bpc_max": 6.95,
+    "hf_bpc_min": 7.6,
+    "hp_bpc_cv_max": 0.05,
+    "CONFIG_VERSION": "substrate_hub_spoke_E1_encoder_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=50 MRR_K=10 device=cuda; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+    "honest_scope": "Hub-and-spoke E1 federation encoder. 4 arms: single PC (baseline), 3-spoke, 5-spoke, 3-spoke+cf-RPE (primary). Sparse-bipolar f=0.020 with 1/sqrt(f) amplitude scaling per Stage-1 foundations. Hub aggregates via majority-rule (or cf-RPE-gated weighted) bundling -- no multiplicative compose. Substrate-OWNED encoders only (Lane 1; no word2vec/Pythia leakage). N_DIM=8192 N_TRAIN=100000 N_HELD=20000 V=4000. Sanity rail: baseline within +/- 0.10 of Path C v2 ref 7.6184.",
+    "cites": [
+      "preregs/2026-06-24_substrate_hub_spoke_E1_encoder_v1.md",
+      "notes/research_optimal_substrate_encoding_design_space_2x_drill_2026-06-24.md",
+      "notes/director_stage2_preauthored_dispatch_specs_2026-06-24.md",
+      "experiments/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2.py",
+      "data/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2/metrics.json",
+      "USER_2026-06-23_Path_C_substrate_owned_encoder_is_the_answer",
+      "USER_2026-06-22_Fix24_GPU_must_use_GPU"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_hub_spoke_E1_encoder_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_PATH_C_SINGLE": {
+          "bpc_best": 7.681,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3093,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2766,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7689,
+          "raw_top1_at_T1_L1": 0.16,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 65.28,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_BASELINE_PATH_C_SINGLE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2761
+                  ],
+                  "L3": [
+                    92.3776
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.05,
+                "beta": 2.0
+              }
+            ],
+            "n_spokes": 1,
+            "wall_encoder_s": 12.59
+          }
+        },
+        "ARM_HUB_SPOKE_3SPOKE": {
+          "bpc_best": 7.7004,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2766,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7448,
+          "raw_top1_at_T1_L1": 0.1613,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 88.12,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_3SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3774
+                  ],
+                  "L3": [
+                    92.2819
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.64,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 6852
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1214
+                  ],
+                  "L3": [
+                    92.3423
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 6865
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1788
+                  ],
+                  "L3": [
+                    92.2971
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.6,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 6878
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 37.78
+          }
+        },
+        "ARM_HUB_SPOKE_5SPOKE": {
+          "bpc_best": 7.6742,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3003,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2765,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7608,
+          "raw_top1_at_T1_L1": 0.1732,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 113.34,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_5SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3767
+                  ],
+                  "L3": [
+                    92.3055
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.82,
+                "n_updates": 98,
+                "alpha": 0.037500000000000006,
+                "beta": 1.75,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.037500000000000006,
+                "spoke_beta": 1.75,
+                "spoke_seed": 6852
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1218
+                  ],
+                  "L3": [
+                    92.362
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 6865
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1797
+                  ],
+                  "L3": [
+                    92.2924
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.6,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 6878
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2422
+                  ],
+                  "L3": [
+                    92.316
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.63,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 3,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 6891
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2147
+                  ],
+                  "L3": [
+                    92.3342
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.62,
+                "n_updates": 98,
+                "alpha": 0.057499999999999996,
+                "beta": 2.15,
+                "spoke_idx": 4,
+                "spoke_alpha": 0.057499999999999996,
+                "spoke_beta": 2.15,
+                "spoke_seed": 6904
+              }
+            ],
+            "n_spokes": 5,
+            "wall_encoder_s": 62.88
+          }
+        },
+        "ARM_HUB_SPOKE_WITH_CFRPE": {
+          "bpc_best": 7.7004,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2766,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7448,
+          "raw_top1_at_T1_L1": 0.1613,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 88.33,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+            "cfrpe_gates": [
+              0.33340001106262207,
+              0.33340001106262207,
+              0.33320000767707825
+            ],
+            "cfrpe_gate_std_over_mean": 0.0003,
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3774
+                  ],
+                  "L3": [
+                    92.2819
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.7,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 6852
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1214
+                  ],
+                  "L3": [
+                    92.3423
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.58,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 6865
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1788
+                  ],
+                  "L3": [
+                    92.2971
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.76,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 6878
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 38.44
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=50 MRR_K=10 device=cuda; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+      "elapsed_s_seed": 355.16,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782354874.0568826
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_PATH_C_SINGLE": {
+          "bpc_best": 7.667,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2952,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2765,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7685,
+          "raw_top1_at_T1_L1": 0.1742,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 62.26,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_BASELINE_PATH_C_SINGLE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3256
+                  ],
+                  "L3": [
+                    92.3262
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.57,
+                "n_updates": 98,
+                "alpha": 0.05,
+                "beta": 2.0
+              }
+            ],
+            "n_spokes": 1,
+            "wall_encoder_s": 12.97
+          }
+        },
+        "ARM_HUB_SPOKE_3SPOKE": {
+          "bpc_best": 7.6831,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3122,
+          "top1_acc": 0.2165,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2764,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7686,
+          "raw_top1_at_T1_L1": 0.1749,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 87.02,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_3SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1921
+                  ],
+                  "L3": [
+                    92.3444
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.56,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 16622
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1065
+                  ],
+                  "L3": [
+                    92.2731
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.58,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 16635
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1129
+                  ],
+                  "L3": [
+                    92.3207
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 16648
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 37.44
+          }
+        },
+        "ARM_HUB_SPOKE_5SPOKE": {
+          "bpc_best": 7.708,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2961,
+          "top1_acc": 0.2179,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2766,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7851,
+          "raw_top1_at_T1_L1": 0.1642,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 118.12,
+          "wall_ingest_s": 1.07,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_5SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1923
+                  ],
+                  "L3": [
+                    92.359
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.55,
+                "n_updates": 98,
+                "alpha": 0.037500000000000006,
+                "beta": 1.75,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.037500000000000006,
+                "spoke_beta": 1.75,
+                "spoke_seed": 16622
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.107
+                  ],
+                  "L3": [
+                    92.2803
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 16635
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1128
+                  ],
+                  "L3": [
+                    92.3258
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.6,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 16648
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2334
+                  ],
+                  "L3": [
+                    92.3145
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.61,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 3,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 16661
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.06
+                  ],
+                  "L3": [
+                    92.2938
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.66,
+                "n_updates": 98,
+                "alpha": 0.057499999999999996,
+                "beta": 2.15,
+                "spoke_idx": 4,
+                "spoke_alpha": 0.057499999999999996,
+                "spoke_beta": 2.15,
+                "spoke_seed": 16674
+              }
+            ],
+            "n_spokes": 5,
+            "wall_encoder_s": 62.07
+          }
+        },
+        "ARM_HUB_SPOKE_WITH_CFRPE": {
+          "bpc_best": 7.6831,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.3122,
+          "top1_acc": 0.2165,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2764,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7686,
+          "raw_top1_at_T1_L1": 0.1749,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 88.19,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+            "cfrpe_gates": [
+              0.33410000801086426,
+              0.33230000734329224,
+              0.3336000144481659
+            ],
+            "cfrpe_gate_std_over_mean": 0.0028,
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1921
+                  ],
+                  "L3": [
+                    92.3444
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.55,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 16622
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1065
+                  ],
+                  "L3": [
+                    92.2731
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.59,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 16635
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.1129
+                  ],
+                  "L3": [
+                    92.3207
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.61,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 16648
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 38.11
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=50 MRR_K=10 device=cuda; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+      "elapsed_s_seed": 355.63,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782355229.7443986
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_PATH_C_SINGLE": {
+          "bpc_best": 7.6516,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 8.2979,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2767,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7562,
+          "raw_top1_at_T1_L1": 0.184,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 61.54,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_BASELINE_PATH_C_SINGLE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.0683
+                  ],
+                  "L3": [
+                    92.3052
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.56,
+                "n_updates": 98,
+                "alpha": 0.05,
+                "beta": 2.0
+              }
+            ],
+            "n_spokes": 1,
+            "wall_encoder_s": 12.72
+          }
+        },
+        "ARM_HUB_SPOKE_3SPOKE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 8.314,
+          "top1_acc": 0.2179,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2782,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7712,
+          "raw_top1_at_T1_L1": 0.1547,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 92.5,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_3SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3055
+                  ],
+                  "L3": [
+                    92.2917
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.64,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 22484
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2079
+                  ],
+                  "L3": [
+                    92.2769
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.57,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 22497
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.0165
+                  ],
+                  "L3": [
+                    92.4573
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.58,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 22510
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 37.95
+          }
+        },
+        "ARM_HUB_SPOKE_5SPOKE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 8.314,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.0,
+          "mrr_at_10": 0.2767,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 11.7915,
+          "raw_top1_at_T1_L1": 0.1527,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 147.82,
+          "wall_ingest_s": 1.05,
+          "wall_recall_s": 0.01,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_5SPOKE",
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3056
+                  ],
+                  "L3": [
+                    92.2996
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.79,
+                "n_updates": 98,
+                "alpha": 0.037500000000000006,
+                "beta": 1.75,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.037500000000000006,
+                "spoke_beta": 1.75,
+                "spoke_seed": 22484
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2077
+                  ],
+                  "L3": [
+                    92.2867
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.57,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 22497
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.0165
+                  ],
+                  "L3": [
+                    92.4693
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.69,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 22510
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.044
+                  ],
+                  "L3": [
+                    92.2036
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.79,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 3,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 22523
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2018
+                  ],
+                  "L3": [
+                    92.3554
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.81,
+                "n_updates": 98,
+                "alpha": 0.057499999999999996,
+                "beta": 2.15,
+                "spoke_idx": 4,
+                "spoke_alpha": 0.057499999999999996,
+                "spoke_beta": 2.15,
+                "spoke_seed": 22536
+              }
+            ],
+            "n_spokes": 5,
+            "wall_encoder_s": 65.45
+          }
+        },
+        "ARM_HUB_SPOKE_WITH_CFRPE": {
+          "bpc_best": 7.7378,
+          "best_T_for_bpc": 0.01,
+          "best_lambda_for_bpc": 0.0,
+          "best_dev_bpc": 8.314,
+          "top1_acc": 0.2179,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2782,
+          "best_T_for_mrr": 1.0,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.7712,
+          "raw_top1_at_T1_L1": 0.1547,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 122.2,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.02,
+          "encoder_meta": {
+            "arm": "ARM_HUB_SPOKE_WITH_CFRPE",
+            "cfrpe_gates": [
+              0.3337000012397766,
+              0.33320000767707825,
+              0.33320000767707825
+            ],
+            "cfrpe_gate_std_over_mean": 0.0008,
+            "spokes": [
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.3055
+                  ],
+                  "L3": [
+                    92.2917
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.92,
+                "n_updates": 98,
+                "alpha": 0.0425,
+                "beta": 1.85,
+                "spoke_idx": 0,
+                "spoke_alpha": 0.0425,
+                "spoke_beta": 1.85,
+                "spoke_seed": 22484
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.2079
+                  ],
+                  "L3": [
+                    92.2769
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.71,
+                "n_updates": 98,
+                "alpha": 0.0475,
+                "beta": 1.95,
+                "spoke_idx": 1,
+                "spoke_alpha": 0.0475,
+                "spoke_beta": 1.95,
+                "spoke_seed": 22497
+              },
+              {
+                "per_pass_mean_recon_err": {
+                  "L1": [
+                    115.0165
+                  ],
+                  "L3": [
+                    92.4573
+                  ]
+                },
+                "n_train_tokens": 100000,
+                "wall_train_s": 10.73,
+                "n_updates": 98,
+                "alpha": 0.052500000000000005,
+                "beta": 2.05,
+                "spoke_idx": 2,
+                "spoke_alpha": 0.052500000000000005,
+                "spoke_beta": 2.05,
+                "spoke_seed": 22510
+              }
+            ],
+            "n_spokes": 3,
+            "wall_encoder_s": 40.98
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=50 MRR_K=10 device=cuda; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+      "elapsed_s_seed": 424.13,
+      "device": "cuda",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782355653.9560852
+    }
+  ],
+  "elapsed_s": 1135.1256031990051,
+  "summary": "HUB_SPOKE_E1 HARD_FAIL: ALL hub-spoke arms bpc >= 7.600 (federation doesn't help; principle may not transfer to substrate). HUB_SPOKE_E1 uni=bpc7.738|top10.2171 | ARM_BASELINE_PATH_C_SINGLE=bpc7.667|cv0.002|top10.2171|mrr0.2766 | ARM_HUB_SP",
+  "substrate_only_decode_gate": "TRUE (substrate-OWNED PC encoders only; hub aggregates via majority-rule or cf-RPE-gated; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_hub_spoke_E1_encoder_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 arms=['ARM_BASELINE_PATH_C_SINGLE', 'ARM_HUB_SPOKE_3SPOKE', 'ARM_HUB_SPOKE_5SPOKE', 'ARM_HUB_SPOKE_WITH_CFRPE'] seeds=[7, 17, 23] mode=full temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.020 pc_layers=3 pc_alpha=0.050 pc_beta=2.00 pc_passes=1 pc_train_tokens=100000 n_spokes_arm2=3 n_spokes_arm3=5 n_spokes_arm4=3 cfrpe_eta=0.020 cfrpe_n_steps=50 MRR_K=10 device=cuda; bands HP<=7.200 CG<=6.950 HF>=7.600 cv_max=0.050 sanity_rail_tol=0.100",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

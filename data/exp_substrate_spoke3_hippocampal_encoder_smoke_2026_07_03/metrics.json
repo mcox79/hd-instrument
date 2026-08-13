@@ -1,0 +1,425 @@
+{
+  "anchor_name": "substrate_spoke3_hippocampal_encoder_smoke_2026_07_03",
+  "verdict": "HARD_FAIL_MECHANISM_LOSES",
+  "verdict_msg": "HF1 ARM_SPOKE3_HIPPOCAMPAL r@5=0.1460 < 0.8240 (char_trigram_ref 0.854 - 0.03). Brain-analog hippocampal composition (Marr-CA3 + DG-expansion) LOSES to surface char-trigram on real Wikipedia title-body retrieval at N=500 smoke. Combined with prior PPMI FULL 10K HF (r@5=0.679 < 0.703), no substrate-native surface/semantic/hippocampal mechanism ALONE closes the bge gap on this task class. Route to research 2x-drill for whether composition (VWFA + ATL + Spoke 3 CLS) or a different task class (episodic-binding not open-domain retrieval) is needed. HONEST SCOPE: this is mechanism-scope-limited to this task class; NOT a substrate-can't-do-Wikipedia claim. spoke3_1s r@5=0.4553 ppmi r@5=0.9060 tri r@5=0.8540 random r@5=0.0073",
+  "summary": "HF1 ARM_SPOKE3_HIPPOCAMPAL r@5=0.1460 < 0.8240 (char_trigram_ref 0.854 - 0.03). Brain-analog hippocampal composition (Marr-CA3 + DG-expansion) LOSES to surface char-trigram on real Wikipedia title-body retrieval at N=500 smoke. Combined with prior PPMI FULL 10K HF (r@5=0.679 < 0.703), no substrate-native surface/semantic/hippocampal mechanism ALONE closes the bge gap on this task class. Route to research 2x-drill for whether composition (VWFA + ATL + Spoke 3 CLS) or a different task class (episodic-binding not open-domain retrieval) is needed. HONEST SCOPE: this is mechanism-scope-limited to this task class; NOT a substrate-can't-do-Wikipedia claim. spoke3_1s r@5=0.4553 ppmi r@5=0.9060 tri r@5=0.8540 random r@5=0.0073",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_articles": 500,
+  "n_articles_configured": 500,
+  "n_dim": 2048,
+  "dg_dim": 8192,
+  "dg_sparsity_target": 0.02,
+  "body_char_cap": 800,
+  "expected_n_units": 15,
+  "actual_n_units": 15,
+  "cardinality_ok": true,
+  "arms_differ_verified": false,
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE",
+    "chance_r5": 0.01,
+    "band_max_r5": 0.05,
+    "observed_r5_mean": 0.007333333333333333,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "hp_scope": {
+    "HP1": [
+      "ARM_SPOKE3_HIPPOCAMPAL"
+    ],
+    "HF1": [
+      "ARM_SPOKE3_HIPPOCAMPAL"
+    ],
+    "HFreg_trigram": [
+      "ARM_CHAR_TRIGRAM"
+    ],
+    "HFreg_ppmi": [
+      "ARM_PPMI_ALONE"
+    ],
+    "HF_baseline_in_band": [
+      "ARM_RANDOM_BASELINE"
+    ],
+    "HF_dg_sparse_rate": [
+      "ARM_SPOKE3_HIPPOCAMPAL"
+    ]
+  },
+  "reference_r5_MEASURED": {
+    "char_trigram": 0.854,
+    "ppmi_svd": 0.906,
+    "source": "data/exp_substrate_wikipedia_ppmi_svd_baseline_smoke_2026_07_03/metrics.json"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_SPOKE3_HIPPOCAMPAL": {
+          "recall_at_1": 0.064,
+          "recall_at_5": 0.136,
+          "recall_at_10": 0.174,
+          "mean_reciprocal_rank": 0.10969405794470789,
+          "intra_article_body_title_cos": 0.14068486061971636,
+          "inter_article_title_body_cos": 0.09505181014537811,
+          "signal_to_noise_ratio": 1.4800860752103957,
+          "arm_name": "ARM_SPOKE3_HIPPOCAMPAL",
+          "n_dim": 8192,
+          "encoding_wall_s": 5.0019166999845766,
+          "fit_wall_s": 3.5619715000211727,
+          "throughput_articles_per_sec": 58.38469493327392,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020255126953125,
+            "ca3_n_written": 500,
+            "char_trigram_wall_s": 5.0019166999845766
+          }
+        },
+        "ARM_SPOKE3_ONE_SHOT": {
+          "recall_at_1": 0.288,
+          "recall_at_5": 0.466,
+          "recall_at_10": 0.536,
+          "mean_reciprocal_rank": 0.3735998908542442,
+          "intra_article_body_title_cos": 0.03747751078613194,
+          "inter_article_title_body_cos": 0.005456500221043825,
+          "signal_to_noise_ratio": 6.86841551689015,
+          "arm_name": "ARM_SPOKE3_ONE_SHOT",
+          "n_dim": 8192,
+          "encoding_wall_s": 4.772988499986241,
+          "fit_wall_s": 1.4083619999873918,
+          "throughput_articles_per_sec": 80.88847251132788,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020255126953125,
+            "char_trigram_wall_s": 4.772988499986241
+          }
+        },
+        "ARM_PPMI_ALONE": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286553800106,
+          "inter_article_title_body_cos": 0.3246246576309204,
+          "signal_to_noise_ratio": 1.7205367560680669,
+          "arm_name": "ARM_PPMI_ALONE",
+          "n_dim": 2048,
+          "encoding_wall_s": 2.2961012000159826,
+          "fit_wall_s": 5.323690199991688,
+          "throughput_articles_per_sec": 65.61859423074189,
+          "arm_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500
+          }
+        },
+        "ARM_CHAR_TRIGRAM": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7578587132480333,
+          "intra_article_body_title_cos": 0.20915624610427766,
+          "inter_article_title_body_cos": 0.03407031297683716,
+          "signal_to_noise_ratio": 6.138958754105763,
+          "arm_name": "ARM_CHAR_TRIGRAM",
+          "n_dim": 2048,
+          "encoding_wall_s": 4.6081353000190575,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 108.50375855889739
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.002,
+          "recall_at_10": 0.02,
+          "mean_reciprocal_rank": 0.011108074554840587,
+          "intra_article_body_title_cos": -0.0015156249123392627,
+          "inter_article_title_body_cos": -0.00019921862985938787,
+          "signal_to_noise_ratio": -7.607847285211319,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.054851399996550754,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 9115.537616750744
+        }
+      },
+      "arms_differ_verified": false,
+      "arms_differ_digests": {
+        "error": "META_RULE_AF VIOLATION arms_differ: 'ARM_SPOKE3_HIPPOCAMPAL' and 'ARM_SPOKE3_ONE_SHOT' bit-identical first-article prefix (hash=1c1dd2134ca56f3b)."
+      },
+      "seed_elapsed_s": 55.94863580001402
+    },
+    {
+      "seed": 17,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_SPOKE3_HIPPOCAMPAL": {
+          "recall_at_1": 0.084,
+          "recall_at_5": 0.168,
+          "recall_at_10": 0.21,
+          "mean_reciprocal_rank": 0.1307181826522145,
+          "intra_article_body_title_cos": 0.1426707237418741,
+          "inter_article_title_body_cos": 0.09546080231666565,
+          "signal_to_noise_ratio": 1.4945477125637616,
+          "arm_name": "ARM_SPOKE3_HIPPOCAMPAL",
+          "n_dim": 8192,
+          "encoding_wall_s": 4.96668780001346,
+          "fit_wall_s": 3.4197261999943294,
+          "throughput_articles_per_sec": 59.62023816133279,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020258056640625,
+            "ca3_n_written": 500,
+            "char_trigram_wall_s": 4.96668780001346
+          }
+        },
+        "ARM_SPOKE3_ONE_SHOT": {
+          "recall_at_1": 0.298,
+          "recall_at_5": 0.454,
+          "recall_at_10": 0.53,
+          "mean_reciprocal_rank": 0.3820668694559726,
+          "intra_article_body_title_cos": 0.03652871165424585,
+          "inter_article_title_body_cos": 0.004251863341778517,
+          "signal_to_noise_ratio": 8.591224298137064,
+          "arm_name": "ARM_SPOKE3_ONE_SHOT",
+          "n_dim": 8192,
+          "encoding_wall_s": 4.782316099997843,
+          "fit_wall_s": 1.3702782999898773,
+          "throughput_articles_per_sec": 81.26653042511595,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.020258056640625,
+            "char_trigram_wall_s": 4.782316099997843
+          }
+        },
+        "ARM_PPMI_ALONE": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286553800106,
+          "inter_article_title_body_cos": 0.32378914952278137,
+          "signal_to_noise_ratio": 1.7249764428585748,
+          "arm_name": "ARM_PPMI_ALONE",
+          "n_dim": 2048,
+          "encoding_wall_s": 2.3082885000039823,
+          "fit_wall_s": 5.78195040000719,
+          "throughput_articles_per_sec": 61.8028721005148,
+          "arm_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500
+          }
+        },
+        "ARM_CHAR_TRIGRAM": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7578587132480333,
+          "intra_article_body_title_cos": 0.20915624610427766,
+          "inter_article_title_body_cos": 0.034535154700279236,
+          "signal_to_noise_ratio": 6.05632862859556,
+          "arm_name": "ARM_CHAR_TRIGRAM",
+          "n_dim": 2048,
+          "encoding_wall_s": 5.056430800003,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 98.88397958490866
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.014,
+          "recall_at_10": 0.02,
+          "mean_reciprocal_rank": 0.012637280876812436,
+          "intra_article_body_title_cos": -0.0006269531736616045,
+          "inter_article_title_body_cos": 0.0008144530584104359,
+          "signal_to_noise_ratio": -0.7697842953468994,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.04724249997525476,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 10583.690538432471
+        }
+      },
+      "arms_differ_verified": false,
+      "arms_differ_digests": {
+        "error": "META_RULE_AF VIOLATION arms_differ: 'ARM_SPOKE3_HIPPOCAMPAL' and 'ARM_SPOKE3_ONE_SHOT' bit-identical first-article prefix (hash=d869083dac5b2c89)."
+      },
+      "seed_elapsed_s": 29.293584099999862
+    },
+    {
+      "seed": 23,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_SPOKE3_HIPPOCAMPAL": {
+          "recall_at_1": 0.066,
+          "recall_at_5": 0.134,
+          "recall_at_10": 0.182,
+          "mean_reciprocal_rank": 0.10833677696720254,
+          "intra_article_body_title_cos": 0.1408763610136888,
+          "inter_article_title_body_cos": 0.09605349600315094,
+          "signal_to_noise_ratio": 1.4666448060262949,
+          "arm_name": "ARM_SPOKE3_HIPPOCAMPAL",
+          "n_dim": 8192,
+          "encoding_wall_s": 4.800769499997841,
+          "fit_wall_s": 3.561056100006681,
+          "throughput_articles_per_sec": 59.79555469319159,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02026416015625,
+            "ca3_n_written": 500,
+            "char_trigram_wall_s": 4.800769499997841
+          }
+        },
+        "ARM_SPOKE3_ONE_SHOT": {
+          "recall_at_1": 0.284,
+          "recall_at_5": 0.446,
+          "recall_at_10": 0.534,
+          "mean_reciprocal_rank": 0.36733122819472036,
+          "intra_article_body_title_cos": 0.03572539500367058,
+          "inter_article_title_body_cos": 0.004682806320488453,
+          "signal_to_noise_ratio": 7.629056714851308,
+          "arm_name": "ARM_SPOKE3_ONE_SHOT",
+          "n_dim": 8192,
+          "encoding_wall_s": 4.636115700006485,
+          "fit_wall_s": 1.2824014000070747,
+          "throughput_articles_per_sec": 84.4806209986036,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02026416015625,
+            "char_trigram_wall_s": 4.636115700006485
+          }
+        },
+        "ARM_PPMI_ALONE": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286553800106,
+          "inter_article_title_body_cos": 0.32313281297683716,
+          "signal_to_noise_ratio": 1.7284801572288702,
+          "arm_name": "ARM_PPMI_ALONE",
+          "n_dim": 2048,
+          "encoding_wall_s": 2.0887048000004143,
+          "fit_wall_s": 5.902317000000039,
+          "throughput_articles_per_sec": 62.57022099476335,
+          "arm_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500
+          }
+        },
+        "ARM_CHAR_TRIGRAM": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7578587132480333,
+          "intra_article_body_title_cos": 0.20915624610427766,
+          "inter_article_title_body_cos": 0.033589839935302734,
+          "signal_to_noise_ratio": 6.226771145892113,
+          "arm_name": "ARM_CHAR_TRIGRAM",
+          "n_dim": 2048,
+          "encoding_wall_s": 4.32515770001919,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 115.6027212598009
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.006,
+          "recall_at_10": 0.014,
+          "mean_reciprocal_rank": 0.011768553976886083,
+          "intra_article_body_title_cos": 0.00012695302078350557,
+          "inter_article_title_body_cos": -0.00016210951434914023,
+          "signal_to_noise_ratio": 0.7831312140636173,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.042421899997862056,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 11786.36506203632
+        }
+      },
+      "arms_differ_verified": false,
+      "arms_differ_digests": {
+        "error": "META_RULE_AF VIOLATION arms_differ: 'ARM_SPOKE3_HIPPOCAMPAL' and 'ARM_SPOKE3_ONE_SHOT' bit-identical first-article prefix (hash=26b57d47e5455d9b)."
+      },
+      "seed_elapsed_s": 28.01684120000573
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_SPOKE3_HIPPOCAMPAL": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.07133333333333335,
+      "recall_at_5_mean": 0.14600000000000002,
+      "recall_at_5_std": 0.015577761927397231,
+      "recall_at_10_mean": 0.18866666666666668,
+      "encoding_wall_s_mean": 4.923124666665292,
+      "fit_wall_s_mean": 3.514251266674061,
+      "throughput_articles_per_sec_mean": 59.26682926259944,
+      "dg_sparse_rate_mean": 0.020259114583333335
+    },
+    "ARM_SPOKE3_ONE_SHOT": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.29,
+      "recall_at_5_mean": 0.45533333333333337,
+      "recall_at_5_std": 0.008219218670625309,
+      "recall_at_10_mean": 0.5333333333333333,
+      "encoding_wall_s_mean": 4.730473433330189,
+      "fit_wall_s_mean": 1.353680566661448,
+      "throughput_articles_per_sec_mean": 82.21187464501581,
+      "dg_sparse_rate_mean": 0.020259114583333335
+    },
+    "ARM_PPMI_ALONE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.77,
+      "recall_at_5_mean": 0.906,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.936,
+      "encoding_wall_s_mean": 2.231031500006793,
+      "fit_wall_s_mean": 5.669319199999639,
+      "throughput_articles_per_sec_mean": 63.33056244200668
+    },
+    "ARM_CHAR_TRIGRAM": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.676,
+      "recall_at_5_mean": 0.854,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.902,
+      "encoding_wall_s_mean": 4.663241266680416,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 107.66348646786899
+    },
+    "ARM_RANDOM_BASELINE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0013333333333333333,
+      "recall_at_5_mean": 0.007333333333333333,
+      "recall_at_5_std": 0.004988876515698589,
+      "recall_at_10_mean": 0.018,
+      "encoding_wall_s_mean": 0.048171933323222525,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 10495.197739073177
+    }
+  },
+  "elapsed_s": 113.39748169999802,
+  "ts_iso_end": "2026-07-03T03:16:11.233527+00:00"
+}

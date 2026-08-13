@@ -1,0 +1,154 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND | RF_d3=1.000 Trig_d3=1.000 | alpha_cos=1.000 codebook_disambig=1.000 cv=0.000 | n=2",
+  "summary": "MIDDLE_BAND | RF_d3=1.000 Trig_d3=1.000 | alpha_cos=1.000 codebook_disambig=1.000 cv=0.000 | n=2",
+  "per_arm": {
+    "char_trigram_baseline": {
+      "7": {
+        "unbind_d1": 0.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      },
+      "17": {
+        "unbind_d1": 0.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      }
+    },
+    "math_codebook_token": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 1.0
+      }
+    },
+    "math_codebook_var_rename": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.9999998605251312,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.999999885559082,
+        "codebook_disambig": 1.0
+      }
+    },
+    "math_codebook_role_filler": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.9999999856948852,
+        "codebook_disambig": 1.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.9999999690055847,
+        "codebook_disambig": 1.0
+      }
+    },
+    "diag_bind_depth": {
+      "7": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      },
+      "17": {
+        "unbind_d1": 1.0,
+        "unbind_d3": 1.0,
+        "unbind_d5": 1.0,
+        "alpha_equiv_cos": 0.0,
+        "codebook_disambig": 0.0
+      }
+    }
+  },
+  "per_arm_summary": {
+    "char_trigram_baseline": {
+      "mean_d1": 0.0,
+      "mean_d3": 1.0,
+      "std_d3": 0.0,
+      "cv_d3": 0.0,
+      "mean_d5": 1.0,
+      "mean_alpha_cos": 0.0,
+      "mean_codebook_disambig": 0.0,
+      "n": 2
+    },
+    "math_codebook_token": {
+      "mean_d1": 1.0,
+      "mean_d3": 1.0,
+      "std_d3": 0.0,
+      "cv_d3": 0.0,
+      "mean_d5": 1.0,
+      "mean_alpha_cos": 0.0,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "math_codebook_var_rename": {
+      "mean_d1": 1.0,
+      "mean_d3": 1.0,
+      "std_d3": 0.0,
+      "cv_d3": 0.0,
+      "mean_d5": 1.0,
+      "mean_alpha_cos": 0.9999998730421067,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "math_codebook_role_filler": {
+      "mean_d1": 1.0,
+      "mean_d3": 1.0,
+      "std_d3": 0.0,
+      "cv_d3": 0.0,
+      "mean_d5": 1.0,
+      "mean_alpha_cos": 0.999999977350235,
+      "mean_codebook_disambig": 1.0,
+      "n": 2
+    },
+    "diag_bind_depth": {
+      "mean_d1": 1.0,
+      "mean_d3": 1.0,
+      "std_d3": 0.0,
+      "cv_d3": 0.0,
+      "mean_d5": 1.0,
+      "mean_alpha_cos": 0.0,
+      "mean_codebook_disambig": 0.0,
+      "n": 2
+    }
+  },
+  "rf_d3": 1.0,
+  "rf_alpha_cos": 0.999999977350235,
+  "rf_codebook_disambig": 1.0,
+  "rf_cv": 0.0,
+  "n_seeds_complete": 2,
+  "expected_n_units": 10,
+  "completed_units": 10,
+  "cardinality_ok": true,
+  "anchor_name": "sub_atom_token_stream_encoder_v1",
+  "elapsed_s": 85.5,
+  "ts_iso": "2026-06-27T18:46:34Z",
+  "pid": 5340,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=sub_atom_token_stream_encoder_v1,N=2048,codebook=2000,n_test=100,seeds=[7, 17],corpora=['lean'],mode=smoke,HP_unbind_d3>=0.80,HP_alpha_cos>=0.95,HP_codebook_disambig>=0.95,HP_cv<=0.10,expected_n=10,hardening=L1early+L2perarm+L3outertry+L4importsentinel",
+  "_hardening_marker": "v1_sub_atom_encoder"
+}

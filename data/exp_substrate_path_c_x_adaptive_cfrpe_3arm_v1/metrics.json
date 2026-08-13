@@ -1,0 +1,646 @@
+{
+  "anchor_name": "substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "anchor": "substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ARM_PC_ENCODER_PER_TOKEN_CFRPE bpc=7.4086 in (7.10, 7.60). Per-token cf-RPE adds something to PC encoder but doesn't break HARD_PASS_PATH_C_VIABLE. Characterize gap. ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE=bpc6.9920(prov_ref=6.9920 tol=0.05 ok=True) | ARM_PC_ENCODER_HEBBIAN_REFERENCE=bpc7.6412(prov_ref=7.6184 tol=0.05 ok=True) | ARM_PC_ENCODER_PER_TOKEN_CFRPE=bpc7.4086 cv=0.0003",
+  "run_mode": "full",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 100000,
+  "N_HELD": 20000,
+  "VOCAB_CAP": 4000,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "N_STEPS_PLASTIC": 5000,
+  "PC_TRAINING_TOKENS": 100000,
+  "CFRPE_LR": 0.5,
+  "INGEST_BATCH": 64,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "ADAPT_LR_FLOOR": 0.25,
+  "ADAPT_LR_CEIL": 4.0,
+  "PC_ALPHA": 0.05,
+  "PC_BETA": 2.0,
+  "PC_N_LAYERS": 3,
+  "PC_N_PASSES": 1,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "arms": [
+    "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE",
+    "ARM_PC_ENCODER_HEBBIAN_REFERENCE",
+    "ARM_PC_ENCODER_PER_TOKEN_CFRPE"
+  ],
+  "n_seeds": 3,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 7.7378,
+        "bpc_std": 0.0,
+        "top1_mean": 0.2171,
+        "top1_std": 0.0,
+        "mrr_mean": 0.2761,
+        "mrr_std": 0.0
+      },
+      "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+        "bpc_best_mean": 6.992,
+        "bpc_best_std": 0.009,
+        "bpc_best_cv": 0.0013,
+        "top1_acc_mean": 0.2427,
+        "top1_acc_std": 0.0011,
+        "mrr_at_10_mean": 0.3409,
+        "mrr_at_10_std": 0.0028,
+        "raw_bpc_at_T1_L1_mean": 11.5563,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+        "bpc_best_mean": 7.6412,
+        "bpc_best_std": 0.0064,
+        "bpc_best_cv": 0.0008,
+        "top1_acc_mean": 0.2168,
+        "top1_acc_std": 0.0005,
+        "mrr_at_10_mean": 0.2774,
+        "mrr_at_10_std": 0.0003,
+        "raw_bpc_at_T1_L1_mean": 11.7283,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+        "bpc_best_mean": 7.4086,
+        "bpc_best_std": 0.0022,
+        "bpc_best_cv": 0.0003,
+        "top1_acc_mean": 0.2343,
+        "top1_acc_std": 0.004,
+        "mrr_at_10_mean": 0.3086,
+        "mrr_at_10_std": 0.0023,
+        "raw_bpc_at_T1_L1_mean": 11.6715,
+        "n_valid_seeds": 3,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "arm1_provenance_ok": true,
+    "arm2_provenance_ok": true,
+    "provenance_word2vec_per_token_ref_bpc": 6.992,
+    "provenance_pc_hebbian_ref_bpc": 7.6184,
+    "provenance_tol": 0.05,
+    "hp_breaks_gap_bpc_bar": 7.0,
+    "hp_closes_gap_bpc_bar": 7.1,
+    "hp_path_c_viable_lift": 0.3,
+    "middle_band_bpc_upper": 7.6,
+    "hp_bpc_cv_max": 0.1,
+    "arm3_breaks_gap": false,
+    "arm3_closes_gap": false,
+    "arm3_path_c_viable": false,
+    "arm3_cv_ok": true,
+    "arm3_cv": 0.0003,
+    "n_seeds": 3,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "PRIMARY arm = ARM_PC_ENCODER_PER_TOKEN_CFRPE. Tests whether substrate-OWNED PC encoder (3-layer Hebbian-PC + Tonegawa) x per-token-adaptive cf-RPE plasticity closes the gap to word2vec + per-token-adaptive cf-RPE (~6.99 BPC, MIDDLE_BAND). HARD_PASS_BREAKS_GAP: ARM_3 <= 7.00 (chain-grade-bonus). HARD_PASS_CLOSES_GAP: ARM_3 <= 7.10. HARD_PASS_PATH_C_VIABLE: ARM_3 <= ARM_2 - 0.30. MIDDLE_BAND: in (7.10, 7.60). HARD_FAIL: >= 7.60. Provenance rails: arm1=6.9920+/-0.05 arm2=7.6184+/-0.05. CV gate: arm3 bpc_cv <= 0.10 or verdict downgrades. WHAT_THIS_DOES_NOT_SHOW: does not test STDP / other plasticity / PC variants / generalization / encoder ablations.",
+    "cites": [
+      "preregs/2026-06-24_substrate_path_c_x_adaptive_cfrpe_3arm_v1.md",
+      "experiments/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2.py",
+      "experiments/exp_substrate_cfrpe_per_token_adaptive_lr_v1.py",
+      "data/exp_path_c_substrate_owned_encoder_FAIR_HARNESS_v2/metrics.json",
+      "data/exp_substrate_cfrpe_per_token_adaptive_lr_v1/metrics.json"
+    ],
+    "CONFIG_VERSION": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full n_steps=5000 pc_train_tokens=100000 device=cuda sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10"
+  },
+  "metrics_source": "measured_gpu_substrate_path_c_x_adaptive_cfrpe_3arm_v1",
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+          "bpc_best": 7.0022,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.7141,
+          "top1_acc": 0.2442,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.7,
+          "mrr_at_10": 0.3398,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5548,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 135.5,
+          "wall_w_s": 47.88,
+          "wall_recall_s": 0.36,
+          "pc_arm": false,
+          "cfrpe_arm": true,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 2.4299,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.01024,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        },
+        "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+          "bpc_best": 7.6352,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.2504,
+          "top1_acc": 0.2161,
+          "best_T_for_top1": 0.5,
+          "best_lambda_for_top1": 0.2,
+          "mrr_at_10": 0.2779,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.05,
+          "raw_bpc_at_T1_L1": 11.7163,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 102.91,
+          "wall_w_s": 0.57,
+          "wall_recall_s": 0.55,
+          "pc_arm": true,
+          "cfrpe_arm": false,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.2761
+              ],
+              "L2": [
+                92.3102
+              ],
+              "L3": [
+                92.3776
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.68,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.68
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6234,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "rule_class": "one_pass_rank1_hebbian"
+          }
+        },
+        "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+          "bpc_best": 7.406,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.0736,
+          "top1_acc": 0.2289,
+          "best_T_for_top1": 0.1,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3073,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.668,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 150.12,
+          "wall_w_s": 49.2,
+          "wall_recall_s": 0.32,
+          "pc_arm": true,
+          "cfrpe_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.2761
+              ],
+              "L2": [
+                92.3102
+              ],
+              "L3": [
+                92.3776
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.75,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.81
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6234,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 1.746,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.010633,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full n_steps=5000 pc_train_tokens=100000 device=cuda sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+      "elapsed_s_seed": 461.17,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782334175.5681705
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+          "bpc_best": 6.9804,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.6962,
+          "top1_acc": 0.2421,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.2,
+          "mrr_at_10": 0.3448,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.557,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 133.68,
+          "wall_w_s": 46.67,
+          "wall_recall_s": 0.36,
+          "pc_arm": false,
+          "cfrpe_arm": true,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 2.3997,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.01048,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        },
+        "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+          "bpc_best": 7.6384,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.2542,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 1.0,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.2773,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.2,
+          "raw_bpc_at_T1_L1": 11.726,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 101.87,
+          "wall_w_s": 0.57,
+          "wall_recall_s": 0.54,
+          "pc_arm": true,
+          "cfrpe_arm": false,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.3256
+              ],
+              "L2": [
+                92.3457
+              ],
+              "L3": [
+                92.3262
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.64,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 14.11
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6237,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "rule_class": "one_pass_rank1_hebbian"
+          }
+        },
+        "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+          "bpc_best": 7.4113,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.0768,
+          "top1_acc": 0.2356,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3067,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 11.6711,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 150.28,
+          "wall_w_s": 48.44,
+          "wall_recall_s": 0.32,
+          "pc_arm": true,
+          "cfrpe_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.3256
+              ],
+              "L2": [
+                92.3457
+              ],
+              "L3": [
+                92.3262
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.91,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 14.02
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6237,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 1.7366,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.010847,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full n_steps=5000 pc_train_tokens=100000 device=cuda sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+      "elapsed_s_seed": 386.83,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782334562.4689548
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "mrr_unigram": 0.2761,
+          "n_test": 7886
+        },
+        "ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE": {
+          "bpc_best": 6.9934,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 7.7114,
+          "top1_acc": 0.2417,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.3382,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 11.5571,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 128.58,
+          "wall_w_s": 48.21,
+          "wall_recall_s": 0.36,
+          "pc_arm": false,
+          "cfrpe_arm": true,
+          "pc_meta": {},
+          "pc_sanity": {},
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 2.4191,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.010204,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        },
+        "ARM_PC_ENCODER_HEBBIAN_REFERENCE": {
+          "bpc_best": 7.6501,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.2482,
+          "top1_acc": 0.2171,
+          "best_T_for_top1": 0.2,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.2771,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.05,
+          "raw_bpc_at_T1_L1": 11.7426,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 99.69,
+          "wall_w_s": 0.57,
+          "wall_recall_s": 0.55,
+          "pc_arm": true,
+          "cfrpe_arm": false,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.0683
+              ],
+              "L2": [
+                92.2445
+              ],
+              "L3": [
+                92.3052
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.65,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.29
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6242,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "rule_class": "one_pass_rank1_hebbian"
+          }
+        },
+        "ARM_PC_ENCODER_PER_TOKEN_CFRPE": {
+          "bpc_best": 7.4084,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 8.0785,
+          "top1_acc": 0.2385,
+          "best_T_for_top1": 0.05,
+          "best_lambda_for_top1": 0.2,
+          "mrr_at_10": 0.3119,
+          "best_T_for_mrr": 0.5,
+          "best_lambda_for_mrr": 0.7,
+          "raw_bpc_at_T1_L1": 11.6753,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "elapsed_s_arm": 147.5,
+          "wall_w_s": 48.89,
+          "wall_recall_s": 0.32,
+          "pc_arm": true,
+          "cfrpe_arm": true,
+          "pc_meta": {
+            "per_pass_mean_recon_err": {
+              "L1": [
+                115.0683
+              ],
+              "L2": [
+                92.2445
+              ],
+              "L3": [
+                92.3052
+              ]
+            },
+            "n_train_tokens": 100000,
+            "n_passes": 1,
+            "alpha": 0.05,
+            "beta": 2.0,
+            "wall_train_s": 10.62,
+            "n_updates": 98,
+            "wall_pc_pipeline_s": 13.33
+          },
+          "pc_sanity": {
+            "S1_recon_cos": 0.6242,
+            "S1_recon_cos_passed": true,
+            "S2_excit_ratio": 0.0,
+            "S2_excit_passed": false,
+            "S3_recon_decreases": true
+          },
+          "plast_diag": {
+            "per_token_lr_max_min_ratio_max": 1.8134,
+            "n_clamped_steps": 0,
+            "final_batch_mean_err": 0.0108,
+            "rule_class": "per_token_median_normalized_adaptive",
+            "n_steps": 5000,
+            "base_lr": 0.5,
+            "adapt_lr_floor": 0.25,
+            "adapt_lr_ceil": 4.0
+          }
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full n_steps=5000 pc_train_tokens=100000 device=cuda sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+      "elapsed_s_seed": 376.47,
+      "device": "cuda",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "_ckpt_key": "s23",
+      "_partial_written_at": 1782334939.0123441
+    }
+  ],
+  "elapsed_s": 1224.662477016449,
+  "summary": "MIDDLE_BAND: ARM_PC_ENCODER_PER_TOKEN_CFRPE bpc=7.4086 in (7.10, 7.60). Per-token cf-RPE adds something to PC encoder but doesn't break HARD_PASS_PATH_C_VIABLE. Characterize gap. ARM_WORD2VEC_PER_TOKEN_CFRPE_REFERENCE=bpc6.9920(prov_ref=6.9",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec is static open-weight lookup; PC encoder trained on substrate; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_path_c_x_adaptive_cfrpe_3arm_v1; N_DIM=8192 N_TRAIN=100000 N_HELD=20000 VOCAB_CAP=4000 seeds=[7, 17, 23] mode=full n_steps=5000 pc_train_tokens=100000 device=cuda sparse_f=0.050 temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0] mrr_k=10",
+  "device": "cuda",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

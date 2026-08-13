@@ -1,0 +1,238 @@
+{
+  "anchor_name": "substrate_compose_lock_in_frequency_stacking_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: SHARED=7.6012 CROSS_LAYER=7.6069 LOCK_IN=7.7378 PLUS=7.7378 best_lockin=LOCK_IN_PLUS_CROSS(7.7378) margin_vs_shared=-0.1366 lockin_lift_vs_shared=-0.1366 rail_cross=7.1700 shared_band=[7.20,7.95] cvs={shared=0.000 cross=0.000 lockin=0.000 plus=0.000} rails=['CROSS_LAYER_RAIL_OFF(7.607 vs 7.17 +/- 0.10)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cpu",
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "bpc_best": 7.5996,
+          "top1_acc": 0.2077,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2463,
+          "raw_bpc_at_T1_L1": 11.6552,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 224.28,
+          "elapsed_s_arm": 272.37
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "bpc_best": 7.6048,
+          "top1_acc": 0.2163,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2454,
+          "raw_bpc_at_T1_L1": 11.6573,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 256.95,
+          "elapsed_s_arm": 303.0
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.0258,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 222.28,
+          "elapsed_s_arm": 268.21
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.0137,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 245.08,
+          "elapsed_s_arm": 293.13
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cpu",
+      "elapsed_s": 1181.5,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782414227.9654815
+    },
+    {
+      "seed": 17,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "bpc_best": 7.6012,
+          "top1_acc": 0.217,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2459,
+          "raw_bpc_at_T1_L1": 11.657,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 209.49,
+          "elapsed_s_arm": 255.94
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "bpc_best": 7.6075,
+          "top1_acc": 0.2168,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2461,
+          "raw_bpc_at_T1_L1": 11.6594,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 222.89,
+          "elapsed_s_arm": 265.78
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.0129,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 197.32,
+          "elapsed_s_arm": 241.27
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.0007,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 221.08,
+          "elapsed_s_arm": 264.98
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cpu",
+      "elapsed_s": 1029.1,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782415257.15788
+    },
+    {
+      "seed": 23,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 7.7378,
+          "top1_unigram": 0.2171,
+          "n_test": 7886
+        },
+        "ARM_BASELINE_SHARED_W": {
+          "bpc_best": 7.6028,
+          "top1_acc": 0.2102,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.251,
+          "raw_bpc_at_T1_L1": 11.6598,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 188.39,
+          "elapsed_s_arm": 232.11
+        },
+        "ARM_CROSS_LAYER_INDEPENDENT_W": {
+          "bpc_best": 7.6083,
+          "top1_acc": 0.217,
+          "best_T": 0.05,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 8.2503,
+          "raw_bpc_at_T1_L1": 11.662,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 219.22,
+          "elapsed_s_arm": 263.24
+        },
+        "ARM_LOCK_IN_FREQ_SEPARATED": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.0327,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 185.6,
+          "elapsed_s_arm": 228.75
+        },
+        "ARM_LOCK_IN_PLUS_CROSS_LAYER": {
+          "bpc_best": 7.7378,
+          "top1_acc": 0.2171,
+          "best_T": 0.005,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 8.314,
+          "raw_bpc_at_T1_L1": 12.018,
+          "n_dev": 7885,
+          "n_test": 7886,
+          "wall_total_s": 213.13,
+          "elapsed_s_arm": 254.94
+        }
+      },
+      "V": 4000,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 100000,
+      "N_HELD": 20000,
+      "VOCAB_CAP": 4000,
+      "run_mode": "full",
+      "config_version": "subFDM-v1: lock-in frequency-stacked plasticity on shared W; N=8192 V=4000 N_TRAIN=100000 N_HELD=20000 P_demod=8 sparse_f=0.050 f_mods=Heb1.00_cfRPE2.50_STDP5.00 weights=Heb1.00_cfRPE0.50_STDP0.30 seeds=[7, 17, 23] mode=full device=cpu",
+      "elapsed_s": 979.7,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 3824,
+        "n_miss": 176,
+        "n_vocab": 4000
+      },
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782416236.9227962
+    }
+  ],
+  "elapsed_s": 3190.6,
+  "summary": "MIDDLE_BAND: SHARED=7.6012 CROSS_LAYER=7.6069 LOCK_IN=7.7378 PLUS=7.7378 best_lockin=LOCK_IN_PLUS_CROSS(7.7378) margin_vs_shared=-0.1366 lockin_lift_vs_shared=-0.1366 rail_cross=7.1700 shared_band=[7.20,7.95] cvs={shared=0.000 cross=0.000 lockin=0.000 plus=0.000} rails=['CROSS_LAYER_RAIL_OFF(7.607 vs 7.17 +/- 0.10)']",
+  "DESIGN_NOTE": "USER directive 2026-06-24 (Barrier 3 alt): temporal frequency-division separation across plasticity rules. Lane 1; shared+cross-layer controls + within-arm ablation."
+}

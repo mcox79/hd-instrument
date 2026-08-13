@@ -1,0 +1,65 @@
+{
+  "anchor_name": "substrate_concept_kg_storage_retrieval_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3 of 4 arms PASS. [ARM1=PASS ARM2=PASS ARM3=PASS ARM4=FAIL] ARM1 top1=1.000 (>=0.95, cv=0.000, chance=0.005) | ARM2 chained=0.900 (>=0.80, cv=0.000, chance=0.005) | ARM3 trained_top5=1.000 (>=0.50, cv=0.000, chance=0.025), sanity_pass=True | ARM4 m_cap_min=500 mean=500 (>=1500, grid=[100, 500]) | V_C=200 V_P=10 N=1024",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "subkg-v1: dense-bipolar HRR + multivalue-hebbian + chained-bind 2hop; V_C=200 V_P=10 N=1024 ARM1_M=100 ARM4_M_grid=[100, 500]; bands a1>=0.95 a2>=0.80 a3>=0.50 a4>=1500",
+  "per_seed": [
+    {
+      "seed": 1,
+      "config_version": "subkg-v1: dense-bipolar HRR + multivalue-hebbian + chained-bind 2hop; V_C=200 V_P=10 N=1024 ARM1_M=100 ARM4_M_grid=[100, 500]; bands a1>=0.95 a2>=0.80 a3>=0.50 a4>=1500",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 1024,
+      "sparse_f_reported": 0.05,
+      "arm1_store_recall_1hop": {
+        "M_taught": 96,
+        "top1": 1.0,
+        "top5": 1.0,
+        "n_query": 80,
+        "chance_top1": 0.005,
+        "chance_top5": 0.025
+      },
+      "arm2_store_recall_2hop": {
+        "n_chains": 60,
+        "top1_chained": 0.9,
+        "hop1_only_top1": 1.0,
+        "hop2_oracle_top1": 0.9,
+        "chance_top1": 0.005
+      },
+      "arm3_generalization_heldout": {
+        "n_train_subj": 8,
+        "trained_top1": 1.0,
+        "trained_top5": 1.0,
+        "untaught_top1": 0.0,
+        "untaught_top5": 0.0,
+        "sanity_floor_pass": true,
+        "chance_top5": 0.025
+      },
+      "arm4_capacity_vs_m": {
+        "curve": {
+          "100": {
+            "top1": 1.0,
+            "M_unique": 99,
+            "n_query": 99
+          },
+          "500": {
+            "top1": 1.0,
+            "M_unique": 442,
+            "n_query": 200
+          }
+        },
+        "m_capacity_at_95pct": 500,
+        "m_grid": [
+          100,
+          500
+        ]
+      },
+      "wall_s": 0.0
+    }
+  ],
+  "elapsed_s": 0.1,
+  "summary": "MIDDLE_BAND: 3 of 4 arms PASS. [ARM1=PASS ARM2=PASS ARM3=PASS ARM4=FAIL] ARM1 top1=1.000 (>=0.95, cv=0.000, chance=0.005) | ARM2 chained=0.900 (>=0.80, cv=0.000, chance=0.005) | ARM3 trained_top5=1.000 (>=0.50, cv=0.000, chance=0.025), sanity_pass=True | ARM4 m_cap_min=500 mean=500 (>=1500, grid=[100, 500]) | V_C=200 V_P=10 N=1024",
+  "DESIGN_NOTE": "USER reframe 2026-06-24: substrate as MEMORY+COMPOSITION+RETRIEVAL device. Lane 1 substrate-native (chance baseline only; NO transformer / NO statistical-LM). Synthetic concept graph (no encoder leakage). 4 arms: 1hop recall, 2hop chained, heldout generalization (PRIMARY), capacity-vs-M. Per-arm pre-reg HARD-PASS floors."
+}

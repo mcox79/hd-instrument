@@ -1,0 +1,189 @@
+{
+  "anchor_name": "substrate_gen_lm_perstep_cleanup_depth_v3_n8192_gpu",
+  "verdict": "INCONCLUSIVE",
+  "verdict_msg": "INCONCLUSIVE_DISCRIMINATOR_DID_NOT_FIRE: RAW does not degrade with depth (dRAW=-0.082). Re-spec regime. raw_curve={1: 6.007, 2: 5.932, 3: 5.925} clean_curve={1: 6.008, 2: 5.979, 3: 5.981} scram_curve={1: 6.008, 2: 5.816, 3: 5.904} | dRAW=-0.082 dCLEAN=-0.027 dSCRAM=-0.104 gap@Kmax(clean)=-0.055 gap@Kmax(scram)=+0.021 att1_conv=1.00 bigram_bpc=5.894",
+  "N": 1024,
+  "J": 1,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 1,
+  "expected_n_units": 9,
+  "arm_digests": {
+    "RAW_BIND_NO_CLEANUP": "679faa9ffd8d6408574df7f9e1b87a23638514b4936fcf9c89b32a016e22b5fb",
+    "CLEANUP_PER_STEP": "213fdc406ba436dcd8e6c13969a953990efedb39c6a945a27adb683c24d5ccd1",
+    "CLEANUP_SCRAMBLED": "fa97797e11341b4215e8ae65caf0d11ac82351ec0a81278f6fab107d19605ed1"
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "J": 1,
+      "per_unit": [
+        {
+          "bpc_nats": 4.164046287536621,
+          "bpc_bits": 6.007448929061182,
+          "perplexity": 64.33129961510254,
+          "top1": 0.041999999433755875,
+          "distinct_token_rate": 0.6857142857142857,
+          "cleanup_converged_frac": null,
+          "cleanup_mean_iters": null,
+          "cleanup_mean_cos_to_attractor": null,
+          "seed": 1,
+          "arm": "RAW_BIND_NO_CLEANUP",
+          "K": 1,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.11198091506958,
+          "bpc_bits": 5.932334474400945,
+          "perplexity": 61.06756749810139,
+          "top1": 0.06599999964237213,
+          "distinct_token_rate": 0.9857142857142858,
+          "cleanup_converged_frac": null,
+          "cleanup_mean_iters": null,
+          "cleanup_mean_cos_to_attractor": null,
+          "seed": 1,
+          "arm": "RAW_BIND_NO_CLEANUP",
+          "K": 2,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.107205390930176,
+          "bpc_bits": 5.9254448494073815,
+          "perplexity": 60.77663309043458,
+          "top1": 0.07699999958276749,
+          "distinct_token_rate": 0.9857142857142858,
+          "cleanup_converged_frac": null,
+          "cleanup_mean_iters": null,
+          "cleanup_mean_cos_to_attractor": null,
+          "seed": 1,
+          "arm": "RAW_BIND_NO_CLEANUP",
+          "K": 3,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.164430618286133,
+          "bpc_bits": 6.008003401127564,
+          "perplexity": 64.35602886350156,
+          "top1": 0.03799999877810478,
+          "distinct_token_rate": 0.6714285714285714,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 1.031999945640564,
+          "cleanup_mean_cos_to_attractor": 0.9957685470581055,
+          "seed": 1,
+          "arm": "CLEANUP_PER_STEP",
+          "K": 1,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.144551753997803,
+          "bpc_bits": 5.979324262200286,
+          "perplexity": 63.089336020049686,
+          "top1": 0.052000001072883606,
+          "distinct_token_rate": 0.9,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 1.8924999833106995,
+          "cleanup_mean_cos_to_attractor": 0.945511132478714,
+          "seed": 1,
+          "arm": "CLEANUP_PER_STEP",
+          "K": 2,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.145576477050781,
+          "bpc_bits": 5.980802625067102,
+          "perplexity": 63.15401825209368,
+          "top1": 0.0689999982714653,
+          "distinct_token_rate": 0.9571428571428572,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 2.0949999888738,
+          "cleanup_mean_cos_to_attractor": 0.9213327368100485,
+          "seed": 1,
+          "arm": "CLEANUP_PER_STEP",
+          "K": 3,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.1644606590271,
+          "bpc_bits": 6.0080467407555815,
+          "perplexity": 64.35796219533353,
+          "top1": 0.035999998450279236,
+          "distinct_token_rate": 0.7,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 3.118000030517578,
+          "cleanup_mean_cos_to_attractor": 0.7395063042640686,
+          "seed": 1,
+          "arm": "CLEANUP_SCRAMBLED",
+          "K": 1,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.0316267013549805,
+          "bpc_bits": 5.8164078487603605,
+          "perplexity": 56.35250542567544,
+          "top1": 0.10899999737739563,
+          "distinct_token_rate": 0.9857142857142858,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 3.0924999713897705,
+          "cleanup_mean_cos_to_attractor": 0.739782452583313,
+          "seed": 1,
+          "arm": "CLEANUP_SCRAMBLED",
+          "K": 2,
+          "N": 1024,
+          "J": 1
+        },
+        {
+          "bpc_nats": 4.092475891113281,
+          "bpc_bits": 5.9041946730667725,
+          "perplexity": 59.88798442619998,
+          "top1": 0.07800000160932541,
+          "distinct_token_rate": 0.9857142857142858,
+          "cleanup_converged_frac": 1.0,
+          "cleanup_mean_iters": 3.0853333473205566,
+          "cleanup_mean_cos_to_attractor": 0.7398640712102255,
+          "seed": 1,
+          "arm": "CLEANUP_SCRAMBLED",
+          "K": 3,
+          "N": 1024,
+          "J": 1
+        }
+      ],
+      "baselines": {
+        "unigram_ppl": 69.92460280676407,
+        "bigram_count_ppl": 59.481143041585284,
+        "trigram_count_ppl": 44.06924355832167,
+        "unigram_bpc_bits": 6.127728248660846,
+        "bigram_count_bpc_bits": 5.89436046663179,
+        "trigram_count_bpc_bits": 5.4617002280803355
+      },
+      "peak_gpu_gb": 0.0,
+      "elapsed_s": 378.35329246520996,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1783476616.8296525
+    }
+  ],
+  "raw_curve": {
+    "1": 6.007448929061182,
+    "2": 5.932334474400945,
+    "3": 5.9254448494073815
+  },
+  "clean_curve": {
+    "1": 6.008003401127564,
+    "2": 5.979324262200286,
+    "3": 5.980802625067102
+  },
+  "scram_curve": {
+    "1": 6.0080467407555815,
+    "2": 5.8164078487603605,
+    "3": 5.9041946730667725
+  },
+  "elapsed_s": 378.35329246520996,
+  "summary": "INCONCLUSIVE_DISCRIMINATOR_DID_NOT_FIRE: RAW does not degrade with depth (dRAW=-0.082). Re-spec regime. raw_curve={1: 6.007, 2: 5.932, 3: 5.925} clean_curve={1: 6.008, 2: 5.979, 3: 5.981} scram_curve={1: 6.008, 2: 5.816, 3: 5.904} | dRAW=-0.082 dCLEAN=-0.027 dSCRAM=-0.104 gap@Kmax(clean)=-0.055 gap@Kmax(scram)=+0.021 att1_conv=1.00 bigram_bpc=5.894"
+}

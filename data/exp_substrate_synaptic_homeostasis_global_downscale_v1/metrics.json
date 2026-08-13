@@ -1,0 +1,1005 @@
+{
+  "anchor": "substrate_synaptic_homeostasis_global_downscale_v1",
+  "anchor_name": "substrate_synaptic_homeostasis_global_downscale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 1.0000 > baseline 0.8833 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.8833+/-0.0309 min_integ=0.7820 | ARM_DOWNSCALE_0_99_EVERY_100=fin_forget=1.0000+/-0.0000 min_integ=0.7201 | ARM_DOWNSCALE_0_95_EVERY_500=fin_forget=1.0000+/-0.0000 min_integ=0.7284 | ARM_DOWNSCALE_0_999_EVERY_50=fin_forget=0.9733+/-0.0170 min_integ=0.7701",
+  "headline": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 1.0000 > baseline 0.8833 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=fin_forget=0.8833+/-0.0309 min_integ=0.7820 | ARM_DOWNSCALE_0_99_EVERY_100=fin_forget=1.0000+/-0.0000 min_integ=0.7201 | ARM_DOWNSCALE_0_95_EVERY_500=fin_forget=1.0000+/-0.0000 min_integ=0.7284 | ARM_DOWNSCALE_0_999_EVERY_50=fin_forget=0.9733+/-0.0170 min_integ=0.7701",
+  "n_seeds": 3,
+  "N": 4096,
+  "run_mode": "full",
+  "n_cycles": 2500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_DOWNSCALE",
+    "ARM_DOWNSCALE_0_99_EVERY_100",
+    "ARM_DOWNSCALE_0_95_EVERY_500",
+    "ARM_DOWNSCALE_0_999_EVERY_50"
+  ],
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_DOWNSCALE": {
+        "mean_final_forget": 0.8833333333333333,
+        "std_forget": 0.030912061651652372,
+        "cv_forget": 0.03499478677545552,
+        "mean_min_integrity": 0.7820166015625,
+        "per_seed_forget": [
+          0.84,
+          0.9,
+          0.91
+        ],
+        "per_seed_min_integ": [
+          0.7841259765625,
+          0.7809423828125,
+          0.7809814453125
+        ]
+      },
+      "ARM_DOWNSCALE_0_99_EVERY_100": {
+        "mean_final_forget": 1.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.7200911458333333,
+        "per_seed_forget": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "per_seed_min_integ": [
+          0.7233251953125,
+          0.7189208984375,
+          0.71802734375
+        ]
+      },
+      "ARM_DOWNSCALE_0_95_EVERY_500": {
+        "mean_final_forget": 1.0,
+        "std_forget": 0.0,
+        "cv_forget": 0.0,
+        "mean_min_integrity": 0.7283658854166667,
+        "per_seed_forget": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "per_seed_min_integ": [
+          0.7315966796875,
+          0.72755859375,
+          0.7259423828125
+        ]
+      },
+      "ARM_DOWNSCALE_0_999_EVERY_50": {
+        "mean_final_forget": 0.9733333333333333,
+        "std_forget": 0.016996731711975962,
+        "cv_forget": 0.017462395594495854,
+        "mean_min_integrity": 0.77005859375,
+        "per_seed_forget": [
+          0.95,
+          0.99,
+          0.98
+        ],
+        "per_seed_min_integ": [
+          0.7723828125,
+          0.7688037109375,
+          0.7689892578125
+        ]
+      }
+    },
+    "best_downscale_arm": "ARM_DOWNSCALE_0_999_EVERY_50",
+    "drift_reduction_abs": -0.08999999999999997,
+    "worst_arm_overage_vs_baseline": 0.1166666666666667,
+    "honest_scope": "REM-homeostasis primitive over 2500 cycles N=4096; 4 arms (factor, interval); forget on first 100 atoms"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "factor": 1.0,
+          "interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999072265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.993525390625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9624609375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9152392578125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8704150390625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8412890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.87,
+              "cleanup_integrity": 0.8179833984375,
+              "forget": 0.13
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.55,
+              "cleanup_integrity": 0.80201171875,
+              "forget": 0.44999999999999996
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.22,
+              "cleanup_integrity": 0.78845703125,
+              "forget": 0.78
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.16,
+              "cleanup_integrity": 0.7841259765625,
+              "forget": 0.84
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.16,
+          "final_forget": 0.84,
+          "final_integrity": 0.7841259765625,
+          "min_integrity": 0.7841259765625,
+          "elapsed_s": 340.3315851688385
+        },
+        "ARM_DOWNSCALE_0_99_EVERY_100": {
+          "arm": "ARM_DOWNSCALE_0_99_EVERY_100",
+          "factor": 0.99,
+          "interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999072265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9919775390625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.94951171875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8849267578125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.94,
+              "cleanup_integrity": 0.8268701171875,
+              "forget": 0.06000000000000005
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.3,
+              "cleanup_integrity": 0.792763671875,
+              "forget": 0.7
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7624365234375,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7435595703125,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.72857421875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7233251953125,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.7233251953125,
+          "min_integrity": 0.7233251953125,
+          "elapsed_s": 327.2481679916382
+        },
+        "ARM_DOWNSCALE_0_95_EVERY_500": {
+          "arm": "ARM_DOWNSCALE_0_95_EVERY_500",
+          "factor": 0.95,
+          "interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999072265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.993525390625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.955791015625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8990283203125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.99,
+              "cleanup_integrity": 0.83943359375,
+              "forget": 0.010000000000000009
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.68,
+              "cleanup_integrity": 0.80650390625,
+              "forget": 0.31999999999999995
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.06,
+              "cleanup_integrity": 0.7725341796875,
+              "forget": 0.94
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7538671875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.73607421875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7315966796875,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.7315966796875,
+          "min_integrity": 0.7315966796875,
+          "elapsed_s": 351.635639667511
+        },
+        "ARM_DOWNSCALE_0_999_EVERY_50": {
+          "arm": "ARM_DOWNSCALE_0_999_EVERY_50",
+          "factor": 0.999,
+          "interval": 50,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999072265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.993349609375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9599658203125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9102392578125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.862373046875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.99,
+              "cleanup_integrity": 0.832197265625,
+              "forget": 0.010000000000000009
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.69,
+              "cleanup_integrity": 0.8075341796875,
+              "forget": 0.31000000000000005
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.26,
+              "cleanup_integrity": 0.7911328125,
+              "forget": 0.74
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.11,
+              "cleanup_integrity": 0.77720703125,
+              "forget": 0.89
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.05,
+              "cleanup_integrity": 0.7723828125,
+              "forget": 0.95
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.05,
+          "final_forget": 0.95,
+          "final_integrity": 0.7723828125,
+          "min_integrity": 0.7723828125,
+          "elapsed_s": 389.40153408050537
+        }
+      },
+      "elapsed_s": 1408.7530889511108,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782466899.7652779
+    },
+    {
+      "seed": 13,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "factor": 1.0,
+          "interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999462890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9939599609375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.965986328125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9160986328125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8706689453125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8399267578125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.86,
+              "cleanup_integrity": 0.819462890625,
+              "forget": 0.14
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.51,
+              "cleanup_integrity": 0.8017626953125,
+              "forget": 0.49
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.27,
+              "cleanup_integrity": 0.7897509765625,
+              "forget": 0.73
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.1,
+              "cleanup_integrity": 0.7809423828125,
+              "forget": 0.9
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.1,
+          "final_forget": 0.9,
+          "final_integrity": 0.7809423828125,
+          "min_integrity": 0.7809423828125,
+          "elapsed_s": 402.1752507686615
+        },
+        "ARM_DOWNSCALE_0_99_EVERY_100": {
+          "arm": "ARM_DOWNSCALE_0_99_EVERY_100",
+          "factor": 0.99,
+          "interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999462890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.992431640625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.954326171875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.8859814453125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.94,
+              "cleanup_integrity": 0.8284619140625,
+              "forget": 0.06000000000000005
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.32,
+              "cleanup_integrity": 0.789814453125,
+              "forget": 0.6799999999999999
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.02,
+              "cleanup_integrity": 0.7640087890625,
+              "forget": 0.98
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7435107421875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.72923828125,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7189208984375,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.7189208984375,
+          "min_integrity": 0.7189208984375,
+          "elapsed_s": 321.5165796279907
+        },
+        "ARM_DOWNSCALE_0_95_EVERY_500": {
+          "arm": "ARM_DOWNSCALE_0_95_EVERY_500",
+          "factor": 0.95,
+          "interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999462890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9939599609375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9598876953125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.89947265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.98,
+              "cleanup_integrity": 0.8395751953125,
+              "forget": 0.020000000000000018
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.57,
+              "cleanup_integrity": 0.802998046875,
+              "forget": 0.43000000000000005
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.07,
+              "cleanup_integrity": 0.7739892578125,
+              "forget": 0.9299999999999999
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.754248046875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.73669921875,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.72755859375,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.72755859375,
+          "min_integrity": 0.72755859375,
+          "elapsed_s": 329.6967656612396
+        },
+        "ARM_DOWNSCALE_0_999_EVERY_50": {
+          "arm": "ARM_DOWNSCALE_0_999_EVERY_50",
+          "factor": 0.999,
+          "interval": 50,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9999462890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.99353515625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.96357421875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9111572265625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.862568359375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.95,
+              "cleanup_integrity": 0.830830078125,
+              "forget": 0.050000000000000044
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.71,
+              "cleanup_integrity": 0.8091943359375,
+              "forget": 0.29000000000000004
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.29,
+              "cleanup_integrity": 0.790859375,
+              "forget": 0.71
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.08,
+              "cleanup_integrity": 0.77802734375,
+              "forget": 0.92
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.01,
+              "cleanup_integrity": 0.7688037109375,
+              "forget": 0.99
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.01,
+          "final_forget": 0.99,
+          "final_integrity": 0.7688037109375,
+          "min_integrity": 0.7688037109375,
+          "elapsed_s": 331.30423307418823
+        }
+      },
+      "elapsed_s": 1384.7970788478851,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782468284.5830064
+    },
+    {
+      "seed": 19,
+      "N": 4096,
+      "run_mode": "full",
+      "n_cycles": 2500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "factor": 1.0,
+          "interval": null,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999912109375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9938671875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9631494140625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.915400390625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.869404296875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.99,
+              "cleanup_integrity": 0.83859375,
+              "forget": 0.010000000000000009
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.78,
+              "cleanup_integrity": 0.81365234375,
+              "forget": 0.21999999999999997
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.53,
+              "cleanup_integrity": 0.80095703125,
+              "forget": 0.47
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.2,
+              "cleanup_integrity": 0.7894775390625,
+              "forget": 0.8
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.09,
+              "cleanup_integrity": 0.7809814453125,
+              "forget": 0.91
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.09,
+          "final_forget": 0.91,
+          "final_integrity": 0.7809814453125,
+          "min_integrity": 0.7809814453125,
+          "elapsed_s": 327.17649722099304
+        },
+        "ARM_DOWNSCALE_0_99_EVERY_100": {
+          "arm": "ARM_DOWNSCALE_0_99_EVERY_100",
+          "factor": 0.99,
+          "interval": 100,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9998974609375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9923583984375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.951298828125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.88453125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.91,
+              "cleanup_integrity": 0.825185546875,
+              "forget": 0.08999999999999997
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.2,
+              "cleanup_integrity": 0.787080078125,
+              "forget": 0.8
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7596337890625,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7423681640625,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7274853515625,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.71802734375,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.71802734375,
+          "min_integrity": 0.71802734375,
+          "elapsed_s": 339.8379843235016
+        },
+        "ARM_DOWNSCALE_0_95_EVERY_500": {
+          "arm": "ARM_DOWNSCALE_0_95_EVERY_500",
+          "factor": 0.95,
+          "interval": 500,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999912109375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9938671875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.95759765625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.89904296875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 0.98,
+              "cleanup_integrity": 0.838056640625,
+              "forget": 0.020000000000000018
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.49,
+              "cleanup_integrity": 0.8008642578125,
+              "forget": 0.51
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.06,
+              "cleanup_integrity": 0.7697509765625,
+              "forget": 0.94
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.752939453125,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.736328125,
+              "forget": 1.0
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.0,
+              "cleanup_integrity": 0.7259423828125,
+              "forget": 1.0
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "final_integrity": 0.7259423828125,
+          "min_integrity": 0.7259423828125,
+          "elapsed_s": 345.75620198249817
+        },
+        "ARM_DOWNSCALE_0_999_EVERY_50": {
+          "arm": "ARM_DOWNSCALE_0_999_EVERY_50",
+          "factor": 0.999,
+          "interval": 50,
+          "curve": [
+            {
+              "cycle": 250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.999912109375,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.993544921875,
+              "forget": 0.0
+            },
+            {
+              "cycle": 750,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9612890625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1000,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.9099267578125,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1250,
+              "recall_acc": 1.0,
+              "cleanup_integrity": 0.861103515625,
+              "forget": 0.0
+            },
+            {
+              "cycle": 1500,
+              "recall_acc": 0.95,
+              "cleanup_integrity": 0.8288037109375,
+              "forget": 0.050000000000000044
+            },
+            {
+              "cycle": 1750,
+              "recall_acc": 0.55,
+              "cleanup_integrity": 0.8031884765625,
+              "forget": 0.44999999999999996
+            },
+            {
+              "cycle": 2000,
+              "recall_acc": 0.25,
+              "cleanup_integrity": 0.789990234375,
+              "forget": 0.75
+            },
+            {
+              "cycle": 2250,
+              "recall_acc": 0.07,
+              "cleanup_integrity": 0.7773388671875,
+              "forget": 0.9299999999999999
+            },
+            {
+              "cycle": 2500,
+              "recall_acc": 0.02,
+              "cleanup_integrity": 0.7689892578125,
+              "forget": 0.98
+            }
+          ],
+          "final_cycle": 2500,
+          "final_acc": 0.02,
+          "final_forget": 0.98,
+          "final_integrity": 0.7689892578125,
+          "min_integrity": 0.7689892578125,
+          "elapsed_s": 343.44143319129944
+        }
+      },
+      "elapsed_s": 1356.3568141460419,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782469640.9498215
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_REM_homeostasis_4arm_continual_writes",
+  "elapsed_s": 4150.091470479965,
+  "summary": "HARD_FAIL_DOWNSCALE_DESTROYS_OLDER: arm=ARM_DOWNSCALE_0_99_EVERY_100 has forget 1.0000 > baseline 0.8833 + 0.05. REM-homeostasis analog over-aggressive at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=",
+  "honest_scope": "REM-homeostasis primitive over 2500 cycles N=4096; 4 arms (factor, interval); forget on first 100 atoms",
+  "substrate_only_decode_gate": "N/A (continual-writes consolidation cell; zero LLM forward calls)"
+}

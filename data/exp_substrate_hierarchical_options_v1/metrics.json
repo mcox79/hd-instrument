@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_hierarchical_options_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: opts=0.250 policy=0.000 init=0.000 term=0.250 cf=0.250 rand=0.250",
+  "summary": "SELFTEST_OK: opts=0.250 policy=0.000 init=0.000 term=0.250 cf=0.250 rand=0.250",
+  "elapsed_s": 0.3,
+  "ts_iso": "2026-06-28T14:33:49Z",
+  "pid": 28900,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_options_v1,N=1024,blocks=4,pos=3,actions=6,options=3,K_anchor=32,goals=4,depth=4,K_replan=4,max_total=16,seeds=[7],mode=smoke,HP_opts>=0.55,HP_lift_policy>=0.10,HP_lift_cf>=0.30,HP_lift_rand>=0.40,HP_unsat=[0.30,0.95],expected_n=24,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AC+META_AF+META_AG+META_AH+META_AL+META_AN+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_options",
+  "_phase": "selftest_done",
+  "selftest_arms": [
+    "options_full",
+    "policy_only",
+    "init_only",
+    "term_only",
+    "closed_form_baseline",
+    "random"
+  ],
+  "opts_solve": 0.25,
+  "policy_solve": 0.0,
+  "init_solve": 0.0,
+  "term_solve": 0.25,
+  "cf_solve": 0.25,
+  "rand_solve": 0.25,
+  "arms_distinct": true
+}

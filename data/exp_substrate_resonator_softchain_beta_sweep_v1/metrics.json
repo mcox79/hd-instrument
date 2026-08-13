@@ -1,0 +1,268 @@
+{
+  "anchor_name": "substrate_resonator_softchain_beta_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best soft beta=2 top1=0.6483 < MIDDLE_LO 0.70; mechanism underperforms baseline 0.6500. sanity_dirac_OK | BASELINE_HARD=0.6500 | best_soft beta=2 top1=0.6483 delta=-0.0017 cv=0.047 | BETA_8192=0.6317 (sanity tol +/-0.02 -> sanity_dirac_OK) | per-beta: b=0.5 top1=0.265 delta=-0.385 ent=2.992 cv=0.027; b=2 top1=0.648 delta=-0.002 ent=2.839 cv=0.047; b=10 top1=0.632 delta=-0.018 ent=0.327 cv=0.025; b=50 top1=0.632 delta=-0.018 ent=0.257 cv=0.025; b=500 top1=0.632 delta=-0.018 ent=0.065 cv=0.025; b=8192 top1=0.632 delta=-0.018 ent=0.002 cv=0.025 | V_C=200 V_P=10 N=8192 K_SET=20 chains=200",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "softchain-beta-sweep-v1: dense-bipolar HRR + multivalue-hebbian + 7arm-beta-sweep on 2hop; V_C=200 V_P=10 N=8192 K_SET=20 n_chains=200 betas=[0.5, 2.0, 10.0, 50.0, 500.0, 8192.0] baseline=hard; bands HP>=0.78 MB>=0.70 HF_delta<=0.03 sanity_tol=0.02 cv<=0.05",
+  "per_seed": [
+    {
+      "seed": 7,
+      "config_version": "softchain-beta-sweep-v1: dense-bipolar HRR + multivalue-hebbian + 7arm-beta-sweep on 2hop; V_C=200 V_P=10 N=8192 K_SET=20 n_chains=200 betas=[0.5, 2.0, 10.0, 50.0, 500.0, 8192.0] baseline=hard; bands HP>=0.78 MB>=0.70 HF_delta<=0.03 sanity_tol=0.02 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "ARM_BASELINE_HARD": {
+        "top1": 0.605,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": null,
+        "mechanism": "hard_argmax"
+      },
+      "ARM_BETA_0_5": {
+        "top1": 0.26,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 0.5,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.3701,
+        "mean_softmax_entropy_hop1_nats": 2.9887,
+        "mean_softmax_entropy_hop2_nats": 2.9952
+      },
+      "ARM_BETA_2": {
+        "top1": 0.61,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 2.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.6362,
+        "mean_softmax_entropy_hop1_nats": 2.7564,
+        "mean_softmax_entropy_hop2_nats": 2.9232
+      },
+      "ARM_BETA_10": {
+        "top1": 0.61,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 10.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7523,
+        "mean_softmax_entropy_hop1_nats": 0.016,
+        "mean_softmax_entropy_hop2_nats": 0.696
+      },
+      "ARM_BETA_50": {
+        "top1": 0.61,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 50.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7523,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.5589
+      },
+      "ARM_BETA_500": {
+        "top1": 0.61,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 500.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7523,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.1374
+      },
+      "ARM_BETA_8192": {
+        "top1": 0.61,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 8192.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7523,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.0007
+      },
+      "wall_s": 56.1
+    },
+    {
+      "seed": 17,
+      "config_version": "softchain-beta-sweep-v1: dense-bipolar HRR + multivalue-hebbian + 7arm-beta-sweep on 2hop; V_C=200 V_P=10 N=8192 K_SET=20 n_chains=200 betas=[0.5, 2.0, 10.0, 50.0, 500.0, 8192.0] baseline=hard; bands HP>=0.78 MB>=0.70 HF_delta<=0.03 sanity_tol=0.02 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "ARM_BASELINE_HARD": {
+        "top1": 0.67,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": null,
+        "mechanism": "hard_argmax"
+      },
+      "ARM_BETA_0_5": {
+        "top1": 0.26,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 0.5,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.3767,
+        "mean_softmax_entropy_hop1_nats": 2.9887,
+        "mean_softmax_entropy_hop2_nats": 2.9952
+      },
+      "ARM_BETA_2": {
+        "top1": 0.685,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 2.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.6538,
+        "mean_softmax_entropy_hop1_nats": 2.7566,
+        "mean_softmax_entropy_hop2_nats": 2.9199
+      },
+      "ARM_BETA_10": {
+        "top1": 0.645,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 10.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.7768,
+        "mean_softmax_entropy_hop1_nats": 0.016,
+        "mean_softmax_entropy_hop2_nats": 0.6121
+      },
+      "ARM_BETA_50": {
+        "top1": 0.645,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 50.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.7768,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.4875
+      },
+      "ARM_BETA_500": {
+        "top1": 0.645,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 500.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.7768,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.111
+      },
+      "ARM_BETA_8192": {
+        "top1": 0.645,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 8192.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9765,
+        "mean_top_conf_hop2": 0.7768,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.0099
+      },
+      "wall_s": 58.4
+    },
+    {
+      "seed": 23,
+      "config_version": "softchain-beta-sweep-v1: dense-bipolar HRR + multivalue-hebbian + 7arm-beta-sweep on 2hop; V_C=200 V_P=10 N=8192 K_SET=20 n_chains=200 betas=[0.5, 2.0, 10.0, 50.0, 500.0, 8192.0] baseline=hard; bands HP>=0.78 MB>=0.70 HF_delta<=0.03 sanity_tol=0.02 cv<=0.05",
+      "V_concepts": 200,
+      "V_predicates": 10,
+      "N_DIM": 8192,
+      "K_SET": 20,
+      "run_mode": "full",
+      "N": 8192,
+      "M": 200,
+      "ARM_BASELINE_HARD": {
+        "top1": 0.675,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": null,
+        "mechanism": "hard_argmax"
+      },
+      "ARM_BETA_0_5": {
+        "top1": 0.275,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 0.5,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.3678,
+        "mean_softmax_entropy_hop1_nats": 2.9887,
+        "mean_softmax_entropy_hop2_nats": 2.9952
+      },
+      "ARM_BETA_2": {
+        "top1": 0.65,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 2.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.6538,
+        "mean_softmax_entropy_hop1_nats": 2.7566,
+        "mean_softmax_entropy_hop2_nats": 2.9196
+      },
+      "ARM_BETA_10": {
+        "top1": 0.64,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 10.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7746,
+        "mean_softmax_entropy_hop1_nats": 0.016,
+        "mean_softmax_entropy_hop2_nats": 0.6066
+      },
+      "ARM_BETA_50": {
+        "top1": 0.64,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 50.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7746,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.4952
+      },
+      "ARM_BETA_500": {
+        "top1": 0.64,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 500.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7746,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.1439
+      },
+      "ARM_BETA_8192": {
+        "top1": 0.64,
+        "n_chains": 200,
+        "chance": 0.005,
+        "beta": 8192.0,
+        "k_set": 20,
+        "mean_top_conf_hop1": 0.9766,
+        "mean_top_conf_hop2": 0.7746,
+        "mean_softmax_entropy_hop1_nats": 0.0,
+        "mean_softmax_entropy_hop2_nats": 0.0002
+      },
+      "wall_s": 56.4
+    }
+  ],
+  "elapsed_s": 171.2,
+  "summary": "HARD_FAIL: best soft beta=2 top1=0.6483 < MIDDLE_LO 0.70; mechanism underperforms baseline 0.6500. sanity_dirac_OK | BASELINE_HARD=0.6500 | best_soft beta=2 top1=0.6483 delta=-0.0017 cv=0.047 | BETA_8192=0.6317 (sanity tol +/-0.02 -> sanity_dirac_OK) | per-beta: b=0.5 top1=0.265 delta=-0.385 ent=2.992 cv=0.027; b=2 top1=0.648 delta=-0.002 ent=2.839 cv=0.047; b=10 top1=0.632 delta=-0.018 ent=0.327 cv=0.025; b=50 top1=0.632 delta=-0.018 ent=0.257 cv=0.025; b=500 top1=0.632 delta=-0.018 ent=0.065 cv=0.025; b=8192 top1=0.632 delta=-0.018 ent=0.002 cv=0.025 | V_C=200 V_P=10 N=8192 K_SET=20 chains=200",
+  "DESIGN_NOTE": "Wave A revival cell #1 (per research_5cell_cross_HARDFAIL_synthesis 2026-06-24): SINGLE decisive cell that discriminates BOTH prior HARD_FAILs (resonator_multihop + soft_chain_dfe). Both prior cells used beta = N_DIM = 8192 -> Dirac softmax = hard argmax (smoking gun: per-seed bit-identity between resonator and soft_chain). This cell sweeps beta in {0.5, 2, 10, 50, 500, 8192} on the same 2-hop substrate (ONE knob varies). ARM_BASELINE_HARD is control; ARM_BETA_8192 reproduces the prior cells' Dirac regime (sanity); intermediate betas test the lit-predicted soft-DFE regime (entropy ~ log(2-5) nats). Per-hop softmax entropy logged per-arm as load-bearing mechanism evidence."
+}

@@ -1,0 +1,173 @@
+{
+  "anchor_name": "substrate_synaptic_homeostasis_downscale_sweep_v1_CPU",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: homeostasis does not rescue Hc (best lift +0.000 < 0.05). M=512 N_h=2048 N_c=512 alpha_simple=0.250 mode=smoke ARM_NO_HOMEO=0.604 ARM_HOMEO_GAMMA_0_9=0.600 ARM_HOMEO_GAMMA_0_7=0.535 ARM_HOMEO_GAMMA_0_5=0.424 ARM_ADAPTIVE_HOMEO=0.604 | best_arm=ARM_ADAPTIVE_HOMEO best_lift=+0.000 R_NO_HOMEO=0.604",
+  "summary": "n_seeds=1 M=512 N_h=2048 N_c=512 arms=('ARM_NO_HOMEO', 'ARM_HOMEO_GAMMA_0_9', 'ARM_HOMEO_GAMMA_0_7', 'ARM_HOMEO_GAMMA_0_5', 'ARM_ADAPTIVE_HOMEO') mode=smoke alpha_simple=0.250 synaptic_homeostasis_downscale_sweep",
+  "elapsed_s": 6.354265213012695,
+  "config_version": "ANCHOR=substrate_synaptic_homeostasis_downscale_sweep_v1_CPU,M=512,N_h=2048,N_c=512,alpha_simple=0.250,ARM_NAMES=('ARM_NO_HOMEO', 'ARM_HOMEO_GAMMA_0_9', 'ARM_HOMEO_GAMMA_0_7', 'ARM_HOMEO_GAMMA_0_5', 'ARM_ADAPTIVE_HOMEO'),HOMEO_INTERVAL=64,SEEDS=7,RUN_MODE=smoke,backend=numpy,hardening=METARULE_AF+METARULE_AH+METARULE_H+HOMEOSTASIS_SWEEP",
+  "M": 512,
+  "N_c": 512,
+  "N_h": 2048,
+  "eta_c": 0.005,
+  "hippo_sparsity_sparse": 0.1,
+  "homeo_interval": 64,
+  "n_replay_per_item": 1,
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 5,
+  "cardinality_ok": true,
+  "run_mode": "smoke",
+  "alpha_simple": 0.25,
+  "arm_configs": [
+    {
+      "name": "ARM_NO_HOMEO",
+      "kind": "none",
+      "gamma": 1.0
+    },
+    {
+      "name": "ARM_HOMEO_GAMMA_0_9",
+      "kind": "global",
+      "gamma": 0.9
+    },
+    {
+      "name": "ARM_HOMEO_GAMMA_0_7",
+      "kind": "global",
+      "gamma": 0.7
+    },
+    {
+      "name": "ARM_HOMEO_GAMMA_0_5",
+      "kind": "global",
+      "gamma": 0.5
+    },
+    {
+      "name": "ARM_ADAPTIVE_HOMEO",
+      "kind": "adaptive",
+      "gamma": 0.7
+    }
+  ],
+  "per_arm_rows": [
+    {
+      "arm_name": "ARM_NO_HOMEO",
+      "kind": "none",
+      "gamma": 1.0,
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_HOMEO_GAMMA_0_9",
+      "kind": "global",
+      "gamma": 0.9,
+      "recall_mean": 0.599609375,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_HOMEO_GAMMA_0_7",
+      "kind": "global",
+      "gamma": 0.7,
+      "recall_mean": 0.53515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_HOMEO_GAMMA_0_5",
+      "kind": "global",
+      "gamma": 0.5,
+      "recall_mean": 0.423828125,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    },
+    {
+      "arm_name": "ARM_ADAPTIVE_HOMEO",
+      "kind": "adaptive",
+      "gamma": 0.7,
+      "recall_mean": 0.603515625,
+      "recall_std": 0.0,
+      "n_seeds_ok": 1
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 6.2635602951049805,
+      "arms": [
+        {
+          "arm_name": "ARM_NO_HOMEO",
+          "kind": "none",
+          "gamma": 1.0,
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "cortex_norm": 0.21401525261985943,
+          "n_total_writes": 512,
+          "n_homeo_applications": 0,
+          "arm_hash": "c63aeadb4672198a",
+          "alpha_simple": 0.25,
+          "wall_s": 1.317742109298706,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HOMEO_GAMMA_0_9",
+          "kind": "global",
+          "gamma": 0.9,
+          "seed": 7,
+          "recall_cortex": 0.599609375,
+          "n_items": 512,
+          "cortex_norm": 0.138354677426372,
+          "n_total_writes": 512,
+          "n_homeo_applications": 8,
+          "arm_hash": "6ce6076495de5650",
+          "alpha_simple": 0.25,
+          "wall_s": 1.3692047595977783,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HOMEO_GAMMA_0_7",
+          "kind": "global",
+          "gamma": 0.7,
+          "seed": 7,
+          "recall_cortex": 0.53515625,
+          "n_items": 512,
+          "cortex_norm": 0.06362029754144377,
+          "n_total_writes": 512,
+          "n_homeo_applications": 8,
+          "arm_hash": "d1c9e0a70e634961",
+          "alpha_simple": 0.25,
+          "wall_s": 1.0915980339050293,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_HOMEO_GAMMA_0_5",
+          "kind": "global",
+          "gamma": 0.5,
+          "seed": 7,
+          "recall_cortex": 0.423828125,
+          "n_items": 512,
+          "cortex_norm": 0.032425373266753564,
+          "n_total_writes": 512,
+          "n_homeo_applications": 8,
+          "arm_hash": "1c6be9f85da041b1",
+          "alpha_simple": 0.25,
+          "wall_s": 1.167344331741333,
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_ADAPTIVE_HOMEO",
+          "kind": "adaptive",
+          "gamma": 0.7,
+          "seed": 7,
+          "recall_cortex": 0.603515625,
+          "n_items": 512,
+          "cortex_norm": 0.2139820644748348,
+          "n_total_writes": 512,
+          "n_homeo_applications": 8,
+          "arm_hash": "da300f9a0db22bd0",
+          "alpha_simple": 0.25,
+          "wall_s": 1.2656731605529785,
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}

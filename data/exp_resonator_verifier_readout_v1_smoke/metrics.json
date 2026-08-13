@@ -1,0 +1,228 @@
+{
+  "anchor_name": "resonator_verifier_readout_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: K4 VERIFIER harvest=0.867 (>=0.50) at T0=0.10, +0.367 over plurality=0.500 (oracle_any=0.867). Reconstruction verifier harvests the already-reached answer; the residual gap WAS aggregation-loss, confirming the VET diagnostic. baseline_K4=0.033.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 3,
+      "by_arm": {
+        "K3_baseline_T0_R1": {
+          "plurality": 0.6,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K3_verifier_T000_R10": {
+          "plurality": 0.7,
+          "verifier": 0.7666666666666667,
+          "oracle_any": 0.7666666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.1666666666666667,
+          "distinct_wrong_configs": 12,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K3_verifier_T100_R10": {
+          "plurality": 0.9333333333333333,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.8333333333333335,
+          "distinct_wrong_configs": 55,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K3_verifier_T200_R10": {
+          "plurality": 1.0,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.6666666666666665,
+          "distinct_wrong_configs": 50,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K3_verifier_T350_R10": {
+          "plurality": 1.0,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 2.8666666666666667,
+          "distinct_wrong_configs": 56,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K3_verifier_T500_R10": {
+          "plurality": 0.9666666666666667,
+          "verifier": 1.0,
+          "oracle_any": 1.0,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 3.033333333333333,
+          "distinct_wrong_configs": 61,
+          "R": 10,
+          "T0": 0.5
+        },
+        "K4_baseline_T0_R1": {
+          "plurality": 0.03333333333333333,
+          "R": 1,
+          "T0": 0.0
+        },
+        "K4_verifier_T000_R10": {
+          "plurality": 0.16666666666666666,
+          "verifier": 0.26666666666666666,
+          "oracle_any": 0.26666666666666666,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 1.9666666666666666,
+          "distinct_wrong_configs": 51,
+          "R": 10,
+          "T0": 0.0
+        },
+        "K4_verifier_T100_R10": {
+          "plurality": 0.5,
+          "verifier": 0.8666666666666667,
+          "oracle_any": 0.8666666666666667,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.1,
+          "distinct_wrong_configs": 247,
+          "R": 10,
+          "T0": 0.1
+        },
+        "K4_verifier_T200_R10": {
+          "plurality": 0.4,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.533333333333333,
+          "distinct_wrong_configs": 261,
+          "R": 10,
+          "T0": 0.2
+        },
+        "K4_verifier_T350_R10": {
+          "plurality": 0.5333333333333333,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 8.833333333333334,
+          "distinct_wrong_configs": 241,
+          "R": 10,
+          "T0": 0.35
+        },
+        "K4_verifier_T500_R10": {
+          "plurality": 0.43333333333333335,
+          "verifier": 0.8,
+          "oracle_any": 0.8,
+          "verifier_le_oracle_violations": 0,
+          "mean_within_trial_distinct": 9.0,
+          "distinct_wrong_configs": 246,
+          "R": 10,
+          "T0": 0.5
+        }
+      },
+      "arms_hashes": {
+        "K3_baseline_T0_R1": "b7f013b750f3198faf6fb13b03be8f39875e572d3d8422cb22b4d91d8520f7e2",
+        "K3_verifier_T000_R10": "c663cdb3740ec719094516685cb7a5c761ab29214e1ed2251686cd0de71ccb15",
+        "K3_verifier_T000_R10_plurality": "f638e4e13eda65848d099940350dba774ca43b83d8bba0c61e3661dc981c2426",
+        "K3_verifier_T100_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T100_R10_plurality": "18c621122de37e1da15464bb41159d72fd68a2d6168321f9981a3a098190b183",
+        "K3_verifier_T200_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T200_R10_plurality": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T350_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T350_R10_plurality": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T500_R10": "e3667689e7dfbb5add627c7a13d71a96b7ad933e26f92e91052b81c8b2c50f91",
+        "K3_verifier_T500_R10_plurality": "ea4e883e8773b10009e5f817c158aca2f04bec57984399ba1caa26839467629b",
+        "K4_baseline_T0_R1": "1657b51d3b0cb20975f7bbc43d0cfcb1cb147e9719c804e827a7d3c8bf3906f5",
+        "K4_verifier_T000_R10": "c26c2ec96496f4a9be9bda7c423b7b5546e3a0d6727b53d27e05473bea1fe6a2",
+        "K4_verifier_T000_R10_plurality": "2e8c79fc46c37540f257f91bc4bc20811ae7691d0c3636323cd3c2ff3c7c1be8",
+        "K4_verifier_T100_R10": "05265cd3744b5002cc29bc6572ca0eeea8cb99a135c50870a14eb18a96782d0e",
+        "K4_verifier_T100_R10_plurality": "96aeaa9e1d4e63484ce1c9a9710bf7692f1f865ec3bda33476bce1e414f3cf5f",
+        "K4_verifier_T200_R10": "9c8b203e76d035941dfffa2b312edffe2af1cb5411ade041c3c70d03cb882876",
+        "K4_verifier_T200_R10_plurality": "b210814bd3bc7f91807a8e6b752a373a876dfd5af96f25a648bdff09bff3b889",
+        "K4_verifier_T350_R10": "e63c0746be28f5d26bd3f0f2835675c159928a0d2ed9269e66b0b49d3a636bb4",
+        "K4_verifier_T350_R10_plurality": "e9bb55a59ab237ec8a40fefdac59b3b39f8b4a0b68a928b0a6f1386f0bde4ea2",
+        "K4_verifier_T500_R10": "47a549a602dc77943918155703c3eece6a967efa206dd45cb20d1af4eebc6c57",
+        "K4_verifier_T500_R10_plurality": "6aa38d4e7bf3966c28f1f2352a59c7fe0f4fc1a8fcf93388b569e74692dfb1f8"
+      },
+      "N": 4096,
+      "M": 30,
+      "run_mode": "smoke",
+      "config_version": "ANCHOR=resonator_verifier_readout_v1,N=4096,M=30",
+      "_ckpt_key": "3",
+      "_partial_written_at": 1783459202.6514292
+    }
+  ],
+  "detail": {
+    "baseline_K4_mean": 0.03333333333333333,
+    "baseline_K3_mean": 0.6,
+    "positive_control_ok": true,
+    "best_t0": 0.1,
+    "best_t0_verifier_mean": 0.8666666666666667,
+    "best_t0_plurality_mean": 0.5,
+    "best_t0_lift": 0.3666666666666667,
+    "best_t0_oracle_any_mean": 0.8666666666666667,
+    "best_t0_distinct_wrong_min": 247,
+    "best_t0_mean_within_trial_distinct": 9.1,
+    "verifier_le_oracle_invariant_violations": 0,
+    "t0_summary": {
+      "0.0": {
+        "verifier_mean": 0.26666666666666666,
+        "plurality_mean": 0.16666666666666666,
+        "mean_within_trial_distinct": 1.9666666666666666,
+        "distinct_wrong_min": 51,
+        "oracle_any_mean": 0.26666666666666666
+      },
+      "0.1": {
+        "verifier_mean": 0.8666666666666667,
+        "plurality_mean": 0.5,
+        "mean_within_trial_distinct": 9.1,
+        "distinct_wrong_min": 247,
+        "oracle_any_mean": 0.8666666666666667
+      },
+      "0.2": {
+        "verifier_mean": 0.8,
+        "plurality_mean": 0.4,
+        "mean_within_trial_distinct": 9.533333333333333,
+        "distinct_wrong_min": 261,
+        "oracle_any_mean": 0.8
+      },
+      "0.35": {
+        "verifier_mean": 0.8,
+        "plurality_mean": 0.5333333333333333,
+        "mean_within_trial_distinct": 8.833333333333334,
+        "distinct_wrong_min": 241,
+        "oracle_any_mean": 0.8
+      },
+      "0.5": {
+        "verifier_mean": 0.8,
+        "plurality_mean": 0.43333333333333335,
+        "mean_within_trial_distinct": 9.0,
+        "distinct_wrong_min": 246,
+        "oracle_any_mean": 0.8
+      }
+    },
+    "arms_differ_verified": true
+  },
+  "config": {
+    "N": 4096,
+    "M": 30,
+    "MAXIT": 60,
+    "R": 10,
+    "TR": 30,
+    "T0_GRID": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "K_GRID": [
+      3,
+      4
+    ],
+    "SEEDS": [
+      3
+    ]
+  },
+  "elapsed_s": 208.62673910000012,
+  "summary": "HARD_PASS: K4 VERIFIER harvest=0.867 (>=0.50) at T0=0.10, +0.367 over plurality=0.500 (oracle_any=0.867). Reconstruction verifier harvests the already-reached answer; the residual gap WAS aggregation-loss, confirming the VET diagnostic. baseline_K4=0.033."
+}

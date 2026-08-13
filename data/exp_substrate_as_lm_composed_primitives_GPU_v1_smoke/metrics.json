@@ -1,0 +1,293 @@
+{
+  "anchor_name": "substrate_as_lm_composed_primitives_GPU_v1",
+  "anchor": "substrate_as_lm_composed_primitives_GPU_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "COMPOSED_PRIMITIVES HARD_PASS: decisive arm ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT clears BPC 5.291 < 7.500 bar (cv=0.000); composed primitives close V2 LM gap; lift over char_trigram_dense = 0.000 bits, lift over word2vec_dense = 0.000 bits; substrate-as-LM finally beats unigram via compositional architecture; chain-grade evidence. COMPOSED_PRIMITIVES unigram=5.291 | ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT=bpc5.291(lam0.00) | ARM_WORD2VEC_DENSE_NO_CONTEXT=bpc5.291(lam0.00) | ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5=bpc5.291(lam0.00) | ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT=bpc5.291(lam0.00) | n_llm=0",
+  "run_mode": "smoke",
+  "N_DIM": 8192,
+  "N": 8192,
+  "N_TRAIN": 1500,
+  "N_HELD": 300,
+  "VOCAB_CAP": 300,
+  "PRETRAIN_DIM": 300,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "CONTEXT_WINDOW": 5,
+  "LOCK_IN_FREQ_STEP": 31,
+  "INGEST_CHUNK": 4096,
+  "RECALL_BATCH": 256,
+  "LAMBDA_GRID": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "arms": [
+    "ARM_UNIGRAM",
+    "ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT",
+    "ARM_WORD2VEC_DENSE_NO_CONTEXT",
+    "ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5",
+    "ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.2912,
+        "bpc_std": 0.0
+      },
+      "ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT": {
+        "bpc_best_mean": 5.2912,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.7659,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_WORD2VEC_DENSE_NO_CONTEXT": {
+        "bpc_best_mean": 5.2912,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.8961,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5": {
+        "bpc_best_mean": 5.2912,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.7236,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT": {
+        "bpc_best_mean": 5.2912,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "bpc_raw_mean": 7.7242,
+        "best_lambda_mean": 0.0,
+        "n_valid_seeds": 1,
+        "n_load_failed": 0,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "decisive_arm": "ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT",
+    "decisive_bpc": 5.2912,
+    "decisive_cv": 0.0,
+    "lift_over_char_trigram_dense": 0.0,
+    "lift_over_word2vec_dense": 0.0,
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "unigram_bpc_ref": 7.738,
+    "path_a_prior_bpc_ref": 7.864,
+    "hp_bpc_bar": 7.5,
+    "hf_bpc_bar": 7.738,
+    "hp_bpc_cv_max": 0.05,
+    "SPARSE_BIPOLAR_F": 0.05,
+    "CONTEXT_WINDOW": 5,
+    "LOCK_IN_FREQ_STEP": 31,
+    "CONFIG_VERSION": "substrate_as_lm_composed_primitives_GPU_v1; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5', 'ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT'] seeds=[0] mode=smoke sparse_f=0.050 context_W=5 lockin_freq_step=31 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.500 HF_bpc>=7.738 cv_max=0.05",
+    "honest_scope": "Compositional substrate-as-LM: 5 arms ascending in composed-primitive count. Decisive arm = ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT (word2vec encoder + sparse-bipolar f=0.050 + HRR context bind W=5 + lock-in positional code). HARD_PASS = decisive bpc<7.500 (clears unigram AND log-linear interp ceiling). HARD_FAIL = decisive bpc>=7.738 (substrate-W bottleneck even with composed primitives; V2 LM gap closed as scope-narrow).",
+    "cites": [
+      "preregs/2026-06-23_substrate_as_lm_composed_primitives_GPU_v1.md",
+      "experiments/exp_fresh_W_bpc_per_encoder_v1.py",
+      "experiments/exp_encoder_word2vec_substrate_bind_v1.py",
+      "experiments/exp_lock_in_amplifier_hd_frequency_v1_FULL.py",
+      "experiments/exp_substrate_bipolar_hadamard_expansion_k8_v2.py",
+      "USER_2026-06-23_compose_validated_primitives",
+      "USER_2026-06-22_GPU_dispatch_must_use_GPU_Fix24"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_as_lm_composed_primitives_GPU_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.2912,
+          "n_test": 92
+        },
+        "ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT": {
+          "bpc_raw": 7.7659,
+          "bpc_best": 5.2912,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.4903,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.4903,
+            "0.1": 5.5946,
+            "0.3": 5.9142,
+            "0.5": 6.3567,
+            "0.7": 6.8914,
+            "1.0": 7.8143
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 5.2912,
+            "0.1": 5.4093,
+            "0.3": 5.7585,
+            "0.5": 6.2317,
+            "0.7": 6.7973,
+            "1.0": 7.7659
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_encode_s": 1.33,
+          "wall_keys_s": 0.05,
+          "wall_ingest_s": 4.17,
+          "wall_recall_s": 0.64,
+          "encoder_meta": {},
+          "use_sparse": false,
+          "use_context": false,
+          "use_lock_in": false
+        },
+        "ARM_WORD2VEC_DENSE_NO_CONTEXT": {
+          "bpc_raw": 7.8961,
+          "bpc_best": 5.2912,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.4903,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.4903,
+            "0.1": 5.6018,
+            "0.3": 5.9417,
+            "0.5": 6.4083,
+            "0.7": 6.9675,
+            "1.0": 7.9248
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 5.2912,
+            "0.1": 5.4194,
+            "0.3": 5.7932,
+            "0.5": 6.2941,
+            "0.7": 6.8875,
+            "1.0": 7.8961
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_encode_s": 197.46,
+          "wall_keys_s": 0.78,
+          "wall_ingest_s": 6.49,
+          "wall_recall_s": 1.15,
+          "encoder_meta": {
+            "n_hit": 280,
+            "n_miss": 20,
+            "n_vocab": 300,
+            "pretrain_dim": 300
+          },
+          "use_sparse": false,
+          "use_context": false,
+          "use_lock_in": false
+        },
+        "ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5": {
+          "bpc_raw": 7.7236,
+          "bpc_best": 5.2912,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.4903,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.4903,
+            "0.1": 5.5939,
+            "0.3": 5.905,
+            "0.5": 6.3343,
+            "0.7": 6.8545,
+            "1.0": 7.7559
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 5.2912,
+            "0.1": 5.4117,
+            "0.3": 5.7564,
+            "0.5": 6.2189,
+            "0.7": 6.7723,
+            "1.0": 7.7236
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_encode_s": 0.0,
+          "wall_keys_s": 5.04,
+          "wall_ingest_s": 2.99,
+          "wall_recall_s": 0.95,
+          "encoder_meta": {
+            "n_hit": 280,
+            "n_miss": 20,
+            "n_vocab": 300,
+            "pretrain_dim": 300
+          },
+          "use_sparse": true,
+          "use_context": true,
+          "use_lock_in": false
+        },
+        "ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT": {
+          "bpc_raw": 7.7242,
+          "bpc_best": 5.2912,
+          "best_lambda": 0.0,
+          "best_dev_bpc": 5.4903,
+          "bpc_per_lambda_dev": {
+            "0.0": 5.4903,
+            "0.1": 5.5939,
+            "0.3": 5.905,
+            "0.5": 6.3342,
+            "0.7": 6.8544,
+            "1.0": 7.7557
+          },
+          "bpc_per_lambda_test": {
+            "0.0": 5.2912,
+            "0.1": 5.4117,
+            "0.3": 5.7565,
+            "0.5": 6.2191,
+            "0.7": 6.7727,
+            "1.0": 7.7242
+          },
+          "n_dev": 92,
+          "n_test": 92,
+          "wall_encode_s": 0.0,
+          "wall_keys_s": 4.74,
+          "wall_ingest_s": 2.96,
+          "wall_recall_s": 1.39,
+          "encoder_meta": {
+            "n_hit": 280,
+            "n_miss": 20,
+            "n_vocab": 300,
+            "pretrain_dim": 300
+          },
+          "use_sparse": true,
+          "use_context": true,
+          "use_lock_in": true
+        }
+      },
+      "V": 300,
+      "N": 8192,
+      "N_DIM": 8192,
+      "N_TRAIN": 1500,
+      "N_HELD": 300,
+      "VOCAB_CAP": 300,
+      "PRETRAIN_DIM": 300,
+      "SPARSE_BIPOLAR_F": 0.05,
+      "CONTEXT_WINDOW": 5,
+      "LOCK_IN_FREQ_STEP": 31,
+      "run_mode": "smoke",
+      "config_version": "substrate_as_lm_composed_primitives_GPU_v1; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5', 'ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT'] seeds=[0] mode=smoke sparse_f=0.050 context_W=5 lockin_freq_step=31 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.500 HF_bpc>=7.738 cv_max=0.05",
+      "elapsed_s_seed": 232.34,
+      "device": "cpu",
+      "n_llm_calls": 0,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782249807.946253
+    }
+  ],
+  "elapsed_s": 232.51746487617493,
+  "summary": "COMPOSED_PRIMITIVES HARD_PASS: decisive arm ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT clears BPC 5.291 < 7.500 bar (cv=0.000); composed primitives close V2 LM gap; lift over char_trigram_dense = 0.000 bits, lift over word2vec_dense = 0.000 bits; ",
+  "substrate_only_decode_gate": "TRUE (substrate-native composed primitives; word2vec is open-weight static lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_as_lm_composed_primitives_GPU_v1; N_DIM=8192 PRETRAIN_DIM=300 N_TRAIN=1500 N_HELD=300 VOCAB_CAP=300 arms=['ARM_UNIGRAM', 'ARM_CHAR_TRIGRAM_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_DENSE_NO_CONTEXT', 'ARM_WORD2VEC_SPARSE_BIPOLAR_CONTEXT_5', 'ARM_WORD2VEC_SPARSE_LOCK_IN_CONTEXT'] seeds=[0] mode=smoke sparse_f=0.050 context_W=5 lockin_freq_step=31 INGEST_CHUNK=4096 RECALL_BATCH=256 device=cpu lambda_grid=[0.0, 0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_bpc<7.500 HF_bpc>=7.738 cv_max=0.05",
+  "device": "cpu",
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)"
+}

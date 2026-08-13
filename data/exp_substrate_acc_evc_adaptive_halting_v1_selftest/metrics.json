@@ -1,0 +1,11 @@
+{
+  "anchor_name": "substrate_acc_evc_adaptive_halting_v1",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK: ST-CORPUS, ST-ARRIVAL, ST-MECHANISM (adaptive>fixed accpc), ST-SIGNAL (adaptive>random), ST-TELEMETRY (scramble collapses + signal-specific corr), ST-REALLOCATION (hop spread), ST-DRIFT (fixed-high over-runs), ST-ARMS-DIFFER, ST-PIPELINE",
+  "summary": "SELFTEST_OK",
+  "elapsed_s": 1.7,
+  "ts_iso": "2026-07-08T13:58:00.239542+00:00",
+  "pid": 36780,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_acc_evc_adaptive_halting_v1,N=1024,V=40,n_ops=4,frozen_dd=4,L_support=[2, 4, 6],d_min=2,d_max=6,seeds=[7],density=0.210,sr_steps=900,sr_batch=48,rollout_per_V=40,gamma=0.85,lr=0.50,theta_grid=[0.15, 0.25, 0.35, 0.45, 0.55],min_hops=1,n_train_per_L=30,n_test_per_L=30,mode=selftest,device=cuda,expected_n=6,HP_af>=0.15,HP_ar>=0.10,HP_scr>=0.15,HP_corr>=0.30,HP_spread>=0.50,nav_rail>=0.55"
+}

@@ -1,0 +1,344 @@
+{
+  "anchor_name": "substrate_gen_lm_replay_propose_score_commit_v9_n8192_gpu",
+  "verdict": "INCONCLUSIVE",
+  "verdict_msg": "INCONCLUSIVE_NO_COMPOUNDING (D1): ACCUMULATE body_token_acc (mid-sequence, artifact-free) is depth-FLAT (L4=0.489->L10=0.402, drift=+0.087 < 0.1). The goal content-gate rescues the final position for EVERY arm, so the accumulator's mid-sequence error does NOT grow with depth in this layered-DAG regime -- the must-fail baseline is not a compounding baseline here, so 'REPLAY beats compounding' is NOT tested. RE-SPEC (remove the goal-attractor rescue / make mid-sequence errors unrecoverable). NOTE: the recombination+scoring win IS real and separable -- REPLAY beats RANDOM_RESTART (redundancy control) and beats REPLAY_PROPOSE_ONLY (scoring earns its keep, sel_value=+0.069). @L10 N=1024 chance~1/W=0.200 | goal_reach: ORACLE_fid(ptok)=1.000 REPLAY=1.000(ptok=0.412 div=1.000) ACCUM=0.733 RANDOM=0.217 PROPOSE_ONLY=1.000 | body_token_acc(artifact-free): REPLAY=0.346 ACCUM=0.402 RANDOM=0.204 PROPOSE_ONLY=0.278 | REP-ACCUM(gr)=+0.267 REP-RANDOM(gr)=+0.783 sel_value(REP-PO,body)=+0.069 REP-RANDOM(body)=+0.143 | ACCUM body_drift(L4->L10)=+0.087 (>0=compounds) cv=0.000",
+  "N": 1024,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 1,
+  "headline_L": 10,
+  "l_grid": [
+    4,
+    10
+  ],
+  "width": 5,
+  "out_deg": 3,
+  "n_inst": 60,
+  "r_cand": 32,
+  "chance": 0.2,
+  "gate_tau": 0.05,
+  "beta": 1.0,
+  "expected_n_units": 10,
+  "margins": {
+    "accum": 0.2,
+    "redundancy": 0.15,
+    "no_recomb_band": 0.05,
+    "drift_min": 0.1,
+    "oracle_floor": 0.9,
+    "cv_max": 0.15,
+    "diversity_min": 0.1
+  },
+  "arm_digests": {
+    "ORACLE": "940051bb53aeaa47c6348e41eb4d6d299ba07e548cd17a763be45d40b6ae2d77",
+    "REPLAY": "2d5173759a52260f626955fe0a176460f044b171a146c33582e1e73e04bdd301",
+    "ACCUMULATE": "f7e94df1f0cdd822b6d0ad89d76311e5dee83022458eb5308979ad5cb83df04c",
+    "RANDOM_RESTART": "e9ea63c9f43ba26c25384eabf0e45eb75086fd03a273b52be632d5706018e88d",
+    "REPLAY_PROPOSE_ONLY": "ce4e1f30d8402982cdf6113e70b11071402462fc3625d0965fd2e0f8ba111174"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "per_unit": [
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.8333,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 4,
+          "N": 1024,
+          "V": 25,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.5291666666666667,
+          "body_token_acc": 0.37222222222222223,
+          "per_position_acc": [
+            0.4167,
+            0.1833,
+            0.5167,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.3,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 4,
+          "N": 1024,
+          "V": 25,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.5708333333333333,
+          "body_token_acc": 0.4888888888888889,
+          "per_position_acc": [
+            0.6167,
+            0.4,
+            0.45,
+            0.8167
+          ],
+          "goal_reach": 0.8166666666666667,
+          "committed_diversity": 0.25,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 4,
+          "N": 1024,
+          "V": 25,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.21666666666666667,
+          "body_token_acc": 0.19444444444444445,
+          "per_position_acc": [
+            0.25,
+            0.1667,
+            0.1667,
+            0.2833
+          ],
+          "goal_reach": 0.2833333333333333,
+          "committed_diversity": 0.9333,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 4,
+          "N": 1024,
+          "V": 25,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.5166666666666667,
+          "body_token_acc": 0.35555555555555557,
+          "per_position_acc": [
+            0.4333,
+            0.2167,
+            0.4167,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.8,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 4,
+          "N": 1024,
+          "V": 25,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 10,
+          "N": 1024,
+          "V": 55,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.4116666666666667,
+          "body_token_acc": 0.34629629629629627,
+          "per_position_acc": [
+            0.5167,
+            0.2,
+            0.4667,
+            0.3,
+            0.2,
+            0.35,
+            0.3,
+            0.1833,
+            0.6,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 10,
+          "N": 1024,
+          "V": 55,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.435,
+          "body_token_acc": 0.40185185185185185,
+          "per_position_acc": [
+            0.5667,
+            0.35,
+            0.4833,
+            0.3833,
+            0.3,
+            0.4333,
+            0.35,
+            0.2667,
+            0.4833,
+            0.7333
+          ],
+          "goal_reach": 0.7333333333333333,
+          "committed_diversity": 0.2833,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 10,
+          "N": 1024,
+          "V": 55,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.205,
+          "body_token_acc": 0.2037037037037037,
+          "per_position_acc": [
+            0.3167,
+            0.1667,
+            0.1333,
+            0.2,
+            0.1167,
+            0.1667,
+            0.2333,
+            0.2,
+            0.3,
+            0.2167
+          ],
+          "goal_reach": 0.21666666666666667,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 10,
+          "N": 1024,
+          "V": 55,
+          "width": 5,
+          "chance": 0.2
+        },
+        {
+          "per_token_acc": 0.35,
+          "body_token_acc": 0.2777777777777778,
+          "per_position_acc": [
+            0.3833,
+            0.3,
+            0.2,
+            0.25,
+            0.2833,
+            0.2667,
+            0.1667,
+            0.2167,
+            0.4333,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 1.0,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 10,
+          "N": 1024,
+          "V": 55,
+          "width": 5,
+          "chance": 0.2
+        }
+      ],
+      "peak_gpu_gb": 0.0,
+      "elapsed_s": 0.9620306491851807,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783562924.5858238
+    }
+  ],
+  "curves": {
+    "ORACLE": {
+      "L4": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.8333
+      },
+      "L10": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    },
+    "REPLAY": {
+      "L4": {
+        "per_token_acc": 0.52917,
+        "body_token_acc": 0.37222,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.3
+      },
+      "L10": {
+        "per_token_acc": 0.41167,
+        "body_token_acc": 0.3463,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    },
+    "ACCUMULATE": {
+      "L4": {
+        "per_token_acc": 0.57083,
+        "body_token_acc": 0.48889,
+        "goal_reach": 0.81667,
+        "committed_diversity": 0.25
+      },
+      "L10": {
+        "per_token_acc": 0.435,
+        "body_token_acc": 0.40185,
+        "goal_reach": 0.73333,
+        "committed_diversity": 0.2833
+      }
+    },
+    "RANDOM_RESTART": {
+      "L4": {
+        "per_token_acc": 0.21667,
+        "body_token_acc": 0.19444,
+        "goal_reach": 0.28333,
+        "committed_diversity": 0.9333
+      },
+      "L10": {
+        "per_token_acc": 0.205,
+        "body_token_acc": 0.2037,
+        "goal_reach": 0.21667,
+        "committed_diversity": 1.0
+      }
+    },
+    "REPLAY_PROPOSE_ONLY": {
+      "L4": {
+        "per_token_acc": 0.51667,
+        "body_token_acc": 0.35556,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.8
+      },
+      "L10": {
+        "per_token_acc": 0.35,
+        "body_token_acc": 0.27778,
+        "goal_reach": 1.0,
+        "committed_diversity": 1.0
+      }
+    }
+  },
+  "elapsed_s": 0.9620306491851807,
+  "summary": "INCONCLUSIVE_NO_COMPOUNDING (D1): ACCUMULATE body_token_acc (mid-sequence, artifact-free) is depth-FLAT (L4=0.489->L10=0.402, drift=+0.087 < 0.1). The goal content-gate rescues the final position for EVERY arm, so the accumulator's mid-sequence error does NOT grow with depth in this layered-DAG regime -- the must-fail baseline is not a compounding baseline here, so 'REPLAY beats compounding' is NOT tested. RE-SPEC (remove the goal-attractor rescue / make mid-sequence errors unrecoverable). NOTE: the recombination+scoring win IS real and separable -- REPLAY beats RANDOM_RESTART (redundancy control) and beats REPLAY_PROPOSE_ONLY (scoring earns its keep, sel_value=+0.069). @L10 N=1024 chance~1/W=0.200 | goal_reach: ORACLE_fid(ptok)=1.000 REPLAY=1.000(ptok=0.412 div=1.000) ACCUM=0.733 RANDOM=0.217 PROPOSE_ONLY=1.000 | body_token_acc(artifact-free): REPLAY=0.346 ACCUM=0.402 RANDOM=0.204 PROPOSE_ONLY=0.278 | REP-ACCUM(gr)=+0.267 REP-RANDOM(gr)=+0.783 sel_value(REP-PO,body)=+0.069 REP-RANDOM(body)=+0.143 | ACCUM body_drift(L4->L10)=+0.087 (>0=compounds) cv=0.000"
+}

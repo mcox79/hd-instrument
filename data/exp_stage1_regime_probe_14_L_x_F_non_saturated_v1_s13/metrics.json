@@ -1,0 +1,520 @@
+{
+  "phase_map": [
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 1,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.79,
+      "output_hash": "b69e4a0b56ff447b",
+      "peak_mem_mb": 162.6,
+      "elapsed_s": 0.313
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 2,
+      "L": 1,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.82,
+      "output_hash": "987e6939ad78e574",
+      "peak_mem_mb": 222.5,
+      "elapsed_s": 0.025
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 4,
+      "L": 1,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.89,
+      "output_hash": "ea738c26e841b441",
+      "peak_mem_mb": 275.1,
+      "elapsed_s": 0.042
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 8,
+      "L": 1,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.84,
+      "output_hash": "41d677c0f7f57b5e",
+      "peak_mem_mb": 380.2,
+      "elapsed_s": 0.075
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 1,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.83,
+      "output_hash": "9af91fe017d5a912",
+      "peak_mem_mb": 590.3,
+      "elapsed_s": 0.142
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.67,
+      "output_hash": "c8f72ae4f2832dad",
+      "peak_mem_mb": 172.2,
+      "elapsed_s": 0.024
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 2,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.65,
+      "output_hash": "7331f7bc8d6842c6",
+      "peak_mem_mb": 222.5,
+      "elapsed_s": 0.032
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 4,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.7,
+      "output_hash": "29aafff47f020f82",
+      "peak_mem_mb": 275.1,
+      "elapsed_s": 0.052
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 8,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.74,
+      "output_hash": "f8a9772d3e37b767",
+      "peak_mem_mb": 380.2,
+      "elapsed_s": 0.092
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 2,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.63,
+      "output_hash": "57b168447573ff4d",
+      "peak_mem_mb": 590.3,
+      "elapsed_s": 0.173
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 1,
+      "L": 4,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.49,
+      "output_hash": "4e7ab56d4b94b9bf",
+      "peak_mem_mb": 172.2,
+      "elapsed_s": 0.031
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 2,
+      "L": 4,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.4,
+      "output_hash": "bcdebb6489817595",
+      "peak_mem_mb": 222.5,
+      "elapsed_s": 0.045
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 4,
+      "L": 4,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.46,
+      "output_hash": "27e304efa40f8632",
+      "peak_mem_mb": 275.1,
+      "elapsed_s": 0.072
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 8,
+      "L": 4,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.52,
+      "output_hash": "37351baf64849eb3",
+      "peak_mem_mb": 380.2,
+      "elapsed_s": 0.128
+    },
+    {
+      "arm_tag": "CLIFF",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 6400,
+      "N": 512,
+      "F": 16,
+      "L": 4,
+      "corruption": 0.85,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 0.34,
+      "output_hash": "e02646cafa399eb0",
+      "peak_mem_mb": 590.3,
+      "elapsed_s": 0.236
+    },
+    {
+      "arm_tag": "DEEP_SAT",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 8192,
+      "F": 1,
+      "L": 1,
+      "corruption": 0.6,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 1.0,
+      "output_hash": "3adb2230b5f4259e",
+      "peak_mem_mb": 326.4,
+      "elapsed_s": 0.028
+    },
+    {
+      "arm_tag": "DEEP_SAT",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 8192,
+      "F": 16,
+      "L": 1,
+      "corruption": 0.6,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 1.0,
+      "output_hash": "e0d91e93926d6004",
+      "peak_mem_mb": 1166.4,
+      "elapsed_s": 0.253
+    },
+    {
+      "arm_tag": "DEEP_SAT",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 8192,
+      "F": 1,
+      "L": 4,
+      "corruption": 0.6,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 1.0,
+      "output_hash": "70c2ffb81b7c1989",
+      "peak_mem_mb": 326.4,
+      "elapsed_s": 0.05
+    },
+    {
+      "arm_tag": "DEEP_SAT",
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 800,
+      "N": 8192,
+      "F": 16,
+      "L": 4,
+      "corruption": 0.6,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 1.0,
+      "output_hash": "b73d508f9d775c63",
+      "peak_mem_mb": 1166.4,
+      "elapsed_s": 0.356
+    },
+    {
+      "arm_tag": "SATURATION_PC",
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 100,
+      "acc": 1.0,
+      "output_hash": "ea54476b609a74ca",
+      "peak_mem_mb": 88.3,
+      "elapsed_s": 0.012
+    }
+  ],
+  "expected_n_units": 20,
+  "observed_n_units": 20,
+  "cardinality_ok": true,
+  "mech": "modern_hopfield",
+  "hash_corners": {
+    "L1_F1": "b69e4a0b56ff447b",
+    "L4_F16": "e02646cafa399eb0"
+  },
+  "corner_hashes_distinct": true,
+  "arms_differ_verified": true,
+  "saturation_pc_result": {
+    "regime": {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 800,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED"
+    },
+    "acc": 1.0,
+    "threshold": 0.95,
+    "pass": true
+  },
+  "cliff_arm": {
+    "regime": {
+      "N": 512,
+      "M": 6400,
+      "corr": 0.85,
+      "mech": "modern_hopfield",
+      "storage": "SHARDED"
+    },
+    "L_grid": [
+      1,
+      2,
+      4
+    ],
+    "F_grid": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "mean_acc": 0.6513,
+    "min_acc": 0.34,
+    "max_acc": 0.89,
+    "n_in_non_saturated_band": 15,
+    "n_total": 15,
+    "fraction_in_band": 1.0,
+    "escapes_saturation_ceiling": true,
+    "acc_grid": {
+      "1": {
+        "1": 0.79,
+        "2": 0.82,
+        "4": 0.89,
+        "8": 0.84,
+        "16": 0.83
+      },
+      "2": {
+        "1": 0.67,
+        "2": 0.65,
+        "4": 0.7,
+        "8": 0.74,
+        "16": 0.63
+      },
+      "4": {
+        "1": 0.49,
+        "2": 0.4,
+        "4": 0.46,
+        "8": 0.52,
+        "16": 0.34
+      }
+    },
+    "complete": true,
+    "F_effect_per_L": {
+      "1": 0.1,
+      "2": 0.11,
+      "4": 0.18
+    },
+    "L_effect_per_F": {
+      "1": 0.3,
+      "2": 0.42,
+      "4": 0.43,
+      "8": 0.32,
+      "16": 0.49
+    },
+    "F_effect_range": 0.08,
+    "L_effect_range": 0.19,
+    "interaction_metric": 0.19,
+    "row_means_by_L": {
+      "1": 0.834,
+      "2": 0.678,
+      "4": 0.442
+    },
+    "col_means_by_F": {
+      "1": 0.65,
+      "2": 0.6233,
+      "4": 0.6833,
+      "8": 0.7,
+      "16": 0.6
+    },
+    "grand_mean": 0.6513,
+    "additive_residual_grid": {
+      "1": {
+        "1": -0.0427,
+        "2": 0.014,
+        "4": 0.024,
+        "8": -0.0427,
+        "16": 0.0473
+      },
+      "2": {
+        "1": -0.0067,
+        "2": 0.0,
+        "4": -0.01,
+        "8": 0.0133,
+        "16": 0.0033
+      },
+      "4": {
+        "1": 0.0493,
+        "2": -0.014,
+        "4": -0.014,
+        "8": 0.0293,
+        "16": -0.0507
+      }
+    },
+    "additive_residual_max_abs": 0.0507
+  },
+  "deep_sat_arm": {
+    "regime": {
+      "N": 8192,
+      "M": 800,
+      "corr": 0.6,
+      "mech": "modern_hopfield",
+      "storage": "SHARDED"
+    },
+    "L_grid": [
+      1,
+      4
+    ],
+    "F_grid": [
+      1,
+      16
+    ],
+    "mean_acc": 1.0,
+    "min_acc": 1.0,
+    "max_acc": 1.0,
+    "saturated": true,
+    "h3_null_fires": true,
+    "h3_null_threshold": 0.05,
+    "acc_grid": {
+      "1": {
+        "1": 1.0,
+        "16": 1.0
+      },
+      "4": {
+        "1": 1.0,
+        "16": 1.0
+      }
+    },
+    "complete": true,
+    "F_effect_per_L": {
+      "1": 0.0,
+      "4": 0.0
+    },
+    "L_effect_per_F": {
+      "1": 0.0,
+      "16": 0.0
+    },
+    "F_effect_range": 0.0,
+    "L_effect_range": 0.0,
+    "interaction_metric": 0.0,
+    "row_means_by_L": {
+      "1": 1.0,
+      "4": 1.0
+    },
+    "col_means_by_F": {
+      "1": 1.0,
+      "16": 1.0
+    },
+    "grand_mean": 1.0,
+    "additive_residual_grid": {
+      "1": {
+        "1": 0.0,
+        "16": 0.0
+      },
+      "4": {
+        "1": 0.0,
+        "16": 0.0
+      }
+    },
+    "additive_residual_max_abs": 0.0
+  },
+  "non_saturated_band": [
+    0.3,
+    0.95
+  ],
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "avg_peak_mem_mb": 399.3,
+  "elapsed_seed_s": 2.28,
+  "run_mode": "full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_H1_L_x_F_INTERACTION_AT_CLIFF_ADJACENT_SHARDED: cliff interaction_metric=0.19 >= 0.1; L and F are NOT orthogonal axes at cliff-adjacent SHARDED regime; F effect is L-conditional; today's 6-pair regime matrix needs L-slice annotation per Skunkworks atom #48 addendum. Atom candidate: L_x_F_CROSS_TERM_AT_CLIFF_ADJACENT_SHARDED_v1 MM_STANDARD at 3-seed FULL ; F_effect_range=0.08 L_effect_range=0.19 ; additive_residual_max_abs=0.0507 ; H3-NULL fires(deep_interaction=0.0 < 0.05)",
+  "summary": "HARD_PASS_H1_L_x_F_INTERACTION_AT_CLIFF_ADJACENT_SHARDED: cliff interaction_metric=0.19 >= 0.1; L and F are NOT orthogonal axes at cliff-adjacent SHARDED regime; F effect is L-conditional; today's 6-pair regime matrix needs L-slice annotation per Skunkworks atom #48 addendum. Atom candidate: L_x_F_CROSS_TERM_AT_CLIFF_ADJACENT_SHARDED_v1 MM_STANDARD at 3-seed FULL ; F_effect_range=0.08 L_effect_range=0.19 ; additive_residual_max_abs=0.0507 ; H3-NULL fires(deep_interaction=0.0 < 0.05)",
+  "anchor_name": "stage1_regime_probe_14_L_x_F_non_saturated_v1_s13",
+  "elapsed_s": 2.3,
+  "ts_iso": "2026-07-04T01:45:12Z",
+  "pid": 27012,
+  "config_version": "ANCHOR=stage1_regime_probe_14_L_x_F_non_saturated_v1_s13,regime=sharded_FHRR_chain_composition_L_x_F_cross_term_cliff_plus_deep_sat_null,mech=modern_hopfield,L_cliff=[1,2,4],F_cliff=[1,2,4,8,16],L_deep=[1,4],F_deep=[1,16],CLIFF=(N=512,M=6400,corr=0.85,SHARDED),DEEP_SAT=(N=8192,M=800,corr=0.60,SHARDED),SATURATION_PC=(L=2,F=1,M=800,N=2048,corr=0.20,iterative_cosine),SEED=13,mode=full,beta=8.0,alpha_soft=0.5,non_saturated_band=[0.30,0.95],H1_thresh=(cliff_interaction_metric>=0.10),H2_thresh=(cliff_interaction_metric<0.05),H3_null_thresh=(deep_interaction_metric<0.05),expected_n_full=20,expected_n_smoke=12,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_regime_probe_14_L_x_F_non_saturated_v1_chunked",
+  "backend": "torch.cuda",
+  "seed": 13,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_sharded_fhrr_chain_composition_L_x_F_cross_term_v1",
+  "n_llm_calls": 0
+}

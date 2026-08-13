@@ -1,0 +1,201 @@
+{
+  "anchor_name": "substrate_compose_order_x_compose_function_2x2_factorial_v1",
+  "anchor": "substrate_compose_order_x_compose_function_2x2_factorial_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ARM_CANONICAL_SIGMOID wins only +-0.0146 BPC over best-other (<= 0.05 threshold). Taxonomy axes NOT load-bearing in this regime. cv=0.0000. | PER_ARM: VEH=5.2988 CAN_MULT=5.2988 REV_MULT=5.2988 CAN_SIG=5.3134 REV_SIG=5.3134",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 200,
+  "n_seeds": 1,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "LOCK_IN_P": 32,
+  "HRR_CONTEXT_WINDOW": 3,
+  "SIGMOID_ALPHA": 1.0,
+  "SIGMOID_BETA": 1.0,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.2988
+      },
+      "ARM_VEHICLE": {
+        "bpc_best_mean": 5.2988,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3391,
+        "mrr_at_10_mean": 0.4114,
+        "raw_bpc_at_T1_L1_mean": 7.3431,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_CANONICAL_MULT": {
+        "bpc_best_mean": 5.2988,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3391,
+        "mrr_at_10_mean": 0.4088,
+        "raw_bpc_at_T1_L1_mean": 7.0114,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_REVERSED_MULT": {
+        "bpc_best_mean": 5.2988,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3391,
+        "mrr_at_10_mean": 0.4088,
+        "raw_bpc_at_T1_L1_mean": 7.2627,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_CANONICAL_SIGMOID": {
+        "bpc_best_mean": 5.3134,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3391,
+        "mrr_at_10_mean": 0.4107,
+        "raw_bpc_at_T1_L1_mean": 7.3025,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      },
+      "ARM_REVERSED_SIGMOID": {
+        "bpc_best_mean": 5.3134,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3391,
+        "mrr_at_10_mean": 0.4107,
+        "raw_bpc_at_T1_L1_mean": 7.3025,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false,
+        "readout_degenerate": false
+      }
+    },
+    "HP_BEST_ARM_MARGIN_threshold": 0.2,
+    "HP_CHAIN_GRADE_VS_VEHICLE_threshold": 0.3,
+    "HARD_FAIL_LIFT_VS_VEHICLE_threshold": 0.05,
+    "CV_MAX_threshold": 0.05,
+    "vocab_entropy_uniform_bits": 7.6439,
+    "zero_llm_calls_at_inference": true,
+    "n_seeds": 1
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.2988,
+          "top1_unigram": 0.3391,
+          "mrr_unigram": 0.4088,
+          "n_test": 115
+        },
+        "ARM_VEHICLE": {
+          "bpc_best": 5.2988,
+          "best_T_for_bpc": 0.01,
+          "best_lam_for_bpc": 0.0,
+          "top1_acc": 0.3391,
+          "mrr_at_10": 0.4114,
+          "raw_bpc_at_T1_L1": 7.3431,
+          "n_dev": 114,
+          "n_test": 115,
+          "best_bpc_cfg": {
+            "T": 0.01,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 0.55
+        },
+        "ARM_CANONICAL_MULT": {
+          "bpc_best": 5.2988,
+          "top1_acc": 0.3391,
+          "mrr_at_10": 0.4088,
+          "raw_bpc_at_T1_L1": 7.0114,
+          "n_dev": 114,
+          "n_test": 115,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 0.78
+        },
+        "ARM_REVERSED_MULT": {
+          "bpc_best": 5.2988,
+          "top1_acc": 0.3391,
+          "mrr_at_10": 0.4088,
+          "raw_bpc_at_T1_L1": 7.2627,
+          "n_dev": 114,
+          "n_test": 115,
+          "best_bpc_cfg": {
+            "beta_b": 0.3,
+            "lam": 0.0
+          },
+          "elapsed_s_arm": 0.82
+        },
+        "ARM_CANONICAL_SIGMOID": {
+          "bpc_best": 5.3134,
+          "best_T_for_bpc": 0.1,
+          "best_lam_for_bpc": 0.1,
+          "top1_acc": 0.3391,
+          "mrr_at_10": 0.4107,
+          "raw_bpc_at_T1_L1": 7.3025,
+          "n_dev": 114,
+          "n_test": 115,
+          "best_bpc_cfg": {
+            "T": 0.1,
+            "lam": 0.1
+          },
+          "elapsed_s_arm": 0.79
+        },
+        "ARM_REVERSED_SIGMOID": {
+          "bpc_best": 5.3134,
+          "best_T_for_bpc": 0.1,
+          "best_lam_for_bpc": 0.1,
+          "top1_acc": 0.3391,
+          "mrr_at_10": 0.4107,
+          "raw_bpc_at_T1_L1": 7.3025,
+          "n_dev": 114,
+          "n_test": 115,
+          "best_bpc_cfg": {
+            "T": 0.1,
+            "lam": 0.1
+          },
+          "elapsed_s_arm": 0.74
+        }
+      },
+      "V": 200,
+      "N": 512,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "N_HELD": 400,
+      "VOCAB_CAP": 200,
+      "run_mode": "smoke",
+      "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=200 mode=smoke seeds=[7] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+      "elapsed_s_seed": 8.31,
+      "n_llm_calls": 0,
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782275283.9278994
+    }
+  ],
+  "elapsed_s": 8.31,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "corpus_provenance": "text8 (data/text8_cache/text8.txt)",
+  "config_version": "substrate_compose_order_x_compose_function_2x2_factorial_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=200 mode=smoke seeds=[7] lockin_P=32 lockin_k=31 hrr_ctx=3 sig_alpha=1.00 sig_beta=1.00 HP_margin=0.20 HF_lift=0.05 cv_max=0.05",
+  "honest_scope": "2x2 factorial: compose order (canonical vs reversed) x compose function (multiplicative-shared-target vs sigmoidal-additive-heterogeneous). 5 arms: VEHICLE + 4 factorial cells. HP = ARM_CANONICAL_SIGMOID wins best-other by >= +0.20 BPC AND cv<=0.05. HF = margin <= +0.05 OR all seeds fail. DOES NOT TEST: K>2 modules, word2vec encoder, or N=8192 scale. N_DIM=4096 N_TRAIN=100000 N_HELD=20000 V=4000. Pure numpy.",
+  "prereg_bands": {
+    "HP_best_arm_margin_bits": 0.2,
+    "HP_chain_grade_lift_vs_vehicle_bits": 0.3,
+    "HF_lift_vs_vehicle_bits": 0.05,
+    "cv_max": 0.05
+  },
+  "summary": "HARD_FAIL: ARM_CANONICAL_SIGMOID wins only +-0.0146 BPC over best-other (<= 0.05 threshold). Taxonomy axes NOT load-bearing in this regime. cv=0.0000. | PER_ARM: VEH=5.2988 CAN_MULT=5.2988 REV_MULT=5.2988 CAN_SIG=5.3134 REV_SIG=5.3134"
+}

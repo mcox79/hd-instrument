@@ -1,0 +1,268 @@
+{
+  "anchor_name": "substrate_ptb_clean_word_level_eval_v1",
+  "anchor": "substrate_ptb_clean_word_level_eval_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate ARM_S_ADAPTIVE_CFRPE BPW=4.1247 cv=0.000 beats bigram=4.1699 by 0.045 bits but fails HP bar (need >= 0.30). Substrate clears bigram on PTB but does not decisively pass. uni=4.253|bigram=4.170|S_cfrpe_base=4.138|S_K2=4.139|S_adapt=4.125|spread=0.014|n_llm=0|sanity_uni=OK|sanity_bg=OK",
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N": 512,
+  "K_BANKS": 2,
+  "N_DIM_PER_BANK": 256,
+  "INGEST_CHUNK": 512,
+  "RECALL_BATCH": 128,
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "LAMBDA_GRID": [
+    0.05,
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "MRR_K": 10,
+  "SPARSE_BIPOLAR_F": 0.05,
+  "BIGRAM_ALPHA": 0.001,
+  "CFRPE_LR": 0.5,
+  "CFRPE_BATCH": 64,
+  "CFRPE_N_STEPS": 200,
+  "K2_GATE_TEMP": 1.0,
+  "ADAPT_LR_FLOOR": 0.25,
+  "ADAPT_LR_CEIL": 4.0,
+  "arms": [
+    "ARM_B1_UNIGRAM",
+    "ARM_B2_WORD_BIGRAM",
+    "ARM_S_CFRPE_BASE",
+    "ARM_S_K2_CFRPE",
+    "ARM_S_ADAPTIVE_CFRPE"
+  ],
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_B1_UNIGRAM": {
+        "bpw_mean": 4.2532,
+        "bpw_std": 0.0,
+        "bpw_cv": 0.0,
+        "top1_mean": 0.4427,
+        "mrr_mean": 0.523,
+        "n_seeds": 1
+      },
+      "ARM_B2_WORD_BIGRAM": {
+        "bpw_mean": 4.1699,
+        "bpw_std": 0.0,
+        "bpw_cv": 0.0,
+        "top1_mean": 0.4507,
+        "mrr_mean": 0.5602,
+        "n_seeds": 1
+      },
+      "ARM_S_CFRPE_BASE": {
+        "bpw_mean": 4.1382,
+        "bpw_std": 0.0,
+        "bpw_cv": 0.0,
+        "top1_mean": 0.456,
+        "mrr_mean": 0.545,
+        "n_seeds": 1
+      },
+      "ARM_S_K2_CFRPE": {
+        "bpw_mean": 4.1389,
+        "bpw_std": 0.0,
+        "bpw_cv": 0.0,
+        "top1_mean": 0.4533,
+        "mrr_mean": 0.5373,
+        "n_seeds": 1
+      },
+      "ARM_S_ADAPTIVE_CFRPE": {
+        "bpw_mean": 4.1247,
+        "bpw_std": 0.0,
+        "bpw_cv": 0.0,
+        "top1_mean": 0.4587,
+        "mrr_mean": 0.5435,
+        "n_seeds": 1
+      }
+    },
+    "unigram_sanity_ok": true,
+    "bigram_sanity_ok": true,
+    "unigram_bpw": 4.2532,
+    "bigram_bpw": 4.1699,
+    "bigram_hp_bar": 3.8699000000000003,
+    "hp_bpw_margin": 0.3,
+    "chain_grade_bpw": 4.5,
+    "bigram_bpw_min": 5.2,
+    "bigram_bpw_max": 6.8,
+    "unigram_bpw_min": 9.0,
+    "unigram_bpw_max": 11.0,
+    "hp_cv_max": 0.05,
+    "hp_arms": [],
+    "chain_grade_arms": [],
+    "mid_arms": [
+      {
+        "arm": "ARM_S_CFRPE_BASE",
+        "bpw_mean": 4.1382,
+        "cv": 0.0
+      },
+      {
+        "arm": "ARM_S_K2_CFRPE",
+        "bpw_mean": 4.1389,
+        "cv": 0.0
+      },
+      {
+        "arm": "ARM_S_ADAPTIVE_CFRPE",
+        "bpw_mean": 4.1247,
+        "cv": 0.0
+      }
+    ],
+    "decisive_fail": false,
+    "discriminator_spread_bpw": 0.0142,
+    "substrate_arm_bpw_means": {
+      "ARM_S_CFRPE_BASE": 4.1382,
+      "ARM_S_K2_CFRPE": 4.1389,
+      "ARM_S_ADAPTIVE_CFRPE": 4.1247
+    },
+    "n_seeds": 1,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "CONFIG_VERSION": "substrate_ptb_clean_word_level_eval_v1; N_DIM=512 K_BANKS=2 N_DIM_PER_BANK=256 ptb_train_cap=3000 held_from_valid=False arms=['ARM_B1_UNIGRAM', 'ARM_B2_WORD_BIGRAM', 'ARM_S_CFRPE_BASE', 'ARM_S_K2_CFRPE', 'ARM_S_ADAPTIVE_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 cfrpe_lr=0.500 cfrpe_n_steps=200 cfrpe_batch=64 k2_gate_temp=1.00 adapt_floor=0.25 adapt_ceil=4.00 bigram_alpha=0.0010 MRR_K=10 device=cpu | bands HP_margin=0.30 chain_grade=4.50 bigram_min=5.20 bigram_max=6.80 unigram_min=9.00 unigram_max=11.00 cv_max=0.05 | CONFOUND_AUDIT=(corpus=PTB-word-level-Mikolov, encoder_paradigm=word2vec_sparse_bipolar_f0.05, N_DIM=512, vocab=PTB-V10000, metric_primary=BPW, baseline_paradigm=word-bigram-add-alpha=0.001, lane=2_intra_corpus_substrate_vs_substrate_plus_tagged_bigram)",
+    "CONFOUND_AUDIT": "(corpus=PTB-word-level-Mikolov, encoder_paradigm=word2vec_sparse_bipolar_f0.05, N_DIM=512, vocab=PTB-V10000, metric_primary=BPW, baseline_paradigm=word-bigram-add-alpha=0.001, lane=2_intra_corpus_substrate_vs_substrate_plus_tagged_bigram)",
+    "corpus_provenance": "PTB-word-level (Mikolov split; wojzaremba/lstm)",
+    "lane_declaration": "Lane 2 (intra-corpus substrate-vs-substrate + tagged word-bigram cross-paradigm baseline)",
+    "intra_lane_delta_arms": {
+      "ARM_S_K2_CFRPE_vs_ARM_S_CFRPE_BASE": "knob=K_BANKS (1->2); else identical",
+      "ARM_S_ADAPTIVE_CFRPE_vs_ARM_S_CFRPE_BASE": "knob=cfrpe_rule (fixed->adaptive); else identical"
+    },
+    "honest_scope": "First apples-to-apples substrate-as-LM eval on canonical PTB word-level (Mikolov split). All arms share PTB corpus + V=10000 vocab + held split. HP = ANY substrate arm BPW <= bigram BPW - 0.30 with cv <= 0.05 AND substrate-only-decode. CHAIN_GRADE_BONUS = BPW <= 4.50. HARD_FAIL_DECISIVE = ALL substrate arms > bigram BPW. Confound audit tuple stamped in config_version; corpus_provenance tag attached for cert ledger.",
+    "cites": [
+      "preregs/2026-06-24_substrate_ptb_clean_word_level_eval_v1.md",
+      "notes/research_apples_to_apples_substrate_evaluation_methodology_2x_drill_2026-06-24.md",
+      "experiments/exp_fair_harness_substrate_as_lm_v1.py (torch+cuda fair_harness)",
+      "experiments/exp_substrate_sequence_modeling_production_v2.py (alpha=0.001 fix)",
+      "experiments/exp_substrate_K2_x_cfrpe_compose_word2vec_v2.py (K=2 banks)",
+      "experiments/exp_substrate_cfrpe_per_token_adaptive_lr_v1.py (adaptive cf-RPE)",
+      "Mikolov_2010_PTB_split (raw.githubusercontent.com/wojzaremba/lstm)",
+      "USER_2026-06-24_text8_pythia_biased_use_PTB",
+      "USER_2026-06-22_Fix24_GPU_dispatch_must_use_GPU"
+    ]
+  },
+  "metrics_source": "measured_gpu_substrate_ptb_clean_word_level_eval_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_B1_UNIGRAM": {
+          "bpc_best": 4.2532,
+          "top1_acc": 0.4427,
+          "mrr_at_10": 0.523,
+          "best_T_for_bpc": 1.0,
+          "best_lambda_for_bpc": 0.0,
+          "raw_bpc_at_T1_L1": 4.2532,
+          "n_test": 375
+        },
+        "ARM_B2_WORD_BIGRAM": {
+          "bpc_best": 4.1699,
+          "top1_acc": 0.4507,
+          "mrr_at_10": 0.5602,
+          "best_T_for_bpc": 1.0,
+          "best_lambda_for_bpc": 1.0,
+          "raw_bpc_at_T1_L1": 4.1699,
+          "n_test": 375,
+          "wall_build_s": 0.0
+        },
+        "ARM_S_CFRPE_BASE": {
+          "bpc_best": 4.1382,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 4.1387,
+          "top1_acc": 0.456,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.545,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 6.9847,
+          "raw_top1_at_T1_L1": 0.464,
+          "raw_mrr_at_T1_L1": 0.5445,
+          "n_dev": 374,
+          "n_test": 375,
+          "elapsed_s_arm": 0.78,
+          "wall_ingest_s": 0.53,
+          "wall_recall_s": 0.01
+        },
+        "ARM_S_K2_CFRPE": {
+          "bpc_best": 4.1389,
+          "best_T_for_bpc": 0.02,
+          "best_lambda_for_bpc": 0.05,
+          "best_dev_bpc": 4.1274,
+          "top1_acc": 0.4533,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.5373,
+          "best_T_for_mrr": 0.05,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 7.2963,
+          "raw_top1_at_T1_L1": 0.4347,
+          "raw_mrr_at_T1_L1": 0.5158,
+          "n_dev": 374,
+          "n_test": 375,
+          "elapsed_s_arm": 1.03,
+          "wall_ingest_s": 0.67,
+          "wall_recall_s": 0.01
+        },
+        "ARM_S_ADAPTIVE_CFRPE": {
+          "bpc_best": 4.1247,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 4.0935,
+          "top1_acc": 0.4587,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.05,
+          "mrr_at_10": 0.5435,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 7.0315,
+          "raw_top1_at_T1_L1": 0.4533,
+          "raw_mrr_at_T1_L1": 0.5401,
+          "n_dev": 374,
+          "n_test": 375,
+          "elapsed_s_arm": 0.78,
+          "wall_ingest_s": 0.5,
+          "wall_recall_s": 0.01
+        }
+      },
+      "V": 199,
+      "N_DIM": 512,
+      "N_TRAIN": 3000,
+      "N_HELD": 750,
+      "run_mode": "smoke",
+      "config_version": "substrate_ptb_clean_word_level_eval_v1; N_DIM=512 K_BANKS=2 N_DIM_PER_BANK=256 ptb_train_cap=3000 held_from_valid=False arms=['ARM_B1_UNIGRAM', 'ARM_B2_WORD_BIGRAM', 'ARM_S_CFRPE_BASE', 'ARM_S_K2_CFRPE', 'ARM_S_ADAPTIVE_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 cfrpe_lr=0.500 cfrpe_n_steps=200 cfrpe_batch=64 k2_gate_temp=1.00 adapt_floor=0.25 adapt_ceil=4.00 bigram_alpha=0.0010 MRR_K=10 device=cpu | bands HP_margin=0.30 chain_grade=4.50 bigram_min=5.20 bigram_max=6.80 unigram_min=9.00 unigram_max=11.00 cv_max=0.05 | CONFOUND_AUDIT=(corpus=PTB-word-level-Mikolov, encoder_paradigm=word2vec_sparse_bipolar_f0.05, N_DIM=512, vocab=PTB-V10000, metric_primary=BPW, baseline_paradigm=word-bigram-add-alpha=0.001, lane=2_intra_corpus_substrate_vs_substrate_plus_tagged_bigram)",
+      "elapsed_s_seed": 38.74,
+      "device": "cpu",
+      "encoder_meta": {
+        "encoder": "word2vec_proj_sparse_bipolar",
+        "n_hit": 184,
+        "n_miss": 15,
+        "n_vocab": 199,
+        "pretrain_dim": 300
+      },
+      "n_llm_calls": 0,
+      "corpus_provenance": "PTB-word-level (Mikolov split; wojzaremba/lstm)",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782325823.5166821
+    }
+  ],
+  "elapsed_s": 38.8259699344635,
+  "summary": "MIDDLE_BAND: substrate ARM_S_ADAPTIVE_CFRPE BPW=4.1247 cv=0.000 beats bigram=4.1699 by 0.045 bits but fails HP bar (need >= 0.30). Substrate clears bigram on PTB but does not decisively pass. uni=4.253|bigram=4.170|S_cfrpe_base=4.138|S_K2=4",
+  "substrate_only_decode_gate": "TRUE (substrate cosine logits; word2vec is static open-weight lookup; zero LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "config_version": "substrate_ptb_clean_word_level_eval_v1; N_DIM=512 K_BANKS=2 N_DIM_PER_BANK=256 ptb_train_cap=3000 held_from_valid=False arms=['ARM_B1_UNIGRAM', 'ARM_B2_WORD_BIGRAM', 'ARM_S_CFRPE_BASE', 'ARM_S_K2_CFRPE', 'ARM_S_ADAPTIVE_CFRPE'] seeds=[0] mode=smoke temps=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.05, 0.1, 0.3, 0.5, 0.7, 1.0] sparse_f=0.050 cfrpe_lr=0.500 cfrpe_n_steps=200 cfrpe_batch=64 k2_gate_temp=1.00 adapt_floor=0.25 adapt_ceil=4.00 bigram_alpha=0.0010 MRR_K=10 device=cpu | bands HP_margin=0.30 chain_grade=4.50 bigram_min=5.20 bigram_max=6.80 unigram_min=9.00 unigram_max=11.00 cv_max=0.05 | CONFOUND_AUDIT=(corpus=PTB-word-level-Mikolov, encoder_paradigm=word2vec_sparse_bipolar_f0.05, N_DIM=512, vocab=PTB-V10000, metric_primary=BPW, baseline_paradigm=word-bigram-add-alpha=0.001, lane=2_intra_corpus_substrate_vs_substrate_plus_tagged_bigram)",
+  "device": "cpu",
+  "corpus_provenance": "PTB-word-level (Mikolov split; wojzaremba/lstm)",
+  "CONFOUND_AUDIT": "(corpus=PTB-word-level-Mikolov, encoder_paradigm=word2vec_sparse_bipolar_f0.05, N_DIM=512, vocab=PTB-V10000, metric_primary=BPW, baseline_paradigm=word-bigram-add-alpha=0.001, lane=2_intra_corpus_substrate_vs_substrate_plus_tagged_bigram)",
+  "lane_declaration": "Lane 2 (intra-corpus substrate-vs-substrate + tagged word-bigram cross-paradigm baseline)"
+}

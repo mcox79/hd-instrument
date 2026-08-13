@@ -1,0 +1,363 @@
+{
+  "anchor_name": "redundant_soft_shard_router_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MEASURED_MECHANISM_MIXED (CLAIM, VET-PENDING): best REDUNDANT_SOFT config lands on/inside the Pareto frontier of HARD/SOFT -- NOT framed as domination per CONTRACT. | best_config=R3_M4 acc_at_f0.7=0.969 (hard=0.710 soft=0.973 threshold=0.876) growth_redundant=1.271 (growth_hard=1.800 growth_soft=18.000) | P2 margin(soft-hardvote, TOP-1 acc)@R5_M4=+0.024 (soft_top1=0.894 hardvote_top1=0.870; shortlist-hit-rate was insensitive: soft=0.927 hardvote=0.927) | can_fail_confirmed=True (degenerate=0.250 vs hard=0.710)",
+  "summary": "MIDDLE_BAND: REDUNDANT_SOFT third-design-point shard router (full)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_units": 28,
+  "expected_n_units": 28,
+  "cardinality_ok": true,
+  "elapsed_s": 2.611006259918213,
+  "part_A_corruption_sweep": {
+    "curve": [
+      {
+        "f": 0.0,
+        "acc_hard_mean": 1.0,
+        "acc_soft_mean": 1.0,
+        "hard_vote_acc_mean": 1.0,
+        "hard_vote_top1_acc_mean": 1.0,
+        "soft_rep_top1_acc_mean": 1.0,
+        "acc_R3_M2_mean": 1.0,
+        "cand_R3_M2_mean": 5.25,
+        "acc_R3_M4_mean": 1.0,
+        "cand_R3_M4_mean": 5.416666666666667,
+        "acc_R5_M2_mean": 1.0,
+        "cand_R5_M2_mean": 5.479166666666667,
+        "acc_R5_M4_mean": 1.0,
+        "cand_R5_M4_mean": 5.416666666666667,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.3,
+        "acc_hard_mean": 0.9989583333333334,
+        "acc_soft_mean": 1.0,
+        "hard_vote_acc_mean": 0.9989583333333334,
+        "hard_vote_top1_acc_mean": 0.9989583333333334,
+        "soft_rep_top1_acc_mean": 0.9989583333333334,
+        "acc_R3_M2_mean": 1.0,
+        "cand_R3_M2_mean": 5.397916666666667,
+        "acc_R3_M4_mean": 1.0,
+        "cand_R3_M4_mean": 5.508333333333333,
+        "acc_R5_M2_mean": 1.0,
+        "cand_R5_M2_mean": 5.448958333333334,
+        "acc_R5_M4_mean": 0.9989583333333334,
+        "cand_R5_M4_mean": 5.501041666666667,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.5,
+        "acc_hard_mean": 0.9604166666666666,
+        "acc_soft_mean": 1.0,
+        "hard_vote_acc_mean": 0.9927083333333333,
+        "hard_vote_top1_acc_mean": 0.9895833333333334,
+        "soft_rep_top1_acc_mean": 0.9916666666666667,
+        "acc_R3_M2_mean": 0.9989583333333334,
+        "cand_R3_M2_mean": 5.445833333333333,
+        "acc_R3_M4_mean": 1.0,
+        "cand_R3_M4_mean": 5.635416666666667,
+        "acc_R5_M2_mean": 0.9968750000000001,
+        "cand_R5_M2_mean": 5.405208333333333,
+        "acc_R5_M4_mean": 0.9927083333333333,
+        "cand_R5_M4_mean": 5.477083333333333,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.6,
+        "acc_hard_mean": 0.8937499999999999,
+        "acc_soft_mean": 0.9979166666666667,
+        "hard_vote_acc_mean": 0.9739583333333334,
+        "hard_vote_top1_acc_mean": 0.9656249999999998,
+        "soft_rep_top1_acc_mean": 0.9697916666666666,
+        "acc_R3_M2_mean": 0.9958333333333332,
+        "cand_R3_M2_mean": 5.407291666666667,
+        "acc_R3_M4_mean": 0.9947916666666666,
+        "cand_R3_M4_mean": 5.326041666666667,
+        "acc_R5_M2_mean": 0.9802083333333332,
+        "cand_R5_M2_mean": 5.401041666666667,
+        "acc_R5_M4_mean": 0.975,
+        "cand_R5_M4_mean": 5.439583333333334,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.7,
+        "acc_hard_mean": 0.7104166666666667,
+        "acc_soft_mean": 0.9729166666666668,
+        "hard_vote_acc_mean": 0.9270833333333334,
+        "hard_vote_top1_acc_mean": 0.8697916666666666,
+        "soft_rep_top1_acc_mean": 0.8937499999999999,
+        "acc_R3_M2_mean": 0.9656249999999998,
+        "cand_R3_M2_mean": 5.421875,
+        "acc_R3_M4_mean": 0.96875,
+        "cand_R3_M4_mean": 5.426041666666666,
+        "acc_R5_M2_mean": 0.9052083333333334,
+        "cand_R5_M2_mean": 5.442708333333333,
+        "acc_R5_M4_mean": 0.9270833333333334,
+        "cand_R5_M4_mean": 5.379166666666667,
+        "acc_R1_M1_degenerate_mean": 0.25,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.8,
+        "acc_hard_mean": 0.4375,
+        "acc_soft_mean": 0.7999999999999999,
+        "hard_vote_acc_mean": 0.7708333333333334,
+        "hard_vote_top1_acc_mean": 0.609375,
+        "soft_rep_top1_acc_mean": 0.63125,
+        "acc_R3_M2_mean": 0.8395833333333332,
+        "cand_R3_M2_mean": 5.375,
+        "acc_R3_M4_mean": 0.8729166666666668,
+        "cand_R3_M4_mean": 5.332291666666667,
+        "acc_R5_M2_mean": 0.7385416666666668,
+        "cand_R5_M2_mean": 5.354166666666667,
+        "acc_R5_M4_mean": 0.7739583333333334,
+        "cand_R5_M4_mean": 5.364583333333333,
+        "acc_R1_M1_degenerate_mean": 0.2354166666666667,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.9,
+        "acc_hard_mean": 0.2125,
+        "acc_soft_mean": 0.421875,
+        "hard_vote_acc_mean": 0.5270833333333333,
+        "hard_vote_top1_acc_mean": 0.2791666666666667,
+        "soft_rep_top1_acc_mean": 0.30520833333333336,
+        "acc_R3_M2_mean": 0.4937500000000001,
+        "cand_R3_M2_mean": 5.2875,
+        "acc_R3_M4_mean": 0.5916666666666667,
+        "cand_R3_M4_mean": 5.272916666666666,
+        "acc_R5_M2_mean": 0.421875,
+        "cand_R5_M2_mean": 5.188541666666667,
+        "acc_R5_M4_mean": 0.5270833333333335,
+        "cand_R5_M4_mean": 5.190625,
+        "acc_R1_M1_degenerate_mean": 0.1625,
+        "cand_R1_M1_degenerate_mean": 4.0
+      },
+      {
+        "f": 0.95,
+        "acc_hard_mean": 0.11770833333333335,
+        "acc_soft_mean": 0.16354166666666667,
+        "hard_vote_acc_mean": 0.378125,
+        "hard_vote_top1_acc_mean": 0.13958333333333334,
+        "soft_rep_top1_acc_mean": 0.15625,
+        "acc_R3_M2_mean": 0.290625,
+        "cand_R3_M2_mean": 5.220833333333333,
+        "acc_R3_M4_mean": 0.42812500000000003,
+        "cand_R3_M4_mean": 5.264583333333333,
+        "acc_R5_M2_mean": 0.25416666666666665,
+        "cand_R5_M2_mean": 5.295833333333333,
+        "acc_R5_M4_mean": 0.375,
+        "cand_R5_M4_mean": 5.2562500000000005,
+        "acc_R1_M1_degenerate_mean": 0.11354166666666667,
+        "cand_R1_M1_degenerate_mean": 4.0
+      }
+    ],
+    "gate_row": {
+      "f": 0.7,
+      "acc_hard_mean": 0.7104166666666667,
+      "acc_soft_mean": 0.9729166666666668,
+      "hard_vote_acc_mean": 0.9270833333333334,
+      "hard_vote_top1_acc_mean": 0.8697916666666666,
+      "soft_rep_top1_acc_mean": 0.8937499999999999,
+      "acc_R3_M2_mean": 0.9656249999999998,
+      "cand_R3_M2_mean": 5.421875,
+      "acc_R3_M4_mean": 0.96875,
+      "cand_R3_M4_mean": 5.426041666666666,
+      "acc_R5_M2_mean": 0.9052083333333334,
+      "cand_R5_M2_mean": 5.442708333333333,
+      "acc_R5_M4_mean": 0.9270833333333334,
+      "cand_R5_M4_mean": 5.379166666666667,
+      "acc_R1_M1_degenerate_mean": 0.25,
+      "cand_R1_M1_degenerate_mean": 4.0
+    },
+    "arms_differ_digests": {
+      "hard": "6bedbba92d188ddb",
+      "soft": "77a4aa6fe18dfdc0",
+      "R3_M2": "54a7d3b6ccb92fdc",
+      "R3_M4": "a12b1b504e44e02c",
+      "R5_M2": "0906ada2618ce442",
+      "R5_M4": "0b9344db0f775ed2",
+      "hard_vote_rep": "f8f02b5a949ab7d4",
+      "R1_M1_degenerate": "c85fcc7ca87e60a0"
+    },
+    "config": {
+      "n_shards": 16,
+      "total_dim": 96,
+      "f_grid": [
+        0.0,
+        0.3,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        0.95
+      ],
+      "seeds": [
+        7,
+        13,
+        19
+      ],
+      "Q": 320,
+      "k_top": 5,
+      "redundant_configs": [
+        {
+          "name": "R3_M2",
+          "moduli": [
+            5,
+            7,
+            11
+          ],
+          "M": 2
+        },
+        {
+          "name": "R3_M4",
+          "moduli": [
+            5,
+            7,
+            11
+          ],
+          "M": 4
+        },
+        {
+          "name": "R5_M2",
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ],
+          "M": 2
+        },
+        {
+          "name": "R5_M4",
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ],
+          "M": 4
+        }
+      ],
+      "hardvote_match": {
+        "moduli": [
+          2,
+          3,
+          5,
+          7,
+          11
+        ],
+        "M": 4,
+        "matches_config": "R5_M4"
+      },
+      "degenerate_config": {
+        "name": "R1_M1_degenerate",
+        "moduli": [
+          4
+        ],
+        "M": 1
+      }
+    }
+  },
+  "part_B_cost_scaling": {
+    "per_n": {
+      "32": {
+        "cost_hard": 80,
+        "cost_soft": 1280,
+        "cost_redundant": 984.53125,
+        "acc_redundant_at_f0.2": 1.0,
+        "total_dim": 40,
+        "n_bits": 5,
+        "redundant_detail": {
+          "cost": 984.6875,
+          "channel_score_ops": 224,
+          "combo_enum_ops": 750,
+          "measured_candidates": 10.6875,
+          "acc": 1.0,
+          "dims_list": [
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ]
+        }
+      },
+      "320": {
+        "cost_hard": 144,
+        "cost_soft": 23040,
+        "cost_redundant": 1250.8828125,
+        "acc_redundant_at_f0.2": 1.0,
+        "total_dim": 72,
+        "n_bits": 9,
+        "redundant_detail": {
+          "cost": 1250.9375,
+          "channel_score_ops": 397,
+          "combo_enum_ops": 750,
+          "measured_candidates": 103.9375,
+          "acc": 1.0,
+          "dims_list": [
+            15,
+            15,
+            14,
+            14,
+            14
+          ],
+          "moduli": [
+            2,
+            3,
+            5,
+            7,
+            11
+          ]
+        }
+      }
+    },
+    "growth_hard": 1.8,
+    "growth_soft": 18.0,
+    "growth_redundant": 1.2705364227900333,
+    "config": {
+      "n_shards_pair": [
+        32,
+        320
+      ],
+      "seeds": [
+        7,
+        13
+      ],
+      "Q": 64,
+      "rep_config_moduli": [
+        2,
+        3,
+        5,
+        7,
+        11
+      ],
+      "rep_config_M": 4,
+      "corruption": 0.2
+    }
+  },
+  "predictions": {
+    "P1_joint_cheap_and_robust": "HARD_PASS",
+    "P2_soft_beats_hard_combine": "MIDDLE_BAND"
+  },
+  "can_fail_confirmed": true,
+  "prediction3_localization_note": null,
+  "ts_iso": "2026-07-17T16:37:25.385429+00:00",
+  "pid": 23568,
+  "host": "FrameworkMPC"
+}
