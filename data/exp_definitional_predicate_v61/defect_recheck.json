@@ -1,0 +1,174 @@
+{
+  "what": "For each of the 13 v6 sample rows the director named defective, what the v6.1 code produces for that EXACT source sentence.",
+  "v6_sample": "data\\exp_definitional_predicate_v6\\predicate_audit_sample.json",
+  "n_rows": 13,
+  "n_still_reproducing_the_v6_fact": 0,
+  "rows": [
+    {
+      "sheet_row": "[06]",
+      "v6_fact": "(biochemical basis, PROCESS_ACTION, precede)",
+      "source_sentence": "Often the biochemical basis of epistasis is a gene pathway in which the expression of one gene is dependent on the function of a gene that precedes or follows it in the pathway",
+      "provenance": "BIO:5462",
+      "v61_outcome": "REFUSED",
+      "v61_facts": [],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "NO_VERB_IN_OWN_CLAUSE"
+      ]
+    },
+    {
+      "sheet_row": "[07]",
+      "v6_fact": "(bystander effect, PROCESS_ACTION, volunteer)",
+      "source_sentence": "The bystander effect is a phenomenon in which a witness or bystander does not volunteer to help a victim or person in distress",
+      "provenance": "PSY:9906",
+      "v61_outcome": "REFUSED",
+      "v61_facts": [],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D2_NEGATION_IN_SCOPE"
+      ]
+    },
+    {
+      "sheet_row": "[13]",
+      "v6_fact": "(differentiation, PROCESS_PATIENT, function)",
+      "source_sentence": "Differentiation is the process by which unspecialized cells become specialized to carry out distinct functions",
+      "provenance": "ANAT:2292",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(differentiation, PROCESS_ACTION, become)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D3_PATIENT_NO_NOMINAL"
+      ]
+    },
+    {
+      "sheet_row": "[16]",
+      "v6_fact": "(diffusion, PROCESS_PATIENT, region)",
+      "source_sentence": "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached",
+      "provenance": "BIO:18615",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(diffusion, PROCESS_ACTION, travel)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D3_PATIENT_OBLIQUE"
+      ]
+    },
+    {
+      "sheet_row": "[21]",
+      "v6_fact": "(form, ENABLING_CONDITION, reproduce)",
+      "source_sentence": "The other form of polyploidy occurs when individuals of two different species reproduce to form a viable offspring that we call an allopolyploid",
+      "provenance": "BIO:7753",
+      "v61_outcome": "REFUSED",
+      "v61_facts": [],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D1_BARE_CATEGORY_HEAD"
+      ]
+    },
+    {
+      "sheet_row": "[23]",
+      "v6_fact": "(high death rate, ENABLING_CONDITION, increase)",
+      "source_sentence": "As can be seen from the mortality rate data (column D), a high death rate occurred when the sheep were between 6 and 12 months old, and then increased even more from 8 to 12 years old, after which there were few survivors",
+      "provenance": "BIO:21629",
+      "v61_outcome": "REFUSED",
+      "v61_facts": [],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D4_NON_DEFINITIONAL_CONTEXT"
+      ]
+    },
+    {
+      "sheet_row": "[25]",
+      "v6_fact": "(lactation, PROCESS_PATIENT, nipple)",
+      "source_sentence": "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple",
+      "provenance": "ANAT:22992",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(lactation, PROCESS_ACTION, synthesize)",
+        "(lactation, PROCESS_PATIENT, milk)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    },
+    {
+      "sheet_row": "[30]",
+      "v6_fact": "(neurodevelopmental disorder, ENABLING_CONDITION_AGENT, development)",
+      "source_sentence": "Neurodevelopmental disorders occur when the development of the nervous system is disturbed",
+      "provenance": "BIO:16580",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(neurodevelopmental disorder, ENABLING_CONDITION, disturb)",
+        "(neurodevelopmental disorder, ENABLING_CONDITION_PATIENT, development)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    },
+    {
+      "sheet_row": "[36]",
+      "v6_fact": "(process, ENABLING_CONDITION, gather)",
+      "source_sentence": "The process begins when mesenchymal cells in the embryonic skeleton gather together and begin to differentiate into specialized cells (a)",
+      "provenance": "ANAT:3926",
+      "v61_outcome": "REFUSED",
+      "v61_facts": [],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": [
+        "D1_BARE_CATEGORY_HEAD"
+      ]
+    },
+    {
+      "sheet_row": "[41]",
+      "v6_fact": "(second-degree, ENABLING_CONDITION, reach)",
+      "source_sentence": "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": "ANAT:14271",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    },
+    {
+      "sheet_row": "[42]",
+      "v6_fact": "(second-degree, ENABLING_CONDITION_AGENT, impulse)",
+      "source_sentence": "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": "ANAT:14271",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    },
+    {
+      "sheet_row": "[44]",
+      "v6_fact": "(termination, ENABLING_CONDITION_AGENT, enzyme)",
+      "source_sentence": "Termination of the signal occurs when an enzyme called phosphodiesterase converts cAMP into AMP",
+      "provenance": "BIO:4122",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(termination of signal, ENABLING_CONDITION, convert)",
+        "(termination of signal, ENABLING_CONDITION_AGENT, enzyme)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    },
+    {
+      "sheet_row": "[45]",
+      "v6_fact": "(termination, ENABLING_CONDITION_AGENT, uag)",
+      "source_sentence": "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered",
+      "provenance": "BIO:6574",
+      "v61_outcome": "EMITTED",
+      "v61_facts": [
+        "(termination of translation, ENABLING_CONDITION, encounter)",
+        "(termination of translation, ENABLING_CONDITION_PATIENT, codon)"
+      ],
+      "v61_reproduces_the_v6_defect_fact": false,
+      "v61_refusal_reasons": []
+    }
+  ]
+}

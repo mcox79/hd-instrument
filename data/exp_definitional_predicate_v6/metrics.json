@@ -1,0 +1,254 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "verdict_msg": "predicate v6: ISA 5716 -> 5716 (UNCHANGED); 250 predicate 3-tuples (VP1 45 / VP2 50 / VP4 155); all machine checks pass",
+  "summary": "keep the predicate the definitional extractor discards",
+  "elapsed_s": 56.45,
+  "run_mode": "full",
+  "isa_facts_BEFORE_patch": 5716,
+  "isa_facts_AFTER_patch": 5716,
+  "isa_unchanged": true,
+  "isa_digest_before": "31562da84c396c94a68bafc11b35ce6b0c0ebe12203975c6701fcd268eab27ef",
+  "isa_digest_after": "31562da84c396c94a68bafc11b35ce6b0c0ebe12203975c6701fcd268eab27ef",
+  "isa_pattern_mix": {
+    "APPOSITIVE": 982,
+    "CALLED": 1550,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "prepatch_module_sha256": "475543209942a50979d630ef9d3cfb52d8e1982fa79f4221a7818b91d0cd1dd8",
+  "postpatch_module_sha256": "d9a3eedf83756b32e61fe306d20c9c7a9733c22a3b7ca2cc77cd65e14c24b14f",
+  "n_predicate_facts": 250,
+  "predicate_relation_mix": {
+    "ENABLING_CONDITION": 79,
+    "ENABLING_CONDITION_AGENT": 76,
+    "PROCESS_ACTION": 49,
+    "PROCESS_PATIENT": 46
+  },
+  "predicate_pattern_mix": {
+    "VP1_PROCESS_OF": 45,
+    "VP2_BY_WHICH": 50,
+    "VP4_OCCURS_WHEN": 155
+  },
+  "n_enabling_condition_facts": 155,
+  "n_distinct_predicate_subjects": 118,
+  "n_distinct_verbs": 98,
+  "yield_per_pattern": {
+    "VP1_PROCESS_OF": {
+      "candidate_sentences_regex_fired": 107,
+      "sentences_converted_to_at_least_one_fact": 23,
+      "yield_rate_sentences": 0.215,
+      "distinct_facts_emitted": 45
+    },
+    "VP2_BY_WHICH": {
+      "candidate_sentences_regex_fired": 31,
+      "sentences_converted_to_at_least_one_fact": 26,
+      "yield_rate_sentences": 0.8387,
+      "distinct_facts_emitted": 50
+    },
+    "VP4_OCCURS_WHEN": {
+      "candidate_sentences_regex_fired": 152,
+      "sentences_converted_to_at_least_one_fact": 80,
+      "yield_rate_sentences": 0.5263,
+      "distinct_facts_emitted": 155
+    }
+  },
+  "scoping_note_candidate_pool_reconstruction": {
+    "per_trigger": {
+      "P10_ability_to_V": 13,
+      "P2_process_of_or_in_which": 41,
+      "P3_occurs_when": 197,
+      "P4_by_which": 120,
+      "P6_during_nom": 362
+    },
+    "union_sentences": 723,
+    "note_reported_union": 818,
+    "caveat": "RECONSTRUCTION. The scoping pass left no script; these regexes were rebuilt from its prose. Compare shapes, not exact equality."
+  },
+  "corpus_files": [
+    "data\\corpora\\textbook_biology_2e\\cleaned\\biology_2e.clean.txt",
+    "data\\corpora\\textbook_anatomy_physiology_2e\\cleaned\\anatomy_physiology_2e.clean.txt",
+    "data\\corpora\\textbook_psychology_2e\\cleaned\\psychology_2e.clean.txt"
+  ],
+  "corpus_sentences": 72501,
+  "corpus_sentences_per_file": {
+    "ANAT": 26544,
+    "BIO": 29091,
+    "PSY": 16866
+  },
+  "corpus_note": "scoping note reports 72,319 sentences; this loader (a reconstruction -- the scoping pass left no script) yields 72501. Delta disclosed, not reconciled.",
+  "mcguffey_excluded": true,
+  "called_left_boundary_diagnostic": {
+    "IN_SCOPE": false,
+    "note": "MEASURE ONLY -- nothing about the CALLED pattern was changed. Scopes the deferred VP5 fix (director: VP5 is gated behind this left-boundary fix).",
+    "n_called_facts_banked": 1622,
+    "counts": {
+      "ANY_WRONG_LEFT_BOUNDARY": 668,
+      "CLEAN_LEFT_BOUNDARY": 954,
+      "L1_FUNCTION_WORD_START": 182,
+      "L2_CROSSES_FINITE_VERB": 534,
+      "L3_TRUNCATED_MIDPHRASE": 36,
+      "L4_HEAD_NOT_ADJACENT": 851
+    },
+    "rate_any_wrong_left_boundary": 0.4118,
+    "rate_L4_head_not_adjacent": 0.5247,
+    "examples": {
+      "L1_FUNCTION_WORD_START": [
+        {
+          "provenance": "BIO:1851",
+          "sentence": "The nucleus stores chromatin (DNA plus proteins) in a gel-like substance called the nucleoplasm",
+          "antecedent_captured": "in a gel-like substance",
+          "banked_fact": "nucleoplasm ISA substance",
+          "last_nominal_before_trigger": "substance"
+        },
+        {
+          "provenance": "BIO:3411",
+          "sentence": "Processes that use an organic molecule to regenerate NAD+ from NADH are collectively referred to as fermentation",
+          "antecedent_captured": "from NADH are collectively",
+          "banked_fact": "fermentation ISA nadh",
+          "last_nominal_before_trigger": "nadh"
+        },
+        {
+          "provenance": "BIO:3620",
+          "sentence": "As shown in, a stack of thylakoids is called a granum, and the liquid-filled space surrounding the granum is called stroma or “bed” (not to be confused with stoma or “mouth,” an opening on the leaf epidermis)",
+          "antecedent_captured": "and the liquid-filled space surrounding the granum",
+          "banked_fact": "stroma ISA granum",
+          "last_nominal_before_trigger": "granum"
+        },
+        {
+          "provenance": "BIO:3704",
+          "sentence": "Energy levels higher than those in blue light will physically tear the molecules apart, in a process called bleaching",
+          "antecedent_captured": "in a process",
+          "banked_fact": "bleach ISA process",
+          "last_nominal_before_trigger": "process"
+        },
+        {
+          "provenance": "BIO:3763",
+          "sentence": "In the thylakoid, that opening is a passage through a specialized protein channel called the ATP synthase",
+          "antecedent_captured": "that opening is a passage through a specialized protein channel",
+          "banked_fact": "ATP synthase ISA channel",
+          "last_nominal_before_trigger": "channel"
+        }
+      ],
+      "L2_CROSSES_FINITE_VERB": [
+        {
+          "provenance": "BIO:511",
+          "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+          "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+          "banked_fact": "monomer ISA molecule",
+          "last_nominal_before_trigger": "unit"
+        },
+        {
+          "provenance": "BIO:561",
+          "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+          "antecedent_captured": "it is also an interdisciplinary field of study",
+          "banked_fact": "neuroscience ISA field",
+          "last_nominal_before_trigger": "study"
+        },
+        {
+          "provenance": "BIO:665",
+          "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+          "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+          "banked_fact": "impurity ISA mold",
+          "last_nominal_before_trigger": "elements"
+        },
+        {
+          "provenance": "BIO:823",
+          "sentence": "Through the process of infrared spectrometry, FDA chemist Alma Levant Hayden and her team discovered that the \"miracle drug\" was nothing more than a common compound called creatine",
+          "antecedent_captured": "was nothing more than a common compound",
+          "banked_fact": "creatine ISA compound",
+          "last_nominal_before_trigger": "compound"
+        },
+        {
+          "provenance": "BIO:1396",
+          "sentence": "Fats are a stored form of energy and are also known as triacylglycerols or triglycerides",
+          "antecedent_captured": "Fats are a stored form of energy and are also",
+          "banked_fact": "triacylglycerols ISA energy",
+          "last_nominal_before_trigger": "energy"
+        }
+      ],
+      "L3_TRUNCATED_MIDPHRASE": [
+        {
+          "provenance": "BIO:665",
+          "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+          "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+          "banked_fact": "impurity ISA mold",
+          "last_nominal_before_trigger": "elements"
+        },
+        {
+          "provenance": "BIO:5865",
+          "sentence": "At the most basic level, DNA is wrapped around proteins known as histones to form structures called nucleosomes",
+          "antecedent_captured": "to form structures",
+          "banked_fact": "nucleosomes ISA structure",
+          "last_nominal_before_trigger": "structure"
+        },
+        {
+          "provenance": "BIO:6020",
+          "sentence": "Eukaryotic DNA is bound to basic proteins known as histones to form structures called nucleosomes",
+          "antecedent_captured": "to form structures",
+          "banked_fact": "nucleosomes ISA structure",
+          "last_nominal_before_trigger": "structure"
+        },
+        {
+          "provenance": "BIO:9989",
+          "sentence": "Euglenoids move through their aquatic habitats using two long flagella that guide them toward light sources sensed by a primitive ocular organ called an eyespot",
+          "antecedent_captured": "gh their aquatic habitats using two long flagella that guide them toward light sources sensed by a primitive ocular organ",
+          "banked_fact": "eyespot ISA flagellum",
+          "last_nominal_before_trigger": "organ"
+        },
+        {
+          "provenance": "BIO:10971",
+          "sentence": "They are distinguished by large leaves called fronds and small sporangia-containing structures called sori, which are found on the underside of the fronds",
+          "antecedent_captured": "and small sporangia-containing structures",
+          "banked_fact": "sorus ISA structure",
+          "last_nominal_before_trigger": "structure"
+        }
+      ],
+      "L4_HEAD_NOT_ADJACENT": [
+        {
+          "provenance": "BIO:455",
+          "sentence": "For example, a branch of biology called virology studies viruses, which exhibit some of the characteristics of living entities but lack others",
+          "antecedent_captured": "a branch of biology",
+          "banked_fact": "virology studies virus ISA branch",
+          "last_nominal_before_trigger": "biology"
+        },
+        {
+          "provenance": "BIO:511",
+          "sentence": "Many molecules that are biologically important are macromolecules, large molecules that are typically formed by polymerization (a polymer is a large molecule that is made by combining smaller units called monomers, which are simpler than macromolecules)",
+          "antecedent_captured": "a polymer is a large molecule that is made by combining smaller units",
+          "banked_fact": "monomer ISA molecule",
+          "last_nominal_before_trigger": "unit"
+        },
+        {
+          "provenance": "BIO:545",
+          "sentence": "Many organisms belonging to the Archaea domain live under extreme conditions and are called extremophiles",
+          "antecedent_captured": "Many organisms belonging to the Archaea domain live under extreme conditions and",
+          "banked_fact": "extremophiles ISA belonging",
+          "last_nominal_before_trigger": "conditions"
+        },
+        {
+          "provenance": "BIO:561",
+          "sentence": "Another field of biological study, neurobiology, studies the biology of the nervous system, and although it is a branch of biology, it is also an interdisciplinary field of study known as neuroscience",
+          "antecedent_captured": "it is also an interdisciplinary field of study",
+          "banked_fact": "neuroscience ISA field",
+          "last_nominal_before_trigger": "study"
+        },
+        {
+          "provenance": "BIO:665",
+          "sentence": "A gold coin is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements known as impurities",
+          "antecedent_captured": "is simply a very large number of gold atoms molded into the shape of a coin and contains small amounts of other elements",
+          "banked_fact": "impurity ISA mold",
+          "last_nominal_before_trigger": "elements"
+        }
+      ]
+    }
+  },
+  "predicate_facts_path": "data\\exp_definitional_predicate_v6\\predicate_facts_v6.jsonl",
+  "isa_facts_path": "data\\exp_definitional_predicate_v6\\isa_facts_unchanged_v6.jsonl",
+  "audit_sample_path": "data\\exp_definitional_predicate_v6\\predicate_audit_sample.json",
+  "quality_scored_here": false,
+  "banked": false,
+  "wire_status": "UNBANKED_PENDING_DIRECTOR_HANDSCORE",
+  "ts_iso": "2026-08-13T02:42:56.541318+00:00",
+  "anchor_name": "definitional_predicate_v6"
+}

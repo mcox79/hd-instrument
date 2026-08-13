@@ -1,0 +1,151 @@
+[01] VBNC state --ENABLING_CONDITION--> respond
+     "The VBNC state occurs when prokaryotes respond to environmental stressors by entering a dormant state that allows their survival"   [BIO:9092]
+
+[02] actor-observer bias --PROCESS_PATIENT--> behavior
+     "The actor-observer bias is the phenomenon of attributing other people's behavior to internal factors (fundamental attribution error) while attributing our ow..."   [PSY:9338]
+
+[03] allopolyploid --ENABLING_CONDITION--> combine
+     "The prefix "allo-" means "other" (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[04] allopolyploid --ENABLING_CONDITION_AGENT--> gamete
+     "The prefix "allo-" means "other" (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[05] behavioral isolation --ENABLING_CONDITION_AGENT--> presence
+     "Behavioral isolation occurs when the presence or absence of a specific behavior prevents reproduction"   [BIO:7773]
+
+[06] biochemical basis --PROCESS_ACTION--> precede
+     "Often the biochemical basis of epistasis is a gene pathway in which the expression of one gene is dependent on the function of a gene that precedes or follow..."   [BIO:5462]
+
+[07] bystander effect --PROCESS_ACTION--> volunteer
+     "The bystander effect is a phenomenon in which a witness or bystander does not volunteer to help a victim or person in distress"   [PSY:9906]
+
+[08] catabolism --PROCESS_ACTION--> break
+     "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"   [ANAT:448]
+
+[09] chemical reaction --ENABLING_CONDITION_AGENT--> atom
+     "Chemical reactions occur when two or more atoms bond together to form molecules or when bonded atoms break apart"   [BIO:755]
+
+[10] commensal relationship --ENABLING_CONDITION_AGENT--> species
+     "A commensal relationship occurs when one species benefits from the close, prolonged interaction, while the other neither benefits nor is harmed"   [BIO:22057]
+
+[11] commensalism --ENABLING_CONDITION--> benefit
+     "Commensalism occurs when one member benefits without affecting the other"   [BIO:10457]
+
+[12] describing species --PROCESS_ACTION--> determine
+     "Describing a species is a complex process through which biologists determine an organism's unique characteristics and whether or not that organism belongs to..."   [BIO:22877]
+
+[13] differentiation --PROCESS_PATIENT--> function
+     "Differentiation is the process by which unspecialized cells become specialized to carry out distinct functions"   [ANAT:2292]
+
+[14] diffusion --PROCESS_ACTION--> drive
+     "Diffusion is a process in which transport is driven by a concentration gradient"   [BIO:18719]
+
+[15] diffusion --PROCESS_ACTION--> travel
+     "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"   [BIO:18615]
+
+[16] diffusion --PROCESS_PATIENT--> region
+     "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"   [BIO:18615]
+
+[17] dysfunction --ENABLING_CONDITION--> break
+     "Dysfunction occurs when an internal mechanism breaks down and can no longer perform its normal function"   [PSY:12678]
+
+[18] encoding --PROCESS_ACTION--> get
+     "Encoding is the act of getting information into our memory system through automatic or effortful processing"   [PSY:5588]
+
+[19] encoding --PROCESS_PATIENT--> information
+     "Encoding is the act of getting information into our memory system through automatic or effortful processing"   [PSY:5588]
+
+[20] foraging --PROCESS_PATIENT--> resource
+     "Foraging is the act of searching for and exploiting food resources"   [BIO:22219]
+
+[21] form --ENABLING_CONDITION--> reproduce
+     "The other form of polyploidy occurs when individuals of two different species reproduce to form a viable offspring that we call an allopolyploid"   [BIO:7753]
+
+[22] hemostasis --PROCESS_ACTION--> cease
+     "Hemostasis is the physiological process by which bleeding ceases"   [ANAT:13595]
+
+[23] high death rate --ENABLING_CONDITION--> increase
+     "As can be seen from the mortality rate data (column D), a high death rate occurred when the sheep were between 6 and 12 months old, and then increased even m..."   [BIO:21629]
+
+[24] infection --ENABLING_CONDITION--> enter
+     "Infection occurs when the human enters the water and metacercaria larvae, released from the snail host, locate and penetrate the skin"   [BIO:12102]
+
+[25] lactation --PROCESS_PATIENT--> nipple
+     "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking a..."   [ANAT:22992]
+
+[26] mechanical digestion --ENABLING_CONDITION_AGENT--> chyme
+     "In the large intestine, mechanical digestion begins when chyme moves from the ileum into the cecum, an activity regulated by the ileocecal sphincter"   [ANAT:19190]
+
+[27] menopause --ENABLING_CONDITION_AGENT--> ovary
+     "Menopause occurs when the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop"   [BIO:20729]
+
+[28] natural surface runoff --ENABLING_CONDITION--> leach
+     "In addition to phosphate runoff as a result of human activity, natural surface runoff occurs when it is leached from phosphate-containing rock by weathering,..."   [BIO:22747]
+
+[29] neural stimulus --ENABLING_CONDITION--> prompt
+     "Finally, a neural stimulus occurs when a nerve impulse prompts the secretion or inhibition of a hormone"   [ANAT:12195]
+
+[30] neurodevelopmental disorder --ENABLING_CONDITION_AGENT--> development
+     "Neurodevelopmental disorders occur when the development of the nervous system is disturbed"   [BIO:16580]
+
+[31] observational learning --PROCESS_ACTION--> watch
+     "In contrast to classical and operant conditioning, in which learning occurs only through direct experience, observational learning is the process of watching..."   [PSY:4024]
+
+[32] persuasion --PROCESS_ACTION--> change
+     "Persuasion is the process of changing our attitude toward something based on some kind of communication"   [PSY:9513]
+
+[33] polar molecule --ENABLING_CONDITION_AGENT--> atom
+     "Polar molecules occur when atoms share electrons unequally, in polar covalent bonds"   [ANAT:1058]
+
+[34] primary succession --ENABLING_CONDITION--> form
+     "Primary succession occurs when new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Ha..."   [BIO:22123]
+
+[35] primary succession --ENABLING_CONDITION_AGENT--> land
+     "Primary succession occurs when new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Ha..."   [BIO:22123]
+
+[36] process --ENABLING_CONDITION--> gather
+     "The process begins when mesenchymal cells in the embryonic skeleton gather together and begin to differentiate into specialized cells (a)"   [ANAT:3926]
+
+[37] protraction --ENABLING_CONDITION_AGENT--> jaw
+     "For the mandible, protraction occurs when the lower jaw is pushed forward, to stick out the chin, while retraction pulls the lower jaw backward"   [ANAT:6367]
+
+[38] protraction --ENABLING_CONDITION_AGENT--> shoulder
+     "Protraction of the scapula occurs when the shoulder is moved forward, as when pushing against something or throwing a ball"   [ANAT:6367]
+
+[39] pupillary light reflex --ENABLING_CONDITION_AGENT--> light
+     "The pupillary light reflex begins when light hits the retina and causes a signal to travel along the optic nerve"   [ANAT:11169]
+
+[40] reciprocal translocation --ENABLING_CONDITION--> transfer
+     "A reciprocal translocation occurs when a DNA segment transfers from one chromosome to another, nonhomologous chromosome"   [BIO:5705]
+
+[41] second-degree --ENABLING_CONDITION--> reach
+     "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not"   [ANAT:14271]
+
+[42] second-degree --ENABLING_CONDITION_AGENT--> impulse
+     "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not"   [ANAT:14271]
+
+[43] sensory activation --ENABLING_CONDITION--> process
+     "A sensory activation occurs when a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor"   [BIO:16746]
+
+[44] termination --ENABLING_CONDITION_AGENT--> enzyme
+     "Termination of the signal occurs when an enzyme called phosphodiesterase converts cAMP into AMP"   [BIO:4122]
+
+[45] termination --ENABLING_CONDITION_AGENT--> uag
+     "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered"   [BIO:6574]
+
+[46] thirst response --ENABLING_CONDITION_AGENT--> osmoreceptor
+     "The thirst response begins when osmoreceptors detect a decrease in water levels in the blood"   [ANAT:21368]
+
+[47] transcription --PROCESS_ACTION--> copy
+     "Transcription is the process of copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA); the cell uses information in ..."   [BIO:3956]
+
+[48] translation --PROCESS_ACTION--> synthesize
+     "Translation is the process of synthesizing a chain of amino acids called a polypeptide"   [ANAT:2084]
+
+[49] vascular shock --ENABLING_CONDITION--> lose
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+[50] vascular shock --ENABLING_CONDITION_AGENT--> arteriole
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+TOTAL ROWS: 50 | RELATIONS: ENABLING_CONDITION, PROCESS_PATIENT, ENABLING_CONDITION_AGENT, PROCESS_ACTION

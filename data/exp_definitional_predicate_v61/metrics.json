@@ -1,0 +1,275 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "verdict_msg": "predicate v6.1: 228 facts (v6 250), 178 refusals; ISA per-pattern digests unchanged by this cell for 5/5 patterns; 13/13 defect rows no longer reproduce their v6 fact; all machine checks pass",
+  "summary": "fix the five hand-scored defects in the predicate extractor",
+  "elapsed_s": 85.83,
+  "run_mode": "full",
+  "isa_digests_v6_baseline": {
+    "APPOSITIVE": "ac87649da5c46635cbdd3f1a51d1a9c1f49a765cc94d6c1cac6d9ab066e8e067",
+    "CALLED": "39feb2d3d6a3cbf3dafe523dc3e08aa0e01cb506a7f96855249ef11a300eb728",
+    "COPULA": "4461afc0e6fc8df8bd13bfac9e9e6746f92bde9749e1b2c4cc829cab9ec65d2c",
+    "GLOSSARY_COLON": "3917e528a86bca2f4b5d6a407e2c9935e2fbd4080d7b21fd449e86d41b73ac16",
+    "REFERS_TO": "a0a8b78b5b1acf539a3adf5a1a09064fa0f5bd47e0e48eaefbebb8f202d27ffa"
+  },
+  "isa_digests_current_minus_v61_termboundary": {
+    "APPOSITIVE": "ac87649da5c46635cbdd3f1a51d1a9c1f49a765cc94d6c1cac6d9ab066e8e067",
+    "CALLED": "81fbd38d74d68d32bff009e3b179847479bf32b876835286e1be8c4943241c2b",
+    "COPULA": "4461afc0e6fc8df8bd13bfac9e9e6746f92bde9749e1b2c4cc829cab9ec65d2c",
+    "GLOSSARY_COLON": "3917e528a86bca2f4b5d6a407e2c9935e2fbd4080d7b21fd449e86d41b73ac16",
+    "REFERS_TO": "a0a8b78b5b1acf539a3adf5a1a09064fa0f5bd47e0e48eaefbebb8f202d27ffa"
+  },
+  "isa_digests_current": {
+    "APPOSITIVE": "ac87649da5c46635cbdd3f1a51d1a9c1f49a765cc94d6c1cac6d9ab066e8e067",
+    "CALLED": "81fbd38d74d68d32bff009e3b179847479bf32b876835286e1be8c4943241c2b",
+    "COPULA": "4461afc0e6fc8df8bd13bfac9e9e6746f92bde9749e1b2c4cc829cab9ec65d2c",
+    "GLOSSARY_COLON": "3917e528a86bca2f4b5d6a407e2c9935e2fbd4080d7b21fd449e86d41b73ac16",
+    "REFERS_TO": "a0a8b78b5b1acf539a3adf5a1a09064fa0f5bd47e0e48eaefbebb8f202d27ffa"
+  },
+  "isa_counts_v6_baseline": {
+    "APPOSITIVE": 982,
+    "CALLED": 1550,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "isa_counts_current_minus_v61_termboundary": {
+    "APPOSITIVE": 982,
+    "CALLED": 1441,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "isa_counts_current": {
+    "APPOSITIVE": 982,
+    "CALLED": 1441,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "isa_patterns_changed_BY_THIS_CELL": [],
+  "isa_diff_BY_THIS_CELL": {},
+  "isa_patterns_changed_by_CONCURRENT_called_v7_agent": [
+    "CALLED"
+  ],
+  "isa_diff_by_CONCURRENT_agent": {
+    "CALLED": {
+      "n_only_in_v6_baseline": 708,
+      "n_only_in_current": 599
+    }
+  },
+  "isa_proof_method": "three byte-copies of hdlab/definitional_extraction.py: the v6 pre-patch baseline, the CURRENT file with only this cell's term-boundary block reverted, and the CURRENT file. THIS CELL'S delta is (reverted vs current). A concurrent agent is landing a CALLED-antecedent v7 fix in the same file; its delta is (baseline vs reverted) and is reported, not owned, here.",
+  "module_sha256_v6_baseline": "475543209942a50979d630ef9d3cfb52d8e1982fa79f4221a7818b91d0cd1dd8",
+  "module_sha256_snapshot_current": "51a18bf60f31299abfe49ed5c41e08ff8da494c013c9a5f82c8b2302b03691f1",
+  "module_sha256_reverted": "3db78bc9db2cd5f0110a5b29c988bfdc92aa413758025c41cc2dbbeb23e41799",
+  "live_module_sha256_at_start": "51a18bf60f31299abfe49ed5c41e08ff8da494c013c9a5f82c8b2302b03691f1",
+  "live_module_sha256_at_end": "51a18bf60f31299abfe49ed5c41e08ff8da494c013c9a5f82c8b2302b03691f1",
+  "live_module_stable_during_run": true,
+  "shared_module_self_test": "PASS",
+  "n_predicate_facts_v61": 228,
+  "n_predicate_facts_v6_on_disk": 250,
+  "delta_facts_v6_to_v61": -22,
+  "n_refusals_total": 178,
+  "n_refused_sentences_distinct": 175,
+  "refusal_reason_mix": {
+    "D1_BARE_CATEGORY_HEAD": 4,
+    "D2_NEGATION_IN_SCOPE": 4,
+    "D3_PATIENT_NO_NOMINAL": 2,
+    "D3_PATIENT_OBLIQUE": 3,
+    "D3_PATIENT_PURPOSE_ONLY": 3,
+    "D4_NON_DEFINITIONAL_CONTEXT": 1,
+    "NO_VERB_IN_OWN_CLAUSE": 86,
+    "TERM_ANAPHORIC_SUBJECT": 44,
+    "TERM_EMPTY_CUT": 2,
+    "TERM_NOT_NOMINAL": 29
+  },
+  "transform_notes": {
+    "D1_BARE_CATEGORY_HEAD": 4,
+    "D1_COORD_RESTART": 3,
+    "D1_OF_EXTENDED": 14,
+    "D2_NEGATION_IN_SCOPE": 4,
+    "D3_PARENTHETICAL_STRIPPED": 22,
+    "D3_PATIENT_NO_NOMINAL": 2,
+    "D3_PATIENT_OBLIQUE": 3,
+    "D3_PATIENT_PURPOSE_ONLY": 3,
+    "D4_CLAUSE_TRUNCATED": 60,
+    "D4_NON_DEFINITIONAL_CONTEXT": 1,
+    "D5_PASSIVE_SUBJECT_IS_PATIENT": 28,
+    "NO_VERB_IN_OWN_CLAUSE": 86,
+    "TERM_ANAPHORIC_SUBJECT": 44,
+    "TERM_EMPTY_CUT": 2,
+    "TERM_NOT_NOMINAL": 29
+  },
+  "predicate_relation_mix": {
+    "ENABLING_CONDITION": 70,
+    "ENABLING_CONDITION_AGENT": 52,
+    "ENABLING_CONDITION_PATIENT": 15,
+    "PROCESS_ACTION": 49,
+    "PROCESS_PATIENT": 42
+  },
+  "predicate_pattern_mix": {
+    "VP1_PROCESS_OF": 45,
+    "VP2_BY_WHICH": 46,
+    "VP4_OCCURS_WHEN": 137
+  },
+  "n_distinct_subjects": 112,
+  "n_d2_negation_refusals": 4,
+  "d2_negation_refused_sentences": [
+    "BIO:2042 :: Heart failure occurs when cardiac muscle cells' endoplasmic reticula do not function properly",
+    "BIO:5634 :: Nondisjunction occurs when homologous chromosomes or sister chromatids fail to separate during meiosis, resulting in an abnormal chromosome number",
+    "BIO:7773 :: Behavioral isolation occurs when the presence or absence of a specific behavior prevents reproduction",
+    "PSY:9906 :: The bystander effect is a phenomenon in which a witness or bystander does not volunteer to help a victim or person in distress"
+  ],
+  "ablation_arms": {
+    "ALL_FIXES_OFF_v6_equivalent": {
+      "n_facts": 250,
+      "n_refusals": 161,
+      "n_triples_only_in_this_arm": 64,
+      "n_triples_only_in_all_fixes_on": 42
+    },
+    "D1_strict_term_OFF": {
+      "n_facts": 232,
+      "n_refusals": 176,
+      "delta_facts_vs_all_on": -4,
+      "delta_refusals_vs_all_on": 2,
+      "n_triples_this_fix_REMOVES": 22,
+      "n_triples_this_fix_ADDS": 18,
+      "examples_removed_by_this_fix": [
+        "(example, ENABLING_CONDITION, lead)",
+        "(example, ENABLING_CONDITION_AGENT, state)",
+        "(form, ENABLING_CONDITION, reproduce)",
+        "(form, ENABLING_CONDITION_AGENT, individual)",
+        "(interesting example, ENABLING_CONDITION, strike)",
+        "(interesting example, ENABLING_CONDITION_AGENT, disease)",
+        "(long-term storage, ENABLING_CONDITION, bury)",
+        "(long-term storage, ENABLING_CONDITION_PATIENT, matter)"
+      ],
+      "examples_added_by_this_fix": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)",
+        "(interesting example of ecosystem dynamics, ENABLING_CONDITION, strike)",
+        "(interesting example of ecosystem dynamics, ENABLING_CONDITION_AGENT, disease)",
+        "(long-term storage of organic carbon, ENABLING_CONDITION, bury)",
+        "(long-term storage of organic carbon, ENABLING_CONDITION_PATIENT, matter)",
+        "(osmotic regulation, PROCESS_ACTION, salt)",
+        "(osmotic regulation, PROCESS_PATIENT, balance)"
+      ]
+    },
+    "D2_negation_OFF": {
+      "n_facts": 235,
+      "n_refusals": 175,
+      "delta_facts_vs_all_on": -7,
+      "delta_refusals_vs_all_on": 3,
+      "n_triples_this_fix_REMOVES": 7,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [
+        "(behavioral isolation, ENABLING_CONDITION, prevent)",
+        "(behavioral isolation, ENABLING_CONDITION_AGENT, presence)",
+        "(bystander effect, PROCESS_ACTION, volunteer)",
+        "(heart failure, ENABLING_CONDITION, function)",
+        "(heart failure, ENABLING_CONDITION_AGENT, reticulum)",
+        "(nondisjunction, ENABLING_CONDITION, separate)",
+        "(nondisjunction, ENABLING_CONDITION_AGENT, chromosome)"
+      ],
+      "examples_added_by_this_fix": []
+    },
+    "D3_argument_OFF": {
+      "n_facts": 227,
+      "n_refusals": 172,
+      "delta_facts_vs_all_on": 1,
+      "delta_refusals_vs_all_on": 6,
+      "n_triples_this_fix_REMOVES": 5,
+      "n_triples_this_fix_ADDS": 6,
+      "examples_removed_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, nh)",
+        "(angioplasty, PROCESS_PATIENT, balloon)",
+        "(barcoding, PROCESS_PATIENT, analysis)",
+        "(differentiation, PROCESS_PATIENT, function)",
+        "(diffusion, PROCESS_PATIENT, region)"
+      ],
+      "examples_added_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, ion)",
+        "(barcoding, PROCESS_PATIENT, use)",
+        "(nitrification, PROCESS_ACTION, convert)",
+        "(nitrification, PROCESS_PATIENT, nitrite)",
+        "(termination of translation, ENABLING_CONDITION, encounter)",
+        "(termination of translation, ENABLING_CONDITION_PATIENT, codon)"
+      ]
+    },
+    "D4_clause_OFF": {
+      "n_facts": 235,
+      "n_refusals": 174,
+      "delta_facts_vs_all_on": -7,
+      "delta_refusals_vs_all_on": 4,
+      "n_triples_this_fix_REMOVES": 11,
+      "n_triples_this_fix_ADDS": 4,
+      "examples_removed_by_this_fix": [
+        "(biochemical basis of epistasis, PROCESS_ACTION, precede)",
+        "(biochemical basis of epistasis, PROCESS_PATIENT, pathway)",
+        "(exchange reaction, PROCESS_PATIENT, release)",
+        "(high death rate, ENABLING_CONDITION, increase)",
+        "(high death rate, ENABLING_CONDITION_AGENT, sheep)",
+        "(layer, PROCESS_ACTION, attach)",
+        "(pulmonary ventilation, PROCESS_PATIENT, atmosphere)",
+        "(pulmonary ventilation, PROCESS_PATIENT, lung)"
+      ],
+      "examples_added_by_this_fix": [
+        "(exchange reaction, PROCESS_PATIENT, break)",
+        "(layer, PROCESS_ACTION, bend)",
+        "(layer, PROCESS_PATIENT, stem)",
+        "(termination of signal, ENABLING_CONDITION, convert)"
+      ]
+    },
+    "D5_passive_OFF": {
+      "n_facts": 220,
+      "n_refusals": 186,
+      "delta_facts_vs_all_on": 8,
+      "delta_refusals_vs_all_on": -8,
+      "n_triples_this_fix_REMOVES": 18,
+      "n_triples_this_fix_ADDS": 26,
+      "examples_removed_by_this_fix": [
+        "(cross-pollination, ENABLING_CONDITION_AGENT, pollen)",
+        "(fibrinolysis, PROCESS_PATIENT, vessel)",
+        "(hemopoiesis, ENABLING_CONDITION_AGENT, cell)",
+        "(injury, ENABLING_CONDITION_AGENT, force)",
+        "(injury, ENABLING_CONDITION_AGENT, knee)",
+        "(lactation, PROCESS_PATIENT, nipple)",
+        "(layer, PROCESS_PATIENT, soil)",
+        "(long-term storage of organic carbon, ENABLING_CONDITION_AGENT, matter)"
+      ],
+      "examples_added_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, ion)",
+        "(anabolism, PROCESS_PATIENT, molecule)",
+        "(bulk flow, PROCESS_PATIENT, body)",
+        "(catabolism, PROCESS_PATIENT, substance)",
+        "(cross-pollination, ENABLING_CONDITION_PATIENT, pollen)",
+        "(diffusion, PROCESS_PATIENT, transport)",
+        "(emulsification, PROCESS_PATIENT, globule)",
+        "(fibrinolysis, PROCESS_PATIENT, clot)"
+      ]
+    }
+  },
+  "ablation_note": "each LEAVE-ONE-OUT arm turns exactly ONE defect's fix off; delta_facts_vs_all_on > 0 means the fix ADDS facts, < 0 means it REFUSES facts the unfixed code emitted",
+  "corpus_files": [
+    "data\\corpora\\textbook_biology_2e\\cleaned\\biology_2e.clean.txt",
+    "data\\corpora\\textbook_anatomy_physiology_2e\\cleaned\\anatomy_physiology_2e.clean.txt",
+    "data\\corpora\\textbook_psychology_2e\\cleaned\\psychology_2e.clean.txt"
+  ],
+  "corpus_sentences": 72501,
+  "corpus_sentences_per_file": {
+    "ANAT": 26544,
+    "BIO": 29091,
+    "PSY": 16866
+  },
+  "mcguffey_excluded": true,
+  "corpus_identical_loader_as_v6": true,
+  "predicate_facts_path": "data\\exp_definitional_predicate_v61\\predicate_facts_v61.jsonl",
+  "refusals_path": "data\\exp_definitional_predicate_v61\\refusals.jsonl",
+  "audit_sample_path": "data\\exp_definitional_predicate_v61\\predicate_audit_sample.json",
+  "scoring_sheet_path": "data\\exp_definitional_predicate_v61\\SCORING_SHEET.txt",
+  "defect_recheck_path": "data\\exp_definitional_predicate_v61\\defect_recheck.json",
+  "quality_scored_here": false,
+  "banked": false,
+  "wire_status": "UNBANKED_PENDING_DIRECTOR_HANDSCORE",
+  "ts_iso": "2026-08-13T03:09:07.728829+00:00",
+  "anchor_name": "definitional_predicate_v61"
+}

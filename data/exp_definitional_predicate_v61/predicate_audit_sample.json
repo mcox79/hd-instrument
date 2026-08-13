@@ -1,0 +1,918 @@
+{
+  "arm": "DEF_V61_PREDICATE",
+  "n_facts_in_arm": 228,
+  "sample_seed": 42,
+  "sampling": "random.Random(42).sample over fid order -- the SAME sampler object as v6 (experiments/exp_definitional_predicate_v6.sample_for_audit), which is itself verified on disk against the v5 B3 sample's fid list",
+  "rubric": "DIRECTOR'S BLIND JUDGEMENT. Each row carries the SOURCE SENTENCE beside the extracted 3-tuple. No rubric buckets are pre-assigned.",
+  "scored": false,
+  "note": "UNSCORED AND UNBANKED. This cell fixes five named defects and claims no quality band; the v6 hand-score (35/7/8) is NOT carried over. GROWTH IS PAUSED: nothing here is written to data/foundation/**.",
+  "relations_in_arm": {
+    "ENABLING_CONDITION": 70,
+    "ENABLING_CONDITION_AGENT": 52,
+    "ENABLING_CONDITION_PATIENT": 15,
+    "PROCESS_ACTION": 49,
+    "PROCESS_PATIENT": 42
+  },
+  "rows": [
+    {
+      "fid": 1,
+      "subject": "VBNC state",
+      "relation": "ENABLING_CONDITION",
+      "object": "respond",
+      "triple": "(VBNC state, ENABLING_CONDITION, respond)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "PROPER",
+      "n_attestations": 1,
+      "definiendum_surface": "VBNC state",
+      "predicate_span": "prokaryotes respond to environmental stressors by entering a dormant state",
+      "provenance": [
+        "BIO:9092"
+      ],
+      "source_sentences": [
+        "The VBNC state occurs when prokaryotes respond to environmental stressors by entering a dormant state that allows their survival"
+      ]
+    },
+    {
+      "fid": 6,
+      "subject": "actor-observer bias",
+      "relation": "PROCESS_PATIENT",
+      "object": "behavior",
+      "triple": "(actor-observer bias, PROCESS_PATIENT, behavior)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "actor-observer bias",
+      "predicate_span": "attributing other people’s behavior to internal factors while attributing our own behavior to situational forces (Jones & Nisbett, 1971",
+      "provenance": [
+        "PSY:9338"
+      ],
+      "source_sentences": [
+        "The actor-observer bias is the phenomenon of attributing other people’s behavior to internal factors (fundamental attribution error) while attributing our own behavior to situational forces (Jones & Nisbett, 1971; Nisbett, Caputo, Legant, & Marecek, 1973; Choi & Nisbett, 1998)"
+      ]
+    },
+    {
+      "fid": 7,
+      "subject": "allopolyploid",
+      "relation": "ENABLING_CONDITION",
+      "object": "combine",
+      "triple": "(allopolyploid, ENABLING_CONDITION, combine)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "allopolyploid",
+      "predicate_span": "gametes from two different species combine",
+      "provenance": [
+        "BIO:7753"
+      ],
+      "source_sentences": [
+        "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"
+      ]
+    },
+    {
+      "fid": 8,
+      "subject": "allopolyploid",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "gamete",
+      "triple": "(allopolyploid, ENABLING_CONDITION_AGENT, gamete)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "allopolyploid",
+      "predicate_span": "gametes from two different species combine",
+      "provenance": [
+        "BIO:7753"
+      ],
+      "source_sentences": [
+        "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"
+      ]
+    },
+    {
+      "fid": 22,
+      "subject": "catabolism",
+      "relation": "PROCESS_ACTION",
+      "object": "break",
+      "triple": "(catabolism, PROCESS_ACTION, break)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Catabolism",
+      "predicate_span": "larger more complex substances are broken down into smaller simpler molecules",
+      "provenance": [
+        "ANAT:448"
+      ],
+      "source_sentences": [
+        "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"
+      ]
+    },
+    {
+      "fid": 23,
+      "subject": "catabolism",
+      "relation": "PROCESS_PATIENT",
+      "object": "substance",
+      "triple": "(catabolism, PROCESS_PATIENT, substance)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Catabolism",
+      "predicate_span": "larger more complex substances are broken down into smaller simpler molecules",
+      "provenance": [
+        "ANAT:448"
+      ],
+      "source_sentences": [
+        "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"
+      ]
+    },
+    {
+      "fid": 24,
+      "subject": "cellular respiration",
+      "relation": "PROCESS_ACTION",
+      "object": "make",
+      "triple": "(cellular respiration, PROCESS_ACTION, make)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Cellular respiration",
+      "predicate_span": "making ATP using the chemical energy in glucose and other nutrients",
+      "provenance": [
+        "BIO:1880"
+      ],
+      "source_sentences": [
+        "Cellular respiration is the process of making ATP using the chemical energy in glucose and other nutrients"
+      ]
+    },
+    {
+      "fid": 26,
+      "subject": "cellular respiration",
+      "relation": "PROCESS_PATIENT",
+      "object": "convert",
+      "triple": "(cellular respiration, PROCESS_PATIENT, convert)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "cellular respiration",
+      "predicate_span": "the chemical energy stored in sugars is converted into ATP, a source of chemical energy",
+      "provenance": [
+        "BIO:3878"
+      ],
+      "source_sentences": [
+        "In contrast, cellular respiration is the process in which the chemical energy stored in sugars is converted into ATP, a source of chemical energy that can be used by the rest of the cell"
+      ]
+    },
+    {
+      "fid": 28,
+      "subject": "chemical reaction",
+      "relation": "ENABLING_CONDITION",
+      "object": "bond",
+      "triple": "(chemical reaction, ENABLING_CONDITION, bond)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Chemical reactions",
+      "predicate_span": "two or more atoms bond together to form molecules or when bonded atoms break apart",
+      "provenance": [
+        "BIO:755"
+      ],
+      "source_sentences": [
+        "Chemical reactions occur when two or more atoms bond together to form molecules or when bonded atoms break apart"
+      ]
+    },
+    {
+      "fid": 35,
+      "subject": "commensalism",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "member",
+      "triple": "(commensalism, ENABLING_CONDITION_AGENT, member)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Commensalism",
+      "predicate_span": "one member benefits without affecting the other",
+      "provenance": [
+        "BIO:10457"
+      ],
+      "source_sentences": [
+        "Commensalism occurs when one member benefits without affecting the other"
+      ]
+    },
+    {
+      "fid": 39,
+      "subject": "cross-bridge formation",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "head",
+      "triple": "(cross-bridge formation, ENABLING_CONDITION_AGENT, head)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Cross-bridge formation",
+      "predicate_span": "the myosin head attaches to the actin while adenosine diphosphate and inorganic phosphate are still bound to myosin",
+      "provenance": [
+        "ANAT:6965"
+      ],
+      "source_sentences": [
+        "Cross-bridge formation occurs when the myosin head attaches to the actin while adenosine diphosphate (ADP) and inorganic phosphate (Pi) are still bound to myosin (a,b)"
+      ]
+    },
+    {
+      "fid": 40,
+      "subject": "cross-pollination",
+      "relation": "ENABLING_CONDITION",
+      "object": "transfer",
+      "triple": "(cross-pollination, ENABLING_CONDITION, transfer)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Cross-pollination",
+      "predicate_span": "pollen is transferred from one flower to another flower of another plant",
+      "provenance": [
+        "BIO:14839"
+      ],
+      "source_sentences": [
+        "Cross-pollination occurs when pollen is transferred from one flower to another flower of another plant"
+      ]
+    },
+    {
+      "fid": 50,
+      "subject": "diffusion",
+      "relation": "PROCESS_ACTION",
+      "object": "travel",
+      "triple": "(diffusion, PROCESS_ACTION, travel)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Diffusion",
+      "predicate_span": "material travels from regions of high concentration to low concentration until equilibrium is reached",
+      "provenance": [
+        "BIO:18615"
+      ],
+      "source_sentences": [
+        "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"
+      ]
+    },
+    {
+      "fid": 55,
+      "subject": "dysfunction",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "mechanism",
+      "triple": "(dysfunction, ENABLING_CONDITION_AGENT, mechanism)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Dysfunction",
+      "predicate_span": "an internal mechanism breaks down and can no longer perform its normal function",
+      "provenance": [
+        "PSY:12678"
+      ],
+      "source_sentences": [
+        "Dysfunction occurs when an internal mechanism breaks down and can no longer perform its normal function"
+      ]
+    },
+    {
+      "fid": 56,
+      "subject": "elaborative rehearsal",
+      "relation": "PROCESS_ACTION",
+      "object": "link",
+      "triple": "(elaborative rehearsal, PROCESS_ACTION, link)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "elaborative rehearsal",
+      "predicate_span": "linking new information you are trying to learn to existing information",
+      "provenance": [
+        "PSY:5518"
+      ],
+      "source_sentences": [
+        "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"
+      ]
+    },
+    {
+      "fid": 57,
+      "subject": "elaborative rehearsal",
+      "relation": "PROCESS_PATIENT",
+      "object": "try",
+      "triple": "(elaborative rehearsal, PROCESS_PATIENT, try)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "elaborative rehearsal",
+      "predicate_span": "linking new information you are trying to learn to existing information",
+      "provenance": [
+        "PSY:5518"
+      ],
+      "source_sentences": [
+        "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"
+      ]
+    },
+    {
+      "fid": 59,
+      "subject": "elimination",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "response",
+      "triple": "(elimination, ENABLING_CONDITION_AGENT, response)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Elimination",
+      "predicate_span": "the immune response first develops toward tumor-specific antigens specific to the cancer and actively kills most cancer cells, followed by a period of controlled equilibrium during",
+      "provenance": [
+        "ANAT:17373"
+      ],
+      "source_sentences": [
+        "Elimination occurs when the immune response first develops toward tumor-specific antigens specific to the cancer and actively kills most cancer cells, followed by a period of controlled equilibrium during which the remaining cancer cells are held in check"
+      ]
+    },
+    {
+      "fid": 62,
+      "subject": "encoding",
+      "relation": "PROCESS_ACTION",
+      "object": "get",
+      "triple": "(encoding, PROCESS_ACTION, get)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Encoding",
+      "predicate_span": "getting information into our memory system through automatic or effortful processing",
+      "provenance": [
+        "PSY:5588"
+      ],
+      "source_sentences": [
+        "Encoding is the act of getting information into our memory system through automatic or effortful processing"
+      ]
+    },
+    {
+      "fid": 70,
+      "subject": "feedback inhibition",
+      "relation": "ENABLING_CONDITION",
+      "object": "end",
+      "triple": "(feedback inhibition, ENABLING_CONDITION, end)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Feedback inhibition",
+      "predicate_span": "the pathway's end product inhibits an upstream",
+      "provenance": [
+        "BIO:3067"
+      ],
+      "source_sentences": [
+        "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream"
+      ]
+    },
+    {
+      "fid": 71,
+      "subject": "feedback inhibition",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "pathway's",
+      "triple": "(feedback inhibition, ENABLING_CONDITION_AGENT, pathway's)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Feedback inhibition",
+      "predicate_span": "the pathway's end product inhibits an upstream",
+      "provenance": [
+        "BIO:3067"
+      ],
+      "source_sentences": [
+        "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream"
+      ]
+    },
+    {
+      "fid": 86,
+      "subject": "glucose-sparing effect",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "gh",
+      "triple": "(glucose-sparing effect, ENABLING_CONDITION_AGENT, gh)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "glucose-sparing effect",
+      "predicate_span": "GH stimulates lipolysis",
+      "provenance": [
+        "ANAT:12299"
+      ],
+      "source_sentences": [
+        "A glucose-sparing effect occurs when GH stimulates lipolysis, or the breakdown of adipose tissue, releasing fatty acids into the blood"
+      ]
+    },
+    {
+      "fid": 87,
+      "subject": "glycolysis",
+      "relation": "PROCESS_ACTION",
+      "object": "produce",
+      "triple": "(glycolysis, PROCESS_ACTION, produce)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "glycolysis",
+      "predicate_span": "these cells produce ATP",
+      "provenance": [
+        "ANAT:18109"
+      ],
+      "source_sentences": [
+        "Because erythrocytes do not contain mitochondria, glycolysis is the sole method by which these cells produce ATP"
+      ]
+    },
+    {
+      "fid": 88,
+      "subject": "glycolysis",
+      "relation": "PROCESS_PATIENT",
+      "object": "atp",
+      "triple": "(glycolysis, PROCESS_PATIENT, atp)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "glycolysis",
+      "predicate_span": "these cells produce ATP",
+      "provenance": [
+        "ANAT:18109"
+      ],
+      "source_sentences": [
+        "Because erythrocytes do not contain mitochondria, glycolysis is the sole method by which these cells produce ATP"
+      ]
+    },
+    {
+      "fid": 91,
+      "subject": "hemopoiesis",
+      "relation": "ENABLING_CONDITION",
+      "object": "expose",
+      "triple": "(hemopoiesis, ENABLING_CONDITION, expose)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Hemopoiesis",
+      "predicate_span": "the hematopoietic stem cell is exposed to appropriate chemical stimuli collectively called hemopoietic growth factors",
+      "provenance": [
+        "ANAT:13113"
+      ],
+      "source_sentences": [
+        "Hemopoiesis begins when the hematopoietic stem cell is exposed to appropriate chemical stimuli collectively called hemopoietic growth factors, which prompt it to divide and differentiate"
+      ]
+    },
+    {
+      "fid": 97,
+      "subject": "hydroponics",
+      "relation": "PROCESS_PATIENT",
+      "object": "plant",
+      "triple": "(hydroponics, PROCESS_PATIENT, plant)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Hydroponics",
+      "predicate_span": "growing plants in a water-nutrient solution instead of soil",
+      "provenance": [
+        "BIO:14327"
+      ],
+      "source_sentences": [
+        "Hydroponics is a method of growing plants in a water-nutrient solution instead of soil"
+      ]
+    },
+    {
+      "fid": 107,
+      "subject": "injury",
+      "relation": "ENABLING_CONDITION_PATIENT",
+      "object": "knee",
+      "triple": "(injury, ENABLING_CONDITION_PATIENT, knee)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Injury to the posterior cruciate ligament",
+      "predicate_span": "the knee is flexed and the tibia is driven posteriorly, such as falling and landing on the tibial tuberosity or hitting the tibia on the dashboard when not wearing a seatbelt during an automobile accident",
+      "provenance": [
+        "ANAT:6571"
+      ],
+      "source_sentences": [
+        "Injury to the posterior cruciate ligament occurs when the knee is flexed and the tibia is driven posteriorly, such as falling and landing on the tibial tuberosity or hitting the tibia on the dashboard when not wearing a seatbelt during an automobile accident"
+      ]
+    },
+    {
+      "fid": 108,
+      "subject": "interesting example of ecosystem dynamics",
+      "relation": "ENABLING_CONDITION",
+      "object": "strike",
+      "triple": "(interesting example of ecosystem dynamics, ENABLING_CONDITION, strike)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "interesting example of ecosystem dynamics",
+      "predicate_span": "a rare lung disease struck inhabitants of the southwestern United States",
+      "provenance": [
+        "BIO:22397"
+      ],
+      "source_sentences": [
+        "In 1993, an interesting example of ecosystem dynamics occurred when a rare lung disease struck inhabitants of the southwestern United States"
+      ]
+    },
+    {
+      "fid": 114,
+      "subject": "lactation",
+      "relation": "PROCESS_ACTION",
+      "object": "synthesize",
+      "triple": "(lactation, PROCESS_ACTION, synthesize)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Lactation",
+      "predicate_span": "milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple",
+      "provenance": [
+        "ANAT:22992"
+      ],
+      "source_sentences": [
+        "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple"
+      ]
+    },
+    {
+      "fid": 129,
+      "subject": "menopause",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "ovary",
+      "triple": "(menopause, ENABLING_CONDITION_AGENT, ovary)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Menopause",
+      "predicate_span": "the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop",
+      "provenance": [
+        "BIO:20729"
+      ],
+      "source_sentences": [
+        "Menopause occurs when the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop"
+      ]
+    },
+    {
+      "fid": 139,
+      "subject": "neurodevelopmental disorder",
+      "relation": "ENABLING_CONDITION",
+      "object": "disturb",
+      "triple": "(neurodevelopmental disorder, ENABLING_CONDITION, disturb)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Neurodevelopmental disorders",
+      "predicate_span": "the development of the nervous system is disturbed",
+      "provenance": [
+        "BIO:16580"
+      ],
+      "source_sentences": [
+        "Neurodevelopmental disorders occur when the development of the nervous system is disturbed"
+      ]
+    },
+    {
+      "fid": 143,
+      "subject": "neutralization",
+      "relation": "PROCESS_ACTION",
+      "object": "coat",
+      "triple": "(neutralization, PROCESS_ACTION, coat)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Neutralization",
+      "predicate_span": "coating a pathogen with antibodies, making it physically impossible for the pathogen to bind to receptors",
+      "provenance": [
+        "ANAT:17157"
+      ],
+      "source_sentences": [
+        "Neutralization is the process of coating a pathogen with antibodies, making it physically impossible for the pathogen to bind to receptors"
+      ]
+    },
+    {
+      "fid": 150,
+      "subject": "osmotic regulation",
+      "relation": "PROCESS_ACTION",
+      "object": "salt",
+      "triple": "(osmotic regulation, PROCESS_ACTION, salt)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "and osmotic regulation",
+      "predicate_span": "the mineral salts and water are kept in balance",
+      "provenance": [
+        "BIO:19451"
+      ],
+      "source_sentences": [
+        "The solutes in body fluids are mainly mineral salts and sugars, and osmotic regulation is the process by which the mineral salts and water are kept in balance"
+      ]
+    },
+    {
+      "fid": 151,
+      "subject": "osmotic regulation",
+      "relation": "PROCESS_PATIENT",
+      "object": "balance",
+      "triple": "(osmotic regulation, PROCESS_PATIENT, balance)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "and osmotic regulation",
+      "predicate_span": "the mineral salts and water are kept in balance",
+      "provenance": [
+        "BIO:19451"
+      ],
+      "source_sentences": [
+        "The solutes in body fluids are mainly mineral salts and sugars, and osmotic regulation is the process by which the mineral salts and water are kept in balance"
+      ]
+    },
+    {
+      "fid": 154,
+      "subject": "photosynthesis",
+      "relation": "PROCESS_ACTION",
+      "object": "like",
+      "triple": "(photosynthesis, PROCESS_ACTION, like)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Photosynthesis",
+      "predicate_span": "photosynthetic organisms like plants harvest the sun’s energy and convert it into carbohydrates",
+      "provenance": [
+        "BIO:2786"
+      ],
+      "source_sentences": [
+        "Photosynthesis is the primary pathway in which photosynthetic organisms like plants (planktonic algae perform the majority of global photosynthesis) harvest the sun’s energy and convert it into carbohydrates"
+      ]
+    },
+    {
+      "fid": 163,
+      "subject": "power stroke",
+      "relation": "ENABLING_CONDITION_PATIENT",
+      "object": "atp",
+      "triple": "(power stroke, ENABLING_CONDITION_PATIENT, atp)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "power stroke",
+      "predicate_span": "ATP is hydrolyzed to ADP and phosphate",
+      "provenance": [
+        "BIO:18497"
+      ],
+      "source_sentences": [
+        "The power stroke occurs when ATP is hydrolyzed to ADP and phosphate"
+      ]
+    },
+    {
+      "fid": 166,
+      "subject": "proactive interference",
+      "relation": "ENABLING_CONDITION",
+      "object": "hinder",
+      "triple": "(proactive interference, ENABLING_CONDITION, hinder)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Proactive interference",
+      "predicate_span": "old information hinders the recall of newly learned information",
+      "provenance": [
+        "PSY:5890"
+      ],
+      "source_sentences": [
+        "Proactive interference happens when old information hinders the recall of newly learned information"
+      ]
+    },
+    {
+      "fid": 173,
+      "subject": "pupillary light reflex",
+      "relation": "ENABLING_CONDITION",
+      "object": "hit",
+      "triple": "(pupillary light reflex, ENABLING_CONDITION, hit)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "pupillary light reflex",
+      "predicate_span": "light hits the retina and causes a signal to travel along the optic nerve",
+      "provenance": [
+        "ANAT:11169"
+      ],
+      "source_sentences": [
+        "The pupillary light reflex begins when light hits the retina and causes a signal to travel along the optic nerve"
+      ]
+    },
+    {
+      "fid": 178,
+      "subject": "respiratory alkalosis",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "blood",
+      "triple": "(respiratory alkalosis, ENABLING_CONDITION_AGENT, blood)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Respiratory alkalosis",
+      "predicate_span": "the blood is overly alkaline due to a deficiency in carbonic acid and CO2 levels in the blood",
+      "provenance": [
+        "ANAT:21689"
+      ],
+      "source_sentences": [
+        "Respiratory alkalosis occurs when the blood is overly alkaline due to a deficiency in carbonic acid and CO2 levels in the blood"
+      ]
+    },
+    {
+      "fid": 179,
+      "subject": "retrieval",
+      "relation": "PROCESS_ACTION",
+      "object": "get",
+      "triple": "(retrieval, PROCESS_ACTION, get)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "and retrieval",
+      "predicate_span": "getting information out of storage and into conscious awareness through recall, recognition",
+      "provenance": [
+        "PSY:5588"
+      ],
+      "source_sentences": [
+        "Storage is retention of the information, and retrieval is the act of getting information out of storage and into conscious awareness through recall, recognition, and relearning"
+      ]
+    },
+    {
+      "fid": 183,
+      "subject": "scapegoat",
+      "relation": "PROCESS_ACTION",
+      "object": "blame",
+      "triple": "(scapegoat, PROCESS_ACTION, blame)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Scapegoating",
+      "predicate_span": "blaming an out-group when the in-group experiences frustration or is blocked from obtaining a goal",
+      "provenance": [
+        "PSY:9830"
+      ],
+      "source_sentences": [
+        "Scapegoating is the act of blaming an out-group when the in-group experiences frustration or is blocked from obtaining a goal (Allport, 1954)"
+      ]
+    },
+    {
+      "fid": 188,
+      "subject": "semelparity",
+      "relation": "ENABLING_CONDITION",
+      "object": "reproduce",
+      "triple": "(semelparity, ENABLING_CONDITION, reproduce)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Semelparity",
+      "predicate_span": "a species reproduces only once during its lifetime and then dies",
+      "provenance": [
+        "BIO:21725"
+      ],
+      "source_sentences": [
+        "Semelparity occurs when a species reproduces only once during its lifetime and then dies"
+      ]
+    },
+    {
+      "fid": 189,
+      "subject": "semelparity",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "species",
+      "triple": "(semelparity, ENABLING_CONDITION_AGENT, species)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Semelparity",
+      "predicate_span": "a species reproduces only once during its lifetime and then dies",
+      "provenance": [
+        "BIO:21725"
+      ],
+      "source_sentences": [
+        "Semelparity occurs when a species reproduces only once during its lifetime and then dies"
+      ]
+    },
+    {
+      "fid": 193,
+      "subject": "sensory activation",
+      "relation": "ENABLING_CONDITION_PATIENT",
+      "object": "stimulus",
+      "triple": "(sensory activation, ENABLING_CONDITION_PATIENT, stimulus)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "sensory activation",
+      "predicate_span": "a physical or chemical stimulus is processed into a neural signal by a sensory receptor",
+      "provenance": [
+        "BIO:16746"
+      ],
+      "source_sentences": [
+        "A sensory activation occurs when a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor"
+      ]
+    },
+    {
+      "fid": 208,
+      "subject": "thermal stratification of lake",
+      "relation": "ENABLING_CONDITION",
+      "object": "warm",
+      "triple": "(thermal stratification of lake, ENABLING_CONDITION, warm)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "thermal stratification of lakes and ponds",
+      "predicate_span": "the upper layer of water is warmed by the sun and does not mix with deeper, cooler water",
+      "provenance": [
+        "BIO:21377"
+      ],
+      "source_sentences": [
+        "In the summer, as we have seen, thermal stratification of lakes and ponds occurs when the upper layer of water is warmed by the sun and does not mix with deeper, cooler water"
+      ]
+    },
+    {
+      "fid": 209,
+      "subject": "thermal stratification of lake",
+      "relation": "ENABLING_CONDITION_PATIENT",
+      "object": "layer",
+      "triple": "(thermal stratification of lake, ENABLING_CONDITION_PATIENT, layer)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "thermal stratification of lakes and ponds",
+      "predicate_span": "the upper layer of water is warmed by the sun and does not mix with deeper, cooler water",
+      "provenance": [
+        "BIO:21377"
+      ],
+      "source_sentences": [
+        "In the summer, as we have seen, thermal stratification of lakes and ponds occurs when the upper layer of water is warmed by the sun and does not mix with deeper, cooler water"
+      ]
+    },
+    {
+      "fid": 212,
+      "subject": "tragic irish potato famine",
+      "relation": "ENABLING_CONDITION",
+      "object": "grow",
+      "triple": "(tragic irish potato famine, ENABLING_CONDITION, grow)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "tragic Irish potato famine",
+      "predicate_span": "the single variety grown in Ireland became susceptible to a potato blight, wiping out the entire crop",
+      "provenance": [
+        "BIO:23059"
+      ],
+      "source_sentences": [
+        "The tragic Irish potato famine occurred when the single variety grown in Ireland became susceptible to a potato blight, wiping out the entire crop"
+      ]
+    },
+    {
+      "fid": 215,
+      "subject": "transcription",
+      "relation": "PROCESS_PATIENT",
+      "object": "information",
+      "triple": "(transcription, PROCESS_PATIENT, information)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Transcription",
+      "predicate_span": "copying the information in a cell's DNA into a special form of RNA called messenger RNA",
+      "provenance": [
+        "BIO:3956"
+      ],
+      "source_sentences": [
+        "Transcription is the process of copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA); the cell uses information in the mRNA (which moves out into the cytoplasm and associates with ribosomes) to link specific amino acids in the correct order, producing a protein"
+      ]
+    },
+    {
+      "fid": 218,
+      "subject": "translation",
+      "relation": "PROCESS_ACTION",
+      "object": "synthesize",
+      "triple": "(translation, PROCESS_ACTION, synthesize)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Translation",
+      "predicate_span": "synthesizing a chain of amino acids called a polypeptide",
+      "provenance": [
+        "ANAT:2084"
+      ],
+      "source_sentences": [
+        "Translation is the process of synthesizing a chain of amino acids called a polypeptide"
+      ]
+    },
+    {
+      "fid": 224,
+      "subject": "vascular shock",
+      "relation": "ENABLING_CONDITION",
+      "object": "lose",
+      "triple": "(vascular shock, ENABLING_CONDITION, lose)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Vascular shock",
+      "predicate_span": "arterioles lose their normal muscular tone and dilate dramatically",
+      "provenance": [
+        "ANAT:15487"
+      ],
+      "source_sentences": [
+        "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"
+      ]
+    },
+    {
+      "fid": 225,
+      "subject": "vascular shock",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "arteriole",
+      "triple": "(vascular shock, ENABLING_CONDITION_AGENT, arteriole)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Vascular shock",
+      "predicate_span": "arterioles lose their normal muscular tone and dilate dramatically",
+      "provenance": [
+        "ANAT:15487"
+      ],
+      "source_sentences": [
+        "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"
+      ]
+    }
+  ]
+}

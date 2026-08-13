@@ -1,0 +1,917 @@
+{
+  "arm": "DEF_V6_PREDICATE",
+  "n_facts_in_arm": 250,
+  "sample_seed": 42,
+  "sampling": "random.Random(42).sample over fid order -- SAME convention as data/exp_definitional_grounding_v5/b3_audit_sample_DEF_V5.json, verified against that file's own fid list on disk in _selftest_sampling()",
+  "rubric": "DIRECTOR'S BLIND JUDGEMENT. Each row carries the SOURCE SENTENCE beside the extracted 3-tuple so the predicate can be judged against the text that produced it. No rubric buckets are pre-assigned.",
+  "scored": false,
+  "note": "UNSCORED AND UNBANKED. The cell assigns no buckets and claims no quality band. There is NO prior baseline for a predicate-valued relation -- the v5 64% MEANINGFUL hand-score is for GROUNDED_MEANING genus facts and does not transfer. GROWTH IS PAUSED: nothing here is written to data/foundation/**.",
+  "relations_in_arm": {
+    "ENABLING_CONDITION": 79,
+    "ENABLING_CONDITION_AGENT": 76,
+    "PROCESS_ACTION": 49,
+    "PROCESS_PATIENT": 46
+  },
+  "rows": [
+    {
+      "fid": 1,
+      "subject": "VBNC state",
+      "relation": "ENABLING_CONDITION",
+      "object": "respond",
+      "triple": "(VBNC state, ENABLING_CONDITION, respond)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "PROPER",
+      "n_attestations": 1,
+      "definiendum_surface": "VBNC state",
+      "predicate_span": "prokaryotes respond to environmental stressors by entering a dormant state that allows their survival",
+      "provenance": [
+        "BIO:9092"
+      ],
+      "source_sentences": [
+        "The VBNC state occurs when prokaryotes respond to environmental stressors by entering a dormant state that allows their survival"
+      ]
+    },
+    {
+      "fid": 6,
+      "subject": "actor-observer bias",
+      "relation": "PROCESS_PATIENT",
+      "object": "behavior",
+      "triple": "(actor-observer bias, PROCESS_PATIENT, behavior)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "actor-observer bias",
+      "predicate_span": "attributing other people’s behavior to internal factors (fundamental attribution error) while attributing our own behavior to situational forces (Jones & Nisbett, 1971",
+      "provenance": [
+        "PSY:9338"
+      ],
+      "source_sentences": [
+        "The actor-observer bias is the phenomenon of attributing other people’s behavior to internal factors (fundamental attribution error) while attributing our own behavior to situational forces (Jones & Nisbett, 1971; Nisbett, Caputo, Legant, & Marecek, 1973; Choi & Nisbett, 1998)"
+      ]
+    },
+    {
+      "fid": 7,
+      "subject": "allopolyploid",
+      "relation": "ENABLING_CONDITION",
+      "object": "combine",
+      "triple": "(allopolyploid, ENABLING_CONDITION, combine)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "allopolyploid",
+      "predicate_span": "gametes from two different species combine",
+      "provenance": [
+        "BIO:7753"
+      ],
+      "source_sentences": [
+        "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"
+      ]
+    },
+    {
+      "fid": 8,
+      "subject": "allopolyploid",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "gamete",
+      "triple": "(allopolyploid, ENABLING_CONDITION_AGENT, gamete)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "allopolyploid",
+      "predicate_span": "gametes from two different species combine",
+      "provenance": [
+        "BIO:7753"
+      ],
+      "source_sentences": [
+        "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"
+      ]
+    },
+    {
+      "fid": 22,
+      "subject": "behavioral isolation",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "presence",
+      "triple": "(behavioral isolation, ENABLING_CONDITION_AGENT, presence)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Behavioral isolation",
+      "predicate_span": "the presence or absence of a specific behavior prevents reproduction",
+      "provenance": [
+        "BIO:7773"
+      ],
+      "source_sentences": [
+        "Behavioral isolation occurs when the presence or absence of a specific behavior prevents reproduction"
+      ]
+    },
+    {
+      "fid": 23,
+      "subject": "biochemical basis",
+      "relation": "PROCESS_ACTION",
+      "object": "precede",
+      "triple": "(biochemical basis, PROCESS_ACTION, precede)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Often the biochemical basis of epistasis",
+      "predicate_span": "the expression of one gene is dependent on the function of a gene that precedes or follows it in the pathway",
+      "provenance": [
+        "BIO:5462"
+      ],
+      "source_sentences": [
+        "Often the biochemical basis of epistasis is a gene pathway in which the expression of one gene is dependent on the function of a gene that precedes or follows it in the pathway"
+      ]
+    },
+    {
+      "fid": 26,
+      "subject": "bystander effect",
+      "relation": "PROCESS_ACTION",
+      "object": "volunteer",
+      "triple": "(bystander effect, PROCESS_ACTION, volunteer)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "bystander effect",
+      "predicate_span": "a witness or bystander does not volunteer to help a victim or person in distress",
+      "provenance": [
+        "PSY:9906"
+      ],
+      "source_sentences": [
+        "The bystander effect is a phenomenon in which a witness or bystander does not volunteer to help a victim or person in distress"
+      ]
+    },
+    {
+      "fid": 28,
+      "subject": "catabolism",
+      "relation": "PROCESS_ACTION",
+      "object": "break",
+      "triple": "(catabolism, PROCESS_ACTION, break)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Catabolism",
+      "predicate_span": "larger more complex substances are broken down into smaller simpler molecules",
+      "provenance": [
+        "ANAT:448"
+      ],
+      "source_sentences": [
+        "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"
+      ]
+    },
+    {
+      "fid": 35,
+      "subject": "chemical reaction",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "atom",
+      "triple": "(chemical reaction, ENABLING_CONDITION_AGENT, atom)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Chemical reactions",
+      "predicate_span": "two or more atoms bond together to form molecules or when bonded atoms break apart",
+      "provenance": [
+        "BIO:755"
+      ],
+      "source_sentences": [
+        "Chemical reactions occur when two or more atoms bond together to form molecules or when bonded atoms break apart"
+      ]
+    },
+    {
+      "fid": 39,
+      "subject": "commensal relationship",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "species",
+      "triple": "(commensal relationship, ENABLING_CONDITION_AGENT, species)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "commensal relationship",
+      "predicate_span": "one species benefits from the close, prolonged interaction, while the other neither benefits nor is harmed",
+      "provenance": [
+        "BIO:22057"
+      ],
+      "source_sentences": [
+        "A commensal relationship occurs when one species benefits from the close, prolonged interaction, while the other neither benefits nor is harmed"
+      ]
+    },
+    {
+      "fid": 40,
+      "subject": "commensalism",
+      "relation": "ENABLING_CONDITION",
+      "object": "benefit",
+      "triple": "(commensalism, ENABLING_CONDITION, benefit)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Commensalism",
+      "predicate_span": "one member benefits without affecting the other",
+      "provenance": [
+        "BIO:10457"
+      ],
+      "source_sentences": [
+        "Commensalism occurs when one member benefits without affecting the other"
+      ]
+    },
+    {
+      "fid": 50,
+      "subject": "describing species",
+      "relation": "PROCESS_ACTION",
+      "object": "determine",
+      "triple": "(describing species, PROCESS_ACTION, determine)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Describing a species",
+      "predicate_span": "biologists determine an organism’s unique characteristics and whether or not that organism belongs to any other described species or genus",
+      "provenance": [
+        "BIO:22877"
+      ],
+      "source_sentences": [
+        "Describing a species is a complex process through which biologists determine an organism’s unique characteristics and whether or not that organism belongs to any other described species or genus"
+      ]
+    },
+    {
+      "fid": 55,
+      "subject": "differentiation",
+      "relation": "PROCESS_PATIENT",
+      "object": "function",
+      "triple": "(differentiation, PROCESS_PATIENT, function)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Differentiation",
+      "predicate_span": "unspecialized cells become specialized to carry out distinct functions",
+      "provenance": [
+        "ANAT:2292"
+      ],
+      "source_sentences": [
+        "Differentiation is the process by which unspecialized cells become specialized to carry out distinct functions"
+      ]
+    },
+    {
+      "fid": 56,
+      "subject": "diffusion",
+      "relation": "PROCESS_ACTION",
+      "object": "drive",
+      "triple": "(diffusion, PROCESS_ACTION, drive)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Diffusion",
+      "predicate_span": "transport is driven by a concentration gradient",
+      "provenance": [
+        "BIO:18719"
+      ],
+      "source_sentences": [
+        "Diffusion is a process in which transport is driven by a concentration gradient"
+      ]
+    },
+    {
+      "fid": 57,
+      "subject": "diffusion",
+      "relation": "PROCESS_ACTION",
+      "object": "travel",
+      "triple": "(diffusion, PROCESS_ACTION, travel)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Diffusion",
+      "predicate_span": "material travels from regions of high concentration to low concentration until equilibrium is reached",
+      "provenance": [
+        "BIO:18615"
+      ],
+      "source_sentences": [
+        "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"
+      ]
+    },
+    {
+      "fid": 59,
+      "subject": "diffusion",
+      "relation": "PROCESS_PATIENT",
+      "object": "region",
+      "triple": "(diffusion, PROCESS_PATIENT, region)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Diffusion",
+      "predicate_span": "material travels from regions of high concentration to low concentration until equilibrium is reached",
+      "provenance": [
+        "BIO:18615"
+      ],
+      "source_sentences": [
+        "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"
+      ]
+    },
+    {
+      "fid": 62,
+      "subject": "dysfunction",
+      "relation": "ENABLING_CONDITION",
+      "object": "break",
+      "triple": "(dysfunction, ENABLING_CONDITION, break)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Dysfunction",
+      "predicate_span": "an internal mechanism breaks down and can no longer perform its normal function",
+      "provenance": [
+        "PSY:12678"
+      ],
+      "source_sentences": [
+        "Dysfunction occurs when an internal mechanism breaks down and can no longer perform its normal function"
+      ]
+    },
+    {
+      "fid": 70,
+      "subject": "encoding",
+      "relation": "PROCESS_ACTION",
+      "object": "get",
+      "triple": "(encoding, PROCESS_ACTION, get)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Encoding",
+      "predicate_span": "getting information into our memory system through automatic or effortful processing",
+      "provenance": [
+        "PSY:5588"
+      ],
+      "source_sentences": [
+        "Encoding is the act of getting information into our memory system through automatic or effortful processing"
+      ]
+    },
+    {
+      "fid": 71,
+      "subject": "encoding",
+      "relation": "PROCESS_PATIENT",
+      "object": "information",
+      "triple": "(encoding, PROCESS_PATIENT, information)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Encoding",
+      "predicate_span": "getting information into our memory system through automatic or effortful processing",
+      "provenance": [
+        "PSY:5588"
+      ],
+      "source_sentences": [
+        "Encoding is the act of getting information into our memory system through automatic or effortful processing"
+      ]
+    },
+    {
+      "fid": 86,
+      "subject": "foraging",
+      "relation": "PROCESS_PATIENT",
+      "object": "resource",
+      "triple": "(foraging, PROCESS_PATIENT, resource)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Foraging",
+      "predicate_span": "searching for and exploiting food resources",
+      "provenance": [
+        "BIO:22219"
+      ],
+      "source_sentences": [
+        "Foraging is the act of searching for and exploiting food resources"
+      ]
+    },
+    {
+      "fid": 87,
+      "subject": "form",
+      "relation": "ENABLING_CONDITION",
+      "object": "reproduce",
+      "triple": "(form, ENABLING_CONDITION, reproduce)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "other form of polyploidy",
+      "predicate_span": "individuals of two different species reproduce to form a viable offspring that we call an allopolyploid",
+      "provenance": [
+        "BIO:7753"
+      ],
+      "source_sentences": [
+        "The other form of polyploidy occurs when individuals of two different species reproduce to form a viable offspring that we call an allopolyploid"
+      ]
+    },
+    {
+      "fid": 107,
+      "subject": "hemostasis",
+      "relation": "PROCESS_ACTION",
+      "object": "cease",
+      "triple": "(hemostasis, PROCESS_ACTION, cease)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Hemostasis",
+      "predicate_span": "bleeding ceases",
+      "provenance": [
+        "ANAT:13595"
+      ],
+      "source_sentences": [
+        "Hemostasis is the physiological process by which bleeding ceases"
+      ]
+    },
+    {
+      "fid": 108,
+      "subject": "high death rate",
+      "relation": "ENABLING_CONDITION",
+      "object": "increase",
+      "triple": "(high death rate, ENABLING_CONDITION, increase)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "high death rate",
+      "predicate_span": "the sheep were between 6 and 12 months old, and then increased even more from 8 to 12 years old, after which there were few survivors",
+      "provenance": [
+        "BIO:21629"
+      ],
+      "source_sentences": [
+        "As can be seen from the mortality rate data (column D), a high death rate occurred when the sheep were between 6 and 12 months old, and then increased even more from 8 to 12 years old, after which there were few survivors"
+      ]
+    },
+    {
+      "fid": 114,
+      "subject": "infection",
+      "relation": "ENABLING_CONDITION",
+      "object": "enter",
+      "triple": "(infection, ENABLING_CONDITION, enter)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Infection",
+      "predicate_span": "the human enters the water and metacercaria larvae, released from the snail host, locate and penetrate the skin",
+      "provenance": [
+        "BIO:12102"
+      ],
+      "source_sentences": [
+        "Infection occurs when the human enters the water and metacercaria larvae, released from the snail host, locate and penetrate the skin"
+      ]
+    },
+    {
+      "fid": 129,
+      "subject": "lactation",
+      "relation": "PROCESS_PATIENT",
+      "object": "nipple",
+      "triple": "(lactation, PROCESS_PATIENT, nipple)",
+      "pattern": "VP2_BY_WHICH",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Lactation",
+      "predicate_span": "milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple",
+      "provenance": [
+        "ANAT:22992"
+      ],
+      "source_sentences": [
+        "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple"
+      ]
+    },
+    {
+      "fid": 139,
+      "subject": "mechanical digestion",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "chyme",
+      "triple": "(mechanical digestion, ENABLING_CONDITION_AGENT, chyme)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "mechanical digestion",
+      "predicate_span": "chyme moves from the ileum into the cecum, an activity regulated by the ileocecal sphincter",
+      "provenance": [
+        "ANAT:19190"
+      ],
+      "source_sentences": [
+        "In the large intestine, mechanical digestion begins when chyme moves from the ileum into the cecum, an activity regulated by the ileocecal sphincter"
+      ]
+    },
+    {
+      "fid": 143,
+      "subject": "menopause",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "ovary",
+      "triple": "(menopause, ENABLING_CONDITION_AGENT, ovary)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Menopause",
+      "predicate_span": "the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop",
+      "provenance": [
+        "BIO:20729"
+      ],
+      "source_sentences": [
+        "Menopause occurs when the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop"
+      ]
+    },
+    {
+      "fid": 150,
+      "subject": "natural surface runoff",
+      "relation": "ENABLING_CONDITION",
+      "object": "leach",
+      "triple": "(natural surface runoff, ENABLING_CONDITION, leach)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "natural surface runoff",
+      "predicate_span": "it is leached from phosphate-containing rock by weathering, thus sending phosphates into rivers, lakes, and the ocean",
+      "provenance": [
+        "BIO:22747"
+      ],
+      "source_sentences": [
+        "In addition to phosphate runoff as a result of human activity, natural surface runoff occurs when it is leached from phosphate-containing rock by weathering, thus sending phosphates into rivers, lakes, and the ocean"
+      ]
+    },
+    {
+      "fid": 151,
+      "subject": "neural stimulus",
+      "relation": "ENABLING_CONDITION",
+      "object": "prompt",
+      "triple": "(neural stimulus, ENABLING_CONDITION, prompt)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "neural stimulus",
+      "predicate_span": "a nerve impulse prompts the secretion or inhibition of a hormone",
+      "provenance": [
+        "ANAT:12195"
+      ],
+      "source_sentences": [
+        "Finally, a neural stimulus occurs when a nerve impulse prompts the secretion or inhibition of a hormone"
+      ]
+    },
+    {
+      "fid": 154,
+      "subject": "neurodevelopmental disorder",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "development",
+      "triple": "(neurodevelopmental disorder, ENABLING_CONDITION_AGENT, development)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Neurodevelopmental disorders",
+      "predicate_span": "the development of the nervous system is disturbed",
+      "provenance": [
+        "BIO:16580"
+      ],
+      "source_sentences": [
+        "Neurodevelopmental disorders occur when the development of the nervous system is disturbed"
+      ]
+    },
+    {
+      "fid": 163,
+      "subject": "observational learning",
+      "relation": "PROCESS_ACTION",
+      "object": "watch",
+      "triple": "(observational learning, PROCESS_ACTION, watch)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "observational learning",
+      "predicate_span": "watching others and then imitating what they do",
+      "provenance": [
+        "PSY:4024"
+      ],
+      "source_sentences": [
+        "In contrast to classical and operant conditioning, in which learning occurs only through direct experience, observational learning is the process of watching others and then imitating what they do"
+      ]
+    },
+    {
+      "fid": 166,
+      "subject": "persuasion",
+      "relation": "PROCESS_ACTION",
+      "object": "change",
+      "triple": "(persuasion, PROCESS_ACTION, change)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Persuasion",
+      "predicate_span": "changing our attitude toward something based on some kind of communication",
+      "provenance": [
+        "PSY:9513"
+      ],
+      "source_sentences": [
+        "Persuasion is the process of changing our attitude toward something based on some kind of communication"
+      ]
+    },
+    {
+      "fid": 173,
+      "subject": "polar molecule",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "atom",
+      "triple": "(polar molecule, ENABLING_CONDITION_AGENT, atom)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Polar molecules",
+      "predicate_span": "atoms share electrons unequally, in polar covalent bonds",
+      "provenance": [
+        "ANAT:1058"
+      ],
+      "source_sentences": [
+        "Polar molecules occur when atoms share electrons unequally, in polar covalent bonds"
+      ]
+    },
+    {
+      "fid": 178,
+      "subject": "primary succession",
+      "relation": "ENABLING_CONDITION",
+      "object": "form",
+      "triple": "(primary succession, ENABLING_CONDITION, form)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Primary succession",
+      "predicate_span": "new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Hawaii",
+      "provenance": [
+        "BIO:22123"
+      ],
+      "source_sentences": [
+        "Primary succession occurs when new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Hawaii"
+      ]
+    },
+    {
+      "fid": 179,
+      "subject": "primary succession",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "land",
+      "triple": "(primary succession, ENABLING_CONDITION_AGENT, land)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Primary succession",
+      "predicate_span": "new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Hawaii",
+      "provenance": [
+        "BIO:22123"
+      ],
+      "source_sentences": [
+        "Primary succession occurs when new land is formed or rock is exposed: for example, following the eruption of volcanoes, such as those on the Big Island of Hawaii"
+      ]
+    },
+    {
+      "fid": 183,
+      "subject": "process",
+      "relation": "ENABLING_CONDITION",
+      "object": "gather",
+      "triple": "(process, ENABLING_CONDITION, gather)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "process",
+      "predicate_span": "mesenchymal cells in the embryonic skeleton gather together and begin to differentiate into specialized cells (a)",
+      "provenance": [
+        "ANAT:3926"
+      ],
+      "source_sentences": [
+        "The process begins when mesenchymal cells in the embryonic skeleton gather together and begin to differentiate into specialized cells (a)"
+      ]
+    },
+    {
+      "fid": 188,
+      "subject": "protraction",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "jaw",
+      "triple": "(protraction, ENABLING_CONDITION_AGENT, jaw)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "protraction",
+      "predicate_span": "the lower jaw is pushed forward, to stick out the chin, while retraction pulls the lower jaw backward",
+      "provenance": [
+        "ANAT:6367"
+      ],
+      "source_sentences": [
+        "For the mandible, protraction occurs when the lower jaw is pushed forward, to stick out the chin, while retraction pulls the lower jaw backward"
+      ]
+    },
+    {
+      "fid": 189,
+      "subject": "protraction",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "shoulder",
+      "triple": "(protraction, ENABLING_CONDITION_AGENT, shoulder)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Protraction of the scapula",
+      "predicate_span": "the shoulder is moved forward, as when pushing against something or throwing a ball",
+      "provenance": [
+        "ANAT:6367"
+      ],
+      "source_sentences": [
+        "Protraction of the scapula occurs when the shoulder is moved forward, as when pushing against something or throwing a ball"
+      ]
+    },
+    {
+      "fid": 194,
+      "subject": "pupillary light reflex",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "light",
+      "triple": "(pupillary light reflex, ENABLING_CONDITION_AGENT, light)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "pupillary light reflex",
+      "predicate_span": "light hits the retina and causes a signal to travel along the optic nerve",
+      "provenance": [
+        "ANAT:11169"
+      ],
+      "source_sentences": [
+        "The pupillary light reflex begins when light hits the retina and causes a signal to travel along the optic nerve"
+      ]
+    },
+    {
+      "fid": 195,
+      "subject": "reciprocal translocation",
+      "relation": "ENABLING_CONDITION",
+      "object": "transfer",
+      "triple": "(reciprocal translocation, ENABLING_CONDITION, transfer)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "reciprocal translocation",
+      "predicate_span": "a DNA segment transfers from one chromosome to another, nonhomologous chromosome",
+      "provenance": [
+        "BIO:5705"
+      ],
+      "source_sentences": [
+        "A reciprocal translocation occurs when a DNA segment transfers from one chromosome to another, nonhomologous chromosome"
+      ]
+    },
+    {
+      "fid": 206,
+      "subject": "second-degree",
+      "relation": "ENABLING_CONDITION",
+      "object": "reach",
+      "triple": "(second-degree, ENABLING_CONDITION, reach)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "second-degree or incomplete block",
+      "predicate_span": "some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": [
+        "ANAT:14271"
+      ],
+      "source_sentences": [
+        "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not"
+      ]
+    },
+    {
+      "fid": 207,
+      "subject": "second-degree",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "impulse",
+      "triple": "(second-degree, ENABLING_CONDITION_AGENT, impulse)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "second-degree or incomplete block",
+      "predicate_span": "some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": [
+        "ANAT:14271"
+      ],
+      "source_sentences": [
+        "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not"
+      ]
+    },
+    {
+      "fid": 214,
+      "subject": "sensory activation",
+      "relation": "ENABLING_CONDITION",
+      "object": "process",
+      "triple": "(sensory activation, ENABLING_CONDITION, process)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "sensory activation",
+      "predicate_span": "a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor",
+      "provenance": [
+        "BIO:16746"
+      ],
+      "source_sentences": [
+        "A sensory activation occurs when a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor"
+      ]
+    },
+    {
+      "fid": 228,
+      "subject": "termination",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "enzyme",
+      "triple": "(termination, ENABLING_CONDITION_AGENT, enzyme)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Termination of the signal",
+      "predicate_span": "an enzyme called phosphodiesterase converts cAMP into AMP",
+      "provenance": [
+        "BIO:4122"
+      ],
+      "source_sentences": [
+        "Termination of the signal occurs when an enzyme called phosphodiesterase converts cAMP into AMP"
+      ]
+    },
+    {
+      "fid": 229,
+      "subject": "termination",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "uag",
+      "triple": "(termination, ENABLING_CONDITION_AGENT, uag)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Termination of translation",
+      "predicate_span": "a nonsense codon (UAA, UAG, or UGA) is encountered",
+      "provenance": [
+        "BIO:6574"
+      ],
+      "source_sentences": [
+        "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered"
+      ]
+    },
+    {
+      "fid": 233,
+      "subject": "thirst response",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "osmoreceptor",
+      "triple": "(thirst response, ENABLING_CONDITION_AGENT, osmoreceptor)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "thirst response",
+      "predicate_span": "osmoreceptors detect a decrease in water levels in the blood",
+      "provenance": [
+        "ANAT:21368"
+      ],
+      "source_sentences": [
+        "The thirst response begins when osmoreceptors detect a decrease in water levels in the blood"
+      ]
+    },
+    {
+      "fid": 236,
+      "subject": "transcription",
+      "relation": "PROCESS_ACTION",
+      "object": "copy",
+      "triple": "(transcription, PROCESS_ACTION, copy)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Transcription",
+      "predicate_span": "copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA)",
+      "provenance": [
+        "BIO:3956"
+      ],
+      "source_sentences": [
+        "Transcription is the process of copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA); the cell uses information in the mRNA (which moves out into the cytoplasm and associates with ribosomes) to link specific amino acids in the correct order, producing a protein"
+      ]
+    },
+    {
+      "fid": 240,
+      "subject": "translation",
+      "relation": "PROCESS_ACTION",
+      "object": "synthesize",
+      "triple": "(translation, PROCESS_ACTION, synthesize)",
+      "pattern": "VP1_PROCESS_OF",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Translation",
+      "predicate_span": "synthesizing a chain of amino acids called a polypeptide",
+      "provenance": [
+        "ANAT:2084"
+      ],
+      "source_sentences": [
+        "Translation is the process of synthesizing a chain of amino acids called a polypeptide"
+      ]
+    },
+    {
+      "fid": 246,
+      "subject": "vascular shock",
+      "relation": "ENABLING_CONDITION",
+      "object": "lose",
+      "triple": "(vascular shock, ENABLING_CONDITION, lose)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Vascular shock",
+      "predicate_span": "arterioles lose their normal muscular tone and dilate dramatically",
+      "provenance": [
+        "ANAT:15487"
+      ],
+      "source_sentences": [
+        "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"
+      ]
+    },
+    {
+      "fid": 247,
+      "subject": "vascular shock",
+      "relation": "ENABLING_CONDITION_AGENT",
+      "object": "arteriole",
+      "triple": "(vascular shock, ENABLING_CONDITION_AGENT, arteriole)",
+      "pattern": "VP4_OCCURS_WHEN",
+      "subject_type": "COMMON",
+      "n_attestations": 1,
+      "definiendum_surface": "Vascular shock",
+      "predicate_span": "arterioles lose their normal muscular tone and dilate dramatically",
+      "provenance": [
+        "ANAT:15487"
+      ],
+      "source_sentences": [
+        "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"
+      ]
+    }
+  ]
+}

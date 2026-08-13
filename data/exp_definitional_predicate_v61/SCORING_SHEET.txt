@@ -1,0 +1,151 @@
+[01] VBNC state --ENABLING_CONDITION--> respond
+     "The VBNC state occurs when prokaryotes respond to environmental stressors by entering a dormant state that allows their survival"   [BIO:9092]
+
+[02] actor-observer bias --PROCESS_PATIENT--> behavior
+     "The actor-observer bias is the phenomenon of attributing other people’s behavior to internal factors (fundamental attribution error) while attributing our ow..."   [PSY:9338]
+
+[03] allopolyploid --ENABLING_CONDITION--> combine
+     "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[04] allopolyploid --ENABLING_CONDITION_AGENT--> gamete
+     "The prefix “allo-” means “other” (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[05] catabolism --PROCESS_ACTION--> break
+     "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"   [ANAT:448]
+
+[06] catabolism --PROCESS_PATIENT--> substance
+     "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"   [ANAT:448]
+
+[07] cellular respiration --PROCESS_ACTION--> make
+     "Cellular respiration is the process of making ATP using the chemical energy in glucose and other nutrients"   [BIO:1880]
+
+[08] cellular respiration --PROCESS_PATIENT--> convert
+     "In contrast, cellular respiration is the process in which the chemical energy stored in sugars is converted into ATP, a source of chemical energy that can be..."   [BIO:3878]
+
+[09] chemical reaction --ENABLING_CONDITION--> bond
+     "Chemical reactions occur when two or more atoms bond together to form molecules or when bonded atoms break apart"   [BIO:755]
+
+[10] commensalism --ENABLING_CONDITION_AGENT--> member
+     "Commensalism occurs when one member benefits without affecting the other"   [BIO:10457]
+
+[11] cross-bridge formation --ENABLING_CONDITION_AGENT--> head
+     "Cross-bridge formation occurs when the myosin head attaches to the actin while adenosine diphosphate (ADP) and inorganic phosphate (Pi) are still bound to my..."   [ANAT:6965]
+
+[12] cross-pollination --ENABLING_CONDITION--> transfer
+     "Cross-pollination occurs when pollen is transferred from one flower to another flower of another plant"   [BIO:14839]
+
+[13] diffusion --PROCESS_ACTION--> travel
+     "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached"   [BIO:18615]
+
+[14] dysfunction --ENABLING_CONDITION_AGENT--> mechanism
+     "Dysfunction occurs when an internal mechanism breaks down and can no longer perform its normal function"   [PSY:12678]
+
+[15] elaborative rehearsal --PROCESS_ACTION--> link
+     "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"   [PSY:5518]
+
+[16] elaborative rehearsal --PROCESS_PATIENT--> try
+     "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"   [PSY:5518]
+
+[17] elimination --ENABLING_CONDITION_AGENT--> response
+     "Elimination occurs when the immune response first develops toward tumor-specific antigens specific to the cancer and actively kills most cancer cells, follow..."   [ANAT:17373]
+
+[18] encoding --PROCESS_ACTION--> get
+     "Encoding is the act of getting information into our memory system through automatic or effortful processing"   [PSY:5588]
+
+[19] feedback inhibition --ENABLING_CONDITION--> end
+     "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream"   [BIO:3067]
+
+[20] feedback inhibition --ENABLING_CONDITION_AGENT--> pathway's
+     "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream"   [BIO:3067]
+
+[21] glucose-sparing effect --ENABLING_CONDITION_AGENT--> gh
+     "A glucose-sparing effect occurs when GH stimulates lipolysis, or the breakdown of adipose tissue, releasing fatty acids into the blood"   [ANAT:12299]
+
+[22] glycolysis --PROCESS_ACTION--> produce
+     "Because erythrocytes do not contain mitochondria, glycolysis is the sole method by which these cells produce ATP"   [ANAT:18109]
+
+[23] glycolysis --PROCESS_PATIENT--> atp
+     "Because erythrocytes do not contain mitochondria, glycolysis is the sole method by which these cells produce ATP"   [ANAT:18109]
+
+[24] hemopoiesis --ENABLING_CONDITION--> expose
+     "Hemopoiesis begins when the hematopoietic stem cell is exposed to appropriate chemical stimuli collectively called hemopoietic growth factors, which prompt i..."   [ANAT:13113]
+
+[25] hydroponics --PROCESS_PATIENT--> plant
+     "Hydroponics is a method of growing plants in a water-nutrient solution instead of soil"   [BIO:14327]
+
+[26] injury --ENABLING_CONDITION_PATIENT--> knee
+     "Injury to the posterior cruciate ligament occurs when the knee is flexed and the tibia is driven posteriorly, such as falling and landing on the tibial tuber..."   [ANAT:6571]
+
+[27] interesting example of ecosystem dynamics --ENABLING_CONDITION--> strike
+     "In 1993, an interesting example of ecosystem dynamics occurred when a rare lung disease struck inhabitants of the southwestern United States"   [BIO:22397]
+
+[28] lactation --PROCESS_ACTION--> synthesize
+     "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking a..."   [ANAT:22992]
+
+[29] menopause --ENABLING_CONDITION_AGENT--> ovary
+     "Menopause occurs when the ovaries lose their sensitivity to FSH and LH and the reproductive cycles slow to a stop"   [BIO:20729]
+
+[30] neurodevelopmental disorder --ENABLING_CONDITION--> disturb
+     "Neurodevelopmental disorders occur when the development of the nervous system is disturbed"   [BIO:16580]
+
+[31] neutralization --PROCESS_ACTION--> coat
+     "Neutralization is the process of coating a pathogen with antibodies, making it physically impossible for the pathogen to bind to receptors"   [ANAT:17157]
+
+[32] osmotic regulation --PROCESS_ACTION--> salt
+     "The solutes in body fluids are mainly mineral salts and sugars, and osmotic regulation is the process by which the mineral salts and water are kept in balance"   [BIO:19451]
+
+[33] osmotic regulation --PROCESS_PATIENT--> balance
+     "The solutes in body fluids are mainly mineral salts and sugars, and osmotic regulation is the process by which the mineral salts and water are kept in balance"   [BIO:19451]
+
+[34] photosynthesis --PROCESS_ACTION--> like
+     "Photosynthesis is the primary pathway in which photosynthetic organisms like plants (planktonic algae perform the majority of global photosynthesis) harvest ..."   [BIO:2786]
+
+[35] power stroke --ENABLING_CONDITION_PATIENT--> atp
+     "The power stroke occurs when ATP is hydrolyzed to ADP and phosphate"   [BIO:18497]
+
+[36] proactive interference --ENABLING_CONDITION--> hinder
+     "Proactive interference happens when old information hinders the recall of newly learned information"   [PSY:5890]
+
+[37] pupillary light reflex --ENABLING_CONDITION--> hit
+     "The pupillary light reflex begins when light hits the retina and causes a signal to travel along the optic nerve"   [ANAT:11169]
+
+[38] respiratory alkalosis --ENABLING_CONDITION_AGENT--> blood
+     "Respiratory alkalosis occurs when the blood is overly alkaline due to a deficiency in carbonic acid and CO2 levels in the blood"   [ANAT:21689]
+
+[39] retrieval --PROCESS_ACTION--> get
+     "Storage is retention of the information, and retrieval is the act of getting information out of storage and into conscious awareness through recall, recognit..."   [PSY:5588]
+
+[40] scapegoat --PROCESS_ACTION--> blame
+     "Scapegoating is the act of blaming an out-group when the in-group experiences frustration or is blocked from obtaining a goal (Allport, 1954)"   [PSY:9830]
+
+[41] semelparity --ENABLING_CONDITION--> reproduce
+     "Semelparity occurs when a species reproduces only once during its lifetime and then dies"   [BIO:21725]
+
+[42] semelparity --ENABLING_CONDITION_AGENT--> species
+     "Semelparity occurs when a species reproduces only once during its lifetime and then dies"   [BIO:21725]
+
+[43] sensory activation --ENABLING_CONDITION_PATIENT--> stimulus
+     "A sensory activation occurs when a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor"   [BIO:16746]
+
+[44] thermal stratification of lake --ENABLING_CONDITION--> warm
+     "In the summer, as we have seen, thermal stratification of lakes and ponds occurs when the upper layer of water is warmed by the sun and does not mix with dee..."   [BIO:21377]
+
+[45] thermal stratification of lake --ENABLING_CONDITION_PATIENT--> layer
+     "In the summer, as we have seen, thermal stratification of lakes and ponds occurs when the upper layer of water is warmed by the sun and does not mix with dee..."   [BIO:21377]
+
+[46] tragic irish potato famine --ENABLING_CONDITION--> grow
+     "The tragic Irish potato famine occurred when the single variety grown in Ireland became susceptible to a potato blight, wiping out the entire crop"   [BIO:23059]
+
+[47] transcription --PROCESS_PATIENT--> information
+     "Transcription is the process of copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA); the cell uses information in ..."   [BIO:3956]
+
+[48] translation --PROCESS_ACTION--> synthesize
+     "Translation is the process of synthesizing a chain of amino acids called a polypeptide"   [ANAT:2084]
+
+[49] vascular shock --ENABLING_CONDITION--> lose
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+[50] vascular shock --ENABLING_CONDITION_AGENT--> arteriole
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+TOTAL ROWS: 50 | RELATIONS: ENABLING_CONDITION, PROCESS_PATIENT, ENABLING_CONDITION_AGENT, PROCESS_ACTION, ENABLING_CONDITION_PATIENT

@@ -1,0 +1,32 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module self-test (incl. every v3/v4/v5 ISA regression) + on-disk sampling cross-check + real code path",
+  "summary": "selftest",
+  "elapsed_s": 3.32,
+  "sampling": {
+    "v5_sample_n_facts": 2092,
+    "fids_matched": 50
+  },
+  "tiny": {
+    "n_tiny_predicate_facts": 6,
+    "per_pattern": {
+      "VP1_PROCESS_OF": 2,
+      "VP2_BY_WHICH": 2,
+      "VP4_OCCURS_WHEN": 2
+    },
+    "candidate_sentences": {
+      "VP1_PROCESS_OF": 1,
+      "VP2_BY_WHICH": 1,
+      "VP4_OCCURS_WHEN": 2
+    },
+    "exercised": [
+      "called_left_boundary_diagnostic",
+      "converted_sentences",
+      "extract_definitions",
+      "extract_predicates",
+      "load_corpus",
+      "load_prepatch_module",
+      "sample_for_audit"
+    ]
+  }
+}

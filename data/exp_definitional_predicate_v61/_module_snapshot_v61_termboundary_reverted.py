@@ -432,158 +432,30 @@ def _expand_proper_name(dfd: str, sentence: str) -> Tuple[str, bool]:
     return dfd, False
 
 
-# v6.1 F-D1 (2026-08-13) -- ONE TERM-BOUNDARY ROUTINE FOR EVERY PATTERN.
-# The v5 fix (F7/F8 above) and this one are the SAME defect class: a term whose surface span was
-# cut in the wrong place. v5 fixed it inside `build_term`/`_expand_proper_name`/
-# `split_glossary_entries`; the v6 predicate block reached the same code through `build_term`,
-# and still banked `form`, `process`, `second-degree`, `termination` (twice, colliding). The
-# response is NOT a second per-pattern fix: `build_term` is now a thin wrapper over ONE routine,
-# `build_term_explain`, whose behaviour is selected by an explicit TermPolicy. Every pattern --
-# the five shipped ISA ones and every predicate one -- boundaries its term here and nowhere else.
-# LEGACY is byte-identical to the pre-v6.1 code (proved by the per-pattern ISA digests in
-# experiments/exp_definitional_predicate_v61.py); STRICT adds the three v6.1 rules.
-_CATEGORY_NOUN = {
-    # bare container nouns that carry no identity of their own. As a WHOLE term they name
-    # nothing ("The process begins when ..." -> `process`); as a MODIFIED term they are fine
-    # ("age structure", "cell cycle"), so the rule only fires on a single-content-token term.
-    "form", "process", "type", "kind", "way", "stage", "sort", "part", "piece", "example",
-    "case", "thing", "aspect", "version", "variety", "step", "phase", "class", "category",
-    "group", "set", "series", "number", "unit",
-}
-
-
-@dataclass(frozen=True)
-class TermPolicy:
-    """Which term-boundary rules apply. LEGACY = the shipped behaviour, bit for bit."""
-    name: str = "LEGACY"
-    reject_bare_category_head: bool = False        # v6.1 D1a
-    restart_at_shared_head_coordination: bool = False   # v6.1 D1b
-    extend_over_of_complement: bool = False        # v6.1 D1c
-
-
-TERM_POLICY_LEGACY = TermPolicy()
-TERM_POLICY_STRICT = TermPolicy("STRICT_V61", True, True, True)
-
-
-def _term_cut(toks: List[str], proper: bool) -> Tuple[List[str], Optional[int]]:
-    """(span kept, index of the STOP token that ended it or None). The stop index is what the
-    v6.1 rules need: which boundary word cut the term tells you whether the rest of the span is
-    a shared-head coordination (`or`) or a postmodifier (`of`)."""
-    cut: List[str] = []
-    for i, t in enumerate(toks):
-        if t.lower() in _TERM_STOP and not proper:
-            return cut, i
-        cut.append(t)
-    return cut, None
-
-
-def _term_content(span: List[str]) -> List[str]:
-    return [t for t in span if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
-
-
-def _is_shared_head_modifier(tok: str) -> bool:
-    """True if `tok` cannot itself head an NP, so a coordination it sits in must be sharing the
-    head that follows ("a SECOND-DEGREE or incomplete BLOCK"). Hyphenated compounds and
-    WordNet-adjective-only tokens qualify; a token WordNet knows as a noun does not."""
-    if "-" in tok:
-        return True
-    lem = lemma_verb(tok)
-    try:
-        from nltk.corpus import wordnet as wn
-    except Exception:                        # noqa: BLE001 - degraded mode, do not block
-        return False
-    if wn.synsets(lem, pos="n"):
-        return False
-    return bool(wn.synsets(lem, pos="a") or wn.synsets(lem, pos="s"))
-
-
-def _coord_last_conjunct(toks: List[str], cut: List[str], stop_idx: Optional[int]
-                         ) -> Tuple[List[str], Optional[int], bool]:
-    """"A second-degree or incomplete block" -- the term was cut at `or` and banked
-    `second-degree`, which is not a term. When the LEFT conjunct cannot head an NP the two
-    conjuncts SHARE the head to their right, and the recoverable term is the RIGHT conjunct."""
-    if stop_idx is None or toks[stop_idx].lower() not in ("and", "or"):
-        return cut, stop_idx, False
-    right, right_stop = _term_cut(toks[stop_idx + 1:], False)
-    if not right:
-        return cut, stop_idx, False
-    left_content = _term_content(cut)
-    if left_content and not _is_shared_head_modifier(left_content[-1]):
-        return cut, stop_idx, False          # both conjuncts are real terms: keep the first
-    right_content = _term_content(right)
-    if not right_content or not is_nominal_lemma(lemma_verb(right_content[-1])):
-        return cut, stop_idx, False
-    new_stop = None if right_stop is None else stop_idx + 1 + right_stop
-    return right, new_stop, True
-
-
-def _of_complement_content(toks: List[str], stop_idx: int, n_left: int) -> List[str]:
-    """Content tokens of the `of`-postmodifier, or [] if it cannot be carried into the term.
-    "Termination of translation" and "Termination of the signal" are DIFFERENT terms; cutting
-    both to `termination` collides them into one indistinguishable subject."""
-    span, _ = _term_cut(toks[stop_idx + 1:], False)
-    content = _term_content(span)
-    if not content or len(content) + n_left > _MAX_TERM_CONTENT_TOKENS:
-        return []
-    if not is_nominal_lemma(lemma_verb(content[-1])):
-        return []
-    return content
-
-
-def build_term_explain(dfd: str, sentence: str, policy: TermPolicy = TERM_POLICY_LEGACY
-                       ) -> Tuple[Optional[Tuple[str, str]], str]:
-    """((term, term_type) or None, REASON). THE single term-boundary routine (v6.1 D1)."""
+def build_term(dfd: str, sentence: str):
+    """PRE-v6.1 ORIGINAL, restored verbatim for the regression proof."""
     name, proper = _expand_proper_name(dfd, sentence)
     toks = _tokens(name)
     if not toks:
-        return None, "NO_TOKENS"
-    cut, stop_idx = _term_cut(toks, proper)
-    note = ""
-    if policy.restart_at_shared_head_coordination and not proper:
-        cut, stop_idx, restarted = _coord_last_conjunct(toks, cut, stop_idx)
-        if restarted:
-            note = "|COORD_RESTART"
+        return None
+    cut = []
+    for t in toks:
+        if t.lower() in _TERM_STOP and not proper:
+            break
+        cut.append(t)
     if not cut:
-        return None, "EMPTY_CUT"
-    content = _term_content(cut)
+        return None
+    content = [t for t in cut if t.lower() not in _NON_HEAD and not is_closed_class(lemma_verb(t))]
     if not content:
-        return None, "NO_CONTENT"
+        return None
     if len(content) > _MAX_TERM_CONTENT_TOKENS:
-        return None, "TOO_LONG"             # run-on span, not a term (F3b)
+        return None
     if any(t.lower() in _TERM_STOP for t in content):
-        return None, "STOP_IN_CONTENT"
+        return None
     if proper:
-        return (" ".join(content), "PROPER"), "OK" + note
-    if (policy.reject_bare_category_head and len(content) == 1
-            and lemma_verb(content[0]).lower() in _CATEGORY_NOUN):
-        return None, "BARE_CATEGORY_HEAD"
-    tail: List[str] = []
-    if (policy.extend_over_of_complement and stop_idx is not None
-            and toks[stop_idx].lower() == "of"):
-        tail = _of_complement_content(toks, stop_idx, len(content))
+        return " ".join(content), "PROPER"
     body = [t.lower() for t in content[:-1]]
-    if tail:
-        term = " ".join(body + [content[-1].lower(), "of"]
-                        + [t.lower() for t in tail[:-1]] + [lemma_verb(tail[-1])])
-        return (term, "COMMON"), "OK" + note + "|OF_EXTENDED"
-    return (" ".join(body + [lemma_verb(content[-1])]), "COMMON"), "OK" + note
-
-
-def build_term_policy(dfd: str, sentence: str, policy: TermPolicy = TERM_POLICY_LEGACY
-                      ) -> Optional[Tuple[str, str]]:
-    return build_term_explain(dfd, sentence, policy)[0]
-
-
-def build_term(dfd: str, sentence: str) -> Optional[Tuple[str, str]]:
-    """(term, term_type) for a definiendum span, or None if it is not a term at all.
-    COMMON terms are lowercased with the HEAD token lemmatised ("Age structure" ->
-    "age structure"); PROPER terms keep their surface case so they can never collide with a
-    common noun ("Shanhui Fan" stays distinct from `fan`).
-
-    v6.1: this is `build_term_explain` under TERM_POLICY_LEGACY -- unchanged behaviour, one
-    implementation. Every pattern in this module boundaries its term through that routine."""
-    return build_term_policy(dfd, sentence, TERM_POLICY_LEGACY)
-
+    return " ".join(body + [lemma_verb(content[-1])]), "COMMON"
 
 def _mk(dfd: str, dfs: str, pattern: str, sentence: str,
         head_span: Optional[str] = None) -> Optional[Definition]:

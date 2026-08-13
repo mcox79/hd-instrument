@@ -1,0 +1,13 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module self-tests + tiny corpus + snapshot/revert digests equal + 13/13 defect rows no longer reproduce their v6 fact",
+  "summary": "selftest",
+  "elapsed_s": 2.8,
+  "shared_module_self_test": "FAIL_NOT_OWNED_BY_THIS_CELL: ['granum']",
+  "tiny_facts": 0,
+  "tiny_refusals": 1,
+  "tiny_notes": {
+    "D4_CLAUSE_TRUNCATED": 1,
+    "NO_VERB_IN_OWN_CLAUSE": 1
+  }
+}
