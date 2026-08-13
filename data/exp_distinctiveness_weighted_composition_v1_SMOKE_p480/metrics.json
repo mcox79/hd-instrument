@@ -1,0 +1,347 @@
+{
+  "verdict": "HARD_FAIL_SHAPE",
+  "verdict_msg": "A(own lexicon, VOID by construction)=HARD_FAIL_SUPPLY cov=0.054 | B(CSKG)=HARD_FAIL_SHAPE cov=1.000 rho_w=0.531 d_uni=-0.015 | C(CSKG no-lexrel, STRICTEST)=HARD_FAIL_SHAPE cov=0.713 rho_w=0.084 d_uni=+0.030",
+  "summary": "distinctiveness-weighted bundling vs uniform on held-out SimLex-999",
+  "elapsed_s": 0.837,
+  "run_mode": "smoke",
+  "anchor_name": "exp_distinctiveness_weighted_composition_v1",
+  "prereg": "preregs/2026-08-13_distinctiveness_weighted_composition.md",
+  "ts_iso": "2026-08-13T22:24:28.993429+00:00",
+  "n_units": 18,
+  "expected_n_units": 18,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "n_simlex_pairs_used": 480,
+  "bands": {
+    "HP_RHO_MIN": 0.35,
+    "HP_DELTA_UNIFORM": 0.08,
+    "HP_DELTA_GROUNDED": 0.15,
+    "HP_SCRAMBLE_MAX": 0.05,
+    "HF_SHAPE_DELTA": 0.03,
+    "HF_SUPPLY_COVERAGE": 0.2
+  },
+  "public_calibration_not_arms": {
+    "glove": 0.41,
+    "counter_fitting": 0.58,
+    "human_iaa": 0.67
+  },
+  "per_supply": {
+    "A_CONCEPT_FEATURES": {
+      "verdict": "HARD_FAIL_SUPPLY",
+      "notes": [
+        "cov_supply=0.0542 < 0.20: the wall is feature SUPPLY (E2), not metric shape (E1); redirect to differentia harvesting via hdlab/definitional_extraction.py"
+      ],
+      "cov_supply": 0.05416666666666667,
+      "cov_eval": 0.05416666666666667,
+      "n_eval_pairs": 26,
+      "n_covered_pairs": 26,
+      "n_features": 89,
+      "n_words_with_features": 61,
+      "n_dim": 8192,
+      "rho": {
+        "WEIGHTED": 0.7637,
+        "UNIFORM": 0.7252,
+        "GROUNDED_RAW": -0.0065,
+        "GROUNDED_CAPPED": 0.0134,
+        "SCRAMBLE_ASSIGN": -0.053,
+        "SCRAMBLE_WEIGHTS": 0.7175
+      },
+      "delta_weighted_minus_uniform": 0.0385,
+      "delta_weighted_minus_grounded_raw": 0.7702,
+      "diagnostics": {
+        "analytic_weighted_rho": 0.8006,
+        "analytic_uniform_rho": 0.7614,
+        "weight_all_p05": 4.0834,
+        "weight_all_p50": 6.1659,
+        "weight_all_p95": 8.0878,
+        "weight_shared_p05": 4.0284,
+        "weight_shared_p50": 5.6805,
+        "weight_shared_p95": 6.9029,
+        "weight_shared_ratio_p95_p05": 1.7135,
+        "n_shared_feature_incidences": 48
+      },
+      "arm_digests": {
+        "WEIGHTED": "7edd8c0598efed7a9f85cfdcb762122fa7fc952da9c9f708745ceed4fd9e9674",
+        "UNIFORM": "e52a08b17ab70c0e96f2db438af9de8f38c8766dca7b92e468a61569d1b15cad",
+        "GROUNDED_RAW": "c4ef994a25d85e8b9fa2d003d34649057f98d21a41d96156b28549c5abca4362",
+        "GROUNDED_CAPPED": "3a1f6d992c6fc7c839f0afb27cd4e754bfa7848cb35e56d81e4d1d3447cb2ed5",
+        "SCRAMBLE_ASSIGN": "e7bd7c603281080f1658843cb4c964ff16ce685074f21bbf78d991ea1e57bbe4",
+        "SCRAMBLE_WEIGHTS": "5ad0f7fd61a9c2ca6d0b27131380373731613428e4b02c31fd51f5f70dc1e4c2"
+      },
+      "external_supply": false,
+      "se_rho_approx": 0.2
+    },
+    "B_CSKG": {
+      "verdict": "HARD_FAIL_SHAPE",
+      "notes": [
+        "(WEIGHTED-UNIFORM)=-0.0153 < +0.03: the SHAPE hypothesis is REFUTED; next target is semantic-control gain (drill E4 -- concept_similarity has no context port)"
+      ],
+      "cov_supply": 1.0,
+      "cov_eval": 1.0,
+      "n_eval_pairs": 480,
+      "n_covered_pairs": 480,
+      "n_features": 62306,
+      "n_words_with_features": 637,
+      "n_dim": 1024,
+      "rho": {
+        "WEIGHTED": 0.5308,
+        "UNIFORM": 0.5461,
+        "GROUNDED_RAW": 0.1287,
+        "GROUNDED_CAPPED": 0.0721,
+        "SCRAMBLE_ASSIGN": 0.0142,
+        "SCRAMBLE_WEIGHTS": 0.5557
+      },
+      "delta_weighted_minus_uniform": -0.0153,
+      "delta_weighted_minus_grounded_raw": 0.4021,
+      "diagnostics": {
+        "analytic_weighted_rho": 0.6132,
+        "analytic_uniform_rho": 0.6035,
+        "weight_all_p05": 12.2433,
+        "weight_all_p50": 17.0762,
+        "weight_all_p95": 18.0762,
+        "weight_shared_p05": 10.4324,
+        "weight_shared_p50": 12.5527,
+        "weight_shared_p95": 16.0762,
+        "weight_shared_ratio_p95_p05": 1.541,
+        "n_shared_feature_incidences": 6366
+      },
+      "arm_digests": {
+        "WEIGHTED": "360c6c673ceca58384a47f3fc34787bf5dc620b083df9f0b1c2677d258a2a8cc",
+        "UNIFORM": "872be806054c1d2d5cc44275f50f2683b0ab016e0804e20ad5c1aa0607516f7f",
+        "GROUNDED_RAW": "70533a2ebdab196aef80f9b01980861069847a4b029f7c9bd0435eb753f8a87f",
+        "GROUNDED_CAPPED": "910a20b091038e529f7fe6e331309592deeb6a63945806eb79af90a257a2082a",
+        "SCRAMBLE_ASSIGN": "8c2fd54719899508816777758eff9913084c69aa72a566e325affff2c2baef88",
+        "SCRAMBLE_WEIGHTS": "0c0c6e6fb888deb5d06acb1deed988a6c02b31431c133b69d53a00ca22d31795"
+      },
+      "external_supply": true,
+      "se_rho_approx": 0.0457
+    },
+    "C_CSKG_NOLEXREL": {
+      "verdict": "HARD_FAIL_SHAPE",
+      "notes": [
+        "(WEIGHTED-UNIFORM)=+0.0298 < +0.03: the SHAPE hypothesis is REFUTED; next target is semantic-control gain (drill E4 -- concept_similarity has no context port)"
+      ],
+      "cov_supply": 0.7125,
+      "cov_eval": 0.7125,
+      "n_eval_pairs": 342,
+      "n_covered_pairs": 342,
+      "n_features": 19061,
+      "n_words_with_features": 526,
+      "n_dim": 1024,
+      "rho": {
+        "WEIGHTED": 0.0838,
+        "UNIFORM": 0.054,
+        "GROUNDED_RAW": 0.1977,
+        "GROUNDED_CAPPED": 0.0836,
+        "SCRAMBLE_ASSIGN": 0.0751,
+        "SCRAMBLE_WEIGHTS": 0.0571
+      },
+      "delta_weighted_minus_uniform": 0.0298,
+      "delta_weighted_minus_grounded_raw": -0.114,
+      "diagnostics": {
+        "analytic_weighted_rho": 0.007,
+        "analytic_uniform_rho": -0.0016,
+        "weight_all_p05": 15.7543,
+        "weight_all_p50": 18.0762,
+        "weight_all_p95": 18.0762,
+        "weight_shared_p05": 10.4469,
+        "weight_shared_p50": 13.7543,
+        "weight_shared_p95": 17.0762,
+        "weight_shared_ratio_p95_p05": 1.6346,
+        "n_shared_feature_incidences": 359
+      },
+      "arm_digests": {
+        "WEIGHTED": "e3576146166f1a663a76389761dac78773aabf98b8fb74eefed4f141d82302b0",
+        "UNIFORM": "67452de0106c87c06755d6c802fdb85f36bd80053b7c4763eb9e218b8f99ecb3",
+        "GROUNDED_RAW": "542ecc0531d7b5c99d421aa3320e97b160890aadf8acefa0710e58af03c893a7",
+        "GROUNDED_CAPPED": "b125afe65695c205b4ae5b1130775a7dce38a44e2b540134020e9ed2c49ac7ac",
+        "SCRAMBLE_ASSIGN": "d6fc440329b3a90e52f09a685652250aeb1de5cbf800bed02d2d710e3c82320b",
+        "SCRAMBLE_WEIGHTS": "87154f7c1a4d18765f3ad5c2c0611ba255507702000319ff499b72b6e4fc012d"
+      },
+      "external_supply": true,
+      "se_rho_approx": 0.0542
+    }
+  },
+  "units": {
+    "A_CONCEPT_FEATURES|WEIGHTED": {
+      "rho": 0.7636910776814649,
+      "n": 26,
+      "digest": "7edd8c0598efed7a9f85cfdcb762122fa7fc952da9c9f708745ceed4fd9e9674",
+      "score_mean": 0.5362912617767086,
+      "score_std": 0.3841339023596728,
+      "score_min": -0.010762427002191544,
+      "score_max": 1.0,
+      "failure_class": null
+    },
+    "A_CONCEPT_FEATURES|UNIFORM": {
+      "rho": 0.7252267834758966,
+      "n": 26,
+      "digest": "e52a08b17ab70c0e96f2db438af9de8f38c8766dca7b92e468a61569d1b15cad",
+      "score_mean": 0.5765297188817595,
+      "score_std": 0.3650554113372351,
+      "score_min": -0.007371186278760433,
+      "score_max": 1.0,
+      "failure_class": null
+    },
+    "A_CONCEPT_FEATURES|GROUNDED_RAW": {
+      "rho": -0.006496837161118168,
+      "n": 26,
+      "digest": "c4ef994a25d85e8b9fa2d003d34649057f98d21a41d96156b28549c5abca4362",
+      "score_mean": 0.6809092321648047,
+      "score_std": 0.2653458007184727,
+      "score_min": 0.017306290566921234,
+      "score_max": 0.9666538834571838,
+      "failure_class": null
+    },
+    "A_CONCEPT_FEATURES|GROUNDED_CAPPED": {
+      "rho": 0.013416838535863852,
+      "n": 26,
+      "digest": "3a1f6d992c6fc7c839f0afb27cd4e754bfa7848cb35e56d81e4d1d3447cb2ed5",
+      "score_mean": 0.40048651758294845,
+      "score_std": 0.1202895752875756,
+      "score_min": 0.017306290566921234,
+      "score_max": 0.45,
+      "failure_class": null
+    },
+    "A_CONCEPT_FEATURES|SCRAMBLE_ASSIGN": {
+      "rho": -0.0530095759233926,
+      "n": 26,
+      "digest": "e7bd7c603281080f1658843cb4c964ff16ce685074f21bbf78d991ea1e57bbe4",
+      "score_mean": 0.055715890610232376,
+      "score_std": 0.21290428583609147,
+      "score_min": -0.018017999827861786,
+      "score_max": 1.0,
+      "failure_class": null
+    },
+    "A_CONCEPT_FEATURES|SCRAMBLE_WEIGHTS": {
+      "rho": 0.7175339246347829,
+      "n": 26,
+      "digest": "5ad0f7fd61a9c2ca6d0b27131380373731613428e4b02c31fd51f5f70dc1e4c2",
+      "score_mean": 0.5536830208192651,
+      "score_std": 0.3833809492284332,
+      "score_min": -0.005262638442218304,
+      "score_max": 1.0,
+      "failure_class": null
+    },
+    "B_CSKG|WEIGHTED": {
+      "rho": 0.5307993671254535,
+      "n": 480,
+      "digest": "360c6c673ceca58384a47f3fc34787bf5dc620b083df9f0b1c2677d258a2a8cc",
+      "score_mean": 0.06028134922817117,
+      "score_std": 0.080881340564185,
+      "score_min": -0.05283214896917343,
+      "score_max": 0.485098659992218,
+      "failure_class": null
+    },
+    "B_CSKG|UNIFORM": {
+      "rho": 0.5461358712753129,
+      "n": 480,
+      "digest": "872be806054c1d2d5cc44275f50f2683b0ab016e0804e20ad5c1aa0607516f7f",
+      "score_mean": 0.07214986309069597,
+      "score_std": 0.08896864909997333,
+      "score_min": -0.052763890475034714,
+      "score_max": 0.5407452583312988,
+      "failure_class": null
+    },
+    "B_CSKG|GROUNDED_RAW": {
+      "rho": 0.1286529498730046,
+      "n": 480,
+      "digest": "70533a2ebdab196aef80f9b01980861069847a4b029f7c9bd0435eb753f8a87f",
+      "score_mean": 0.5841461501973148,
+      "score_std": 0.33961635289797876,
+      "score_min": -0.5998636484146118,
+      "score_max": 0.9891510605812073,
+      "failure_class": null
+    },
+    "B_CSKG|GROUNDED_CAPPED": {
+      "rho": 0.07210879344919628,
+      "n": 480,
+      "digest": "910a20b091038e529f7fe6e331309592deeb6a63945806eb79af90a257a2082a",
+      "score_mean": 0.3781134608310823,
+      "score_std": 0.14466728714467403,
+      "score_min": 0.0,
+      "score_max": 0.45,
+      "failure_class": null
+    },
+    "B_CSKG|SCRAMBLE_ASSIGN": {
+      "rho": 0.014180964315929535,
+      "n": 480,
+      "digest": "8c2fd54719899508816777758eff9913084c69aa72a566e325affff2c2baef88",
+      "score_mean": 0.0001928966603979158,
+      "score_std": 0.02316300465583595,
+      "score_min": -0.06561009585857391,
+      "score_max": 0.08658909797668457,
+      "failure_class": null
+    },
+    "B_CSKG|SCRAMBLE_WEIGHTS": {
+      "rho": 0.5557434781937168,
+      "n": 480,
+      "digest": "0c0c6e6fb888deb5d06acb1deed988a6c02b31431c133b69d53a00ca22d31795",
+      "score_mean": 0.07218402579940933,
+      "score_std": 0.08938061679784165,
+      "score_min": -0.04950302094221115,
+      "score_max": 0.5346463918685913,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|WEIGHTED": {
+      "rho": 0.08375464077611669,
+      "n": 342,
+      "digest": "e3576146166f1a663a76389761dac78773aabf98b8fb74eefed4f141d82302b0",
+      "score_mean": 0.02239906061706215,
+      "score_std": 0.05762066331335367,
+      "score_min": -0.05082162097096443,
+      "score_max": 0.5308427214622498,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|UNIFORM": {
+      "rho": 0.05396349975241643,
+      "n": 342,
+      "digest": "67452de0106c87c06755d6c802fdb85f36bd80053b7c4763eb9e218b8f99ecb3",
+      "score_mean": 0.029517737062707848,
+      "score_std": 0.06460202640866597,
+      "score_min": -0.0527740977704525,
+      "score_max": 0.5410398244857788,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|GROUNDED_RAW": {
+      "rho": 0.19773586732892595,
+      "n": 342,
+      "digest": "542ecc0531d7b5c99d421aa3320e97b160890aadf8acefa0710e58af03c893a7",
+      "score_mean": 0.624280750870804,
+      "score_std": 0.31704545592503425,
+      "score_min": -0.5998636484146118,
+      "score_max": 0.9891510605812073,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|GROUNDED_CAPPED": {
+      "rho": 0.08357924724568433,
+      "n": 342,
+      "digest": "b125afe65695c205b4ae5b1130775a7dce38a44e2b540134020e9ed2c49ac7ac",
+      "score_mean": 0.39012376530571136,
+      "score_std": 0.13260499542365645,
+      "score_min": 0.0,
+      "score_max": 0.45,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|SCRAMBLE_ASSIGN": {
+      "rho": 0.07513469464445674,
+      "n": 342,
+      "digest": "d6fc440329b3a90e52f09a685652250aeb1de5cbf800bed02d2d710e3c82320b",
+      "score_mean": 0.0019760713296430458,
+      "score_std": 0.02400723573370172,
+      "score_min": -0.06112392619252205,
+      "score_max": 0.07852311432361603,
+      "failure_class": null
+    },
+    "C_CSKG_NOLEXREL|SCRAMBLE_WEIGHTS": {
+      "rho": 0.05706951232568949,
+      "n": 342,
+      "digest": "87154f7c1a4d18765f3ad5c2c0611ba255507702000319ff499b72b6e4fc012d",
+      "score_mean": 0.03013414561534736,
+      "score_std": 0.0656398258772063,
+      "score_min": -0.052774038165807724,
+      "score_max": 0.551674485206604,
+      "failure_class": null
+    }
+  }
+}
