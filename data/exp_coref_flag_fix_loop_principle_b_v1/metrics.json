@@ -3,9 +3,9 @@
   "verdict": "PARTIAL_COREF_ONLY",
   "verdict_msg": "[PARTIAL_COREF_ONLY] Principle B vs strict_cb (powered combined): pronoun-B3 0.7029->0.7047 (lift=+0.0018); identity-demanding query 0.7192982456140351->0.7368421052631579 (lift=0.01754385964912275; oracle=0.9298245614035088); name 0.8369->0.8361 (regr=+0.0008), overall 0.8078->0.8075 (regr=+0.0003). DIRECT corrected/broken: all corrected=1 broken=0 net=1 (changed 2 decisions); flagged-subset corrected=1 broken=0 net=1. Filter actions: {'abstain_no_same_clause_agent': 25, 'abstain_agent_pronoun': 31, 'abstain_multi_same_clause_agent': 3, 'fired': 9, 'allocate_new': 6, 'abstain_no_compat': 1, 'abstain_only_option': 1}.",
   "summary": "PARTIAL_COREF_ONLY",
-  "elapsed_s": 0.6884771999903023,
-  "ts_iso": "2026-08-02T23:38:13.858969+00:00",
-  "pid": 21172,
+  "elapsed_s": 0.8735724999569356,
+  "ts_iso": "2026-08-02T23:48:21.678053+00:00",
+  "pid": 8816,
   "fix": "binding_principle_b_same_clause_agent_exclusion",
   "flag_threshold_for_breakdown": 2,
   "bands": {
@@ -294,8 +294,8 @@
       }
     }
   },
-  "gold_path_combined": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
-  "gold_path_g5g6": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
+  "gold_path_combined": "d:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_combined_pronoun_powered_v1.jsonl",
+  "gold_path_g5g6": "d:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_g5g6_dense_pronoun_verbatim_v1_reviewed.jsonl",
   "participial_guard_note": "Principle B abstains unless EXACTLY ONE compatible candidate holds role==agent in the pronoun's OWN clause. Participials/continued-subject (probe case 7): the subject's agent role is tagged at a PRIOR clause index, so 0 same-clause agents -> abstain_no_same_clause_agent. Multi-verb/relative clauses (probe case 15): >=2 same-clause agents -> abstain_multi_same_clause_agent (gold preserved). See principle_b_action_counts for the achieved coverage/abstention breakdown.",
   "reproducibility_note": "run_learnable_strict_cb (5b266248f) + helpers + query machinery (e6a3a9ee8) + clean label (calibration v1) imported verbatim, NEVER mutated. run_loop_principle_b / _principle_b_filter are NEW opt-in functions in this file. Prior committed cells unaffected.",
   "prior_commits": {

@@ -1,15 +1,67 @@
 {
   "anchor_name": "depparse_v2_mst_cpu_v1",
-  "verdict": "UNKNOWN",
-  "verdict_msg": "UNKNOWN: corpus_load_failed",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: global-MST helps buried subject-id or agreement but below the full bar (sid d<0.03 or agree margin<0.05 over majority). dev-UAS local=0.7872 mst=0.7895 (ref 0.7875) | sid_buried local=0.2970 mst=0.3212 (d=+0.0242, n=55) sid_easy local=0.9388 mst=0.9386 | agree_buried local=0.4444 mst=0.4556 maj=0.5333 (n=30) | agree_all mst=0.9499 maj=0.7424",
+  "summary": "MIDDLE_BAND: global-MST helps buried subject-id or agreement but below the full bar (sid d<0.03 or agree margin<0.05 over majority). dev-UAS local=0.7872 mst=0.7895 (ref 0.7875) | sid_buried local=0.2970 mst=0.3212 (d=+0.0242, n=55) sid_easy local=0.9388 mst=0.9386 | agree_buried local=0.4444 mst=0.4556 maj=0.5333 (n=30) | agree_all mst=0.9499 maj=0.7424",
   "run_mode": "full",
-  "n_seeds": 1,
+  "n_seeds": 3,
   "per_seed": [
     {
-      "error": "corpus_load_failed",
-      "uas": 0.0
+      "n_seeds": 3,
+      "n_train": 12329,
+      "n_dev": 1989,
+      "n_pool": 4050,
+      "n_buried_subjid": 55,
+      "n_easy_subjid": 1286,
+      "n_buried_agree": 30,
+      "n_all_agree": 1250,
+      "majority_buried": 0.5333,
+      "majority_all": 0.7424,
+      "arms_differ": true,
+      "local": {
+        "uas": 0.7872,
+        "sid_b": 0.297,
+        "sid_e": 0.9388,
+        "sid_a": 0.8798,
+        "ag_b": 0.4444,
+        "ag_e": 0.9748,
+        "ag_a": 0.9515
+      },
+      "local_vals_sid_b": [
+        0.2727,
+        0.3273,
+        0.2909
+      ],
+      "local_vals_ag_b": [
+        0.4333,
+        0.4667,
+        0.4333
+      ],
+      "mst": {
+        "uas": 0.7895,
+        "sid_b": 0.3212,
+        "sid_e": 0.9386,
+        "sid_a": 0.8817,
+        "ag_b": 0.4556,
+        "ag_e": 0.9708,
+        "ag_a": 0.9499
+      },
+      "mst_vals_sid_b": [
+        0.3091,
+        0.3273,
+        0.3273
+      ],
+      "mst_vals_ag_b": [
+        0.4333,
+        0.5,
+        0.4333
+      ],
+      "uas": 0.7895
     }
   ],
-  "elapsed_s": 0.020004987716674805,
-  "summary": "UNKNOWN: corpus_load_failed"
+  "elapsed_s": 374.136926651001,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "discrete parse accuracy, no noise floor",
+  "fairness_no_agreement_cue_in_subjid": true
 }

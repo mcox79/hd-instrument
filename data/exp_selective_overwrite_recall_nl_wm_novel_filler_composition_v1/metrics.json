@@ -3,8 +3,8 @@
   "verdict_msg": "Q1 (novel-filler-to-known-role) learned_acc=[0.989, 0.972] (chance 0.050) clears 0.50 both seeds, floors collapse clean (ri_q1_max=[0.05, 0.039], shuf_q1=[0.061, 0.039] < bars) -> the PROVEN read-conditioning WM (pca_whiten_aux_warm) ALREADY covers the comprehension-relevant novel-filler binding at the real task difficulty (std reproduction=[0.965, 0.955], matches the readcond cell's 0.989). The held-out-ROLE failures were a harder, likely-not-required target. Q2 (novel composition) ALSO >= 0.50 both seeds ([0.906, 0.856]), floor_broken=False -> compositional generalization holds too.",
   "summary": "HAVE_COMPREHENSION_TARGET | chance=0.0500 | Q1 (novel-filler-to-known-role) learned_acc=[0.989, 0.972] (chance 0.050) clears 0.50 both seeds, floors collapse clean (ri_q1_max=[0.05, 0.039], shuf_q1=[0.061",
   "run_mode": "full",
-  "elapsed_s": 102.29801969998516,
-  "ts_iso": "2026-07-30T19:29:00.982619+00:00",
+  "elapsed_s": 67.21141840005293,
+  "ts_iso": "2026-07-30T19:33:35.075070+00:00",
   "anchor_name": "selective_overwrite_recall_nl_wm_novel_filler_composition_v1",
   "chance": 0.05,
   "oracle_ceiling_ref": 1.0,
@@ -112,7 +112,7 @@
         "q1_acc": 0.9888888597488403,
         "q2_acc": 0.9055555462837219,
         "first_loss": 3.063382387161255,
-        "last_loss": 6.329540337901562e-05,
+        "last_loss": 6.329819734673947e-05,
         "steps_run": 201
       },
       "shuffled_query": {
@@ -184,7 +184,7 @@
         "q1_acc": 0.9722222089767456,
         "q2_acc": 0.855555534362793,
         "first_loss": 3.020364284515381,
-        "last_loss": 4.6996014134492725e-05,
+        "last_loss": 4.699508281191811e-05,
         "steps_run": 201
       },
       "shuffled_query": {

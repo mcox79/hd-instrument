@@ -8,7 +8,7 @@
   "n_units": 75,
   "expected_n_units": 75,
   "cardinality_ok": true,
-  "elapsed_s": 19.552584409713745,
+  "elapsed_s": 19.8010356426239,
   "part1_capacity_transfer": {
     "per_point": [
       {
@@ -133,8 +133,8 @@
         "e2e_flat_mean": 0.01,
         "cost_two_stage": 112,
         "cost_flat": 1024,
-        "wall_two_stage_s_mean": 0.001843466665983821,
-        "wall_flat_s_mean": 0.004871466667585385,
+        "wall_two_stage_s_mean": 0.001334666668602343,
+        "wall_flat_s_mean": 0.010596500000247033,
         "n_bits": 5
       },
       "320": {
@@ -143,8 +143,8 @@
         "e2e_flat_mean": 0.0,
         "cost_two_stage": 176,
         "cost_flat": 10240,
-        "wall_two_stage_s_mean": 0.011583666666410863,
-        "wall_flat_s_mean": 0.0448322666658593,
+        "wall_two_stage_s_mean": 0.013582599999305481,
+        "wall_flat_s_mean": 0.05607926666683246,
         "n_bits": 9
       }
     },
@@ -326,7 +326,7 @@
     "P2_cost_decoupling": "HARD_PASS",
     "P3_soft_beats_hard": "HARD_PASS"
   },
-  "ts_iso": "2026-07-17T14:33:19.533149+00:00",
-  "pid": 23228,
+  "ts_iso": "2026-07-17T14:36:59.550422+00:00",
+  "pid": 26196,
   "host": "FrameworkMPC"
 }

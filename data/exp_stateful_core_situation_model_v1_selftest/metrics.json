@@ -1,11 +1,11 @@
 {
   "verdict": "SELFTEST_PASS",
   "verdict_tag": "SELFTEST_PASS",
-  "verdict_msg": "self-test PASS: real TinyTransformer+SlotAttentionWM+gen_multi_entity_state+gen_knowledge_dependent+gen_kb_prior code paths exercised at N~8-16; arm losses finite (A=0.7828 B=0.8013); arms differ (hash A=a80977a7 B=16346223)",
+  "verdict_msg": "self-test PASS: real TinyTransformer+SlotAttentionWM+gen_multi_entity_state+gen_knowledge_dependent+gen_kb_prior code paths exercised at N~8-16; arm losses finite (A=0.7199 B=0.8226); arms differ (hash A=0d2fbc9e B=8a87ad69)",
   "summary": "SELFTEST_PASS",
-  "elapsed_s": 3.9058393000159413,
-  "ts_iso": "2026-07-29T15:20:00.161334+00:00",
-  "pid": 23628,
+  "elapsed_s": 4.000352900009602,
+  "ts_iso": "2026-07-30T00:40:27.597370+00:00",
+  "pid": 37520,
   "anchor_name": "stateful_core_situation_model_v1",
   "run_mode": "selftest",
   "exercised_entrypoints": [
@@ -14,17 +14,17 @@
     "gen_kb_prior"
   ],
   "arm_a": {
-    "train_loss": 0.7828429639339447,
-    "eval_acc": 0.5
+    "train_loss": 0.71987184882164,
+    "eval_acc": 0.75
   },
   "arm_b": {
-    "train_loss": 0.8012992143630981,
-    "eval_acc": 0.75
+    "train_loss": 0.8226195871829987,
+    "eval_acc": 0.5
   },
   "arms_differ_verified": true,
   "arm_digests": {
-    "A": "a80977a736ef461374b0c7f5968871151c09ef68bf4f4b468095ddab3bfad966",
-    "B": "163462235a41472d1acf04ac2aa46aa5f1e65dbdcd710363e27952b007b5f1c6"
+    "A": "0d2fbc9e608c28f22ed458d0487bc938dc29052d36feeab6a8aa5827b0cb3e6c",
+    "B": "8a87ad698c1a83a8efda96b887de79d42c75e55839b121034639eeab2c64b8a9"
   },
   "cell_chunked": false,
   "start_marker_written": true,

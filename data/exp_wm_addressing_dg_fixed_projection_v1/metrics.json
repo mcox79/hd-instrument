@@ -3,8 +3,8 @@
   "verdict_msg": "SELFTEST_PASS (serialization safety + checkpoint/resume + role split integrity + expanded construction + real encoder + FixedDGAddressWM no-learned-key invariant + addr_logits shape + arms-differ + verdict-reuse)",
   "summary": "SELFTEST_PASS",
   "run_mode": "self_test",
-  "elapsed_s": 111.3100781000685,
-  "ts_iso": "2026-07-30T16:40:51.852236+00:00",
+  "elapsed_s": 109.77236129995435,
+  "ts_iso": "2026-07-30T16:55:56.778133+00:00",
   "anchor_name": "wm_addressing_dg_fixed_projection_v1",
   "addr_chance": 0.06666666666666667,
   "chance_recall": 0.05,
@@ -71,6 +71,10 @@
       "addr_held": 0.0
     },
     "arms_differ_verified": true,
-    "fake_verdict_for_msg_check": "INVALID"
+    "decide_verdict_recall_checks": {
+      "hard_pass": "HARD_PASS_HELDOUT_RECALL_GENERALIZATION",
+      "hard_fail": "HARD_FAIL_PERROLE_LOOKUP_ONLY",
+      "invalid": "INVALID"
+    }
   }
 }

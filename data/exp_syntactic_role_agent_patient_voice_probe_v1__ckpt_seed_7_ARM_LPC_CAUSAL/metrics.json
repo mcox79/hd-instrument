@@ -1,10 +1,10 @@
 {
   "verdict": "ENCODER_POSITION_ONLY",
-  "verdict_msg": "Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.016666666666666666, 'passive_to_active': 0.016666666666666666} <= FAIL_MAX=0.55 on at least one direction (no better than the position-only control / near chance=0.50) -- the frozen encoder only supplies positional cues, not voice-invariant syntactic role; syntax->role is the WALL on this encoder for the richer-NL comprehension direction. Within-voice reference: {'active_to_active_ref': 0.9583333333333334, 'passive_to_passive_ref': 1.0}.",
+  "verdict_msg": "Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.016666666666666666, 'passive_to_active': 0.016666666666666666} <= FAIL_MAX=0.55 on at least one direction (no better than the position-only control / near chance=0.50) -- the frozen encoder only supplies positional cues, not voice-invariant syntactic role; syntax->role is the WALL on this encoder for the richer-NL comprehension direction. Within-voice reference: {'active_to_active_ref': 0.95, 'passive_to_passive_ref': 1.0}.",
   "summary": "ENCODER_POSITION_ONLY | chance=0.5000 | Floors valid but ARM_ROLE_PROBE cross-voice accuracy={'active_to_passive': 0.016666666666666666, 'passive_to_active': 0.016666666666666666} <= FAIL_MAX=0.55 on ",
   "run_mode": "full",
-  "elapsed_s": 2.069617300061509,
-  "ts_iso": "2026-08-01T14:29:08.586923+00:00",
+  "elapsed_s": 1.780803499976173,
+  "ts_iso": "2026-08-01T18:33:18.322227+00:00",
   "anchor_name": "syntactic_role_agent_patient_voice_probe_v1",
   "chance": 0.5,
   "bands": {
@@ -34,7 +34,7 @@
       "passive_to_active": 0.5129
     },
     "within_voice_reference": {
-      "active_to_active_ref": 0.9583333333333334,
+      "active_to_active_ref": 0.95,
       "passive_to_passive_ref": 1.0
     },
     "posonly_fails_cross_voice": true,
@@ -76,7 +76,7 @@
     }
   },
   "within_voice_reference": {
-    "active_to_active_ref": 0.9583333333333334,
+    "active_to_active_ref": 0.95,
     "passive_to_passive_ref": 1.0
   },
   "arms_differ_verified": true,
@@ -84,6 +84,14 @@
     [
       "active_to_passive|bagofwords",
       "passive_to_active|bagofwords"
+    ]
+  ],
+  "suspicious_collisions": [],
+  "direction_degenerate_collisions": [
+    [
+      "active_to_passive|bagofwords",
+      "passive_to_active|bagofwords",
+      "declared"
     ]
   ],
   "cardinality_ok": true,

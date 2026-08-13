@@ -179,8 +179,8 @@
   "verdict": "HARD_FAIL_DENSITY_NOT_THE_LEVER_V2",
   "verdict_msg": "CJ patient-slot gap(HIGH-LOW) per tier=[0.0091, 0.0273, 0.0273] scrambled-gap per tier=[0.0, 0.0091, -0.0091] patient_specific_gap per tier=[-0.0182, -0.0117, -0.0117] n_patient_trials=110 n_agent_trials=48",
   "summary": "HARD_FAIL_DENSITY_NOT_THE_LEVER_V2: event_outcome_density_patient_signal_probe_v2",
-  "elapsed_s": 18.66648479999276,
-  "ts_iso": "2026-07-20T14:50:48.452230+00:00",
-  "pid": 15244,
+  "elapsed_s": 57.75991590000922,
+  "ts_iso": "2026-07-20T14:57:42.977644+00:00",
+  "pid": 26248,
   "run_mode": "smoke"
 }

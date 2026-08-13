@@ -2,11 +2,11 @@
   "verdict": "HARD_PASS",
   "verdict_msg": "SELFTEST_PASS (closed-form fixtures)",
   "summary": "SELFTEST_PASS",
-  "elapsed_s": 32.50746620004065,
+  "elapsed_s": 11.025541000068188,
   "run_mode": "self_test",
   "anchor_name": "grounded_meaning_wire_lexical_fallback_v1",
-  "ts_iso": "2026-08-12T01:39:19.483379+00:00",
-  "pid": 34412,
+  "ts_iso": "2026-08-12T02:06:07.457360+00:00",
+  "pid": 1552,
   "details": {
     "T1_no_regression": {
       "lex_self_test_ok": true,

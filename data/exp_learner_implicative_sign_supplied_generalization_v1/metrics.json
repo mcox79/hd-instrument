@@ -4,9 +4,9 @@
   "verdict": "HARD_PASS_BEYOND_LINEAR_NOT_BEYOND_SIMILARITY",
   "verdict_msg": "COVERED HARD_PASS (beyond-linear only): acc_module=1.000 margin_lin=0.343 margin_sim=0.000 (small) acc_simvote=1.000 (trivial-lookup solve; 2-feature joint space fully enumerable once covered) scramble_delta=0.412. Rule composes + generalizes beyond an additive readout given the supplied fact; does NOT beat similarity-based memorization at this task's cardinality.",
   "summary": "COVERED HARD_PASS (beyond-linear only): acc_module=1.000 margin_lin=0.343 margin_sim=0.000 (small) acc_simvote=1.000 (trivial-lookup solve; 2-feature joint space fully enumerable once covered) scramble_delta=0.412. Rule composes + generalizes beyond an additive readout given the supplied fact; does NOT beat similarity-based memorization at this task's cardinality.",
-  "elapsed_s": 0.4535,
-  "ts_iso": "2026-07-23T19:04:08.502814+00:00",
-  "pid": 20492,
+  "elapsed_s": 0.4136,
+  "ts_iso": "2026-07-23T19:09:46.796734+00:00",
+  "pid": 38296,
   "positive_control": {
     "chosen_name": "ruleind",
     "compression_ratios": {

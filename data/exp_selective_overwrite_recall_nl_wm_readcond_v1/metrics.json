@@ -1,68 +1,1010 @@
 {
-  "verdict": "SELFTEST_PASS",
-  "verdict_msg": "SELFTEST_PASS (real v2 encoder + conditioner + aux + warmstart + arms-differ + determinism)",
-  "summary": "SELFTEST_PASS",
-  "run_mode": "self_test",
-  "elapsed_s": 47.39509439980611,
-  "ts_iso": "2026-07-30T12:25:37.516916+00:00",
+  "verdict": "WM_NL_PROVEN_VIA_READ_CONDITIONING",
+  "verdict_msg": "READ-CONDITIONING SOLVES NL binding: fix(es) ['pca_whiten_aux_warm'] reach eval>=0.50 both seeds AND gap>=0.30 AND significant, controls at floor (max ri=0.061). Best=pca_whiten_aux_warm eval=[0.989, 0.989] train=[1.0, 1.0]. Raw query-slot cos=0.992 -> pca_whiten 0.866 (shared component removed). Encoder pivot NOT needed.",
+  "summary": "WM_NL_PROVEN_VIA_READ_CONDITIONING | chance=0.0500 | READ-CONDITIONING SOLVES NL binding: fix(es) ['pca_whiten_aux_warm'] reach eval>=0.50 both seeds AND gap>=0.30 AND significant, controls at floor (max ri=0.061)",
+  "run_mode": "full",
+  "elapsed_s": 3678.193624800071,
+  "ts_iso": "2026-07-30T14:15:05.188819+00:00",
   "anchor_name": "selective_overwrite_recall_nl_wm_readcond_v1",
   "chance": 0.05,
-  "selftest": {
-    "n_cached": 3006,
-    "cond_diag": {
-      "none": {
-        "query_slot_cos_mean": 0.9917733073234558,
-        "query_slot_cos_max": 0.9958319067955017,
-        "untrained_addr_distinct": 1,
-        "untrained_addr_argmax": [
-          5,
-          5,
-          5,
-          5,
-          5,
-          5
-        ]
-      },
-      "zscore": {
-        "query_slot_cos_mean": 0.8903419971466064,
-        "query_slot_cos_max": 0.9329190254211426,
-        "untrained_addr_distinct": 4,
-        "untrained_addr_argmax": [
-          2,
-          5,
-          3,
-          5,
-          4,
-          5
-        ]
-      },
-      "pca_whiten": {
-        "query_slot_cos_mean": 0.8661515116691589,
-        "query_slot_cos_max": 0.9122990369796753,
-        "untrained_addr_distinct": 3,
-        "untrained_addr_argmax": [
-          2,
-          3,
-          3,
-          1,
-          3,
-          1
-        ]
-      },
-      "pca_var_share_top1": 0.13488219198505,
-      "pca_var_share_top4": 0.41831934283749633,
-      "pca_var_share_top8": 0.5533262202251656
+  "oracle_ceiling_ref": 1.0,
+  "bands": {
+    "chance": 0.05,
+    "oracle_ceiling": 1.0,
+    "wm_proven_min": 0.5,
+    "wm_partial_min": 0.15,
+    "mech_margin": 0.3,
+    "z_thresh": 2.0,
+    "ri_near_chance": 0.1,
+    "control_floor_ok": true,
+    "proven_fixes": [
+      "pca_whiten_aux_warm"
+    ],
+    "partial_fixes": [],
+    "best_config": "pca_whiten_aux_warm",
+    "best_learned_accs": [
+      0.9885714054107666,
+      0.9885714054107666
+    ],
+    "best_train_accs": [
+      1.0,
+      1.0
+    ],
+    "raw_query_slot_cos": 0.9917733073234558,
+    "pca_query_slot_cos": 0.8661515116691589,
+    "ri_control_max": 0.06142857298254967
+  },
+  "conditioning_diagnostic": {
+    "none": {
+      "query_slot_cos_mean": 0.9917733073234558,
+      "query_slot_cos_max": 0.9958319067955017,
+      "untrained_addr_distinct": 1,
+      "untrained_addr_argmax": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
     },
-    "warmstart": {
-      "warmstart_probe_fit_acc": 1.0,
-      "warmstart_frozen_addr_acc": 1.0,
-      "warmstart_mean_maxprob": 1.0
+    "zscore": {
+      "query_slot_cos_mean": 0.8903419971466064,
+      "query_slot_cos_max": 0.9329190254211426,
+      "untrained_addr_distinct": 4,
+      "untrained_addr_argmax": [
+        2,
+        5,
+        3,
+        5,
+        4,
+        5
+      ]
     },
-    "tiny": {
-      "learned": 0.2150000035762787,
-      "train": 1.0,
-      "ri_mean": 0.04000000096857548,
-      "arms_differ": true
+    "pca_whiten": {
+      "query_slot_cos_mean": 0.8661515116691589,
+      "query_slot_cos_max": 0.9122990369796753,
+      "untrained_addr_distinct": 3,
+      "untrained_addr_argmax": [
+        2,
+        3,
+        3,
+        1,
+        3,
+        1
+      ]
+    },
+    "pca_var_share_top1": 0.13488219198505,
+    "pca_var_share_top4": 0.41831934283749633,
+    "pca_var_share_top8": 0.5533262202251656
+  },
+  "random_init_controls": {
+    "none": {
+      "kind": "none",
+      "accs": [
+        0.05000000074505806,
+        0.06142857298254967,
+        0.04714285582304001
+      ],
+      "mean": 0.05285714318354925,
+      "max": 0.06142857298254967,
+      "min": 0.04714285582304001
+    },
+    "zscore": {
+      "kind": "zscore",
+      "accs": [
+        0.04285714402794838,
+        0.05000000074505806,
+        0.041428569704294205
+      ],
+      "mean": 0.044761904825766884,
+      "max": 0.05000000074505806,
+      "min": 0.041428569704294205
+    },
+    "pca_whiten": {
+      "kind": "pca_whiten",
+      "accs": [
+        0.037142857909202576,
+        0.055714286863803864,
+        0.05285714194178581
+      ],
+      "mean": 0.04857142890493075,
+      "max": 0.055714286863803864,
+      "min": 0.037142857909202576
     }
-  }
+  },
+  "config_results": [
+    {
+      "name": "none",
+      "conditioning": "none",
+      "aux": false,
+      "warmstart": false,
+      "ri_mean": 0.05285714318354925,
+      "ri_max": 0.06142857298254967,
+      "learned_accs": [
+        0.06142857298254967,
+        0.055714286863803864
+      ],
+      "train_accs": [
+        0.06583333015441895,
+        0.0533333346247673
+      ],
+      "gaps": [
+        0.00857142979900042,
+        0.002857143680254616
+      ],
+      "significant_per_seed": [
+        false,
+        false
+      ],
+      "loss_descended_both": false,
+      "proven": false,
+      "partial": false,
+      "warmstart_diag": null,
+      "warmstart_frozen_readout_acc": null,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.06142857298254967,
+            "train_acc": 0.06583333015441895,
+            "first_loss": 3.0008749961853027,
+            "last_loss": 2.97696852684021,
+            "loss_curve": [
+              [
+                0,
+                3.0008749961853027
+              ],
+              [
+                99,
+                2.9770822525024414
+              ],
+              [
+                199,
+                2.9792320728302
+              ],
+              [
+                299,
+                2.982954502105713
+              ],
+              [
+                399,
+                2.9768707752227783
+              ],
+              [
+                499,
+                2.9850614070892334
+              ],
+              [
+                599,
+                2.973186731338501
+              ],
+              [
+                699,
+                2.986346960067749
+              ],
+              [
+                799,
+                2.97696852684021
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": -0.004404757171869278
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014526742930339774,
+            "gap": 0.00857142979900042,
+            "z": 0.5900448462606571,
+            "p_value": 0.2775802918938304,
+            "min_detectable_effect_2sigma": 0.02905348586067955,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.055714286863803864,
+            "train_acc": 0.0533333346247673,
+            "first_loss": 2.9961347579956055,
+            "last_loss": 2.991032361984253,
+            "loss_curve": [
+              [
+                0,
+                2.9961347579956055
+              ],
+              [
+                99,
+                2.9870970249176025
+              ],
+              [
+                199,
+                2.9978420734405518
+              ],
+              [
+                299,
+                2.9975175857543945
+              ],
+              [
+                399,
+                2.9998624324798584
+              ],
+              [
+                499,
+                2.995011329650879
+              ],
+              [
+                599,
+                2.9950098991394043
+              ],
+              [
+                699,
+                2.9933810234069824
+              ],
+              [
+                799,
+                2.991032361984253
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": 0.00238095223903656
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014276528380232462,
+            "gap": 0.002857143680254616,
+            "z": 0.20012874307809092,
+            "p_value": 0.4206899471690878,
+            "min_detectable_effect_2sigma": 0.028553056760464924,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    },
+    {
+      "name": "zscore",
+      "conditioning": "zscore",
+      "aux": false,
+      "warmstart": false,
+      "ri_mean": 0.044761904825766884,
+      "ri_max": 0.05000000074505806,
+      "learned_accs": [
+        0.05714285746216774,
+        0.04571428522467613
+      ],
+      "train_accs": [
+        0.9983333349227905,
+        0.92166668176651
+      ],
+      "gaps": [
+        0.012380952636400856,
+        0.0009523803989092486
+      ],
+      "significant_per_seed": [
+        false,
+        false
+      ],
+      "loss_descended_both": true,
+      "proven": false,
+      "partial": false,
+      "warmstart_diag": null,
+      "warmstart_frozen_readout_acc": null,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.05714285746216774,
+            "train_acc": 0.9983333349227905,
+            "first_loss": 3.037342071533203,
+            "last_loss": 0.10367061197757721,
+            "loss_curve": [
+              [
+                0,
+                3.037342071533203
+              ],
+              [
+                99,
+                2.492306709289551
+              ],
+              [
+                199,
+                1.8570773601531982
+              ],
+              [
+                299,
+                1.2352323532104492
+              ],
+              [
+                399,
+                0.7861199378967285
+              ],
+              [
+                499,
+                0.435714453458786
+              ],
+              [
+                599,
+                0.1733880490064621
+              ],
+              [
+                699,
+                0.10367061197757721
+              ]
+            ],
+            "steps_run": 758,
+            "eval_minus_train": -0.9411904774606228
+          },
+          "power": {
+            "ri_mean": 0.044761904825766884,
+            "ri_std": 0.00459221545599966,
+            "ri_max": 0.05000000074505806,
+            "n_ri_seeds": 3,
+            "se_diff": 0.012615055515499131,
+            "gap": 0.012380952636400856,
+            "z": 0.9814425803508632,
+            "p_value": 0.1631872684847683,
+            "min_detectable_effect_2sigma": 0.025230111030998262,
+            "beats_ri_max": true,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.04571428522467613,
+            "train_acc": 0.92166668176651,
+            "first_loss": 3.040864944458008,
+            "last_loss": 0.20203064382076263,
+            "loss_curve": [
+              [
+                0,
+                3.040864944458008
+              ],
+              [
+                99,
+                2.1644790172576904
+              ],
+              [
+                199,
+                1.5319501161575317
+              ],
+              [
+                299,
+                1.141376256942749
+              ],
+              [
+                399,
+                0.7505249977111816
+              ],
+              [
+                499,
+                0.6371930837631226
+              ],
+              [
+                599,
+                0.37543293833732605
+              ],
+              [
+                699,
+                0.4632748067378998
+              ],
+              [
+                799,
+                0.20203064382076263
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": -0.8759523965418339
+          },
+          "power": {
+            "ri_mean": 0.044761904825766884,
+            "ri_std": 0.00459221545599966,
+            "ri_max": 0.05000000074505806,
+            "n_ri_seeds": 3,
+            "se_diff": 0.012020498920548447,
+            "gap": 0.0009523803989092486,
+            "z": 0.07922968964967016,
+            "p_value": 0.46842496494414926,
+            "min_detectable_effect_2sigma": 0.024040997841096895,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    },
+    {
+      "name": "pca_whiten",
+      "conditioning": "pca_whiten",
+      "aux": false,
+      "warmstart": false,
+      "ri_mean": 0.04857142890493075,
+      "ri_max": 0.055714286863803864,
+      "learned_accs": [
+        0.05000000074505806,
+        0.05999999865889549
+      ],
+      "train_accs": [
+        0.996666669845581,
+        0.9941666722297668
+      ],
+      "gaps": [
+        0.0014285718401273115,
+        0.011428569753964744
+      ],
+      "significant_per_seed": [
+        false,
+        false
+      ],
+      "loss_descended_both": true,
+      "proven": false,
+      "partial": false,
+      "warmstart_diag": null,
+      "warmstart_frozen_readout_acc": null,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.05000000074505806,
+            "train_acc": 0.996666669845581,
+            "first_loss": 3.003873109817505,
+            "last_loss": 0.09253761917352676,
+            "loss_curve": [
+              [
+                0,
+                3.003873109817505
+              ],
+              [
+                99,
+                0.9645110964775085
+              ],
+              [
+                199,
+                0.3179667592048645
+              ],
+              [
+                299,
+                0.09253761917352676
+              ]
+            ],
+            "steps_run": 384,
+            "eval_minus_train": -0.946666669100523
+          },
+          "power": {
+            "ri_mean": 0.04857142890493075,
+            "ri_std": 0.009999999776482641,
+            "ri_max": 0.055714286863803864,
+            "n_ri_seeds": 3,
+            "se_diff": 0.015292960226399843,
+            "gap": 0.0014285718401273115,
+            "z": 0.09341368963094566,
+            "p_value": 0.4627874576598501,
+            "min_detectable_effect_2sigma": 0.030585920452799686,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.05999999865889549,
+            "train_acc": 0.9941666722297668,
+            "first_loss": 2.998297691345215,
+            "last_loss": 0.2087542861700058,
+            "loss_curve": [
+              [
+                0,
+                2.998297691345215
+              ],
+              [
+                99,
+                0.8499370813369751
+              ],
+              [
+                199,
+                0.2087542861700058
+              ]
+            ],
+            "steps_run": 299,
+            "eval_minus_train": -0.9341666735708714
+          },
+          "power": {
+            "ri_mean": 0.04857142890493075,
+            "ri_std": 0.009999999776482641,
+            "ri_max": 0.055714286863803864,
+            "n_ri_seeds": 3,
+            "se_diff": 0.015703149860987812,
+            "gap": 0.011428569753964744,
+            "z": 0.727788364445108,
+            "p_value": 0.23337157413718465,
+            "min_detectable_effect_2sigma": 0.031406299721975624,
+            "beats_ri_max": true,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    },
+    {
+      "name": "aux_only",
+      "conditioning": "none",
+      "aux": true,
+      "warmstart": false,
+      "ri_mean": 0.05285714318354925,
+      "ri_max": 0.06142857298254967,
+      "learned_accs": [
+        0.06142857298254967,
+        0.055714286863803864
+      ],
+      "train_accs": [
+        0.06583333015441895,
+        0.0533333346247673
+      ],
+      "gaps": [
+        0.00857142979900042,
+        0.002857143680254616
+      ],
+      "significant_per_seed": [
+        false,
+        false
+      ],
+      "loss_descended_both": true,
+      "proven": false,
+      "partial": false,
+      "warmstart_diag": null,
+      "warmstart_frozen_readout_acc": null,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.06142857298254967,
+            "train_acc": 0.06583333015441895,
+            "first_loss": 6.60121488571167,
+            "last_loss": 3.009216785430908,
+            "loss_curve": [
+              [
+                0,
+                6.60121488571167
+              ],
+              [
+                99,
+                4.010652542114258
+              ],
+              [
+                199,
+                3.3642640113830566
+              ],
+              [
+                299,
+                3.1756205558776855
+              ],
+              [
+                399,
+                3.0924670696258545
+              ],
+              [
+                499,
+                3.0616402626037598
+              ],
+              [
+                599,
+                3.0282235145568848
+              ],
+              [
+                699,
+                3.0270779132843018
+              ],
+              [
+                799,
+                3.009216785430908
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": -0.004404757171869278
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014526742930339774,
+            "gap": 0.00857142979900042,
+            "z": 0.5900448462606571,
+            "p_value": 0.2775802918938304,
+            "min_detectable_effect_2sigma": 0.02905348586067955,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.055714286863803864,
+            "train_acc": 0.0533333346247673,
+            "first_loss": 6.617155075073242,
+            "last_loss": 3.022362232208252,
+            "loss_curve": [
+              [
+                0,
+                6.617155075073242
+              ],
+              [
+                99,
+                3.995473861694336
+              ],
+              [
+                199,
+                3.372957944869995
+              ],
+              [
+                299,
+                3.1867148876190186
+              ],
+              [
+                399,
+                3.1129300594329834
+              ],
+              [
+                499,
+                3.0717878341674805
+              ],
+              [
+                599,
+                3.048170804977417
+              ],
+              [
+                699,
+                3.0331928730010986
+              ],
+              [
+                799,
+                3.022362232208252
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": 0.00238095223903656
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014276528380232462,
+            "gap": 0.002857143680254616,
+            "z": 0.20012874307809092,
+            "p_value": 0.4206899471690878,
+            "min_detectable_effect_2sigma": 0.028553056760464924,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    },
+    {
+      "name": "warm_only",
+      "conditioning": "none",
+      "aux": false,
+      "warmstart": true,
+      "ri_mean": 0.05285714318354925,
+      "ri_max": 0.06142857298254967,
+      "learned_accs": [
+        0.06142857298254967,
+        0.055714286863803864
+      ],
+      "train_accs": [
+        0.06583333015441895,
+        0.0533333346247673
+      ],
+      "gaps": [
+        0.00857142979900042,
+        0.002857143680254616
+      ],
+      "significant_per_seed": [
+        false,
+        false
+      ],
+      "loss_descended_both": false,
+      "proven": false,
+      "partial": false,
+      "warmstart_diag": {
+        "warmstart_probe_fit_acc": 0.8993399339933993,
+        "warmstart_frozen_addr_acc": 0.7194719471947195,
+        "warmstart_mean_maxprob": 0.4345543086528778
+      },
+      "warmstart_frozen_readout_acc": 0.06428571790456772,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.06142857298254967,
+            "train_acc": 0.06583333015441895,
+            "first_loss": 3.0008723735809326,
+            "last_loss": 2.9769692420959473,
+            "loss_curve": [
+              [
+                0,
+                3.0008723735809326
+              ],
+              [
+                99,
+                2.9770727157592773
+              ],
+              [
+                199,
+                2.9792299270629883
+              ],
+              [
+                299,
+                2.9829633235931396
+              ],
+              [
+                399,
+                2.9768600463867188
+              ],
+              [
+                499,
+                2.9850432872772217
+              ],
+              [
+                599,
+                2.9731762409210205
+              ],
+              [
+                699,
+                2.9863393306732178
+              ],
+              [
+                799,
+                2.9769692420959473
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": -0.004404757171869278
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014526742930339774,
+            "gap": 0.00857142979900042,
+            "z": 0.5900448462606571,
+            "p_value": 0.2775802918938304,
+            "min_detectable_effect_2sigma": 0.02905348586067955,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.055714286863803864,
+            "train_acc": 0.0533333346247673,
+            "first_loss": 2.995927095413208,
+            "last_loss": 2.991029739379883,
+            "loss_curve": [
+              [
+                0,
+                2.995927095413208
+              ],
+              [
+                99,
+                2.9870994091033936
+              ],
+              [
+                199,
+                2.997842311859131
+              ],
+              [
+                299,
+                2.997518301010132
+              ],
+              [
+                399,
+                2.9998648166656494
+              ],
+              [
+                499,
+                2.995006561279297
+              ],
+              [
+                599,
+                2.9950027465820312
+              ],
+              [
+                699,
+                2.9914586544036865
+              ],
+              [
+                799,
+                2.991029739379883
+              ]
+            ],
+            "steps_run": 800,
+            "eval_minus_train": 0.00238095223903656
+          },
+          "power": {
+            "ri_mean": 0.05285714318354925,
+            "ri_std": 0.0075592906992486865,
+            "ri_max": 0.06142857298254967,
+            "n_ri_seeds": 3,
+            "se_diff": 0.014276528380232462,
+            "gap": 0.002857143680254616,
+            "z": 0.20012874307809092,
+            "p_value": 0.4206899471690878,
+            "min_detectable_effect_2sigma": 0.028553056760464924,
+            "beats_ri_max": false,
+            "significant": false
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    },
+    {
+      "name": "pca_whiten_aux_warm",
+      "conditioning": "pca_whiten",
+      "aux": true,
+      "warmstart": true,
+      "ri_mean": 0.04857142890493075,
+      "ri_max": 0.055714286863803864,
+      "learned_accs": [
+        0.9885714054107666,
+        0.9885714054107666
+      ],
+      "train_accs": [
+        1.0,
+        1.0
+      ],
+      "gaps": [
+        0.9399999765058359,
+        0.9399999765058359
+      ],
+      "significant_per_seed": [
+        true,
+        true
+      ],
+      "loss_descended_both": true,
+      "proven": true,
+      "partial": false,
+      "warmstart_diag": {
+        "warmstart_probe_fit_acc": 1.0,
+        "warmstart_frozen_addr_acc": 1.0,
+        "warmstart_mean_maxprob": 1.0
+      },
+      "warmstart_frozen_readout_acc": 0.22857142984867096,
+      "per_seed": [
+        {
+          "seed": 7,
+          "learned_wm": {
+            "eval_acc": 0.9885714054107666,
+            "train_acc": 1.0,
+            "first_loss": 3.0372862815856934,
+            "last_loss": 3.67988868674729e-05,
+            "loss_curve": [
+              [
+                0,
+                3.0372862815856934
+              ],
+              [
+                99,
+                8.288668323075399e-05
+              ],
+              [
+                199,
+                3.67988868674729e-05
+              ]
+            ],
+            "steps_run": 201,
+            "eval_minus_train": -0.011428594589233398
+          },
+          "power": {
+            "ri_mean": 0.04857142890493075,
+            "ri_std": 0.009999999776482641,
+            "ri_max": 0.055714286863803864,
+            "n_ri_seeds": 3,
+            "se_diff": 0.013496572257152097,
+            "gap": 0.9399999765058359,
+            "z": 69.6473118208004,
+            "p_value": 0.0,
+            "min_detectable_effect_2sigma": 0.026993144514304193,
+            "beats_ri_max": true,
+            "significant": true
+          },
+          "arms_differ_verified": true
+        },
+        {
+          "seed": 13,
+          "learned_wm": {
+            "eval_acc": 0.9885714054107666,
+            "train_acc": 1.0,
+            "first_loss": 3.019627809524536,
+            "last_loss": 5.33804704900831e-05,
+            "loss_curve": [
+              [
+                0,
+                3.019627809524536
+              ],
+              [
+                99,
+                0.006362522952258587
+              ],
+              [
+                199,
+                5.33804704900831e-05
+              ]
+            ],
+            "steps_run": 201,
+            "eval_minus_train": -0.011428594589233398
+          },
+          "power": {
+            "ri_mean": 0.04857142890493075,
+            "ri_std": 0.009999999776482641,
+            "ri_max": 0.055714286863803864,
+            "n_ri_seeds": 3,
+            "se_diff": 0.013496572257152097,
+            "gap": 0.9399999765058359,
+            "z": 69.6473118208004,
+            "p_value": 0.0,
+            "min_detectable_effect_2sigma": 0.026993144514304193,
+            "beats_ri_max": true,
+            "significant": true
+          },
+          "arms_differ_verified": true
+        }
+      ]
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 6,
+  "n_units_done": 6,
+  "params": {
+    "K_SLOTS": 6,
+    "D_MEM": 64,
+    "D_ENC": 512,
+    "HIDDEN": 64,
+    "ADDR_TEMP": 0.3,
+    "SENT_CAP": 16,
+    "STEPS_WM": 800,
+    "STEPS_READOUT": 400,
+    "LR": 0.01,
+    "AUX_W": 1.0,
+    "PCA_EPS": 0.0001,
+    "N_RANDOM_INIT": 3,
+    "train_n": 1200,
+    "eval_n": 700,
+    "seeds": [
+      7,
+      13
+    ],
+    "n_cached_sentences": 3006,
+    "encoder": "real_v2_frozen",
+    "configs": [
+      "none",
+      "zscore",
+      "pca_whiten",
+      "aux_only",
+      "warm_only",
+      "pca_whiten_aux_warm"
+    ],
+    "v2_ckpt": "data\\exp_scale_meaning_learn_arc_heldout_v2\\ckpt_seed_7.pt"
+  },
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "defensive_error_checking": "passed_all_4_patterns"
 }

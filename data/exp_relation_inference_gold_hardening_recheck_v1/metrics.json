@@ -2,9 +2,9 @@
   "verdict": "MEASURED_DIAGNOSTIC",
   "verdict_msg": "hardening_worked=True; length_only unstated_goal before=0.7500 after=0.2500 (target<=0.42); pure_structure unstated_goal before=0.3333 after=0.0833; resistant_items=['relinf_unstated_005', 'relinf_unstated_007', 'relinf_unstated_011']",
   "summary": "gold hardening recheck v1: hardening_worked=True",
-  "elapsed_s": 228.08548889984377,
-  "ts_iso": "2026-08-03T15:53:40.187300+00:00",
-  "pid": 36712,
+  "elapsed_s": 221.73151580011472,
+  "ts_iso": "2026-08-03T15:56:14.486816+00:00",
+  "pid": 17608,
   "anchor_name": "relation_inference_gold_hardening_recheck_v1",
   "summary_fields": {
     "mechanism": "reuses v6b's score_arm_length_only / score_arm_v6 / CATEGORY_PROTOTYPES verbatim; only the gold file's unstated_goal distractor_categories changed between before/after",
@@ -140,7 +140,7 @@
       }
     ],
     "eval_caveat": "N=12 unstated_goal items; small-N gold-hardening recheck. Verdict is about whether content-free baselines are defeated on THIS eval slice post-hardening, not a new capability claim about any encoder.",
-    "elapsed_s": 228.08548889984377
+    "elapsed_s": 221.73151580011472
   },
   "gold_hardened_flag": "UNVERIFIED_pending_director_review",
   "hardened_gold_path": "D:\\AI\\hd-instrument\\data\\eval_gold_mention_role_mcguffey_v1\\gold_relation_inference_v1_hardened_UNVERIFIED.jsonl",
