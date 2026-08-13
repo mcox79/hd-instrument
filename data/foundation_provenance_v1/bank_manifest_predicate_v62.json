@@ -1,0 +1,27 @@
+{
+  "action": "BANK definitional predicate v6.2 facts into the provenance store",
+  "canonical_store_per_file_sha256": {
+    "concept_space.npz": "643703dae9a03589e473eabb640535d70708e80436b7f2cfbad74c0b47de48ac",
+    "library_pending.json": "1a15f9d5fd2f910527fdf22c58f23eac3fa6f16f02bf24808634ba3d4179db76",
+    "library_pending_ctx.npz": "0d5b9dfc237f3ce6df1646144b0b0801249c968897726f55ec7d01bd8a863dd1",
+    "manifest.json": "8c473b11d8c98a164a8fa2f881901bc72ceae3d232b49ccc573853996412c007",
+    "store/store_facts.json": "00aa8f1ac2c7c17837bf86f63a43762176b8ba9b837508e969e49dfeb8a8f22c",
+    "store/store_meta.json": "97cd1db8b9ce1ba6aa5a50dd0053db29b6706cf383af628d956d476f5ad74b5c",
+    "store/store_tensors.npz": "46b73cc21a96d5801fadcb48f06aadd120010e5dee77b0e2aa707a9aefcd226d"
+  },
+  "canonical_store_tree_sha256_after": "0269bd966f35e4b0533370cf72303adffa575cb14be9aca46f52a21c6ae9bd5a",
+  "canonical_store_tree_sha256_before": "0269bd966f35e4b0533370cf72303adffa575cb14be9aca46f52a21c6ae9bd5a",
+  "generated_ts_iso": "2026-08-13T05:26:29.614085+00:00",
+  "pipeline_counts": {
+    "DEFINITIONAL_EXTRACTOR": 221,
+    "READING_GROUNDING": 7088,
+    "SEED_VOCABULARY": 878
+  },
+  "provenance_store_sha256": {
+    "store_facts.json": "881939410ebd34e3476ffbfe1115e840ea29403c3c7a6433a50a4192f2b21747",
+    "store_meta.json": "e5bb4237a27bc676ad1c2b75feb3f0c6ff9eee20c5b17cdce494dfa818da35b6",
+    "store_tensors.npz": "348beedf0ae7599383a63054baf2ab24fba70e1924ab284f499b2e5e3fb97e8f"
+  },
+  "rows_after": 8187,
+  "rows_before": 7966
+}

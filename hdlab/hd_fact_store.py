@@ -46,7 +46,7 @@ import torch
 
 from hdlab.event_bundle import EventBundleCodec
 # Byte-identical reuse of the M1.7 bipolar primitives (via event_bundle's own imports).
-from hdlab.role_slot_summarizer import _bipolar_bind, _bipolar_quantize
+from hdlab.role_slot_summarizer import _bipolar_bind, _bipolar_quantize, _bipolar_random
 
 # ---- role set: fact-content roles + provenance/trust roles, all bound into one bundle --
 FACT_ROLES: Tuple[str, ...] = ("REL", "ARG0", "ARG1", "SOURCE", "TRUST")
@@ -54,6 +54,40 @@ ROLE_DOMAIN: Dict[str, str] = {
     "ARG0": "SUBJECT", "REL": "RELATION", "ARG1": "OBJECT",
     "SOURCE": "SOURCE", "TRUST": "TRUST",
 }
+
+# ---- PIPELINE provenance: WHICH MECHANISM MINTED THE FACT (source monitoring) ----------
+# `source` records the CORPUS SEGMENT a fact was read from ("reading:bio_new"), NOT the
+# pipeline that produced it. Two pipelines with very different measured quality write into
+# this store; without a pipeline tag they become permanently indistinguishable once banked,
+# which is the confabulation failure mode of losing a source tag. This is a SEPARATE axis
+# from `source` and from `trust` and gets its own role, its own domain, and its own
+# closed value set -- an unrecognized value RAISES rather than being stored.
+PIPELINE_ROLE = "PIPELINE"
+PIPELINE_DOMAIN = "PIPELINE"
+PIPELINE_UNKNOWN = "UNKNOWN_LEGACY"
+PIPELINE_VALUES: frozenset = frozenset({
+    "READING_GROUNDING",        # hdlab.reading_grounding_loop commit_grounding
+    "DEFINITIONAL_EXTRACTOR",   # hdlab.definitional_extraction / definitional_predicate
+    "SEED_VOCABULARY",          # pre-loaded seed lexicon (seed_known_words)
+    PIPELINE_UNKNOWN,           # provenance NOT recorded; never a real pipeline
+})
+
+# PIPELINE is bound with a role key drawn from a SEPARATE generator, not from the codec's
+# stream, and is bound ONLY when a real (non-UNKNOWN_LEGACY) pipeline is supplied. Both
+# choices exist so that a fact stored WITHOUT a pipeline is encoded BYTE-IDENTICALLY to the
+# pre-change encoder (verified against landed bytes in
+# verification/verify_fact_store_pipeline_provenance.py, gate G): adding PIPELINE to
+# FACT_ROLES would have consumed extra draws from the codec generator at construction and
+# silently changed EVERY symbol vector in every existing store.
+PIPELINE_KEY_SEED_OFFSET = 0x5049504C  # 'PIPL'
+
+# Cleanup-score gate for the glass-box pipeline read, as a fraction of n_dim. A bundle that
+# ACTUALLY carries a PIPELINE pair scores ~0.4-0.6*n_dim on the correct symbol; a bundle with
+# NO pipeline pair scores ~0 (+/- sqrt(n_dim)). Without this gate an argmax cleanup over a
+# one-symbol domain would return that symbol for ANY vector -- i.e. it would attribute every
+# legacy fact to whichever pipeline happened to be registered. That is exactly the
+# misattribution this field exists to prevent, so the gate is load-bearing, not cosmetic.
+PIPELINE_MIN_SCORE_FRAC = 0.20
 
 # ---- trust ladder: bound symbol -> numeric level (textbook > article > unknown) --------
 TRUST_LEVEL: Dict[str, float] = {
@@ -71,7 +105,10 @@ class FactRecord:
     """One stored fact. vec+sr_key are the HD substrate; the plaintext fields are a SHADOW
     ledger used ONLY for grading/inspection -- every query path recovers from `vec` by
     unbind (see recover_fact), proven bit-faithful by the round-trip self-test.
-    `status` is symbolic CONTROL state (not part of the asserted proposition)."""
+    `status` is symbolic CONTROL state (not part of the asserted proposition).
+    `pipeline` is SOURCE-MONITORING provenance: which mechanism minted the fact. It defaults
+    to PIPELINE_UNKNOWN ("UNKNOWN_LEGACY") so an unrecorded provenance is explicitly unknown
+    and can never be read as a real pipeline."""
     fid: int
     vec: torch.Tensor
     sr_key: torch.Tensor
@@ -82,6 +119,7 @@ class FactRecord:
     trust_sym: str
     trust_level: float
     status: str = "ACTIVE"
+    pipeline: str = PIPELINE_UNKNOWN
 
 
 @dataclass
@@ -129,9 +167,14 @@ class HDFactStore:
         # never collide (their signatures differ), so the bucket is exactly the same-(s,r) set;
         # the SAME glass-box confirm (unbind + subject/relation match) still gates every candidate.
         self._sr_index: Dict[bytes, List[int]] = {}
+        # PIPELINE role key: drawn from a SEPARATE generator so the codec's own stream (and
+        # therefore every existing symbol vector and every existing fact bundle) is untouched.
+        _pgen = torch.Generator()
+        _pgen.manual_seed((self.seed ^ PIPELINE_KEY_SEED_OFFSET) & 0x7FFFFFFF)
+        self._pipeline_key: torch.Tensor = _bipolar_random((self.n_dim,), _pgen)
         self._domain_syms: Dict[str, List[str]] = {d: [] for d in
                                                     ("SUBJECT", "RELATION", "OBJECT",
-                                                     "SOURCE", "TRUST")}
+                                                     "SOURCE", "TRUST", PIPELINE_DOMAIN)}
         self._domain_seen: Dict[str, set] = {d: set() for d in self._domain_syms}
         # Per-domain stacked-codebook cache. Cleanup argmax scans the WHOLE domain codebook;
         # rebuilding it (torch.stack over V rows) on every _cleanup call was the O(V) hot-spot
@@ -168,14 +211,24 @@ class HDFactStore:
         return syms[j], float(scores[j].item())
 
     # ---- HD encode -------------------------------------------------------------------
-    def _encode_fact(self, subj: str, rel: str, obj: str, src: str, trust_sym: str) -> torch.Tensor:
+    def _encode_fact(self, subj: str, rel: str, obj: str, src: str, trust_sym: str,
+                     pipeline: str = PIPELINE_UNKNOWN) -> torch.Tensor:
         self._register_domain("SUBJECT", subj)
         self._register_domain("RELATION", rel)
         self._register_domain("OBJECT", obj)
         self._register_domain("SOURCE", src)
         self._register_domain("TRUST", trust_sym)
-        return self.codec.encode_event(
-            {"REL": rel, "ARG0": subj, "ARG1": obj, "SOURCE": src, "TRUST": trust_sym})
+        fillers = {"REL": rel, "ARG0": subj, "ARG1": obj, "SOURCE": src, "TRUST": trust_sym}
+        if pipeline == PIPELINE_UNKNOWN:
+            # UNCHANGED pre-change path, byte for byte: no extra symbol registration (which
+            # would advance the codec generator), no extra bound pair.
+            return self.codec.encode_event(fillers)
+        self._register_domain(PIPELINE_DOMAIN, pipeline)
+        acc = torch.zeros(self.n_dim, dtype=torch.float32)
+        for role, filler in fillers.items():
+            acc = acc + _bipolar_bind(self.codec.role_key(role), self.codec._sym_vec(filler))
+        acc = acc + _bipolar_bind(self._pipeline_key, self.codec._sym_vec(pipeline))
+        return _bipolar_quantize(acc)
 
     def _sr_key(self, subj: str, rel: str) -> torch.Tensor:
         """(subject, relation) HD signature: a 2-pair bundle. Same (s,r) -> identical vec."""
@@ -191,11 +244,26 @@ class HDFactStore:
         for role in FACT_ROLES:
             hat = _bipolar_bind(vec, self.codec.role_key(role))  # bipolar unbind == bind
             out[role] = self._cleanup(hat, ROLE_DOMAIN[role])
+        pipe_sym, pipe_score = self._recover_pipeline(vec)
+        scores = {r: out[r][1] for r in FACT_ROLES}
+        scores[PIPELINE_ROLE] = pipe_score
         return {
             "subject": out["ARG0"][0], "relation": out["REL"][0], "object": out["ARG1"][0],
             "source": out["SOURCE"][0], "trust": out["TRUST"][0],
-            "scores": {r: out[r][1] for r in FACT_ROLES},
+            "pipeline": pipe_sym,
+            "scores": scores,
         }
+
+    def _recover_pipeline(self, vec: torch.Tensor) -> Tuple[str, float]:
+        """GLASS-BOX pipeline read: unbind the PIPELINE key, clean up over the PIPELINE domain,
+        and GATE on the score. A bundle carrying no PIPELINE pair (every pre-change fact) scores
+        at noise level and returns PIPELINE_UNKNOWN -- it is never attributed to a real pipeline
+        just because argmax has to pick something."""
+        hat = _bipolar_bind(vec, self._pipeline_key)          # bipolar unbind == bind
+        sym, score = self._cleanup(hat, PIPELINE_DOMAIN)
+        if sym is None or score < PIPELINE_MIN_SCORE_FRAC * self.n_dim:
+            return PIPELINE_UNKNOWN, score
+        return sym, score
 
     # ---- fact append (keeps the sub-linear index in sync when enabled) ----------------
     @staticmethod
@@ -253,13 +321,19 @@ class HDFactStore:
 
     # ---- INGEST-VET: store(new_fact, source, trust) with trust-ranked resolution -------
     def store(self, subject: str, relation: str, obj: str,
-              source: str, trust: str) -> StoreResult:
+              source: str, trust: str,
+              pipeline: str = PIPELINE_UNKNOWN) -> StoreResult:
         subject, relation, obj, source, trust = (str(subject), str(relation),
                                                   str(obj), str(source), str(trust))
+        pipeline = str(pipeline)
         if trust not in TRUST_LEVEL:
             raise KeyError(f"unknown trust level {trust!r}; known={sorted(TRUST_LEVEL)}")
+        if pipeline not in PIPELINE_VALUES:
+            raise KeyError(f"unknown pipeline {pipeline!r}; known={sorted(PIPELINE_VALUES)}. "
+                           f"Provenance must be EXPLICIT -- add the value to PIPELINE_VALUES "
+                           f"rather than tagging a new pipeline with an existing one.")
         new_level = TRUST_LEVEL[trust]
-        vec = self._encode_fact(subject, relation, obj, source, trust)
+        vec = self._encode_fact(subject, relation, obj, source, trust, pipeline)
         sr_key = self._sr_key(subject, relation)
         fid = len(self._facts)
 
@@ -275,7 +349,8 @@ class HDFactStore:
                 conflicts.append(f)
 
         rec = FactRecord(fid=fid, vec=vec, sr_key=sr_key, subject=subject, relation=relation,
-                         obj=obj, source=source, trust_sym=trust, trust_level=new_level)
+                         obj=obj, source=source, trust_sym=trust, trust_level=new_level,
+                         pipeline=pipeline)
 
         if not conflicts:
             # CLEAN (or a consistent duplicate): just store. No spurious flag -- the
@@ -450,13 +525,60 @@ def _selftest_index_equivalence() -> None:
         assert ql == qi, (q, ql, qi)
 
 
+def _selftest_pipeline_glassbox_and_legacy_gate() -> None:
+    """PIPELINE provenance recovers glass-box; an UNTAGGED fact reads UNKNOWN_LEGACY even when
+    a real pipeline symbol is the ONLY member of the domain (the misattribution case)."""
+    st = HDFactStore(n_dim=4096, seed=6, relation_cardinality={"GROUNDED_MEANING": "FUNCTIONAL"})
+    r_def = st.store("cell", "GROUNDED_MEANING", "unit", "bio", "TRUST_MID",
+                     pipeline="DEFINITIONAL_EXTRACTOR")
+    rec = st.recover_fact(st._facts[r_def.fid].vec)
+    assert rec["pipeline"] == "DEFINITIONAL_EXTRACTOR", rec
+    # content + the other two provenance axes are unharmed by the extra bound pair
+    assert (rec["subject"], rec["relation"], rec["object"], rec["source"], rec["trust"]) == \
+           ("cell", "GROUNDED_MEANING", "unit", "bio", "TRUST_MID"), rec
+
+    r_legacy = st.store("boat", "GROUNDED_MEANING", "vessel", "reading:ele", "TRUST_MID")
+    rec_l = st.recover_fact(st._facts[r_legacy.fid].vec)
+    assert rec_l["pipeline"] == PIPELINE_UNKNOWN, (
+        f"untagged fact misattributed to {rec_l['pipeline']!r}")
+    assert rec_l["object"] == "vessel", rec_l
+    assert st._facts[r_legacy.fid].pipeline == PIPELINE_UNKNOWN
+
+    r_read = st.store("storm", "GROUNDED_MEANING", "weather", "reading:ele", "TRUST_MID",
+                      pipeline="READING_GROUNDING")
+    assert st.recover_fact(st._facts[r_read.fid].vec)["pipeline"] == "READING_GROUNDING"
+    # unknown value must RAISE, never store silently
+    try:
+        st.store("x", "GROUNDED_MEANING", "y", "s", "TRUST_MID", pipeline="MADE_UP")
+    except KeyError:
+        pass
+    else:
+        raise AssertionError("unknown pipeline value accepted")
+
+
+def _selftest_untagged_encoding_is_unchanged() -> None:
+    """A fact stored with NO pipeline must encode BYTE-IDENTICALLY to the pre-change encoder
+    (plain codec.encode_event over the 5 original roles) -- otherwise adding provenance would
+    silently invalidate every landed store's vectors."""
+    st = HDFactStore(n_dim=1024, seed=17, relation_cardinality={"rel": "FUNCTIONAL"})
+    r = st.store("s", "rel", "o", "src", "TRUST_MID")
+    ref = st.codec.encode_event({"REL": "rel", "ARG0": "s", "ARG1": "o",
+                                 "SOURCE": "src", "TRUST": "TRUST_MID"})
+    assert torch.equal(st._facts[r.fid].vec, ref), "untagged encoding drifted from 5-role bundle"
+    assert st._domain_syms[PIPELINE_DOMAIN] == [], "untagged store registered a PIPELINE symbol"
+
+
 def _run_all_selftests() -> dict:
     _selftest_glassbox_roundtrip()
     _selftest_sr_key_separates()
     _selftest_four_resolutions()
     _selftest_clean_no_false_flag()
     _selftest_index_equivalence()
+    _selftest_pipeline_glassbox_and_legacy_gate()
+    _selftest_untagged_encoding_is_unchanged()
     return {"roles": list(FACT_ROLES), "trust_levels": TRUST_LEVEL,
+            "pipeline_values": sorted(PIPELINE_VALUES),
+            "pipeline_gate_frac": PIPELINE_MIN_SCORE_FRAC,
             "reuse": "EventBundleCodec / RoleSlotSummarizer bipolar primitives",
             "sublinear_index": "content-hash sr-signature (O(1)); byte-equivalent to O(n)"}
 

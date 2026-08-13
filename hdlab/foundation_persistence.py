@@ -37,8 +37,14 @@ the torch-tensor store state (via .numpy()) and the native-numpy ConceptSpace/Li
 with no extra dependency and no pickle of arbitrary objects):
   store/store_meta.json     -- n_dim, seed, sr_threshold, use_index, relation_cardinality, roles,
                                 codec_seed, symbols (ordered), domain_syms (ordered per domain)
-  store/store_tensors.npz   -- gen_state (uint8), role_keys, symbol_codebook, fact_vecs, fact_sr_keys
-  store/store_facts.json    -- one row per FactRecord (fid order): plaintext + status fields
+  store/store_tensors.npz   -- gen_state (uint8), role_keys, symbol_codebook, fact_vecs, fact_sr_keys,
+                                pipeline_role_key (OPTIONAL on read; absent in a pre-provenance
+                                snapshot, where the seed-derived key is already correct)
+  store/store_facts.json    -- one row per FactRecord (fid order): plaintext + status fields +
+                                `pipeline` (OPTIONAL on read; an absent field loads as
+                                PIPELINE_UNKNOWN = "UNKNOWN_LEGACY", NEVER as a real pipeline --
+                                see _selftest_pipeline_provenance_survives_flush below and
+                                verification/verify_fact_store_pipeline_provenance.py)
   concept_space.npz         -- lemmas (ordered), sums (float64, raw un-quantized), d
   library_pending.json      -- PENDING LibraryItems only (lemma, first_min_confirm_pass, patience,
                                 traces metadata); terminal ESCALATED items are NOT persisted
@@ -82,7 +88,8 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import torch
 
-from hdlab.hd_fact_store import HDFactStore, FactRecord
+from hdlab.hd_fact_store import (HDFactStore, FactRecord, PIPELINE_DOMAIN, PIPELINE_UNKNOWN,
+                                 PIPELINE_VALUES)
 from hdlab.reading_grounding_loop import ConceptSpace, ReadingLoopState, GAP_FLOOR, CTX_D
 from hdlab.gap_detector import GapDetector
 from hdlab.grounding_acquisition_loop import Library, LibraryItem, Trace
@@ -160,11 +167,18 @@ def save_store(store: HDFactStore, dir_path: str) -> None:
                  if store._facts else np.zeros((0, store.n_dim), dtype=np.float32))
     fact_sr_keys = (torch.stack([f.sr_key for f in store._facts], 0).detach().cpu().numpy().astype(np.float32)
                     if store._facts else np.zeros((0, store.n_dim), dtype=np.float32))
+    # pipeline_role_key: the PIPELINE role key lives OUTSIDE the codec's role_keys (it is drawn
+    # from a separate generator so the codec stream stays byte-identical -- see hd_fact_store).
+    # It is deterministic from `seed`, but it is materialized here anyway so a reload never has
+    # to trust a re-derivation.
+    pipeline_key = store._pipeline_key.detach().cpu().numpy().astype(np.float32)
     _write_npz(os.path.join(dir_path, "store_tensors.npz"), gen_state=gen_state, role_keys=role_keys,
-              symbol_codebook=symbol_cb, fact_vecs=fact_vecs, fact_sr_keys=fact_sr_keys)
+              symbol_codebook=symbol_cb, fact_vecs=fact_vecs, fact_sr_keys=fact_sr_keys,
+              pipeline_role_key=pipeline_key)
 
     fact_rows = [dict(fid=f.fid, subject=f.subject, relation=f.relation, obj=f.obj, source=f.source,
-                      trust_sym=f.trust_sym, trust_level=f.trust_level, status=f.status)
+                      trust_sym=f.trust_sym, trust_level=f.trust_level, status=f.status,
+                      pipeline=f.pipeline)
                 for f in store._facts]
     _write_json(os.path.join(dir_path, "store_facts.json"), fact_rows)
 
@@ -187,18 +201,34 @@ def load_store(dir_path: str) -> HDFactStore:
     for i, sym in enumerate(meta["symbols"]):
         codec._register(str(sym), torch.from_numpy(symbol_cb[i]).to(torch.float32))
 
-    store._domain_syms = {d: list(v) for d, v in meta["domain_syms"].items()}
+    # A pre-PIPELINE snapshot has no PIPELINE domain key; MERGE onto the constructor's defaults
+    # rather than replacing, so a legacy store still has every domain the code expects.
+    domain_syms = {d: list(v) for d, v in store._domain_syms.items()}
+    domain_syms.update({d: list(v) for d, v in meta["domain_syms"].items()})
+    store._domain_syms = domain_syms
     store._domain_seen = {d: set(v) for d, v in store._domain_syms.items()}
     store._cb_cache = {}
+    # PIPELINE role key: present from this format version on; absent in a legacy snapshot, where
+    # the constructor's deterministic (seed-derived) key is already correct -- no legacy fact
+    # carries a PIPELINE binding, so the key only matters for facts written AFTER the reload.
+    if "pipeline_role_key" in getattr(npz, "files", []):
+        store._pipeline_key = torch.from_numpy(npz["pipeline_role_key"]).to(torch.float32)
 
     fact_vecs, fact_sr_keys = npz["fact_vecs"], npz["fact_sr_keys"]
     facts: List[FactRecord] = []
     for row, vec, srk in zip(fact_rows, fact_vecs, fact_sr_keys):
+        # ABSENT pipeline field -> UNKNOWN_LEGACY. Never a real pipeline: a fact whose
+        # provenance was not recorded must stay explicitly unattributed (source monitoring).
+        pipeline = str(row.get("pipeline", PIPELINE_UNKNOWN))
+        if pipeline not in PIPELINE_VALUES:
+            raise ValueError(f"fid {row['fid']}: unknown pipeline {pipeline!r} on disk; "
+                             f"known={sorted(PIPELINE_VALUES)}")
         facts.append(FactRecord(fid=row["fid"], vec=torch.from_numpy(vec).to(torch.float32),
                                 sr_key=torch.from_numpy(srk).to(torch.float32),
                                 subject=row["subject"], relation=row["relation"], obj=row["obj"],
                                 source=row["source"], trust_sym=row["trust_sym"],
-                                trust_level=row["trust_level"], status=row["status"]))
+                                trust_level=row["trust_level"], status=row["status"],
+                                pipeline=pipeline))
     store._facts = facts
     store._sr_index = {}
     if store.use_index:
@@ -572,10 +602,51 @@ def _selftest_provenance_and_refusal_ledgers_roundtrip(tmp_dir: str) -> None:
     assert all(r["fid"] in fids for r in again.provenance), "provenance fid does not key a live fact"
 
 
+def _selftest_pipeline_provenance_survives_flush(tmp_dir: str) -> None:
+    """PIPELINE provenance survives save -> reload, in BOTH the plaintext ledger and the
+    glass-box HD read; and a row written WITHOUT the field reloads as UNKNOWN_LEGACY rather
+    than inheriting some other fact's pipeline."""
+    st = HDFactStore(n_dim=2048, seed=61, relation_cardinality={"GROUNDED_MEANING": "FUNCTIONAL",
+                                                                "KNOWN_WORD": "FUNCTIONAL"},
+                     use_index=True)
+    st.store("cell", "GROUNDED_MEANING", "unit", "bio_new", "TRUST_MID",
+             pipeline="DEFINITIONAL_EXTRACTOR")
+    st.store("boat", "GROUNDED_MEANING", "vessel", "reading:ele_cont", "TRUST_MID",
+             pipeline="READING_GROUNDING")
+    st.store("the", "KNOWN_WORD", "CORE", "seed_base_vocabulary", "TRUST_HIGH",
+             pipeline="SEED_VOCABULARY")
+    st.store("old", "KNOWN_WORD", "CORE", "reading:bootstrap", "TRUST_MID")   # untagged
+
+    d = os.path.join(tmp_dir, "pipeline_rt")
+    save_store(st, d)
+    st2 = load_store(d)
+    for f1, f2 in zip(st._facts, st2._facts):
+        assert f1.pipeline == f2.pipeline, f"pipeline lost on flush: {f1.pipeline} -> {f2.pipeline}"
+        assert torch.equal(f1.vec, f2.vec)
+        assert st2.recover_fact(f2.vec)["pipeline"] == f2.pipeline, "glass-box pipeline mismatch"
+    assert [f.pipeline for f in st2._facts] == ["DEFINITIONAL_EXTRACTOR", "READING_GROUNDING",
+                                                "SEED_VOCABULARY", PIPELINE_UNKNOWN]
+
+    # Legacy shape: strip the field from the ledger entirely (a pre-provenance store_facts.json).
+    fp = os.path.join(d, "store_facts.json")
+    with open(fp, encoding="utf-8") as fh:
+        rows = json.load(fh)
+    for r in rows:
+        r.pop("pipeline", None)
+    with open(fp + ".tmp", "wb") as fh:
+        fh.write(json.dumps(rows).encode("utf-8"))
+    os.replace(fp + ".tmp", fp)
+    st3 = load_store(d)
+    assert all(f.pipeline == PIPELINE_UNKNOWN for f in st3._facts), (
+        "a pipeline-less ledger row must load as UNKNOWN_LEGACY")
+    assert PIPELINE_DOMAIN in st3._domain_syms, "PIPELINE domain missing after legacy load"
+
+
 def _run_all_selftests() -> dict:
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         _selftest_store_roundtrip_identical(tmp)
+        _selftest_pipeline_provenance_survives_flush(tmp)
         _selftest_continuation_matches_uninterrupted_run(tmp)
         _selftest_concept_space_roundtrip(tmp)
         _selftest_library_pending_roundtrip(tmp)
@@ -584,6 +655,7 @@ def _run_all_selftests() -> dict:
         _selftest_provenance_and_refusal_ledgers_roundtrip(tmp)
     return {
         "store_roundtrip_identical_ok": True,
+        "pipeline_provenance_survives_flush_ok": True,
         "continuation_matches_uninterrupted_run_ok": True,
         "concept_space_roundtrip_ok": True,
         "library_pending_roundtrip_ok": True,

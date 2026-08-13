@@ -1,0 +1,21 @@
+{
+  "format": "HDFactStore snapshot (store/ only); load with hdlab.foundation_persistence.load_store",
+  "generated_ts_iso": "2026-08-13T05:03:21.409055+00:00",
+  "n_facts": 7966,
+  "not_a_full_foundation_snapshot": "concept_space.npz / library_pending.* / manifest.json are NOT copied here, so load_foundation() will NOT read this directory. The canonical full snapshot remains data/foundation/reading_grounding_v1.",
+  "pipeline_counts": {
+    "READING_GROUNDING": 7088,
+    "SEED_VOCABULARY": 878
+  },
+  "provenance_store_sha256": {
+    "store_facts.json": "467039a3d9a4b3959102036123920b41550027a30a842663be27e515d03f4249",
+    "store_meta.json": "4a74c5446d9621a48b8dfe60864025c537d1340b34100f116f3c0911e40c6447",
+    "store_tensors.npz": "7e9cc7eed9439e776eb41822db5a12a8524f9cde6518de2981d6d6e08668f2a5"
+  },
+  "source_store": "data/foundation/reading_grounding_v1/store",
+  "source_store_sha256": {
+    "store_facts.json": "00aa8f1ac2c7c17837bf86f63a43762176b8ba9b837508e969e49dfeb8a8f22c",
+    "store_meta.json": "97cd1db8b9ce1ba6aa5a50dd0053db29b6706cf383af628d956d476f5ad74b5c",
+    "store_tensors.npz": "46b73cc21a96d5801fadcb48f06aadd120010e5dee77b0e2aa707a9aefcd226d"
+  }
+}
