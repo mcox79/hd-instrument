@@ -48,10 +48,22 @@ RULES = """\
 == HOW TO TALK TO THE USER (USER directive 2026-08-12) ==
 - PLAIN LANGUAGE. No jargon where an ordinary word works. Expand any term the first time.
 - ANALOGIES only when they genuinely clarify. Never decorative.
-- SUCCINCT. Lead with the answer. Cut preamble, restatement, and hedging.
-- KEEP THE MAIN THREAD FREE. Long work goes to a background subagent; dispatch and reply
-  immediately. Do not run bulk file ops, full-corpus scans, or multi-minute commands inline.
-  The user queues messages -- a blocked main thread blocks THEM.
+- SUCCINCT. Lead with the answer. Cut preamble, restatement, and hedging. Long replies are
+  themselves thread time -- depth only when asked.
+
+== DELEGATION PROTOCOL (USER directive 2026-08-12, after repeated main-thread lockups) ==
+The user QUEUES messages behind a busy thread. A blocked main thread blocks THEM. Measured
+cause of the lockups was NOT the subagents -- it was the director chaining small inline calls,
+typing documents by hand, and writing long replies.
+- ONE TURN = ONE ACTION. Either a batch of dispatches OR a reply. Never a chain of tool calls
+  followed by a reply.
+- DELEGATE anything that takes >~10s, reads >~50 lines, or writes a file.
+- JUDGEMENT stays with the director; TYPING does not. Have the agent pre-compact the input to
+  the minimum needed to rule (a 50-line table, not a 3000-line JSON), rule in one pass, then
+  have an agent persist the ruling.
+- BATCH independent work -- 3-4 agents dispatched together, not one per turn. Serialising
+  parallelisable work is the main source of wasted wall-clock.
+- NEVER read a large artifact into the main thread to inspect it. Ask an agent for the digest.
 """
 
 

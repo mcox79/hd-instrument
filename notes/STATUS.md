@@ -40,27 +40,21 @@ claim with a pointer. LEDGER: `notes/ledger_grounding_quality_2026-08-12.md`, re
   67ffc6998. `pytest verification/` 269/3.
 
 ## WHAT IS RUNNING -- TOP OPEN ITEM
-**Nothing live** (`Get-Process`: only pre-existing python/pythonw/claude PIDs, none tied to this
-cell). 4th detached `claude -p` attempt left `data/cli_agent_quality.log` (4433B) + `.err` (0B),
-**produced no experiment** -- `exp_grounding_quality_readout_v1.py` still absent on disk. Log's
-diagnosis: every Write/Edit failed, no settings file grants Write/Edit
-(`.claude/settings.local.json` confirmed 0 such rules) and the session was headless -- 4th
-non-completion, 1st with a root cause. Reusable pre-flight it verified: corpus loader 34169
-sentences/5 segments match prereg, F1 threshold `g_match=3.542496` reproduces, S5 ref 0.100561
-reproduces, wall-time margin wide (4.56x a 220.8s/7500-sentence smoke), S7 memory not a
-knife-edge (CTX_D=256 not 2048, worst case 0.4-0.9GB vs 4GB cap), `reading_grounding_loop.py`
-untouched. **Fixing the Write/Edit grant is a precondition for attempt 5.** Prereg sound
-(`preregs/2026-08-12_grounding_quality_readout_v1.md`, 192521a7f): 2 arms x 5 segments,
-HARD_PASS delta>=+0.20 & F1F3>=0.25, NULL |delta|<0.08 acceptable, S1-S8 gates, timeout_s 21600.
+`exp_grounding_quality_readout_v1` RAN AND IS SCORED (08-13). Cell verdict
+STRUCTURAL_PASS_PENDING_B3, S1-S7 all ok (S5 calibrated: BASE confirm 0.0668 vs cited 0.1006),
+S8 drift -0.2383 (retention-match VOID), fact ratio 0.9609 (no sec-3.2 cap). Quality read-out =
+NULL, floor-limited -- see NEXT 1 and
+`notes/director_handscore_readout_v1_2026-08-13.md`.
 
 ## NEXT (ordered)
-1. Grant Write/Edit in settings (blocked attempt 4) then author + detach-dispatch
-   `exp_grounding_quality_readout_v1.py` -> two UNSCORED 50-row samples (PBV_BASE, PBV_F1F3).
-2. Director hand-scores both vs the 64% v5 rubric (CEILING REF ONLY, prereg refuses scoring
-   against it; real comparator is v2 DIST's 8%).
-3. Growth stays PAUSED regardless of this cell's outcome until grounding quality holds.
-4. Noun-only structural gap (0 verb defs in 2092 facts, all 5 patterns NP-headed) -- unscheduled.
-5. Syntactic bootstrapping note (17eeb72e9) -- concurrent-session-owned, do not touch.
+1. DONE 08-13: cell ran, Director hand-scored 100 blind rows -> 3% MEANINGFUL / 19% RELATED /
+   78% NOISE; delta F1F3-BASE +0.02 = NULL, floor-limited (only 3 MEANINGFUL exist, max
+   attainable |delta| 0.06); S8 drift -0.238 voids retention-match. Segment effect VERIFIED:
+   OpenStax bio 9/17=52.9% M+R vs OneStop news 13/81=16.1% (p=0.0024).
+   `notes/director_handscore_readout_v1_2026-08-13.md`. Next binding question = PROPOSER'S METRIC.
+2. Growth stays PAUSED regardless of this cell's outcome until grounding quality holds.
+3. Noun-only structural gap (0 verb defs in 2092 facts, all 5 patterns NP-headed) -- unscheduled.
+4. Syntactic bootstrapping note (17eeb72e9) -- concurrent-session-owned, do not touch.
 
 ## DO NOT REDO (unmissable -- do not re-propose)
 - Intersection-over-argmax: refuted, argmax already propose-then-verify shaped.
@@ -74,6 +68,9 @@ HARD_PASS delta>=+0.20 & F1F3>=0.25, NULL |delta|<0.08 acceptable, S1-S8 gates, 
 - `isolation:` agent frontmatter key -- tested, ignored. `background:` -- WORSE than ignored,
   fails the whole definition to load (see infra bullet above); still never add either.
 - Scoring the quality-readout cell against v5's 64% -- refused in its own prereg; comparator 8%.
+- Read-out stabilization (F1+F3) as a route to better meanings -- NULL, floor-limited; grounding
+  quality is the binding constraint, not read-out stability
+  (`notes/director_handscore_readout_v1_2026-08-13.md`).
 
 ## BLOCKED / DO NOT TOUCH
 - `hdlab/reading_grounding_loop.py`, `hdlab/grounding_acquisition_loop.py`,
