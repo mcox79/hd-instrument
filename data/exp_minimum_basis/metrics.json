@@ -1,0 +1,8764 @@
+{
+ "corpus": {
+  "n_sentences": 34169,
+  "n_lemmas_all": 18648,
+  "n_lemmas_eligible": 18276
+ },
+ "anchors": {
+  "seed_words": 1000,
+  "seed_lemmas": 887,
+  "grounded_STRUCTURED": 374,
+  "anchor_universe": 1261,
+  "base_vocabulary_rows": 74287
+ },
+ "graph_v5_v62": {
+  "per_set": {
+   "v5": {
+    "rows": 2092,
+    "self_loops": 0,
+    "edges_kept": 2092
+   },
+   "v62": {
+    "rows": 221,
+    "self_loops": 1,
+    "edges_kept": 220
+   }
+  },
+  "rows": 2313,
+  "self_loops": 1,
+  "edge_instances": 2312,
+  "distinct_edges": 2239,
+  "nodes": 2357
+ },
+ "graph_all": {
+  "per_set": {
+   "v5": {
+    "rows": 2092,
+    "self_loops": 0,
+    "edges_kept": 2092
+   },
+   "v62": {
+    "rows": 221,
+    "self_loops": 1,
+    "edges_kept": 220
+   },
+   "v4": {
+    "rows": 1956,
+    "self_loops": 0,
+    "edges_kept": 1956
+   },
+   "v3": {
+    "rows": 1751,
+    "self_loops": 0,
+    "edges_kept": 1751
+   }
+  },
+  "rows": 6020,
+  "self_loops": 1,
+  "edge_instances": 6019,
+  "distinct_edges": 2607,
+  "nodes": 2595
+ },
+ "cover": {
+  "v5_v62": {
+   "n_nodes": 2357,
+   "n_nodes_in_corpus_eligible": 2325,
+   "target_frac_of_corpus_eligible": 0.127216,
+   "k": {
+    "1": {
+     "picks_total": 1019,
+     "covered": 2325,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.127216,
+     "S_for": {
+      "0.50": 233,
+      "0.80": 581,
+      "0.95": 903
+     },
+     "top200": [
+      {
+       "lemma": "process",
+       "gain": 50,
+       "cum": 50,
+       "cum_frac_target": 0.021505
+      },
+      {
+       "lemma": "structure",
+       "gain": 32,
+       "cum": 82,
+       "cum_frac_target": 0.035269
+      },
+      {
+       "lemma": "cell",
+       "gain": 23,
+       "cum": 105,
+       "cum_frac_target": 0.045161
+      },
+      {
+       "lemma": "molecule",
+       "gain": 20,
+       "cum": 125,
+       "cum_frac_target": 0.053763
+      },
+      {
+       "lemma": "study",
+       "gain": 19,
+       "cum": 144,
+       "cum_frac_target": 0.061935
+      },
+      {
+       "lemma": "organism",
+       "gain": 18,
+       "cum": 162,
+       "cum_frac_target": 0.069677
+      },
+      {
+       "lemma": "organ",
+       "gain": 13,
+       "cum": 175,
+       "cum_frac_target": 0.075269
+      },
+      {
+       "lemma": "animal",
+       "gain": 12,
+       "cum": 187,
+       "cum_frac_target": 0.08043
+      },
+      {
+       "lemma": "plant",
+       "gain": 12,
+       "cum": 199,
+       "cum_frac_target": 0.085591
+      },
+      {
+       "lemma": "clade",
+       "gain": 11,
+       "cum": 210,
+       "cum_frac_target": 0.090323
+      },
+      {
+       "lemma": "division",
+       "gain": 11,
+       "cum": 221,
+       "cum_frac_target": 0.095054
+      },
+      {
+       "lemma": "species",
+       "gain": 11,
+       "cum": 232,
+       "cum_frac_target": 0.099785
+      },
+      {
+       "lemma": "body",
+       "gain": 10,
+       "cum": 242,
+       "cum_frac_target": 0.104086
+      },
+      {
+       "lemma": "component",
+       "gain": 10,
+       "cum": 252,
+       "cum_frac_target": 0.108387
+      },
+      {
+       "lemma": "disease",
+       "gain": 10,
+       "cum": 262,
+       "cum_frac_target": 0.112688
+      },
+      {
+       "lemma": "organelle",
+       "gain": 10,
+       "cum": 272,
+       "cum_frac_target": 0.116989
+      },
+      {
+       "lemma": "protein",
+       "gain": 10,
+       "cum": 282,
+       "cum_frac_target": 0.12129
+      },
+      {
+       "lemma": "region",
+       "gain": 10,
+       "cum": 292,
+       "cum_frac_target": 0.125591
+      },
+      {
+       "lemma": "stage",
+       "gain": 10,
+       "cum": 302,
+       "cum_frac_target": 0.129892
+      },
+      {
+       "lemma": "substance",
+       "gain": 10,
+       "cum": 312,
+       "cum_frac_target": 0.134194
+      },
+      {
+       "lemma": "biome",
+       "gain": 9,
+       "cum": 321,
+       "cum_frac_target": 0.138065
+      },
+      {
+       "lemma": "compound",
+       "gain": 9,
+       "cum": 330,
+       "cum_frac_target": 0.141935
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 339,
+       "cum_frac_target": 0.145806
+      },
+      {
+       "lemma": "opening",
+       "gain": 9,
+       "cum": 348,
+       "cum_frac_target": 0.149677
+      },
+      {
+       "lemma": "phylum",
+       "gain": 9,
+       "cum": 357,
+       "cum_frac_target": 0.153548
+      },
+      {
+       "lemma": "company",
+       "gain": 8,
+       "cum": 365,
+       "cum_frac_target": 0.156989
+      },
+      {
+       "lemma": "example",
+       "gain": 8,
+       "cum": 373,
+       "cum_frac_target": 0.16043
+      },
+      {
+       "lemma": "fish",
+       "gain": 8,
+       "cum": 381,
+       "cum_frac_target": 0.163871
+      },
+      {
+       "lemma": "hormone",
+       "gain": 8,
+       "cum": 389,
+       "cum_frac_target": 0.167312
+      },
+      {
+       "lemma": "method",
+       "gain": 8,
+       "cum": 397,
+       "cum_frac_target": 0.170753
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 405,
+       "cum_frac_target": 0.174194
+      },
+      {
+       "lemma": "category",
+       "gain": 7,
+       "cum": 412,
+       "cum_frac_target": 0.177204
+      },
+      {
+       "lemma": "change",
+       "gain": 7,
+       "cum": 419,
+       "cum_frac_target": 0.180215
+      },
+      {
+       "lemma": "community",
+       "gain": 7,
+       "cum": 426,
+       "cum_frac_target": 0.183226
+      },
+      {
+       "lemma": "enzyme",
+       "gain": 7,
+       "cum": 433,
+       "cum_frac_target": 0.186237
+      },
+      {
+       "lemma": "head",
+       "gain": 7,
+       "cum": 440,
+       "cum_frac_target": 0.189247
+      },
+      {
+       "lemma": "layer",
+       "gain": 7,
+       "cum": 447,
+       "cum_frac_target": 0.192258
+      },
+      {
+       "lemma": "material",
+       "gain": 7,
+       "cum": 454,
+       "cum_frac_target": 0.195269
+      },
+      {
+       "lemma": "mixture",
+       "gain": 7,
+       "cum": 461,
+       "cum_frac_target": 0.19828
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 468,
+       "cum_frac_target": 0.20129
+      },
+      {
+       "lemma": "chain",
+       "gain": 6,
+       "cum": 474,
+       "cum_frac_target": 0.203871
+      },
+      {
+       "lemma": "challenge",
+       "gain": 6,
+       "cum": 480,
+       "cum_frac_target": 0.206452
+      },
+      {
+       "lemma": "executive",
+       "gain": 6,
+       "cum": 486,
+       "cum_frac_target": 0.209032
+      },
+      {
+       "lemma": "gene",
+       "gain": 6,
+       "cum": 492,
+       "cum_frac_target": 0.211613
+      },
+      {
+       "lemma": "individual",
+       "gain": 6,
+       "cum": 498,
+       "cum_frac_target": 0.214194
+      },
+      {
+       "lemma": "mammal",
+       "gain": 6,
+       "cum": 504,
+       "cum_frac_target": 0.216774
+      },
+      {
+       "lemma": "movement",
+       "gain": 6,
+       "cum": 510,
+       "cum_frac_target": 0.219355
+      },
+      {
+       "lemma": "response",
+       "gain": 6,
+       "cum": 516,
+       "cum_frac_target": 0.221935
+      },
+      {
+       "lemma": "technique",
+       "gain": 6,
+       "cum": 522,
+       "cum_frac_target": 0.224516
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 527,
+       "cum_frac_target": 0.226667
+      },
+      {
+       "lemma": "cause",
+       "gain": 5,
+       "cum": 532,
+       "cum_frac_target": 0.228817
+      },
+      {
+       "lemma": "city",
+       "gain": 5,
+       "cum": 537,
+       "cum_frac_target": 0.230968
+      },
+      {
+       "lemma": "combination",
+       "gain": 5,
+       "cum": 542,
+       "cum_frac_target": 0.233118
+      },
+      {
+       "lemma": "concept",
+       "gain": 5,
+       "cum": 547,
+       "cum_frac_target": 0.235269
+      },
+      {
+       "lemma": "country",
+       "gain": 5,
+       "cum": 552,
+       "cum_frac_target": 0.237419
+      },
+      {
+       "lemma": "dna",
+       "gain": 5,
+       "cum": 557,
+       "cum_frac_target": 0.23957
+      },
+      {
+       "lemma": "drug",
+       "gain": 5,
+       "cum": 562,
+       "cum_frac_target": 0.24172
+      },
+      {
+       "lemma": "fit",
+       "gain": 5,
+       "cum": 567,
+       "cum_frac_target": 0.243871
+      },
+      {
+       "lemma": "food",
+       "gain": 5,
+       "cum": 572,
+       "cum_frac_target": 0.246022
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 577,
+       "cum_frac_target": 0.248172
+      },
+      {
+       "lemma": "founder",
+       "gain": 5,
+       "cum": 582,
+       "cum_frac_target": 0.250323
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 587,
+       "cum_frac_target": 0.252473
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 592,
+       "cum_frac_target": 0.254624
+      },
+      {
+       "lemma": "level",
+       "gain": 5,
+       "cum": 597,
+       "cum_frac_target": 0.256774
+      },
+      {
+       "lemma": "man",
+       "gain": 5,
+       "cum": 602,
+       "cum_frac_target": 0.258925
+      },
+      {
+       "lemma": "minister",
+       "gain": 5,
+       "cum": 607,
+       "cum_frac_target": 0.261075
+      },
+      {
+       "lemma": "officer",
+       "gain": 5,
+       "cum": 612,
+       "cum_frac_target": 0.263226
+      },
+      {
+       "lemma": "phase",
+       "gain": 5,
+       "cum": 617,
+       "cum_frac_target": 0.265376
+      },
+      {
+       "lemma": "point",
+       "gain": 5,
+       "cum": 622,
+       "cum_frac_target": 0.267527
+      },
+      {
+       "lemma": "presence",
+       "gain": 5,
+       "cum": 627,
+       "cum_frac_target": 0.269677
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 632,
+       "cum_frac_target": 0.271828
+      },
+      {
+       "lemma": "relationship",
+       "gain": 5,
+       "cum": 637,
+       "cum_frac_target": 0.273978
+      },
+      {
+       "lemma": "result",
+       "gain": 5,
+       "cum": 642,
+       "cum_frac_target": 0.276129
+      },
+      {
+       "lemma": "tissue",
+       "gain": 5,
+       "cum": 647,
+       "cum_frac_target": 0.27828
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 652,
+       "cum_frac_target": 0.28043
+      },
+      {
+       "lemma": "type",
+       "gain": 5,
+       "cum": 657,
+       "cum_frac_target": 0.282581
+      },
+      {
+       "lemma": "unit",
+       "gain": 5,
+       "cum": 662,
+       "cum_frac_target": 0.284731
+      },
+      {
+       "lemma": "vessel",
+       "gain": 5,
+       "cum": 667,
+       "cum_frac_target": 0.286882
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 671,
+       "cum_frac_target": 0.288602
+      },
+      {
+       "lemma": "agent",
+       "gain": 4,
+       "cum": 675,
+       "cum_frac_target": 0.290323
+      },
+      {
+       "lemma": "allele",
+       "gain": 4,
+       "cum": 679,
+       "cum_frac_target": 0.292043
+      },
+      {
+       "lemma": "amphibian",
+       "gain": 4,
+       "cum": 683,
+       "cum_frac_target": 0.293763
+      },
+      {
+       "lemma": "area",
+       "gain": 4,
+       "cum": 687,
+       "cum_frac_target": 0.295484
+      },
+      {
+       "lemma": "artist",
+       "gain": 4,
+       "cum": 691,
+       "cum_frac_target": 0.297204
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 695,
+       "cum_frac_target": 0.298925
+      },
+      {
+       "lemma": "birth",
+       "gain": 4,
+       "cum": 699,
+       "cum_frac_target": 0.300645
+      },
+      {
+       "lemma": "bone",
+       "gain": 4,
+       "cum": 703,
+       "cum_frac_target": 0.302366
+      },
+      {
+       "lemma": "century",
+       "gain": 4,
+       "cum": 707,
+       "cum_frac_target": 0.304086
+      },
+      {
+       "lemma": "chromosome",
+       "gain": 4,
+       "cum": 711,
+       "cum_frac_target": 0.305806
+      },
+      {
+       "lemma": "condition",
+       "gain": 4,
+       "cum": 715,
+       "cum_frac_target": 0.307527
+      },
+      {
+       "lemma": "degree",
+       "gain": 4,
+       "cum": 719,
+       "cum_frac_target": 0.309247
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 4,
+       "cum": 723,
+       "cum_frac_target": 0.310968
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 727,
+       "cum_frac_target": 0.312688
+      },
+      {
+       "lemma": "field",
+       "gain": 4,
+       "cum": 731,
+       "cum_frac_target": 0.314409
+      },
+      {
+       "lemma": "fluid",
+       "gain": 4,
+       "cum": 735,
+       "cum_frac_target": 0.316129
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 739,
+       "cum_frac_target": 0.317849
+      },
+      {
+       "lemma": "fungi",
+       "gain": 4,
+       "cum": 743,
+       "cum_frac_target": 0.31957
+      },
+      {
+       "lemma": "image",
+       "gain": 4,
+       "cum": 747,
+       "cum_frac_target": 0.32129
+      },
+      {
+       "lemma": "indicator",
+       "gain": 4,
+       "cum": 751,
+       "cum_frac_target": 0.323011
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 4,
+       "cum": 755,
+       "cum_frac_target": 0.324731
+      },
+      {
+       "lemma": "leader",
+       "gain": 4,
+       "cum": 759,
+       "cum_frac_target": 0.326452
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 4,
+       "cum": 763,
+       "cum_frac_target": 0.328172
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 767,
+       "cum_frac_target": 0.329892
+      },
+      {
+       "lemma": "particle",
+       "gain": 4,
+       "cum": 771,
+       "cum_frac_target": 0.331613
+      },
+      {
+       "lemma": "place",
+       "gain": 4,
+       "cum": 775,
+       "cum_frac_target": 0.333333
+      },
+      {
+       "lemma": "pollen",
+       "gain": 4,
+       "cum": 779,
+       "cum_frac_target": 0.335054
+      },
+      {
+       "lemma": "polymer",
+       "gain": 4,
+       "cum": 783,
+       "cum_frac_target": 0.336774
+      },
+      {
+       "lemma": "portion",
+       "gain": 4,
+       "cum": 787,
+       "cum_frac_target": 0.338495
+      },
+      {
+       "lemma": "reaction",
+       "gain": 4,
+       "cum": 791,
+       "cum_frac_target": 0.340215
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 795,
+       "cum_frac_target": 0.341935
+      },
+      {
+       "lemma": "sequence",
+       "gain": 4,
+       "cum": 799,
+       "cum_frac_target": 0.343656
+      },
+      {
+       "lemma": "site",
+       "gain": 4,
+       "cum": 803,
+       "cum_frac_target": 0.345376
+      },
+      {
+       "lemma": "solution",
+       "gain": 4,
+       "cum": 807,
+       "cum_frac_target": 0.347097
+      },
+      {
+       "lemma": "source",
+       "gain": 4,
+       "cum": 811,
+       "cum_frac_target": 0.348817
+      },
+      {
+       "lemma": "speciation",
+       "gain": 4,
+       "cum": 815,
+       "cum_frac_target": 0.350538
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 819,
+       "cum_frac_target": 0.352258
+      },
+      {
+       "lemma": "threat",
+       "gain": 4,
+       "cum": 823,
+       "cum_frac_target": 0.353978
+      },
+      {
+       "lemma": "trait",
+       "gain": 4,
+       "cum": 827,
+       "cum_frac_target": 0.355699
+      },
+      {
+       "lemma": "tube",
+       "gain": 4,
+       "cum": 831,
+       "cum_frac_target": 0.357419
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 835,
+       "cum_frac_target": 0.35914
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 838,
+       "cum_frac_target": 0.36043
+      },
+      {
+       "lemma": "achievement",
+       "gain": 3,
+       "cum": 841,
+       "cum_frac_target": 0.36172
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 844,
+       "cum_frac_target": 0.363011
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 847,
+       "cum_frac_target": 0.364301
+      },
+      {
+       "lemma": "agreement",
+       "gain": 3,
+       "cum": 850,
+       "cum_frac_target": 0.365591
+      },
+      {
+       "lemma": "angiosperm",
+       "gain": 3,
+       "cum": 853,
+       "cum_frac_target": 0.366882
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 856,
+       "cum_frac_target": 0.368172
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 859,
+       "cum_frac_target": 0.369462
+      },
+      {
+       "lemma": "association",
+       "gain": 3,
+       "cum": 862,
+       "cum_frac_target": 0.370753
+      },
+      {
+       "lemma": "atom",
+       "gain": 3,
+       "cum": 865,
+       "cum_frac_target": 0.372043
+      },
+      {
+       "lemma": "attraction",
+       "gain": 3,
+       "cum": 868,
+       "cum_frac_target": 0.373333
+      },
+      {
+       "lemma": "barrier",
+       "gain": 3,
+       "cum": 871,
+       "cum_frac_target": 0.374624
+      },
+      {
+       "lemma": "block",
+       "gain": 3,
+       "cum": 874,
+       "cum_frac_target": 0.375914
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 877,
+       "cum_frac_target": 0.377204
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 880,
+       "cum_frac_target": 0.378495
+      },
+      {
+       "lemma": "breaking",
+       "gain": 3,
+       "cum": 883,
+       "cum_frac_target": 0.379785
+      },
+      {
+       "lemma": "bundle",
+       "gain": 3,
+       "cum": 886,
+       "cum_frac_target": 0.381075
+      },
+      {
+       "lemma": "canada",
+       "gain": 3,
+       "cum": 889,
+       "cum_frac_target": 0.382366
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 892,
+       "cum_frac_target": 0.383656
+      },
+      {
+       "lemma": "cavity",
+       "gain": 3,
+       "cum": 895,
+       "cum_frac_target": 0.384946
+      },
+      {
+       "lemma": "charm",
+       "gain": 3,
+       "cum": 898,
+       "cum_frac_target": 0.386237
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 901,
+       "cum_frac_target": 0.387527
+      },
+      {
+       "lemma": "collapse",
+       "gain": 3,
+       "cum": 904,
+       "cum_frac_target": 0.388817
+      },
+      {
+       "lemma": "consumer",
+       "gain": 3,
+       "cum": 907,
+       "cum_frac_target": 0.390108
+      },
+      {
+       "lemma": "control",
+       "gain": 3,
+       "cum": 910,
+       "cum_frac_target": 0.391398
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 913,
+       "cum_frac_target": 0.392688
+      },
+      {
+       "lemma": "councillor",
+       "gain": 3,
+       "cum": 916,
+       "cum_frac_target": 0.393978
+      },
+      {
+       "lemma": "cover",
+       "gain": 3,
+       "cum": 919,
+       "cum_frac_target": 0.395269
+      },
+      {
+       "lemma": "covering",
+       "gain": 3,
+       "cum": 922,
+       "cum_frac_target": 0.396559
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 925,
+       "cum_frac_target": 0.397849
+      },
+      {
+       "lemma": "daylight",
+       "gain": 3,
+       "cum": 928,
+       "cum_frac_target": 0.39914
+      },
+      {
+       "lemma": "design",
+       "gain": 3,
+       "cum": 931,
+       "cum_frac_target": 0.40043
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 934,
+       "cum_frac_target": 0.40172
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 937,
+       "cum_frac_target": 0.403011
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 940,
+       "cum_frac_target": 0.404301
+      },
+      {
+       "lemma": "duke",
+       "gain": 3,
+       "cum": 943,
+       "cum_frac_target": 0.405591
+      },
+      {
+       "lemma": "economy",
+       "gain": 3,
+       "cum": 946,
+       "cum_frac_target": 0.406882
+      },
+      {
+       "lemma": "enter",
+       "gain": 3,
+       "cum": 949,
+       "cum_frac_target": 0.408172
+      },
+      {
+       "lemma": "event",
+       "gain": 3,
+       "cum": 952,
+       "cum_frac_target": 0.409462
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 955,
+       "cum_frac_target": 0.410753
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 958,
+       "cum_frac_target": 0.412043
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 961,
+       "cum_frac_target": 0.413333
+      },
+      {
+       "lemma": "focus",
+       "gain": 3,
+       "cum": 964,
+       "cum_frac_target": 0.414624
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 967,
+       "cum_frac_target": 0.415914
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 970,
+       "cum_frac_target": 0.417204
+      },
+      {
+       "lemma": "genotype",
+       "gain": 3,
+       "cum": 973,
+       "cum_frac_target": 0.418495
+      },
+      {
+       "lemma": "grouping",
+       "gain": 3,
+       "cum": 976,
+       "cum_frac_target": 0.419785
+      },
+      {
+       "lemma": "helix",
+       "gain": 3,
+       "cum": 979,
+       "cum_frac_target": 0.421075
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 982,
+       "cum_frac_target": 0.422366
+      },
+      {
+       "lemma": "idea",
+       "gain": 3,
+       "cum": 985,
+       "cum_frac_target": 0.423656
+      },
+      {
+       "lemma": "issue",
+       "gain": 3,
+       "cum": 988,
+       "cum_frac_target": 0.424946
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 991,
+       "cum_frac_target": 0.426237
+      },
+      {
+       "lemma": "leaf",
+       "gain": 3,
+       "cum": 994,
+       "cum_frac_target": 0.427527
+      },
+      {
+       "lemma": "lipid",
+       "gain": 3,
+       "cum": 997,
+       "cum_frac_target": 0.428817
+      },
+      {
+       "lemma": "lose",
+       "gain": 3,
+       "cum": 1000,
+       "cum_frac_target": 0.430108
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1003,
+       "cum_frac_target": 0.431398
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1006,
+       "cum_frac_target": 0.432688
+      },
+      {
+       "lemma": "measure",
+       "gain": 3,
+       "cum": 1009,
+       "cum_frac_target": 0.433978
+      },
+      {
+       "lemma": "member",
+       "gain": 3,
+       "cum": 1012,
+       "cum_frac_target": 0.435269
+      },
+      {
+       "lemma": "minimum",
+       "gain": 3,
+       "cum": 1015,
+       "cum_frac_target": 0.436559
+      },
+      {
+       "lemma": "mix",
+       "gain": 3,
+       "cum": 1018,
+       "cum_frac_target": 0.437849
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1021,
+       "cum_frac_target": 0.43914
+      },
+      {
+       "lemma": "mountain",
+       "gain": 3,
+       "cum": 1024,
+       "cum_frac_target": 0.44043
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1027,
+       "cum_frac_target": 0.44172
+      },
+      {
+       "lemma": "night",
+       "gain": 3,
+       "cum": 1030,
+       "cum_frac_target": 0.443011
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1033,
+       "cum_frac_target": 0.444301
+      },
+      {
+       "lemma": "object",
+       "gain": 3,
+       "cum": 1036,
+       "cum_frac_target": 0.445591
+      },
+      {
+       "lemma": "old",
+       "gain": 3,
+       "cum": 1039,
+       "cum_frac_target": 0.446882
+      },
+      {
+       "lemma": "opposite",
+       "gain": 3,
+       "cum": 1042,
+       "cum_frac_target": 0.448172
+      },
+      {
+       "lemma": "pattern",
+       "gain": 3,
+       "cum": 1045,
+       "cum_frac_target": 0.449462
+      },
+      {
+       "lemma": "period",
+       "gain": 3,
+       "cum": 1048,
+       "cum_frac_target": 0.450753
+      },
+      {
+       "lemma": "phenomenon",
+       "gain": 3,
+       "cum": 1051,
+       "cum_frac_target": 0.452043
+      },
+      {
+       "lemma": "pioneer",
+       "gain": 3,
+       "cum": 1054,
+       "cum_frac_target": 0.453333
+      },
+      {
+       "lemma": "position",
+       "gain": 3,
+       "cum": 1057,
+       "cum_frac_target": 0.454624
+      },
+      {
+       "lemma": "president",
+       "gain": 3,
+       "cum": 1060,
+       "cum_frac_target": 0.455914
+      },
+      {
+       "lemma": "prince",
+       "gain": 3,
+       "cum": 1063,
+       "cum_frac_target": 0.457204
+      },
+      {
+       "lemma": "principle",
+       "gain": 3,
+       "cum": 1066,
+       "cum_frac_target": 0.458495
+      },
+      {
+       "lemma": "product",
+       "gain": 3,
+       "cum": 1069,
+       "cum_frac_target": 0.459785
+      },
+      {
+       "lemma": "psychologist",
+       "gain": 3,
+       "cum": 1072,
+       "cum_frac_target": 0.461075
+      },
+      {
+       "lemma": "report",
+       "gain": 3,
+       "cum": 1075,
+       "cum_frac_target": 0.462366
+      }
+     ]
+    },
+    "2": {
+     "picks_total": 859,
+     "covered": 2325,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.127216,
+     "S_for": {
+      "0.50": 148,
+      "0.80": 466,
+      "0.95": 743
+     },
+     "top200": [
+      {
+       "lemma": "process",
+       "gain": 58,
+       "cum": 58,
+       "cum_frac_target": 0.024946
+      },
+      {
+       "lemma": "molecule",
+       "gain": 49,
+       "cum": 107,
+       "cum_frac_target": 0.046022
+      },
+      {
+       "lemma": "cell",
+       "gain": 42,
+       "cum": 149,
+       "cum_frac_target": 0.064086
+      },
+      {
+       "lemma": "structure",
+       "gain": 38,
+       "cum": 187,
+       "cum_frac_target": 0.08043
+      },
+      {
+       "lemma": "community",
+       "gain": 24,
+       "cum": 211,
+       "cum_frac_target": 0.090753
+      },
+      {
+       "lemma": "joy",
+       "gain": 23,
+       "cum": 234,
+       "cum_frac_target": 0.100645
+      },
+      {
+       "lemma": "enter",
+       "gain": 22,
+       "cum": 256,
+       "cum_frac_target": 0.110108
+      },
+      {
+       "lemma": "organism",
+       "gain": 21,
+       "cum": 277,
+       "cum_frac_target": 0.11914
+      },
+      {
+       "lemma": "characteristic",
+       "gain": 20,
+       "cum": 297,
+       "cum_frac_target": 0.127742
+      },
+      {
+       "lemma": "phylum",
+       "gain": 19,
+       "cum": 316,
+       "cum_frac_target": 0.135914
+      },
+      {
+       "lemma": "body",
+       "gain": 18,
+       "cum": 334,
+       "cum_frac_target": 0.143656
+      },
+      {
+       "lemma": "diet",
+       "gain": 18,
+       "cum": 352,
+       "cum_frac_target": 0.151398
+      },
+      {
+       "lemma": "plant",
+       "gain": 17,
+       "cum": 369,
+       "cum_frac_target": 0.15871
+      },
+      {
+       "lemma": "unit",
+       "gain": 17,
+       "cum": 386,
+       "cum_frac_target": 0.166022
+      },
+      {
+       "lemma": "macromolecule",
+       "gain": 16,
+       "cum": 402,
+       "cum_frac_target": 0.172903
+      },
+      {
+       "lemma": "mixture",
+       "gain": 15,
+       "cum": 417,
+       "cum_frac_target": 0.179355
+      },
+      {
+       "lemma": "carpel",
+       "gain": 14,
+       "cum": 431,
+       "cum_frac_target": 0.185376
+      },
+      {
+       "lemma": "organelle",
+       "gain": 14,
+       "cum": 445,
+       "cum_frac_target": 0.191398
+      },
+      {
+       "lemma": "level",
+       "gain": 13,
+       "cum": 458,
+       "cum_frac_target": 0.196989
+      },
+      {
+       "lemma": "region",
+       "gain": 13,
+       "cum": 471,
+       "cum_frac_target": 0.202581
+      },
+      {
+       "lemma": "company",
+       "gain": 12,
+       "cum": 483,
+       "cum_frac_target": 0.207742
+      },
+      {
+       "lemma": "substance",
+       "gain": 12,
+       "cum": 495,
+       "cum_frac_target": 0.212903
+      },
+      {
+       "lemma": "chemical",
+       "gain": 11,
+       "cum": 506,
+       "cum_frac_target": 0.217634
+      },
+      {
+       "lemma": "disease",
+       "gain": 11,
+       "cum": 517,
+       "cum_frac_target": 0.222366
+      },
+      {
+       "lemma": "opening",
+       "gain": 11,
+       "cum": 528,
+       "cum_frac_target": 0.227097
+      },
+      {
+       "lemma": "atom",
+       "gain": 10,
+       "cum": 538,
+       "cum_frac_target": 0.231398
+      },
+      {
+       "lemma": "desert",
+       "gain": 10,
+       "cum": 548,
+       "cum_frac_target": 0.235699
+      },
+      {
+       "lemma": "clade",
+       "gain": 9,
+       "cum": 557,
+       "cum_frac_target": 0.23957
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 566,
+       "cum_frac_target": 0.243441
+      },
+      {
+       "lemma": "fish",
+       "gain": 9,
+       "cum": 575,
+       "cum_frac_target": 0.247312
+      },
+      {
+       "lemma": "method",
+       "gain": 9,
+       "cum": 584,
+       "cum_frac_target": 0.251183
+      },
+      {
+       "lemma": "mountain",
+       "gain": 9,
+       "cum": 593,
+       "cum_frac_target": 0.255054
+      },
+      {
+       "lemma": "temperature",
+       "gain": 9,
+       "cum": 602,
+       "cum_frac_target": 0.258925
+      },
+      {
+       "lemma": "category",
+       "gain": 8,
+       "cum": 610,
+       "cum_frac_target": 0.262366
+      },
+      {
+       "lemma": "change",
+       "gain": 8,
+       "cum": 618,
+       "cum_frac_target": 0.265806
+      },
+      {
+       "lemma": "component",
+       "gain": 8,
+       "cum": 626,
+       "cum_frac_target": 0.269247
+      },
+      {
+       "lemma": "compound",
+       "gain": 8,
+       "cum": 634,
+       "cum_frac_target": 0.272688
+      },
+      {
+       "lemma": "energy",
+       "gain": 8,
+       "cum": 642,
+       "cum_frac_target": 0.276129
+      },
+      {
+       "lemma": "genotype",
+       "gain": 8,
+       "cum": 650,
+       "cum_frac_target": 0.27957
+      },
+      {
+       "lemma": "gland",
+       "gain": 8,
+       "cum": 658,
+       "cum_frac_target": 0.283011
+      },
+      {
+       "lemma": "head",
+       "gain": 8,
+       "cum": 666,
+       "cum_frac_target": 0.286452
+      },
+      {
+       "lemma": "length",
+       "gain": 8,
+       "cum": 674,
+       "cum_frac_target": 0.289892
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 682,
+       "cum_frac_target": 0.293333
+      },
+      {
+       "lemma": "sequence",
+       "gain": 8,
+       "cum": 690,
+       "cum_frac_target": 0.296774
+      },
+      {
+       "lemma": "technique",
+       "gain": 8,
+       "cum": 698,
+       "cum_frac_target": 0.300215
+      },
+      {
+       "lemma": "vessel",
+       "gain": 8,
+       "cum": 706,
+       "cum_frac_target": 0.303656
+      },
+      {
+       "lemma": "appearance",
+       "gain": 7,
+       "cum": 713,
+       "cum_frac_target": 0.306667
+      },
+      {
+       "lemma": "channel",
+       "gain": 7,
+       "cum": 720,
+       "cum_frac_target": 0.309677
+      },
+      {
+       "lemma": "detect",
+       "gain": 7,
+       "cum": 727,
+       "cum_frac_target": 0.312688
+      },
+      {
+       "lemma": "donor",
+       "gain": 7,
+       "cum": 734,
+       "cum_frac_target": 0.315699
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 7,
+       "cum": 741,
+       "cum_frac_target": 0.31871
+      },
+      {
+       "lemma": "material",
+       "gain": 7,
+       "cum": 748,
+       "cum_frac_target": 0.32172
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 755,
+       "cum_frac_target": 0.324731
+      },
+      {
+       "lemma": "cause",
+       "gain": 6,
+       "cum": 761,
+       "cum_frac_target": 0.327312
+      },
+      {
+       "lemma": "challenge",
+       "gain": 6,
+       "cum": 767,
+       "cum_frac_target": 0.329892
+      },
+      {
+       "lemma": "congratulations",
+       "gain": 6,
+       "cum": 773,
+       "cum_frac_target": 0.332473
+      },
+      {
+       "lemma": "elements",
+       "gain": 6,
+       "cum": 779,
+       "cum_frac_target": 0.335054
+      },
+      {
+       "lemma": "field",
+       "gain": 6,
+       "cum": 785,
+       "cum_frac_target": 0.337634
+      },
+      {
+       "lemma": "food",
+       "gain": 6,
+       "cum": 791,
+       "cum_frac_target": 0.340215
+      },
+      {
+       "lemma": "framework",
+       "gain": 6,
+       "cum": 797,
+       "cum_frac_target": 0.342796
+      },
+      {
+       "lemma": "gateway",
+       "gain": 6,
+       "cum": 803,
+       "cum_frac_target": 0.345376
+      },
+      {
+       "lemma": "model",
+       "gain": 6,
+       "cum": 809,
+       "cum_frac_target": 0.347957
+      },
+      {
+       "lemma": "officer",
+       "gain": 6,
+       "cum": 815,
+       "cum_frac_target": 0.350538
+      },
+      {
+       "lemma": "pollen",
+       "gain": 6,
+       "cum": 821,
+       "cum_frac_target": 0.353118
+      },
+      {
+       "lemma": "strand",
+       "gain": 6,
+       "cum": 827,
+       "cum_frac_target": 0.355699
+      },
+      {
+       "lemma": "threat",
+       "gain": 6,
+       "cum": 833,
+       "cum_frac_target": 0.35828
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 838,
+       "cum_frac_target": 0.36043
+      },
+      {
+       "lemma": "agent",
+       "gain": 5,
+       "cum": 843,
+       "cum_frac_target": 0.362581
+      },
+      {
+       "lemma": "artist",
+       "gain": 5,
+       "cum": 848,
+       "cum_frac_target": 0.364731
+      },
+      {
+       "lemma": "benefit",
+       "gain": 5,
+       "cum": 853,
+       "cum_frac_target": 0.366882
+      },
+      {
+       "lemma": "bone",
+       "gain": 5,
+       "cum": 858,
+       "cum_frac_target": 0.369032
+      },
+      {
+       "lemma": "chytridiomycota",
+       "gain": 5,
+       "cum": 863,
+       "cum_frac_target": 0.371183
+      },
+      {
+       "lemma": "city",
+       "gain": 5,
+       "cum": 868,
+       "cum_frac_target": 0.373333
+      },
+      {
+       "lemma": "collapse",
+       "gain": 5,
+       "cum": 873,
+       "cum_frac_target": 0.375484
+      },
+      {
+       "lemma": "condition",
+       "gain": 5,
+       "cum": 878,
+       "cum_frac_target": 0.377634
+      },
+      {
+       "lemma": "control",
+       "gain": 5,
+       "cum": 883,
+       "cum_frac_target": 0.379785
+      },
+      {
+       "lemma": "daylight",
+       "gain": 5,
+       "cum": 888,
+       "cum_frac_target": 0.381935
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 5,
+       "cum": 893,
+       "cum_frac_target": 0.384086
+      },
+      {
+       "lemma": "executive",
+       "gain": 5,
+       "cum": 898,
+       "cum_frac_target": 0.386237
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 903,
+       "cum_frac_target": 0.388387
+      },
+      {
+       "lemma": "impulse",
+       "gain": 5,
+       "cum": 908,
+       "cum_frac_target": 0.390538
+      },
+      {
+       "lemma": "indicator",
+       "gain": 5,
+       "cum": 913,
+       "cum_frac_target": 0.392688
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 918,
+       "cum_frac_target": 0.394839
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 923,
+       "cum_frac_target": 0.396989
+      },
+      {
+       "lemma": "man",
+       "gain": 5,
+       "cum": 928,
+       "cum_frac_target": 0.39914
+      },
+      {
+       "lemma": "mess",
+       "gain": 5,
+       "cum": 933,
+       "cum_frac_target": 0.40129
+      },
+      {
+       "lemma": "object",
+       "gain": 5,
+       "cum": 938,
+       "cum_frac_target": 0.403441
+      },
+      {
+       "lemma": "place",
+       "gain": 5,
+       "cum": 943,
+       "cum_frac_target": 0.405591
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 948,
+       "cum_frac_target": 0.407742
+      },
+      {
+       "lemma": "seller",
+       "gain": 5,
+       "cum": 953,
+       "cum_frac_target": 0.409892
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 958,
+       "cum_frac_target": 0.412043
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 962,
+       "cum_frac_target": 0.413763
+      },
+      {
+       "lemma": "achievement",
+       "gain": 4,
+       "cum": 966,
+       "cum_frac_target": 0.415484
+      },
+      {
+       "lemma": "agreement",
+       "gain": 4,
+       "cum": 970,
+       "cum_frac_target": 0.417204
+      },
+      {
+       "lemma": "amphibian",
+       "gain": 4,
+       "cum": 974,
+       "cum_frac_target": 0.418925
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 978,
+       "cum_frac_target": 0.420645
+      },
+      {
+       "lemma": "birth",
+       "gain": 4,
+       "cum": 982,
+       "cum_frac_target": 0.422366
+      },
+      {
+       "lemma": "century",
+       "gain": 4,
+       "cum": 986,
+       "cum_frac_target": 0.424086
+      },
+      {
+       "lemma": "combination",
+       "gain": 4,
+       "cum": 990,
+       "cum_frac_target": 0.425806
+      },
+      {
+       "lemma": "design",
+       "gain": 4,
+       "cum": 994,
+       "cum_frac_target": 0.427527
+      },
+      {
+       "lemma": "dime",
+       "gain": 4,
+       "cum": 998,
+       "cum_frac_target": 0.429247
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 1002,
+       "cum_frac_target": 0.430968
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 1006,
+       "cum_frac_target": 0.432688
+      },
+      {
+       "lemma": "founder",
+       "gain": 4,
+       "cum": 1010,
+       "cum_frac_target": 0.434409
+      },
+      {
+       "lemma": "hamburger",
+       "gain": 4,
+       "cum": 1014,
+       "cum_frac_target": 0.436129
+      },
+      {
+       "lemma": "leader",
+       "gain": 4,
+       "cum": 1018,
+       "cum_frac_target": 0.437849
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 4,
+       "cum": 1022,
+       "cum_frac_target": 0.43957
+      },
+      {
+       "lemma": "mistake",
+       "gain": 4,
+       "cum": 1026,
+       "cum_frac_target": 0.44129
+      },
+      {
+       "lemma": "movement",
+       "gain": 4,
+       "cum": 1030,
+       "cum_frac_target": 0.443011
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 1034,
+       "cum_frac_target": 0.444731
+      },
+      {
+       "lemma": "night",
+       "gain": 4,
+       "cum": 1038,
+       "cum_frac_target": 0.446452
+      },
+      {
+       "lemma": "old",
+       "gain": 4,
+       "cum": 1042,
+       "cum_frac_target": 0.448172
+      },
+      {
+       "lemma": "opposite",
+       "gain": 4,
+       "cum": 1046,
+       "cum_frac_target": 0.449892
+      },
+      {
+       "lemma": "phenomenon",
+       "gain": 4,
+       "cum": 1050,
+       "cum_frac_target": 0.451613
+      },
+      {
+       "lemma": "planet",
+       "gain": 4,
+       "cum": 1054,
+       "cum_frac_target": 0.453333
+      },
+      {
+       "lemma": "portion",
+       "gain": 4,
+       "cum": 1058,
+       "cum_frac_target": 0.455054
+      },
+      {
+       "lemma": "presence",
+       "gain": 4,
+       "cum": 1062,
+       "cum_frac_target": 0.456774
+      },
+      {
+       "lemma": "range",
+       "gain": 4,
+       "cum": 1066,
+       "cum_frac_target": 0.458495
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 1070,
+       "cum_frac_target": 0.460215
+      },
+      {
+       "lemma": "reservoir",
+       "gain": 4,
+       "cum": 1074,
+       "cum_frac_target": 0.461935
+      },
+      {
+       "lemma": "result",
+       "gain": 4,
+       "cum": 1078,
+       "cum_frac_target": 0.463656
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 1082,
+       "cum_frac_target": 0.465376
+      },
+      {
+       "lemma": "temeraire",
+       "gain": 4,
+       "cum": 1086,
+       "cum_frac_target": 0.467097
+      },
+      {
+       "lemma": "version",
+       "gain": 4,
+       "cum": 1090,
+       "cum_frac_target": 0.468817
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 1094,
+       "cum_frac_target": 0.470538
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 1097,
+       "cum_frac_target": 0.471828
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 1100,
+       "cum_frac_target": 0.473118
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 1103,
+       "cum_frac_target": 0.474409
+      },
+      {
+       "lemma": "alliance",
+       "gain": 3,
+       "cum": 1106,
+       "cum_frac_target": 0.475699
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 1109,
+       "cum_frac_target": 0.476989
+      },
+      {
+       "lemma": "approval",
+       "gain": 3,
+       "cum": 1112,
+       "cum_frac_target": 0.47828
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 1115,
+       "cum_frac_target": 0.47957
+      },
+      {
+       "lemma": "association",
+       "gain": 3,
+       "cum": 1118,
+       "cum_frac_target": 0.48086
+      },
+      {
+       "lemma": "barrier",
+       "gain": 3,
+       "cum": 1121,
+       "cum_frac_target": 0.482151
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 1124,
+       "cum_frac_target": 0.483441
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 1127,
+       "cum_frac_target": 0.484731
+      },
+      {
+       "lemma": "bundle",
+       "gain": 3,
+       "cum": 1130,
+       "cum_frac_target": 0.486022
+      },
+      {
+       "lemma": "canada",
+       "gain": 3,
+       "cum": 1133,
+       "cum_frac_target": 0.487312
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 1136,
+       "cum_frac_target": 0.488602
+      },
+      {
+       "lemma": "capsomere",
+       "gain": 3,
+       "cum": 1139,
+       "cum_frac_target": 0.489892
+      },
+      {
+       "lemma": "chamber",
+       "gain": 3,
+       "cum": 1142,
+       "cum_frac_target": 0.491183
+      },
+      {
+       "lemma": "charm",
+       "gain": 3,
+       "cum": 1145,
+       "cum_frac_target": 0.492473
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 1148,
+       "cum_frac_target": 0.493763
+      },
+      {
+       "lemma": "chordate",
+       "gain": 3,
+       "cum": 1151,
+       "cum_frac_target": 0.495054
+      },
+      {
+       "lemma": "college",
+       "gain": 3,
+       "cum": 1154,
+       "cum_frac_target": 0.496344
+      },
+      {
+       "lemma": "compress",
+       "gain": 3,
+       "cum": 1157,
+       "cum_frac_target": 0.497634
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 1160,
+       "cum_frac_target": 0.498925
+      },
+      {
+       "lemma": "councillor",
+       "gain": 3,
+       "cum": 1163,
+       "cum_frac_target": 0.500215
+      },
+      {
+       "lemma": "covering",
+       "gain": 3,
+       "cum": 1166,
+       "cum_frac_target": 0.501505
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 1169,
+       "cum_frac_target": 0.502796
+      },
+      {
+       "lemma": "declaration",
+       "gain": 3,
+       "cum": 1172,
+       "cum_frac_target": 0.504086
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 1175,
+       "cum_frac_target": 0.505376
+      },
+      {
+       "lemma": "difference",
+       "gain": 3,
+       "cum": 1178,
+       "cum_frac_target": 0.506667
+      },
+      {
+       "lemma": "distance",
+       "gain": 3,
+       "cum": 1181,
+       "cum_frac_target": 0.507957
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 1184,
+       "cum_frac_target": 0.509247
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 1187,
+       "cum_frac_target": 0.510538
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 1190,
+       "cum_frac_target": 0.511828
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 1193,
+       "cum_frac_target": 0.513118
+      },
+      {
+       "lemma": "fancy",
+       "gain": 3,
+       "cum": 1196,
+       "cum_frac_target": 0.514409
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 1199,
+       "cum_frac_target": 0.515699
+      },
+      {
+       "lemma": "fluid",
+       "gain": 3,
+       "cum": 1202,
+       "cum_frac_target": 0.516989
+      },
+      {
+       "lemma": "focus",
+       "gain": 3,
+       "cum": 1205,
+       "cum_frac_target": 0.51828
+      },
+      {
+       "lemma": "formation",
+       "gain": 3,
+       "cum": 1208,
+       "cum_frac_target": 0.51957
+      },
+      {
+       "lemma": "gain",
+       "gain": 3,
+       "cum": 1211,
+       "cum_frac_target": 0.52086
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 1214,
+       "cum_frac_target": 0.522151
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 1217,
+       "cum_frac_target": 0.523441
+      },
+      {
+       "lemma": "grouping",
+       "gain": 3,
+       "cum": 1220,
+       "cum_frac_target": 0.524731
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 1223,
+       "cum_frac_target": 0.526022
+      },
+      {
+       "lemma": "instrument",
+       "gain": 3,
+       "cum": 1226,
+       "cum_frac_target": 0.527312
+      },
+      {
+       "lemma": "interior",
+       "gain": 3,
+       "cum": 1229,
+       "cum_frac_target": 0.528602
+      },
+      {
+       "lemma": "interview",
+       "gain": 3,
+       "cum": 1232,
+       "cum_frac_target": 0.529892
+      },
+      {
+       "lemma": "journalist",
+       "gain": 3,
+       "cum": 1235,
+       "cum_frac_target": 0.531183
+      },
+      {
+       "lemma": "kon-rads",
+       "gain": 3,
+       "cum": 1238,
+       "cum_frac_target": 0.532473
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 1241,
+       "cum_frac_target": 0.533763
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1244,
+       "cum_frac_target": 0.535054
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1247,
+       "cum_frac_target": 0.536344
+      },
+      {
+       "lemma": "minimum",
+       "gain": 3,
+       "cum": 1250,
+       "cum_frac_target": 0.537634
+      },
+      {
+       "lemma": "mix",
+       "gain": 3,
+       "cum": 1253,
+       "cum_frac_target": 0.538925
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1256,
+       "cum_frac_target": 0.540215
+      },
+      {
+       "lemma": "motivation",
+       "gain": 3,
+       "cum": 1259,
+       "cum_frac_target": 0.541505
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1262,
+       "cum_frac_target": 0.542796
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1265,
+       "cum_frac_target": 0.544086
+      },
+      {
+       "lemma": "peter",
+       "gain": 3,
+       "cum": 1268,
+       "cum_frac_target": 0.545376
+      },
+      {
+       "lemma": "pioneer",
+       "gain": 3,
+       "cum": 1271,
+       "cum_frac_target": 0.546667
+      },
+      {
+       "lemma": "position",
+       "gain": 3,
+       "cum": 1274,
+       "cum_frac_target": 0.547957
+      },
+      {
+       "lemma": "president",
+       "gain": 3,
+       "cum": 1277,
+       "cum_frac_target": 0.549247
+      },
+      {
+       "lemma": "prince",
+       "gain": 3,
+       "cum": 1280,
+       "cum_frac_target": 0.550538
+      },
+      {
+       "lemma": "product",
+       "gain": 3,
+       "cum": 1283,
+       "cum_frac_target": 0.551828
+      },
+      {
+       "lemma": "property",
+       "gain": 3,
+       "cum": 1286,
+       "cum_frac_target": 0.553118
+      },
+      {
+       "lemma": "psychologist",
+       "gain": 3,
+       "cum": 1289,
+       "cum_frac_target": 0.554409
+      },
+      {
+       "lemma": "representation",
+       "gain": 3,
+       "cum": 1292,
+       "cum_frac_target": 0.555699
+      },
+      {
+       "lemma": "requirement",
+       "gain": 3,
+       "cum": 1295,
+       "cum_frac_target": 0.556989
+      },
+      {
+       "lemma": "resource",
+       "gain": 3,
+       "cum": 1298,
+       "cum_frac_target": 0.55828
+      },
+      {
+       "lemma": "rule",
+       "gain": 3,
+       "cum": 1301,
+       "cum_frac_target": 0.55957
+      },
+      {
+       "lemma": "sinking",
+       "gain": 3,
+       "cum": 1304,
+       "cum_frac_target": 0.56086
+      },
+      {
+       "lemma": "size",
+       "gain": 3,
+       "cum": 1307,
+       "cum_frac_target": 0.562151
+      },
+      {
+       "lemma": "sphere",
+       "gain": 3,
+       "cum": 1310,
+       "cum_frac_target": 0.563441
+      },
+      {
+       "lemma": "spore",
+       "gain": 3,
+       "cum": 1313,
+       "cum_frac_target": 0.564731
+      },
+      {
+       "lemma": "star",
+       "gain": 3,
+       "cum": 1316,
+       "cum_frac_target": 0.566022
+      },
+      {
+       "lemma": "step",
+       "gain": 3,
+       "cum": 1319,
+       "cum_frac_target": 0.567312
+      }
+     ]
+    },
+    "3": {
+     "picks_total": 831,
+     "covered": 2325,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.127216,
+     "S_for": {
+      "0.50": 128,
+      "0.80": 440,
+      "0.95": 715
+     },
+     "top200": [
+      {
+       "lemma": "atom",
+       "gain": 78,
+       "cum": 78,
+       "cum_frac_target": 0.033548
+      },
+      {
+       "lemma": "structure",
+       "gain": 70,
+       "cum": 148,
+       "cum_frac_target": 0.063656
+      },
+      {
+       "lemma": "process",
+       "gain": 63,
+       "cum": 211,
+       "cum_frac_target": 0.090753
+      },
+      {
+       "lemma": "community",
+       "gain": 37,
+       "cum": 248,
+       "cum_frac_target": 0.106667
+      },
+      {
+       "lemma": "organism",
+       "gain": 35,
+       "cum": 283,
+       "cum_frac_target": 0.12172
+      },
+      {
+       "lemma": "fluid",
+       "gain": 30,
+       "cum": 313,
+       "cum_frac_target": 0.134624
+      },
+      {
+       "lemma": "cell",
+       "gain": 27,
+       "cum": 340,
+       "cum_frac_target": 0.146237
+      },
+      {
+       "lemma": "level",
+       "gain": 25,
+       "cum": 365,
+       "cum_frac_target": 0.156989
+      },
+      {
+       "lemma": "joy",
+       "gain": 23,
+       "cum": 388,
+       "cum_frac_target": 0.166882
+      },
+      {
+       "lemma": "molecule",
+       "gain": 23,
+       "cum": 411,
+       "cum_frac_target": 0.176774
+      },
+      {
+       "lemma": "female",
+       "gain": 21,
+       "cum": 432,
+       "cum_frac_target": 0.185806
+      },
+      {
+       "lemma": "head",
+       "gain": 21,
+       "cum": 453,
+       "cum_frac_target": 0.194839
+      },
+      {
+       "lemma": "characteristic",
+       "gain": 20,
+       "cum": 473,
+       "cum_frac_target": 0.203441
+      },
+      {
+       "lemma": "diet",
+       "gain": 19,
+       "cum": 492,
+       "cum_frac_target": 0.211613
+      },
+      {
+       "lemma": "mixture",
+       "gain": 19,
+       "cum": 511,
+       "cum_frac_target": 0.219785
+      },
+      {
+       "lemma": "category",
+       "gain": 16,
+       "cum": 527,
+       "cum_frac_target": 0.226667
+      },
+      {
+       "lemma": "substance",
+       "gain": 14,
+       "cum": 541,
+       "cum_frac_target": 0.232688
+      },
+      {
+       "lemma": "unit",
+       "gain": 14,
+       "cum": 555,
+       "cum_frac_target": 0.23871
+      },
+      {
+       "lemma": "temperature",
+       "gain": 13,
+       "cum": 568,
+       "cum_frac_target": 0.244301
+      },
+      {
+       "lemma": "company",
+       "gain": 12,
+       "cum": 580,
+       "cum_frac_target": 0.249462
+      },
+      {
+       "lemma": "disease",
+       "gain": 12,
+       "cum": 592,
+       "cum_frac_target": 0.254624
+      },
+      {
+       "lemma": "chemical",
+       "gain": 11,
+       "cum": 603,
+       "cum_frac_target": 0.259355
+      },
+      {
+       "lemma": "dinosaur",
+       "gain": 10,
+       "cum": 613,
+       "cum_frac_target": 0.263656
+      },
+      {
+       "lemma": "portion",
+       "gain": 10,
+       "cum": 623,
+       "cum_frac_target": 0.267957
+      },
+      {
+       "lemma": "steps",
+       "gain": 10,
+       "cum": 633,
+       "cum_frac_target": 0.272258
+      },
+      {
+       "lemma": "associate",
+       "gain": 9,
+       "cum": 642,
+       "cum_frac_target": 0.276129
+      },
+      {
+       "lemma": "brachiopod",
+       "gain": 9,
+       "cum": 651,
+       "cum_frac_target": 0.28
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 660,
+       "cum_frac_target": 0.283871
+      },
+      {
+       "lemma": "makeup",
+       "gain": 9,
+       "cum": 669,
+       "cum_frac_target": 0.287742
+      },
+      {
+       "lemma": "mountain",
+       "gain": 9,
+       "cum": 678,
+       "cum_frac_target": 0.291613
+      },
+      {
+       "lemma": "appearance",
+       "gain": 8,
+       "cum": 686,
+       "cum_frac_target": 0.295054
+      },
+      {
+       "lemma": "bed",
+       "gain": 8,
+       "cum": 694,
+       "cum_frac_target": 0.298495
+      },
+      {
+       "lemma": "component",
+       "gain": 8,
+       "cum": 702,
+       "cum_frac_target": 0.301935
+      },
+      {
+       "lemma": "compound",
+       "gain": 8,
+       "cum": 710,
+       "cum_frac_target": 0.305376
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 718,
+       "cum_frac_target": 0.308817
+      },
+      {
+       "lemma": "technique",
+       "gain": 8,
+       "cum": 726,
+       "cum_frac_target": 0.312258
+      },
+      {
+       "lemma": "vessel",
+       "gain": 8,
+       "cum": 734,
+       "cum_frac_target": 0.315699
+      },
+      {
+       "lemma": "volume",
+       "gain": 8,
+       "cum": 742,
+       "cum_frac_target": 0.31914
+      },
+      {
+       "lemma": "cause",
+       "gain": 7,
+       "cum": 749,
+       "cum_frac_target": 0.322151
+      },
+      {
+       "lemma": "chart",
+       "gain": 7,
+       "cum": 756,
+       "cum_frac_target": 0.325161
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 7,
+       "cum": 763,
+       "cum_frac_target": 0.328172
+      },
+      {
+       "lemma": "product",
+       "gain": 7,
+       "cum": 770,
+       "cum_frac_target": 0.331183
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 777,
+       "cum_frac_target": 0.334194
+      },
+      {
+       "lemma": "understanding",
+       "gain": 7,
+       "cum": 784,
+       "cum_frac_target": 0.337204
+      },
+      {
+       "lemma": "bone",
+       "gain": 6,
+       "cum": 790,
+       "cum_frac_target": 0.339785
+      },
+      {
+       "lemma": "bryophyte",
+       "gain": 6,
+       "cum": 796,
+       "cum_frac_target": 0.342366
+      },
+      {
+       "lemma": "challenge",
+       "gain": 6,
+       "cum": 802,
+       "cum_frac_target": 0.344946
+      },
+      {
+       "lemma": "change",
+       "gain": 6,
+       "cum": 808,
+       "cum_frac_target": 0.347527
+      },
+      {
+       "lemma": "congratulations",
+       "gain": 6,
+       "cum": 814,
+       "cum_frac_target": 0.350108
+      },
+      {
+       "lemma": "detect",
+       "gain": 6,
+       "cum": 820,
+       "cum_frac_target": 0.352688
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 6,
+       "cum": 826,
+       "cum_frac_target": 0.355269
+      },
+      {
+       "lemma": "donor",
+       "gain": 6,
+       "cum": 832,
+       "cum_frac_target": 0.357849
+      },
+      {
+       "lemma": "framework",
+       "gain": 6,
+       "cum": 838,
+       "cum_frac_target": 0.36043
+      },
+      {
+       "lemma": "gateway",
+       "gain": 6,
+       "cum": 844,
+       "cum_frac_target": 0.363011
+      },
+      {
+       "lemma": "material",
+       "gain": 6,
+       "cum": 850,
+       "cum_frac_target": 0.365591
+      },
+      {
+       "lemma": "object",
+       "gain": 6,
+       "cum": 856,
+       "cum_frac_target": 0.368172
+      },
+      {
+       "lemma": "officer",
+       "gain": 6,
+       "cum": 862,
+       "cum_frac_target": 0.370753
+      },
+      {
+       "lemma": "opening",
+       "gain": 6,
+       "cum": 868,
+       "cum_frac_target": 0.373333
+      },
+      {
+       "lemma": "place",
+       "gain": 6,
+       "cum": 874,
+       "cum_frac_target": 0.375914
+      },
+      {
+       "lemma": "pollen",
+       "gain": 6,
+       "cum": 880,
+       "cum_frac_target": 0.378495
+      },
+      {
+       "lemma": "sequence",
+       "gain": 6,
+       "cum": 886,
+       "cum_frac_target": 0.381075
+      },
+      {
+       "lemma": "strand",
+       "gain": 6,
+       "cum": 892,
+       "cum_frac_target": 0.383656
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 897,
+       "cum_frac_target": 0.385806
+      },
+      {
+       "lemma": "aim",
+       "gain": 5,
+       "cum": 902,
+       "cum_frac_target": 0.387957
+      },
+      {
+       "lemma": "artist",
+       "gain": 5,
+       "cum": 907,
+       "cum_frac_target": 0.390108
+      },
+      {
+       "lemma": "city",
+       "gain": 5,
+       "cum": 912,
+       "cum_frac_target": 0.392258
+      },
+      {
+       "lemma": "collapse",
+       "gain": 5,
+       "cum": 917,
+       "cum_frac_target": 0.394409
+      },
+      {
+       "lemma": "complex",
+       "gain": 5,
+       "cum": 922,
+       "cum_frac_target": 0.396559
+      },
+      {
+       "lemma": "condition",
+       "gain": 5,
+       "cum": 927,
+       "cum_frac_target": 0.39871
+      },
+      {
+       "lemma": "daylight",
+       "gain": 5,
+       "cum": 932,
+       "cum_frac_target": 0.40086
+      },
+      {
+       "lemma": "executive",
+       "gain": 5,
+       "cum": 937,
+       "cum_frac_target": 0.403011
+      },
+      {
+       "lemma": "food",
+       "gain": 5,
+       "cum": 942,
+       "cum_frac_target": 0.405161
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 947,
+       "cum_frac_target": 0.407312
+      },
+      {
+       "lemma": "founder",
+       "gain": 5,
+       "cum": 952,
+       "cum_frac_target": 0.409462
+      },
+      {
+       "lemma": "indicator",
+       "gain": 5,
+       "cum": 957,
+       "cum_frac_target": 0.411613
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 962,
+       "cum_frac_target": 0.413763
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 967,
+       "cum_frac_target": 0.415914
+      },
+      {
+       "lemma": "malfunction",
+       "gain": 5,
+       "cum": 972,
+       "cum_frac_target": 0.418065
+      },
+      {
+       "lemma": "man",
+       "gain": 5,
+       "cum": 977,
+       "cum_frac_target": 0.420215
+      },
+      {
+       "lemma": "mess",
+       "gain": 5,
+       "cum": 982,
+       "cum_frac_target": 0.422366
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 987,
+       "cum_frac_target": 0.424516
+      },
+      {
+       "lemma": "reservoir",
+       "gain": 5,
+       "cum": 992,
+       "cum_frac_target": 0.426667
+      },
+      {
+       "lemma": "seller",
+       "gain": 5,
+       "cum": 997,
+       "cum_frac_target": 0.428817
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 1002,
+       "cum_frac_target": 0.430968
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 1006,
+       "cum_frac_target": 0.432688
+      },
+      {
+       "lemma": "achievement",
+       "gain": 4,
+       "cum": 1010,
+       "cum_frac_target": 0.434409
+      },
+      {
+       "lemma": "agent",
+       "gain": 4,
+       "cum": 1014,
+       "cum_frac_target": 0.436129
+      },
+      {
+       "lemma": "agreement",
+       "gain": 4,
+       "cum": 1018,
+       "cum_frac_target": 0.437849
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 1022,
+       "cum_frac_target": 0.43957
+      },
+      {
+       "lemma": "chytridiomycota",
+       "gain": 4,
+       "cum": 1026,
+       "cum_frac_target": 0.44129
+      },
+      {
+       "lemma": "combination",
+       "gain": 4,
+       "cum": 1030,
+       "cum_frac_target": 0.443011
+      },
+      {
+       "lemma": "control",
+       "gain": 4,
+       "cum": 1034,
+       "cum_frac_target": 0.444731
+      },
+      {
+       "lemma": "design",
+       "gain": 4,
+       "cum": 1038,
+       "cum_frac_target": 0.446452
+      },
+      {
+       "lemma": "dime",
+       "gain": 4,
+       "cum": 1042,
+       "cum_frac_target": 0.448172
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 1046,
+       "cum_frac_target": 0.449892
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 1050,
+       "cum_frac_target": 0.451613
+      },
+      {
+       "lemma": "hamburger",
+       "gain": 4,
+       "cum": 1054,
+       "cum_frac_target": 0.453333
+      },
+      {
+       "lemma": "impulse",
+       "gain": 4,
+       "cum": 1058,
+       "cum_frac_target": 0.455054
+      },
+      {
+       "lemma": "leader",
+       "gain": 4,
+       "cum": 1062,
+       "cum_frac_target": 0.456774
+      },
+      {
+       "lemma": "length",
+       "gain": 4,
+       "cum": 1066,
+       "cum_frac_target": 0.458495
+      },
+      {
+       "lemma": "movement",
+       "gain": 4,
+       "cum": 1070,
+       "cum_frac_target": 0.460215
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 1074,
+       "cum_frac_target": 0.461935
+      },
+      {
+       "lemma": "night",
+       "gain": 4,
+       "cum": 1078,
+       "cum_frac_target": 0.463656
+      },
+      {
+       "lemma": "old",
+       "gain": 4,
+       "cum": 1082,
+       "cum_frac_target": 0.465376
+      },
+      {
+       "lemma": "opposite",
+       "gain": 4,
+       "cum": 1086,
+       "cum_frac_target": 0.467097
+      },
+      {
+       "lemma": "phenomenon",
+       "gain": 4,
+       "cum": 1090,
+       "cum_frac_target": 0.468817
+      },
+      {
+       "lemma": "planet",
+       "gain": 4,
+       "cum": 1094,
+       "cum_frac_target": 0.470538
+      },
+      {
+       "lemma": "presence",
+       "gain": 4,
+       "cum": 1098,
+       "cum_frac_target": 0.472258
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 1102,
+       "cum_frac_target": 0.473978
+      },
+      {
+       "lemma": "result",
+       "gain": 4,
+       "cum": 1106,
+       "cum_frac_target": 0.475699
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 1110,
+       "cum_frac_target": 0.477419
+      },
+      {
+       "lemma": "temeraire",
+       "gain": 4,
+       "cum": 1114,
+       "cum_frac_target": 0.47914
+      },
+      {
+       "lemma": "threat",
+       "gain": 4,
+       "cum": 1118,
+       "cum_frac_target": 0.48086
+      },
+      {
+       "lemma": "version",
+       "gain": 4,
+       "cum": 1122,
+       "cum_frac_target": 0.482581
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 1126,
+       "cum_frac_target": 0.484301
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 1129,
+       "cum_frac_target": 0.485591
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 1132,
+       "cum_frac_target": 0.486882
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 1135,
+       "cum_frac_target": 0.488172
+      },
+      {
+       "lemma": "alliance",
+       "gain": 3,
+       "cum": 1138,
+       "cum_frac_target": 0.489462
+      },
+      {
+       "lemma": "amphibian",
+       "gain": 3,
+       "cum": 1141,
+       "cum_frac_target": 0.490753
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 1144,
+       "cum_frac_target": 0.492043
+      },
+      {
+       "lemma": "approval",
+       "gain": 3,
+       "cum": 1147,
+       "cum_frac_target": 0.493333
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 1150,
+       "cum_frac_target": 0.494624
+      },
+      {
+       "lemma": "association",
+       "gain": 3,
+       "cum": 1153,
+       "cum_frac_target": 0.495914
+      },
+      {
+       "lemma": "barrier",
+       "gain": 3,
+       "cum": 1156,
+       "cum_frac_target": 0.497204
+      },
+      {
+       "lemma": "birth",
+       "gain": 3,
+       "cum": 1159,
+       "cum_frac_target": 0.498495
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 1162,
+       "cum_frac_target": 0.499785
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 1165,
+       "cum_frac_target": 0.501075
+      },
+      {
+       "lemma": "bundle",
+       "gain": 3,
+       "cum": 1168,
+       "cum_frac_target": 0.502366
+      },
+      {
+       "lemma": "canada",
+       "gain": 3,
+       "cum": 1171,
+       "cum_frac_target": 0.503656
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 1174,
+       "cum_frac_target": 0.504946
+      },
+      {
+       "lemma": "capsomere",
+       "gain": 3,
+       "cum": 1177,
+       "cum_frac_target": 0.506237
+      },
+      {
+       "lemma": "century",
+       "gain": 3,
+       "cum": 1180,
+       "cum_frac_target": 0.507527
+      },
+      {
+       "lemma": "chamber",
+       "gain": 3,
+       "cum": 1183,
+       "cum_frac_target": 0.508817
+      },
+      {
+       "lemma": "charm",
+       "gain": 3,
+       "cum": 1186,
+       "cum_frac_target": 0.510108
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 1189,
+       "cum_frac_target": 0.511398
+      },
+      {
+       "lemma": "chordate",
+       "gain": 3,
+       "cum": 1192,
+       "cum_frac_target": 0.512688
+      },
+      {
+       "lemma": "college",
+       "gain": 3,
+       "cum": 1195,
+       "cum_frac_target": 0.513978
+      },
+      {
+       "lemma": "compartment",
+       "gain": 3,
+       "cum": 1198,
+       "cum_frac_target": 0.515269
+      },
+      {
+       "lemma": "compress",
+       "gain": 3,
+       "cum": 1201,
+       "cum_frac_target": 0.516559
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 1204,
+       "cum_frac_target": 0.517849
+      },
+      {
+       "lemma": "councillor",
+       "gain": 3,
+       "cum": 1207,
+       "cum_frac_target": 0.51914
+      },
+      {
+       "lemma": "covering",
+       "gain": 3,
+       "cum": 1210,
+       "cum_frac_target": 0.52043
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 1213,
+       "cum_frac_target": 0.52172
+      },
+      {
+       "lemma": "declaration",
+       "gain": 3,
+       "cum": 1216,
+       "cum_frac_target": 0.523011
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 1219,
+       "cum_frac_target": 0.524301
+      },
+      {
+       "lemma": "difference",
+       "gain": 3,
+       "cum": 1222,
+       "cum_frac_target": 0.525591
+      },
+      {
+       "lemma": "distance",
+       "gain": 3,
+       "cum": 1225,
+       "cum_frac_target": 0.526882
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 1228,
+       "cum_frac_target": 0.528172
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 1231,
+       "cum_frac_target": 0.529462
+      },
+      {
+       "lemma": "enter",
+       "gain": 3,
+       "cum": 1234,
+       "cum_frac_target": 0.530753
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 1237,
+       "cum_frac_target": 0.532043
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 1240,
+       "cum_frac_target": 0.533333
+      },
+      {
+       "lemma": "fancy",
+       "gain": 3,
+       "cum": 1243,
+       "cum_frac_target": 0.534624
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 1246,
+       "cum_frac_target": 0.535914
+      },
+      {
+       "lemma": "focus",
+       "gain": 3,
+       "cum": 1249,
+       "cum_frac_target": 0.537204
+      },
+      {
+       "lemma": "gain",
+       "gain": 3,
+       "cum": 1252,
+       "cum_frac_target": 0.538495
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 1255,
+       "cum_frac_target": 0.539785
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 1258,
+       "cum_frac_target": 0.541075
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 1261,
+       "cum_frac_target": 0.542366
+      },
+      {
+       "lemma": "instrument",
+       "gain": 3,
+       "cum": 1264,
+       "cum_frac_target": 0.543656
+      },
+      {
+       "lemma": "interior",
+       "gain": 3,
+       "cum": 1267,
+       "cum_frac_target": 0.544946
+      },
+      {
+       "lemma": "interview",
+       "gain": 3,
+       "cum": 1270,
+       "cum_frac_target": 0.546237
+      },
+      {
+       "lemma": "journalist",
+       "gain": 3,
+       "cum": 1273,
+       "cum_frac_target": 0.547527
+      },
+      {
+       "lemma": "kon-rads",
+       "gain": 3,
+       "cum": 1276,
+       "cum_frac_target": 0.548817
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 1279,
+       "cum_frac_target": 0.550108
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1282,
+       "cum_frac_target": 0.551398
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1285,
+       "cum_frac_target": 0.552688
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 3,
+       "cum": 1288,
+       "cum_frac_target": 0.553978
+      },
+      {
+       "lemma": "minimum",
+       "gain": 3,
+       "cum": 1291,
+       "cum_frac_target": 0.555269
+      },
+      {
+       "lemma": "mix",
+       "gain": 3,
+       "cum": 1294,
+       "cum_frac_target": 0.556559
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1297,
+       "cum_frac_target": 0.557849
+      },
+      {
+       "lemma": "motivation",
+       "gain": 3,
+       "cum": 1300,
+       "cum_frac_target": 0.55914
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1303,
+       "cum_frac_target": 0.56043
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1306,
+       "cum_frac_target": 0.56172
+      },
+      {
+       "lemma": "peter",
+       "gain": 3,
+       "cum": 1309,
+       "cum_frac_target": 0.563011
+      },
+      {
+       "lemma": "pioneer",
+       "gain": 3,
+       "cum": 1312,
+       "cum_frac_target": 0.564301
+      },
+      {
+       "lemma": "position",
+       "gain": 3,
+       "cum": 1315,
+       "cum_frac_target": 0.565591
+      },
+      {
+       "lemma": "president",
+       "gain": 3,
+       "cum": 1318,
+       "cum_frac_target": 0.566882
+      },
+      {
+       "lemma": "prince",
+       "gain": 3,
+       "cum": 1321,
+       "cum_frac_target": 0.568172
+      },
+      {
+       "lemma": "property",
+       "gain": 3,
+       "cum": 1324,
+       "cum_frac_target": 0.569462
+      },
+      {
+       "lemma": "psychologist",
+       "gain": 3,
+       "cum": 1327,
+       "cum_frac_target": 0.570753
+      },
+      {
+       "lemma": "representation",
+       "gain": 3,
+       "cum": 1330,
+       "cum_frac_target": 0.572043
+      },
+      {
+       "lemma": "requirement",
+       "gain": 3,
+       "cum": 1333,
+       "cum_frac_target": 0.573333
+      },
+      {
+       "lemma": "resource",
+       "gain": 3,
+       "cum": 1336,
+       "cum_frac_target": 0.574624
+      },
+      {
+       "lemma": "rule",
+       "gain": 3,
+       "cum": 1339,
+       "cum_frac_target": 0.575914
+      },
+      {
+       "lemma": "sinking",
+       "gain": 3,
+       "cum": 1342,
+       "cum_frac_target": 0.577204
+      },
+      {
+       "lemma": "size",
+       "gain": 3,
+       "cum": 1345,
+       "cum_frac_target": 0.578495
+      },
+      {
+       "lemma": "spore",
+       "gain": 3,
+       "cum": 1348,
+       "cum_frac_target": 0.579785
+      },
+      {
+       "lemma": "star",
+       "gain": 3,
+       "cum": 1351,
+       "cum_frac_target": 0.581075
+      },
+      {
+       "lemma": "step",
+       "gain": 3,
+       "cum": 1354,
+       "cum_frac_target": 0.582366
+      },
+      {
+       "lemma": "subject",
+       "gain": 3,
+       "cum": 1357,
+       "cum_frac_target": 0.583656
+      },
+      {
+       "lemma": "team",
+       "gain": 3,
+       "cum": 1360,
+       "cum_frac_target": 0.584946
+      },
+      {
+       "lemma": "toxin",
+       "gain": 3,
+       "cum": 1363,
+       "cum_frac_target": 0.586237
+      },
+      {
+       "lemma": "tropics",
+       "gain": 3,
+       "cum": 1366,
+       "cum_frac_target": 0.587527
+      },
+      {
+       "lemma": "tug",
+       "gain": 3,
+       "cum": 1369,
+       "cum_frac_target": 0.588817
+      },
+      {
+       "lemma": "variety",
+       "gain": 3,
+       "cum": 1372,
+       "cum_frac_target": 0.590108
+      },
+      {
+       "lemma": "vibration",
+       "gain": 3,
+       "cum": 1375,
+       "cum_frac_target": 0.591398
+      },
+      {
+       "lemma": "wake-up",
+       "gain": 3,
+       "cum": 1378,
+       "cum_frac_target": 0.592688
+      },
+      {
+       "lemma": "activity",
+       "gain": 2,
+       "cum": 1380,
+       "cum_frac_target": 0.593548
+      }
+     ]
+    }
+   }
+  },
+  "all": {
+   "n_nodes": 2595,
+   "n_nodes_in_corpus_eligible": 2563,
+   "target_frac_of_corpus_eligible": 0.140239,
+   "k": {
+    "1": {
+     "picks_total": 1167,
+     "covered": 2563,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.140239,
+     "S_for": {
+      "0.50": 264,
+      "0.80": 655,
+      "0.95": 1039
+     },
+     "top200": [
+      {
+       "lemma": "process",
+       "gain": 55,
+       "cum": 55,
+       "cum_frac_target": 0.021459
+      },
+      {
+       "lemma": "structure",
+       "gain": 37,
+       "cum": 92,
+       "cum_frac_target": 0.035895
+      },
+      {
+       "lemma": "cell",
+       "gain": 24,
+       "cum": 116,
+       "cum_frac_target": 0.045259
+      },
+      {
+       "lemma": "molecule",
+       "gain": 21,
+       "cum": 137,
+       "cum_frac_target": 0.053453
+      },
+      {
+       "lemma": "study",
+       "gain": 19,
+       "cum": 156,
+       "cum_frac_target": 0.060866
+      },
+      {
+       "lemma": "organism",
+       "gain": 18,
+       "cum": 174,
+       "cum_frac_target": 0.067889
+      },
+      {
+       "lemma": "plant",
+       "gain": 14,
+       "cum": 188,
+       "cum_frac_target": 0.073352
+      },
+      {
+       "lemma": "type",
+       "gain": 14,
+       "cum": 202,
+       "cum_frac_target": 0.078814
+      },
+      {
+       "lemma": "animal",
+       "gain": 12,
+       "cum": 214,
+       "cum_frac_target": 0.083496
+      },
+      {
+       "lemma": "clade",
+       "gain": 12,
+       "cum": 226,
+       "cum_frac_target": 0.088178
+      },
+      {
+       "lemma": "component",
+       "gain": 12,
+       "cum": 238,
+       "cum_frac_target": 0.09286
+      },
+      {
+       "lemma": "disease",
+       "gain": 11,
+       "cum": 249,
+       "cum_frac_target": 0.097152
+      },
+      {
+       "lemma": "division",
+       "gain": 11,
+       "cum": 260,
+       "cum_frac_target": 0.101444
+      },
+      {
+       "lemma": "organ",
+       "gain": 11,
+       "cum": 271,
+       "cum_frac_target": 0.105735
+      },
+      {
+       "lemma": "protein",
+       "gain": 11,
+       "cum": 282,
+       "cum_frac_target": 0.110027
+      },
+      {
+       "lemma": "species",
+       "gain": 11,
+       "cum": 293,
+       "cum_frac_target": 0.114319
+      },
+      {
+       "lemma": "body",
+       "gain": 10,
+       "cum": 303,
+       "cum_frac_target": 0.118221
+      },
+      {
+       "lemma": "organelle",
+       "gain": 10,
+       "cum": 313,
+       "cum_frac_target": 0.122123
+      },
+      {
+       "lemma": "biome",
+       "gain": 9,
+       "cum": 322,
+       "cum_frac_target": 0.125634
+      },
+      {
+       "lemma": "compound",
+       "gain": 9,
+       "cum": 331,
+       "cum_frac_target": 0.129146
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 340,
+       "cum_frac_target": 0.132657
+      },
+      {
+       "lemma": "enzyme",
+       "gain": 9,
+       "cum": 349,
+       "cum_frac_target": 0.136169
+      },
+      {
+       "lemma": "layer",
+       "gain": 9,
+       "cum": 358,
+       "cum_frac_target": 0.13968
+      },
+      {
+       "lemma": "opening",
+       "gain": 9,
+       "cum": 367,
+       "cum_frac_target": 0.143192
+      },
+      {
+       "lemma": "phylum",
+       "gain": 9,
+       "cum": 376,
+       "cum_frac_target": 0.146703
+      },
+      {
+       "lemma": "stage",
+       "gain": 9,
+       "cum": 385,
+       "cum_frac_target": 0.150215
+      },
+      {
+       "lemma": "substance",
+       "gain": 9,
+       "cum": 394,
+       "cum_frac_target": 0.153726
+      },
+      {
+       "lemma": "company",
+       "gain": 8,
+       "cum": 402,
+       "cum_frac_target": 0.156847
+      },
+      {
+       "lemma": "example",
+       "gain": 8,
+       "cum": 410,
+       "cum_frac_target": 0.159969
+      },
+      {
+       "lemma": "fish",
+       "gain": 8,
+       "cum": 418,
+       "cum_frac_target": 0.16309
+      },
+      {
+       "lemma": "region",
+       "gain": 8,
+       "cum": 426,
+       "cum_frac_target": 0.166211
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 434,
+       "cum_frac_target": 0.169333
+      },
+      {
+       "lemma": "category",
+       "gain": 7,
+       "cum": 441,
+       "cum_frac_target": 0.172064
+      },
+      {
+       "lemma": "change",
+       "gain": 7,
+       "cum": 448,
+       "cum_frac_target": 0.174795
+      },
+      {
+       "lemma": "community",
+       "gain": 7,
+       "cum": 455,
+       "cum_frac_target": 0.177526
+      },
+      {
+       "lemma": "head",
+       "gain": 7,
+       "cum": 462,
+       "cum_frac_target": 0.180258
+      },
+      {
+       "lemma": "hormone",
+       "gain": 7,
+       "cum": 469,
+       "cum_frac_target": 0.182989
+      },
+      {
+       "lemma": "man",
+       "gain": 7,
+       "cum": 476,
+       "cum_frac_target": 0.18572
+      },
+      {
+       "lemma": "mixture",
+       "gain": 7,
+       "cum": 483,
+       "cum_frac_target": 0.188451
+      },
+      {
+       "lemma": "sequence",
+       "gain": 7,
+       "cum": 490,
+       "cum_frac_target": 0.191182
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 497,
+       "cum_frac_target": 0.193913
+      },
+      {
+       "lemma": "challenge",
+       "gain": 6,
+       "cum": 503,
+       "cum_frac_target": 0.196254
+      },
+      {
+       "lemma": "commonly",
+       "gain": 6,
+       "cum": 509,
+       "cum_frac_target": 0.198595
+      },
+      {
+       "lemma": "concept",
+       "gain": 6,
+       "cum": 515,
+       "cum_frac_target": 0.200936
+      },
+      {
+       "lemma": "executive",
+       "gain": 6,
+       "cum": 521,
+       "cum_frac_target": 0.203277
+      },
+      {
+       "lemma": "factor",
+       "gain": 6,
+       "cum": 527,
+       "cum_frac_target": 0.205618
+      },
+      {
+       "lemma": "founder",
+       "gain": 6,
+       "cum": 533,
+       "cum_frac_target": 0.207959
+      },
+      {
+       "lemma": "gene",
+       "gain": 6,
+       "cum": 539,
+       "cum_frac_target": 0.2103
+      },
+      {
+       "lemma": "group",
+       "gain": 6,
+       "cum": 545,
+       "cum_frac_target": 0.212641
+      },
+      {
+       "lemma": "mammal",
+       "gain": 6,
+       "cum": 551,
+       "cum_frac_target": 0.214982
+      },
+      {
+       "lemma": "method",
+       "gain": 6,
+       "cum": 557,
+       "cum_frac_target": 0.217323
+      },
+      {
+       "lemma": "minister",
+       "gain": 6,
+       "cum": 563,
+       "cum_frac_target": 0.219664
+      },
+      {
+       "lemma": "movement",
+       "gain": 6,
+       "cum": 569,
+       "cum_frac_target": 0.222005
+      },
+      {
+       "lemma": "response",
+       "gain": 6,
+       "cum": 575,
+       "cum_frac_target": 0.224346
+      },
+      {
+       "lemma": "technique",
+       "gain": 6,
+       "cum": 581,
+       "cum_frac_target": 0.226687
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 586,
+       "cum_frac_target": 0.228638
+      },
+      {
+       "lemma": "big",
+       "gain": 5,
+       "cum": 591,
+       "cum_frac_target": 0.230589
+      },
+      {
+       "lemma": "cause",
+       "gain": 5,
+       "cum": 596,
+       "cum_frac_target": 0.23254
+      },
+      {
+       "lemma": "chain",
+       "gain": 5,
+       "cum": 601,
+       "cum_frac_target": 0.234491
+      },
+      {
+       "lemma": "city",
+       "gain": 5,
+       "cum": 606,
+       "cum_frac_target": 0.236442
+      },
+      {
+       "lemma": "combination",
+       "gain": 5,
+       "cum": 611,
+       "cum_frac_target": 0.238393
+      },
+      {
+       "lemma": "drug",
+       "gain": 5,
+       "cum": 616,
+       "cum_frac_target": 0.240343
+      },
+      {
+       "lemma": "field",
+       "gain": 5,
+       "cum": 621,
+       "cum_frac_target": 0.242294
+      },
+      {
+       "lemma": "fit",
+       "gain": 5,
+       "cum": 626,
+       "cum_frac_target": 0.244245
+      },
+      {
+       "lemma": "food",
+       "gain": 5,
+       "cum": 631,
+       "cum_frac_target": 0.246196
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 636,
+       "cum_frac_target": 0.248147
+      },
+      {
+       "lemma": "form",
+       "gain": 5,
+       "cum": 641,
+       "cum_frac_target": 0.250098
+      },
+      {
+       "lemma": "individual",
+       "gain": 5,
+       "cum": 646,
+       "cum_frac_target": 0.252048
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 651,
+       "cum_frac_target": 0.253999
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 656,
+       "cum_frac_target": 0.25595
+      },
+      {
+       "lemma": "level",
+       "gain": 5,
+       "cum": 661,
+       "cum_frac_target": 0.257901
+      },
+      {
+       "lemma": "material",
+       "gain": 5,
+       "cum": 666,
+       "cum_frac_target": 0.259852
+      },
+      {
+       "lemma": "officer",
+       "gain": 5,
+       "cum": 671,
+       "cum_frac_target": 0.261803
+      },
+      {
+       "lemma": "point",
+       "gain": 5,
+       "cum": 676,
+       "cum_frac_target": 0.263753
+      },
+      {
+       "lemma": "presence",
+       "gain": 5,
+       "cum": 681,
+       "cum_frac_target": 0.265704
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 686,
+       "cum_frac_target": 0.267655
+      },
+      {
+       "lemma": "result",
+       "gain": 5,
+       "cum": 691,
+       "cum_frac_target": 0.269606
+      },
+      {
+       "lemma": "series",
+       "gain": 5,
+       "cum": 696,
+       "cum_frac_target": 0.271557
+      },
+      {
+       "lemma": "site",
+       "gain": 5,
+       "cum": 701,
+       "cum_frac_target": 0.273508
+      },
+      {
+       "lemma": "source",
+       "gain": 5,
+       "cum": 706,
+       "cum_frac_target": 0.275458
+      },
+      {
+       "lemma": "thick",
+       "gain": 5,
+       "cum": 711,
+       "cum_frac_target": 0.277409
+      },
+      {
+       "lemma": "tissue",
+       "gain": 5,
+       "cum": 716,
+       "cum_frac_target": 0.27936
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 721,
+       "cum_frac_target": 0.281311
+      },
+      {
+       "lemma": "vessel",
+       "gain": 5,
+       "cum": 726,
+       "cum_frac_target": 0.283262
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 730,
+       "cum_frac_target": 0.284822
+      },
+      {
+       "lemma": "amphibian",
+       "gain": 4,
+       "cum": 734,
+       "cum_frac_target": 0.286383
+      },
+      {
+       "lemma": "area",
+       "gain": 4,
+       "cum": 738,
+       "cum_frac_target": 0.287944
+      },
+      {
+       "lemma": "artist",
+       "gain": 4,
+       "cum": 742,
+       "cum_frac_target": 0.289504
+      },
+      {
+       "lemma": "association",
+       "gain": 4,
+       "cum": 746,
+       "cum_frac_target": 0.291065
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 750,
+       "cum_frac_target": 0.292626
+      },
+      {
+       "lemma": "best",
+       "gain": 4,
+       "cum": 754,
+       "cum_frac_target": 0.294187
+      },
+      {
+       "lemma": "birth",
+       "gain": 4,
+       "cum": 758,
+       "cum_frac_target": 0.295747
+      },
+      {
+       "lemma": "block",
+       "gain": 4,
+       "cum": 762,
+       "cum_frac_target": 0.297308
+      },
+      {
+       "lemma": "century",
+       "gain": 4,
+       "cum": 766,
+       "cum_frac_target": 0.298869
+      },
+      {
+       "lemma": "chromosome",
+       "gain": 4,
+       "cum": 770,
+       "cum_frac_target": 0.300429
+      },
+      {
+       "lemma": "condition",
+       "gain": 4,
+       "cum": 774,
+       "cum_frac_target": 0.30199
+      },
+      {
+       "lemma": "country",
+       "gain": 4,
+       "cum": 778,
+       "cum_frac_target": 0.303551
+      },
+      {
+       "lemma": "degree",
+       "gain": 4,
+       "cum": 782,
+       "cum_frac_target": 0.305111
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 4,
+       "cum": 786,
+       "cum_frac_target": 0.306672
+      },
+      {
+       "lemma": "enter",
+       "gain": 4,
+       "cum": 790,
+       "cum_frac_target": 0.308233
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 794,
+       "cum_frac_target": 0.309793
+      },
+      {
+       "lemma": "fluid",
+       "gain": 4,
+       "cum": 798,
+       "cum_frac_target": 0.311354
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 802,
+       "cum_frac_target": 0.312915
+      },
+      {
+       "lemma": "image",
+       "gain": 4,
+       "cum": 806,
+       "cum_frac_target": 0.314475
+      },
+      {
+       "lemma": "indicator",
+       "gain": 4,
+       "cum": 810,
+       "cum_frac_target": 0.316036
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 4,
+       "cum": 814,
+       "cum_frac_target": 0.317597
+      },
+      {
+       "lemma": "issue",
+       "gain": 4,
+       "cum": 818,
+       "cum_frac_target": 0.319157
+      },
+      {
+       "lemma": "matter",
+       "gain": 4,
+       "cum": 822,
+       "cum_frac_target": 0.320718
+      },
+      {
+       "lemma": "member",
+       "gain": 4,
+       "cum": 826,
+       "cum_frac_target": 0.322279
+      },
+      {
+       "lemma": "mix",
+       "gain": 4,
+       "cum": 830,
+       "cum_frac_target": 0.323839
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 834,
+       "cum_frac_target": 0.3254
+      },
+      {
+       "lemma": "organs",
+       "gain": 4,
+       "cum": 838,
+       "cum_frac_target": 0.326961
+      },
+      {
+       "lemma": "place",
+       "gain": 4,
+       "cum": 842,
+       "cum_frac_target": 0.328521
+      },
+      {
+       "lemma": "politician",
+       "gain": 4,
+       "cum": 846,
+       "cum_frac_target": 0.330082
+      },
+      {
+       "lemma": "polymer",
+       "gain": 4,
+       "cum": 850,
+       "cum_frac_target": 0.331643
+      },
+      {
+       "lemma": "portion",
+       "gain": 4,
+       "cum": 854,
+       "cum_frac_target": 0.333203
+      },
+      {
+       "lemma": "range",
+       "gain": 4,
+       "cum": 858,
+       "cum_frac_target": 0.334764
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 862,
+       "cum_frac_target": 0.336325
+      },
+      {
+       "lemma": "solution",
+       "gain": 4,
+       "cum": 866,
+       "cum_frac_target": 0.337885
+      },
+      {
+       "lemma": "speciation",
+       "gain": 4,
+       "cum": 870,
+       "cum_frac_target": 0.339446
+      },
+      {
+       "lemma": "strand",
+       "gain": 4,
+       "cum": 874,
+       "cum_frac_target": 0.341007
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 878,
+       "cum_frac_target": 0.342567
+      },
+      {
+       "lemma": "target",
+       "gain": 4,
+       "cum": 882,
+       "cum_frac_target": 0.344128
+      },
+      {
+       "lemma": "term",
+       "gain": 4,
+       "cum": 886,
+       "cum_frac_target": 0.345689
+      },
+      {
+       "lemma": "threat",
+       "gain": 4,
+       "cum": 890,
+       "cum_frac_target": 0.347249
+      },
+      {
+       "lemma": "trait",
+       "gain": 4,
+       "cum": 894,
+       "cum_frac_target": 0.34881
+      },
+      {
+       "lemma": "tube",
+       "gain": 4,
+       "cum": 898,
+       "cum_frac_target": 0.350371
+      },
+      {
+       "lemma": "unit",
+       "gain": 4,
+       "cum": 902,
+       "cum_frac_target": 0.351931
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 906,
+       "cum_frac_target": 0.353492
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 909,
+       "cum_frac_target": 0.354663
+      },
+      {
+       "lemma": "achievement",
+       "gain": 3,
+       "cum": 912,
+       "cum_frac_target": 0.355833
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 915,
+       "cum_frac_target": 0.357004
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 918,
+       "cum_frac_target": 0.358174
+      },
+      {
+       "lemma": "agent",
+       "gain": 3,
+       "cum": 921,
+       "cum_frac_target": 0.359345
+      },
+      {
+       "lemma": "agreement",
+       "gain": 3,
+       "cum": 924,
+       "cum_frac_target": 0.360515
+      },
+      {
+       "lemma": "angiosperm",
+       "gain": 3,
+       "cum": 927,
+       "cum_frac_target": 0.361686
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 930,
+       "cum_frac_target": 0.362856
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 933,
+       "cum_frac_target": 0.364027
+      },
+      {
+       "lemma": "associate",
+       "gain": 3,
+       "cum": 936,
+       "cum_frac_target": 0.365197
+      },
+      {
+       "lemma": "attraction",
+       "gain": 3,
+       "cum": 939,
+       "cum_frac_target": 0.366368
+      },
+      {
+       "lemma": "bone",
+       "gain": 3,
+       "cum": 942,
+       "cum_frac_target": 0.367538
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 945,
+       "cum_frac_target": 0.368709
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 948,
+       "cum_frac_target": 0.369879
+      },
+      {
+       "lemma": "breaking",
+       "gain": 3,
+       "cum": 951,
+       "cum_frac_target": 0.37105
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 954,
+       "cum_frac_target": 0.37222
+      },
+      {
+       "lemma": "cardinal",
+       "gain": 3,
+       "cum": 957,
+       "cum_frac_target": 0.373391
+      },
+      {
+       "lemma": "cavity",
+       "gain": 3,
+       "cum": 960,
+       "cum_frac_target": 0.374561
+      },
+      {
+       "lemma": "charge",
+       "gain": 3,
+       "cum": 963,
+       "cum_frac_target": 0.375732
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 966,
+       "cum_frac_target": 0.376902
+      },
+      {
+       "lemma": "collapse",
+       "gain": 3,
+       "cum": 969,
+       "cum_frac_target": 0.378073
+      },
+      {
+       "lemma": "collectively",
+       "gain": 3,
+       "cum": 972,
+       "cum_frac_target": 0.379243
+      },
+      {
+       "lemma": "college",
+       "gain": 3,
+       "cum": 975,
+       "cum_frac_target": 0.380414
+      },
+      {
+       "lemma": "committee",
+       "gain": 3,
+       "cum": 978,
+       "cum_frac_target": 0.381584
+      },
+      {
+       "lemma": "control",
+       "gain": 3,
+       "cum": 981,
+       "cum_frac_target": 0.382755
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 984,
+       "cum_frac_target": 0.383925
+      },
+      {
+       "lemma": "cover",
+       "gain": 3,
+       "cum": 987,
+       "cum_frac_target": 0.385096
+      },
+      {
+       "lemma": "covering",
+       "gain": 3,
+       "cum": 990,
+       "cum_frac_target": 0.386266
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 993,
+       "cum_frac_target": 0.387437
+      },
+      {
+       "lemma": "cup",
+       "gain": 3,
+       "cum": 996,
+       "cum_frac_target": 0.388607
+      },
+      {
+       "lemma": "design",
+       "gain": 3,
+       "cum": 999,
+       "cum_frac_target": 0.389778
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 1002,
+       "cum_frac_target": 0.390948
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 1005,
+       "cum_frac_target": 0.392119
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 1008,
+       "cum_frac_target": 0.393289
+      },
+      {
+       "lemma": "duke",
+       "gain": 3,
+       "cum": 1011,
+       "cum_frac_target": 0.39446
+      },
+      {
+       "lemma": "economy",
+       "gain": 3,
+       "cum": 1014,
+       "cum_frac_target": 0.39563
+      },
+      {
+       "lemma": "effort",
+       "gain": 3,
+       "cum": 1017,
+       "cum_frac_target": 0.396801
+      },
+      {
+       "lemma": "end",
+       "gain": 3,
+       "cum": 1020,
+       "cum_frac_target": 0.397971
+      },
+      {
+       "lemma": "event",
+       "gain": 3,
+       "cum": 1023,
+       "cum_frac_target": 0.399142
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 1026,
+       "cum_frac_target": 0.400312
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 1029,
+       "cum_frac_target": 0.401483
+      },
+      {
+       "lemma": "figure",
+       "gain": 3,
+       "cum": 1032,
+       "cum_frac_target": 0.402653
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 1035,
+       "cum_frac_target": 0.403824
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 1038,
+       "cum_frac_target": 0.404994
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 1041,
+       "cum_frac_target": 0.406165
+      },
+      {
+       "lemma": "genotype",
+       "gain": 3,
+       "cum": 1044,
+       "cum_frac_target": 0.407335
+      },
+      {
+       "lemma": "heart",
+       "gain": 3,
+       "cum": 1047,
+       "cum_frac_target": 0.408506
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 1050,
+       "cum_frac_target": 0.409676
+      },
+      {
+       "lemma": "idea",
+       "gain": 3,
+       "cum": 1053,
+       "cum_frac_target": 0.410847
+      },
+      {
+       "lemma": "interest",
+       "gain": 3,
+       "cum": 1056,
+       "cum_frac_target": 0.412017
+      },
+      {
+       "lemma": "ion",
+       "gain": 3,
+       "cum": 1059,
+       "cum_frac_target": 0.413188
+      },
+      {
+       "lemma": "lake",
+       "gain": 3,
+       "cum": 1062,
+       "cum_frac_target": 0.414358
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 1065,
+       "cum_frac_target": 0.415529
+      },
+      {
+       "lemma": "leader",
+       "gain": 3,
+       "cum": 1068,
+       "cum_frac_target": 0.416699
+      },
+      {
+       "lemma": "leaf",
+       "gain": 3,
+       "cum": 1071,
+       "cum_frac_target": 0.41787
+      },
+      {
+       "lemma": "lipid",
+       "gain": 3,
+       "cum": 1074,
+       "cum_frac_target": 0.41904
+      },
+      {
+       "lemma": "lose",
+       "gain": 3,
+       "cum": 1077,
+       "cum_frac_target": 0.420211
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1080,
+       "cum_frac_target": 0.421381
+      },
+      {
+       "lemma": "lucky",
+       "gain": 3,
+       "cum": 1083,
+       "cum_frac_target": 0.422552
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1086,
+       "cum_frac_target": 0.423722
+      },
+      {
+       "lemma": "measure",
+       "gain": 3,
+       "cum": 1089,
+       "cum_frac_target": 0.424893
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 3,
+       "cum": 1092,
+       "cum_frac_target": 0.426063
+      },
+      {
+       "lemma": "minimum",
+       "gain": 3,
+       "cum": 1095,
+       "cum_frac_target": 0.427234
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1098,
+       "cum_frac_target": 0.428404
+      },
+      {
+       "lemma": "mountain",
+       "gain": 3,
+       "cum": 1101,
+       "cum_frac_target": 0.429575
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1104,
+       "cum_frac_target": 0.430745
+      },
+      {
+       "lemma": "neutron",
+       "gain": 3,
+       "cum": 1107,
+       "cum_frac_target": 0.431916
+      },
+      {
+       "lemma": "night",
+       "gain": 3,
+       "cum": 1110,
+       "cum_frac_target": 0.433086
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1113,
+       "cum_frac_target": 0.434257
+      },
+      {
+       "lemma": "object",
+       "gain": 3,
+       "cum": 1116,
+       "cum_frac_target": 0.435427
+      },
+      {
+       "lemma": "old",
+       "gain": 3,
+       "cum": 1119,
+       "cum_frac_target": 0.436598
+      }
+     ]
+    },
+    "2": {
+     "picks_total": 999,
+     "covered": 2563,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.140239,
+     "S_for": {
+      "0.50": 165,
+      "0.80": 522,
+      "0.95": 871
+     },
+     "top200": [
+      {
+       "lemma": "process",
+       "gain": 67,
+       "cum": 67,
+       "cum_frac_target": 0.026141
+      },
+      {
+       "lemma": "structure",
+       "gain": 63,
+       "cum": 130,
+       "cum_frac_target": 0.050722
+      },
+      {
+       "lemma": "cell",
+       "gain": 50,
+       "cum": 180,
+       "cum_frac_target": 0.07023
+      },
+      {
+       "lemma": "molecule",
+       "gain": 49,
+       "cum": 229,
+       "cum_frac_target": 0.089348
+      },
+      {
+       "lemma": "community",
+       "gain": 24,
+       "cum": 253,
+       "cum_frac_target": 0.098712
+      },
+      {
+       "lemma": "joy",
+       "gain": 23,
+       "cum": 276,
+       "cum_frac_target": 0.107686
+      },
+      {
+       "lemma": "organism",
+       "gain": 23,
+       "cum": 299,
+       "cum_frac_target": 0.11666
+      },
+      {
+       "lemma": "category",
+       "gain": 22,
+       "cum": 321,
+       "cum_frac_target": 0.125244
+      },
+      {
+       "lemma": "enter",
+       "gain": 21,
+       "cum": 342,
+       "cum_frac_target": 0.133437
+      },
+      {
+       "lemma": "characteristic",
+       "gain": 19,
+       "cum": 361,
+       "cum_frac_target": 0.140851
+      },
+      {
+       "lemma": "diet",
+       "gain": 19,
+       "cum": 380,
+       "cum_frac_target": 0.148264
+      },
+      {
+       "lemma": "atom",
+       "gain": 18,
+       "cum": 398,
+       "cum_frac_target": 0.155287
+      },
+      {
+       "lemma": "body",
+       "gain": 18,
+       "cum": 416,
+       "cum_frac_target": 0.16231
+      },
+      {
+       "lemma": "macromolecule",
+       "gain": 17,
+       "cum": 433,
+       "cum_frac_target": 0.168943
+      },
+      {
+       "lemma": "genotype",
+       "gain": 16,
+       "cum": 449,
+       "cum_frac_target": 0.175185
+      },
+      {
+       "lemma": "length",
+       "gain": 16,
+       "cum": 465,
+       "cum_frac_target": 0.181428
+      },
+      {
+       "lemma": "gland",
+       "gain": 15,
+       "cum": 480,
+       "cum_frac_target": 0.187281
+      },
+      {
+       "lemma": "plant",
+       "gain": 15,
+       "cum": 495,
+       "cum_frac_target": 0.193133
+      },
+      {
+       "lemma": "mixture",
+       "gain": 14,
+       "cum": 509,
+       "cum_frac_target": 0.198595
+      },
+      {
+       "lemma": "sequence",
+       "gain": 14,
+       "cum": 523,
+       "cum_frac_target": 0.204058
+      },
+      {
+       "lemma": "taxon",
+       "gain": 14,
+       "cum": 537,
+       "cum_frac_target": 0.20952
+      },
+      {
+       "lemma": "layer",
+       "gain": 13,
+       "cum": 550,
+       "cum_frac_target": 0.214592
+      },
+      {
+       "lemma": "organelle",
+       "gain": 13,
+       "cum": 563,
+       "cum_frac_target": 0.219664
+      },
+      {
+       "lemma": "disease",
+       "gain": 12,
+       "cum": 575,
+       "cum_frac_target": 0.224346
+      },
+      {
+       "lemma": "opening",
+       "gain": 11,
+       "cum": 586,
+       "cum_frac_target": 0.228638
+      },
+      {
+       "lemma": "bird",
+       "gain": 10,
+       "cum": 596,
+       "cum_frac_target": 0.23254
+      },
+      {
+       "lemma": "company",
+       "gain": 10,
+       "cum": 606,
+       "cum_frac_target": 0.236442
+      },
+      {
+       "lemma": "component",
+       "gain": 10,
+       "cum": 616,
+       "cum_frac_target": 0.240343
+      },
+      {
+       "lemma": "substance",
+       "gain": 10,
+       "cum": 626,
+       "cum_frac_target": 0.244245
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 635,
+       "cum_frac_target": 0.247757
+      },
+      {
+       "lemma": "earliest",
+       "gain": 9,
+       "cum": 644,
+       "cum_frac_target": 0.251268
+      },
+      {
+       "lemma": "region",
+       "gain": 9,
+       "cum": 653,
+       "cum_frac_target": 0.25478
+      },
+      {
+       "lemma": "technique",
+       "gain": 9,
+       "cum": 662,
+       "cum_frac_target": 0.258291
+      },
+      {
+       "lemma": "canada",
+       "gain": 8,
+       "cum": 670,
+       "cum_frac_target": 0.261412
+      },
+      {
+       "lemma": "compound",
+       "gain": 8,
+       "cum": 678,
+       "cum_frac_target": 0.264534
+      },
+      {
+       "lemma": "gnetophytes",
+       "gain": 8,
+       "cum": 686,
+       "cum_frac_target": 0.267655
+      },
+      {
+       "lemma": "head",
+       "gain": 8,
+       "cum": 694,
+       "cum_frac_target": 0.270776
+      },
+      {
+       "lemma": "mountain",
+       "gain": 8,
+       "cum": 702,
+       "cum_frac_target": 0.273898
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 710,
+       "cum_frac_target": 0.277019
+      },
+      {
+       "lemma": "temperature",
+       "gain": 8,
+       "cum": 718,
+       "cum_frac_target": 0.28014
+      },
+      {
+       "lemma": "vessel",
+       "gain": 8,
+       "cum": 726,
+       "cum_frac_target": 0.283262
+      },
+      {
+       "lemma": "change",
+       "gain": 7,
+       "cum": 733,
+       "cum_frac_target": 0.285993
+      },
+      {
+       "lemma": "channel",
+       "gain": 7,
+       "cum": 740,
+       "cum_frac_target": 0.288724
+      },
+      {
+       "lemma": "congratulations",
+       "gain": 7,
+       "cum": 747,
+       "cum_frac_target": 0.291455
+      },
+      {
+       "lemma": "detect",
+       "gain": 7,
+       "cum": 754,
+       "cum_frac_target": 0.294187
+      },
+      {
+       "lemma": "donor",
+       "gain": 7,
+       "cum": 761,
+       "cum_frac_target": 0.296918
+      },
+      {
+       "lemma": "elements",
+       "gain": 7,
+       "cum": 768,
+       "cum_frac_target": 0.299649
+      },
+      {
+       "lemma": "founder",
+       "gain": 7,
+       "cum": 775,
+       "cum_frac_target": 0.30238
+      },
+      {
+       "lemma": "gateway",
+       "gain": 7,
+       "cum": 782,
+       "cum_frac_target": 0.305111
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 7,
+       "cum": 789,
+       "cum_frac_target": 0.307842
+      },
+      {
+       "lemma": "man",
+       "gain": 7,
+       "cum": 796,
+       "cum_frac_target": 0.310574
+      },
+      {
+       "lemma": "model",
+       "gain": 7,
+       "cum": 803,
+       "cum_frac_target": 0.313305
+      },
+      {
+       "lemma": "pollen",
+       "gain": 7,
+       "cum": 810,
+       "cum_frac_target": 0.316036
+      },
+      {
+       "lemma": "steps",
+       "gain": 7,
+       "cum": 817,
+       "cum_frac_target": 0.318767
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 824,
+       "cum_frac_target": 0.321498
+      },
+      {
+       "lemma": "unit",
+       "gain": 7,
+       "cum": 831,
+       "cum_frac_target": 0.324229
+      },
+      {
+       "lemma": "cause",
+       "gain": 6,
+       "cum": 837,
+       "cum_frac_target": 0.32657
+      },
+      {
+       "lemma": "challenge",
+       "gain": 6,
+       "cum": 843,
+       "cum_frac_target": 0.328911
+      },
+      {
+       "lemma": "commonly",
+       "gain": 6,
+       "cum": 849,
+       "cum_frac_target": 0.331252
+      },
+      {
+       "lemma": "condition",
+       "gain": 6,
+       "cum": 855,
+       "cum_frac_target": 0.333593
+      },
+      {
+       "lemma": "field",
+       "gain": 6,
+       "cum": 861,
+       "cum_frac_target": 0.335934
+      },
+      {
+       "lemma": "indicator",
+       "gain": 6,
+       "cum": 867,
+       "cum_frac_target": 0.338275
+      },
+      {
+       "lemma": "material",
+       "gain": 6,
+       "cum": 873,
+       "cum_frac_target": 0.340616
+      },
+      {
+       "lemma": "officer",
+       "gain": 6,
+       "cum": 879,
+       "cum_frac_target": 0.342957
+      },
+      {
+       "lemma": "step",
+       "gain": 6,
+       "cum": 885,
+       "cum_frac_target": 0.345298
+      },
+      {
+       "lemma": "strand",
+       "gain": 6,
+       "cum": 891,
+       "cum_frac_target": 0.347639
+      },
+      {
+       "lemma": "teem",
+       "gain": 6,
+       "cum": 897,
+       "cum_frac_target": 0.34998
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 902,
+       "cum_frac_target": 0.351931
+      },
+      {
+       "lemma": "appearance",
+       "gain": 5,
+       "cum": 907,
+       "cum_frac_target": 0.353882
+      },
+      {
+       "lemma": "artist",
+       "gain": 5,
+       "cum": 912,
+       "cum_frac_target": 0.355833
+      },
+      {
+       "lemma": "benefit",
+       "gain": 5,
+       "cum": 917,
+       "cum_frac_target": 0.357784
+      },
+      {
+       "lemma": "birth",
+       "gain": 5,
+       "cum": 922,
+       "cum_frac_target": 0.359735
+      },
+      {
+       "lemma": "collapse",
+       "gain": 5,
+       "cum": 927,
+       "cum_frac_target": 0.361686
+      },
+      {
+       "lemma": "control",
+       "gain": 5,
+       "cum": 932,
+       "cum_frac_target": 0.363636
+      },
+      {
+       "lemma": "daylight",
+       "gain": 5,
+       "cum": 937,
+       "cum_frac_target": 0.365587
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 5,
+       "cum": 942,
+       "cum_frac_target": 0.367538
+      },
+      {
+       "lemma": "executive",
+       "gain": 5,
+       "cum": 947,
+       "cum_frac_target": 0.369489
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 952,
+       "cum_frac_target": 0.37144
+      },
+      {
+       "lemma": "framework",
+       "gain": 5,
+       "cum": 957,
+       "cum_frac_target": 0.373391
+      },
+      {
+       "lemma": "impulse",
+       "gain": 5,
+       "cum": 962,
+       "cum_frac_target": 0.375341
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 967,
+       "cum_frac_target": 0.377292
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 972,
+       "cum_frac_target": 0.379243
+      },
+      {
+       "lemma": "mess",
+       "gain": 5,
+       "cum": 977,
+       "cum_frac_target": 0.381194
+      },
+      {
+       "lemma": "moist",
+       "gain": 5,
+       "cum": 982,
+       "cum_frac_target": 0.383145
+      },
+      {
+       "lemma": "object",
+       "gain": 5,
+       "cum": 987,
+       "cum_frac_target": 0.385096
+      },
+      {
+       "lemma": "place",
+       "gain": 5,
+       "cum": 992,
+       "cum_frac_target": 0.387046
+      },
+      {
+       "lemma": "politician",
+       "gain": 5,
+       "cum": 997,
+       "cum_frac_target": 0.388997
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 1002,
+       "cum_frac_target": 0.390948
+      },
+      {
+       "lemma": "range",
+       "gain": 5,
+       "cum": 1007,
+       "cum_frac_target": 0.392899
+      },
+      {
+       "lemma": "seller",
+       "gain": 5,
+       "cum": 1012,
+       "cum_frac_target": 0.39485
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 1017,
+       "cum_frac_target": 0.396801
+      },
+      {
+       "lemma": "unique",
+       "gain": 5,
+       "cum": 1022,
+       "cum_frac_target": 0.398751
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 1026,
+       "cum_frac_target": 0.400312
+      },
+      {
+       "lemma": "achievement",
+       "gain": 4,
+       "cum": 1030,
+       "cum_frac_target": 0.401873
+      },
+      {
+       "lemma": "agent",
+       "gain": 4,
+       "cum": 1034,
+       "cum_frac_target": 0.403433
+      },
+      {
+       "lemma": "agreement",
+       "gain": 4,
+       "cum": 1038,
+       "cum_frac_target": 0.404994
+      },
+      {
+       "lemma": "approval",
+       "gain": 4,
+       "cum": 1042,
+       "cum_frac_target": 0.406555
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 1046,
+       "cum_frac_target": 0.408115
+      },
+      {
+       "lemma": "best",
+       "gain": 4,
+       "cum": 1050,
+       "cum_frac_target": 0.409676
+      },
+      {
+       "lemma": "big",
+       "gain": 4,
+       "cum": 1054,
+       "cum_frac_target": 0.411237
+      },
+      {
+       "lemma": "bone",
+       "gain": 4,
+       "cum": 1058,
+       "cum_frac_target": 0.412798
+      },
+      {
+       "lemma": "century",
+       "gain": 4,
+       "cum": 1062,
+       "cum_frac_target": 0.414358
+      },
+      {
+       "lemma": "college",
+       "gain": 4,
+       "cum": 1066,
+       "cum_frac_target": 0.415919
+      },
+      {
+       "lemma": "combination",
+       "gain": 4,
+       "cum": 1070,
+       "cum_frac_target": 0.41748
+      },
+      {
+       "lemma": "damascus",
+       "gain": 4,
+       "cum": 1074,
+       "cum_frac_target": 0.41904
+      },
+      {
+       "lemma": "design",
+       "gain": 4,
+       "cum": 1078,
+       "cum_frac_target": 0.420601
+      },
+      {
+       "lemma": "difference",
+       "gain": 4,
+       "cum": 1082,
+       "cum_frac_target": 0.422162
+      },
+      {
+       "lemma": "dime",
+       "gain": 4,
+       "cum": 1086,
+       "cum_frac_target": 0.423722
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 1090,
+       "cum_frac_target": 0.425283
+      },
+      {
+       "lemma": "focus",
+       "gain": 4,
+       "cum": 1094,
+       "cum_frac_target": 0.426844
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 1098,
+       "cum_frac_target": 0.428404
+      },
+      {
+       "lemma": "level",
+       "gain": 4,
+       "cum": 1102,
+       "cum_frac_target": 0.429965
+      },
+      {
+       "lemma": "lucky",
+       "gain": 4,
+       "cum": 1106,
+       "cum_frac_target": 0.431526
+      },
+      {
+       "lemma": "mendel",
+       "gain": 4,
+       "cum": 1110,
+       "cum_frac_target": 0.433086
+      },
+      {
+       "lemma": "mix",
+       "gain": 4,
+       "cum": 1114,
+       "cum_frac_target": 0.434647
+      },
+      {
+       "lemma": "movement",
+       "gain": 4,
+       "cum": 1118,
+       "cum_frac_target": 0.436208
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 1122,
+       "cum_frac_target": 0.437768
+      },
+      {
+       "lemma": "night",
+       "gain": 4,
+       "cum": 1126,
+       "cum_frac_target": 0.439329
+      },
+      {
+       "lemma": "occur",
+       "gain": 4,
+       "cum": 1130,
+       "cum_frac_target": 0.44089
+      },
+      {
+       "lemma": "old",
+       "gain": 4,
+       "cum": 1134,
+       "cum_frac_target": 0.44245
+      },
+      {
+       "lemma": "opposite",
+       "gain": 4,
+       "cum": 1138,
+       "cum_frac_target": 0.444011
+      },
+      {
+       "lemma": "phenomenon",
+       "gain": 4,
+       "cum": 1142,
+       "cum_frac_target": 0.445572
+      },
+      {
+       "lemma": "portion",
+       "gain": 4,
+       "cum": 1146,
+       "cum_frac_target": 0.447132
+      },
+      {
+       "lemma": "presence",
+       "gain": 4,
+       "cum": 1150,
+       "cum_frac_target": 0.448693
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 1154,
+       "cum_frac_target": 0.450254
+      },
+      {
+       "lemma": "reservoir",
+       "gain": 4,
+       "cum": 1158,
+       "cum_frac_target": 0.451814
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 1162,
+       "cum_frac_target": 0.453375
+      },
+      {
+       "lemma": "temeraire",
+       "gain": 4,
+       "cum": 1166,
+       "cum_frac_target": 0.454936
+      },
+      {
+       "lemma": "term",
+       "gain": 4,
+       "cum": 1170,
+       "cum_frac_target": 0.456496
+      },
+      {
+       "lemma": "threat",
+       "gain": 4,
+       "cum": 1174,
+       "cum_frac_target": 0.458057
+      },
+      {
+       "lemma": "usually",
+       "gain": 4,
+       "cum": 1178,
+       "cum_frac_target": 0.459618
+      },
+      {
+       "lemma": "version",
+       "gain": 4,
+       "cum": 1182,
+       "cum_frac_target": 0.461178
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 1186,
+       "cum_frac_target": 0.462739
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 1189,
+       "cum_frac_target": 0.463909
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 1192,
+       "cum_frac_target": 0.46508
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 1195,
+       "cum_frac_target": 0.46625
+      },
+      {
+       "lemma": "aim",
+       "gain": 3,
+       "cum": 1198,
+       "cum_frac_target": 0.467421
+      },
+      {
+       "lemma": "alliance",
+       "gain": 3,
+       "cum": 1201,
+       "cum_frac_target": 0.468591
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 1204,
+       "cum_frac_target": 0.469762
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 1207,
+       "cum_frac_target": 0.470933
+      },
+      {
+       "lemma": "association",
+       "gain": 3,
+       "cum": 1210,
+       "cum_frac_target": 0.472103
+      },
+      {
+       "lemma": "barrier",
+       "gain": 3,
+       "cum": 1213,
+       "cum_frac_target": 0.473274
+      },
+      {
+       "lemma": "bc",
+       "gain": 3,
+       "cum": 1216,
+       "cum_frac_target": 0.474444
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 1219,
+       "cum_frac_target": 0.475615
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 1222,
+       "cum_frac_target": 0.476785
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 1225,
+       "cum_frac_target": 0.477956
+      },
+      {
+       "lemma": "capsomere",
+       "gain": 3,
+       "cum": 1228,
+       "cum_frac_target": 0.479126
+      },
+      {
+       "lemma": "cardinal",
+       "gain": 3,
+       "cum": 1231,
+       "cum_frac_target": 0.480297
+      },
+      {
+       "lemma": "cerf",
+       "gain": 3,
+       "cum": 1234,
+       "cum_frac_target": 0.481467
+      },
+      {
+       "lemma": "chamber",
+       "gain": 3,
+       "cum": 1237,
+       "cum_frac_target": 0.482638
+      },
+      {
+       "lemma": "charge",
+       "gain": 3,
+       "cum": 1240,
+       "cum_frac_target": 0.483808
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 1243,
+       "cum_frac_target": 0.484979
+      },
+      {
+       "lemma": "chordate",
+       "gain": 3,
+       "cum": 1246,
+       "cum_frac_target": 0.486149
+      },
+      {
+       "lemma": "collectively",
+       "gain": 3,
+       "cum": 1249,
+       "cum_frac_target": 0.48732
+      },
+      {
+       "lemma": "content",
+       "gain": 3,
+       "cum": 1252,
+       "cum_frac_target": 0.48849
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 1255,
+       "cum_frac_target": 0.489661
+      },
+      {
+       "lemma": "covering",
+       "gain": 3,
+       "cum": 1258,
+       "cum_frac_target": 0.490831
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 1261,
+       "cum_frac_target": 0.492002
+      },
+      {
+       "lemma": "cup",
+       "gain": 3,
+       "cum": 1264,
+       "cum_frac_target": 0.493172
+      },
+      {
+       "lemma": "declaration",
+       "gain": 3,
+       "cum": 1267,
+       "cum_frac_target": 0.494343
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 1270,
+       "cum_frac_target": 0.495513
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 1273,
+       "cum_frac_target": 0.496684
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 1276,
+       "cum_frac_target": 0.497854
+      },
+      {
+       "lemma": "domain",
+       "gain": 3,
+       "cum": 1279,
+       "cum_frac_target": 0.499025
+      },
+      {
+       "lemma": "drinker",
+       "gain": 3,
+       "cum": 1282,
+       "cum_frac_target": 0.500195
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 1285,
+       "cum_frac_target": 0.501366
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 1288,
+       "cum_frac_target": 0.502536
+      },
+      {
+       "lemma": "figure",
+       "gain": 3,
+       "cum": 1291,
+       "cum_frac_target": 0.503707
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 1294,
+       "cum_frac_target": 0.504877
+      },
+      {
+       "lemma": "fluid",
+       "gain": 3,
+       "cum": 1297,
+       "cum_frac_target": 0.506048
+      },
+      {
+       "lemma": "formation",
+       "gain": 3,
+       "cum": 1300,
+       "cum_frac_target": 0.507218
+      },
+      {
+       "lemma": "gain",
+       "gain": 3,
+       "cum": 1303,
+       "cum_frac_target": 0.508389
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 1306,
+       "cum_frac_target": 0.509559
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 1309,
+       "cum_frac_target": 0.51073
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 1312,
+       "cum_frac_target": 0.5119
+      },
+      {
+       "lemma": "increasingly",
+       "gain": 3,
+       "cum": 1315,
+       "cum_frac_target": 0.513071
+      },
+      {
+       "lemma": "instrument",
+       "gain": 3,
+       "cum": 1318,
+       "cum_frac_target": 0.514241
+      },
+      {
+       "lemma": "interest",
+       "gain": 3,
+       "cum": 1321,
+       "cum_frac_target": 0.515412
+      },
+      {
+       "lemma": "interior",
+       "gain": 3,
+       "cum": 1324,
+       "cum_frac_target": 0.516582
+      },
+      {
+       "lemma": "interview",
+       "gain": 3,
+       "cum": 1327,
+       "cum_frac_target": 0.517753
+      },
+      {
+       "lemma": "issue",
+       "gain": 3,
+       "cum": 1330,
+       "cum_frac_target": 0.518923
+      },
+      {
+       "lemma": "journalist",
+       "gain": 3,
+       "cum": 1333,
+       "cum_frac_target": 0.520094
+      },
+      {
+       "lemma": "kon-rads",
+       "gain": 3,
+       "cum": 1336,
+       "cum_frac_target": 0.521264
+      },
+      {
+       "lemma": "lack",
+       "gain": 3,
+       "cum": 1339,
+       "cum_frac_target": 0.522435
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 1342,
+       "cum_frac_target": 0.523605
+      },
+      {
+       "lemma": "leader",
+       "gain": 3,
+       "cum": 1345,
+       "cum_frac_target": 0.524776
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1348,
+       "cum_frac_target": 0.525946
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1351,
+       "cum_frac_target": 0.527117
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 3,
+       "cum": 1354,
+       "cum_frac_target": 0.528287
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1357,
+       "cum_frac_target": 0.529458
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1360,
+       "cum_frac_target": 0.530628
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1363,
+       "cum_frac_target": 0.531799
+      },
+      {
+       "lemma": "peter",
+       "gain": 3,
+       "cum": 1366,
+       "cum_frac_target": 0.532969
+      },
+      {
+       "lemma": "pioneer",
+       "gain": 3,
+       "cum": 1369,
+       "cum_frac_target": 0.53414
+      },
+      {
+       "lemma": "position",
+       "gain": 3,
+       "cum": 1372,
+       "cum_frac_target": 0.53531
+      },
+      {
+       "lemma": "president",
+       "gain": 3,
+       "cum": 1375,
+       "cum_frac_target": 0.536481
+      },
+      {
+       "lemma": "prince",
+       "gain": 3,
+       "cum": 1378,
+       "cum_frac_target": 0.537651
+      },
+      {
+       "lemma": "product",
+       "gain": 3,
+       "cum": 1381,
+       "cum_frac_target": 0.538822
+      },
+      {
+       "lemma": "proof",
+       "gain": 3,
+       "cum": 1384,
+       "cum_frac_target": 0.539992
+      },
+      {
+       "lemma": "psychologist",
+       "gain": 3,
+       "cum": 1387,
+       "cum_frac_target": 0.541163
+      }
+     ]
+    },
+    "3": {
+     "picks_total": 969,
+     "covered": 2563,
+     "covered_frac_target": 1.0,
+     "covered_frac_corpus_eligible": 0.140239,
+     "S_for": {
+      "0.50": 140,
+      "0.80": 492,
+      "0.95": 841
+     },
+     "top200": [
+      {
+       "lemma": "structure",
+       "gain": 98,
+       "cum": 98,
+       "cum_frac_target": 0.038236
+      },
+      {
+       "lemma": "atom",
+       "gain": 88,
+       "cum": 186,
+       "cum_frac_target": 0.072571
+      },
+      {
+       "lemma": "process",
+       "gain": 64,
+       "cum": 250,
+       "cum_frac_target": 0.097542
+      },
+      {
+       "lemma": "cell",
+       "gain": 42,
+       "cum": 292,
+       "cum_frac_target": 0.113929
+      },
+      {
+       "lemma": "characteristic",
+       "gain": 37,
+       "cum": 329,
+       "cum_frac_target": 0.128365
+      },
+      {
+       "lemma": "level",
+       "gain": 37,
+       "cum": 366,
+       "cum_frac_target": 0.142801
+      },
+      {
+       "lemma": "organism",
+       "gain": 34,
+       "cum": 400,
+       "cum_frac_target": 0.156067
+      },
+      {
+       "lemma": "fluid",
+       "gain": 27,
+       "cum": 427,
+       "cum_frac_target": 0.166602
+      },
+      {
+       "lemma": "measure",
+       "gain": 27,
+       "cum": 454,
+       "cum_frac_target": 0.177136
+      },
+      {
+       "lemma": "community",
+       "gain": 24,
+       "cum": 478,
+       "cum_frac_target": 0.1865
+      },
+      {
+       "lemma": "joy",
+       "gain": 23,
+       "cum": 501,
+       "cum_frac_target": 0.195474
+      },
+      {
+       "lemma": "diet",
+       "gain": 22,
+       "cum": 523,
+       "cum_frac_target": 0.204058
+      },
+      {
+       "lemma": "length",
+       "gain": 22,
+       "cum": 545,
+       "cum_frac_target": 0.212641
+      },
+      {
+       "lemma": "head",
+       "gain": 20,
+       "cum": 565,
+       "cum_frac_target": 0.220445
+      },
+      {
+       "lemma": "category",
+       "gain": 17,
+       "cum": 582,
+       "cum_frac_target": 0.227078
+      },
+      {
+       "lemma": "genotype",
+       "gain": 17,
+       "cum": 599,
+       "cum_frac_target": 0.23371
+      },
+      {
+       "lemma": "associate",
+       "gain": 15,
+       "cum": 614,
+       "cum_frac_target": 0.239563
+      },
+      {
+       "lemma": "bone",
+       "gain": 13,
+       "cum": 627,
+       "cum_frac_target": 0.244635
+      },
+      {
+       "lemma": "disease",
+       "gain": 13,
+       "cum": 640,
+       "cum_frac_target": 0.249707
+      },
+      {
+       "lemma": "component",
+       "gain": 11,
+       "cum": 651,
+       "cum_frac_target": 0.253999
+      },
+      {
+       "lemma": "bird",
+       "gain": 10,
+       "cum": 661,
+       "cum_frac_target": 0.257901
+      },
+      {
+       "lemma": "company",
+       "gain": 10,
+       "cum": 671,
+       "cum_frac_target": 0.261803
+      },
+      {
+       "lemma": "plant",
+       "gain": 10,
+       "cum": 681,
+       "cum_frac_target": 0.265704
+      },
+      {
+       "lemma": "sequence",
+       "gain": 10,
+       "cum": 691,
+       "cum_frac_target": 0.269606
+      },
+      {
+       "lemma": "substance",
+       "gain": 10,
+       "cum": 701,
+       "cum_frac_target": 0.273508
+      },
+      {
+       "lemma": "bed",
+       "gain": 9,
+       "cum": 710,
+       "cum_frac_target": 0.277019
+      },
+      {
+       "lemma": "chart",
+       "gain": 9,
+       "cum": 719,
+       "cum_frac_target": 0.280531
+      },
+      {
+       "lemma": "director",
+       "gain": 9,
+       "cum": 728,
+       "cum_frac_target": 0.284042
+      },
+      {
+       "lemma": "floor",
+       "gain": 9,
+       "cum": 737,
+       "cum_frac_target": 0.287554
+      },
+      {
+       "lemma": "opening",
+       "gain": 9,
+       "cum": 746,
+       "cum_frac_target": 0.291065
+      },
+      {
+       "lemma": "portion",
+       "gain": 9,
+       "cum": 755,
+       "cum_frac_target": 0.294577
+      },
+      {
+       "lemma": "technique",
+       "gain": 9,
+       "cum": 764,
+       "cum_frac_target": 0.298088
+      },
+      {
+       "lemma": "canada",
+       "gain": 8,
+       "cum": 772,
+       "cum_frac_target": 0.30121
+      },
+      {
+       "lemma": "cause",
+       "gain": 8,
+       "cum": 780,
+       "cum_frac_target": 0.304331
+      },
+      {
+       "lemma": "compound",
+       "gain": 8,
+       "cum": 788,
+       "cum_frac_target": 0.307452
+      },
+      {
+       "lemma": "model",
+       "gain": 8,
+       "cum": 796,
+       "cum_frac_target": 0.310574
+      },
+      {
+       "lemma": "scientist",
+       "gain": 8,
+       "cum": 804,
+       "cum_frac_target": 0.313695
+      },
+      {
+       "lemma": "vessel",
+       "gain": 8,
+       "cum": 812,
+       "cum_frac_target": 0.316816
+      },
+      {
+       "lemma": "volume",
+       "gain": 8,
+       "cum": 820,
+       "cum_frac_target": 0.319938
+      },
+      {
+       "lemma": "century",
+       "gain": 7,
+       "cum": 827,
+       "cum_frac_target": 0.322669
+      },
+      {
+       "lemma": "congratulations",
+       "gain": 7,
+       "cum": 834,
+       "cum_frac_target": 0.3254
+      },
+      {
+       "lemma": "detect",
+       "gain": 7,
+       "cum": 841,
+       "cum_frac_target": 0.328131
+      },
+      {
+       "lemma": "gateway",
+       "gain": 7,
+       "cum": 848,
+       "cum_frac_target": 0.330862
+      },
+      {
+       "lemma": "ingredient",
+       "gain": 7,
+       "cum": 855,
+       "cum_frac_target": 0.333593
+      },
+      {
+       "lemma": "man",
+       "gain": 7,
+       "cum": 862,
+       "cum_frac_target": 0.336325
+      },
+      {
+       "lemma": "material",
+       "gain": 7,
+       "cum": 869,
+       "cum_frac_target": 0.339056
+      },
+      {
+       "lemma": "size",
+       "gain": 7,
+       "cum": 876,
+       "cum_frac_target": 0.341787
+      },
+      {
+       "lemma": "steps",
+       "gain": 7,
+       "cum": 883,
+       "cum_frac_target": 0.344518
+      },
+      {
+       "lemma": "supergroup",
+       "gain": 7,
+       "cum": 890,
+       "cum_frac_target": 0.347249
+      },
+      {
+       "lemma": "unit",
+       "gain": 7,
+       "cum": 897,
+       "cum_frac_target": 0.34998
+      },
+      {
+       "lemma": "disaccharide",
+       "gain": 6,
+       "cum": 903,
+       "cum_frac_target": 0.352321
+      },
+      {
+       "lemma": "focus",
+       "gain": 6,
+       "cum": 909,
+       "cum_frac_target": 0.354663
+      },
+      {
+       "lemma": "indicator",
+       "gain": 6,
+       "cum": 915,
+       "cum_frac_target": 0.357004
+      },
+      {
+       "lemma": "malfunction",
+       "gain": 6,
+       "cum": 921,
+       "cum_frac_target": 0.359345
+      },
+      {
+       "lemma": "officer",
+       "gain": 6,
+       "cum": 927,
+       "cum_frac_target": 0.361686
+      },
+      {
+       "lemma": "place",
+       "gain": 6,
+       "cum": 933,
+       "cum_frac_target": 0.364027
+      },
+      {
+       "lemma": "pollen",
+       "gain": 6,
+       "cum": 939,
+       "cum_frac_target": 0.366368
+      },
+      {
+       "lemma": "strand",
+       "gain": 6,
+       "cum": 945,
+       "cum_frac_target": 0.368709
+      },
+      {
+       "lemma": "teem",
+       "gain": 6,
+       "cum": 951,
+       "cum_frac_target": 0.37105
+      },
+      {
+       "lemma": "activist",
+       "gain": 5,
+       "cum": 956,
+       "cum_frac_target": 0.373
+      },
+      {
+       "lemma": "agent",
+       "gain": 5,
+       "cum": 961,
+       "cum_frac_target": 0.374951
+      },
+      {
+       "lemma": "artist",
+       "gain": 5,
+       "cum": 966,
+       "cum_frac_target": 0.376902
+      },
+      {
+       "lemma": "bomb",
+       "gain": 5,
+       "cum": 971,
+       "cum_frac_target": 0.378853
+      },
+      {
+       "lemma": "challenge",
+       "gain": 5,
+       "cum": 976,
+       "cum_frac_target": 0.380804
+      },
+      {
+       "lemma": "change",
+       "gain": 5,
+       "cum": 981,
+       "cum_frac_target": 0.382755
+      },
+      {
+       "lemma": "collapse",
+       "gain": 5,
+       "cum": 986,
+       "cum_frac_target": 0.384705
+      },
+      {
+       "lemma": "control",
+       "gain": 5,
+       "cum": 991,
+       "cum_frac_target": 0.386656
+      },
+      {
+       "lemma": "daylight",
+       "gain": 5,
+       "cum": 996,
+       "cum_frac_target": 0.388607
+      },
+      {
+       "lemma": "donor",
+       "gain": 5,
+       "cum": 1001,
+       "cum_frac_target": 0.390558
+      },
+      {
+       "lemma": "executive",
+       "gain": 5,
+       "cum": 1006,
+       "cum_frac_target": 0.392509
+      },
+      {
+       "lemma": "force",
+       "gain": 5,
+       "cum": 1011,
+       "cum_frac_target": 0.39446
+      },
+      {
+       "lemma": "founder",
+       "gain": 5,
+       "cum": 1016,
+       "cum_frac_target": 0.39641
+      },
+      {
+       "lemma": "framework",
+       "gain": 5,
+       "cum": 1021,
+       "cum_frac_target": 0.398361
+      },
+      {
+       "lemma": "information",
+       "gain": 5,
+       "cum": 1026,
+       "cum_frac_target": 0.400312
+      },
+      {
+       "lemma": "lawyer",
+       "gain": 5,
+       "cum": 1031,
+       "cum_frac_target": 0.402263
+      },
+      {
+       "lemma": "mess",
+       "gain": 5,
+       "cum": 1036,
+       "cum_frac_target": 0.404214
+      },
+      {
+       "lemma": "object",
+       "gain": 5,
+       "cum": 1041,
+       "cum_frac_target": 0.406165
+      },
+      {
+       "lemma": "politician",
+       "gain": 5,
+       "cum": 1046,
+       "cum_frac_target": 0.408115
+      },
+      {
+       "lemma": "problem",
+       "gain": 5,
+       "cum": 1051,
+       "cum_frac_target": 0.410066
+      },
+      {
+       "lemma": "reservoir",
+       "gain": 5,
+       "cum": 1056,
+       "cum_frac_target": 0.412017
+      },
+      {
+       "lemma": "town",
+       "gain": 5,
+       "cum": 1061,
+       "cum_frac_target": 0.413968
+      },
+      {
+       "lemma": "unique",
+       "gain": 5,
+       "cum": 1066,
+       "cum_frac_target": 0.415919
+      },
+      {
+       "lemma": "ability",
+       "gain": 4,
+       "cum": 1070,
+       "cum_frac_target": 0.41748
+      },
+      {
+       "lemma": "achievement",
+       "gain": 4,
+       "cum": 1074,
+       "cum_frac_target": 0.41904
+      },
+      {
+       "lemma": "agreement",
+       "gain": 4,
+       "cum": 1078,
+       "cum_frac_target": 0.420601
+      },
+      {
+       "lemma": "aim",
+       "gain": 4,
+       "cum": 1082,
+       "cum_frac_target": 0.422162
+      },
+      {
+       "lemma": "appearance",
+       "gain": 4,
+       "cum": 1086,
+       "cum_frac_target": 0.423722
+      },
+      {
+       "lemma": "approval",
+       "gain": 4,
+       "cum": 1090,
+       "cum_frac_target": 0.425283
+      },
+      {
+       "lemma": "author",
+       "gain": 4,
+       "cum": 1094,
+       "cum_frac_target": 0.426844
+      },
+      {
+       "lemma": "bc",
+       "gain": 4,
+       "cum": 1098,
+       "cum_frac_target": 0.428404
+      },
+      {
+       "lemma": "best",
+       "gain": 4,
+       "cum": 1102,
+       "cum_frac_target": 0.429965
+      },
+      {
+       "lemma": "big",
+       "gain": 4,
+       "cum": 1106,
+       "cum_frac_target": 0.431526
+      },
+      {
+       "lemma": "collectively",
+       "gain": 4,
+       "cum": 1110,
+       "cum_frac_target": 0.433086
+      },
+      {
+       "lemma": "college",
+       "gain": 4,
+       "cum": 1114,
+       "cum_frac_target": 0.434647
+      },
+      {
+       "lemma": "combination",
+       "gain": 4,
+       "cum": 1118,
+       "cum_frac_target": 0.436208
+      },
+      {
+       "lemma": "commonly",
+       "gain": 4,
+       "cum": 1122,
+       "cum_frac_target": 0.437768
+      },
+      {
+       "lemma": "covering",
+       "gain": 4,
+       "cum": 1126,
+       "cum_frac_target": 0.439329
+      },
+      {
+       "lemma": "design",
+       "gain": 4,
+       "cum": 1130,
+       "cum_frac_target": 0.44089
+      },
+      {
+       "lemma": "dime",
+       "gain": 4,
+       "cum": 1134,
+       "cum_frac_target": 0.44245
+      },
+      {
+       "lemma": "fellow",
+       "gain": 4,
+       "cum": 1138,
+       "cum_frac_target": 0.444011
+      },
+      {
+       "lemma": "fold",
+       "gain": 4,
+       "cum": 1142,
+       "cum_frac_target": 0.445572
+      },
+      {
+       "lemma": "impulse",
+       "gain": 4,
+       "cum": 1146,
+       "cum_frac_target": 0.447132
+      },
+      {
+       "lemma": "lucky",
+       "gain": 4,
+       "cum": 1150,
+       "cum_frac_target": 0.448693
+      },
+      {
+       "lemma": "mix",
+       "gain": 4,
+       "cum": 1154,
+       "cum_frac_target": 0.450254
+      },
+      {
+       "lemma": "mixture",
+       "gain": 4,
+       "cum": 1158,
+       "cum_frac_target": 0.451814
+      },
+      {
+       "lemma": "modify",
+       "gain": 4,
+       "cum": 1162,
+       "cum_frac_target": 0.453375
+      },
+      {
+       "lemma": "moist",
+       "gain": 4,
+       "cum": 1166,
+       "cum_frac_target": 0.454936
+      },
+      {
+       "lemma": "movement",
+       "gain": 4,
+       "cum": 1170,
+       "cum_frac_target": 0.456496
+      },
+      {
+       "lemma": "neuroscientist",
+       "gain": 4,
+       "cum": 1174,
+       "cum_frac_target": 0.458057
+      },
+      {
+       "lemma": "night",
+       "gain": 4,
+       "cum": 1178,
+       "cum_frac_target": 0.459618
+      },
+      {
+       "lemma": "occur",
+       "gain": 4,
+       "cum": 1182,
+       "cum_frac_target": 0.461178
+      },
+      {
+       "lemma": "old",
+       "gain": 4,
+       "cum": 1186,
+       "cum_frac_target": 0.462739
+      },
+      {
+       "lemma": "opposite",
+       "gain": 4,
+       "cum": 1190,
+       "cum_frac_target": 0.4643
+      },
+      {
+       "lemma": "phenomenon",
+       "gain": 4,
+       "cum": 1194,
+       "cum_frac_target": 0.46586
+      },
+      {
+       "lemma": "presence",
+       "gain": 4,
+       "cum": 1198,
+       "cum_frac_target": 0.467421
+      },
+      {
+       "lemma": "product",
+       "gain": 4,
+       "cum": 1202,
+       "cum_frac_target": 0.468982
+      },
+      {
+       "lemma": "researcher",
+       "gain": 4,
+       "cum": 1206,
+       "cum_frac_target": 0.470542
+      },
+      {
+       "lemma": "seller",
+       "gain": 4,
+       "cum": 1210,
+       "cum_frac_target": 0.472103
+      },
+      {
+       "lemma": "student",
+       "gain": 4,
+       "cum": 1214,
+       "cum_frac_target": 0.473664
+      },
+      {
+       "lemma": "temeraire",
+       "gain": 4,
+       "cum": 1218,
+       "cum_frac_target": 0.475224
+      },
+      {
+       "lemma": "threat",
+       "gain": 4,
+       "cum": 1222,
+       "cum_frac_target": 0.476785
+      },
+      {
+       "lemma": "usually",
+       "gain": 4,
+       "cum": 1226,
+       "cum_frac_target": 0.478346
+      },
+      {
+       "lemma": "version",
+       "gain": 4,
+       "cum": 1230,
+       "cum_frac_target": 0.479906
+      },
+      {
+       "lemma": "worker",
+       "gain": 4,
+       "cum": 1234,
+       "cum_frac_target": 0.481467
+      },
+      {
+       "lemma": "access",
+       "gain": 3,
+       "cum": 1237,
+       "cum_frac_target": 0.482638
+      },
+      {
+       "lemma": "action",
+       "gain": 3,
+       "cum": 1240,
+       "cum_frac_target": 0.483808
+      },
+      {
+       "lemma": "addition",
+       "gain": 3,
+       "cum": 1243,
+       "cum_frac_target": 0.484979
+      },
+      {
+       "lemma": "alliance",
+       "gain": 3,
+       "cum": 1246,
+       "cum_frac_target": 0.486149
+      },
+      {
+       "lemma": "appendage",
+       "gain": 3,
+       "cum": 1249,
+       "cum_frac_target": 0.48732
+      },
+      {
+       "lemma": "artwork",
+       "gain": 3,
+       "cum": 1252,
+       "cum_frac_target": 0.48849
+      },
+      {
+       "lemma": "association",
+       "gain": 3,
+       "cum": 1255,
+       "cum_frac_target": 0.489661
+      },
+      {
+       "lemma": "barrier",
+       "gain": 3,
+       "cum": 1258,
+       "cum_frac_target": 0.490831
+      },
+      {
+       "lemma": "birth",
+       "gain": 3,
+       "cum": 1261,
+       "cum_frac_target": 0.492002
+      },
+      {
+       "lemma": "bones",
+       "gain": 3,
+       "cum": 1264,
+       "cum_frac_target": 0.493172
+      },
+      {
+       "lemma": "brand",
+       "gain": 3,
+       "cum": 1267,
+       "cum_frac_target": 0.494343
+      },
+      {
+       "lemma": "capital",
+       "gain": 3,
+       "cum": 1270,
+       "cum_frac_target": 0.495513
+      },
+      {
+       "lemma": "capsomere",
+       "gain": 3,
+       "cum": 1273,
+       "cum_frac_target": 0.496684
+      },
+      {
+       "lemma": "cardinal",
+       "gain": 3,
+       "cum": 1276,
+       "cum_frac_target": 0.497854
+      },
+      {
+       "lemma": "cerf",
+       "gain": 3,
+       "cum": 1279,
+       "cum_frac_target": 0.499025
+      },
+      {
+       "lemma": "chamber",
+       "gain": 3,
+       "cum": 1282,
+       "cum_frac_target": 0.500195
+      },
+      {
+       "lemma": "check",
+       "gain": 3,
+       "cum": 1285,
+       "cum_frac_target": 0.501366
+      },
+      {
+       "lemma": "condition",
+       "gain": 3,
+       "cum": 1288,
+       "cum_frac_target": 0.502536
+      },
+      {
+       "lemma": "content",
+       "gain": 3,
+       "cum": 1291,
+       "cum_frac_target": 0.503707
+      },
+      {
+       "lemma": "cost",
+       "gain": 3,
+       "cum": 1294,
+       "cum_frac_target": 0.504877
+      },
+      {
+       "lemma": "crop",
+       "gain": 3,
+       "cum": 1297,
+       "cum_frac_target": 0.506048
+      },
+      {
+       "lemma": "cup",
+       "gain": 3,
+       "cum": 1300,
+       "cum_frac_target": 0.507218
+      },
+      {
+       "lemma": "declaration",
+       "gain": 3,
+       "cum": 1303,
+       "cum_frac_target": 0.508389
+      },
+      {
+       "lemma": "designer",
+       "gain": 3,
+       "cum": 1306,
+       "cum_frac_target": 0.509559
+      },
+      {
+       "lemma": "difference",
+       "gain": 3,
+       "cum": 1309,
+       "cum_frac_target": 0.51073
+      },
+      {
+       "lemma": "divide",
+       "gain": 3,
+       "cum": 1312,
+       "cum_frac_target": 0.5119
+      },
+      {
+       "lemma": "doctor",
+       "gain": 3,
+       "cum": 1315,
+       "cum_frac_target": 0.513071
+      },
+      {
+       "lemma": "drinker",
+       "gain": 3,
+       "cum": 1318,
+       "cum_frac_target": 0.514241
+      },
+      {
+       "lemma": "enter",
+       "gain": 3,
+       "cum": 1321,
+       "cum_frac_target": 0.515412
+      },
+      {
+       "lemma": "expert",
+       "gain": 3,
+       "cum": 1324,
+       "cum_frac_target": 0.516582
+      },
+      {
+       "lemma": "failure",
+       "gain": 3,
+       "cum": 1327,
+       "cum_frac_target": 0.517753
+      },
+      {
+       "lemma": "figure",
+       "gain": 3,
+       "cum": 1330,
+       "cum_frac_target": 0.518923
+      },
+      {
+       "lemma": "flap",
+       "gain": 3,
+       "cum": 1333,
+       "cum_frac_target": 0.520094
+      },
+      {
+       "lemma": "gain",
+       "gain": 3,
+       "cum": 1336,
+       "cum_frac_target": 0.521264
+      },
+      {
+       "lemma": "game",
+       "gain": 3,
+       "cum": 1339,
+       "cum_frac_target": 0.522435
+      },
+      {
+       "lemma": "geneticist",
+       "gain": 3,
+       "cum": 1342,
+       "cum_frac_target": 0.523605
+      },
+      {
+       "lemma": "hold",
+       "gain": 3,
+       "cum": 1345,
+       "cum_frac_target": 0.524776
+      },
+      {
+       "lemma": "increasingly",
+       "gain": 3,
+       "cum": 1348,
+       "cum_frac_target": 0.525946
+      },
+      {
+       "lemma": "instrument",
+       "gain": 3,
+       "cum": 1351,
+       "cum_frac_target": 0.527117
+      },
+      {
+       "lemma": "interest",
+       "gain": 3,
+       "cum": 1354,
+       "cum_frac_target": 0.528287
+      },
+      {
+       "lemma": "interior",
+       "gain": 3,
+       "cum": 1357,
+       "cum_frac_target": 0.529458
+      },
+      {
+       "lemma": "interview",
+       "gain": 3,
+       "cum": 1360,
+       "cum_frac_target": 0.530628
+      },
+      {
+       "lemma": "issue",
+       "gain": 3,
+       "cum": 1363,
+       "cum_frac_target": 0.531799
+      },
+      {
+       "lemma": "journalist",
+       "gain": 3,
+       "cum": 1366,
+       "cum_frac_target": 0.532969
+      },
+      {
+       "lemma": "kon-rads",
+       "gain": 3,
+       "cum": 1369,
+       "cum_frac_target": 0.53414
+      },
+      {
+       "lemma": "lack",
+       "gain": 3,
+       "cum": 1372,
+       "cum_frac_target": 0.53531
+      },
+      {
+       "lemma": "large",
+       "gain": 3,
+       "cum": 1375,
+       "cum_frac_target": 0.536481
+      },
+      {
+       "lemma": "leader",
+       "gain": 3,
+       "cum": 1378,
+       "cum_frac_target": 0.537651
+      },
+      {
+       "lemma": "loss",
+       "gain": 3,
+       "cum": 1381,
+       "cum_frac_target": 0.538822
+      },
+      {
+       "lemma": "machine",
+       "gain": 3,
+       "cum": 1384,
+       "cum_frac_target": 0.539992
+      },
+      {
+       "lemma": "mechanism",
+       "gain": 3,
+       "cum": 1387,
+       "cum_frac_target": 0.541163
+      },
+      {
+       "lemma": "moment",
+       "gain": 3,
+       "cum": 1390,
+       "cum_frac_target": 0.542333
+      },
+      {
+       "lemma": "nanny",
+       "gain": 3,
+       "cum": 1393,
+       "cum_frac_target": 0.543504
+      },
+      {
+       "lemma": "noma",
+       "gain": 3,
+       "cum": 1396,
+       "cum_frac_target": 0.544674
+      },
+      {
+       "lemma": "peter",
+       "gain": 3,
+       "cum": 1399,
+       "cum_frac_target": 0.545845
+      },
+      {
+       "lemma": "pioneer",
+       "gain": 3,
+       "cum": 1402,
+       "cum_frac_target": 0.547015
+      },
+      {
+       "lemma": "position",
+       "gain": 3,
+       "cum": 1405,
+       "cum_frac_target": 0.548186
+      },
+      {
+       "lemma": "president",
+       "gain": 3,
+       "cum": 1408,
+       "cum_frac_target": 0.549356
+      },
+      {
+       "lemma": "prince",
+       "gain": 3,
+       "cum": 1411,
+       "cum_frac_target": 0.550527
+      },
+      {
+       "lemma": "proof",
+       "gain": 3,
+       "cum": 1414,
+       "cum_frac_target": 0.551697
+      },
+      {
+       "lemma": "psychologist",
+       "gain": 3,
+       "cum": 1417,
+       "cum_frac_target": 0.552868
+      },
+      {
+       "lemma": "rare",
+       "gain": 3,
+       "cum": 1420,
+       "cum_frac_target": 0.554038
+      },
+      {
+       "lemma": "receive",
+       "gain": 3,
+       "cum": 1423,
+       "cum_frac_target": 0.555209
+      },
+      {
+       "lemma": "representation",
+       "gain": 3,
+       "cum": 1426,
+       "cum_frac_target": 0.556379
+      },
+      {
+       "lemma": "republican",
+       "gain": 3,
+       "cum": 1429,
+       "cum_frac_target": 0.55755
+      },
+      {
+       "lemma": "requirement",
+       "gain": 3,
+       "cum": 1432,
+       "cum_frac_target": 0.55872
+      },
+      {
+       "lemma": "rule",
+       "gain": 3,
+       "cum": 1435,
+       "cum_frac_target": 0.559891
+      },
+      {
+       "lemma": "sinking",
+       "gain": 3,
+       "cum": 1438,
+       "cum_frac_target": 0.561061
+      },
+      {
+       "lemma": "spore",
+       "gain": 3,
+       "cum": 1441,
+       "cum_frac_target": 0.562232
+      },
+      {
+       "lemma": "step",
+       "gain": 3,
+       "cum": 1444,
+       "cum_frac_target": 0.563402
+      },
+      {
+       "lemma": "subject",
+       "gain": 3,
+       "cum": 1447,
+       "cum_frac_target": 0.564573
+      },
+      {
+       "lemma": "target",
+       "gain": 3,
+       "cum": 1450,
+       "cum_frac_target": 0.565743
+      },
+      {
+       "lemma": "team",
+       "gain": 3,
+       "cum": 1453,
+       "cum_frac_target": 0.566914
+      },
+      {
+       "lemma": "term",
+       "gain": 3,
+       "cum": 1456,
+       "cum_frac_target": 0.568084
+      },
+      {
+       "lemma": "toxin",
+       "gain": 3,
+       "cum": 1459,
+       "cum_frac_target": 0.569255
+      },
+      {
+       "lemma": "trip",
+       "gain": 3,
+       "cum": 1462,
+       "cum_frac_target": 0.570425
+      }
+     ]
+    }
+   }
+  }
+ },
+ "norms_sizes": {
+  "concreteness_ConcM": 37058,
+  "aoa_Kuperman_lem_years": 51695,
+  "lancaster_max_sensorimotor": 39707
+ },
+ "brain_fidelity_gate": {
+  "v5_v62_k1_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 185,
+       "mean": 3.5485,
+       "sd": 0.8697,
+       "median": 3.66,
+       "p10": 2.37,
+       "p90": 4.678
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 185,
+       "n_b": 10244,
+       "U": 1145427.5,
+       "p_two_sided": 1.087495680291655e-06,
+       "rank_biserial_a_vs_b": 0.2088
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 188,
+       "mean": 7.931,
+       "sd": 2.4601,
+       "median": 7.8,
+       "p10": 4.95,
+       "p90": 11.482
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.94,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 188,
+       "n_b": 10246,
+       "U": 665734.0,
+       "p_two_sided": 3.693852403303569e-13,
+       "rank_biserial_a_vs_b": -0.3088
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 185,
+       "mean": 3.5568,
+       "sd": 0.6925,
+       "median": 3.6471,
+       "p10": 2.7,
+       "p90": 4.3785
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 185,
+       "n_b": 10221,
+       "U": 1085640.5,
+       "p_two_sided": 0.0005359095925720201,
+       "rank_biserial_a_vs_b": 0.1483
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 185,
+       "mean": 3.5485,
+       "sd": 0.8697,
+       "median": 3.66,
+       "p10": 2.37,
+       "p90": 4.678
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 185,
+       "n_b": 813,
+       "U": 93999.5,
+       "p_two_sided": 1.0841312421922105e-07,
+       "rank_biserial_a_vs_b": 0.25
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 188,
+       "mean": 7.931,
+       "sd": 2.4601,
+       "median": 7.8,
+       "p10": 4.95,
+       "p90": 11.482
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.94,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 188,
+       "n_b": 803,
+       "U": 125013.0,
+       "p_two_sided": 1.1610336919913407e-44,
+       "rank_biserial_a_vs_b": 0.6562
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 185,
+       "mean": 3.5568,
+       "sd": 0.6925,
+       "median": 3.6471,
+       "p10": 2.7,
+       "p90": 4.3785
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 185,
+       "n_b": 812,
+       "U": 78637.0,
+       "p_two_sided": 0.31841047813986534,
+       "rank_biserial_a_vs_b": 0.047
+      }
+     }
+    }
+   },
+   "n_in_seed": 33,
+   "n_in_grounded": 11,
+   "n_in_anchor_universe": 44,
+   "n_new": 156
+  },
+  "v5_v62_k2_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 183,
+       "mean": 3.5102,
+       "sd": 0.887,
+       "median": 3.66,
+       "p10": 2.268,
+       "p90": 4.69
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.915,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 183,
+       "n_b": 10244,
+       "U": 1111772.0,
+       "p_two_sided": 1.5455361213728538e-05,
+       "rank_biserial_a_vs_b": 0.1861
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 185,
+       "mean": 7.8395,
+       "sd": 2.2871,
+       "median": 7.94,
+       "p10": 4.944,
+       "p90": 10.664
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 185,
+       "n_b": 10246,
+       "U": 639529.5,
+       "p_two_sided": 3.126053750930514e-14,
+       "rank_biserial_a_vs_b": -0.3252
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 183,
+       "mean": 3.609,
+       "sd": 0.6479,
+       "median": 3.6471,
+       "p10": 2.7169,
+       "p90": 4.4356
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.915,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 183,
+       "n_b": 10221,
+       "U": 1109179.0,
+       "p_two_sided": 1.5628398482496457e-05,
+       "rank_biserial_a_vs_b": 0.186
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 183,
+       "mean": 3.5102,
+       "sd": 0.887,
+       "median": 3.66,
+       "p10": 2.268,
+       "p90": 4.69
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.915,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 183,
+       "n_b": 813,
+       "U": 91456.5,
+       "p_two_sided": 1.2083713034919357e-06,
+       "rank_biserial_a_vs_b": 0.2294
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 185,
+       "mean": 7.8395,
+       "sd": 2.2871,
+       "median": 7.94,
+       "p10": 4.944,
+       "p90": 10.664
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 185,
+       "n_b": 803,
+       "U": 122691.0,
+       "p_two_sided": 1.5416422098537563e-43,
+       "rank_biserial_a_vs_b": 0.6518
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 183,
+       "mean": 3.609,
+       "sd": 0.6479,
+       "median": 3.6471,
+       "p10": 2.7169,
+       "p90": 4.4356
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.915,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 183,
+       "n_b": 812,
+       "U": 80171.5,
+       "p_two_sided": 0.0944573196774275,
+       "rank_biserial_a_vs_b": 0.0791
+      }
+     }
+    }
+   },
+   "n_in_seed": 34,
+   "n_in_grounded": 5,
+   "n_in_anchor_universe": 39,
+   "n_new": 161
+  },
+  "v5_v62_k3_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 186,
+       "mean": 3.4995,
+       "sd": 0.8784,
+       "median": 3.62,
+       "p10": 2.255,
+       "p90": 4.65
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 186,
+       "n_b": 10244,
+       "U": 1124618.0,
+       "p_two_sided": 2.3940695981530835e-05,
+       "rank_biserial_a_vs_b": 0.1805
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 186,
+       "mean": 7.7598,
+       "sd": 2.205,
+       "median": 7.84,
+       "p10": 4.945,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 186,
+       "n_b": 10246,
+       "U": 628332.5,
+       "p_two_sided": 1.5471327764027298e-15,
+       "rank_biserial_a_vs_b": -0.3406
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 186,
+       "mean": 3.6398,
+       "sd": 0.651,
+       "median": 3.6754,
+       "p10": 2.7208,
+       "p90": 4.4444
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 186,
+       "n_b": 10221,
+       "U": 1152211.5,
+       "p_two_sided": 6.826402927708867e-07,
+       "rank_biserial_a_vs_b": 0.2121
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 186,
+       "mean": 3.4995,
+       "sd": 0.8784,
+       "median": 3.62,
+       "p10": 2.255,
+       "p90": 4.65
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 186,
+       "n_b": 813,
+       "U": 92568.5,
+       "p_two_sided": 1.775400820623011e-06,
+       "rank_biserial_a_vs_b": 0.2243
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 186,
+       "mean": 7.7598,
+       "sd": 2.205,
+       "median": 7.84,
+       "p10": 4.945,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 186,
+       "n_b": 803,
+       "U": 123145.5,
+       "p_two_sided": 2.310328914233749e-43,
+       "rank_biserial_a_vs_b": 0.649
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 186,
+       "mean": 3.6398,
+       "sd": 0.651,
+       "median": 3.6754,
+       "p10": 2.7208,
+       "p90": 4.4444
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.93,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 186,
+       "n_b": 812,
+       "U": 83294.5,
+       "p_two_sided": 0.028267390224444407,
+       "rank_biserial_a_vs_b": 0.103
+      }
+     }
+    }
+   },
+   "n_in_seed": 33,
+   "n_in_grounded": 5,
+   "n_in_anchor_universe": 38,
+   "n_new": 162
+  },
+  "all_k1_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 189,
+       "mean": 3.5332,
+       "sd": 0.8829,
+       "median": 3.63,
+       "p10": 2.326,
+       "p90": 4.706
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 189,
+       "n_b": 10244,
+       "U": 1161913.5,
+       "p_two_sided": 2.3036648471671375e-06,
+       "rank_biserial_a_vs_b": 0.2003
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 189,
+       "mean": 7.761,
+       "sd": 2.4737,
+       "median": 7.58,
+       "p10": 4.658,
+       "p90": 11.172
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 189,
+       "n_b": 10246,
+       "U": 639737.5,
+       "p_two_sided": 1.1941940721336197e-15,
+       "rank_biserial_a_vs_b": -0.3393
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 189,
+       "mean": 3.5271,
+       "sd": 0.7096,
+       "median": 3.6316,
+       "p10": 2.5556,
+       "p90": 4.3359
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 189,
+       "n_b": 10221,
+       "U": 1092344.0,
+       "p_two_sided": 0.002007978019988948,
+       "rank_biserial_a_vs_b": 0.1309
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 189,
+       "mean": 3.5332,
+       "sd": 0.8829,
+       "median": 3.63,
+       "p10": 2.326,
+       "p90": 4.706
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 189,
+       "n_b": 813,
+       "U": 95345.5,
+       "p_two_sided": 2.3801530900456054e-07,
+       "rank_biserial_a_vs_b": 0.241
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 189,
+       "mean": 7.761,
+       "sd": 2.4737,
+       "median": 7.58,
+       "p10": 4.658,
+       "p90": 11.172
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 189,
+       "n_b": 803,
+       "U": 122955.5,
+       "p_two_sided": 2.911250282915932e-40,
+       "rank_biserial_a_vs_b": 0.6203
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 189,
+       "mean": 3.5271,
+       "sd": 0.7096,
+       "median": 3.6316,
+       "p10": 2.5556,
+       "p90": 4.3359
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 189,
+       "n_b": 812,
+       "U": 79104.0,
+       "p_two_sided": 0.5080160187109982,
+       "rank_biserial_a_vs_b": 0.0309
+      }
+     }
+    }
+   },
+   "n_in_seed": 41,
+   "n_in_grounded": 12,
+   "n_in_anchor_universe": 53,
+   "n_new": 147
+  },
+  "all_k2_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 180,
+       "mean": 3.4378,
+       "sd": 0.9184,
+       "median": 3.555,
+       "p10": 2.186,
+       "p90": 4.642
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.9,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 180,
+       "n_b": 10244,
+       "U": 1054240.0,
+       "p_two_sided": 0.0009495695174069727,
+       "rank_biserial_a_vs_b": 0.1435
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 178,
+       "mean": 7.7844,
+       "sd": 2.2604,
+       "median": 7.9,
+       "p10": 4.947,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.89,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 178,
+       "n_b": 10246,
+       "U": 606587.0,
+       "p_two_sided": 1.718234374207688e-14,
+       "rank_biserial_a_vs_b": -0.3348
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 180,
+       "mean": 3.5639,
+       "sd": 0.6679,
+       "median": 3.6569,
+       "p10": 2.624,
+       "p90": 4.335
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.9,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 180,
+       "n_b": 10221,
+       "U": 1062094.0,
+       "p_two_sided": 0.0003694930012281824,
+       "rank_biserial_a_vs_b": 0.1546
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 180,
+       "mean": 3.4378,
+       "sd": 0.9184,
+       "median": 3.555,
+       "p10": 2.186,
+       "p90": 4.642
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.9,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 180,
+       "n_b": 813,
+       "U": 87006.0,
+       "p_two_sided": 7.070490335058445e-05,
+       "rank_biserial_a_vs_b": 0.1891
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 178,
+       "mean": 7.7844,
+       "sd": 2.2604,
+       "median": 7.9,
+       "p10": 4.947,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.89,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 178,
+       "n_b": 803,
+       "U": 117492.5,
+       "p_two_sided": 2.779063959903489e-41,
+       "rank_biserial_a_vs_b": 0.644
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 180,
+       "mean": 3.5639,
+       "sd": 0.6679,
+       "median": 3.6569,
+       "p10": 2.624,
+       "p90": 4.335
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.9,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 180,
+       "n_b": 812,
+       "U": 76775.5,
+       "p_two_sided": 0.288014820036959,
+       "rank_biserial_a_vs_b": 0.0506
+      }
+     }
+    }
+   },
+   "n_in_seed": 35,
+   "n_in_grounded": 7,
+   "n_in_anchor_universe": 42,
+   "n_new": 158
+  },
+  "all_k3_top200": {
+   "vs_corpus_eligible": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 18276,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 189,
+       "mean": 3.4171,
+       "sd": 0.9224,
+       "median": 3.54,
+       "p10": 2.182,
+       "p90": 4.644
+      },
+      "reference": {
+       "n": 10244,
+       "mean": 3.1911,
+       "sd": 1.0266,
+       "median": 3.1,
+       "p10": 1.88,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.5605,
+      "test": {
+       "n_a": 189,
+       "n_b": 10244,
+       "U": 1096029.5,
+       "p_two_sided": 0.0018146317432201266,
+       "rank_biserial_a_vs_b": 0.1322
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 185,
+       "mean": 7.7102,
+       "sd": 2.26,
+       "median": 7.85,
+       "p10": 4.628,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 10246,
+       "mean": 9.4584,
+       "sd": 3.0075,
+       "median": 9.53,
+       "p10": 5.33,
+       "p90": 13.39
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.5606,
+      "test": {
+       "n_a": 185,
+       "n_b": 10246,
+       "U": 617948.0,
+       "p_two_sided": 4.486864510091843e-16,
+       "rank_biserial_a_vs_b": -0.348
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 189,
+       "mean": 3.5633,
+       "sd": 0.6594,
+       "median": 3.6471,
+       "p10": 2.5544,
+       "p90": 4.32
+      },
+      "reference": {
+       "n": 10221,
+       "mean": 3.3898,
+       "sd": 0.714,
+       "median": 3.4118,
+       "p10": 2.4375,
+       "p90": 4.3333
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.5593,
+      "test": {
+       "n_a": 189,
+       "n_b": 10221,
+       "U": 1113477.0,
+       "p_two_sided": 0.00031182730738152863,
+       "rank_biserial_a_vs_b": 0.1528
+      }
+     }
+    }
+   },
+   "vs_seed_lemmas": {
+    "name": "basis",
+    "n_group": 200,
+    "n_reference": 887,
+    "by_norm": {
+     "concreteness_ConcM": {
+      "group": {
+       "n": 189,
+       "mean": 3.4171,
+       "sd": 0.9224,
+       "median": 3.54,
+       "p10": 2.182,
+       "p90": 4.644
+      },
+      "reference": {
+       "n": 813,
+       "mean": 3.0984,
+       "sd": 1.0685,
+       "median": 3.04,
+       "p10": 1.69,
+       "p90": 4.69
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.9166,
+      "test": {
+       "n_a": 189,
+       "n_b": 813,
+       "U": 90524.0,
+       "p_two_sided": 0.00013264900408451412,
+       "rank_biserial_a_vs_b": 0.1783
+      }
+     },
+     "aoa_Kuperman_lem_years": {
+      "group": {
+       "n": 185,
+       "mean": 7.7102,
+       "sd": 2.26,
+       "median": 7.85,
+       "p10": 4.628,
+       "p90": 10.61
+      },
+      "reference": {
+       "n": 803,
+       "mean": 5.2485,
+       "sd": 1.5114,
+       "median": 5.05,
+       "p10": 3.552,
+       "p90": 7.26
+      },
+      "group_norm_coverage": 0.925,
+      "ref_norm_coverage": 0.9053,
+      "test": {
+       "n_a": 185,
+       "n_b": 803,
+       "U": 120900.5,
+       "p_two_sided": 1.6679827177529738e-40,
+       "rank_biserial_a_vs_b": 0.6277
+      }
+     },
+     "lancaster_max_sensorimotor": {
+      "group": {
+       "n": 189,
+       "mean": 3.5633,
+       "sd": 0.6594,
+       "median": 3.6471,
+       "p10": 2.5544,
+       "p90": 4.32
+      },
+      "reference": {
+       "n": 812,
+       "mean": 3.4559,
+       "sd": 0.8765,
+       "median": 3.559,
+       "p10": 2.1905,
+       "p90": 4.5439
+      },
+      "group_norm_coverage": 0.945,
+      "ref_norm_coverage": 0.9154,
+      "test": {
+       "n_a": 189,
+       "n_b": 812,
+       "U": 80465.5,
+       "p_two_sided": 0.2972863057502332,
+       "rank_biserial_a_vs_b": 0.0486
+      }
+     }
+    }
+   },
+   "n_in_seed": 37,
+   "n_in_grounded": 5,
+   "n_in_anchor_universe": 42,
+   "n_new": 158
+  },
+  "_reference_seed_vs_corpus": {
+   "name": "seed_lemmas",
+   "n_group": 887,
+   "n_reference": 18276,
+   "by_norm": {
+    "concreteness_ConcM": {
+     "group": {
+      "n": 813,
+      "mean": 3.0984,
+      "sd": 1.0685,
+      "median": 3.04,
+      "p10": 1.69,
+      "p90": 4.69
+     },
+     "reference": {
+      "n": 10244,
+      "mean": 3.1911,
+      "sd": 1.0266,
+      "median": 3.1,
+      "p10": 1.88,
+      "p90": 4.69
+     },
+     "group_norm_coverage": 0.9166,
+     "ref_norm_coverage": 0.5605,
+     "test": {
+      "n_a": 813,
+      "n_b": 10244,
+      "U": 3950115.5,
+      "p_two_sided": 0.014540895180558221,
+      "rank_biserial_a_vs_b": -0.0514
+     }
+    },
+    "aoa_Kuperman_lem_years": {
+     "group": {
+      "n": 803,
+      "mean": 5.2485,
+      "sd": 1.5114,
+      "median": 5.05,
+      "p10": 3.552,
+      "p90": 7.26
+     },
+     "reference": {
+      "n": 10246,
+      "mean": 9.4584,
+      "sd": 3.0075,
+      "median": 9.53,
+      "p10": 5.33,
+      "p90": 13.39
+     },
+     "group_norm_coverage": 0.9053,
+     "ref_norm_coverage": 0.5606,
+     "test": {
+      "n_a": 803,
+      "n_b": 10246,
+      "U": 934663.0,
+      "p_two_sided": 4.582436722210995e-292,
+      "rank_biserial_a_vs_b": -0.7728
+     }
+    },
+    "lancaster_max_sensorimotor": {
+     "group": {
+      "n": 812,
+      "mean": 3.4559,
+      "sd": 0.8765,
+      "median": 3.559,
+      "p10": 2.1905,
+      "p90": 4.5439
+     },
+     "reference": {
+      "n": 10221,
+      "mean": 3.3898,
+      "sd": 0.714,
+      "median": 3.4118,
+      "p10": 2.4375,
+      "p90": 4.3333
+     },
+     "group_norm_coverage": 0.9154,
+     "ref_norm_coverage": 0.5593,
+     "test": {
+      "n_a": 812,
+      "n_b": 10221,
+      "U": 4465561.0,
+      "p_two_sided": 0.00029978194473012556,
+      "rank_biserial_a_vs_b": 0.0761
+     }
+    }
+   }
+  },
+  "_reference_outdegree_hubs_top200_vs_corpus": {
+   "name": "hubs",
+   "n_group": 200,
+   "n_reference": 18276,
+   "by_norm": {
+    "concreteness_ConcM": {
+     "group": {
+      "n": 184,
+      "mean": 3.4617,
+      "sd": 0.8612,
+      "median": 3.49,
+      "p10": 2.386,
+      "p90": 4.654
+     },
+     "reference": {
+      "n": 10244,
+      "mean": 3.1911,
+      "sd": 1.0266,
+      "median": 3.1,
+      "p10": 1.88,
+      "p90": 4.69
+     },
+     "group_norm_coverage": 0.92,
+     "ref_norm_coverage": 0.5605,
+     "test": {
+      "n_a": 184,
+      "n_b": 10244,
+      "U": 1097528.0,
+      "p_two_sided": 0.00012729103099399247,
+      "rank_biserial_a_vs_b": 0.1646
+     }
+    },
+    "aoa_Kuperman_lem_years": {
+     "group": {
+      "n": 186,
+      "mean": 7.915,
+      "sd": 2.4962,
+      "median": 7.83,
+      "p10": 4.675,
+      "p90": 11.13
+     },
+     "reference": {
+      "n": 10246,
+      "mean": 9.4584,
+      "sd": 3.0075,
+      "median": 9.53,
+      "p10": 5.33,
+      "p90": 13.39
+     },
+     "group_norm_coverage": 0.93,
+     "ref_norm_coverage": 0.5606,
+     "test": {
+      "n_a": 186,
+      "n_b": 10246,
+      "U": 662196.0,
+      "p_two_sided": 9.25222427097909e-13,
+      "rank_biserial_a_vs_b": -0.3051
+     }
+    },
+    "lancaster_max_sensorimotor": {
+     "group": {
+      "n": 184,
+      "mean": 3.4959,
+      "sd": 0.7104,
+      "median": 3.6056,
+      "p10": 2.5928,
+      "p90": 4.3333
+     },
+     "reference": {
+      "n": 10221,
+      "mean": 3.3898,
+      "sd": 0.714,
+      "median": 3.4118,
+      "p10": 2.4375,
+      "p90": 4.3333
+     },
+     "group_norm_coverage": 0.92,
+     "ref_norm_coverage": 0.5593,
+     "test": {
+      "n_a": 184,
+      "n_b": 10221,
+      "U": 1036502.5,
+      "p_two_sided": 0.017244720725372135,
+      "rank_biserial_a_vs_b": 0.1023
+     }
+    }
+   }
+  }
+ },
+ "hub_top30_by_outdegree": [
+  [
+   "process",
+   54
+  ],
+  [
+   "structure",
+   36
+  ],
+  [
+   "cell",
+   27
+  ],
+  [
+   "molecule",
+   22
+  ],
+  [
+   "study",
+   18
+  ],
+  [
+   "organism",
+   17
+  ],
+  [
+   "animal",
+   13
+  ],
+  [
+   "plant",
+   13
+  ],
+  [
+   "type",
+   13
+  ],
+  [
+   "component",
+   12
+  ],
+  [
+   "division",
+   12
+  ],
+  [
+   "organ",
+   12
+  ],
+  [
+   "protein",
+   12
+  ],
+  [
+   "body",
+   11
+  ],
+  [
+   "clade",
+   11
+  ],
+  [
+   "layer",
+   11
+  ],
+  [
+   "species",
+   11
+  ],
+  [
+   "stage",
+   11
+  ],
+  [
+   "change",
+   10
+  ],
+  [
+   "disease",
+   10
+  ],
+  [
+   "phylum",
+   10
+  ],
+  [
+   "substance",
+   10
+  ],
+  [
+   "enzyme",
+   9
+  ],
+  [
+   "organelle",
+   9
+  ],
+  [
+   "region",
+   9
+  ],
+  [
+   "biome",
+   8
+  ],
+  [
+   "category",
+   8
+  ],
+  [
+   "company",
+   8
+  ],
+  [
+   "compound",
+   8
+  ],
+  [
+   "director",
+   8
+  ]
+ ],
+ "primary_basis_note": "graph=all(v3+v4+v5+v62), k=2, greedy top-200",
+ "seed_vs_target": {
+  "target_size": 2563,
+  "seed_lemmas_in_target": 237,
+  "grounded_in_target": 100,
+  "anchor_universe_in_target": 337,
+  "coverage_by_seed_k1": 549,
+  "coverage_by_seed_k2": 667,
+  "coverage_by_anchor_universe_k2": 918,
+  "seed_lemmas_present_in_graph": 245
+ }
+}

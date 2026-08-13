@@ -1,0 +1,344 @@
+{
+  "anchor_name": "anchor_pool_expansion_v1",
+  "run_mode": "smoke",
+  "ts_iso": "2026-08-13T11:24:51.359360+00:00",
+  "prereg": "preregs/2026-08-13_anchor_pool_expansion.md",
+  "wire_status": "VET_PENDING -- anchor_pool is DEFAULT-OFF; nothing wired ON",
+  "verdict": "COMPARATOR_IS_BINDING",
+  "verdict_msg": "ONE VARIABLE = anchor pool size. Band is read off the v5 RELATION-MATCHED known-answer key. NO quality claim is made from the blind hand-score sample.",
+  "QUALITY_CLAIM": "NONE from the hand-score sample -- the Director scores that blind. The known-answer recall numbers are objective and hand-score independent.",
+  "bands_preregistered": {
+    "discriminator": "recall@1(LARGE) - recall@1(SMALL) on the v5 RELATION-MATCHED known-answer key (GROUNDED_MEANING). v62 is relation-MISMATCHED and cannot carry the verdict.",
+    "POOL_WAS_BINDING": "availability delta >= +0.30 AND recall@1 delta >= +0.10",
+    "PARTIAL": "recall@1 delta in [+0.03, +0.10)",
+    "COMPARATOR_IS_BINDING": "availability delta >= +0.30 AND recall@1 delta < +0.03 -- the answer is on the menu and still is not chosen. PRE-DECLARED FULLY EXPECTED AND ACCEPTABLE.",
+    "HURTS": "recall@1 delta <= -0.03 -- more candidates means more distractors. A live possibility, not a formality.",
+    "BROKEN": "availability does not rise -- the manipulation failed; nothing else is interpreted.",
+    "power": "n=1353 v5 probe subjects: SE(proportion near 0.05) = 0.006, SE(delta) <= 0.019, so +0.03 is resolvable at >1.5 SE and +0.10 at >5 SE.",
+    "secondary_mechanistic": "per-arm agreement with a plain sentence-level co-occurrence baseline (cooc_agreement_top1 / top5), hand-score independent."
+  },
+  "chosen_depth": {
+    "seed_depth_rows": 74287,
+    "why": "shallowest depth reaching a great majority of corpus content lemmas (0.7549 of types, 0.9477 of tokens); depth 20000 reaches only 0.5092 of types. Marginal anchor cost is small (12691 vs 8561 occurring lemmas) because the CORPUS vocabulary is the binding constraint.",
+    "coverage_table": "data/exp_anchor_pool_expansion_v1/_probe_coverage.json"
+  },
+  "PRIMARY_known_answer_recall": {
+    "v5_definitional": {
+      "per_arm": {
+        "SMALL": {
+          "n_probe_subjects": 1353,
+          "n_readable": 361,
+          "availability": 0.189209,
+          "n_available": 256,
+          "recall_at_1": 0.0,
+          "n_recall_at_1": 0,
+          "recall_at_5": 0.003695,
+          "n_recall_at_5": 5,
+          "availability_conditioned_recall_at_1": 0.0,
+          "n_availability_conditioned": 256,
+          "n_availability_conditioned_hit": 0,
+          "live_banked": {
+            "n_probe_subjects_banked": 25,
+            "n_banked_correct": 0,
+            "live_banked_recall": 0.0
+          }
+        },
+        "LARGE": {
+          "n_probe_subjects": 1353,
+          "n_readable": 361,
+          "availability": 0.72136,
+          "n_available": 976,
+          "recall_at_1": 0.005174,
+          "n_recall_at_1": 7,
+          "recall_at_5": 0.017738,
+          "n_recall_at_5": 24,
+          "availability_conditioned_recall_at_1": 0.007172,
+          "n_availability_conditioned": 976,
+          "n_availability_conditioned_hit": 7,
+          "live_banked": {
+            "n_probe_subjects_banked": 13,
+            "n_banked_correct": 0,
+            "live_banked_recall": 0.0
+          }
+        }
+      },
+      "deltas": {
+        "availability_delta": 0.532151,
+        "recall_at_1_delta": 0.005174,
+        "recall_at_5_delta": 0.014043,
+        "availability_conditioned_recall_at_1_delta": 0.007172
+      }
+    },
+    "v62_predicate": {
+      "per_arm": {
+        "SMALL": {
+          "n_probe_subjects": 36,
+          "n_readable": 7,
+          "availability": 0.305556,
+          "n_available": 11,
+          "recall_at_1": 0.0,
+          "n_recall_at_1": 0,
+          "recall_at_5": 0.0,
+          "n_recall_at_5": 0,
+          "availability_conditioned_recall_at_1": 0.0,
+          "n_availability_conditioned": 11,
+          "n_availability_conditioned_hit": 0,
+          "live_banked": {
+            "n_probe_subjects_banked": 0,
+            "n_banked_correct": 0,
+            "live_banked_recall": null
+          }
+        },
+        "LARGE": {
+          "n_probe_subjects": 36,
+          "n_readable": 7,
+          "availability": 0.805556,
+          "n_available": 29,
+          "recall_at_1": 0.0,
+          "n_recall_at_1": 0,
+          "recall_at_5": 0.0,
+          "n_recall_at_5": 0,
+          "availability_conditioned_recall_at_1": 0.0,
+          "n_availability_conditioned": 29,
+          "n_availability_conditioned_hit": 0,
+          "live_banked": {
+            "n_probe_subjects_banked": 0,
+            "n_banked_correct": 0,
+            "live_banked_recall": null
+          }
+        }
+      },
+      "deltas": {
+        "availability_delta": 0.5,
+        "recall_at_1_delta": 0.0,
+        "recall_at_5_delta": 0.0,
+        "availability_conditioned_recall_at_1_delta": 0.0
+      }
+    }
+  },
+  "structural_gates": {
+    "S1_cardinality": {
+      "ok": true,
+      "expected_n_units": 10,
+      "n_present": 12,
+      "missing_units": [],
+      "missing_arms": []
+    },
+    "S2_integrity": {
+      "ok": true,
+      "per_arm": {
+        "SMALL": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        },
+        "LARGE": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        }
+      }
+    },
+    "S3_arms_differ": {
+      "ok": true,
+      "digests": {
+        "SMALL": "1ac30b47d6687936323bc132378046f101f822f016669be637ce4c7f98b13390",
+        "LARGE": "70971e3f38d530cf2e3d8b8d262308c21037278f149e5a594733dcea1aa20691"
+      }
+    },
+    "S4_small_regression": {
+      "reference": "data/exp_grounding_quality_readout_v1/metrics.json",
+      "expected_n_facts": 384,
+      "expected_digest16": "836571fa99d5765d",
+      "observed_n_facts": 132,
+      "observed_digest16": "1ac30b47d6687936",
+      "small_reproduces_reference": false
+    },
+    "S5_yield_floor": {
+      "SMALL": {
+        "n_meaning_facts": 132,
+        "meets_yield_floor_50": true
+      },
+      "LARGE": {
+        "n_meaning_facts": 73,
+        "meets_yield_floor_50": true
+      }
+    },
+    "S6_default_off_witness": "hdlab.reading_grounding_loop._selftest_anchor_pool_is_off_by_default"
+  },
+  "secondary_cooccurrence_agreement": {
+    "what": "agreement between each arm's banked (subject -> object) facts and a PLAIN sentence-level co-occurrence baseline over the same 34169-sentence corpus. Hand-score independent. Same recipe as exp_structured_comparator_v1.",
+    "per_arm": {
+      "SMALL": {
+        "n_scored": 132,
+        "n_subject_absent_from_baseline": 0,
+        "cooc_agreement_top1": 0.060606,
+        "cooc_agreement_top5": 0.409091
+      },
+      "LARGE": {
+        "n_scored": 73,
+        "n_subject_absent_from_baseline": 0,
+        "cooc_agreement_top1": 0.150685,
+        "cooc_agreement_top5": 0.39726
+      }
+    }
+  },
+  "resources": {
+    "SMALL": {
+      "anchor_matrix_shape": [
+        737,
+        256
+      ],
+      "anchor_matrix_bytes": 1509376,
+      "n_anchors": 737,
+      "n_eligible_anchors": 603,
+      "peak_rss_bytes": 611827712,
+      "elapsed_s": 87.22
+    },
+    "LARGE": {
+      "anchor_matrix_shape": [
+        3398,
+        256
+      ],
+      "anchor_matrix_bytes": 6959104,
+      "n_anchors": 3398,
+      "n_eligible_anchors": 3199,
+      "peak_rss_bytes": 630427648,
+      "elapsed_s": 183.25
+    }
+  },
+  "objective_metrics": {
+    "SMALL": {
+      "arm": "SMALL",
+      "anchor_pool_depth_rows": null,
+      "anchor_pool_n_lemmas": 0,
+      "known_seed_top_n_rows": 1000,
+      "n_known_seed_lemmas": 887,
+      "encoder": "context_vector_masked",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 2000,
+      "n_chunks": 14,
+      "segments_seen": {
+        "bootstrap": 400,
+        "ele_cont": 400,
+        "int_cont": 400,
+        "adv_new": 400,
+        "bio_new": 400
+      },
+      "anchor_matrix_shape": [
+        737,
+        256
+      ],
+      "anchor_matrix_bytes": 1509376,
+      "n_anchors": 737,
+      "n_eligible_anchors": 603,
+      "n_full_matrix_rebuilds": 501,
+      "n_grounded": 132,
+      "n_meaning_facts": 132,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 2337,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 103,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 2159,
+        "NO_STANDING_HYPOTHESIS": 75
+      },
+      "trajectory": {
+        "n_items": 3143,
+        "n_items_with_hypothesis": 2182,
+        "n_items_revised": 607,
+        "revision_rate": 0.278185,
+        "n_encounters": 12295,
+        "n_informative_encounters": 6444,
+        "informative_encounter_rate": 0.524115,
+        "n_confirm": 608,
+        "n_disconfirm": 3658,
+        "n_abandon": 1455,
+        "n_repropose": 1455,
+        "n_revive": 465
+      },
+      "confirm_rate": 0.142522,
+      "n_verdict_bearing": 4266,
+      "admission_rate": 0.524115,
+      "pairs_digest": "1ac30b47d6687936323bc132378046f101f822f016669be637ce4c7f98b13390",
+      "peak_rss_bytes": 611827712,
+      "elapsed_s": 87.22
+    },
+    "LARGE": {
+      "arm": "LARGE",
+      "anchor_pool_depth_rows": 74287,
+      "anchor_pool_n_lemmas": 50461,
+      "known_seed_top_n_rows": 1000,
+      "n_known_seed_lemmas": 887,
+      "encoder": "context_vector_masked",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 2000,
+      "n_chunks": 14,
+      "segments_seen": {
+        "bootstrap": 400,
+        "ele_cont": 400,
+        "int_cont": 400,
+        "adv_new": 400,
+        "bio_new": 400
+      },
+      "anchor_matrix_shape": [
+        3398,
+        256
+      ],
+      "anchor_matrix_bytes": 6959104,
+      "n_anchors": 3398,
+      "n_eligible_anchors": 3199,
+      "n_full_matrix_rebuilds": 3066,
+      "n_grounded": 73,
+      "n_meaning_facts": 73,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 2518,
+      "refusal_reasons": {
+        "CLOSED_CLASS_SUBJECT": 103,
+        "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 2415
+      },
+      "trajectory": {
+        "n_items": 3143,
+        "n_items_with_hypothesis": 2969,
+        "n_items_revised": 1160,
+        "revision_rate": 0.390704,
+        "n_encounters": 12379,
+        "n_informative_encounters": 11202,
+        "informative_encounter_rate": 0.90492,
+        "n_confirm": 490,
+        "n_disconfirm": 7743,
+        "n_abandon": 3328,
+        "n_repropose": 3328,
+        "n_revive": 484
+      },
+      "confirm_rate": 0.059517,
+      "n_verdict_bearing": 8233,
+      "admission_rate": 0.90492,
+      "pairs_digest": "70971e3f38d530cf2e3d8b8d262308c21037278f149e5a594733dcea1aa20691",
+      "peak_rss_bytes": 630427648,
+      "elapsed_s": 183.25
+    }
+  },
+  "deliverable": {
+    "per_arm_files": {
+      "SMALL": "b3_audit_sample_SMALL.json",
+      "LARGE": "b3_audit_sample_LARGE.json"
+    },
+    "blind_file": "blind_sample.json",
+    "key_file": "arm_key.json",
+    "sheet": "SCORING_SHEET.txt",
+    "n_blind_rows": 100
+  },
+  "limitations": [
+    "A pool lemma's anchor profile is a bag-of-co-occurrence sum exactly like a seed anchor's. This cell tests AVAILABILITY, not a better representation.",
+    "24.5% of corpus content types are absent from the base vocabulary at ANY depth (proper nouns, technical biology terms); that sets LARGE's availability ceiling.",
+    "The primary read-out is POST-HOC against each arm's FINAL anchor field, not the field as it stood at the live decision. Fair between arms (same procedure both sides); not the live decision.",
+    "The v5 key is 64% correct, so recall against it is bounded near 0.64 and the DELTA, not the level, is interpretable. The v62 key is 94% correct but its relations are ENABLING_CONDITION / PROCESS_ACTION etc, NOT GROUNDED_MEANING -- relation-mismatched to the read-out, reported for completeness only.",
+    "Expanding the pool also lets a target be named by a word the loop has not itself grounded; that is the intended manipulation, but it means LARGE's banked facts are not a subset-comparable population to SMALL's."
+  ]
+}

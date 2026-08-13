@@ -1,0 +1,308 @@
+GROUNDED_MEANING BLIND SCORING SHEET  (exp_anchor_pool_expansion_v1)
+100 rows, file order preserved. Rubric: MEANINGFUL / RELATED / NOISE.
+Line 1: [idx] subject -> assigned grounded meaning.  Line 2: one context sentence (<=160 chars).
+Write your verdict at the end of line 1 for each row.
+====================================================================================================
+
+[001] gates  ->  bill
+      "Across town from Stockwell, outside the gates of a private school in well-heeled South Kensington, the older pupils all have Apple logos on their handsets"
+
+[002] supporter  ->  hear
+      "Footage showed frightened Japanese supporters rushing from the area holding their children, as the sound of shots - perhaps rubber bullets or tear gas - was ..."
+
+[003] march  ->  heavy
+      "Another protest march, near Rios Maracana Stadium, also had a heavy police response"
+
+[004] visiting  ->  thinking
+      "Arif Sayani, the towns Director of Planning, said the town would be able to use the maps as a promotional tool for those thinking of visiting or moving to th..."
+
+[005] mail  ->  homeowner
+      "Another difficulty was how to situate many businesses and homeowners that have mail sent to the local post office rather than delivered to their address"
+
+[006] demonstrate  ->  democracy
+      "People were demonstrating for different reasons"
+
+[007] ban  ->  american
+      "Brazil  one of the last big countries in the world to ban slavery  has the largest population of African descent outside Africa, but race and where your fami..."
+
+[008] paulo  ->  arson
+      "In So Paulo, large crowds gathered but reports said the marches were peaceful"
+
+[009] pressure  ->  don
+      "He was wearing a special suit to protect him against the very big pressure changes during the jump"
+
+[010] domain  ->  cultural
+      "Amazon has applied for many new domains, including ""
+
+[011] belem  ->  arson
+      "The demonstrations in Rio de Janeiro, S?o Paulo, Brasilia, Belem, Belo Horizonte and Salvador started peacefully, but there were some clashes with police and..."
+
+[012] van  ->  hoeven
+      "Maria van der Hoeven, Executive Director of the IEA, said: "Coal's share of the global energy mix continues to grow each year and, if no changes are made to ..."
+
+[013] generation  ->  experience
+      "Facebook has been taken over by the older generation"
+
+[014] correct  ->  elder
+      "About 30 Inuit elders, entrepreneurs and high-school pupils turned out one night to help correct such problems"
+
+[015] example  ->  counterpart
+      "Maria Miller, the Minister for Women and Equalities, said: "The CMI figures are yet another damaging example highlighting that, in the world of work, women s..."
+
+[016] pocket  ->  hand
+      "Illegal downloading is morally wrong, and it is theft, the same as putting your hand in someone's pocket and stealing their wallet is theft, says author Phil..."
+
+[017] medicinal  ->  best
+      "The UK continues to believe that medicinal regulation of NCPs is the best way to improve public health, said a spokesman for the Medicines and Healthcare Pro..."
+
+[018] isolate  ->  globe
+      "Helped by an Inuit mapping expert, and followed around by curious locals, the team spent four days collecting the images and information that will give the i..."
+
+[019] janeiro  ->  arson
+      "In her teens, she made a name for herself in Rio de Janeiro's baile funk scene as a dancer and singer"
+
+[020] dioxide  ->  bill
+      "In Europe, the Emissions Trading Scheme was supposed to discourage high-carbon power generation by imposing a price on carbon dioxide emissions"
+
+[021] transform  ->  danny
+      "The Bolivian move is inspirational and groundbreaking, said Danny Kushlick, of the Transform Drug Policy Foundation, which supports drug liberalization"
+
+[022] profit  ->  interest
+      "Allowing private companies to register geographical names as gTLDs to strengthen their brand or to profit from the meaning of these names is not, in our view..."
+
+[023] discus  ->  david
+      "(Commercial entities should contact OpenStax to discuss reuse rights and permissions"
+
+[024] pupil  ->  elder
+      "About 30 Inuit elders, business people and high-school pupils came one night to help correct such problems"
+
+[025] belo  ->  arson
+      "In Belo Horizonte, police clashed with protesters who tried to get into a football stadium, where there was a Confederations Cup match between Nigeria and Ta..."
+
+[026] salvador  ->  car
+      "Leandro Silva de Souza, a racial equality activist in the north-eastern city of Salvador, said the prejudice lay not with society but with music producers an..."
+
+[027] release  ->  institute
+      "But, despite this interest, many people believe BBMs wider release will not save the service"
+
+[028] significant  ->  hope
+      "Intermediate
+The right of Bolivias indigenous Indian tribes to 1 chew coca leaves, the main ingredient in cocaine, has caused major international disagreemen..."
+
+[029] pocket  ->  hand
+      "Illegal downloading is a kind of "moral squalor" and theft, as much as reaching in to someone's pocket and stealing their wallet is theft, says author Philip..."
+
+[030] encourage  ->  act
+      "120 companies have joined our Think, Act, Report scheme, which encourages companies to improve the way they recruit, promote and pay women"
+
+[031] tax  ->  haven
+      "She said closing tax havens, which the Tax Justice Network says hold as much as $31 trillion, or as much as a third of all global wealth, could yield $189bn ..."
+
+[032] ncps  ->  best
+      "However, we are disappointed with the decision not to regulate nicotine-containing products (NCPs), including e-cigarettes, as medicines"
+
+[033] coca  ->  chewing
+      "Bolivia had argued that the convention was in 2 opposition to its new constitution, adopted in 2009, which says it must protect native and ancestral coca as ..."
+
+[034] organize  ->  hierarchy
+      "A toad represents a highly organized structure consisting of cells, tissues, organs, and organ systems"
+
+[035] menthol  ->  increasingly
+      "British American Tobacco said the bigger health warnings were not necessary and that a ban on menthol cigarettes would make more people want to buy from the ..."
+
+[036] holding  ->  hear
+      "Footage showed frightened Japanese supporters rushing from the area holding their children, as the sound of shots - perhaps rubber bullets or tear gas - was ..."
+
+[037] maria  ->  counterpart
+      "Maria Miller, the Minister for Women and Equalities, said that the CMI numbers are another example from the world of work that shows that women still earn le..."
+
+[038] fishing  ->  agriculture
+      "Patagonia is an important region for the countrys economy because it has oil, fishing, mining and agriculture resources"
+
+[039] cost  ->  commit
+      "org, and for a low cost in print"
+
+[040] energy  ->  big
+      "Coal will probably rival oil as the world's biggest source of energy in the next five years"
+
+[041] musician  ->  dark
+      "Pullman, writer of the His Dark Materials trilogy, says authors and musicians work in poverty and obscurity for years to bring their work to the level that g..."
+
+[042] maria  ->  figure
+      "Maria Miller, the Minister for Women and Equalities, said that the CMI numbers are another example from the world of work that shows that women still earn le..."
+
+[043] limit  ->  entire
+      "At the touch of a few buttons, a single BlackBerry message can be sent to the phone owners entire contacts book  several hundred people, in some cases; on Wh..."
+
+[044] nearly  ->  cover
+      "In China, the top 10% now earn nearly 60% of the income"
+
+[045] canada  ->  box
+      "Plotting the PO box addresses would result in a map with firms, banks and schools clustered around the Canada Post building in the centre of town"
+
+[046] prevent  ->  manufacturer
+      "MEPs decided e-cigarettes should only be regulated as medical products if manufacturers claimed they could prevent the smoking of tobacco  a decision critici..."
+
+[047] request  ->  block
+      "Bolivias return could be blocked only if a third or more of the 184 countries that have signed up to the convention opposed its request"
+
+[048] ascent  ->  advice
+      "Kittinger jumped from a balloon 19 miles above the Earth in 1960 and gave advice to Baumgartner during the ascent"
+
+[049] experience  ->  bill
+      "Intermediate
+Brazil experienced one of its biggest nights of protest in decades as more than 100,000 people took to the streets to express their frustration ..."
+
+[050] connect  ->  brain
+      "In one important demonstration of the technology, the scientists used the internet to connect the brains of two rats thousands of miles away from each other"
+
+[051] organelle  ->  bound
+      "Bacteria and Archaea are organisms without a nucleus or other organelles surrounded by a membrane and, therefore, are prokaryotes"
+
+[052] executive  ->  chief
+      "Ann Francke, the CMIs chief executive said: Its time to move this issue into the mainstream management agenda"
+
+[053] instagram  ->  parent
+      "But, for Bennett, Instagram is now a major social network"
+
+[054] attract  ->  album
+      "But what attracts people here is wild animals and the wind"
+
+[055] double  ->  boss
+      "But the company wants to double exports to America in 2014 and will soon start producing teff-based pizzas, bread and cookies"
+
+[056] july  ->  expect
+      "In July 2012, a bomb killed four of Assad's senior aides"
+
+[057] earnings  ->  award
+      "A sub-set of 17,000 individual managers, whose salaries and bonuses have been followed over a number of years, showed that male managers earnings are rising ..."
+
+[058] computer  ->  accurately
+      "Google has flown a small team to Iqaluit, the largest town in the Canadian territory of Nunavut, armed with their warmest winter gear, a stack of laptop comp..."
+
+[059] writing  ->  hands
+      "I will be writing to the auction house to clarify what happened and what will happen next, but for now we are really pleased that a community campaign in Lon..."
+
+[060] efficient  ->  dioxide
+      "It is the first time that getting money has been fast, efficient and meritocratic, because it is not about How do I get access to the decision makers in that..."
+
+[061] banksy  ->  dog
+      "Although there are no legal issues whatsoever regarding the sale of lots six and seven by Banksy, FAAM convinced its sellers to remove these lots from the au..."
+
+[062] instant  ->  bring
+      "Dozens of alternatives have sprung up to take its place, from Facebooks and Apples instant messaging applications to independent apps such as WhatsApp and Ki..."
+
+[063] governor  ->  fire
+      "In Porto Alegre, demonstrators set fire to a bus and, in Curitiba, protesters attempted to force their way into the office of the state governor"
+
+[064] older  ->  gradual
+      "The source of this diversity is evolution, the process of gradual change during which new species arise from older species"
+
+[065] distant  ->  field
+      "For many, BBM is a distant memory"
+
+[066] cent  ->  bus
+      "5 per cent  but we are determined to further reduce rates of smoking and believe this important step will help"
+
+[067] banks  ->  box
+      "But when British designer, Patrick Hunt, tried to get money from banks or venture capitalists to help start his business, he hit a problem"
+
+[068] satellite  ->  miss
+      "The online map that Google had already created using satellite images was mostly correct, but one road was missing that had been built in the last year"
+
+[069] population  ->  asian
+      "7 children per family means that the population is falling"
+
+[070] event  ->  care
+      "Coinciding with the start of the Confederations Cup - a World Cup test event - the rallies brought together a wide coalition of people frustrated with the es..."
+
+[071] category  ->  work
+      "But soon there are going to be more of these categories - or generic top-level domains (gTLDs) as they are technically known"
+
+[072] giant  ->  experience
+      "At Addis Ababa airport, visitors see pictures of golden grains, tiny red seeds and a group of men around a giant pancake"
+
+[073] cent  ->  carry
+      "5 per cent  but we are determined to further reduce rates of smoking and believe this important step will help"
+
+[074] female  ->  award
+      "1% for female directors"
+
+[075] councillor  ->  alan
+      "He would not give a reason, but community leaders in Haringey, London, who led a campaign to stop the sale of the artwork that was removed from the wall of a..."
+
+[076] horizonte  ->  arson
+      "In Belo Horizonte, police clashed with protesters who tried to get into a football stadium, where there was a Confederations Cup match between Nigeria and Ta..."
+
+[077] european  ->  cover
+      "Health warnings covering nearly two-thirds of cigarette packs and a ban on menthol cigarettes across the EU have come a step nearer following a vote in the E..."
+
+[078] russian  ->  circulation
+      "He was the Russian leader who Thatcher liked and worked closely with"
+
+[079] musician  ->  delight
+      "Pullman, writer of the His Dark Materials trilogy, says authors and musicians work in poverty and obscurity for years to bring their work to the level that g..."
+
+[080] enter  ->  congress
+      "At a far smaller rally in Brasilia, demonstrators broke through police lines to enter the high-security area of the national congress"
+
+[081] dictatorship  ->  andean
+      "Since the dictatorship, Brazilians never bothered to demonstrate like this"
+
+[082] wallet  ->  hand
+      "Illegal downloading is morally wrong, and it is theft, the same as putting your hand in someone's pocket and stealing their wallet is theft, says author Phil..."
+
+[083] volunteer  ->  future
+      "Around 4,500 Swedes help the service - they volunteer to make friends with and support offenders"
+
+[084] wallet  ->  pocket
+      "Illegal downloading is morally wrong, and it is theft, the same as putting your hand in someone's pocket and stealing their wallet is theft, says author Phil..."
+
+[085] video  ->  limitation
+      "Free to download and use, they use the internet to swap text messages, pictures, voice clips,'stickers', and even videos in WhatsApp's case, between most typ..."
+
+[086] confederation  ->  care
+      "Brazilians are too nice sometimes  they enjoy partying rather than protesting  but something is changing, said Deli Borsari, a 53-year-old yoga instructor
+Af..."
+
+[087] bennett  ->  thirteen
+      "But, for Bennett, Instagram is now a major social network"
+
+[088] foundation  ->  cellular
+      "Our genetics unit takes learners from the foundations of cellular reproduction to the experiments that revealed the basis of genetics and laws of inheritance"
+
+[089] insist  ->  mistake
+      "But Boer insists that the administration has learned from past mistakes and is not planning to house the antisocial together"
+
+[090] sweden  ->  russia
+      "A number of countries - including the UK, the US, Italy, Sweden, the Netherlands and Russia - opposed Bolivia's demands"
+
+[091] apply  ->  dispute
+      "Amazon has applied for many new domains, including"
+
+[092] photo  ->  book
+      "All of these apps plug into your phone book and your photo library"
+
+[093] efficient  ->  bill
+      "It is the first time that getting money has been fast, efficient and meritocratic, because it is not about How do I get access to the decision makers in that..."
+
+[094] foundation  ->  danny
+      "Our genetics unit takes learners from the foundations of cellular reproduction to the experiments that revealed the basis of genetics and laws of inheritance"
+
+[095] medical  ->  decide
+      "Because of its interdisciplinary nature, this sub discipline studies different functions of the nervous system using molecular, cellular, developmental, medi..."
+
+[096] regulate  ->  decide
+      "However, we are disappointed with the decision not to regulate nicotine-containing products (NCPs), including e-cigarettes, as medicines"
+
+[097] apps  ->  firework
+      "All of these apps plug into your phone book and your photo library"
+
+[098] environmental  ->  american
+      "Environmental groups are angry"
+
+[099] android  ->  game
+      "BBM is trying to keep its customers and you can now use it on Android and Apple phones"
+
+[100] mission  ->  inhospitable
+      "But Google's mission to map the world has largely steered clear of the inhospitable Arctic"

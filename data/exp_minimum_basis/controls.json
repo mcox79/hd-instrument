@@ -1,0 +1,174 @@
+{
+ "C1_frequency_matched": {
+  "conc": {
+   "basis": {
+    "n": 180,
+    "mean": 3.4378,
+    "sd": 0.9184,
+    "median": 3.555,
+    "p10": 2.186,
+    "p90": 4.642
+   },
+   "matched_median_of_medians": 3.205,
+   "median_p": 0.1425332371065226,
+   "median_rank_biserial": 0.0917,
+   "n_draws_p_lt_.05": 4,
+   "n_draws": 20
+  },
+  "aoa": {
+   "basis": {
+    "n": 178,
+    "mean": 7.7844,
+    "sd": 2.2604,
+    "median": 7.9,
+    "p10": 4.947,
+    "p90": 10.61
+   },
+   "matched_median_of_medians": 7.405,
+   "median_p": 0.33096886402494763,
+   "median_rank_biserial": 0.0611,
+   "n_draws_p_lt_.05": 1,
+   "n_draws": 20
+  },
+  "sm": {
+   "basis": {
+    "n": 180,
+    "mean": 3.5639,
+    "sd": 0.6679,
+    "median": 3.6569,
+    "p10": 2.624,
+    "p90": 4.335
+   },
+   "matched_median_of_medians": 3.5367,
+   "median_p": 0.2658349209678557,
+   "median_rank_biserial": 0.0696,
+   "n_draws_p_lt_.05": 4,
+   "n_draws": 20
+  }
+ },
+ "C1_note": "basis vs corpus lemmas matched on log10(corpus freq) to 0.1 dex; 20 independent draws, seed 20260813; median across draws reported",
+ "C2_hub_overlap": {
+  "top50": {
+   "intersection": 25,
+   "jaccard": 0.3333
+  },
+  "top100": {
+   "intersection": 44,
+   "jaccard": 0.2821
+  },
+  "top200": {
+   "intersection": 94,
+   "jaccard": 0.3072
+  }
+ },
+ "C2_gain_vs_outdegree_spearman": {
+  "rho": 0.5775,
+  "p": 3.504352789800861e-19,
+  "n": 200
+ },
+ "C3_spotcheck": {
+  "joy": {
+   "outdeg": 2,
+   "corpus_freq": 9,
+   "children_sample": [
+    "report",
+    "study"
+   ]
+  },
+  "congratulations": {
+   "outdeg": 1,
+   "corpus_freq": 6,
+   "children_sample": [
+    "minister"
+   ]
+  },
+  "canada": {
+   "outdeg": 3,
+   "corpus_freq": 41,
+   "children_sample": [
+    "food",
+    "offender",
+    "smartphone"
+   ]
+  },
+  "director": {
+   "outdeg": 8,
+   "corpus_freq": 132,
+   "children_sample": [
+    "campbell",
+    "clapper",
+    "graham",
+    "imafidon",
+    "mend",
+    "pomery",
+    "poulopoulos",
+    "sayani"
+   ]
+  },
+  "company": {
+   "outdeg": 8,
+   "corpus_freq": 462,
+   "children_sample": [
+    "apple",
+    "building",
+    "ltd",
+    "mondadori",
+    "nearearth",
+    "pavegen",
+    "production",
+    "solspeil"
+   ]
+  },
+  "gnetophytes": {
+   "outdeg": 1,
+   "corpus_freq": 3,
+   "children_sample": [
+    "division"
+   ]
+  },
+  "process": {
+   "outdeg": 54,
+   "corpus_freq": 486,
+   "children_sample": [
+    "activation",
+    "ammonification",
+    "annealing",
+    "atp",
+    "cloning",
+    "combustion",
+    "condensation",
+    "conjugation",
+    "cycle",
+    "denitrification",
+    "diagnosis",
+    "dialysis",
+    "diffusion",
+    "digestion",
+    "echolocation"
+   ]
+  }
+ },
+ "graph_outdegree": {
+  "n_source_nodes": 1357,
+  "max": 54,
+  "top10": [
+   54,
+   36,
+   27,
+   22,
+   18,
+   17,
+   13,
+   13,
+   13,
+   12
+  ],
+  "n_deg1": 917,
+  "frac_edges_from_top20_sources": 0.1289
+ },
+ "graph_indegree": {
+  "n_nodes": 2595,
+  "n_with_incoming_edge": 1635,
+  "n_source_only_unreachable": 960
+ }
+}

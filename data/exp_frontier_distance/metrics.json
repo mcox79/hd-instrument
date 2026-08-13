@@ -1,0 +1,2860 @@
+{
+ "frontier": {
+  "seed_words_raw": 1000,
+  "seed_distinct_lemmas": 887,
+  "grounded_STRUCTURED_rows": 374,
+  "grounded_STRUCTURED_distinct_lemmas": 374,
+  "grounded_CONTROL_rows": 384,
+  "grounded_CONTROL_distinct_lemmas": 384,
+  "grounded_STRUCTURED_already_in_seed": 0,
+  "frontier_size_STRUCTURED": 1261,
+  "frontier_size_CONTROL": 1271,
+  "seed_lemmas_occurring_in_corpus": 785,
+  "frontier_lemmas_occurring_in_corpus": 1159
+ },
+ "sources": {
+  "v5": {
+   "rows": 2092,
+   "distinct_edges": 2023,
+   "self_loops_dropped": 0,
+   "unparsable_dropped": 0
+  },
+  "v62": {
+   "rows": 221,
+   "distinct_edges": 216,
+   "self_loops_dropped": 1,
+   "unparsable_dropped": 0
+  },
+  "v4": {
+   "rows": 1956,
+   "distinct_edges": 1840,
+   "self_loops_dropped": 0,
+   "unparsable_dropped": 0
+  },
+  "v3": {
+   "rows": 1751,
+   "distinct_edges": 1751,
+   "self_loops_dropped": 0,
+   "unparsable_dropped": 0
+  },
+  "_incremental_new_edges_in_order_v5_v62_v4_v3": {
+   "v5": 2023,
+   "v62": 216,
+   "v4": 50,
+   "v3": 318
+  }
+ },
+ "graph": {
+  "ALL4_distinct_edges": 2607,
+  "ALL4_nodes": 2595,
+  "CORE_v5_v62_distinct_edges": 2239,
+  "CORE_v5_v62_nodes": 2357,
+  "CORE_nodes_in_corpus_vocab": 2296,
+  "ALL4_nodes_in_corpus_vocab": 2526
+ },
+ "histograms": {
+  "CORE_directed": {
+   "all_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 15036,
+     "1": 371,
+     "0": 1159,
+     "4+": 65,
+     "2": 113,
+     "3": 68
+    },
+    "n_vocab": 16812,
+    "unreachable_with_no_outgoing_edge": 14314,
+    "unreachable_with_edges_but_no_path": 722
+   },
+   "eligible_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 14903,
+     "1": 370,
+     "0": 988,
+     "4+": 65,
+     "2": 113,
+     "3": 68
+    },
+    "n_vocab": 16507,
+    "unreachable_with_no_outgoing_edge": 14181,
+    "unreachable_with_edges_but_no_path": 722
+   }
+  },
+  "CORE_undirected": {
+   "all_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 14165,
+     "1": 515,
+     "0": 1159,
+     "2": 416,
+     "4+": 224,
+     "3": 333
+    },
+    "n_vocab": 16812,
+    "unreachable_with_no_outgoing_edge": 13656,
+    "unreachable_with_edges_but_no_path": 509
+   },
+   "eligible_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 14033,
+     "1": 514,
+     "0": 988,
+     "2": 416,
+     "4+": 224,
+     "3": 332
+    },
+    "n_vocab": 16507,
+    "unreachable_with_no_outgoing_edge": 13525,
+    "unreachable_with_edges_but_no_path": 508
+   }
+  },
+  "ALL4_directed": {
+   "all_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 14854,
+     "1": 432,
+     "0": 1159,
+     "3": 129,
+     "2": 141,
+     "4+": 97
+    },
+    "n_vocab": 16812,
+    "unreachable_with_no_outgoing_edge": 14233,
+    "unreachable_with_edges_but_no_path": 621
+   },
+   "eligible_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 14721,
+     "1": 431,
+     "0": 988,
+     "3": 129,
+     "2": 141,
+     "4+": 97
+    },
+    "n_vocab": 16507,
+    "unreachable_with_no_outgoing_edge": 14100,
+    "unreachable_with_edges_but_no_path": 621
+   }
+  },
+  "ALL4_undirected": {
+   "all_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 13974,
+     "1": 609,
+     "0": 1159,
+     "2": 504,
+     "4+": 185,
+     "3": 381
+    },
+    "n_vocab": 16812,
+    "unreachable_with_no_outgoing_edge": 13470,
+    "unreachable_with_edges_but_no_path": 504
+   },
+   "eligible_corpus_lemmas": {
+    "hist": {
+     "UNREACHABLE": 13842,
+     "1": 608,
+     "0": 988,
+     "2": 504,
+     "4+": 185,
+     "3": 380
+    },
+    "n_vocab": 16507,
+    "unreachable_with_no_outgoing_edge": 13339,
+    "unreachable_with_edges_but_no_path": 503
+   }
+  }
+ },
+ "primary_variant": "CORE_directed",
+ "by_frequency_band": {
+  "1": {
+   "UNREACHABLE": 3991,
+   "1": 18,
+   "2": 4,
+   "3": 4,
+   "0": 20,
+   "4+": 4
+  },
+  "10-29": {
+   "UNREACHABLE": 2162,
+   "0": 238,
+   "4+": 26,
+   "1": 85,
+   "2": 32,
+   "3": 24
+  },
+  "2-3": {
+   "UNREACHABLE": 4341,
+   "1": 65,
+   "0": 32,
+   "4+": 6,
+   "3": 7,
+   "2": 12
+  },
+  "30-99": {
+   "UNREACHABLE": 1003,
+   "0": 329,
+   "1": 80,
+   "4+": 13,
+   "2": 25,
+   "3": 10
+  },
+  "4-9": {
+   "UNREACHABLE": 3245,
+   "0": 156,
+   "2": 29,
+   "1": 84,
+   "3": 16,
+   "4+": 9
+  },
+  "f>=100": {
+   "UNREACHABLE": 294,
+   "0": 384,
+   "1": 39,
+   "3": 7,
+   "2": 11,
+   "4+": 7
+  }
+ },
+ "proper_noun_heuristic": {
+  "rule": "non-sentence-initial capitalized share >= 0.5 with >= 2 such occurrences",
+  "n_proper": 2656,
+  "n_common": 14156,
+  "hist": {
+   "COMMON": {
+    "UNREACHABLE": 12615,
+    "1": 288,
+    "0": 1021,
+    "4+": 59,
+    "2": 109,
+    "3": 64
+   },
+   "PROPER": {
+    "UNREACHABLE": 2421,
+    "0": 138,
+    "1": 83,
+    "2": 4,
+    "3": 4,
+    "4+": 6
+   }
+  }
+ },
+ "by_concreteness": {
+  "source": "Brysbaert et al. BRM Conc.M",
+  "corpus_lemmas_covered": 10587,
+  "corpus_lemmas_not_covered": 6225,
+  "hist": {
+   "2.0-2.99": {
+    "UNREACHABLE": 3156,
+    "0": 301,
+    "4+": 5,
+    "1": 47,
+    "2": 11,
+    "3": 7
+   },
+   "3.0-3.99": {
+    "UNREACHABLE": 2401,
+    "1": 67,
+    "0": 272,
+    "2": 23,
+    "4+": 12,
+    "3": 11
+   },
+   "NOT_COVERED": {
+    "UNREACHABLE": 5754,
+    "0": 166,
+    "2": 56,
+    "1": 178,
+    "3": 33,
+    "4+": 38
+   },
+   "conc<2.0": {
+    "UNREACHABLE": 1309,
+    "0": 146,
+    "2": 2,
+    "1": 12,
+    "3": 3
+   },
+   "conc>=4.0": {
+    "UNREACHABLE": 2416,
+    "1": 67,
+    "0": 274,
+    "2": 21,
+    "4+": 10,
+    "3": 14
+   }
+  },
+  "mean_concreteness_by_distance": {
+   "0": 3.2048,
+   "1": 3.491,
+   "2": 3.6179,
+   "3": 3.5557,
+   "4+": 3.6981,
+   "UNREACHABLE": 3.1554
+  },
+  "n_rated_by_distance": {
+   "0": 993,
+   "1": 193,
+   "2": 57,
+   "3": 35,
+   "4+": 27,
+   "UNREACHABLE": 9282
+  }
+ },
+ "distance_1": {
+  "count_all_corpus_lemmas": 371,
+  "count_eligible": 370
+ },
+ "distance_1_top100_by_corpus_freq": [
+  {
+   "lemma": "cell",
+   "corpus_freq": 1602,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "membrane",
+     "src": "v5",
+     "fid": 569,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "cell",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.44
+  },
+  {
+   "lemma": "population",
+   "corpus_freq": 605,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "factor",
+     "src": "v5",
+     "fid": 357,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "age structure",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.64
+  },
+  {
+   "lemma": "protein",
+   "corpus_freq": 482,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 1633,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "protein",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.66
+  },
+  {
+   "lemma": "carbon",
+   "corpus_freq": 317,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "matter",
+     "src": "v62",
+     "fid": 117,
+     "relation": "ENABLING_CONDITION_PATIENT",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "long-term storage of organic carbon",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.22
+  },
+  {
+   "lemma": "bacteria",
+   "corpus_freq": 311,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "domain",
+     "src": "v5",
+     "fid": 23,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "Bacteria",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.14
+  },
+  {
+   "lemma": "cycle",
+   "corpus_freq": 291,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "convert",
+     "src": "v62",
+     "fid": 215,
+     "relation": "PROCESS_ACTION",
+     "pattern": "VP2_BY_WHICH",
+     "subject_surface": "urea cycle",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.64
+  },
+  {
+   "lemma": "add",
+   "corpus_freq": 283,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "boss",
+     "src": "v5",
+     "fid": 346,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "add",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "moment",
+     "src": "v5",
+     "fid": 347,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "add",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.0
+  },
+  {
+   "lemma": "function",
+   "corpus_freq": 280,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "hormone",
+     "src": "v5",
+     "fid": 970,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "function",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.92
+  },
+  {
+   "lemma": "acid",
+   "corpus_freq": 269,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 1418,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "nucleic acid",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.25
+  },
+  {
+   "lemma": "waste",
+   "corpus_freq": 208,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "country",
+     "src": "v5",
+     "fid": 948,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "food waste",
+     "n_attestations": 3,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.24
+  },
+  {
+   "lemma": "electron",
+   "corpus_freq": 194,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "charge",
+     "src": "v5",
+     "fid": 835,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "electron",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.96
+  },
+  {
+   "lemma": "project",
+   "corpus_freq": 190,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "college",
+     "src": "v5",
+     "fid": 1166,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "joining opposition",
+     "n_attestations": 2,
+     "object_role": "seed"
+    },
+    {
+     "object": "key",
+     "src": "v5",
+     "fid": 1621,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "project",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.62
+  },
+  {
+   "lemma": "stage",
+   "corpus_freq": 177,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "head",
+     "src": "v62",
+     "fid": 67,
+     "relation": "ENABLING_CONDITION_AGENT",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "expulsion stage",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.64
+  },
+  {
+   "lemma": "ocean",
+   "corpus_freq": 176,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "deep",
+     "src": "v5",
+     "fid": 1431,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "ocean",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.86
+  },
+  {
+   "lemma": "evolution",
+   "corpus_freq": 174,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "change",
+     "src": "v5",
+     "fid": 881,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "REFERS_TO",
+     "subject_surface": "evolution",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.61
+  },
+  {
+   "lemma": "generation",
+   "corpus_freq": 167,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "making",
+     "src": "v5",
+     "fid": 830,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "electricity generation",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.96
+  },
+  {
+   "lemma": "muscle",
+   "corpus_freq": 163,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "control",
+     "src": "v5",
+     "fid": 1154,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "involuntary muscle",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.5
+  },
+  {
+   "lemma": "virus",
+   "corpus_freq": 162,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "cause",
+     "src": "v5",
+     "fid": 2038,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "virus",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.48
+  },
+  {
+   "lemma": "oil",
+   "corpus_freq": 158,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "fat",
+     "src": "v5",
+     "fid": 1436,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "oil",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.93
+  },
+  {
+   "lemma": "production",
+   "corpus_freq": 156,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "company",
+     "src": "v5",
+     "fid": 854,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "eon production",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "find",
+     "src": "v5",
+     "fid": 87,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Eon Productions",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.59
+  },
+  {
+   "lemma": "photosynthesis",
+   "corpus_freq": 147,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 1545,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "photosynthesis",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.36
+  },
+  {
+   "lemma": "rate",
+   "corpus_freq": 145,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "death",
+     "src": "v5",
+     "fid": 739,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "death rate",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.5
+  },
+  {
+   "lemma": "effect",
+   "corpus_freq": 141,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "change",
+     "src": "v62",
+     "fid": 75,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "founder effect",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.8
+  },
+  {
+   "lemma": "potential",
+   "corpus_freq": 137,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "difference",
+     "src": "v5",
+     "fid": 1295,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "membrane potential",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.91
+  },
+  {
+   "lemma": "solution",
+   "corpus_freq": 133,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "machine",
+     "src": "v5",
+     "fid": 1791,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "solution",
+     "n_attestations": 3,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.61
+  },
+  {
+   "lemma": "france",
+   "corpus_freq": 128,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "position",
+     "src": "v5",
+     "fid": 94,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "France",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "layer",
+   "corpus_freq": 126,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "endoderm",
+     "src": "v5",
+     "fid": 1014,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "germ layer",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.52
+  },
+  {
+   "lemma": "britain",
+   "corpus_freq": 125,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "place",
+     "src": "v5",
+     "fid": 225,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "Office National Statistics Britain",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "view",
+   "corpus_freq": 124,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "interest",
+     "src": "v5",
+     "fid": 2029,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "view",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.21
+  },
+  {
+   "lemma": "apple",
+   "corpus_freq": 122,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "company",
+     "src": "v5",
+     "fid": 12,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Apple",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "valuable",
+     "src": "v5",
+     "fid": 521,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "brand",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": true,
+   "concreteness": 5.0
+  },
+  {
+   "lemma": "atp",
+   "corpus_freq": 121,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 0,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "ATP",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "reproduction",
+   "corpus_freq": 121,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "generate",
+     "src": "v62",
+     "fid": 189,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "sexual reproduction",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.92
+  },
+  {
+   "lemma": "elements",
+   "corpus_freq": 117,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "table",
+     "src": "v5",
+     "fid": 1398,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "new elements",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "insect",
+   "corpus_freq": 116,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "food",
+     "src": "v5",
+     "fid": 1141,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "insect",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.89
+  },
+  {
+   "lemma": "meiosis",
+   "corpus_freq": 116,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 1288,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "meiosis",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "infection",
+   "corpus_freq": 113,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "human",
+     "src": "v62",
+     "fid": 99,
+     "relation": "ENABLING_CONDITION_AGENT",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "infection",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.1
+  },
+  {
+   "lemma": "artist",
+   "corpus_freq": 112,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "king",
+     "src": "v5",
+     "fid": 1203,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "leading blues artist",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.24
+  },
+  {
+   "lemma": "flow",
+   "corpus_freq": 108,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "body",
+     "src": "v62",
+     "fid": 21,
+     "relation": "PROCESS_PATIENT",
+     "pattern": "VP2_BY_WHICH",
+     "subject_surface": "bulk flow",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.72
+  },
+  {
+   "lemma": "charity",
+   "corpus_freq": 106,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "trust",
+     "src": "v5",
+     "fid": 597,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "charity",
+     "n_attestations": 3,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.62
+  },
+  {
+   "lemma": "flower",
+   "corpus_freq": 97,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "trait",
+     "src": "v5",
+     "fid": 2062,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "white-colored flower",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 5.0
+  },
+  {
+   "lemma": "carbohydrate",
+   "corpus_freq": 96,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 554,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "carbohydrate",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.59
+  },
+  {
+   "lemma": "egg",
+   "corpus_freq": 95,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 973,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "fusion",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.97
+  },
+  {
+   "lemma": "fruit",
+   "corpus_freq": 95,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "agent",
+     "src": "v5",
+     "fid": 967,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "fruit",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.81
+  },
+  {
+   "lemma": "prison",
+   "corpus_freq": 94,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "blow",
+     "src": "v5",
+     "fid": 1616,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "prison",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.68
+  },
+  {
+   "lemma": "biology",
+   "corpus_freq": 92,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "study",
+     "src": "v5",
+     "fid": 482,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "biology",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.48
+  },
+  {
+   "lemma": "signal",
+   "corpus_freq": 92,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "convert",
+     "src": "v62",
+     "fid": 199,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "termination of signal",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.86
+  },
+  {
+   "lemma": "shock",
+   "corpus_freq": 90,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "lose",
+     "src": "v62",
+     "fid": 217,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "vascular shock",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.0
+  },
+  {
+   "lemma": "replication",
+   "corpus_freq": 88,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 68,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "DNA replication",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.0
+  },
+  {
+   "lemma": "adaptation",
+   "corpus_freq": 85,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "trait",
+     "src": "v5",
+     "fid": 342,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "adaptation",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.04
+  },
+  {
+   "lemma": "china",
+   "corpus_freq": 85,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "bag",
+     "src": "v5",
+     "fid": 141,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "India China",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": 4.79
+  },
+  {
+   "lemma": "economy",
+   "corpus_freq": 84,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "mistake",
+     "src": "v5",
+     "fid": 815,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "economy",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.57
+  },
+  {
+   "lemma": "mutation",
+   "corpus_freq": 83,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "change",
+     "src": "v5",
+     "fid": 1358,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "mutation",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.52
+  },
+  {
+   "lemma": "survey",
+   "corpus_freq": 82,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "report",
+     "src": "v5",
+     "fid": 1875,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "survey",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.08
+  },
+  {
+   "lemma": "respiration",
+   "corpus_freq": 81,
+   "n_frontier_objects": 5,
+   "bridges": [
+    {
+     "object": "break",
+     "src": "v5",
+     "fid": 385,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "anaerobic respiration",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "convert",
+     "src": "v62",
+     "fid": 24,
+     "relation": "PROCESS_ACTION",
+     "pattern": "VP2_BY_WHICH",
+     "subject_surface": "cellular respiration",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    },
+    {
+     "object": "make",
+     "src": "v62",
+     "fid": 25,
+     "relation": "PROCESS_ACTION",
+     "pattern": "VP1_PROCESS_OF",
+     "subject_surface": "cellular respiration",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.89
+  },
+  {
+   "lemma": "sunlight",
+   "corpus_freq": 78,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "factor",
+     "src": "v5",
+     "fid": 1868,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "sunlight",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.45
+  },
+  {
+   "lemma": "theory",
+   "corpus_freq": 78,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "test",
+     "src": "v5",
+     "fid": 1742,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "scientific theory",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.47
+  },
+  {
+   "lemma": "fertilization",
+   "corpus_freq": 77,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 801,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "double fertilization",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.21
+  },
+  {
+   "lemma": "phase",
+   "corpus_freq": 76,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "second",
+     "src": "v5",
+     "fid": 1533,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "phase",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.46
+  },
+  {
+   "lemma": "variation",
+   "corpus_freq": 76,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "difference",
+     "src": "v5",
+     "fid": 695,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "continuous variation",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.46
+  },
+  {
+   "lemma": "antigen",
+   "corpus_freq": 75,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 399,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "antigen",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "supporter",
+   "corpus_freq": 73,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "issue",
+     "src": "v5",
+     "fid": 1871,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "supporter",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.26
+  },
+  {
+   "lemma": "antibody",
+   "corpus_freq": 72,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "agent",
+     "src": "v5",
+     "fid": 397,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "antibody",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.48
+  },
+  {
+   "lemma": "zone",
+   "corpus_freq": 71,
+   "n_frontier_objects": 3,
+   "bridges": [
+    {
+     "object": "area",
+     "src": "v5",
+     "fid": 738,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "dead zone",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "cause",
+     "src": "v62",
+     "fid": 41,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "dead zone",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "deep",
+     "src": "v5",
+     "fid": 329,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "abyssal zone",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.07
+  },
+  {
+   "lemma": "bowie",
+   "corpus_freq": 70,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "act",
+     "src": "v5",
+     "fid": 34,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "Bowie",
+     "n_attestations": 2,
+     "object_role": "seed"
+    },
+    {
+     "object": "songwriter",
+     "src": "v5",
+     "fid": 880,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "evidence",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "eukaryote",
+   "corpus_freq": 67,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 871,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "eukaryote",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "regulation",
+   "corpus_freq": 67,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "keep",
+     "src": "v62",
+     "fid": 147,
+     "relation": "PROCESS_ACTION",
+     "pattern": "VP2_BY_WHICH",
+     "subject_surface": "osmotic regulation",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.0
+  },
+  {
+   "lemma": "england",
+   "corpus_freq": 64,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "close",
+     "src": "v5",
+     "fid": 86,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "England",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "formation",
+   "corpus_freq": 64,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "head",
+     "src": "v62",
+     "fid": 38,
+     "relation": "ENABLING_CONDITION_AGENT",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "cross-bridge formation",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.23
+  },
+  {
+   "lemma": "learning",
+   "corpus_freq": 64,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "make",
+     "src": "v62",
+     "fid": 14,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "associative learning",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "watch",
+     "src": "v62",
+     "fid": 144,
+     "relation": "PROCESS_ACTION",
+     "pattern": "VP1_PROCESS_OF",
+     "subject_surface": "observational learning",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.14
+  },
+  {
+   "lemma": "lipid",
+   "corpus_freq": 64,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 1220,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "lipid",
+     "n_attestations": 2,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.04
+  },
+  {
+   "lemma": "performance",
+   "corpus_freq": 61,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "report",
+     "src": "v5",
+     "fid": 128,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "Human Performance",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.04
+  },
+  {
+   "lemma": "moocs",
+   "corpus_freq": 60,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "idea",
+     "src": "v5",
+     "fid": 1351,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "moocs",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "salary",
+   "corpus_freq": 60,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "start",
+     "src": "v5",
+     "fid": 1988,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "typical salary",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.69
+  },
+  {
+   "lemma": "expression",
+   "corpus_freq": 56,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "information",
+     "src": "v62",
+     "fid": 78,
+     "relation": "PROCESS_PATIENT",
+     "pattern": "VP1_PROCESS_OF",
+     "subject_surface": "gene expression",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 992,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "gene expression",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.54
+  },
+  {
+   "lemma": "banks",
+   "corpus_freq": 55,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "man",
+     "src": "v5",
+     "fid": 452,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "banks",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "plate",
+   "corpus_freq": 55,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "plane",
+     "src": "v5",
+     "fid": 1307,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "metaphase plate",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.77
+  },
+  {
+   "lemma": "gradient",
+   "corpus_freq": 54,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "area",
+     "src": "v5",
+     "fid": 682,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "concentration gradient",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.44
+  },
+  {
+   "lemma": "digestion",
+   "corpus_freq": 53,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "move",
+     "src": "v62",
+     "fid": 122,
+     "relation": "ENABLING_CONDITION",
+     "pattern": "VP4_OCCURS_WHEN",
+     "subject_surface": "mechanical digestion",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "process",
+     "src": "v5",
+     "fid": 770,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "digestion",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.66
+  },
+  {
+   "lemma": "mandela",
+   "corpus_freq": 53,
+   "n_frontier_objects": 2,
+   "bridges": [
+    {
+     "object": "figure",
+     "src": "v5",
+     "fid": 190,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Mandela",
+     "n_attestations": 1,
+     "object_role": "seed"
+    },
+    {
+     "object": "obama",
+     "src": "v5",
+     "fid": 191,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "Mandela",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "allergy",
+   "corpus_freq": 52,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "reason",
+     "src": "v5",
+     "fid": 1204,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "leading people",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.68
+  },
+  {
+   "lemma": "competition",
+   "corpus_freq": 52,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "rates",
+     "src": "v5",
+     "fid": 678,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "competition",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.86
+  },
+  {
+   "lemma": "rain",
+   "corpus_freq": 52,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "cause",
+     "src": "v5",
+     "fid": 333,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "GLOSSARY_COLON",
+     "subject_surface": "acid rain",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.97
+  },
+  {
+   "lemma": "ribosome",
+   "corpus_freq": 52,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "macromolecule",
+     "src": "v5",
+     "fid": 1707,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "ribosome",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "smoke",
+   "corpus_freq": 51,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "cover",
+     "src": "v5",
+     "fid": 1784,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "smoke",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.96
+  },
+  {
+   "lemma": "explanation",
+   "corpus_freq": 48,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "tropics",
+     "src": "v5",
+     "fid": 1605,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "possible explanation",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.87
+  },
+  {
+   "lemma": "chromatid",
+   "corpus_freq": 47,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "hold",
+     "src": "v5",
+     "fid": 1918,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "tetrad",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": null
+  },
+  {
+   "lemma": "moon",
+   "corpus_freq": 46,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "hand",
+     "src": "v5",
+     "fid": 267,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "Scribbler Moon",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.9
+  },
+  {
+   "lemma": "overall",
+   "corpus_freq": 44,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "sell",
+     "src": "v5",
+     "fid": 1472,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "overall",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 1.76
+  },
+  {
+   "lemma": "wood",
+   "corpus_freq": 44,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "officer",
+     "src": "v5",
+     "fid": 302,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Tim Wood",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.85
+  },
+  {
+   "lemma": "revolution",
+   "corpus_freq": 43,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "book",
+     "src": "v5",
+     "fid": 279,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Sleep Revolution",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.87
+  },
+  {
+   "lemma": "bay",
+   "corpus_freq": 42,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "issue",
+     "src": "v5",
+     "fid": 742,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "decline",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": true,
+   "concreteness": 4.81
+  },
+  {
+   "lemma": "proton",
+   "corpus_freq": 42,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "charge",
+     "src": "v5",
+     "fid": 1640,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "CALLED",
+     "subject_surface": "proton",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.0
+  },
+  {
+   "lemma": "reptile",
+   "corpus_freq": 42,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "fish",
+     "src": "v5",
+     "fid": 1698,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "reptile",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.47
+  },
+  {
+   "lemma": "allen",
+   "corpus_freq": 40,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "old",
+     "src": "v5",
+     "fid": 367,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "allen",
+     "n_attestations": 3,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "track",
+   "corpus_freq": 39,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "sound",
+     "src": "v5",
+     "fid": 1951,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "track",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.31
+  },
+  {
+   "lemma": "loneliness",
+   "corpus_freq": 38,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "problem",
+     "src": "v5",
+     "fid": 1229,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "loneliness",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 2.37
+  },
+  {
+   "lemma": "vienna",
+   "corpus_freq": 38,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "city",
+     "src": "v5",
+     "fid": 2028,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "vienna",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": null
+  },
+  {
+   "lemma": "august",
+   "corpus_freq": 36,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "earth",
+     "src": "v5",
+     "fid": 18,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "August",
+     "n_attestations": 1,
+     "object_role": "seed"
+    }
+   ],
+   "proper": true,
+   "concreteness": 3.04
+  },
+  {
+   "lemma": "genetics",
+   "corpus_freq": 36,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "study",
+     "src": "v5",
+     "fid": 1005,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "COPULA",
+     "subject_surface": "genetics",
+     "n_attestations": 1,
+     "object_role": "grounded"
+    }
+   ],
+   "proper": false,
+   "concreteness": 3.19
+  },
+  {
+   "lemma": "tower",
+   "corpus_freq": 36,
+   "n_frontier_objects": 1,
+   "bridges": [
+    {
+     "object": "set",
+     "src": "v5",
+     "fid": 305,
+     "relation": "GROUNDED_MEANING",
+     "pattern": "APPOSITIVE",
+     "subject_surface": "Towers",
+     "n_attestations": 2,
+     "object_role": "seed"
+    }
+   ],
+   "proper": false,
+   "concreteness": 4.76
+  }
+ ],
+ "degree": {
+  "n_nodes": 2357,
+  "n_edges": 2239,
+  "mean_out_degree": 1.4586,
+  "mean_in_degree": 1.9088,
+  "max_in_degree": 49,
+  "top30_in_degree": [
+   {
+    "rank": 1,
+    "node": "process",
+    "in_degree": 49,
+    "cum_share_of_edges": 0.0219,
+    "is_frontier": true
+   },
+   {
+    "rank": 2,
+    "node": "structure",
+    "in_degree": 31,
+    "cum_share_of_edges": 0.0357,
+    "is_frontier": false
+   },
+   {
+    "rank": 3,
+    "node": "cell",
+    "in_degree": 24,
+    "cum_share_of_edges": 0.0464,
+    "is_frontier": false
+   },
+   {
+    "rank": 4,
+    "node": "molecule",
+    "in_degree": 19,
+    "cum_share_of_edges": 0.0549,
+    "is_frontier": false
+   },
+   {
+    "rank": 5,
+    "node": "study",
+    "in_degree": 18,
+    "cum_share_of_edges": 0.063,
+    "is_frontier": true
+   },
+   {
+    "rank": 6,
+    "node": "organism",
+    "in_degree": 17,
+    "cum_share_of_edges": 0.0706,
+    "is_frontier": false
+   },
+   {
+    "rank": 7,
+    "node": "animal",
+    "in_degree": 13,
+    "cum_share_of_edges": 0.0764,
+    "is_frontier": false
+   },
+   {
+    "rank": 8,
+    "node": "organ",
+    "in_degree": 12,
+    "cum_share_of_edges": 0.0817,
+    "is_frontier": false
+   },
+   {
+    "rank": 9,
+    "node": "division",
+    "in_degree": 12,
+    "cum_share_of_edges": 0.0871,
+    "is_frontier": false
+   },
+   {
+    "rank": 10,
+    "node": "body",
+    "in_degree": 11,
+    "cum_share_of_edges": 0.092,
+    "is_frontier": true
+   },
+   {
+    "rank": 11,
+    "node": "stage",
+    "in_degree": 11,
+    "cum_share_of_edges": 0.0969,
+    "is_frontier": false
+   },
+   {
+    "rank": 12,
+    "node": "plant",
+    "in_degree": 11,
+    "cum_share_of_edges": 0.1018,
+    "is_frontier": false
+   },
+   {
+    "rank": 13,
+    "node": "species",
+    "in_degree": 11,
+    "cum_share_of_edges": 0.1067,
+    "is_frontier": false
+   },
+   {
+    "rank": 14,
+    "node": "substance",
+    "in_degree": 10,
+    "cum_share_of_edges": 0.1112,
+    "is_frontier": false
+   },
+   {
+    "rank": 15,
+    "node": "clade",
+    "in_degree": 10,
+    "cum_share_of_edges": 0.1157,
+    "is_frontier": false
+   },
+   {
+    "rank": 16,
+    "node": "phylum",
+    "in_degree": 10,
+    "cum_share_of_edges": 0.1201,
+    "is_frontier": false
+   },
+   {
+    "rank": 17,
+    "node": "protein",
+    "in_degree": 10,
+    "cum_share_of_edges": 0.1246,
+    "is_frontier": false
+   },
+   {
+    "rank": 18,
+    "node": "layer",
+    "in_degree": 10,
+    "cum_share_of_edges": 0.1291,
+    "is_frontier": false
+   },
+   {
+    "rank": 19,
+    "node": "component",
+    "in_degree": 9,
+    "cum_share_of_edges": 0.1331,
+    "is_frontier": false
+   },
+   {
+    "rank": 20,
+    "node": "organelle",
+    "in_degree": 9,
+    "cum_share_of_edges": 0.1371,
+    "is_frontier": false
+   },
+   {
+    "rank": 21,
+    "node": "disease",
+    "in_degree": 9,
+    "cum_share_of_edges": 0.1411,
+    "is_frontier": false
+   },
+   {
+    "rank": 22,
+    "node": "change",
+    "in_degree": 9,
+    "cum_share_of_edges": 0.1452,
+    "is_frontier": true
+   },
+   {
+    "rank": 23,
+    "node": "region",
+    "in_degree": 9,
+    "cum_share_of_edges": 0.1492,
+    "is_frontier": false
+   },
+   {
+    "rank": 24,
+    "node": "company",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1527,
+    "is_frontier": true
+   },
+   {
+    "rank": 25,
+    "node": "director",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1563,
+    "is_frontier": false
+   },
+   {
+    "rank": 26,
+    "node": "dna",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1599,
+    "is_frontier": false
+   },
+   {
+    "rank": 27,
+    "node": "compound",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1635,
+    "is_frontier": false
+   },
+   {
+    "rank": 28,
+    "node": "method",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.167,
+    "is_frontier": false
+   },
+   {
+    "rank": 29,
+    "node": "opening",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1706,
+    "is_frontier": false
+   },
+   {
+    "rank": 30,
+    "node": "example",
+    "in_degree": 8,
+    "cum_share_of_edges": 0.1742,
+    "is_frontier": false
+   }
+  ],
+  "top10_in_degree_share_of_edges": 0.092,
+  "in_degree_histogram": {
+   "10-49": 18,
+   "1": 799,
+   "4": 42,
+   "2": 168,
+   "3": 84,
+   "5-9": 62
+  },
+  "out_degree_histogram": {
+   "2": 312,
+   "1": 1075,
+   "4": 28,
+   "3": 100,
+   "10-49": 2,
+   "5-9": 18
+  },
+  "distance1_lemmas_whose_ONLY_frontier_objects_are_top10_hubs": 64,
+  "distance1_count": 371,
+  "top_fact_weighted_objects": [
+   [
+    "process",
+    53
+   ],
+   [
+    "structure",
+    31
+   ],
+   [
+    "cell",
+    24
+   ],
+   [
+    "study",
+    20
+   ],
+   [
+    "molecule",
+    19
+   ],
+   [
+    "organism",
+    17
+   ],
+   [
+    "animal",
+    14
+   ],
+   [
+    "organ",
+    13
+   ],
+   [
+    "plant",
+    13
+   ],
+   [
+    "division",
+    12
+   ],
+   [
+    "body",
+    11
+   ],
+   [
+    "mechanism",
+    11
+   ],
+   [
+    "stage",
+    11
+   ],
+   [
+    "species",
+    11
+   ],
+   [
+    "substance",
+    10
+   ]
+  ],
+  "distance1_count_if_top1_hubs_removed_from_frontier": 332,
+  "distance1_count_if_top5_hubs_removed_from_frontier": 315,
+  "distance1_count_if_top10_hubs_removed_from_frontier": 307
+ },
+ "bridge_concentration": {
+  "n_distinct_frontier_nodes_used_as_bridge_target": 182,
+  "n_bridge_links_total": 406,
+  "top20": [
+   {
+    "rank": 1,
+    "frontier_node": "process",
+    "n_distance1_lemmas_bridging_through": 47,
+    "cum_share_of_all_bridge_links": 0.1158,
+    "role": "grounded"
+   },
+   {
+    "rank": 2,
+    "frontier_node": "study",
+    "n_distance1_lemmas_bridging_through": 18,
+    "cum_share_of_all_bridge_links": 0.1601,
+    "role": "grounded"
+   },
+   {
+    "rank": 3,
+    "frontier_node": "body",
+    "n_distance1_lemmas_bridging_through": 8,
+    "cum_share_of_all_bridge_links": 0.1798,
+    "role": "seed"
+   },
+   {
+    "rank": 4,
+    "frontier_node": "change",
+    "n_distance1_lemmas_bridging_through": 8,
+    "cum_share_of_all_bridge_links": 0.1995,
+    "role": "seed"
+   },
+   {
+    "rank": 5,
+    "frontier_node": "macromolecule",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.2167,
+    "role": "grounded"
+   },
+   {
+    "rank": 6,
+    "frontier_node": "company",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.234,
+    "role": "seed"
+   },
+   {
+    "rank": 7,
+    "frontier_node": "head",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.2512,
+    "role": "seed"
+   },
+   {
+    "rank": 8,
+    "frontier_node": "fish",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.2685,
+    "role": "seed"
+   },
+   {
+    "rank": 9,
+    "frontier_node": "hormone",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.2857,
+    "role": "grounded"
+   },
+   {
+    "rank": 10,
+    "frontier_node": "scientist",
+    "n_distance1_lemmas_bridging_through": 7,
+    "cum_share_of_all_bridge_links": 0.303,
+    "role": "grounded"
+   },
+   {
+    "rank": 11,
+    "frontier_node": "supergroup",
+    "n_distance1_lemmas_bridging_through": 6,
+    "cum_share_of_all_bridge_links": 0.3177,
+    "role": "grounded"
+   },
+   {
+    "rank": 12,
+    "frontier_node": "cause",
+    "n_distance1_lemmas_bridging_through": 5,
+    "cum_share_of_all_bridge_links": 0.33,
+    "role": "seed"
+   },
+   {
+    "rank": 13,
+    "frontier_node": "food",
+    "n_distance1_lemmas_bridging_through": 5,
+    "cum_share_of_all_bridge_links": 0.3424,
+    "role": "seed"
+   },
+   {
+    "rank": 14,
+    "frontier_node": "information",
+    "n_distance1_lemmas_bridging_through": 5,
+    "cum_share_of_all_bridge_links": 0.3547,
+    "role": "seed"
+   },
+   {
+    "rank": 15,
+    "frontier_node": "area",
+    "n_distance1_lemmas_bridging_through": 5,
+    "cum_share_of_all_bridge_links": 0.367,
+    "role": "seed"
+   },
+   {
+    "rank": 16,
+    "frontier_node": "problem",
+    "n_distance1_lemmas_bridging_through": 4,
+    "cum_share_of_all_bridge_links": 0.3768,
+    "role": "seed"
+   },
+   {
+    "rank": 17,
+    "frontier_node": "man",
+    "n_distance1_lemmas_bridging_through": 4,
+    "cum_share_of_all_bridge_links": 0.3867,
+    "role": "seed"
+   },
+   {
+    "rank": 18,
+    "frontier_node": "agent",
+    "n_distance1_lemmas_bridging_through": 4,
+    "cum_share_of_all_bridge_links": 0.3966,
+    "role": "seed"
+   },
+   {
+    "rank": 19,
+    "frontier_node": "break",
+    "n_distance1_lemmas_bridging_through": 4,
+    "cum_share_of_all_bridge_links": 0.4064,
+    "role": "seed"
+   },
+   {
+    "rank": 20,
+    "frontier_node": "convert",
+    "n_distance1_lemmas_bridging_through": 4,
+    "cum_share_of_all_bridge_links": 0.4163,
+    "role": "grounded"
+   }
+  ],
+  "distance1_lemmas_by_target_role": {
+   "seed_only": 232,
+   "grounded_only": 124,
+   "mixed": 15
+  }
+ },
+ "source_dependence": {
+  "v5": {
+   "edges": 2023,
+   "distance1_corpus_lemmas": 340,
+   "reachable_corpus_lemmas_any_distance": 515
+  },
+  "v62": {
+   "edges": 216,
+   "distance1_corpus_lemmas": 38,
+   "reachable_corpus_lemmas_any_distance": 38
+  },
+  "distance1_lemmas_by_bridging_source": {
+   "v62": 31,
+   "v5": 333,
+   "v5+v62": 7
+  }
+ },
+ "spot_checks": {
+  "fruit": {
+   "corpus_freq": 95,
+   "in_seed": false,
+   "grounded_STRUCTURED": false,
+   "in_frontier": false,
+   "distance": 1,
+   "in_degree_core": 0,
+   "out_degree_core": 1
+  },
+  "zone": {
+   "corpus_freq": 71,
+   "in_seed": false,
+   "grounded_STRUCTURED": false,
+   "in_frontier": false,
+   "distance": 1,
+   "in_degree_core": 3,
+   "out_degree_core": 10
+  },
+  "process": {
+   "corpus_freq": 471,
+   "in_seed": false,
+   "grounded_STRUCTURED": true,
+   "in_frontier": true,
+   "distance": 0,
+   "in_degree_core": 49,
+   "out_degree_core": 0
+  },
+  "thing": {
+   "corpus_freq": 184,
+   "in_seed": true,
+   "grounded_STRUCTURED": false,
+   "in_frontier": true,
+   "distance": 0,
+   "in_degree_core": 1,
+   "out_degree_core": 0
+  },
+  "people": {
+   "corpus_freq": 2019,
+   "in_seed": true,
+   "grounded_STRUCTURED": false,
+   "in_frontier": true,
+   "distance": 0,
+   "in_degree_core": 1,
+   "out_degree_core": 0
+  }
+ },
+ "elapsed_s": 5.5
+}

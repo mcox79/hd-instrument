@@ -1,0 +1,706 @@
+{
+  "warning": "DO NOT OPEN UNTIL blind_sample.json IS FULLY SCORED",
+  "shuffle_seed": 42,
+  "rows": [
+    {
+      "blind_id": 0,
+      "arm": "SMALL",
+      "subject": "gates",
+      "object": "bill",
+      "fid": 1073
+    },
+    {
+      "blind_id": 1,
+      "arm": "SMALL",
+      "subject": "supporter",
+      "object": "hear",
+      "fid": 1113
+    },
+    {
+      "blind_id": 2,
+      "arm": "LARGE",
+      "subject": "march",
+      "object": "heavy",
+      "fid": 1003
+    },
+    {
+      "blind_id": 3,
+      "arm": "SMALL",
+      "subject": "visiting",
+      "object": "thinking",
+      "fid": 1137
+    },
+    {
+      "blind_id": 4,
+      "arm": "LARGE",
+      "subject": "mail",
+      "object": "homeowner",
+      "fid": 963
+    },
+    {
+      "blind_id": 5,
+      "arm": "LARGE",
+      "subject": "demonstrate",
+      "object": "democracy",
+      "fid": 915
+    },
+    {
+      "blind_id": 6,
+      "arm": "SMALL",
+      "subject": "ban",
+      "object": "american",
+      "fid": 899
+    },
+    {
+      "blind_id": 7,
+      "arm": "LARGE",
+      "subject": "paulo",
+      "object": "arson",
+      "fid": 969
+    },
+    {
+      "blind_id": 8,
+      "arm": "SMALL",
+      "subject": "pressure",
+      "object": "don",
+      "fid": 895
+    },
+    {
+      "blind_id": 9,
+      "arm": "LARGE",
+      "subject": "domain",
+      "object": "cultural",
+      "fid": 887
+    },
+    {
+      "blind_id": 10,
+      "arm": "LARGE",
+      "subject": "belem",
+      "object": "arson",
+      "fid": 939
+    },
+    {
+      "blind_id": 11,
+      "arm": "SMALL",
+      "subject": "van",
+      "object": "hoeven",
+      "fid": 1115
+    },
+    {
+      "blind_id": 12,
+      "arm": "LARGE",
+      "subject": "generation",
+      "object": "experience",
+      "fid": 921
+    },
+    {
+      "blind_id": 13,
+      "arm": "LARGE",
+      "subject": "correct",
+      "object": "elder",
+      "fid": 913
+    },
+    {
+      "blind_id": 14,
+      "arm": "LARGE",
+      "subject": "example",
+      "object": "counterpart",
+      "fid": 955
+    },
+    {
+      "blind_id": 15,
+      "arm": "SMALL",
+      "subject": "pocket",
+      "object": "hand",
+      "fid": 983
+    },
+    {
+      "blind_id": 16,
+      "arm": "SMALL",
+      "subject": "medicinal",
+      "object": "best",
+      "fid": 975
+    },
+    {
+      "blind_id": 17,
+      "arm": "LARGE",
+      "subject": "isolate",
+      "object": "globe",
+      "fid": 925
+    },
+    {
+      "blind_id": 18,
+      "arm": "LARGE",
+      "subject": "janeiro",
+      "object": "arson",
+      "fid": 961
+    },
+    {
+      "blind_id": 19,
+      "arm": "SMALL",
+      "subject": "dioxide",
+      "object": "bill",
+      "fid": 1121
+    },
+    {
+      "blind_id": 20,
+      "arm": "SMALL",
+      "subject": "transform",
+      "object": "danny",
+      "fid": 1149
+    },
+    {
+      "blind_id": 21,
+      "arm": "SMALL",
+      "subject": "profit",
+      "object": "interest",
+      "fid": 1041
+    },
+    {
+      "blind_id": 22,
+      "arm": "SMALL",
+      "subject": "discus",
+      "object": "david",
+      "fid": 1123
+    },
+    {
+      "blind_id": 23,
+      "arm": "LARGE",
+      "subject": "pupil",
+      "object": "elder",
+      "fid": 933
+    },
+    {
+      "blind_id": 24,
+      "arm": "LARGE",
+      "subject": "belo",
+      "object": "arson",
+      "fid": 941
+    },
+    {
+      "blind_id": 25,
+      "arm": "SMALL",
+      "subject": "salvador",
+      "object": "car",
+      "fid": 1107
+    },
+    {
+      "blind_id": 26,
+      "arm": "LARGE",
+      "subject": "release",
+      "object": "institute",
+      "fid": 905
+    },
+    {
+      "blind_id": 27,
+      "arm": "SMALL",
+      "subject": "significant",
+      "object": "hope",
+      "fid": 1053
+    },
+    {
+      "blind_id": 28,
+      "arm": "LARGE",
+      "subject": "pocket",
+      "object": "hand",
+      "fid": 1009
+    },
+    {
+      "blind_id": 29,
+      "arm": "SMALL",
+      "subject": "encourage",
+      "object": "act",
+      "fid": 957
+    },
+    {
+      "blind_id": 30,
+      "arm": "SMALL",
+      "subject": "tax",
+      "object": "haven",
+      "fid": 1059
+    },
+    {
+      "blind_id": 31,
+      "arm": "SMALL",
+      "subject": "ncps",
+      "object": "best",
+      "fid": 977
+    },
+    {
+      "blind_id": 32,
+      "arm": "LARGE",
+      "subject": "coca",
+      "object": "chewing",
+      "fid": 895
+    },
+    {
+      "blind_id": 33,
+      "arm": "LARGE",
+      "subject": "organize",
+      "object": "hierarchy",
+      "fid": 1031
+    },
+    {
+      "blind_id": 34,
+      "arm": "LARGE",
+      "subject": "menthol",
+      "object": "increasingly",
+      "fid": 1005
+    },
+    {
+      "blind_id": 35,
+      "arm": "SMALL",
+      "subject": "holding",
+      "object": "hear",
+      "fid": 1129
+    },
+    {
+      "blind_id": 36,
+      "arm": "LARGE",
+      "subject": "maria",
+      "object": "counterpart",
+      "fid": 967
+    },
+    {
+      "blind_id": 37,
+      "arm": "LARGE",
+      "subject": "fishing",
+      "object": "agriculture",
+      "fid": 957
+    },
+    {
+      "blind_id": 38,
+      "arm": "LARGE",
+      "subject": "cost",
+      "object": "commit",
+      "fid": 991
+    },
+    {
+      "blind_id": 39,
+      "arm": "SMALL",
+      "subject": "energy",
+      "object": "big",
+      "fid": 909
+    },
+    {
+      "blind_id": 40,
+      "arm": "SMALL",
+      "subject": "musician",
+      "object": "dark",
+      "fid": 1095
+    },
+    {
+      "blind_id": 41,
+      "arm": "SMALL",
+      "subject": "maria",
+      "object": "figure",
+      "fid": 1029
+    },
+    {
+      "blind_id": 42,
+      "arm": "SMALL",
+      "subject": "limit",
+      "object": "entire",
+      "fid": 1083
+    },
+    {
+      "blind_id": 43,
+      "arm": "SMALL",
+      "subject": "nearly",
+      "object": "cover",
+      "fid": 925
+    },
+    {
+      "blind_id": 44,
+      "arm": "SMALL",
+      "subject": "canada",
+      "object": "box",
+      "fid": 941
+    },
+    {
+      "blind_id": 45,
+      "arm": "LARGE",
+      "subject": "prevent",
+      "object": "manufacturer",
+      "fid": 1011
+    },
+    {
+      "blind_id": 46,
+      "arm": "LARGE",
+      "subject": "request",
+      "object": "block",
+      "fid": 897
+    },
+    {
+      "blind_id": 47,
+      "arm": "LARGE",
+      "subject": "ascent",
+      "object": "advice",
+      "fid": 889
+    },
+    {
+      "blind_id": 48,
+      "arm": "SMALL",
+      "subject": "experience",
+      "object": "bill",
+      "fid": 913
+    },
+    {
+      "blind_id": 49,
+      "arm": "SMALL",
+      "subject": "connect",
+      "object": "brain",
+      "fid": 887
+    },
+    {
+      "blind_id": 50,
+      "arm": "LARGE",
+      "subject": "organelle",
+      "object": "bound",
+      "fid": 1029
+    },
+    {
+      "blind_id": 51,
+      "arm": "SMALL",
+      "subject": "executive",
+      "object": "chief",
+      "fid": 911
+    },
+    {
+      "blind_id": 52,
+      "arm": "SMALL",
+      "subject": "instagram",
+      "object": "parent",
+      "fid": 1027
+    },
+    {
+      "blind_id": 53,
+      "arm": "LARGE",
+      "subject": "attract",
+      "object": "album",
+      "fid": 893
+    },
+    {
+      "blind_id": 54,
+      "arm": "SMALL",
+      "subject": "double",
+      "object": "boss",
+      "fid": 893
+    },
+    {
+      "blind_id": 55,
+      "arm": "SMALL",
+      "subject": "july",
+      "object": "expect",
+      "fid": 973
+    },
+    {
+      "blind_id": 56,
+      "arm": "LARGE",
+      "subject": "earnings",
+      "object": "award",
+      "fid": 995
+    },
+    {
+      "blind_id": 57,
+      "arm": "LARGE",
+      "subject": "computer",
+      "object": "accurately",
+      "fid": 911
+    },
+    {
+      "blind_id": 58,
+      "arm": "SMALL",
+      "subject": "writing",
+      "object": "hands",
+      "fid": 1117
+    },
+    {
+      "blind_id": 59,
+      "arm": "LARGE",
+      "subject": "efficient",
+      "object": "dioxide",
+      "fid": 1019
+    },
+    {
+      "blind_id": 60,
+      "arm": "SMALL",
+      "subject": "banksy",
+      "object": "dog",
+      "fid": 937
+    },
+    {
+      "blind_id": 61,
+      "arm": "SMALL",
+      "subject": "instant",
+      "object": "bring",
+      "fid": 921
+    },
+    {
+      "blind_id": 62,
+      "arm": "SMALL",
+      "subject": "governor",
+      "object": "fire",
+      "fid": 1075
+    },
+    {
+      "blind_id": 63,
+      "arm": "LARGE",
+      "subject": "older",
+      "object": "gradual",
+      "fid": 1027
+    },
+    {
+      "blind_id": 64,
+      "arm": "LARGE",
+      "subject": "distant",
+      "object": "field",
+      "fid": 993
+    },
+    {
+      "blind_id": 65,
+      "arm": "SMALL",
+      "subject": "cent",
+      "object": "bus",
+      "fid": 945
+    },
+    {
+      "blind_id": 66,
+      "arm": "LARGE",
+      "subject": "banks",
+      "object": "box",
+      "fid": 907
+    },
+    {
+      "blind_id": 67,
+      "arm": "SMALL",
+      "subject": "satellite",
+      "object": "miss",
+      "fid": 1135
+    },
+    {
+      "blind_id": 68,
+      "arm": "LARGE",
+      "subject": "population",
+      "object": "asian",
+      "fid": 931
+    },
+    {
+      "blind_id": 69,
+      "arm": "SMALL",
+      "subject": "event",
+      "object": "care",
+      "fid": 1015
+    },
+    {
+      "blind_id": 70,
+      "arm": "SMALL",
+      "subject": "category",
+      "object": "work",
+      "fid": 943
+    },
+    {
+      "blind_id": 71,
+      "arm": "LARGE",
+      "subject": "giant",
+      "object": "experience",
+      "fid": 999
+    },
+    {
+      "blind_id": 72,
+      "arm": "LARGE",
+      "subject": "cent",
+      "object": "carry",
+      "fid": 909
+    },
+    {
+      "blind_id": 73,
+      "arm": "LARGE",
+      "subject": "female",
+      "object": "award",
+      "fid": 903
+    },
+    {
+      "blind_id": 74,
+      "arm": "LARGE",
+      "subject": "councillor",
+      "object": "alan",
+      "fid": 949
+    },
+    {
+      "blind_id": 75,
+      "arm": "LARGE",
+      "subject": "horizonte",
+      "object": "arson",
+      "fid": 959
+    },
+    {
+      "blind_id": 76,
+      "arm": "SMALL",
+      "subject": "european",
+      "object": "cover",
+      "fid": 1069
+    },
+    {
+      "blind_id": 77,
+      "arm": "LARGE",
+      "subject": "russian",
+      "object": "circulation",
+      "fid": 975
+    },
+    {
+      "blind_id": 78,
+      "arm": "LARGE",
+      "subject": "musician",
+      "object": "delight",
+      "fid": 1007
+    },
+    {
+      "blind_id": 79,
+      "arm": "LARGE",
+      "subject": "enter",
+      "object": "congress",
+      "fid": 1021
+    },
+    {
+      "blind_id": 80,
+      "arm": "LARGE",
+      "subject": "dictatorship",
+      "object": "andean",
+      "fid": 951
+    },
+    {
+      "blind_id": 81,
+      "arm": "SMALL",
+      "subject": "wallet",
+      "object": "hand",
+      "fid": 993
+    },
+    {
+      "blind_id": 82,
+      "arm": "SMALL",
+      "subject": "volunteer",
+      "object": "future",
+      "fid": 1065
+    },
+    {
+      "blind_id": 83,
+      "arm": "LARGE",
+      "subject": "wallet",
+      "object": "pocket",
+      "fid": 935
+    },
+    {
+      "blind_id": 84,
+      "arm": "LARGE",
+      "subject": "video",
+      "object": "limitation",
+      "fid": 983
+    },
+    {
+      "blind_id": 85,
+      "arm": "SMALL",
+      "subject": "confederation",
+      "object": "care",
+      "fid": 1001
+    },
+    {
+      "blind_id": 86,
+      "arm": "LARGE",
+      "subject": "bennett",
+      "object": "thirteen",
+      "fid": 943
+    },
+    {
+      "blind_id": 87,
+      "arm": "LARGE",
+      "subject": "foundation",
+      "object": "cellular",
+      "fid": 1023
+    },
+    {
+      "blind_id": 88,
+      "arm": "SMALL",
+      "subject": "insist",
+      "object": "mistake",
+      "fid": 1025
+    },
+    {
+      "blind_id": 89,
+      "arm": "LARGE",
+      "subject": "sweden",
+      "object": "russia",
+      "fid": 977
+    },
+    {
+      "blind_id": 90,
+      "arm": "LARGE",
+      "subject": "apply",
+      "object": "dispute",
+      "fid": 899
+    },
+    {
+      "blind_id": 91,
+      "arm": "SMALL",
+      "subject": "photo",
+      "object": "book",
+      "fid": 1037
+    },
+    {
+      "blind_id": 92,
+      "arm": "SMALL",
+      "subject": "efficient",
+      "object": "bill",
+      "fid": 1125
+    },
+    {
+      "blind_id": 93,
+      "arm": "SMALL",
+      "subject": "foundation",
+      "object": "danny",
+      "fid": 1127
+    },
+    {
+      "blind_id": 94,
+      "arm": "SMALL",
+      "subject": "medical",
+      "object": "decide",
+      "fid": 1141
+    },
+    {
+      "blind_id": 95,
+      "arm": "SMALL",
+      "subject": "regulate",
+      "object": "decide",
+      "fid": 927
+    },
+    {
+      "blind_id": 96,
+      "arm": "LARGE",
+      "subject": "apps",
+      "object": "firework",
+      "fid": 937
+    },
+    {
+      "blind_id": 97,
+      "arm": "SMALL",
+      "subject": "environmental",
+      "object": "american",
+      "fid": 1011
+    },
+    {
+      "blind_id": 98,
+      "arm": "SMALL",
+      "subject": "android",
+      "object": "game",
+      "fid": 995
+    },
+    {
+      "blind_id": 99,
+      "arm": "LARGE",
+      "subject": "mission",
+      "object": "inhospitable",
+      "fid": 929
+    }
+  ]
+}
