@@ -1,7 +1,7 @@
 # STATUS
 
-AS OF: 2026-08-13 night | branch `dataprep/mcguffey-graded-corpus`, HEAD 2 commits ahead of its
-pushed tip `48a9900c1`; `origin/main` 1235 behind -- merge needs USER AUTHORIZATION.
+AS OF: 2026-08-13 night | branch `dataprep/mcguffey-graded-corpus`, HEAD ahead of its pushed tip
+`48a9900c1` (`git status`); `origin/main` 1235 behind -- merge needs USER AUTHORIZATION.
 Rules: `notes/STATUS_SPEC.md` (READ BEFORE EDITING). Never-trim numbers/evidence/reopen criteria:
 `notes/STATUS_LESSONS.md`, uncapped. Rewritten in place, cap 8192 B; follow the pointers.
 
