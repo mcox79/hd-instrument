@@ -179,8 +179,9 @@ _IRREGULAR_LEMMA = {
 # =============================================================================================
 # lemma_word -- NEVER-EMIT-A-NON-WORD normalizer (2026-08-12)
 # =============================================================================================
-# `lemma_verb` below is a SUFFIX STRIPPER, not a lemmatizer: it strips characters whether or not
-# the result is an English word. Measured failures (all real, all off the live corpus):
+# HISTORY: `lemma_verb` below USED TO BE a SUFFIX STRIPPER, not a lemmatizer -- it stripped
+# characters whether or not the result was an English word (fixed 2026-08-13; see its docstring).
+# Measured failures of that old behaviour (all real, all off the live corpus):
 #     arteries -> arteri     trees   -> tre       calories -> calori     species -> speci
 #     added    -> ad         dressed -> dres      status   -> statu      loses   -> los
 #     analyses -> analys     skies   -> ski       exclusives -> exclusiv
@@ -198,11 +199,16 @@ _IRREGULAR_LEMMA = {
 # resource in this repo -- see hdlab/animacy_lexicon.py; nothing new is downloaded or trained)
 # and using the suffix rules ONLY as a guarded fallback for out-of-WordNet terms.
 #
-# SCOPE NOTE (deliberate, not an oversight): `lemma_verb` is called from 14 hdlab modules
-# (105 call sites, `goal_typing` alone has 30). Rewriting it in place would silently change the
-# behaviour of landed, VET-ed organs whose results were measured under the old stems. So this
-# adds `lemma_word` as the canonical normalizer and migrates ONLY the reading-grounding path.
-# Migrating the other 13 modules is a separate, testable change -- flagged, not smuggled in.
+# SCOPE NOTE (2026-08-12, now SUPERSEDED): this originally added `lemma_word` as the canonical
+# normalizer and migrated ONLY the reading-grounding path, leaving `lemma_verb` untouched because
+# ~11 hdlab modules had been measured under its stems. On 2026-08-13 `lemma_verb` itself was
+# fixed to the same never-emit-a-non-word invariant (verb-first POS preference instead of
+# noun-first). Both functions are now safe; they differ only in POS preference. MEASURED
+# consumer impact of that fix, do not re-derive: `verification/verify_goal_typing.py` explicit_psych
+# drops 18/18 -> 16/18, attributed by single-variable control to `missed` no longer stemming to
+# `mis`; `goal_achievement.self_test` / `verification/test_goal_achievement.py` change channel on
+# the 'met' case from `majority` to `relation:recur` (the test's own comment calls the old
+# behaviour a "known lemmatizer gap"). Neither consumer was changed here.
 
 _WN = None
 _WN_FAILED = False
@@ -298,33 +304,79 @@ def lemma_word(word: str) -> str:
     return w
 
 
+@lru_cache(maxsize=200000)
 def lemma_verb(word: str) -> str:
-    """Glass-box surface-form -> lemma for verb lookup (irregular table + suffix strip).
+    """Surface form -> lemma for VERB lookup, GUARANTEED never to return a non-word.
 
-    WARNING (2026-08-12): this is a SUFFIX STRIPPER and CAN RETURN NON-WORDS
-    (`arteries`->`arteri`, `added`->`ad`). Do NOT use it where the output becomes a concept
-    IDENTITY -- use `lemma_word` above for that. Kept unchanged because 14 modules / 105 call
-    sites were measured under this behaviour; see the scope note above `lemma_word`.
+    FIXED 2026-08-13 (was an unguarded suffix stripper: `status`->`statu`, `analysis`->`analysi`,
+    `arteries`->`arteri`, `added`->`ad`). Same never-emit-a-non-word invariant as `lemma_word`
+    above; differs only in POS PREFERENCE -- morphy is asked for the VERB lemma first
+    (`attaches`->`attach`, `leaves`->`leave`), where `lemma_word` asks noun-first
+    (`attaches`->`attache`, `leaves`->`leaf`). If no rule lands on a known word, the surface
+    form is returned UNCHANGED rather than a truncation artifact.
+
+    Order: irregular table -> WordNet morphy (verb, noun, adj, adv) -> guarded suffix rules.
     """
     w = word.lower().strip(".,\"'();:")
+    if not w:
+        return w
     if w in _IRREGULAR_LEMMA:
         return _IRREGULAR_LEMMA[w]
+
+    wn = _wordnet()
+    if wn is not None:
+        # verb-first: this normalizer keys verb lexicons / frame tables.
+        for pos in ("v", "n", "a", "r"):
+            m = wn.morphy(w, pos)
+            if m:
+                return m
+        m = wn.morphy(w)
+        if m:
+            return m
+
+    # --- guarded fallback: out-of-WordNet terms. Each rule fires ONLY if its output is a known
+    # word; otherwise the next candidate is tried and finally `w` is returned unchanged.
+    def _accept(cand: str) -> Optional[str]:
+        if len(cand) >= 3 and is_known_word(cand):
+            return cand
+        return None
+
     if w.endswith("ing") and len(w) > 5:
         base = w[:-3]
+        cands = [base, base + "e"]
         if len(base) > 2 and base[-1] == base[-2] and base[-1] not in "aeiou":  # running -> run
-            return base[:-1]
-        return base
+            cands.insert(0, base[:-1])
+        for cand in cands:
+            got = _accept(cand)
+            if got:
+                return got
     if w.endswith("ied") and len(w) > 4:  # cried -> cry
-        return w[:-3] + "y"
+        got = _accept(w[:-3] + "y")
+        if got:
+            return got
     if w.endswith("ed") and len(w) > 3:
         base = w[:-2]
+        cands = [base, w[:-1]]
         if len(base) > 2 and base[-1] == base[-2] and base[-1] not in "aeiou":  # stopped -> stop
-            return base[:-1]
-        return base
+            cands.insert(0, base[:-1])
+        for cand in cands:
+            got = _accept(cand)
+            if got:
+                return got
+    if w.endswith("ies") and len(w) > 4:  # arteries -> artery (never `arteri`)
+        for cand in (w[:-3] + "y", w[:-1]):
+            got = _accept(cand)
+            if got:
+                return got
     if w.endswith("es") and len(w) > 3:
-        return w[:-2]
-    if w.endswith("s") and len(w) > 3 and not w.endswith("ss"):
-        return w[:-1]
+        for cand in (w[:-2], w[:-1]):
+            got = _accept(cand)
+            if got:
+                return got
+    if w.endswith("s") and len(w) > 3 and not w.endswith(("ss", "us", "is")):
+        got = _accept(w[:-1])
+        if got:
+            return got
     return w
 
 
