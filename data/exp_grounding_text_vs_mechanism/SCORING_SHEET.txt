@@ -1,0 +1,305 @@
+GROUNDED_MEANING BLIND SCORING SHEET  (exp_grounding_text_vs_mechanism)
+100 rows, file order preserved. Rubric: MEANINGFUL / RELATED / NOISE.
+Line 1: [idx] subject -> assigned grounded meaning.  Line 2: one context sentence (<=160 chars).
+Write your verdict at the end of line 1 for each row.
+====================================================================================================
+
+[001] sensor  ->  let
+      "And, if youre staying home, you can upgrade your bedroom with everything from a mattress cover with a sensor that monitors your sleep ($249) to a sleeping mask ..."
+
+[002] agricultural  ->  land
+      "Guillaume Chapron from Sweden’s University of Agricultural Sciences and researchers across Europe found wolves living in suburban areas with up to 3,050 people ..."
+
+[003] academy  ->  america
+      "Academy of Management Executive, 14, 129–139"
+
+[004] nuclear  ->  accident
+      "IUPAC said that a Russian-American team of scientists at the Joint Institute for Nuclear Research in Dubna and Lawrence Livermore National Laboratory in Califor..."
+
+[005] compact  ->  remodel
+      "Cancellous bone is spongy and less solid than compact bone"
+
+[006] flight  ->  fight
+      "A common example of neural stimuli is the activation of the fight-or-flight response by the sympathetic nervous system"
+
+[007] lied  ->  talk
+      "Others hid it and lied about it"
+
+[008] remodel  ->  month
+      "Bone may also be resorbed for remodeling, if the applied stresses have changed"
+
+[009] album  ->  people
+      "But his 1965 album, Live at the Regal, has become famous and influenced many younger musicians"
+
+[010] spermatogonia  ->  daughter
+      "(a) Mitosis of a spermatogonial stem cell involves a single cell division that results in two identical, diploid daughter cells (spermatogonia to primary sperma..."
+
+[011] nonmetal  ->  consist
+      "A metalloid is an element that has properties that are between those of metals and nonmetals; these elements are typically semiconductors"
+
+[012] pesticide  ->  use
+      "Also, the higher levels of cadmium and pesticides in conventional produce were still well below regulatory limits"
+
+[013] bronchiole  ->  beat
+      "5 mm are the respiratory bronchioles"
+
+[014] intramembranous  ->  control
+      "Intramembranous ossification is the process of bone development from fibrous membranes"
+
+[015] synapsis  ->  matter
+      "The lower motor neuron is that cell in the gray matter of the spinal cord and its axon extends into the periphery where it synapses with a skeletal muscle in a ..."
+
+[016] morita  ->  maybe
+      "And Steve Jobs was inspired by Akio Morita, the co-founder of Sony, and he inspired me, so maybe it will come in a circle"
+
+[017] wright  ->  peter
+      "In a concerted campaign – led, the panel found, by the Chief Constable, Peter Wright – the South Yorkshire Police put out their story that drunken supporters or..."
+
+[018] antigen  ->  present
+      "A helper T cell recognizes the MHC II–antigen complex and activates the B cell"
+
+[019] cognitive  ->  child
+      "As discussed at the beginning of this chapter, developmental psychologists often divide our development into three areas: physical development, cognitive develo..."
+
+[020] donor  ->  chance
+      "Around a third of the Welsh population is on the organ donor register, but well over two-thirds in surveys say they are happy to be organ donors"
+
+[021] scrivener  ->  richard
+      "Richard Scrivener, a former Assistant Strength and Conditioning Coach at Northampton Saints Rugby Club, says that while the benefits are clear, Tabatas are an a..."
+
+[022] mum  ->  dad
+      "It has been called 'the hotel of mum and dad' but few guesthouses have such favourable terms"
+
+[023] estate  ->  agent
+      "However, the most popular investments are still real estate  mainly within India  and jewellery"
+
+[024] subunit  ->  small
+      "Additional factors use the energy in GTP hydrolysis to disassemble the large and small ribosomal subunits and mRNA"
+
+[025] strain  ->  dangerous
+      "Most often, the condition results from repetitive motions over time that strain the tendons needed to perform the tasks"
+
+[026] organism  ->  people
+      "Enterobacteria, organisms usually found in the gut, had also acquired vancomycin resistance"
+
+[027] neurotransmitter  ->  inside
+      "At another synapse, neurotransmitter is released and binds to its receptor"
+
+[028] swabey  ->  blow
+      "A glimpse of an answer appears on the face of Lee Swabey moments after he blows the final whistle of a 2 –1 win for Grimsby over Woking, a match at level 5 of t..."
+
+[029] promoter  ->  work
+      "(a) In the presence of cAMP, CAP binds to the promoters of operons, like the lac operon, that encode genes for enzymes for the use of alternate substrates"
+
+[030] farm  ->  absolutely
+      "24 farm workers, who were without weapons, were killed by British troops – their families are now fighting for a public inquiry"
+
+[031] operator  ->  talk
+      "Not only that, but a significant number of those subscribers come from bundled deals with mobile phone operators so it is debatable just how “active” its users ..."
+
+[032] exclusively  ->  pay
+      "It already has AC/DC and the Beatles’ catalogues exclusively for download on iTunes but it remains to be seen if it can persuade these two to make the jump into..."
+
+[033] female  ->  difference
+      "As a result, males and females experience different selective pressures, which can often lead to the evolution of phenotypic differences, or sexual dimorphisms,..."
+
+[034] chromosome  ->  set
+      "Across a given chromosome, several recombination events may occur, causing extensive shuffling of alleles"
+
+[035] palm  ->  forward
+      "(g) Supination of the forearm turns the hand to the palm forward position in which the radius and ulna are parallel, while forearm pronation turns the hand to t..."
+
+[036] nutrient  ->  cute
+      "Never mind how cute a panda is or how stunning a tiger – it’s worms that are grinding up our waste and taking it deep into the soil to turn into nutrients, and ..."
+
+[037] foreign  ->  red
+      "Antibodies are synthesized and secreted by activated plasma cells in the spleen, and the spleen filters foreign substances and antibody-complexed pathogens from..."
+
+[038] product  ->  leave
+      "A chemical equation with a double headed arrow pointing towards both the reactants and products often denote these reversible reaction situations"
+
+[039] outermost  ->  need
+      "All elements are most stable when their outermost shell is filled with electrons according to the octet rule"
+
+[040] shortage  ->  problem
+      "And some people say the challenge caused a water shortage on the Scottish island of Colonsay"
+
+[041] stirling  ->  running
+      "In Stirling alone, 30 schools have already started or will soon start the daily mile"
+
+[042] irregular  ->  hard
+      "Its hard to sleep if youre one of the 15 million American shift workers who work irregular hours"
+
+[043] singerer  ->  beer
+      "Every pub wants to learn how to reach women, adds Singerer"
+
+[044] ashamed  ->  sorry
+      "And I just thought: You shouldnt be ashamed of this"
+
+[045] quinn  ->  elizabeth
+      "Elizabeth Gallagher, who calls herself Quinn, replied to an online posting from Axani and she was chosen"
+
+[046] reactant  ->  group
+      "A chemical equation with a double headed arrow pointing towards both the reactants and products often denote these reversible reaction situations"
+
+[047] hydrochloric  ->  definitely
+      "Chlorous acid is not stable; it slowly decomposes in solution to yield chlorine dioxide, hydrochloric acid, and water"
+
+[048] convolute  ->  bed
+      "A portal system is formed when the blood flows through a second capillary bed surrounding the proximal and distal convoluted tubules and the loop of Henle"
+
+[049] skype  ->  kid
+      "But the PRISM program makes that permission unnecessary, because it allows the agency to take the communications directly off the companies servers, communicati..."
+
+[050] location  ->  kid
+      "This tells us that we could create a workable network of animal brains distributed in many different locations"
+
+[051] operon  ->  change
+      ", activating a regulon of operons) to an environmental stress"
+
+[052] visiting  ->  thinking
+      "Arif Sayani, the towns Director of Planning, said the town would be able to use the maps as a promotional tool for those thinking of visiting or moving to the a..."
+
+[053] yoga  ->  people
+      "Air India, the national airline, has also said it will introduce yoga for trainee pilots"
+
+[054] gene  ->  agent
+      "A carotenoid enzyme, or desaturase, is responsible for the red coloration in certain aphids, and when mutation of this gene leads to formation of inactive enzym..."
+
+[055] fishing  ->  boat
+      "Inky was brought to the National Aquarium several years ago by a local fisherman who found him in a fishing pot"
+
+[056] drifting  ->  boat
+      "In 2006, three Mexican fishermen were found drifting in a small boat near the Marshall Islands, nine months after setting out on a shark-fishing trip"
+
+[057] hyperactivity  ->  attention
+      "(2015) Effect of Treatment Modality on Long-Term Outcomes in Attention-Deficit/Hyperactivity Disorder: A Systematic Review"
+
+[058] regulation  ->  difference
+      ") The regulation of pyruvate kinase involves phosphorylation by kinase, resulting in a less-active enzyme"
+
+[059] gas  ->  big
+      "Poor people can use the gas for cooking and lighting"
+
+[060] fontanelle  ->  loose
+      "During birth, the fontanelles provide flexibility to the skull, allowing the bones to push closer together or to overlap slightly, thus aiding movement of the i..."
+
+[061] sight  ->  pain
+      "The sight of the derelict properties can be agonizing for people who are struggling to keep a roof above their heads in one of the worlds most expensive cities"
+
+[062] unpaid  ->  straight
+      "Most winners (59%) give up work straight away, but 19% carry on working and 31% do unpaid voluntary work"
+
+[063] korean  ->  instead
+      "The books have celebrity fans like Zooey Deschanel, who shared a link about the book with her Facebook followers, and the South Korean pop star Kim Ki-Bum, who ..."
+
+[064] pump  ->  drive
+      "A large percentage of a cell’s ATP powers this pump, because cellular processes bring a considerable amount of sodium into the cell and potassium out of it"
+
+[065] proper  ->  little
+      "As you might expect, a fibrocyte, a less active form of fibroblast, is the second most common cell type in connective tissue proper"
+
+[066] sane  ->  hit
+      "He had his first UK number 1 album with Aladdin Sane (1973), which included the hit singles The Jean Genie and Drive-in Saturday"
+
+[067] pia  ->  world
+      "Between the arachnoid mater and pia mater is the subarachnoid space"
+
+[068] tutsi  ->  men
+      "Some are survivors of the 1994 genocide, during which almost a million Tutsis and Hutus were killed"
+
+[069] transform  ->  fix
+      "Denitrification is also performed by bacteria and transforms nitrate from soils into gaseous nitrogen compounds, such as N2O, NO, and N2"
+
+[070] swing  ->  beat
+      "In the presidential race, Romney won only one of the swing states, North Carolina, while Obama held New Hampshire, Virginia, Ohio, Wisconsin, Nevada, Iowa and C..."
+
+[071] unusually  ->  ball
+      "According to Yarrell, Inky – who is about the size of a rugby ball – was an “unusually intelligent” octopus"
+
+[072] vesicle  ->  wonder
+      "A vesicle is a membranous sac—a spherical and hollow organelle bounded by a lipid bilayer membrane"
+
+[073] population  ->  course
+      "A geographically continuous population has a gene pool that is relatively homogeneous"
+
+[074] trypanosomiasis  ->  early
+      "African sleeping sickness see human African trypanosomiasis"
+
+[075] archives  ->  follow
+      "Archives Italiennes de Biologie, 150, 107–121"
+
+[076] conserve  ->  ice
+      "Bicarbonate is the one ion that is not normally excreted in urine; instead, it is conserved by the kidneys for use in the body’s buffering systems"
+
+[077] dunworth  ->  gur
+      "But the fi gures also show the huge increase in use since May 2011,” said James Dunworth, of ecigarettedirect"
+
+[078] ossification  ->  remodel
+      "(a) Mesenchymal cells group into clusters, and ossification centers form"
+
+[079] irv  ->  air
+      "0 | RV+ERV+TV+IRV"
+
+[080] bypass  ->  bed
+      "If all of the precapillary sphincters in a capillary bed are closed, blood will flow from the metarteriole directly into a thoroughfare channel and then into th..."
+
+[081] pronation  ->  forward
+      "(g) Supination of the forearm turns the hand to the palm forward position in which the radius and ulna are parallel, while forearm pronation turns the hand to t..."
+
+[082] unlikely  ->  sure
+      "Others argue that a complete victory by either side is unlikely and hope for a political solution that comes from abroad"
+
+[083] welfare  ->  truck
+      "He grew up on welfare and became a truck driver, whereas his biological siblings – and the boy brought up in his place – attended private secondary schools and ..."
+
+[084] erythrocyte  ->  body
+      "Hemoglobin, or Hb, is a protein molecule found in red blood cells (erythrocytes) made of four subunits: two alpha subunits and two beta subunits"
+
+[085] feedback  ->  control
+      "The improvements have been informed by extensive feedback from adopting faculty, curricular innovators, and equity experts"
+
+[086] servant  ->  lord
+      "And, three million civil servants and their families will get free daily yoga lessons"
+
+[087] inspiratory  ->  air
+      "Conversely, the inspiratory reserve volume (IRV) is the additional amount of air that can be inhaled after a normal inhalation"
+
+[088] statement  ->  life
+      "Which of the following statements is false"
+
+[089] industriall  ->  fire
+      "Jenny Holdcroft, policy director for IndustriALL, which has been closely involved in the Accord, said that the agreement ensured that factories would not lose o..."
+
+[090] stressful  ->  fight
+      "ABA accumulates as a response to stressful environmental conditions, such as dehydration, cold temperatures, or shortened day lengths"
+
+[091] bubonic  ->  black
+      "Although contracting bubonic plague before antibiotics meant almost certain death, the bacterium responds to several types of modern antibiotics, and mortality ..."
+
+[092] nationalism  ->  talk
+      "One commentator called the event on 21 June “a mix of cultural nationalism, commercialization and subtle coercion”"
+
+[093] promote  ->  act
+      "120 companies have joined our Think, Act, Report scheme, which encourages companies to improve the way they recruit, promote and pay women"
+
+[094] liberalization  ->  danny
+      "The Bolivian move is inspirational and groundbreaking, said Danny Kushlick, of the Transform Drug Policy Foundation, which supports drug liberalization"
+
+[095] musical  ->  york
+      "This new start in his private life coincided with a search for fresh musical inspiration"
+
+[096] konstantinos  ->  agent
+      "“It started out as the best season in 30 years and, in one week, became the worst,” said Atzamis Konstantinos, a travel agent in Lemnos who used to earn €15,000..."
+
+[097] eukaryote  ->  regulation
+      "Although found in both prokaryotes and eukaryotes, transposons are clinically relevant in bacterial pathogens for the movement of virulence factors, including a..."
+
+[098] des  ->  ray
+      "Almost 60 years after Ray Kroc opened his first restaurant in Des Plaines, Illinois, consumers are losing their appetite for a Big Mac and fries"
+
+[099] trading  ->  suppose
+      "In Europe, the Emissions Trading Scheme was supposed to discourage high-carbon power generation by imposing a price on carbon dioxide emissions"
+
+[100] gradient  ->  high
+      "Diffusion is a process in which transport is driven by a concentration gradient"

@@ -452,28 +452,6 @@ _CATEGORY_NOUN = {
 }
 
 
-# ---- V62_TERM_SANITY_BLOCK_START (2026-08-13) --------------------------------------------------
-# v6.2 D-B. The v5/v6.1 boundary work fixed UNDER-taking and overshot into OVER-taking: the term
-# now swallows material that is not part of the concept's name. Three surfaces, hand-named off the
-# v6.1 blind sample, all fixed HERE in the one centralized routine (a per-pattern patch is what
-# made the boundary bug recur once already):
-#   [20] `pathway's`                             a bare possessive fragment is not a term
-#   [27] `interesting example of ecosystem dynamics`   a DISCOURSE FRAME, not a concept
-#   [46] `tragic irish potato famine`            an evaluative adjective is not part of the name
-# All three are POLICY-GATED and OFF under TERM_POLICY_LEGACY, so the five shipped ISA patterns
-# (which reach this routine through `build_term`, i.e. LEGACY) cannot move.
-_EVALUATIVE_LEAD_ADJ = {
-    # The director's list, verbatim. Each is a WRITER'S APPRAISAL of the referent, never part of
-    # the term itself: a reader looking the concept up would not find it under this word.
-    "tragic", "interesting", "important", "remarkable", "classic", "famous",
-}
-_DISCOURSE_FRAME_HEAD = {
-    # "an interesting EXAMPLE OF ecosystem dynamics occurred when ..." -- the head noun frames the
-    # DISCOURSE ("here comes an illustration"), it does not name a concept. Refuse; do not guess a
-    # trim to the of-complement, which is a different (and unasserted) claim.
-    "example", "case", "instance", "illustration",
-}
-# ---- V62_TERM_SANITY_BLOCK_END -----------------------------------------------------------------
 
 
 @dataclass(frozen=True)
@@ -483,18 +461,10 @@ class TermPolicy:
     reject_bare_category_head: bool = False        # v6.1 D1a
     restart_at_shared_head_coordination: bool = False   # v6.1 D1b
     extend_over_of_complement: bool = False        # v6.1 D1c
-    # ---- V62_TERM_SANITY_BLOCK_START (fields) --------------------------------------------------
-    reject_possessive_term: bool = False           # v6.2 D-Ba
-    reject_discourse_frame_head: bool = False      # v6.2 D-Bb
-    strip_evaluative_lead_adjective: bool = False  # v6.2 D-Bc
-    # ---- V62_TERM_SANITY_BLOCK_END -------------------------------------------------------------
 
 
 TERM_POLICY_LEGACY = TermPolicy()
 TERM_POLICY_STRICT = TermPolicy("STRICT_V61", True, True, True)
-# ---- V62_TERM_SANITY_BLOCK_START (policy) ------------------------------------------------------
-TERM_POLICY_STRICT_V62 = TermPolicy("STRICT_V62", True, True, True, True, True, True)
-# ---- V62_TERM_SANITY_BLOCK_END -----------------------------------------------------------------
 
 
 def _term_cut(toks: List[str], proper: bool) -> Tuple[List[str], Optional[int]]:
@@ -580,19 +550,6 @@ def build_term_explain(dfd: str, sentence: str, policy: TermPolicy = TERM_POLICY
     content = _term_content(cut)
     if not content:
         return None, "NO_CONTENT"
-    # ---- V62_TERM_SANITY_BLOCK_START (checks) --------------------------------------------------
-    if policy.strip_evaluative_lead_adjective:
-        while len(content) > 1 and content[0].lower() in _EVALUATIVE_LEAD_ADJ:
-            content = content[1:]
-            note += "|EVAL_ADJ_STRIPPED"
-        if content[0].lower() in _EVALUATIVE_LEAD_ADJ:
-            return None, "EVALUATIVE_ONLY_TERM"     # nothing left that names anything
-    if policy.reject_possessive_term and any(t.lower().endswith("'s") for t in content):
-        return None, "POSSESSIVE_FRAGMENT"
-    if (policy.reject_discourse_frame_head
-            and lemma_verb(content[-1]).lower() in _DISCOURSE_FRAME_HEAD):
-        return None, "DISCOURSE_FRAME_TERM"
-    # ---- V62_TERM_SANITY_BLOCK_END -------------------------------------------------------------
     if len(content) > _MAX_TERM_CONTENT_TOKENS:
         return None, "TOO_LONG"             # run-on span, not a term (F3b)
     if any(t.lower() in _TERM_STOP for t in content):

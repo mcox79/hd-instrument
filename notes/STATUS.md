@@ -7,13 +7,8 @@ Rewritten in place every session; never append -- if it doesn't fit in 6KB, it's
 claim with a pointer. LEDGER: `notes/ledger_grounding_quality_2026-08-12.md`, refreshed this pass.
 
 ## WHAT IS TRUE NOW (sourced -- follow the pointer, don't trust this summary)
-- **Infra, tonight** (CLAUDE.md "Agent-teams / frontmatter findings"): `background:`
-  frontmatter key INVALID -- fails the WHOLE definition to load (all 5 `hdi_*` vanished,
-  returned when removed), corrects prior "no effect" claim. `model`/`tools` valid. `hdi_*`
-  needs client env `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, restored in
-  `~/.claude/settings.json` tonight, needs client restart. Effort = env
-  `CLAUDE_CODE_EFFORT_LEVEL=high`, not settings.json `effortLevel: xhigh` (inactive).
-  Backgrounding never the blocker, see `notes/director_delegation_audit_2026-08-12.md`.
+- **Infra (agent frontmatter/env):** superseded here -- carried verbatim in CLAUDE.md
+  "Agent-teams / frontmatter findings (2026-08-12 night)"; key rule kept in DO NOT REDO below.
 - **Read-out fix landed-VET** (`notes/landed_vet_readout_fix_v1_2026-08-12.md`, 8de3a9a20):
   OVERSTATED headline. F3 (frozen anchor space) CONFIRMED stronger than claimed (-0.168 at
   matched retention, moves `flip_all` -0.0603) -> WIRE default-OFF. F2 (freq-corrected pool)
@@ -23,8 +18,6 @@ claim with a pointer. LEDGER: `notes/ledger_grounding_quality_2026-08-12.md`, re
   (192521a7f/8e6c574c5/7a708eff3, latter closes an F3 memory leak).
 - **Context vector is NOT noise:** flip 0.7830 vs scramble 0.9984, D=+0.2155 (79c7521cd,
   59479cf82). Defect is downstream in the READ-OUT -- why the arc above exists.
-- Delegation audit `notes/director_delegation_audit_2026-08-12.md` (untracked): blocking fixed
-  only after 4th protocol edit (~4.5h); verbosity trended worse (4.8x).
 - Definitional v5 term-boundary fix: **HARD_PASS**, 64% MEANINGFUL/12% RELATED/24% NOISE on
   2092 facts vs >=52% bar (8->38->40->64; v4 "ceiling" was term corruption not structural) ->
   `notes/director_handscore_b3_v5_termboundary_2026-08-12.md` (untracked).
@@ -47,10 +40,9 @@ NULL, floor-limited -- see NEXT 1 and
 `notes/director_handscore_readout_v1_2026-08-13.md`.
 
 ## NEXT (ordered)
-1. DONE 08-13: cell ran, Director hand-scored 100 blind rows -> 3% MEANINGFUL / 19% RELATED /
-   78% NOISE; delta F1F3-BASE +0.02 = NULL, floor-limited (only 3 MEANINGFUL exist, max
-   attainable |delta| 0.06); S8 drift -0.238 voids retention-match. Segment effect VERIFIED:
-   OpenStax bio 9/17=52.9% M+R vs OneStop news 13/81=16.1% (p=0.0024).
+1. DONE 08-13: hand-scored 100 blind rows -> 3% M / 19% R / 78% N; delta F1F3-BASE +0.02 = NULL,
+   floor-limited (3 M exist, max |delta| 0.06); S8 drift -0.238 voids retention-match. Its segment
+   effect (bio 52.9% vs news 16.1%) was later REFUTED -- see DO NOT REDO.
    `notes/director_handscore_readout_v1_2026-08-13.md`. Next binding question = PROPOSER'S METRIC.
 2. Growth stays PAUSED regardless of this cell's outcome until grounding quality holds.
 3. Noun-only structural gap (0 verb defs in 2092 facts, all 5 patterns NP-headed) -- unscheduled.
@@ -68,11 +60,22 @@ NULL, floor-limited -- see NEXT 1 and
 - `isolation:` agent frontmatter key -- tested, ignored. `background:` -- WORSE than ignored,
   fails the whole definition to load (see infra bullet above); still never add either.
 - Scoring the quality-readout cell against v5's 64% -- refused in its own prereg; comparator 8%.
+- Sensorimotor norms as a filter on the meaning read-out: SHELVED -- a filter cannot create meaning;
+  coverage was never the blocker. Revival: `notes/sensorimotor_anchoring_scope_2026-08-13.md`.
 - Read-out stabilization (F1+F3) as a route to better meanings -- NULL, floor-limited; grounding
   quality is the binding constraint, not read-out stability
   (`notes/director_handscore_readout_v1_2026-08-13.md`).
+- **Corpus swap news->textbook as a route to grounded-meaning quality: REFUTED.** Prereg matched-N
+  blind (20,394 sent/arm, 50 rows/arm): TEXTBOOK 0% M / 30% R vs NEWS 4% / 20% -> band
+  MECHANISM_IS_BINDING. Prior post-hoc n=17 claim (bio 52.9% M+R vs news 16.1%, p=0.0024) did NOT
+  replicate: 30.0% vs 24.0%, p=0.6529, OR 1.36. Better text buys adjacency, not meaning.
+  `notes/director_handscore_text_vs_mechanism_2026-08-13.md`.
 
 ## BLOCKED / DO NOT TOUCH
+- **DISCIPLINE -- SERIALIZE MEASUREMENT vs CODE CHANGE (08-13, happened 2x):** never dispatch an
+  audit/witness-run/experiment while another agent may write code it depends on (incl. TRANSITIVE
+  deps); a measurement racing a concurrent edit describes NO single repo state.
+  `notes/measurement_layer_drift_2026-08-13.md` sec.8.
 - `hdlab/reading_grounding_loop.py`, `hdlab/grounding_acquisition_loop.py`,
   `experiments/exp_pbv_hypothesis_v1.py` -- concurrent session (verify before edit).
 - Untracked notes owned by others, `notes/*_2026-08-12.md`: `corpus_composition_audit`,

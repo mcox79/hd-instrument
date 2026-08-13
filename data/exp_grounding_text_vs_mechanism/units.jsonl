@@ -1,0 +1,22 @@
+{"unit_key": "NEWS|decile0", "result": {"arm": "NEWS", "decile": 0, "first_chunk_idx": 0, "n_grounded_at_open": 0}}
+{"unit_key": "NEWS|decile1", "result": {"arm": "NEWS", "decile": 1, "first_chunk_idx": 14, "n_grounded_at_open": 6}}
+{"unit_key": "NEWS|decile2", "result": {"arm": "NEWS", "decile": 2, "first_chunk_idx": 28, "n_grounded_at_open": 16}}
+{"unit_key": "NEWS|decile3", "result": {"arm": "NEWS", "decile": 3, "first_chunk_idx": 41, "n_grounded_at_open": 23}}
+{"unit_key": "NEWS|decile4", "result": {"arm": "NEWS", "decile": 4, "first_chunk_idx": 55, "n_grounded_at_open": 90}}
+{"unit_key": "NEWS|decile5", "result": {"arm": "NEWS", "decile": 5, "first_chunk_idx": 68, "n_grounded_at_open": 148}}
+{"unit_key": "NEWS|decile6", "result": {"arm": "NEWS", "decile": 6, "first_chunk_idx": 82, "n_grounded_at_open": 194}}
+{"unit_key": "NEWS|decile7", "result": {"arm": "NEWS", "decile": 7, "first_chunk_idx": 96, "n_grounded_at_open": 251}}
+{"unit_key": "NEWS|decile8", "result": {"arm": "NEWS", "decile": 8, "first_chunk_idx": 109, "n_grounded_at_open": 303}}
+{"unit_key": "NEWS|decile9", "result": {"arm": "NEWS", "decile": 9, "first_chunk_idx": 123, "n_grounded_at_open": 350}}
+{"unit_key": "arm_done|NEWS", "result": {"arm": "NEWS", "corpus": "OneStopEnglish (Ele+Int+Adv)", "readout": null, "freeze_episode": false, "n_sentences": 20394, "n_chunks": 136, "n_grounded": 387, "n_meaning_facts": 387, "n_tautology_facts": 0, "n_closed_class_object_facts": 0, "no_leak_violations": [], "n_refusals": 20058, "refusal_reasons": {"CLOSED_CLASS_SUBJECT": 321, "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 16915, "NO_STANDING_HYPOTHESIS": 2822}, "pairs_digest": "6425339e38a1f4425c39092ff16a73e609243f1c9a9490c4eb73924d7c756f4b", "elapsed_s": 791.53}}
+{"unit_key": "TEXTBOOK|decile0", "result": {"arm": "TEXTBOOK", "decile": 0, "first_chunk_idx": 0, "n_grounded_at_open": 0}}
+{"unit_key": "TEXTBOOK|decile1", "result": {"arm": "TEXTBOOK", "decile": 1, "first_chunk_idx": 14, "n_grounded_at_open": 46}}
+{"unit_key": "TEXTBOOK|decile2", "result": {"arm": "TEXTBOOK", "decile": 2, "first_chunk_idx": 28, "n_grounded_at_open": 91}}
+{"unit_key": "TEXTBOOK|decile3", "result": {"arm": "TEXTBOOK", "decile": 3, "first_chunk_idx": 41, "n_grounded_at_open": 138}}
+{"unit_key": "TEXTBOOK|decile4", "result": {"arm": "TEXTBOOK", "decile": 4, "first_chunk_idx": 55, "n_grounded_at_open": 171}}
+{"unit_key": "TEXTBOOK|decile5", "result": {"arm": "TEXTBOOK", "decile": 5, "first_chunk_idx": 68, "n_grounded_at_open": 183}}
+{"unit_key": "TEXTBOOK|decile6", "result": {"arm": "TEXTBOOK", "decile": 6, "first_chunk_idx": 82, "n_grounded_at_open": 191}}
+{"unit_key": "TEXTBOOK|decile7", "result": {"arm": "TEXTBOOK", "decile": 7, "first_chunk_idx": 96, "n_grounded_at_open": 197}}
+{"unit_key": "TEXTBOOK|decile8", "result": {"arm": "TEXTBOOK", "decile": 8, "first_chunk_idx": 109, "n_grounded_at_open": 197}}
+{"unit_key": "TEXTBOOK|decile9", "result": {"arm": "TEXTBOOK", "decile": 9, "first_chunk_idx": 123, "n_grounded_at_open": 207}}
+{"unit_key": "arm_done|TEXTBOOK", "result": {"arm": "TEXTBOOK", "corpus": "OpenStax (biology_2e, anatomy_physiology_2e, psychology_2e, microbiology, chemistry_2e)", "readout": null, "freeze_episode": false, "n_sentences": 20394, "n_chunks": 136, "n_grounded": 212, "n_meaning_facts": 212, "n_tautology_facts": 0, "n_closed_class_object_facts": 0, "no_leak_violations": [], "n_refusals": 7899, "refusal_reasons": {"CLOSED_CLASS_SUBJECT": 72, "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 7245, "NO_STANDING_HYPOTHESIS": 582}, "pairs_digest": "499dbddbbc06a49c689ffbc6cf6cafdb017eca9d0b5851084b6aca1f417d3c69", "elapsed_s": 627.78}}

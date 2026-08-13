@@ -1,0 +1,14 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "verdict_msg": "module self-tests (v6.1 + v6.2) + tiny corpus + snapshot/revert digests equal on the 4 claimed ISA patterns + 21/21 tracked rows no longer reproduce their prior fact",
+  "summary": "selftest",
+  "elapsed_s": 3.02,
+  "shared_module_self_test": "PASS",
+  "n_v62_sentinel_blocks": 4,
+  "tiny_facts": 0,
+  "tiny_refusals": 1,
+  "tiny_notes": {
+    "D4_CLAUSE_TRUNCATED": 1,
+    "NO_VERB_IN_OWN_CLAUSE": 1
+  }
+}

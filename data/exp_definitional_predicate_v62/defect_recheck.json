@@ -1,0 +1,335 @@
+{
+  "what": "For each tracked defect row -- the 8 the director hand-scored NOISE in the v6.1 sample, and the 13 v6 rows tracked since v6 -- what the v6.2 code produces for that EXACT source sentence. A row is FIXED when it no longer reproduces its prior fact; REFUSED means v6.2 emits nothing at all for that sentence.",
+  "v61_sample": "data\\exp_definitional_predicate_v61\\predicate_audit_sample.json",
+  "v6_sample": "data\\exp_definitional_predicate_v6\\predicate_audit_sample.json",
+  "n_rows": 21,
+  "n_still_reproducing_the_prior_fact": 0,
+  "n_refused_outright": 7,
+  "rows": [
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[08]",
+      "prior_fact": "(cellular respiration, PROCESS_PATIENT, convert)",
+      "source_sentence": "In contrast, cellular respiration is the process in which the chemical energy stored in sugars is converted into ATP, a source of chemical energy that can be used by the rest of the cell",
+      "provenance": "BIO:3878",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(cellular respiration, PROCESS_ACTION, convert)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "SLOT_TYPE_MISMATCH"
+      ],
+      "v62_refusal_details": [
+        "PROCESS_PATIENT|store|VERB_FORM_IN_NOUN_SLOT|stored"
+      ]
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[16]",
+      "prior_fact": "(elaborative rehearsal, PROCESS_PATIENT, try)",
+      "source_sentence": "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know",
+      "provenance": "PSY:5518",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(elaborative rehearsal, PROCESS_ACTION, link)",
+        "(elaborative rehearsal, PROCESS_PATIENT, information)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[19]",
+      "prior_fact": "(feedback inhibition, ENABLING_CONDITION, end)",
+      "source_sentence": "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream",
+      "provenance": "BIO:3067",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(feedback inhibition, ENABLING_CONDITION, inhibit)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[20]",
+      "prior_fact": "(feedback inhibition, ENABLING_CONDITION_AGENT, pathway's)",
+      "source_sentence": "Feedback inhibition occurs when the pathway's end product (here isoleucine) inhibits an upstream",
+      "provenance": "BIO:3067",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(feedback inhibition, ENABLING_CONDITION, inhibit)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[27]",
+      "prior_fact": "(interesting example of ecosystem dynamics, ENABLING_CONDITION, strike)",
+      "source_sentence": "In 1993, an interesting example of ecosystem dynamics occurred when a rare lung disease struck inhabitants of the southwestern United States",
+      "provenance": "BIO:22397",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "TERM_DISCOURSE_FRAME_TERM"
+      ],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[32]",
+      "prior_fact": "(osmotic regulation, PROCESS_ACTION, salt)",
+      "source_sentence": "The solutes in body fluids are mainly mineral salts and sugars, and osmotic regulation is the process by which the mineral salts and water are kept in balance",
+      "provenance": "BIO:19451",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(osmotic regulation, PROCESS_ACTION, keep)",
+        "(osmotic regulation, PROCESS_PATIENT, salt)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[34]",
+      "prior_fact": "(photosynthesis, PROCESS_ACTION, like)",
+      "source_sentence": "Photosynthesis is the primary pathway in which photosynthetic organisms like plants (planktonic algae perform the majority of global photosynthesis) harvest the sun’s energy and convert it into carbohydrates",
+      "provenance": "BIO:2786",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "SLOT_TYPE_MISMATCH"
+      ],
+      "v62_refusal_details": [
+        "PROCESS_ACTION|like|PREPOSITION_IN_VERB_SLOT|like"
+      ]
+    },
+    {
+      "source_sample": "v61_sample_NOISE",
+      "sheet_row": "[46]",
+      "prior_fact": "(tragic irish potato famine, ENABLING_CONDITION, grow)",
+      "source_sentence": "The tragic Irish potato famine occurred when the single variety grown in Ireland became susceptible to a potato blight, wiping out the entire crop",
+      "provenance": "BIO:23059",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(irish potato famine, ENABLING_CONDITION, become)",
+        "(irish potato famine, ENABLING_CONDITION_AGENT, variety)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[06]",
+      "prior_fact": "(biochemical basis, PROCESS_ACTION, precede)",
+      "source_sentence": "Often the biochemical basis of epistasis is a gene pathway in which the expression of one gene is dependent on the function of a gene that precedes or follows it in the pathway",
+      "provenance": "BIO:5462",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "NO_VERB_IN_OWN_CLAUSE"
+      ],
+      "v62_refusal_details": [
+        "the expression of one gene is dependent on the function of a gene"
+      ]
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[07]",
+      "prior_fact": "(bystander effect, PROCESS_ACTION, volunteer)",
+      "source_sentence": "The bystander effect is a phenomenon in which a witness or bystander does not volunteer to help a victim or person in distress",
+      "provenance": "PSY:9906",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D2_NEGATION_IN_SCOPE"
+      ],
+      "v62_refusal_details": [
+        "not"
+      ]
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[13]",
+      "prior_fact": "(differentiation, PROCESS_PATIENT, function)",
+      "source_sentence": "Differentiation is the process by which unspecialized cells become specialized to carry out distinct functions",
+      "provenance": "ANAT:2292",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(differentiation, PROCESS_ACTION, become)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D3_PATIENT_NO_NOMINAL"
+      ],
+      "v62_refusal_details": [
+        " specialized to carry out distinct functions"
+      ]
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[16]",
+      "prior_fact": "(diffusion, PROCESS_PATIENT, region)",
+      "source_sentence": "Diffusion is a process in which material travels from regions of high concentration to low concentration until equilibrium is reached",
+      "provenance": "BIO:18615",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(diffusion, PROCESS_ACTION, travel)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D3_PATIENT_OBLIQUE"
+      ],
+      "v62_refusal_details": [
+        " from regions of high concentration to low concentration until equilibrium is re"
+      ]
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[21]",
+      "prior_fact": "(form, ENABLING_CONDITION, reproduce)",
+      "source_sentence": "The other form of polyploidy occurs when individuals of two different species reproduce to form a viable offspring that we call an allopolyploid",
+      "provenance": "BIO:7753",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D1_BARE_CATEGORY_HEAD"
+      ],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[23]",
+      "prior_fact": "(high death rate, ENABLING_CONDITION, increase)",
+      "source_sentence": "As can be seen from the mortality rate data (column D), a high death rate occurred when the sheep were between 6 and 12 months old, and then increased even more from 8 to 12 years old, after which there were few survivors",
+      "provenance": "BIO:21629",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D4_NON_DEFINITIONAL_CONTEXT"
+      ],
+      "v62_refusal_details": [
+        "as can be seen"
+      ]
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[25]",
+      "prior_fact": "(lactation, PROCESS_PATIENT, nipple)",
+      "source_sentence": "Lactation is the process by which milk is synthesized and secreted from the mammary glands of the postpartum female breast in response to an infant sucking at the nipple",
+      "provenance": "ANAT:22992",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(lactation, PROCESS_ACTION, synthesize)",
+        "(lactation, PROCESS_PATIENT, milk)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[30]",
+      "prior_fact": "(neurodevelopmental disorder, ENABLING_CONDITION_AGENT, development)",
+      "source_sentence": "Neurodevelopmental disorders occur when the development of the nervous system is disturbed",
+      "provenance": "BIO:16580",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(neurodevelopmental disorder, ENABLING_CONDITION, disturb)",
+        "(neurodevelopmental disorder, ENABLING_CONDITION_PATIENT, development)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[36]",
+      "prior_fact": "(process, ENABLING_CONDITION, gather)",
+      "source_sentence": "The process begins when mesenchymal cells in the embryonic skeleton gather together and begin to differentiate into specialized cells (a)",
+      "provenance": "ANAT:3926",
+      "v62_outcome": "REFUSED",
+      "v62_facts": [],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [
+        "D1_BARE_CATEGORY_HEAD"
+      ],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[41]",
+      "prior_fact": "(second-degree, ENABLING_CONDITION, reach)",
+      "source_sentence": "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": "ANAT:14271",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[42]",
+      "prior_fact": "(second-degree, ENABLING_CONDITION_AGENT, impulse)",
+      "source_sentence": "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not",
+      "provenance": "ANAT:14271",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[44]",
+      "prior_fact": "(termination, ENABLING_CONDITION_AGENT, enzyme)",
+      "source_sentence": "Termination of the signal occurs when an enzyme called phosphodiesterase converts cAMP into AMP",
+      "provenance": "BIO:4122",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(termination of signal, ENABLING_CONDITION, convert)",
+        "(termination of signal, ENABLING_CONDITION_AGENT, enzyme)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    },
+    {
+      "source_sample": "v6_sample_DEFECT",
+      "sheet_row": "[45]",
+      "prior_fact": "(termination, ENABLING_CONDITION_AGENT, uag)",
+      "source_sentence": "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered",
+      "provenance": "BIO:6574",
+      "v62_outcome": "EMITTED",
+      "v62_facts": [
+        "(termination of translation, ENABLING_CONDITION, encounter)",
+        "(termination of translation, ENABLING_CONDITION_PATIENT, codon)"
+      ],
+      "v62_reproduces_the_prior_defect_fact": false,
+      "v62_refusal_reasons": [],
+      "v62_refusal_details": []
+    }
+  ]
+}

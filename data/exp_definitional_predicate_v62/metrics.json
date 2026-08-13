@@ -1,0 +1,374 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "verdict_msg": "predicate v6.2: 221 facts (v6.1 228, v6 250), 183 refusals; ISA per-pattern digests unchanged by this cell for 4/4 CLAIMED patterns (CALLED excluded -- concurrent agent); 21/21 tracked defect rows no longer reproduce their prior fact; all machine checks pass",
+  "summary": "fix the four hand-scored v6.1 defects in the predicate extractor",
+  "elapsed_s": 47.15,
+  "run_mode": "full",
+  "isa_patterns_claimed": [
+    "APPOSITIVE",
+    "COPULA",
+    "GLOSSARY_COLON",
+    "REFERS_TO"
+  ],
+  "isa_pattern_EXCLUDED_from_claim": "CALLED",
+  "isa_exclusion_reason": "a CONCURRENT agent owns data/exp_called_boundary_v7 and is actively editing the CALLED branch of the same module; its digest can move between my two passes for reasons that are not mine, so claiming it would be a false diff either way.",
+  "isa_digests_current": {
+    "APPOSITIVE": "ac87649da5c46635cbdd3f1a51d1a9c1f49a765cc94d6c1cac6d9ab066e8e067",
+    "CALLED": "81fbd38d74d68d32bff009e3b179847479bf32b876835286e1be8c4943241c2b",
+    "COPULA": "4461afc0e6fc8df8bd13bfac9e9e6746f92bde9749e1b2c4cc829cab9ec65d2c",
+    "GLOSSARY_COLON": "3917e528a86bca2f4b5d6a407e2c9935e2fbd4080d7b21fd449e86d41b73ac16",
+    "REFERS_TO": "a0a8b78b5b1acf539a3adf5a1a09064fa0f5bd47e0e48eaefbebb8f202d27ffa"
+  },
+  "isa_digests_current_minus_v62_termsanity": {
+    "APPOSITIVE": "ac87649da5c46635cbdd3f1a51d1a9c1f49a765cc94d6c1cac6d9ab066e8e067",
+    "CALLED": "81fbd38d74d68d32bff009e3b179847479bf32b876835286e1be8c4943241c2b",
+    "COPULA": "4461afc0e6fc8df8bd13bfac9e9e6746f92bde9749e1b2c4cc829cab9ec65d2c",
+    "GLOSSARY_COLON": "3917e528a86bca2f4b5d6a407e2c9935e2fbd4080d7b21fd449e86d41b73ac16",
+    "REFERS_TO": "a0a8b78b5b1acf539a3adf5a1a09064fa0f5bd47e0e48eaefbebb8f202d27ffa"
+  },
+  "isa_counts_current": {
+    "APPOSITIVE": 982,
+    "CALLED": 1441,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "isa_counts_current_minus_v62_termsanity": {
+    "APPOSITIVE": 982,
+    "CALLED": 1441,
+    "COPULA": 2785,
+    "GLOSSARY_COLON": 327,
+    "REFERS_TO": 72
+  },
+  "isa_patterns_changed_BY_THIS_CELL": [],
+  "isa_diff_BY_THIS_CELL": {},
+  "isa_proof_method": "two byte-copies of hdlab/definitional_extraction.py: the CURRENT file, and the CURRENT file with this cell's sentinel-delimited V62_TERM_SANITY_BLOCK removed (4 blocks). Both are executed over the same corpus and their per-pattern (term, head) sets are sha256'd. THIS CELL'S delta is (reverted vs current).",
+  "n_v62_sentinel_blocks": 4,
+  "module_sha256_snapshot_current": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "module_sha256_reverted": "9f8349cb20d350268d948347fa8bd5d0004a6dee49200a47f665d6ec62c30f7a",
+  "live_module_sha256_at_start": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "live_module_sha256_at_end": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "live_module_stable_during_run": true,
+  "shared_module_self_test": "PASS",
+  "n_predicate_facts_v62": 221,
+  "n_predicate_facts_v61_on_disk": 228,
+  "n_predicate_facts_v6_on_disk": 250,
+  "n_predicate_facts_v61_recomputed_here": 228,
+  "delta_facts_v61_to_v62": -7,
+  "n_refusals_total": 183,
+  "n_refused_sentences_distinct": 180,
+  "refusal_reason_mix": {
+    "D1_BARE_CATEGORY_HEAD": 3,
+    "D2_NEGATION_IN_SCOPE": 4,
+    "D3_PATIENT_NO_NOMINAL": 2,
+    "D3_PATIENT_OBLIQUE": 3,
+    "D3_PATIENT_PURPOSE_ONLY": 3,
+    "D4_NON_DEFINITIONAL_CONTEXT": 1,
+    "NO_VERB_IN_OWN_CLAUSE": 85,
+    "SLOT_TYPE_MISMATCH": 4,
+    "TERM_ANAPHORIC_SUBJECT": 44,
+    "TERM_DISCOURSE_FRAME_TERM": 3,
+    "TERM_EMPTY_CUT": 2,
+    "TERM_NOT_NOMINAL": 29
+  },
+  "refusal_slot_type_cause_mix": {
+    "PREPOSITION_IN_VERB_SLOT": 1,
+    "VERB_FORM_IN_NOUN_SLOT": 3
+  },
+  "transform_notes": {
+    "D1_BARE_CATEGORY_HEAD": 3,
+    "D1_COORD_RESTART": 3,
+    "D1_OF_EXTENDED": 12,
+    "D2_NEGATION_IN_SCOPE": 4,
+    "D3_PARENTHETICAL_STRIPPED": 22,
+    "D3_PATIENT_NO_NOMINAL": 2,
+    "D3_PATIENT_OBLIQUE": 3,
+    "D3_PATIENT_PURPOSE_ONLY": 3,
+    "D4_CLAUSE_TRUNCATED": 60,
+    "D4_NON_DEFINITIONAL_CONTEXT": 1,
+    "D5_PASSIVE_SUBJECT_IS_PATIENT": 32,
+    "DA_PREPOSITION_IN_VERB_SLOT": 1,
+    "DA_VERB_FORM_IN_NOUN_SLOT": 3,
+    "NO_VERB_IN_OWN_CLAUSE": 85,
+    "SLOT_TYPE_MISMATCH": 4,
+    "TERM_ANAPHORIC_SUBJECT": 44,
+    "TERM_DISCOURSE_FRAME_TERM": 3,
+    "TERM_EMPTY_CUT": 2,
+    "TERM_NOT_NOMINAL": 29
+  },
+  "predicate_relation_mix": {
+    "ENABLING_CONDITION": 69,
+    "ENABLING_CONDITION_AGENT": 49,
+    "ENABLING_CONDITION_PATIENT": 16,
+    "PROCESS_ACTION": 48,
+    "PROCESS_PATIENT": 39
+  },
+  "predicate_pattern_mix": {
+    "VP1_PROCESS_OF": 45,
+    "VP2_BY_WHICH": 42,
+    "VP4_OCCURS_WHEN": 134
+  },
+  "n_distinct_subjects": 110,
+  "ablation_arms": {
+    "ALL_V62_OFF_v61_equivalent": {
+      "n_facts": 228,
+      "n_refusals": 178,
+      "delta_facts_vs_all_on": -7,
+      "n_triples_this_fix_REMOVES": 21,
+      "n_triples_this_fix_ADDS": 14,
+      "examples_removed_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, sequence)",
+        "(barcoding, PROCESS_PATIENT, use)",
+        "(batesian mimicry, ENABLING_CONDITION, mimic)",
+        "(batesian mimicry, ENABLING_CONDITION_AGENT, species)",
+        "(cellular respiration, PROCESS_ACTION, store)",
+        "(cellular respiration, PROCESS_PATIENT, convert)",
+        "(elaborative rehearsal, PROCESS_PATIENT, try)",
+        "(exchange reaction, PROCESS_PATIENT, break)"
+      ],
+      "examples_added_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, use)",
+        "(barcoding, PROCESS_PATIENT, genome)",
+        "(batesian mimicry, ENABLING_CONDITION, see)",
+        "(batesian mimicry, ENABLING_CONDITION_PATIENT, coloration)",
+        "(cellular respiration, PROCESS_ACTION, convert)",
+        "(elaborative rehearsal, PROCESS_PATIENT, information)",
+        "(feedback inhibition, ENABLING_CONDITION, inhibit)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)"
+      ]
+    },
+    "D1_strict_term_OFF": {
+      "n_facts": 227,
+      "n_refusals": 180,
+      "delta_facts_vs_all_on": -6,
+      "n_triples_this_fix_REMOVES": 24,
+      "n_triples_this_fix_ADDS": 18,
+      "examples_removed_by_this_fix": [
+        "(example, ENABLING_CONDITION, lead)",
+        "(example, ENABLING_CONDITION_AGENT, state)",
+        "(form, ENABLING_CONDITION, reproduce)",
+        "(form, ENABLING_CONDITION_AGENT, individual)",
+        "(interesting example, ENABLING_CONDITION, unite)",
+        "(interesting example, ENABLING_CONDITION_AGENT, inhabitant)",
+        "(long-term storage, ENABLING_CONDITION, bury)",
+        "(long-term storage, ENABLING_CONDITION_PATIENT, matter)"
+      ],
+      "examples_added_by_this_fix": [
+        "(incomplete block, ENABLING_CONDITION, reach)",
+        "(incomplete block, ENABLING_CONDITION_AGENT, impulse)",
+        "(irish potato famine, ENABLING_CONDITION, become)",
+        "(irish potato famine, ENABLING_CONDITION_AGENT, variety)",
+        "(long-term storage of organic carbon, ENABLING_CONDITION, bury)",
+        "(long-term storage of organic carbon, ENABLING_CONDITION_PATIENT, matter)",
+        "(osmotic regulation, PROCESS_ACTION, keep)",
+        "(osmotic regulation, PROCESS_PATIENT, salt)"
+      ]
+    },
+    "D2_negation_OFF": {
+      "n_facts": 228,
+      "n_refusals": 180,
+      "delta_facts_vs_all_on": -7,
+      "n_triples_this_fix_REMOVES": 7,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [
+        "(behavioral isolation, ENABLING_CONDITION, prevent)",
+        "(behavioral isolation, ENABLING_CONDITION_AGENT, presence)",
+        "(bystander effect, PROCESS_ACTION, volunteer)",
+        "(heart failure, ENABLING_CONDITION, function)",
+        "(heart failure, ENABLING_CONDITION_AGENT, reticulum)",
+        "(nondisjunction, ENABLING_CONDITION, separate)",
+        "(nondisjunction, ENABLING_CONDITION_AGENT, chromosome)"
+      ],
+      "examples_added_by_this_fix": []
+    },
+    "D3_argument_OFF": {
+      "n_facts": 219,
+      "n_refusals": 178,
+      "delta_facts_vs_all_on": 2,
+      "n_triples_this_fix_REMOVES": 5,
+      "n_triples_this_fix_ADDS": 7,
+      "examples_removed_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, nh)",
+        "(angioplasty, PROCESS_PATIENT, balloon)",
+        "(differentiation, PROCESS_PATIENT, function)",
+        "(diffusion, PROCESS_PATIENT, region)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, isoleucine)"
+      ],
+      "examples_added_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, ion)",
+        "(elaborative rehearsal, PROCESS_PATIENT, information)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)",
+        "(nitrification, PROCESS_ACTION, convert)",
+        "(nitrification, PROCESS_PATIENT, nitrite)",
+        "(termination of translation, ENABLING_CONDITION, encounter)",
+        "(termination of translation, ENABLING_CONDITION_PATIENT, codon)"
+      ]
+    },
+    "D4_clause_OFF": {
+      "n_facts": 227,
+      "n_refusals": 180,
+      "delta_facts_vs_all_on": -6,
+      "n_triples_this_fix_REMOVES": 20,
+      "n_triples_this_fix_ADDS": 14,
+      "examples_removed_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, sequence)",
+        "(batesian mimicry, ENABLING_CONDITION, mimic)",
+        "(batesian mimicry, ENABLING_CONDITION_AGENT, species)",
+        "(biochemical basis of epistasis, PROCESS_ACTION, precede)",
+        "(cellular respiration, PROCESS_ACTION, store)",
+        "(cellular respiration, PROCESS_PATIENT, sugar)",
+        "(exchange reaction, PROCESS_PATIENT, energy)",
+        "(feedback inhibition, ENABLING_CONDITION, end)"
+      ],
+      "examples_added_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, use)",
+        "(batesian mimicry, ENABLING_CONDITION, see)",
+        "(batesian mimicry, ENABLING_CONDITION_PATIENT, coloration)",
+        "(cellular respiration, PROCESS_ACTION, convert)",
+        "(feedback inhibition, ENABLING_CONDITION, inhibit)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)",
+        "(irish potato famine, ENABLING_CONDITION, become)",
+        "(layer, PROCESS_ACTION, bend)"
+      ]
+    },
+    "D5_passive_OFF": {
+      "n_facts": 212,
+      "n_refusals": 192,
+      "delta_facts_vs_all_on": 9,
+      "n_triples_this_fix_REMOVES": 20,
+      "n_triples_this_fix_ADDS": 29,
+      "examples_removed_by_this_fix": [
+        "(batesian mimicry, ENABLING_CONDITION_AGENT, coloration)",
+        "(cross-pollination, ENABLING_CONDITION_AGENT, pollen)",
+        "(fibrinolysis, PROCESS_PATIENT, vessel)",
+        "(hemopoiesis, ENABLING_CONDITION_AGENT, cell)",
+        "(injury, ENABLING_CONDITION_AGENT, force)",
+        "(injury, ENABLING_CONDITION_AGENT, knee)",
+        "(lactation, PROCESS_PATIENT, nipple)",
+        "(layer, PROCESS_PATIENT, soil)"
+      ],
+      "examples_added_by_this_fix": [
+        "(ammonification, PROCESS_PATIENT, ion)",
+        "(anabolism, PROCESS_PATIENT, molecule)",
+        "(barcoding, PROCESS_PATIENT, genome)",
+        "(batesian mimicry, ENABLING_CONDITION_PATIENT, coloration)",
+        "(bulk flow, PROCESS_PATIENT, body)",
+        "(catabolism, PROCESS_PATIENT, substance)",
+        "(cross-pollination, ENABLING_CONDITION_PATIENT, pollen)",
+        "(diffusion, PROCESS_PATIENT, transport)"
+      ]
+    },
+    "DA_slot_typing_OFF": {
+      "n_facts": 226,
+      "n_refusals": 179,
+      "delta_facts_vs_all_on": -5,
+      "n_triples_this_fix_REMOVES": 5,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [
+        "(cellular respiration, PROCESS_PATIENT, store)",
+        "(exchange reaction, PROCESS_PATIENT, break)",
+        "(neurotransmitter release, ENABLING_CONDITION_AGENT, result)",
+        "(photosynthesis, PROCESS_ACTION, like)",
+        "(photosynthesis, PROCESS_PATIENT, energy)"
+      ],
+      "examples_added_by_this_fix": []
+    },
+    "DB_term_sanity_OFF": {
+      "n_facts": 223,
+      "n_refusals": 182,
+      "delta_facts_vs_all_on": -2,
+      "n_triples_this_fix_REMOVES": 4,
+      "n_triples_this_fix_ADDS": 2,
+      "examples_removed_by_this_fix": [
+        "(interesting example of ecosystem dynamics, ENABLING_CONDITION, unite)",
+        "(interesting example of ecosystem dynamics, ENABLING_CONDITION_AGENT, inhabitant)",
+        "(tragic irish potato famine, ENABLING_CONDITION, become)",
+        "(tragic irish potato famine, ENABLING_CONDITION_AGENT, variety)"
+      ],
+      "examples_added_by_this_fix": [
+        "(irish potato famine, ENABLING_CONDITION, become)",
+        "(irish potato famine, ENABLING_CONDITION_AGENT, variety)"
+      ]
+    },
+    "DC_reduced_rel_general_OFF": {
+      "n_facts": 222,
+      "n_refusals": 182,
+      "delta_facts_vs_all_on": -1,
+      "n_triples_this_fix_REMOVES": 4,
+      "n_triples_this_fix_ADDS": 3,
+      "examples_removed_by_this_fix": [
+        "(cellular respiration, PROCESS_ACTION, store)",
+        "(cellular respiration, PROCESS_PATIENT, sugar)",
+        "(irish potato famine, ENABLING_CONDITION, grow)",
+        "(retroactive interference, ENABLING_CONDITION, learn)"
+      ],
+      "examples_added_by_this_fix": [
+        "(cellular respiration, PROCESS_ACTION, convert)",
+        "(irish potato famine, ENABLING_CONDITION, become)",
+        "(retroactive interference, ENABLING_CONDITION, hinder)"
+      ]
+    },
+    "DC_subject_np_OFF": {
+      "n_facts": 221,
+      "n_refusals": 183,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 8,
+      "n_triples_this_fix_ADDS": 8,
+      "examples_removed_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, sequence)",
+        "(batesian mimicry, ENABLING_CONDITION, mimic)",
+        "(batesian mimicry, ENABLING_CONDITION_AGENT, species)",
+        "(feedback inhibition, ENABLING_CONDITION, end)",
+        "(neurotransmitter release, ENABLING_CONDITION, travel)",
+        "(neurotransmitter release, ENABLING_CONDITION_AGENT, potential)",
+        "(osmotic regulation, PROCESS_ACTION, salt)",
+        "(osmotic regulation, PROCESS_PATIENT, water)"
+      ],
+      "examples_added_by_this_fix": [
+        "(barcoding, PROCESS_ACTION, use)",
+        "(batesian mimicry, ENABLING_CONDITION, see)",
+        "(batesian mimicry, ENABLING_CONDITION_PATIENT, coloration)",
+        "(feedback inhibition, ENABLING_CONDITION, inhibit)",
+        "(feedback inhibition, ENABLING_CONDITION_AGENT, product)",
+        "(neurotransmitter release, ENABLING_CONDITION, alter)",
+        "(osmotic regulation, PROCESS_ACTION, keep)",
+        "(osmotic regulation, PROCESS_PATIENT, salt)"
+      ]
+    },
+    "DD_main_clause_arg_OFF": {
+      "n_facts": 220,
+      "n_refusals": 184,
+      "delta_facts_vs_all_on": 1,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 1,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": [
+        "(elaborative rehearsal, PROCESS_PATIENT, information)"
+      ]
+    }
+  },
+  "ablation_note": "each LEAVE-ONE-OUT arm turns exactly ONE defect's fix off; delta_facts_vs_all_on > 0 means the fix ADDS facts, < 0 means it REFUSES facts the unfixed code emitted. ALL_V62_OFF_v61_equivalent is the v6.1 policy run through the same code path.",
+  "corpus_files": [
+    "data\\corpora\\textbook_biology_2e\\cleaned\\biology_2e.clean.txt",
+    "data\\corpora\\textbook_anatomy_physiology_2e\\cleaned\\anatomy_physiology_2e.clean.txt",
+    "data\\corpora\\textbook_psychology_2e\\cleaned\\psychology_2e.clean.txt"
+  ],
+  "corpus_sentences": 72501,
+  "corpus_sentences_per_file": {
+    "ANAT": 26544,
+    "BIO": 29091,
+    "PSY": 16866
+  },
+  "mcguffey_excluded": true,
+  "corpus_identical_loader_as_v6": true,
+  "predicate_facts_path": "data\\exp_definitional_predicate_v62\\predicate_facts_v62.jsonl",
+  "refusals_path": "data\\exp_definitional_predicate_v62\\refusals.jsonl",
+  "audit_sample_path": "data\\exp_definitional_predicate_v62\\predicate_audit_sample.json",
+  "scoring_sheet_path": "data\\exp_definitional_predicate_v62\\SCORING_SHEET.txt",
+  "defect_recheck_path": "data\\exp_definitional_predicate_v62\\defect_recheck.json",
+  "quality_scored_here": false,
+  "banked": false,
+  "wire_status": "UNBANKED_PENDING_DIRECTOR_HANDSCORE",
+  "ts_iso": "2026-08-13T05:10:30.922333+00:00",
+  "anchor_name": "definitional_predicate_v62"
+}

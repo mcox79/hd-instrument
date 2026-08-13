@@ -1,0 +1,199 @@
+{
+  "verdict": "STRUCTURAL_PASS_PENDING_HANDSCORE",
+  "verdict_msg": "predicate v6.2: 4 facts (v6.1 228, v6 250), 3 refusals; ISA per-pattern digests unchanged by this cell for 4/4 CLAIMED patterns (CALLED excluded -- concurrent agent); 21/21 tracked defect rows no longer reproduce their prior fact; all machine checks pass",
+  "summary": "fix the four hand-scored v6.1 defects in the predicate extractor",
+  "elapsed_s": 4.08,
+  "run_mode": "smoke",
+  "isa_patterns_claimed": [
+    "APPOSITIVE",
+    "COPULA",
+    "GLOSSARY_COLON",
+    "REFERS_TO"
+  ],
+  "isa_pattern_EXCLUDED_from_claim": "CALLED",
+  "isa_exclusion_reason": "a CONCURRENT agent owns data/exp_called_boundary_v7 and is actively editing the CALLED branch of the same module; its digest can move between my two passes for reasons that are not mine, so claiming it would be a false diff either way.",
+  "isa_digests_current": {
+    "APPOSITIVE": "f1b7cd05a1c4b05ae0c90b262318601ade6a0c226c706a052167cff5c05afa07",
+    "CALLED": "da9ff0fcf42e6fbac3b82d208a21102c918576740c25ceadc13997dd425bfe56",
+    "COPULA": "714760e62431912fda0b132566c2d440f0a63db50fc168f722d6450526273b9a",
+    "GLOSSARY_COLON": "6f3680da4eeda347f8ae73be86f3ea649578b357c2ee0e3b8b6f41ad6dac940a",
+    "REFERS_TO": "abf7009896eaf3352973027b6c4c115850f6c93d7dad1d5fb3a88bd332733abe"
+  },
+  "isa_digests_current_minus_v62_termsanity": {
+    "APPOSITIVE": "f1b7cd05a1c4b05ae0c90b262318601ade6a0c226c706a052167cff5c05afa07",
+    "CALLED": "da9ff0fcf42e6fbac3b82d208a21102c918576740c25ceadc13997dd425bfe56",
+    "COPULA": "714760e62431912fda0b132566c2d440f0a63db50fc168f722d6450526273b9a",
+    "GLOSSARY_COLON": "6f3680da4eeda347f8ae73be86f3ea649578b357c2ee0e3b8b6f41ad6dac940a",
+    "REFERS_TO": "abf7009896eaf3352973027b6c4c115850f6c93d7dad1d5fb3a88bd332733abe"
+  },
+  "isa_counts_current": {
+    "APPOSITIVE": 19,
+    "CALLED": 14,
+    "COPULA": 90,
+    "GLOSSARY_COLON": 9,
+    "REFERS_TO": 1
+  },
+  "isa_counts_current_minus_v62_termsanity": {
+    "APPOSITIVE": 19,
+    "CALLED": 14,
+    "COPULA": 90,
+    "GLOSSARY_COLON": 9,
+    "REFERS_TO": 1
+  },
+  "isa_patterns_changed_BY_THIS_CELL": [],
+  "isa_diff_BY_THIS_CELL": {},
+  "isa_proof_method": "two byte-copies of hdlab/definitional_extraction.py: the CURRENT file, and the CURRENT file with this cell's sentinel-delimited V62_TERM_SANITY_BLOCK removed (4 blocks). Both are executed over the same corpus and their per-pattern (term, head) sets are sha256'd. THIS CELL'S delta is (reverted vs current).",
+  "n_v62_sentinel_blocks": 4,
+  "module_sha256_snapshot_current": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "module_sha256_reverted": "9f8349cb20d350268d948347fa8bd5d0004a6dee49200a47f665d6ec62c30f7a",
+  "live_module_sha256_at_start": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "live_module_sha256_at_end": "76b54dad33993ae819eb89b46dcdced3203cbf7f31709f63c5b3d546d13bbe49",
+  "live_module_stable_during_run": true,
+  "shared_module_self_test": "PASS",
+  "n_predicate_facts_v62": 4,
+  "n_predicate_facts_v61_on_disk": 228,
+  "n_predicate_facts_v6_on_disk": 250,
+  "n_predicate_facts_v61_recomputed_here": 4,
+  "delta_facts_v61_to_v62": -224,
+  "n_refusals_total": 3,
+  "n_refused_sentences_distinct": 3,
+  "refusal_reason_mix": {
+    "NO_VERB_IN_OWN_CLAUSE": 3
+  },
+  "refusal_slot_type_cause_mix": {},
+  "transform_notes": {
+    "D4_CLAUSE_TRUNCATED": 1,
+    "NO_VERB_IN_OWN_CLAUSE": 3
+  },
+  "predicate_relation_mix": {
+    "ENABLING_CONDITION": 2,
+    "ENABLING_CONDITION_AGENT": 2
+  },
+  "predicate_pattern_mix": {
+    "VP4_OCCURS_WHEN": 4
+  },
+  "n_distinct_subjects": 2,
+  "ablation_arms": {
+    "ALL_V62_OFF_v61_equivalent": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "D1_strict_term_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "D2_negation_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "D3_argument_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "D4_clause_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "D5_passive_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "DA_slot_typing_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "DB_term_sanity_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "DC_reduced_rel_general_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "DC_subject_np_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    },
+    "DD_main_clause_arg_OFF": {
+      "n_facts": 4,
+      "n_refusals": 3,
+      "delta_facts_vs_all_on": 0,
+      "n_triples_this_fix_REMOVES": 0,
+      "n_triples_this_fix_ADDS": 0,
+      "examples_removed_by_this_fix": [],
+      "examples_added_by_this_fix": []
+    }
+  },
+  "ablation_note": "each LEAVE-ONE-OUT arm turns exactly ONE defect's fix off; delta_facts_vs_all_on > 0 means the fix ADDS facts, < 0 means it REFUSES facts the unfixed code emitted. ALL_V62_OFF_v61_equivalent is the v6.1 policy run through the same code path.",
+  "corpus_files": [
+    "data\\corpora\\textbook_biology_2e\\cleaned\\biology_2e.clean.txt",
+    "data\\corpora\\textbook_anatomy_physiology_2e\\cleaned\\anatomy_physiology_2e.clean.txt",
+    "data\\corpora\\textbook_psychology_2e\\cleaned\\psychology_2e.clean.txt"
+  ],
+  "corpus_sentences": 2000,
+  "corpus_sentences_per_file": {
+    "BIO": 2000
+  },
+  "mcguffey_excluded": true,
+  "corpus_identical_loader_as_v6": true,
+  "predicate_facts_path": "data\\exp_definitional_predicate_v62\\predicate_facts_v62.jsonl",
+  "refusals_path": "data\\exp_definitional_predicate_v62\\refusals.jsonl",
+  "audit_sample_path": "data\\exp_definitional_predicate_v62\\predicate_audit_sample.json",
+  "scoring_sheet_path": "data\\exp_definitional_predicate_v62\\SCORING_SHEET.txt",
+  "defect_recheck_path": "data\\exp_definitional_predicate_v62\\defect_recheck.json",
+  "quality_scored_here": false,
+  "banked": false,
+  "wire_status": "UNBANKED_PENDING_DIRECTOR_HANDSCORE",
+  "ts_iso": "2026-08-13T05:09:13.681077+00:00",
+  "anchor_name": "definitional_predicate_v62"
+}

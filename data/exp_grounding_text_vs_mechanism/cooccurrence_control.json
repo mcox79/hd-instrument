@@ -1,0 +1,5924 @@
+{
+  "warning": "SEALED CONTROL. Never printed in the scoring sheet. DO NOT OPEN UNTIL blind_sample.json IS FULLY SCORED.",
+  "method": "sentence-window co-occurrence over THAT ARM'S OWN read stream; candidates are open-class lemmas excluding the subject; pmi_top1 = argmax log2(c(s,w)*N/(c(s)*c(w))) with c(s,w) >= 3; freq_top1 = most frequent co-occurring open-class lemma",
+  "bands": {
+    "COOC_REPRODUCES_supports_B": "either_top1 >= 0.50 OR top5_containment >= 0.70, AND >= 0.20 above the permutation floor",
+    "COOC_PARTIAL": "either_top1 in [0.20, 0.50) or top5_containment in [0.40, 0.70), above the floor",
+    "COOC_DOES_NOT_EXPLAIN": "either_top1 < 0.20 and top5_containment < 0.40 -- the substrate output is NOT reproducible from plain co-occurrence; weakens (B)",
+    "note": "reported per arm; does NOT gate the primary. If the substrate largely REPRODUCES the baseline, (B) is supported regardless of the hand-score."
+  },
+  "per_arm_summary": {
+    "NEWS": {
+      "observed": {
+        "n": 50,
+        "pmi_top1_agreement": 0.04,
+        "freq_top1_agreement": 0.08,
+        "either_top1_agreement": 0.12,
+        "top5_containment": 0.44,
+        "pmi_top1_agreement_relaxed": 0.04,
+        "either_top1_agreement_relaxed": 0.12,
+        "top5_containment_relaxed": 0.46,
+        "n_subjects_using_relaxed_fallback": 1
+      },
+      "permutation_floor": {
+        "n": 50,
+        "pmi_top1_agreement": 0.0,
+        "freq_top1_agreement": 0.02,
+        "either_top1_agreement": 0.02,
+        "top5_containment": 0.04,
+        "pmi_top1_agreement_relaxed": 0.0,
+        "either_top1_agreement_relaxed": 0.02,
+        "top5_containment_relaxed": 0.04,
+        "n_subjects_using_relaxed_fallback": 1
+      },
+      "delta_either_top1": 0.1,
+      "delta_top5": 0.4
+    },
+    "TEXTBOOK": {
+      "observed": {
+        "n": 50,
+        "pmi_top1_agreement": 0.02,
+        "freq_top1_agreement": 0.04,
+        "either_top1_agreement": 0.04,
+        "top5_containment": 0.2,
+        "pmi_top1_agreement_relaxed": 0.02,
+        "either_top1_agreement_relaxed": 0.04,
+        "top5_containment_relaxed": 0.2,
+        "n_subjects_using_relaxed_fallback": 0
+      },
+      "permutation_floor": {
+        "n": 50,
+        "pmi_top1_agreement": 0.0,
+        "freq_top1_agreement": 0.0,
+        "either_top1_agreement": 0.0,
+        "top5_containment": 0.02,
+        "pmi_top1_agreement_relaxed": 0.0,
+        "either_top1_agreement_relaxed": 0.0,
+        "top5_containment_relaxed": 0.02,
+        "n_subjects_using_relaxed_fallback": 0
+      },
+      "delta_either_top1": 0.04,
+      "delta_top5": 0.18
+    }
+  },
+  "rows_by_blind_id": {
+    "0": {
+      "blind_id": 0,
+      "subject": "sensor",
+      "substrate_object": "let",
+      "cooc_pmi_top1": "bedroom",
+      "cooc_freq_top1": "bedroom",
+      "cooc_pmi_top5": [
+        "bedroom",
+        "efficiently",
+        "mask",
+        "mattress",
+        "sleeping"
+      ],
+      "cooc_freq_top5": [
+        "bedroom",
+        "cover",
+        "efficiently",
+        "home",
+        "let"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "bedroom",
+          "pair_count": 3,
+          "pmi": 10.896427
+        },
+        {
+          "word": "efficiently",
+          "pair_count": 3,
+          "pmi": 10.574499
+        },
+        {
+          "word": "mask",
+          "pair_count": 3,
+          "pmi": 10.311465
+        },
+        {
+          "word": "mattress",
+          "pair_count": 3,
+          "pmi": 10.311465
+        },
+        {
+          "word": "sleeping",
+          "pair_count": 3,
+          "pmi": 9.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "bedroom",
+      "cooc_pmi_top5_relaxed": [
+        "bedroom",
+        "efficiently",
+        "mask",
+        "mattress",
+        "sleeping"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 10,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "1": {
+      "blind_id": 1,
+      "subject": "agricultural",
+      "substrate_object": "land",
+      "cooc_pmi_top1": "feyissa",
+      "cooc_freq_top1": "food",
+      "cooc_pmi_top5": [
+        "feyissa",
+        "fishery",
+        "guillaume",
+        "regassa",
+        "suburban"
+      ],
+      "cooc_freq_top5": [
+        "food",
+        "farmer",
+        "grow",
+        "increase",
+        "land"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "feyissa",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "fishery",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "guillaume",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "regassa",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "suburban",
+          "pair_count": 3,
+          "pmi": 8.919147
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "feyissa",
+      "cooc_pmi_top5_relaxed": [
+        "feyissa",
+        "fishery",
+        "guillaume",
+        "regassa",
+        "suburban"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 18,
+      "n_candidates_meeting_min_pair_count": 40,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "2": {
+      "blind_id": 2,
+      "subject": "academy",
+      "substrate_object": "america",
+      "cooc_pmi_top1": "proceedings",
+      "cooc_freq_top1": "national",
+      "cooc_pmi_top5": [
+        "proceedings",
+        "america",
+        "national",
+        "science",
+        "unite"
+      ],
+      "cooc_freq_top5": [
+        "national",
+        "science",
+        "america",
+        "proceedings",
+        "state"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "proceedings",
+          "pair_count": 3,
+          "pmi": 11.66252
+        },
+        {
+          "word": "america",
+          "pair_count": 3,
+          "pmi": 10.247483
+        },
+        {
+          "word": "national",
+          "pair_count": 5,
+          "pmi": 9.077558
+        },
+        {
+          "word": "science",
+          "pair_count": 4,
+          "pmi": 7.855165
+        },
+        {
+          "word": "unite",
+          "pair_count": 3,
+          "pmi": 6.755629
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "proceedings",
+      "cooc_pmi_top5_relaxed": [
+        "proceedings",
+        "america",
+        "national",
+        "science",
+        "unite"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "3": {
+      "blind_id": 3,
+      "subject": "nuclear",
+      "substrate_object": "accident",
+      "cooc_pmi_top1": "fukushima",
+      "cooc_freq_top1": "accident",
+      "cooc_pmi_top5": [
+        "fukushima",
+        "russian-american",
+        "dubna",
+        "livermore",
+        "lawrence"
+      ],
+      "cooc_freq_top5": [
+        "accident",
+        "world",
+        "elements",
+        "iupac",
+        "better"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "fukushima",
+          "pair_count": 3,
+          "pmi": 10.726502
+        },
+        {
+          "word": "russian-american",
+          "pair_count": 3,
+          "pmi": 10.726502
+        },
+        {
+          "word": "dubna",
+          "pair_count": 3,
+          "pmi": 9.989536
+        },
+        {
+          "word": "livermore",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "lawrence",
+          "pair_count": 3,
+          "pmi": 9.14154
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "fukushima",
+      "cooc_pmi_top5_relaxed": [
+        "fukushima",
+        "russian-american",
+        "dubna",
+        "livermore",
+        "lawrence"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 12,
+      "n_candidates_meeting_min_pair_count": 31,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": true
+    },
+    "4": {
+      "blind_id": 4,
+      "subject": "compact",
+      "substrate_object": "remodel",
+      "cooc_pmi_top1": "cancellous",
+      "cooc_freq_top1": "bone",
+      "cooc_pmi_top5": [
+        "cancellous",
+        "haversian",
+        "spongy",
+        "osteon",
+        "dense"
+      ],
+      "cooc_freq_top5": [
+        "bone",
+        "spongy",
+        "layer",
+        "bones",
+        "tissue"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "cancellous",
+          "pair_count": 3,
+          "pmi": 8.381234
+        },
+        {
+          "word": "haversian",
+          "pair_count": 3,
+          "pmi": 8.1182
+        },
+        {
+          "word": "spongy",
+          "pair_count": 12,
+          "pmi": 7.895807
+        },
+        {
+          "word": "osteon",
+          "pair_count": 3,
+          "pmi": 7.703162
+        },
+        {
+          "word": "dense",
+          "pair_count": 5,
+          "pmi": 5.980696
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "cancellous",
+      "cooc_pmi_top5_relaxed": [
+        "cancellous",
+        "haversian",
+        "spongy",
+        "osteon",
+        "dense"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 35,
+      "n_candidates_meeting_min_pair_count": 17,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "5": {
+      "blind_id": 5,
+      "subject": "flight",
+      "substrate_object": "fight",
+      "cooc_pmi_top1": "fight",
+      "cooc_freq_top1": "fight",
+      "cooc_pmi_top5": [
+        "fight",
+        "threat",
+        "sympathetic",
+        "situation",
+        "response"
+      ],
+      "cooc_freq_top5": [
+        "fight",
+        "response",
+        "sympathetic",
+        "nervous",
+        "situation"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "fight",
+          "pair_count": 7,
+          "pmi": 9.978022
+        },
+        {
+          "word": "threat",
+          "pair_count": 3,
+          "pmi": 8.855165
+        },
+        {
+          "word": "sympathetic",
+          "pair_count": 4,
+          "pmi": 7.792155
+        },
+        {
+          "word": "situation",
+          "pair_count": 3,
+          "pmi": 7.492595
+        },
+        {
+          "word": "response",
+          "pair_count": 5,
+          "pmi": 5.32267
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "fight",
+      "cooc_pmi_top5_relaxed": [
+        "fight",
+        "threat",
+        "sympathetic",
+        "situation",
+        "response"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 7,
+      "matches_pmi_top1": true,
+      "matches_freq_top1": true
+    },
+    "6": {
+      "blind_id": 6,
+      "subject": "lied",
+      "substrate_object": "talk",
+      "cooc_pmi_top1": "hide",
+      "cooc_freq_top1": "hide",
+      "cooc_pmi_top5": [
+        "hide",
+        "playing"
+      ],
+      "cooc_freq_top5": [
+        "hide",
+        "playing",
+        "admit",
+        "game",
+        "ingredient"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "hide",
+          "pair_count": 3,
+          "pmi": 8.372865
+        },
+        {
+          "word": "playing",
+          "pair_count": 3,
+          "pmi": 8.038446
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "hide",
+      "cooc_pmi_top5_relaxed": [
+        "hide",
+        "playing"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 2,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "7": {
+      "blind_id": 7,
+      "subject": "remodel",
+      "substrate_object": "month",
+      "cooc_pmi_top1": "resorb",
+      "cooc_freq_top1": "bone",
+      "cooc_pmi_top5": [
+        "resorb",
+        "osteoclast",
+        "osteoblast",
+        "old",
+        "replace"
+      ],
+      "cooc_freq_top5": [
+        "bone",
+        "new",
+        "old",
+        "osteoclast",
+        "osteoblast"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "resorb",
+          "pair_count": 4,
+          "pmi": 8.328619
+        },
+        {
+          "word": "osteoclast",
+          "pair_count": 5,
+          "pmi": 7.525017
+        },
+        {
+          "word": "osteoblast",
+          "pair_count": 4,
+          "pmi": 6.144195
+        },
+        {
+          "word": "old",
+          "pair_count": 5,
+          "pmi": 6.132699
+        },
+        {
+          "word": "replace",
+          "pair_count": 3,
+          "pmi": 5.729157
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "resorb",
+      "cooc_pmi_top5_relaxed": [
+        "resorb",
+        "osteoclast",
+        "osteoblast",
+        "old",
+        "replace"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 22,
+      "n_candidates_meeting_min_pair_count": 11,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "8": {
+      "blind_id": 8,
+      "subject": "album",
+      "substrate_object": "people",
+      "cooc_pmi_top1": "singles",
+      "cooc_freq_top1": "bowie",
+      "cooc_pmi_top5": [
+        "singles",
+        "aladdin",
+        "amadou",
+        "bagayoko",
+        "blackstar"
+      ],
+      "cooc_freq_top5": [
+        "bowie",
+        "hit",
+        "single",
+        "chart",
+        "include"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "singles",
+          "pair_count": 6,
+          "pmi": 7.971615
+        },
+        {
+          "word": "aladdin",
+          "pair_count": 4,
+          "pmi": 7.971615
+        },
+        {
+          "word": "amadou",
+          "pair_count": 3,
+          "pmi": 7.971615
+        },
+        {
+          "word": "bagayoko",
+          "pair_count": 3,
+          "pmi": 7.971615
+        },
+        {
+          "word": "blackstar",
+          "pair_count": 3,
+          "pmi": 7.971615
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "singles",
+      "cooc_pmi_top5_relaxed": [
+        "singles",
+        "aladdin",
+        "amadou",
+        "bagayoko",
+        "blackstar"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 81,
+      "n_candidates_meeting_min_pair_count": 120,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "9": {
+      "blind_id": 9,
+      "subject": "spermatogonia",
+      "substrate_object": "daughter",
+      "cooc_pmi_top1": "diploid",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "diploid",
+        "mitosis",
+        "sperm",
+        "process",
+        "cell"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "diploid",
+        "mitosis",
+        "process",
+        "sperm"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "diploid",
+          "pair_count": 3,
+          "pmi": 7.414593
+        },
+        {
+          "word": "mitosis",
+          "pair_count": 3,
+          "pmi": 7.138958
+        },
+        {
+          "word": "sperm",
+          "pair_count": 3,
+          "pmi": 6.077558
+        },
+        {
+          "word": "process",
+          "pair_count": 3,
+          "pmi": 3.97602
+        },
+        {
+          "word": "cell",
+          "pair_count": 5,
+          "pmi": 2.535299
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "diploid",
+      "cooc_pmi_top5_relaxed": [
+        "diploid",
+        "mitosis",
+        "sperm",
+        "process",
+        "cell"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "10": {
+      "blind_id": 10,
+      "subject": "nonmetal",
+      "substrate_object": "consist",
+      "cooc_pmi_top1": "metalloid",
+      "cooc_freq_top1": "metal",
+      "cooc_pmi_top5": [
+        "metalloid",
+        "ionic",
+        "metal",
+        "react",
+        "compound"
+      ],
+      "cooc_freq_top5": [
+        "metal",
+        "compound",
+        "ionic",
+        "bond",
+        "form"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "metalloid",
+          "pair_count": 3,
+          "pmi": 9.832445
+        },
+        {
+          "word": "ionic",
+          "pair_count": 4,
+          "pmi": 7.389502
+        },
+        {
+          "word": "metal",
+          "pair_count": 8,
+          "pmi": 6.352665
+        },
+        {
+          "word": "react",
+          "pair_count": 3,
+          "pmi": 5.878249
+        },
+        {
+          "word": "compound",
+          "pair_count": 4,
+          "pmi": 4.838092
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "metalloid",
+      "cooc_pmi_top5_relaxed": [
+        "metalloid",
+        "ionic",
+        "metal",
+        "react",
+        "compound"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 16,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "11": {
+      "blind_id": 11,
+      "subject": "pesticide",
+      "substrate_object": "use",
+      "cooc_pmi_top1": "residue",
+      "cooc_freq_top1": "food",
+      "cooc_pmi_top5": [
+        "residue",
+        "cadmium",
+        "toxic",
+        "regular",
+        "conventional"
+      ],
+      "cooc_freq_top5": [
+        "food",
+        "organic",
+        "crop",
+        "limit",
+        "cadmium"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "residue",
+          "pair_count": 4,
+          "pmi": 9.919147
+        },
+        {
+          "word": "cadmium",
+          "pair_count": 5,
+          "pmi": 9.656113
+        },
+        {
+          "word": "toxic",
+          "pair_count": 3,
+          "pmi": 8.001609
+        },
+        {
+          "word": "regular",
+          "pair_count": 5,
+          "pmi": 7.826038
+        },
+        {
+          "word": "conventional",
+          "pair_count": 4,
+          "pmi": 7.646129
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "residue",
+      "cooc_pmi_top5_relaxed": [
+        "residue",
+        "cadmium",
+        "toxic",
+        "regular",
+        "conventional"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 14,
+      "n_candidates_meeting_min_pair_count": 19,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "12": {
+      "blind_id": 12,
+      "subject": "bronchiole",
+      "substrate_object": "beat",
+      "cooc_pmi_top1": "bronchus",
+      "cooc_freq_top1": "bronchus",
+      "cooc_pmi_top5": [
+        "bronchus",
+        "alveolar",
+        "subdivide",
+        "terminal",
+        "cilium"
+      ],
+      "cooc_freq_top5": [
+        "bronchus",
+        "alveolar",
+        "respiratory",
+        "duct",
+        "sac"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "bronchus",
+          "pair_count": 9,
+          "pmi": 8.571917
+        },
+        {
+          "word": "alveolar",
+          "pair_count": 8,
+          "pmi": 8.138958
+        },
+        {
+          "word": "subdivide",
+          "pair_count": 3,
+          "pmi": 7.849451
+        },
+        {
+          "word": "terminal",
+          "pair_count": 5,
+          "pmi": 7.345409
+        },
+        {
+          "word": "cilium",
+          "pair_count": 3,
+          "pmi": 6.916566
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "bronchus",
+      "cooc_pmi_top5_relaxed": [
+        "bronchus",
+        "alveolar",
+        "subdivide",
+        "terminal",
+        "cilium"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 23,
+      "n_candidates_meeting_min_pair_count": 13,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "13": {
+      "blind_id": 13,
+      "subject": "intramembranous",
+      "substrate_object": "control",
+      "cooc_pmi_top1": "ossification",
+      "cooc_freq_top1": "ossification",
+      "cooc_pmi_top5": [
+        "ossification",
+        "mesenchymal",
+        "endochondral",
+        "fibrous",
+        "directly"
+      ],
+      "cooc_freq_top5": [
+        "ossification",
+        "bone",
+        "development",
+        "fibrous",
+        "membrane"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "ossification",
+          "pair_count": 15,
+          "pmi": 8.66252
+        },
+        {
+          "word": "mesenchymal",
+          "pair_count": 3,
+          "pmi": 8.018664
+        },
+        {
+          "word": "endochondral",
+          "pair_count": 3,
+          "pmi": 7.925554
+        },
+        {
+          "word": "fibrous",
+          "pair_count": 4,
+          "pmi": 6.253129
+        },
+        {
+          "word": "directly",
+          "pair_count": 3,
+          "pmi": 5.144195
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "ossification",
+      "cooc_pmi_top5_relaxed": [
+        "ossification",
+        "mesenchymal",
+        "endochondral",
+        "fibrous",
+        "directly"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 15,
+      "n_candidates_meeting_min_pair_count": 10,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "14": {
+      "blind_id": 14,
+      "subject": "synapsis",
+      "substrate_object": "matter",
+      "cooc_pmi_top1": "respective",
+      "cooc_freq_top1": "neuron",
+      "cooc_pmi_top5": [
+        "respective",
+        "ending",
+        "thalamus",
+        "junction",
+        "gray"
+      ],
+      "cooc_freq_top5": [
+        "neuron",
+        "axon",
+        "cell",
+        "cord",
+        "pathway"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "respective",
+          "pair_count": 4,
+          "pmi": 8.023481
+        },
+        {
+          "word": "ending",
+          "pair_count": 3,
+          "pmi": 7.22142
+        },
+        {
+          "word": "thalamus",
+          "pair_count": 4,
+          "pmi": 7.080064
+        },
+        {
+          "word": "junction",
+          "pair_count": 4,
+          "pmi": 6.264489
+        },
+        {
+          "word": "gray",
+          "pair_count": 3,
+          "pmi": 6.22142
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "respective",
+      "cooc_pmi_top5_relaxed": [
+        "respective",
+        "ending",
+        "thalamus",
+        "junction",
+        "gray"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 23,
+      "n_candidates_meeting_min_pair_count": 20,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "15": {
+      "blind_id": 15,
+      "subject": "morita",
+      "substrate_object": "maybe",
+      "cooc_pmi_top1": "akio",
+      "cooc_freq_top1": "akio",
+      "cooc_pmi_top5": [
+        "akio",
+        "kosuke",
+        "riken",
+        "sony",
+        "co-founder"
+      ],
+      "cooc_freq_top5": [
+        "akio",
+        "circle",
+        "co-founder",
+        "come",
+        "element"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "akio",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "kosuke",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "riken",
+          "pair_count": 3,
+          "pmi": 10.726502
+        },
+        {
+          "word": "sony",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "co-founder",
+          "pair_count": 3,
+          "pmi": 9.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "akio",
+      "cooc_pmi_top5_relaxed": [
+        "akio",
+        "kosuke",
+        "riken",
+        "sony",
+        "co-founder"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 17,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "16": {
+      "blind_id": 16,
+      "subject": "wright",
+      "substrate_object": "peter",
+      "cooc_pmi_top1": "constable",
+      "cooc_freq_top1": "police",
+      "cooc_pmi_top5": [
+        "constable",
+        "drunken",
+        "yorkshire",
+        "federation",
+        "sheffield"
+      ],
+      "cooc_freq_top5": [
+        "police",
+        "story",
+        "find",
+        "chief",
+        "constable"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "constable",
+          "pair_count": 4,
+          "pmi": 11.311465
+        },
+        {
+          "word": "drunken",
+          "pair_count": 3,
+          "pmi": 11.311465
+        },
+        {
+          "word": "yorkshire",
+          "pair_count": 4,
+          "pmi": 9.063537
+        },
+        {
+          "word": "federation",
+          "pair_count": 3,
+          "pmi": 8.989536
+        },
+        {
+          "word": "sheffield",
+          "pair_count": 3,
+          "pmi": 8.989536
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "constable",
+      "cooc_pmi_top5_relaxed": [
+        "constable",
+        "drunken",
+        "yorkshire",
+        "federation",
+        "sheffield"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 21,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "17": {
+      "blind_id": 17,
+      "subject": "antigen",
+      "substrate_object": "present",
+      "cooc_pmi_top1": "cross-react",
+      "cooc_freq_top1": "antibody",
+      "cooc_pmi_top5": [
+        "cross-react",
+        "non-self",
+        "mhc",
+        "eias",
+        "epitope"
+      ],
+      "cooc_freq_top5": [
+        "antibody",
+        "cell",
+        "bind",
+        "specific",
+        "immune"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "cross-react",
+          "pair_count": 3,
+          "pmi": 7.087611
+        },
+        {
+          "word": "non-self",
+          "pair_count": 3,
+          "pmi": 7.087611
+        },
+        {
+          "word": "mhc",
+          "pair_count": 5,
+          "pmi": 6.824577
+        },
+        {
+          "word": "eias",
+          "pair_count": 4,
+          "pmi": 6.765683
+        },
+        {
+          "word": "epitope",
+          "pair_count": 13,
+          "pmi": 6.395733
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "cross-react",
+      "cooc_pmi_top5_relaxed": [
+        "cross-react",
+        "non-self",
+        "mhc",
+        "eias",
+        "epitope"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 143,
+      "n_candidates_meeting_min_pair_count": 125,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "18": {
+      "blind_id": 18,
+      "subject": "cognitive",
+      "substrate_object": "child",
+      "cooc_pmi_top1": "dissonance",
+      "cooc_freq_top1": "development",
+      "cooc_pmi_top5": [
+        "dissonance",
+        "mentally",
+        "uncomfortable",
+        "piaget",
+        "discomfort"
+      ],
+      "cooc_freq_top5": [
+        "development",
+        "dissonance",
+        "theory",
+        "child",
+        "experience"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "dissonance",
+          "pair_count": 16,
+          "pmi": 7.92781
+        },
+        {
+          "word": "mentally",
+          "pair_count": 3,
+          "pmi": 7.682698
+        },
+        {
+          "word": "uncomfortable",
+          "pair_count": 3,
+          "pmi": 7.682698
+        },
+        {
+          "word": "piaget",
+          "pair_count": 9,
+          "pmi": 7.460305
+        },
+        {
+          "word": "discomfort",
+          "pair_count": 3,
+          "pmi": 6.223266
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "dissonance",
+      "cooc_pmi_top5_relaxed": [
+        "dissonance",
+        "mentally",
+        "uncomfortable",
+        "piaget",
+        "discomfort"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 71,
+      "n_candidates_meeting_min_pair_count": 47,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "19": {
+      "blind_id": 19,
+      "subject": "donor",
+      "substrate_object": "chance",
+      "cooc_pmi_top1": "organ",
+      "cooc_freq_top1": "organ",
+      "cooc_pmi_top5": [
+        "organ",
+        "objection",
+        "register",
+        "relative",
+        "chance"
+      ],
+      "cooc_freq_top5": [
+        "organ",
+        "chance",
+        "clear",
+        "happy",
+        "objection"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "organ",
+          "pair_count": 7,
+          "pmi": 9.41838
+        },
+        {
+          "word": "objection",
+          "pair_count": 3,
+          "pmi": 8.50411
+        },
+        {
+          "word": "register",
+          "pair_count": 3,
+          "pmi": 8.372865
+        },
+        {
+          "word": "relative",
+          "pair_count": 3,
+          "pmi": 8.372865
+        },
+        {
+          "word": "chance",
+          "pair_count": 3,
+          "pmi": 7.311465
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "organ",
+      "cooc_pmi_top5_relaxed": [
+        "organ",
+        "objection",
+        "register",
+        "relative",
+        "chance"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "20": {
+      "blind_id": 20,
+      "subject": "scrivener",
+      "substrate_object": "richard",
+      "cooc_pmi_top1": "rugby",
+      "cooc_freq_top1": "training",
+      "cooc_pmi_top5": [
+        "rugby",
+        "training",
+        "coach",
+        "tabata",
+        "richard"
+      ],
+      "cooc_freq_top5": [
+        "training",
+        "coach",
+        "richard",
+        "rugby",
+        "tabata"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "rugby",
+          "pair_count": 3,
+          "pmi": 10.989536
+        },
+        {
+          "word": "training",
+          "pair_count": 5,
+          "pmi": 8.852033
+        },
+        {
+          "word": "coach",
+          "pair_count": 3,
+          "pmi": 8.620303
+        },
+        {
+          "word": "tabata",
+          "pair_count": 3,
+          "pmi": 8.487036
+        },
+        {
+          "word": "richard",
+          "pair_count": 3,
+          "pmi": 7.846578
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "rugby",
+      "cooc_pmi_top5_relaxed": [
+        "rugby",
+        "training",
+        "coach",
+        "tabata",
+        "richard"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "21": {
+      "blind_id": 21,
+      "subject": "mum",
+      "substrate_object": "dad",
+      "cooc_pmi_top1": "dad",
+      "cooc_freq_top1": "facebook",
+      "cooc_pmi_top5": [
+        "dad",
+        "friend-of-a-friend",
+        "classmate",
+        "colleague",
+        "speak"
+      ],
+      "cooc_freq_top5": [
+        "facebook",
+        "classmate",
+        "colleague",
+        "dad",
+        "friend"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "dad",
+          "pair_count": 3,
+          "pmi": 11.311465
+        },
+        {
+          "word": "friend-of-a-friend",
+          "pair_count": 3,
+          "pmi": 11.311465
+        },
+        {
+          "word": "classmate",
+          "pair_count": 3,
+          "pmi": 9.896427
+        },
+        {
+          "word": "colleague",
+          "pair_count": 3,
+          "pmi": 6.989536
+        },
+        {
+          "word": "speak",
+          "pair_count": 3,
+          "pmi": 6.874059
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "dad",
+      "cooc_pmi_top5_relaxed": [
+        "dad",
+        "friend-of-a-friend",
+        "classmate",
+        "colleague",
+        "speak"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 11,
+      "matches_pmi_top1": true,
+      "matches_freq_top1": false
+    },
+    "22": {
+      "blind_id": 22,
+      "subject": "estate",
+      "substrate_object": "agent",
+      "cooc_pmi_top1": "champ",
+      "cooc_freq_top1": "agent",
+      "cooc_pmi_top5": [
+        "champ",
+        "kazakh",
+        "rodeo",
+        "agent",
+        "hunter"
+      ],
+      "cooc_freq_top5": [
+        "agent",
+        "house",
+        "address",
+        "champ",
+        "chinese"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "champ",
+          "pair_count": 3,
+          "pmi": 10.611025
+        },
+        {
+          "word": "kazakh",
+          "pair_count": 3,
+          "pmi": 10.611025
+        },
+        {
+          "word": "rodeo",
+          "pair_count": 3,
+          "pmi": 10.611025
+        },
+        {
+          "word": "agent",
+          "pair_count": 6,
+          "pmi": 9.495548
+        },
+        {
+          "word": "hunter",
+          "pair_count": 3,
+          "pmi": 8.736556
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "champ",
+      "cooc_pmi_top5_relaxed": [
+        "champ",
+        "kazakh",
+        "rodeo",
+        "agent",
+        "hunter"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 13,
+      "n_candidates_meeting_min_pair_count": 15,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": true
+    },
+    "23": {
+      "blind_id": 23,
+      "subject": "subunit",
+      "substrate_object": "small",
+      "cooc_pmi_top1": "a-b",
+      "cooc_freq_top1": "protein",
+      "cooc_pmi_top5": [
+        "a-b",
+        "ribosomal",
+        "quaternary",
+        "beta",
+        "alpha"
+      ],
+      "cooc_freq_top5": [
+        "protein",
+        "hemoglobin",
+        "cell",
+        "ribosomal",
+        "compose"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "a-b",
+          "pair_count": 3,
+          "pmi": 8.440128
+        },
+        {
+          "word": "ribosomal",
+          "pair_count": 10,
+          "pmi": 7.855165
+        },
+        {
+          "word": "quaternary",
+          "pair_count": 3,
+          "pmi": 7.440128
+        },
+        {
+          "word": "beta",
+          "pair_count": 6,
+          "pmi": 7.32465
+        },
+        {
+          "word": "alpha",
+          "pair_count": 6,
+          "pmi": 7.02509
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "a-b",
+      "cooc_pmi_top5_relaxed": [
+        "a-b",
+        "ribosomal",
+        "quaternary",
+        "beta",
+        "alpha"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 56,
+      "n_candidates_meeting_min_pair_count": 41,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "24": {
+      "blind_id": 24,
+      "subject": "strain",
+      "substrate_object": "dangerous",
+      "cooc_pmi_top1": "strep",
+      "cooc_freq_top1": "different",
+      "cooc_pmi_top5": [
+        "strep",
+        "mating",
+        "difficile",
+        "resistant",
+        "aureus"
+      ],
+      "cooc_freq_top5": [
+        "different",
+        "cause",
+        "immune",
+        "protein",
+        "strep"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "strep",
+          "pair_count": 6,
+          "pmi": 7.640152
+        },
+        {
+          "word": "mating",
+          "pair_count": 4,
+          "pmi": 6.765683
+        },
+        {
+          "word": "difficile",
+          "pair_count": 4,
+          "pmi": 6.05519
+        },
+        {
+          "word": "resistant",
+          "pair_count": 5,
+          "pmi": 5.640152
+        },
+        {
+          "word": "aureus",
+          "pair_count": 3,
+          "pmi": 5.56215
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "strep",
+      "cooc_pmi_top5_relaxed": [
+        "strep",
+        "mating",
+        "difficile",
+        "resistant",
+        "aureus"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 65,
+      "n_candidates_meeting_min_pair_count": 40,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "25": {
+      "blind_id": 25,
+      "subject": "organism",
+      "substrate_object": "people",
+      "cooc_pmi_top1": "resistant",
+      "cooc_freq_top1": "resistant",
+      "cooc_pmi_top5": [
+        "resistant",
+        "infection",
+        "antibiotic",
+        "common",
+        "today"
+      ],
+      "cooc_freq_top5": [
+        "resistant",
+        "antibiotic",
+        "common",
+        "infection",
+        "today"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "resistant",
+          "pair_count": 5,
+          "pmi": 9.524868
+        },
+        {
+          "word": "infection",
+          "pair_count": 3,
+          "pmi": 8.50411
+        },
+        {
+          "word": "antibiotic",
+          "pair_count": 3,
+          "pmi": 7.953913
+        },
+        {
+          "word": "common",
+          "pair_count": 3,
+          "pmi": 7.428821
+        },
+        {
+          "word": "today",
+          "pair_count": 3,
+          "pmi": 6.517049
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "resistant",
+      "cooc_pmi_top5_relaxed": [
+        "resistant",
+        "infection",
+        "antibiotic",
+        "common",
+        "today"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "26": {
+      "blind_id": 26,
+      "subject": "neurotransmitter",
+      "substrate_object": "inside",
+      "cooc_pmi_top1": "glutamate",
+      "cooc_freq_top1": "receptor",
+      "cooc_pmi_top5": [
+        "glutamate",
+        "implicate",
+        "ionotropic",
+        "metabotropic",
+        "cleft"
+      ],
+      "cooc_freq_top5": [
+        "receptor",
+        "cell",
+        "release",
+        "system",
+        "bind"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "glutamate",
+          "pair_count": 4,
+          "pmi": 7.492595
+        },
+        {
+          "word": "implicate",
+          "pair_count": 3,
+          "pmi": 7.340592
+        },
+        {
+          "word": "ionotropic",
+          "pair_count": 3,
+          "pmi": 7.340592
+        },
+        {
+          "word": "metabotropic",
+          "pair_count": 3,
+          "pmi": 7.340592
+        },
+        {
+          "word": "cleft",
+          "pair_count": 5,
+          "pmi": 7.077558
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "glutamate",
+      "cooc_pmi_top5_relaxed": [
+        "glutamate",
+        "implicate",
+        "ionotropic",
+        "metabotropic",
+        "cleft"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 72,
+      "n_candidates_meeting_min_pair_count": 62,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "27": {
+      "blind_id": 27,
+      "subject": "swabey",
+      "substrate_object": "blow",
+      "cooc_pmi_top1": "lee",
+      "cooc_freq_top1": "match",
+      "cooc_pmi_top5": [
+        "lee",
+        "pgmol",
+        "ambition",
+        "brooks",
+        "professional"
+      ],
+      "cooc_freq_top5": [
+        "match",
+        "ambition",
+        "answer",
+        "brooks",
+        "clear"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "lee",
+          "pair_count": 3,
+          "pmi": 9.767144
+        },
+        {
+          "word": "pgmol",
+          "pair_count": 3,
+          "pmi": 9.574499
+        },
+        {
+          "word": "ambition",
+          "pair_count": 3,
+          "pmi": 8.574499
+        },
+        {
+          "word": "brooks",
+          "pair_count": 3,
+          "pmi": 8.050937
+        },
+        {
+          "word": "professional",
+          "pair_count": 3,
+          "pmi": 7.874059
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "lee",
+      "cooc_pmi_top5_relaxed": [
+        "lee",
+        "pgmol",
+        "ambition",
+        "brooks",
+        "professional"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 10,
+      "n_candidates_meeting_min_pair_count": 14,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "28": {
+      "blind_id": 28,
+      "subject": "promoter",
+      "substrate_object": "work",
+      "cooc_pmi_top1": "regulatory",
+      "cooc_freq_top1": "gene",
+      "cooc_pmi_top5": [
+        "regulatory",
+        "cap",
+        "polymerase",
+        "lac",
+        "encode"
+      ],
+      "cooc_freq_top5": [
+        "gene",
+        "region",
+        "operon",
+        "structural",
+        "transcription"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "regulatory",
+          "pair_count": 4,
+          "pmi": 8.16002
+        },
+        {
+          "word": "cap",
+          "pair_count": 3,
+          "pmi": 7.832445
+        },
+        {
+          "word": "polymerase",
+          "pair_count": 5,
+          "pmi": 7.814523
+        },
+        {
+          "word": "lac",
+          "pair_count": 3,
+          "pmi": 7.744982
+        },
+        {
+          "word": "encode",
+          "pair_count": 4,
+          "pmi": 7.603626
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "regulatory",
+      "cooc_pmi_top5_relaxed": [
+        "regulatory",
+        "cap",
+        "polymerase",
+        "lac",
+        "encode"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 16,
+      "n_candidates_meeting_min_pair_count": 22,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "29": {
+      "blind_id": 29,
+      "subject": "farm",
+      "substrate_object": "absolutely",
+      "cooc_pmi_top1": "inbred",
+      "cooc_freq_top1": "fish",
+      "cooc_pmi_top5": [
+        "inbred",
+        "hiv-positive",
+        "channels",
+        "helen",
+        "ivory"
+      ],
+      "cooc_freq_top5": [
+        "fish",
+        "liberia",
+        "sheehy",
+        "people",
+        "money"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "inbred",
+          "pair_count": 6,
+          "pmi": 8.380727
+        },
+        {
+          "word": "hiv-positive",
+          "pair_count": 4,
+          "pmi": 8.380727
+        },
+        {
+          "word": "channels",
+          "pair_count": 3,
+          "pmi": 8.380727
+        },
+        {
+          "word": "helen",
+          "pair_count": 3,
+          "pmi": 8.380727
+        },
+        {
+          "word": "ivory",
+          "pair_count": 3,
+          "pmi": 8.380727
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "inbred",
+      "cooc_pmi_top5_relaxed": [
+        "inbred",
+        "hiv-positive",
+        "channels",
+        "helen",
+        "ivory"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 61,
+      "n_candidates_meeting_min_pair_count": 93,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "30": {
+      "blind_id": 30,
+      "subject": "operator",
+      "substrate_object": "talk",
+      "cooc_pmi_top1": "want",
+      "cooc_freq_top1": "want",
+      "cooc_pmi_top5": [
+        "want"
+      ],
+      "cooc_freq_top5": [
+        "want",
+        "aircraft",
+        "business",
+        "care",
+        "device"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "want",
+          "pair_count": 4,
+          "pmi": 4.483328
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "want",
+      "cooc_pmi_top5_relaxed": [
+        "want"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 1,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "31": {
+      "blind_id": 31,
+      "subject": "exclusively",
+      "substrate_object": "pay",
+      "cooc_pmi_top1": "metallica",
+      "cooc_freq_top1": "led",
+      "cooc_pmi_top5": [
+        "metallica",
+        "zeppelin",
+        "spotify",
+        "led",
+        "lot"
+      ],
+      "cooc_freq_top5": [
+        "led",
+        "lot",
+        "metallica",
+        "money",
+        "pay"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "metallica",
+          "pair_count": 3,
+          "pmi": 11.989536
+        },
+        {
+          "word": "zeppelin",
+          "pair_count": 3,
+          "pmi": 11.989536
+        },
+        {
+          "word": "spotify",
+          "pair_count": 3,
+          "pmi": 9.182181
+        },
+        {
+          "word": "led",
+          "pair_count": 3,
+          "pmi": 6.704134
+        },
+        {
+          "word": "lot",
+          "pair_count": 3,
+          "pmi": 5.563272
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "metallica",
+      "cooc_pmi_top5_relaxed": [
+        "metallica",
+        "zeppelin",
+        "spotify",
+        "led",
+        "lot"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 7,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "32": {
+      "blind_id": 32,
+      "subject": "female",
+      "substrate_object": "difference",
+      "cooc_pmi_top1": "male",
+      "cooc_freq_top1": "male",
+      "cooc_pmi_top5": [
+        "male",
+        "gametangium",
+        "ovary",
+        "penis",
+        "reproductive"
+      ],
+      "cooc_freq_top5": [
+        "male",
+        "reproductive",
+        "sperm",
+        "tract",
+        "gamete"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "male",
+          "pair_count": 45,
+          "pmi": 7.276833
+        },
+        {
+          "word": "gametangium",
+          "pair_count": 5,
+          "pmi": 7.194371
+        },
+        {
+          "word": "ovary",
+          "pair_count": 5,
+          "pmi": 6.609409
+        },
+        {
+          "word": "penis",
+          "pair_count": 3,
+          "pmi": 6.287481
+        },
+        {
+          "word": "reproductive",
+          "pair_count": 22,
+          "pmi": 6.265786
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "male",
+      "cooc_pmi_top5_relaxed": [
+        "male",
+        "gametangium",
+        "ovary",
+        "penis",
+        "reproductive"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 83,
+      "n_candidates_meeting_min_pair_count": 53,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "33": {
+      "blind_id": 33,
+      "subject": "chromosome",
+      "substrate_object": "set",
+      "cooc_pmi_top1": "polyploid",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "polyploid",
+        "crossover",
+        "homologous",
+        "extrachromosomal",
+        "chromatid"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "gene",
+        "homologous",
+        "dna",
+        "pair"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "polyploid",
+          "pair_count": 3,
+          "pmi": 7.340592
+        },
+        {
+          "word": "crossover",
+          "pair_count": 3,
+          "pmi": 6.925554
+        },
+        {
+          "word": "homologous",
+          "pair_count": 21,
+          "pmi": 6.826019
+        },
+        {
+          "word": "extrachromosomal",
+          "pair_count": 4,
+          "pmi": 6.533237
+        },
+        {
+          "word": "chromatid",
+          "pair_count": 7,
+          "pmi": 6.241056
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "polyploid",
+      "cooc_pmi_top5_relaxed": [
+        "polyploid",
+        "crossover",
+        "homologous",
+        "extrachromosomal",
+        "chromatid"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 120,
+      "n_candidates_meeting_min_pair_count": 95,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "34": {
+      "blind_id": 34,
+      "subject": "palm",
+      "substrate_object": "forward",
+      "cooc_pmi_top1": "facing",
+      "cooc_freq_top1": "position",
+      "cooc_pmi_top5": [
+        "facing",
+        "backward",
+        "forearm",
+        "forward",
+        "anatomical"
+      ],
+      "cooc_freq_top5": [
+        "position",
+        "hand",
+        "anatomical",
+        "backward",
+        "facing"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "facing",
+          "pair_count": 3,
+          "pmi": 10.132005
+        },
+        {
+          "word": "backward",
+          "pair_count": 3,
+          "pmi": 9.132005
+        },
+        {
+          "word": "forearm",
+          "pair_count": 3,
+          "pmi": 7.884078
+        },
+        {
+          "word": "forward",
+          "pair_count": 3,
+          "pmi": 7.884078
+        },
+        {
+          "word": "anatomical",
+          "pair_count": 3,
+          "pmi": 7.810077
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "facing",
+      "cooc_pmi_top5_relaxed": [
+        "facing",
+        "backward",
+        "forearm",
+        "forward",
+        "anatomical"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 13,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "35": {
+      "blind_id": 35,
+      "subject": "nutrient",
+      "substrate_object": "cute",
+      "cooc_pmi_top1": "mosquito",
+      "cooc_freq_top1": "bat",
+      "cooc_pmi_top5": [
+        "mosquito",
+        "bat",
+        "panda",
+        "cute",
+        "worm"
+      ],
+      "cooc_freq_top5": [
+        "bat",
+        "cute",
+        "malaria",
+        "mosquito",
+        "panda"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "mosquito",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "bat",
+          "pair_count": 3,
+          "pmi": 10.989536
+        },
+        {
+          "word": "panda",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "cute",
+          "pair_count": 3,
+          "pmi": 9.989536
+        },
+        {
+          "word": "worm",
+          "pair_count": 3,
+          "pmi": 9.852033
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "mosquito",
+      "cooc_pmi_top5_relaxed": [
+        "mosquito",
+        "bat",
+        "panda",
+        "cute",
+        "worm"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "36": {
+      "blind_id": 36,
+      "subject": "foreign",
+      "substrate_object": "red",
+      "cooc_pmi_top1": "tolerance",
+      "cooc_freq_top1": "immune",
+      "cooc_pmi_top5": [
+        "tolerance",
+        "apc",
+        "particle",
+        "immune",
+        "substance"
+      ],
+      "cooc_freq_top5": [
+        "immune",
+        "cell",
+        "apc",
+        "particle",
+        "response"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tolerance",
+          "pair_count": 3,
+          "pmi": 9.02509
+        },
+        {
+          "word": "apc",
+          "pair_count": 4,
+          "pmi": 8.739688
+        },
+        {
+          "word": "particle",
+          "pair_count": 4,
+          "pmi": 6.082576
+        },
+        {
+          "word": "immune",
+          "pair_count": 7,
+          "pmi": 5.670054
+        },
+        {
+          "word": "substance",
+          "pair_count": 4,
+          "pmi": 4.705418
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tolerance",
+      "cooc_pmi_top5_relaxed": [
+        "tolerance",
+        "apc",
+        "particle",
+        "immune",
+        "substance"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 14,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "37": {
+      "blind_id": 37,
+      "subject": "product",
+      "substrate_object": "leave",
+      "cooc_pmi_top1": "dairy",
+      "cooc_freq_top1": "reactant",
+      "cooc_pmi_top5": [
+        "dairy",
+        "reactant",
+        "sell",
+        "arrow",
+        "recombinant"
+      ],
+      "cooc_freq_top5": [
+        "reactant",
+        "reaction",
+        "use",
+        "cell",
+        "balance"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "dairy",
+          "pair_count": 4,
+          "pmi": 6.281698
+        },
+        {
+          "word": "reactant",
+          "pair_count": 44,
+          "pmi": 6.108862
+        },
+        {
+          "word": "sell",
+          "pair_count": 3,
+          "pmi": 5.866661
+        },
+        {
+          "word": "arrow",
+          "pair_count": 4,
+          "pmi": 5.603626
+        },
+        {
+          "word": "recombinant",
+          "pair_count": 4,
+          "pmi": 5.144195
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "dairy",
+      "cooc_pmi_top5_relaxed": [
+        "dairy",
+        "reactant",
+        "sell",
+        "arrow",
+        "recombinant"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 200,
+      "n_candidates_meeting_min_pair_count": 160,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "38": {
+      "blind_id": 38,
+      "subject": "outermost",
+      "substrate_object": "need",
+      "cooc_pmi_top1": "shell",
+      "cooc_freq_top1": "shell",
+      "cooc_pmi_top5": [
+        "shell",
+        "epidermis",
+        "stable",
+        "fill",
+        "layer"
+      ],
+      "cooc_freq_top5": [
+        "shell",
+        "electron",
+        "layer",
+        "atom",
+        "fill"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "shell",
+          "pair_count": 10,
+          "pmi": 7.819541
+        },
+        {
+          "word": "epidermis",
+          "pair_count": 4,
+          "pmi": 6.533237
+        },
+        {
+          "word": "stable",
+          "pair_count": 3,
+          "pmi": 6.1182
+        },
+        {
+          "word": "fill",
+          "pair_count": 5,
+          "pmi": 6.007168
+        },
+        {
+          "word": "layer",
+          "pair_count": 8,
+          "pmi": 5.28531
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "shell",
+      "cooc_pmi_top5_relaxed": [
+        "shell",
+        "epidermis",
+        "stable",
+        "fill",
+        "layer"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 21,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "39": {
+      "blind_id": 39,
+      "subject": "shortage",
+      "substrate_object": "problem",
+      "cooc_pmi_top1": "colonsay",
+      "cooc_freq_top1": "food",
+      "cooc_pmi_top5": [
+        "colonsay",
+        "sahel",
+        "scottish",
+        "challenge",
+        "water"
+      ],
+      "cooc_freq_top5": [
+        "food",
+        "water",
+        "people",
+        "challenge",
+        "colonsay"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "colonsay",
+          "pair_count": 3,
+          "pmi": 10.224002
+        },
+        {
+          "word": "sahel",
+          "pair_count": 3,
+          "pmi": 10.224002
+        },
+        {
+          "word": "scottish",
+          "pair_count": 3,
+          "pmi": 6.224002
+        },
+        {
+          "word": "challenge",
+          "pair_count": 3,
+          "pmi": 5.04078
+        },
+        {
+          "word": "water",
+          "pair_count": 7,
+          "pmi": 4.831684
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "colonsay",
+      "cooc_pmi_top5_relaxed": [
+        "colonsay",
+        "sahel",
+        "scottish",
+        "challenge",
+        "water"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 17,
+      "n_candidates_meeting_min_pair_count": 8,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "40": {
+      "blind_id": 40,
+      "subject": "stirling",
+      "substrate_object": "running",
+      "cooc_pmi_top1": "cognitive",
+      "cooc_freq_top1": "daily",
+      "cooc_pmi_top5": [
+        "cognitive",
+        "daily",
+        "classroom",
+        "pupil",
+        "emotional"
+      ],
+      "cooc_freq_top5": [
+        "daily",
+        "mile",
+        "school",
+        "start",
+        "child"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "cognitive",
+          "pair_count": 3,
+          "pmi": 8.726502
+        },
+        {
+          "word": "daily",
+          "pair_count": 9,
+          "pmi": 8.168507
+        },
+        {
+          "word": "classroom",
+          "pair_count": 3,
+          "pmi": 7.726502
+        },
+        {
+          "word": "pupil",
+          "pair_count": 3,
+          "pmi": 7.611025
+        },
+        {
+          "word": "emotional",
+          "pair_count": 3,
+          "pmi": 7.453484
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "cognitive",
+      "cooc_pmi_top5_relaxed": [
+        "cognitive",
+        "daily",
+        "classroom",
+        "pupil",
+        "emotional"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 12,
+      "n_candidates_meeting_min_pair_count": 22,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "41": {
+      "blind_id": 41,
+      "subject": "irregular",
+      "substrate_object": "hard",
+      "cooc_pmi_top1": "sleep",
+      "cooc_freq_top1": "american",
+      "cooc_pmi_top5": [
+        "sleep",
+        "american",
+        "hard",
+        "hours",
+        "work"
+      ],
+      "cooc_freq_top5": [
+        "american",
+        "hard",
+        "hours",
+        "sleep",
+        "work"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "sleep",
+          "pair_count": 3,
+          "pmi": 6.729009
+        },
+        {
+          "word": "american",
+          "pair_count": 3,
+          "pmi": 6.585814
+        },
+        {
+          "word": "hard",
+          "pair_count": 3,
+          "pmi": 6.336094
+        },
+        {
+          "word": "hours",
+          "pair_count": 3,
+          "pmi": 5.989536
+        },
+        {
+          "word": "work",
+          "pair_count": 3,
+          "pmi": 4.442642
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "sleep",
+      "cooc_pmi_top5_relaxed": [
+        "sleep",
+        "american",
+        "hard",
+        "hours",
+        "work"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "42": {
+      "blind_id": 42,
+      "subject": "singerer",
+      "substrate_object": "beer",
+      "cooc_pmi_top1": "childminder",
+      "cooc_freq_top1": "beer",
+      "cooc_pmi_top5": [
+        "childminder",
+        "drinker",
+        "rebecka",
+        "gothenburg",
+        "beer"
+      ],
+      "cooc_freq_top5": [
+        "beer",
+        "want",
+        "woman",
+        "childminder",
+        "dark"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "childminder",
+          "pair_count": 3,
+          "pmi": 11.14154
+        },
+        {
+          "word": "drinker",
+          "pair_count": 3,
+          "pmi": 11.14154
+        },
+        {
+          "word": "rebecka",
+          "pair_count": 3,
+          "pmi": 11.14154
+        },
+        {
+          "word": "gothenburg",
+          "pair_count": 3,
+          "pmi": 10.404574
+        },
+        {
+          "word": "beer",
+          "pair_count": 6,
+          "pmi": 7.819611
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "childminder",
+      "cooc_pmi_top5_relaxed": [
+        "childminder",
+        "drinker",
+        "rebecka",
+        "gothenburg",
+        "beer"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 13,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": true
+    },
+    "43": {
+      "blind_id": 43,
+      "subject": "ashamed",
+      "substrate_object": "sorry",
+      "cooc_pmi_top1": "hide",
+      "cooc_freq_top1": "feel",
+      "cooc_pmi_top5": [
+        "hide",
+        "rich",
+        "medium",
+        "feel",
+        "need"
+      ],
+      "cooc_freq_top5": [
+        "feel",
+        "hide",
+        "medium",
+        "need",
+        "rich"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "hide",
+          "pair_count": 3,
+          "pmi": 8.787903
+        },
+        {
+          "word": "rich",
+          "pair_count": 3,
+          "pmi": 6.234649
+        },
+        {
+          "word": "medium",
+          "pair_count": 3,
+          "pmi": 6.092296
+        },
+        {
+          "word": "feel",
+          "pair_count": 3,
+          "pmi": 5.682108
+        },
+        {
+          "word": "need",
+          "pair_count": 3,
+          "pmi": 4.331325
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "hide",
+      "cooc_pmi_top5_relaxed": [
+        "hide",
+        "rich",
+        "medium",
+        "feel",
+        "need"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "44": {
+      "blind_id": 44,
+      "subject": "quinn",
+      "substrate_object": "elizabeth",
+      "cooc_pmi_top1": "gallagher",
+      "cooc_freq_top1": "axani",
+      "cooc_pmi_top5": [
+        "gallagher",
+        "jordan",
+        "elizabeth",
+        "romantic",
+        "toronto"
+      ],
+      "cooc_freq_top5": [
+        "axani",
+        "elizabeth",
+        "gallagher",
+        "canada",
+        "charity"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "gallagher",
+          "pair_count": 6,
+          "pmi": 9.819611
+        },
+        {
+          "word": "jordan",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "elizabeth",
+          "pair_count": 6,
+          "pmi": 9.478575
+        },
+        {
+          "word": "romantic",
+          "pair_count": 3,
+          "pmi": 8.919147
+        },
+        {
+          "word": "toronto",
+          "pair_count": 3,
+          "pmi": 8.919147
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "gallagher",
+      "cooc_pmi_top5_relaxed": [
+        "gallagher",
+        "jordan",
+        "elizabeth",
+        "romantic",
+        "toronto"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 12,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "45": {
+      "blind_id": 45,
+      "subject": "reactant",
+      "substrate_object": "group",
+      "cooc_pmi_top1": "arrow",
+      "cooc_freq_top1": "product",
+      "cooc_pmi_top5": [
+        "arrow",
+        "product",
+        "redox",
+        "element",
+        "coefficient"
+      ],
+      "cooc_freq_top5": [
+        "product",
+        "reaction",
+        "balance",
+        "chemical",
+        "equation"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "arrow",
+          "pair_count": 4,
+          "pmi": 7.293286
+        },
+        {
+          "word": "product",
+          "pair_count": 44,
+          "pmi": 6.108862
+        },
+        {
+          "word": "redox",
+          "pair_count": 3,
+          "pmi": 5.971358
+        },
+        {
+          "word": "element",
+          "pair_count": 10,
+          "pmi": 5.807859
+        },
+        {
+          "word": "coefficient",
+          "pair_count": 6,
+          "pmi": 5.708324
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "arrow",
+      "cooc_pmi_top5_relaxed": [
+        "arrow",
+        "product",
+        "redox",
+        "element",
+        "coefficient"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 62,
+      "n_candidates_meeting_min_pair_count": 46,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "46": {
+      "blind_id": 46,
+      "subject": "hydrochloric",
+      "substrate_object": "definitely",
+      "cooc_pmi_top1": "stomach",
+      "cooc_freq_top1": "acid",
+      "cooc_pmi_top5": [
+        "stomach",
+        "acid"
+      ],
+      "cooc_freq_top5": [
+        "acid",
+        "stomach",
+        "chlorine",
+        "gastrin",
+        "hormone"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "stomach",
+          "pair_count": 5,
+          "pmi": 8.270203
+        },
+        {
+          "word": "acid",
+          "pair_count": 7,
+          "pmi": 5.907633
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "stomach",
+      "cooc_pmi_top5_relaxed": [
+        "stomach",
+        "acid"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 7,
+      "n_candidates_meeting_min_pair_count": 2,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "47": {
+      "blind_id": 47,
+      "subject": "convolute",
+      "substrate_object": "bed",
+      "cooc_pmi_top1": "distal",
+      "cooc_freq_top1": "tubule",
+      "cooc_pmi_top5": [
+        "distal",
+        "proximal",
+        "henle",
+        "portal",
+        "tubule"
+      ],
+      "cooc_freq_top5": [
+        "tubule",
+        "distal",
+        "proximal",
+        "henle",
+        "loop"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "distal",
+          "pair_count": 7,
+          "pmi": 9.547043
+        },
+        {
+          "word": "proximal",
+          "pair_count": 7,
+          "pmi": 9.447507
+        },
+        {
+          "word": "henle",
+          "pair_count": 5,
+          "pmi": 9.061616
+        },
+        {
+          "word": "portal",
+          "pair_count": 3,
+          "pmi": 8.810077
+        },
+        {
+          "word": "tubule",
+          "pair_count": 10,
+          "pmi": 8.442706
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "distal",
+      "cooc_pmi_top5_relaxed": [
+        "distal",
+        "proximal",
+        "henle",
+        "portal",
+        "tubule"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 13,
+      "n_candidates_meeting_min_pair_count": 15,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "48": {
+      "blind_id": 48,
+      "subject": "skype",
+      "substrate_object": "kid",
+      "cooc_pmi_top1": "absent",
+      "cooc_freq_top1": "interview",
+      "cooc_pmi_top5": [
+        "absent",
+        "aol",
+        "imessage",
+        "paltalk",
+        "smiley"
+      ],
+      "cooc_freq_top5": [
+        "interview",
+        "location",
+        "video",
+        "voice",
+        "program"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "absent",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "aol",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "imessage",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "paltalk",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "smiley",
+          "pair_count": 3,
+          "pmi": 10.50411
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "absent",
+      "cooc_pmi_top5_relaxed": [
+        "absent",
+        "aol",
+        "imessage",
+        "paltalk",
+        "smiley"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 14,
+      "n_candidates_meeting_min_pair_count": 35,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "49": {
+      "blind_id": 49,
+      "subject": "location",
+      "substrate_object": "kid",
+      "cooc_pmi_top1": "absent",
+      "cooc_freq_top1": "different",
+      "cooc_pmi_top5": [
+        "absent",
+        "imessage",
+        "jill",
+        "smiley",
+        "viber"
+      ],
+      "cooc_freq_top5": [
+        "different",
+        "london",
+        "skype",
+        "company",
+        "aba"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "absent",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "imessage",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "jill",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "smiley",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "viber",
+          "pair_count": 3,
+          "pmi": 9.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "absent",
+      "cooc_pmi_top5_relaxed": [
+        "absent",
+        "imessage",
+        "jill",
+        "smiley",
+        "viber"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 24,
+      "n_candidates_meeting_min_pair_count": 44,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "50": {
+      "blind_id": 50,
+      "subject": "operon",
+      "substrate_object": "change",
+      "cooc_pmi_top1": "inducible",
+      "cooc_freq_top1": "lac",
+      "cooc_pmi_top5": [
+        "inducible",
+        "repressible",
+        "biosynthetic",
+        "lac",
+        "trp"
+      ],
+      "cooc_freq_top5": [
+        "lac",
+        "gene",
+        "enzyme",
+        "glucose",
+        "promoter"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "inducible",
+          "pair_count": 4,
+          "pmi": 8.723921
+        },
+        {
+          "word": "repressible",
+          "pair_count": 4,
+          "pmi": 8.723921
+        },
+        {
+          "word": "biosynthetic",
+          "pair_count": 3,
+          "pmi": 8.723921
+        },
+        {
+          "word": "lac",
+          "pair_count": 15,
+          "pmi": 8.543348
+        },
+        {
+          "word": "trp",
+          "pair_count": 6,
+          "pmi": 8.501528
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "inducible",
+      "cooc_pmi_top5_relaxed": [
+        "inducible",
+        "repressible",
+        "biosynthetic",
+        "lac",
+        "trp"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 46,
+      "n_candidates_meeting_min_pair_count": 45,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "51": {
+      "blind_id": 51,
+      "subject": "visiting",
+      "substrate_object": "thinking",
+      "cooc_pmi_top1": "science-fiction",
+      "cooc_freq_top1": "people",
+      "cooc_pmi_top5": [
+        "science-fiction",
+        "sayani",
+        "arif",
+        "intergalactic",
+        "glam-rock"
+      ],
+      "cooc_freq_top5": [
+        "people",
+        "stop",
+        "time",
+        "able",
+        "area"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "science-fiction",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "sayani",
+          "pair_count": 4,
+          "pmi": 9.404574
+        },
+        {
+          "word": "arif",
+          "pair_count": 3,
+          "pmi": 9.311465
+        },
+        {
+          "word": "intergalactic",
+          "pair_count": 3,
+          "pmi": 8.989536
+        },
+        {
+          "word": "glam-rock",
+          "pair_count": 3,
+          "pmi": 8.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "science-fiction",
+      "cooc_pmi_top5_relaxed": [
+        "science-fiction",
+        "sayani",
+        "arif",
+        "intergalactic",
+        "glam-rock"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 24,
+      "n_candidates_meeting_min_pair_count": 35,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "52": {
+      "blind_id": 52,
+      "subject": "yoga",
+      "substrate_object": "people",
+      "cooc_pmi_top1": "deli",
+      "cooc_freq_top1": "india",
+      "cooc_pmi_top5": [
+        "deli",
+        "narendra",
+        "practitioner",
+        "suneel",
+        "hindu"
+      ],
+      "cooc_freq_top5": [
+        "india",
+        "modi",
+        "day",
+        "international",
+        "new"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "deli",
+          "pair_count": 3,
+          "pmi": 8.667608
+        },
+        {
+          "word": "narendra",
+          "pair_count": 3,
+          "pmi": 8.667608
+        },
+        {
+          "word": "practitioner",
+          "pair_count": 3,
+          "pmi": 8.667608
+        },
+        {
+          "word": "suneel",
+          "pair_count": 3,
+          "pmi": 8.667608
+        },
+        {
+          "word": "hindu",
+          "pair_count": 3,
+          "pmi": 8.252571
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "deli",
+      "cooc_pmi_top5_relaxed": [
+        "deli",
+        "narendra",
+        "practitioner",
+        "suneel",
+        "hindu"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 50,
+      "n_candidates_meeting_min_pair_count": 67,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "53": {
+      "blind_id": 53,
+      "subject": "gene",
+      "substrate_object": "agent",
+      "cooc_pmi_top1": "encoding",
+      "cooc_freq_top1": "expression",
+      "cooc_pmi_top5": [
+        "encoding",
+        "reporter",
+        "transcribe",
+        "transcriptional",
+        "expression"
+      ],
+      "cooc_freq_top5": [
+        "expression",
+        "dna",
+        "cell",
+        "protein",
+        "chromosome"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "encoding",
+          "pair_count": 18,
+          "pmi": 5.971358
+        },
+        {
+          "word": "reporter",
+          "pair_count": 5,
+          "pmi": 5.860327
+        },
+        {
+          "word": "transcribe",
+          "pair_count": 15,
+          "pmi": 5.57082
+        },
+        {
+          "word": "transcriptional",
+          "pair_count": 4,
+          "pmi": 5.538399
+        },
+        {
+          "word": "expression",
+          "pair_count": 44,
+          "pmi": 5.516704
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "encoding",
+      "cooc_pmi_top5_relaxed": [
+        "encoding",
+        "reporter",
+        "transcribe",
+        "transcriptional",
+        "expression"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 279,
+      "n_candidates_meeting_min_pair_count": 280,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "54": {
+      "blind_id": 54,
+      "subject": "fishing",
+      "substrate_object": "boat",
+      "cooc_pmi_top1": "ecotourism",
+      "cooc_freq_top1": "important",
+      "cooc_pmi_top5": [
+        "ecotourism",
+        "erosion",
+        "councillor",
+        "galindo",
+        "socialist"
+      ],
+      "cooc_freq_top5": [
+        "important",
+        "water",
+        "agriculture",
+        "boat",
+        "resource"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "ecotourism",
+          "pair_count": 3,
+          "pmi": 9.667608
+        },
+        {
+          "word": "erosion",
+          "pair_count": 3,
+          "pmi": 8.667608
+        },
+        {
+          "word": "councillor",
+          "pair_count": 3,
+          "pmi": 8.082646
+        },
+        {
+          "word": "galindo",
+          "pair_count": 3,
+          "pmi": 8.082646
+        },
+        {
+          "word": "socialist",
+          "pair_count": 3,
+          "pmi": 8.082646
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "ecotourism",
+      "cooc_pmi_top5_relaxed": [
+        "ecotourism",
+        "erosion",
+        "councillor",
+        "galindo",
+        "socialist"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 25,
+      "n_candidates_meeting_min_pair_count": 36,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "55": {
+      "blind_id": 55,
+      "subject": "drifting",
+      "substrate_object": "boat",
+      "cooc_pmi_top1": "marshall",
+      "cooc_freq_top1": "boat",
+      "cooc_pmi_top5": [
+        "marshall",
+        "mexican",
+        "boat",
+        "setting",
+        "headline"
+      ],
+      "cooc_freq_top5": [
+        "boat",
+        "island",
+        "marshall",
+        "mexican",
+        "small"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "marshall",
+          "pair_count": 5,
+          "pmi": 9.878505
+        },
+        {
+          "word": "mexican",
+          "pair_count": 5,
+          "pmi": 8.939906
+        },
+        {
+          "word": "boat",
+          "pair_count": 6,
+          "pmi": 8.556577
+        },
+        {
+          "word": "setting",
+          "pair_count": 4,
+          "pmi": 8.334185
+        },
+        {
+          "word": "headline",
+          "pair_count": 3,
+          "pmi": 7.772306
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "marshall",
+      "cooc_pmi_top5_relaxed": [
+        "marshall",
+        "mexican",
+        "boat",
+        "setting",
+        "headline"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 11,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": true
+    },
+    "56": {
+      "blind_id": 56,
+      "subject": "hyperactivity",
+      "substrate_object": "attention",
+      "cooc_pmi_top1": "attention-deficit",
+      "cooc_freq_top1": "disorder",
+      "cooc_pmi_top5": [
+        "attention-deficit",
+        "deficit",
+        "attention",
+        "disorder"
+      ],
+      "cooc_freq_top5": [
+        "disorder",
+        "attention",
+        "attention-deficit",
+        "deficit",
+        "child"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "attention-deficit",
+          "pair_count": 3,
+          "pmi": 11.247483
+        },
+        {
+          "word": "deficit",
+          "pair_count": 3,
+          "pmi": 8.925554
+        },
+        {
+          "word": "attention",
+          "pair_count": 3,
+          "pmi": 8.510517
+        },
+        {
+          "word": "disorder",
+          "pair_count": 7,
+          "pmi": 6.579104
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "attention-deficit",
+      "cooc_pmi_top5_relaxed": [
+        "attention-deficit",
+        "deficit",
+        "attention",
+        "disorder"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 8,
+      "n_candidates_meeting_min_pair_count": 4,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "57": {
+      "blind_id": 57,
+      "subject": "regulation",
+      "substrate_object": "difference",
+      "cooc_pmi_top1": "transcriptional",
+      "cooc_freq_top1": "gene",
+      "cooc_pmi_top5": [
+        "transcriptional",
+        "eukaryote",
+        "expression",
+        "transcription",
+        "prokaryotic"
+      ],
+      "cooc_freq_top5": [
+        "gene",
+        "expression",
+        "occur",
+        "control",
+        "blood"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "transcriptional",
+          "pair_count": 3,
+          "pmi": 8.247483
+        },
+        {
+          "word": "eukaryote",
+          "pair_count": 4,
+          "pmi": 5.999555
+        },
+        {
+          "word": "expression",
+          "pair_count": 7,
+          "pmi": 5.988748
+        },
+        {
+          "word": "transcription",
+          "pair_count": 5,
+          "pmi": 5.896985
+        },
+        {
+          "word": "prokaryotic",
+          "pair_count": 4,
+          "pmi": 5.340592
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "transcriptional",
+      "cooc_pmi_top5_relaxed": [
+        "transcriptional",
+        "eukaryote",
+        "expression",
+        "transcription",
+        "prokaryotic"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 32,
+      "n_candidates_meeting_min_pair_count": 21,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "58": {
+      "blind_id": 58,
+      "subject": "gas",
+      "substrate_object": "big",
+      "cooc_pmi_top1": "greenhouse",
+      "cooc_freq_top1": "greenhouse",
+      "cooc_pmi_top5": [
+        "greenhouse",
+        "shale",
+        "cricket",
+        "livre",
+        "nitrous"
+      ],
+      "cooc_freq_top5": [
+        "greenhouse",
+        "emission",
+        "coal",
+        "increase",
+        "use"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "greenhouse",
+          "pair_count": 30,
+          "pmi": 8.14154
+        },
+        {
+          "word": "shale",
+          "pair_count": 10,
+          "pmi": 8.14154
+        },
+        {
+          "word": "cricket",
+          "pair_count": 3,
+          "pmi": 8.14154
+        },
+        {
+          "word": "livre",
+          "pair_count": 3,
+          "pmi": 8.14154
+        },
+        {
+          "word": "nitrous",
+          "pair_count": 3,
+          "pmi": 8.14154
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "greenhouse",
+      "cooc_pmi_top5_relaxed": [
+        "greenhouse",
+        "shale",
+        "cricket",
+        "livre",
+        "nitrous"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 72,
+      "n_candidates_meeting_min_pair_count": 133,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "59": {
+      "blind_id": 59,
+      "subject": "fontanelle",
+      "substrate_object": "loose",
+      "cooc_pmi_top1": "birth",
+      "cooc_freq_top1": "bones",
+      "cooc_pmi_top5": [
+        "birth",
+        "skull",
+        "bones",
+        "area",
+        "connective"
+      ],
+      "cooc_freq_top5": [
+        "bones",
+        "skull",
+        "area",
+        "birth",
+        "connective"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "birth",
+          "pair_count": 3,
+          "pmi": 8.018664
+        },
+        {
+          "word": "skull",
+          "pair_count": 4,
+          "pmi": 7.859465
+        },
+        {
+          "word": "bones",
+          "pair_count": 4,
+          "pmi": 6.177362
+        },
+        {
+          "word": "area",
+          "pair_count": 3,
+          "pmi": 6.161789
+        },
+        {
+          "word": "connective",
+          "pair_count": 3,
+          "pmi": 6.161789
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "birth",
+      "cooc_pmi_top5_relaxed": [
+        "birth",
+        "skull",
+        "bones",
+        "area",
+        "connective"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "60": {
+      "blind_id": 60,
+      "subject": "sight",
+      "substrate_object": "pain",
+      "cooc_pmi_top1": "anaemia",
+      "cooc_freq_top1": "anaemia",
+      "cooc_pmi_top5": [
+        "anaemia",
+        "arthritis",
+        "disorder",
+        "pain",
+        "anxiety"
+      ],
+      "cooc_freq_top5": [
+        "anaemia",
+        "anxiety",
+        "arthritis",
+        "depression",
+        "disease"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "anaemia",
+          "pair_count": 3,
+          "pmi": 11.50411
+        },
+        {
+          "word": "arthritis",
+          "pair_count": 3,
+          "pmi": 11.50411
+        },
+        {
+          "word": "disorder",
+          "pair_count": 3,
+          "pmi": 10.281717
+        },
+        {
+          "word": "pain",
+          "pair_count": 3,
+          "pmi": 10.089072
+        },
+        {
+          "word": "anxiety",
+          "pair_count": 3,
+          "pmi": 9.50411
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "anaemia",
+      "cooc_pmi_top5_relaxed": [
+        "anaemia",
+        "arthritis",
+        "disorder",
+        "pain",
+        "anxiety"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 7,
+      "n_candidates_meeting_min_pair_count": 14,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "61": {
+      "blind_id": 61,
+      "subject": "unpaid",
+      "substrate_object": "straight",
+      "cooc_pmi_top1": "straight",
+      "cooc_freq_top1": "away",
+      "cooc_pmi_top5": [
+        "straight",
+        "voluntary",
+        "winner",
+        "carry",
+        "tax"
+      ],
+      "cooc_freq_top5": [
+        "away",
+        "carry",
+        "problem",
+        "straight",
+        "tax"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "straight",
+          "pair_count": 3,
+          "pmi": 9.224002
+        },
+        {
+          "word": "voluntary",
+          "pair_count": 3,
+          "pmi": 9.14154
+        },
+        {
+          "word": "winner",
+          "pair_count": 3,
+          "pmi": 7.556577
+        },
+        {
+          "word": "carry",
+          "pair_count": 3,
+          "pmi": 7.161717
+        },
+        {
+          "word": "tax",
+          "pair_count": 3,
+          "pmi": 6.491286
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "straight",
+      "cooc_pmi_top5_relaxed": [
+        "straight",
+        "voluntary",
+        "winner",
+        "carry",
+        "tax"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 8,
+      "matches_pmi_top1": true,
+      "matches_freq_top1": false
+    },
+    "62": {
+      "blind_id": 62,
+      "subject": "korean",
+      "substrate_object": "instead",
+      "cooc_pmi_top1": "blanc",
+      "cooc_freq_top1": "beef",
+      "cooc_pmi_top5": [
+        "blanc",
+        "carton",
+        "chestnut",
+        "deschanel",
+        "home-made"
+      ],
+      "cooc_freq_top5": [
+        "beef",
+        "blanc",
+        "book",
+        "carton",
+        "chestnut"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "blanc",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "carton",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "chestnut",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "deschanel",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "home-made",
+          "pair_count": 3,
+          "pmi": 11.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "blanc",
+      "cooc_pmi_top5_relaxed": [
+        "blanc",
+        "carton",
+        "chestnut",
+        "deschanel",
+        "home-made"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 36,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "63": {
+      "blind_id": 63,
+      "subject": "pump",
+      "substrate_object": "drive",
+      "cooc_pmi_top1": "sodium-potassium",
+      "cooc_freq_top1": "ion",
+      "cooc_pmi_top5": [
+        "sodium-potassium",
+        "leakage",
+        "potassium",
+        "passive",
+        "sodium"
+      ],
+      "cooc_freq_top5": [
+        "ion",
+        "cell",
+        "sodium",
+        "blood",
+        "potassium"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "sodium-potassium",
+          "pair_count": 11,
+          "pmi": 8.203088
+        },
+        {
+          "word": "leakage",
+          "pair_count": 3,
+          "pmi": 6.788051
+        },
+        {
+          "word": "potassium",
+          "pair_count": 14,
+          "pmi": 6.688515
+        },
+        {
+          "word": "passive",
+          "pair_count": 3,
+          "pmi": 5.88116
+        },
+        {
+          "word": "sodium",
+          "pair_count": 17,
+          "pmi": 5.590112
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "sodium-potassium",
+      "cooc_pmi_top5_relaxed": [
+        "sodium-potassium",
+        "leakage",
+        "potassium",
+        "passive",
+        "sodium"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 66,
+      "n_candidates_meeting_min_pair_count": 45,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "64": {
+      "blind_id": 64,
+      "subject": "proper",
+      "substrate_object": "little",
+      "cooc_pmi_top1": "areolar",
+      "cooc_freq_top1": "connective",
+      "cooc_pmi_top5": [
+        "areolar",
+        "fibroblast",
+        "loose",
+        "sterilization",
+        "connective"
+      ],
+      "cooc_freq_top5": [
+        "connective",
+        "tissue",
+        "cell",
+        "type",
+        "contain"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "areolar",
+          "pair_count": 3,
+          "pmi": 7.301064
+        },
+        {
+          "word": "fibroblast",
+          "pair_count": 3,
+          "pmi": 6.815637
+        },
+        {
+          "word": "loose",
+          "pair_count": 4,
+          "pmi": 6.514467
+        },
+        {
+          "word": "sterilization",
+          "pair_count": 3,
+          "pmi": 5.979135
+        },
+        {
+          "word": "connective",
+          "pair_count": 15,
+          "pmi": 5.596192
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "areolar",
+      "cooc_pmi_top5_relaxed": [
+        "areolar",
+        "fibroblast",
+        "loose",
+        "sterilization",
+        "connective"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 37,
+      "n_candidates_meeting_min_pair_count": 15,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "65": {
+      "blind_id": 65,
+      "subject": "sane",
+      "substrate_object": "hit",
+      "cooc_pmi_top1": "aladdin",
+      "cooc_freq_top1": "help",
+      "cooc_pmi_top5": [
+        "aladdin",
+        "drive-in",
+        "genie",
+        "spacewalk",
+        "singles"
+      ],
+      "cooc_freq_top5": [
+        "help",
+        "spacewalk",
+        "aladdin",
+        "album",
+        "experiment"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "aladdin",
+          "pair_count": 4,
+          "pmi": 11.14154
+        },
+        {
+          "word": "drive-in",
+          "pair_count": 3,
+          "pmi": 11.14154
+        },
+        {
+          "word": "genie",
+          "pair_count": 3,
+          "pmi": 11.14154
+        },
+        {
+          "word": "spacewalk",
+          "pair_count": 5,
+          "pmi": 10.878505
+        },
+        {
+          "word": "singles",
+          "pair_count": 3,
+          "pmi": 10.14154
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "aladdin",
+      "cooc_pmi_top5_relaxed": [
+        "aladdin",
+        "drive-in",
+        "genie",
+        "spacewalk",
+        "singles"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 9,
+      "n_candidates_meeting_min_pair_count": 16,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "66": {
+      "blind_id": 66,
+      "subject": "pia",
+      "substrate_object": "world",
+      "cooc_pmi_top1": "meningeal",
+      "cooc_freq_top1": "mater",
+      "cooc_pmi_top5": [
+        "meningeal",
+        "mater",
+        "arachnoid",
+        "dura",
+        "layer"
+      ],
+      "cooc_freq_top5": [
+        "mater",
+        "arachnoid",
+        "brain",
+        "dura",
+        "layer"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "meningeal",
+          "pair_count": 3,
+          "pmi": 11.02509
+        },
+        {
+          "word": "mater",
+          "pair_count": 7,
+          "pmi": 10.66252
+        },
+        {
+          "word": "arachnoid",
+          "pair_count": 4,
+          "pmi": 10.632773
+        },
+        {
+          "word": "dura",
+          "pair_count": 3,
+          "pmi": 10.440128
+        },
+        {
+          "word": "layer",
+          "pair_count": 3,
+          "pmi": 5.455235
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "meningeal",
+      "cooc_pmi_top5_relaxed": [
+        "meningeal",
+        "mater",
+        "arachnoid",
+        "dura",
+        "layer"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 7,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "67": {
+      "blind_id": 67,
+      "subject": "tutsi",
+      "substrate_object": "men",
+      "cooc_pmi_top1": "hutu",
+      "cooc_freq_top1": "hutu",
+      "cooc_pmi_top5": [
+        "hutu",
+        "genocide",
+        "survivor",
+        "musician",
+        "kill"
+      ],
+      "cooc_freq_top5": [
+        "hutu",
+        "genocide",
+        "kill",
+        "musician",
+        "survivor"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "hutu",
+          "pair_count": 5,
+          "pmi": 11.989536
+        },
+        {
+          "word": "genocide",
+          "pair_count": 3,
+          "pmi": 10.767144
+        },
+        {
+          "word": "survivor",
+          "pair_count": 3,
+          "pmi": 10.404574
+        },
+        {
+          "word": "musician",
+          "pair_count": 3,
+          "pmi": 8.874059
+        },
+        {
+          "word": "kill",
+          "pair_count": 3,
+          "pmi": 6.563272
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "hutu",
+      "cooc_pmi_top5_relaxed": [
+        "hutu",
+        "genocide",
+        "survivor",
+        "musician",
+        "kill"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "68": {
+      "blind_id": 68,
+      "subject": "transform",
+      "substrate_object": "fix",
+      "cooc_pmi_top1": "fixation",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "fixation",
+        "ammonia",
+        "gaseous",
+        "nitrogen",
+        "transfer"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "energy",
+        "form",
+        "gaseous",
+        "nitrogen"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "fixation",
+          "pair_count": 3,
+          "pmi": 7.060956
+        },
+        {
+          "word": "ammonia",
+          "pair_count": 3,
+          "pmi": 6.849451
+        },
+        {
+          "word": "gaseous",
+          "pair_count": 4,
+          "pmi": 6.514467
+        },
+        {
+          "word": "nitrogen",
+          "pair_count": 4,
+          "pmi": 5.969033
+        },
+        {
+          "word": "transfer",
+          "pair_count": 3,
+          "pmi": 4.540699
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "fixation",
+      "cooc_pmi_top5_relaxed": [
+        "fixation",
+        "ammonia",
+        "gaseous",
+        "nitrogen",
+        "transfer"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 23,
+      "n_candidates_meeting_min_pair_count": 10,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "69": {
+      "blind_id": 69,
+      "subject": "swing",
+      "substrate_object": "beat",
+      "cooc_pmi_top1": "mitt",
+      "cooc_freq_top1": "obama",
+      "cooc_pmi_top5": [
+        "mitt",
+        "romney",
+        "opponent",
+        "divide",
+        "beat"
+      ],
+      "cooc_freq_top5": [
+        "obama",
+        "romney",
+        "state",
+        "america",
+        "beat"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "mitt",
+          "pair_count": 3,
+          "pmi": 10.989536
+        },
+        {
+          "word": "romney",
+          "pair_count": 5,
+          "pmi": 10.311465
+        },
+        {
+          "word": "opponent",
+          "pair_count": 3,
+          "pmi": 9.252571
+        },
+        {
+          "word": "divide",
+          "pair_count": 3,
+          "pmi": 9.115067
+        },
+        {
+          "word": "beat",
+          "pair_count": 3,
+          "pmi": 8.182181
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "mitt",
+      "cooc_pmi_top5_relaxed": [
+        "mitt",
+        "romney",
+        "opponent",
+        "divide",
+        "beat"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 10,
+      "n_candidates_meeting_min_pair_count": 11,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "70": {
+      "blind_id": 70,
+      "subject": "unusually",
+      "substrate_object": "ball",
+      "cooc_pmi_top1": "rugby",
+      "cooc_freq_top1": "accord",
+      "cooc_pmi_top5": [
+        "rugby",
+        "intelligent",
+        "yarrell",
+        "ball",
+        "inky"
+      ],
+      "cooc_freq_top5": [
+        "accord",
+        "ball",
+        "inky",
+        "intelligent",
+        "octopus"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "rugby",
+          "pair_count": 3,
+          "pmi": 10.989536
+        },
+        {
+          "word": "intelligent",
+          "pair_count": 3,
+          "pmi": 10.767144
+        },
+        {
+          "word": "yarrell",
+          "pair_count": 3,
+          "pmi": 9.667608
+        },
+        {
+          "word": "ball",
+          "pair_count": 3,
+          "pmi": 9.574499
+        },
+        {
+          "word": "inky",
+          "pair_count": 3,
+          "pmi": 8.289097
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "rugby",
+      "cooc_pmi_top5_relaxed": [
+        "rugby",
+        "intelligent",
+        "yarrell",
+        "ball",
+        "inky"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 8,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "71": {
+      "blind_id": 71,
+      "subject": "vesicle",
+      "substrate_object": "wonder",
+      "cooc_pmi_top1": "seminal",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "seminal",
+        "hindbrain",
+        "exocytosis",
+        "semen",
+        "forebrain"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "brain",
+        "membrane",
+        "primary",
+        "contain"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "seminal",
+          "pair_count": 8,
+          "pmi": 7.377118
+        },
+        {
+          "word": "hindbrain",
+          "pair_count": 6,
+          "pmi": 7.087611
+        },
+        {
+          "word": "exocytosis",
+          "pair_count": 5,
+          "pmi": 6.96208
+        },
+        {
+          "word": "semen",
+          "pair_count": 4,
+          "pmi": 6.640152
+        },
+        {
+          "word": "forebrain",
+          "pair_count": 6,
+          "pmi": 6.299115
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "seminal",
+      "cooc_pmi_top5_relaxed": [
+        "seminal",
+        "hindbrain",
+        "exocytosis",
+        "semen",
+        "forebrain"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 78,
+      "n_candidates_meeting_min_pair_count": 60,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "72": {
+      "blind_id": 72,
+      "subject": "population",
+      "substrate_object": "course",
+      "cooc_pmi_top1": "d-value",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "d-value",
+        "decimal",
+        "geographic",
+        "doubling",
+        "devastate"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "time",
+        "human",
+        "disease",
+        "individual"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "d-value",
+          "pair_count": 3,
+          "pmi": 7.02509
+        },
+        {
+          "word": "decimal",
+          "pair_count": 3,
+          "pmi": 6.440128
+        },
+        {
+          "word": "geographic",
+          "pair_count": 3,
+          "pmi": 6.440128
+        },
+        {
+          "word": "doubling",
+          "pair_count": 3,
+          "pmi": 6.217735
+        },
+        {
+          "word": "devastate",
+          "pair_count": 3,
+          "pmi": 6.02509
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "d-value",
+      "cooc_pmi_top5_relaxed": [
+        "d-value",
+        "decimal",
+        "geographic",
+        "doubling",
+        "devastate"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 112,
+      "n_candidates_meeting_min_pair_count": 93,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "73": {
+      "blind_id": 73,
+      "subject": "trypanosomiasis",
+      "substrate_object": "early",
+      "cooc_pmi_top1": "brucei",
+      "cooc_freq_top1": "african",
+      "cooc_pmi_top5": [
+        "brucei",
+        "sickness",
+        "sleeping",
+        "african"
+      ],
+      "cooc_freq_top5": [
+        "african",
+        "brucei",
+        "sickness",
+        "sleeping",
+        "cause"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "brucei",
+          "pair_count": 3,
+          "pmi": 11.510517
+        },
+        {
+          "word": "sickness",
+          "pair_count": 3,
+          "pmi": 11.510517
+        },
+        {
+          "word": "sleeping",
+          "pair_count": 3,
+          "pmi": 10.703162
+        },
+        {
+          "word": "african",
+          "pair_count": 4,
+          "pmi": 9.925554
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "brucei",
+      "cooc_pmi_top5_relaxed": [
+        "brucei",
+        "sickness",
+        "sleeping",
+        "african"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 4,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "74": {
+      "blind_id": 74,
+      "subject": "archives",
+      "substrate_object": "follow",
+      "cooc_pmi_top1": "psychiatry",
+      "cooc_freq_top1": "general",
+      "cooc_pmi_top5": [
+        "psychiatry",
+        "general"
+      ],
+      "cooc_freq_top5": [
+        "general",
+        "psychiatry",
+        "biologie",
+        "de",
+        "italiennes"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "psychiatry",
+          "pair_count": 3,
+          "pmi": 9.832445
+        },
+        {
+          "word": "general",
+          "pair_count": 3,
+          "pmi": 8.051085
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "psychiatry",
+      "cooc_pmi_top5_relaxed": [
+        "psychiatry",
+        "general"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 4,
+      "n_candidates_meeting_min_pair_count": 2,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "75": {
+      "blind_id": 75,
+      "subject": "conserve",
+      "substrate_object": "ice",
+      "cooc_pmi_top1": "dehydrate",
+      "cooc_freq_top1": "body",
+      "cooc_pmi_top5": [
+        "dehydrate",
+        "urine",
+        "kidney",
+        "water",
+        "body"
+      ],
+      "cooc_freq_top5": [
+        "body",
+        "dehydrate",
+        "kidney",
+        "urine",
+        "water"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "dehydrate",
+          "pair_count": 3,
+          "pmi": 9.925554
+        },
+        {
+          "word": "urine",
+          "pair_count": 3,
+          "pmi": 6.821218
+        },
+        {
+          "word": "kidney",
+          "pair_count": 3,
+          "pmi": 6.377118
+        },
+        {
+          "word": "water",
+          "pair_count": 3,
+          "pmi": 4.512773
+        },
+        {
+          "word": "body",
+          "pair_count": 3,
+          "pmi": 4.273068
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "dehydrate",
+      "cooc_pmi_top5_relaxed": [
+        "dehydrate",
+        "urine",
+        "kidney",
+        "water",
+        "body"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "76": {
+      "blind_id": 76,
+      "subject": "dunworth",
+      "substrate_object": "gur",
+      "cooc_pmi_top1": "ecigarettedirect",
+      "cooc_freq_top1": "ecigarettedirect",
+      "cooc_pmi_top5": [
+        "ecigarettedirect",
+        "gur",
+        "james",
+        "huge",
+        "increase"
+      ],
+      "cooc_freq_top5": [
+        "ecigarettedirect",
+        "huge",
+        "increase",
+        "james",
+        "use"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "ecigarettedirect",
+          "pair_count": 4,
+          "pmi": 12.311465
+        },
+        {
+          "word": "gur",
+          "pair_count": 3,
+          "pmi": 9.726502
+        },
+        {
+          "word": "james",
+          "pair_count": 4,
+          "pmi": 8.919147
+        },
+        {
+          "word": "huge",
+          "pair_count": 4,
+          "pmi": 7.517049
+        },
+        {
+          "word": "increase",
+          "pair_count": 4,
+          "pmi": 6.218707
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "ecigarettedirect",
+      "cooc_pmi_top5_relaxed": [
+        "ecigarettedirect",
+        "gur",
+        "james",
+        "huge",
+        "increase"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 4,
+      "n_candidates_meeting_min_pair_count": 6,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "77": {
+      "blind_id": 77,
+      "subject": "ossification",
+      "substrate_object": "remodel",
+      "cooc_pmi_top1": "intramembranous",
+      "cooc_freq_top1": "bone",
+      "cooc_pmi_top5": [
+        "intramembranous",
+        "endochondral",
+        "osteogenesis",
+        "replacing",
+        "mesenchymal"
+      ],
+      "cooc_freq_top5": [
+        "bone",
+        "endochondral",
+        "intramembranous",
+        "process",
+        "development"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "intramembranous",
+          "pair_count": 15,
+          "pmi": 8.66252
+        },
+        {
+          "word": "endochondral",
+          "pair_count": 15,
+          "pmi": 8.569411
+        },
+        {
+          "word": "osteogenesis",
+          "pair_count": 4,
+          "pmi": 8.077558
+        },
+        {
+          "word": "replacing",
+          "pair_count": 3,
+          "pmi": 7.247483
+        },
+        {
+          "word": "mesenchymal",
+          "pair_count": 5,
+          "pmi": 7.077558
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "intramembranous",
+      "cooc_pmi_top5_relaxed": [
+        "intramembranous",
+        "endochondral",
+        "osteogenesis",
+        "replacing",
+        "mesenchymal"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 48,
+      "n_candidates_meeting_min_pair_count": 29,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "78": {
+      "blind_id": 78,
+      "subject": "irv",
+      "substrate_object": "air",
+      "cooc_pmi_top1": "tv",
+      "cooc_freq_top1": "tv",
+      "cooc_pmi_top5": [
+        "tv"
+      ],
+      "cooc_freq_top5": [
+        "tv",
+        "air",
+        "erv",
+        "inhalation",
+        "inhale"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tv",
+          "pair_count": 3,
+          "pmi": 10.925554
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tv",
+      "cooc_pmi_top5_relaxed": [
+        "tv"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 1,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "79": {
+      "blind_id": 79,
+      "subject": "bypass",
+      "substrate_object": "bed",
+      "cooc_pmi_top1": "thoroughfare",
+      "cooc_freq_top1": "bed",
+      "cooc_pmi_top5": [
+        "thoroughfare",
+        "metarteriole",
+        "venous",
+        "bed",
+        "channel"
+      ],
+      "cooc_freq_top5": [
+        "bed",
+        "capillary",
+        "directly",
+        "blood",
+        "channel"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "thoroughfare",
+          "pair_count": 3,
+          "pmi": 11.188589
+        },
+        {
+          "word": "metarteriole",
+          "pair_count": 3,
+          "pmi": 10.188589
+        },
+        {
+          "word": "venous",
+          "pair_count": 3,
+          "pmi": 9.510517
+        },
+        {
+          "word": "bed",
+          "pair_count": 5,
+          "pmi": 9.203088
+        },
+        {
+          "word": "channel",
+          "pair_count": 3,
+          "pmi": 7.652536
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "thoroughfare",
+      "cooc_pmi_top5_relaxed": [
+        "thoroughfare",
+        "metarteriole",
+        "venous",
+        "bed",
+        "channel"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 9,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": true
+    },
+    "80": {
+      "blind_id": 80,
+      "subject": "pronation",
+      "substrate_object": "forward",
+      "cooc_pmi_top1": "supination",
+      "cooc_freq_top1": "forearm",
+      "cooc_pmi_top5": [
+        "supination",
+        "forearm",
+        "radius",
+        "position",
+        "movement"
+      ],
+      "cooc_freq_top5": [
+        "forearm",
+        "supination",
+        "movement",
+        "position",
+        "radius"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "supination",
+          "pair_count": 5,
+          "pmi": 11.177093
+        },
+        {
+          "word": "forearm",
+          "pair_count": 6,
+          "pmi": 9.999555
+        },
+        {
+          "word": "radius",
+          "pair_count": 3,
+          "pmi": 8.603626
+        },
+        {
+          "word": "position",
+          "pair_count": 3,
+          "pmi": 7.340592
+        },
+        {
+          "word": "movement",
+          "pair_count": 3,
+          "pmi": 5.446583
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "supination",
+      "cooc_pmi_top5_relaxed": [
+        "supination",
+        "forearm",
+        "radius",
+        "position",
+        "movement"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 5,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "81": {
+      "blind_id": 81,
+      "subject": "unlikely",
+      "substrate_object": "sure",
+      "cooc_pmi_top1": "hazard",
+      "cooc_freq_top1": "city",
+      "cooc_pmi_top5": [
+        "hazard",
+        "survival",
+        "lawyer",
+        "solution",
+        "long"
+      ],
+      "cooc_freq_top5": [
+        "city",
+        "long",
+        "survival",
+        "hazard",
+        "lawyer"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "hazard",
+          "pair_count": 3,
+          "pmi": 8.038446
+        },
+        {
+          "word": "survival",
+          "pair_count": 4,
+          "pmi": 6.868521
+        },
+        {
+          "word": "lawyer",
+          "pair_count": 3,
+          "pmi": 5.716518
+        },
+        {
+          "word": "solution",
+          "pair_count": 3,
+          "pmi": 4.663407
+        },
+        {
+          "word": "long",
+          "pair_count": 4,
+          "pmi": 3.853571
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "hazard",
+      "cooc_pmi_top5_relaxed": [
+        "hazard",
+        "survival",
+        "lawyer",
+        "solution",
+        "long"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 29,
+      "n_candidates_meeting_min_pair_count": 7,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "82": {
+      "blind_id": 82,
+      "subject": "welfare",
+      "substrate_object": "truck",
+      "cooc_pmi_top1": null,
+      "cooc_freq_top1": "animal",
+      "cooc_pmi_top5": [],
+      "cooc_freq_top5": [
+        "animal",
+        "attend",
+        "biological",
+        "boy",
+        "bring"
+      ],
+      "cooc_pmi_top5_detail": [],
+      "cooc_pmi_top1_relaxed": "cabinet",
+      "cooc_pmi_top5_relaxed": [
+        "cabinet",
+        "truck",
+        "secondary",
+        "deepening",
+        "devolution"
+      ],
+      "used_relaxed_fallback": true,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 0,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "83": {
+      "blind_id": 83,
+      "subject": "erythrocyte",
+      "substrate_object": "body",
+      "cooc_pmi_top1": "hemagglutinins",
+      "cooc_freq_top1": "cell",
+      "cooc_pmi_top5": [
+        "hemagglutinins",
+        "hemagglutination",
+        "row",
+        "majority",
+        "agglutination"
+      ],
+      "cooc_freq_top5": [
+        "cell",
+        "blood",
+        "red",
+        "oxygen",
+        "hemoglobin"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "hemagglutinins",
+          "pair_count": 3,
+          "pmi": 9.02509
+        },
+        {
+          "word": "hemagglutination",
+          "pair_count": 3,
+          "pmi": 7.32465
+        },
+        {
+          "word": "row",
+          "pair_count": 3,
+          "pmi": 7.32465
+        },
+        {
+          "word": "majority",
+          "pair_count": 3,
+          "pmi": 6.167109
+        },
+        {
+          "word": "agglutination",
+          "pair_count": 3,
+          "pmi": 6.070894
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "hemagglutinins",
+      "cooc_pmi_top5_relaxed": [
+        "hemagglutinins",
+        "hemagglutination",
+        "row",
+        "majority",
+        "agglutination"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 28,
+      "n_candidates_meeting_min_pair_count": 23,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "84": {
+      "blind_id": 84,
+      "subject": "feedback",
+      "substrate_object": "control",
+      "cooc_pmi_top1": "tubuloglomerular",
+      "cooc_freq_top1": "loop",
+      "cooc_pmi_top5": [
+        "tubuloglomerular",
+        "jga",
+        "loop",
+        "inhibition",
+        "cerebellum"
+      ],
+      "cooc_freq_top5": [
+        "loop",
+        "mechanism",
+        "hormone",
+        "negative",
+        "enzyme"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tubuloglomerular",
+          "pair_count": 4,
+          "pmi": 9.440128
+        },
+        {
+          "word": "jga",
+          "pair_count": 3,
+          "pmi": 8.440128
+        },
+        {
+          "word": "loop",
+          "pair_count": 7,
+          "pmi": 7.603626
+        },
+        {
+          "word": "inhibition",
+          "pair_count": 3,
+          "pmi": 6.1182
+        },
+        {
+          "word": "cerebellum",
+          "pair_count": 3,
+          "pmi": 5.855165
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tubuloglomerular",
+      "cooc_pmi_top5_relaxed": [
+        "tubuloglomerular",
+        "jga",
+        "loop",
+        "inhibition",
+        "cerebellum"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 28,
+      "n_candidates_meeting_min_pair_count": 15,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "85": {
+      "blind_id": 85,
+      "subject": "servant",
+      "substrate_object": "lord",
+      "cooc_pmi_top1": "grantham",
+      "cooc_freq_top1": "civil",
+      "cooc_pmi_top5": [
+        "grantham",
+        "lord",
+        "civil",
+        "lesson",
+        "yoga"
+      ],
+      "cooc_freq_top5": [
+        "civil",
+        "daily",
+        "family",
+        "free",
+        "grantham"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "grantham",
+          "pair_count": 3,
+          "pmi": 11.50411
+        },
+        {
+          "word": "lord",
+          "pair_count": 3,
+          "pmi": 10.281717
+        },
+        {
+          "word": "civil",
+          "pair_count": 4,
+          "pmi": 9.696755
+        },
+        {
+          "word": "lesson",
+          "pair_count": 3,
+          "pmi": 8.281717
+        },
+        {
+          "word": "yoga",
+          "pair_count": 3,
+          "pmi": 7.445216
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "grantham",
+      "cooc_pmi_top5_relaxed": [
+        "grantham",
+        "lord",
+        "civil",
+        "lesson",
+        "yoga"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 7,
+      "n_candidates_meeting_min_pair_count": 8,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "86": {
+      "blind_id": 86,
+      "subject": "inspiratory",
+      "substrate_object": "air",
+      "cooc_pmi_top1": "tidal",
+      "cooc_freq_top1": "volume",
+      "cooc_pmi_top5": [
+        "tidal",
+        "expiratory",
+        "inhale",
+        "reserve",
+        "residual"
+      ],
+      "cooc_freq_top5": [
+        "volume",
+        "reserve",
+        "air",
+        "expiratory",
+        "inhale"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tidal",
+          "pair_count": 4,
+          "pmi": 10.1182
+        },
+        {
+          "word": "expiratory",
+          "pair_count": 4,
+          "pmi": 9.755629
+        },
+        {
+          "word": "inhale",
+          "pair_count": 4,
+          "pmi": 9.225115
+        },
+        {
+          "word": "reserve",
+          "pair_count": 6,
+          "pmi": 9.188589
+        },
+        {
+          "word": "residual",
+          "pair_count": 3,
+          "pmi": 9.188589
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tidal",
+      "cooc_pmi_top5_relaxed": [
+        "tidal",
+        "expiratory",
+        "inhale",
+        "reserve",
+        "residual"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 10,
+      "n_candidates_meeting_min_pair_count": 10,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "87": {
+      "blind_id": 87,
+      "subject": "statement",
+      "substrate_object": "life",
+      "cooc_pmi_top1": "false",
+      "cooc_freq_top1": "following",
+      "cooc_pmi_top5": [
+        "false",
+        "following",
+        "law",
+        "cycle"
+      ],
+      "cooc_freq_top5": [
+        "following",
+        "false",
+        "cycle",
+        "law",
+        "child"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "false",
+          "pair_count": 5,
+          "pmi": 8.177093
+        },
+        {
+          "word": "following",
+          "pair_count": 7,
+          "pmi": 6.692894
+        },
+        {
+          "word": "law",
+          "pair_count": 3,
+          "pmi": 6.04781
+        },
+        {
+          "word": "cycle",
+          "pair_count": 3,
+          "pmi": 4.980696
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "false",
+      "cooc_pmi_top5_relaxed": [
+        "false",
+        "following",
+        "law",
+        "cycle"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 14,
+      "n_candidates_meeting_min_pair_count": 4,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "88": {
+      "blind_id": 88,
+      "subject": "industriall",
+      "substrate_object": "fire",
+      "cooc_pmi_top1": "primark",
+      "cooc_freq_top1": "accord",
+      "cooc_pmi_top5": [
+        "primark",
+        "holdcroft",
+        "jenny",
+        "marks",
+        "supplier"
+      ],
+      "cooc_freq_top5": [
+        "accord",
+        "factory",
+        "brand",
+        "agreement",
+        "closely"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "primark",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "holdcroft",
+          "pair_count": 3,
+          "pmi": 10.726502
+        },
+        {
+          "word": "jenny",
+          "pair_count": 3,
+          "pmi": 10.50411
+        },
+        {
+          "word": "marks",
+          "pair_count": 3,
+          "pmi": 10.14154
+        },
+        {
+          "word": "supplier",
+          "pair_count": 3,
+          "pmi": 9.989536
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "primark",
+      "cooc_pmi_top5_relaxed": [
+        "primark",
+        "holdcroft",
+        "jenny",
+        "marks",
+        "supplier"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 22,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "89": {
+      "blind_id": 89,
+      "subject": "stressful",
+      "substrate_object": "fight",
+      "cooc_pmi_top1": "situation",
+      "cooc_freq_top1": "situation",
+      "cooc_pmi_top5": [
+        "situation",
+        "sympathetic",
+        "activate",
+        "suggest",
+        "support"
+      ],
+      "cooc_freq_top5": [
+        "situation",
+        "system",
+        "activate",
+        "nervous",
+        "sympathetic"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "situation",
+          "pair_count": 6,
+          "pmi": 7.96208
+        },
+        {
+          "word": "sympathetic",
+          "pair_count": 4,
+          "pmi": 7.261641
+        },
+        {
+          "word": "activate",
+          "pair_count": 4,
+          "pmi": 6.397296
+        },
+        {
+          "word": "suggest",
+          "pair_count": 3,
+          "pmi": 5.56215
+        },
+        {
+          "word": "support",
+          "pair_count": 3,
+          "pmi": 5.390538
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "situation",
+      "cooc_pmi_top5_relaxed": [
+        "situation",
+        "sympathetic",
+        "activate",
+        "suggest",
+        "support"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 13,
+      "n_candidates_meeting_min_pair_count": 7,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "90": {
+      "blind_id": 90,
+      "subject": "bubonic",
+      "substrate_object": "black",
+      "cooc_pmi_top1": "plague",
+      "cooc_freq_top1": "plague",
+      "cooc_pmi_top5": [
+        "plague",
+        "death"
+      ],
+      "cooc_freq_top5": [
+        "plague",
+        "death",
+        "bacterium",
+        "black",
+        "bubo"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "plague",
+          "pair_count": 11,
+          "pmi": 9.855165
+        },
+        {
+          "word": "death",
+          "pair_count": 3,
+          "pmi": 6.203088
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "plague",
+      "cooc_pmi_top5_relaxed": [
+        "plague",
+        "death"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 11,
+      "n_candidates_meeting_min_pair_count": 2,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "91": {
+      "blind_id": 91,
+      "subject": "nationalism",
+      "substrate_object": "talk",
+      "cooc_pmi_top1": "patriotism",
+      "cooc_freq_top1": "french",
+      "cooc_pmi_top5": [
+        "patriotism",
+        "french"
+      ],
+      "cooc_freq_top5": [
+        "french",
+        "patriotism",
+        "commercialization",
+        "cultural",
+        "event"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "patriotism",
+          "pair_count": 3,
+          "pmi": 11.989536
+        },
+        {
+          "word": "french",
+          "pair_count": 3,
+          "pmi": 7.270718
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "patriotism",
+      "cooc_pmi_top5_relaxed": [
+        "patriotism",
+        "french"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 5,
+      "n_candidates_meeting_min_pair_count": 2,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "92": {
+      "blind_id": 92,
+      "subject": "promote",
+      "substrate_object": "act",
+      "cooc_pmi_top1": "memoir",
+      "cooc_freq_top1": "report",
+      "cooc_pmi_top5": [
+        "memoir",
+        "recruit",
+        "duran",
+        "values",
+        "popularity"
+      ],
+      "cooc_freq_top5": [
+        "report",
+        "world",
+        "company",
+        "duran",
+        "project"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "memoir",
+          "pair_count": 3,
+          "pmi": 9.556577
+        },
+        {
+          "word": "recruit",
+          "pair_count": 3,
+          "pmi": 8.14154
+        },
+        {
+          "word": "duran",
+          "pair_count": 4,
+          "pmi": 7.556577
+        },
+        {
+          "word": "values",
+          "pair_count": 3,
+          "pmi": 7.4411
+        },
+        {
+          "word": "popularity",
+          "pair_count": 3,
+          "pmi": 6.893612
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "memoir",
+      "cooc_pmi_top5_relaxed": [
+        "memoir",
+        "recruit",
+        "duran",
+        "values",
+        "popularity"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 27,
+      "n_candidates_meeting_min_pair_count": 31,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "93": {
+      "blind_id": 93,
+      "subject": "liberalization",
+      "substrate_object": "danny",
+      "cooc_pmi_top1": "drug",
+      "cooc_freq_top1": "drug",
+      "cooc_pmi_top5": [
+        "drug"
+      ],
+      "cooc_freq_top5": [
+        "drug",
+        "ban",
+        "base",
+        "bolivian",
+        "chewing"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "drug",
+          "pair_count": 4,
+          "pmi": 7.380727
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "drug",
+      "cooc_pmi_top5_relaxed": [
+        "drug"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 4,
+      "n_candidates_meeting_min_pair_count": 1,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "94": {
+      "blind_id": 94,
+      "subject": "musical",
+      "substrate_object": "york",
+      "cooc_pmi_top1": "tommy",
+      "cooc_freq_top1": "new",
+      "cooc_pmi_top5": [
+        "tommy",
+        "trailblazer",
+        "levita",
+        "producer",
+        "goldsmith"
+      ],
+      "cooc_freq_top5": [
+        "new",
+        "bowie",
+        "de",
+        "dutch",
+        "fashion"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tommy",
+          "pair_count": 3,
+          "pmi": 10.852033
+        },
+        {
+          "word": "trailblazer",
+          "pair_count": 3,
+          "pmi": 10.852033
+        },
+        {
+          "word": "levita",
+          "pair_count": 3,
+          "pmi": 10.436995
+        },
+        {
+          "word": "producer",
+          "pair_count": 3,
+          "pmi": 8.349533
+        },
+        {
+          "word": "goldsmith",
+          "pair_count": 3,
+          "pmi": 8.26707
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tommy",
+      "cooc_pmi_top5_relaxed": [
+        "tommy",
+        "trailblazer",
+        "levita",
+        "producer",
+        "goldsmith"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 11,
+      "n_candidates_meeting_min_pair_count": 14,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "95": {
+      "blind_id": 95,
+      "subject": "konstantinos",
+      "substrate_object": "agent",
+      "cooc_pmi_top1": "atzamis",
+      "cooc_freq_top1": "addict",
+      "cooc_pmi_top5": [
+        "atzamis",
+        "agent",
+        "lemnos",
+        "addict",
+        "killer"
+      ],
+      "cooc_freq_top5": [
+        "addict",
+        "agent",
+        "atzamis",
+        "best",
+        "drug"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "atzamis",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "agent",
+          "pair_count": 3,
+          "pmi": 9.611025
+        },
+        {
+          "word": "lemnos",
+          "pair_count": 3,
+          "pmi": 9.50411
+        },
+        {
+          "word": "addict",
+          "pair_count": 3,
+          "pmi": 9.063537
+        },
+        {
+          "word": "killer",
+          "pair_count": 3,
+          "pmi": 8.404574
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "atzamis",
+      "cooc_pmi_top5_relaxed": [
+        "atzamis",
+        "agent",
+        "lemnos",
+        "addict",
+        "killer"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 15,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "96": {
+      "blind_id": 96,
+      "subject": "eukaryote",
+      "substrate_object": "regulation",
+      "cooc_pmi_top1": "prokaryote",
+      "cooc_freq_top1": "prokaryote",
+      "cooc_pmi_top5": [
+        "prokaryote",
+        "regulation",
+        "archaea",
+        "idea",
+        "evolve"
+      ],
+      "cooc_freq_top5": [
+        "prokaryote",
+        "gene",
+        "evolve",
+        "dna",
+        "bacteria"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "prokaryote",
+          "pair_count": 18,
+          "pmi": 6.847552
+        },
+        {
+          "word": "regulation",
+          "pair_count": 4,
+          "pmi": 5.999555
+        },
+        {
+          "word": "archaea",
+          "pair_count": 3,
+          "pmi": 5.940661
+        },
+        {
+          "word": "idea",
+          "pair_count": 3,
+          "pmi": 5.940661
+        },
+        {
+          "word": "evolve",
+          "pair_count": 7,
+          "pmi": 5.677627
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "prokaryote",
+      "cooc_pmi_top5_relaxed": [
+        "prokaryote",
+        "regulation",
+        "archaea",
+        "idea",
+        "evolve"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 38,
+      "n_candidates_meeting_min_pair_count": 21,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "97": {
+      "blind_id": 97,
+      "subject": "des",
+      "substrate_object": "ray",
+      "cooc_pmi_top1": "chemin",
+      "cooc_freq_top1": "appetite",
+      "cooc_pmi_top5": [
+        "chemin",
+        "dune",
+        "fries",
+        "illinois",
+        "kroc"
+      ],
+      "cooc_freq_top5": [
+        "appetite",
+        "big",
+        "chair",
+        "chemin",
+        "consumer"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "chemin",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "dune",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "fries",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "illinois",
+          "pair_count": 3,
+          "pmi": 11.726502
+        },
+        {
+          "word": "kroc",
+          "pair_count": 3,
+          "pmi": 11.726502
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "chemin",
+      "cooc_pmi_top5_relaxed": [
+        "chemin",
+        "dune",
+        "fries",
+        "illinois",
+        "kroc"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 6,
+      "n_candidates_meeting_min_pair_count": 23,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "98": {
+      "blind_id": 98,
+      "subject": "trading",
+      "substrate_object": "suppose",
+      "cooc_pmi_top1": "discourage",
+      "cooc_freq_top1": "europe",
+      "cooc_pmi_top5": [
+        "discourage",
+        "suppose",
+        "desert",
+        "scheme",
+        "emission"
+      ],
+      "cooc_freq_top5": [
+        "europe",
+        "people",
+        "use",
+        "desert",
+        "discourage"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "discourage",
+          "pair_count": 3,
+          "pmi": 9.14154
+        },
+        {
+          "word": "suppose",
+          "pair_count": 3,
+          "pmi": 8.311465
+        },
+        {
+          "word": "desert",
+          "pair_count": 3,
+          "pmi": 7.453484
+        },
+        {
+          "word": "scheme",
+          "pair_count": 3,
+          "pmi": 6.953913
+        },
+        {
+          "word": "emission",
+          "pair_count": 3,
+          "pmi": 5.819611
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "discourage",
+      "cooc_pmi_top5_relaxed": [
+        "discourage",
+        "suppose",
+        "desert",
+        "scheme",
+        "emission"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 12,
+      "n_candidates_meeting_min_pair_count": 8,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    },
+    "99": {
+      "blind_id": 99,
+      "subject": "gradient",
+      "substrate_object": "high",
+      "cooc_pmi_top1": "tumble",
+      "cooc_freq_top1": "concentration",
+      "cooc_pmi_top5": [
+        "tumble",
+        "concentration",
+        "drive",
+        "passive",
+        "diffusion"
+      ],
+      "cooc_freq_top5": [
+        "concentration",
+        "ion",
+        "membrane",
+        "cell",
+        "diffusion"
+      ],
+      "cooc_pmi_top5_detail": [
+        {
+          "word": "tumble",
+          "pair_count": 3,
+          "pmi": 6.895807
+        },
+        {
+          "word": "concentration",
+          "pair_count": 42,
+          "pmi": 5.933088
+        },
+        {
+          "word": "drive",
+          "pair_count": 4,
+          "pmi": 5.796271
+        },
+        {
+          "word": "passive",
+          "pair_count": 3,
+          "pmi": 5.796271
+        },
+        {
+          "word": "diffusion",
+          "pair_count": 13,
+          "pmi": 5.648714
+        }
+      ],
+      "cooc_pmi_top1_relaxed": "tumble",
+      "cooc_pmi_top5_relaxed": [
+        "tumble",
+        "concentration",
+        "drive",
+        "passive",
+        "diffusion"
+      ],
+      "used_relaxed_fallback": false,
+      "subject_doc_count": 70,
+      "n_candidates_meeting_min_pair_count": 60,
+      "matches_pmi_top1": false,
+      "matches_freq_top1": false
+    }
+  }
+}

@@ -1,0 +1,1102 @@
+{
+  "n_rows": 100,
+  "shuffle_seed": 42,
+  "sample_seed": 42,
+  "arms_present": "TWO, LABELS STRIPPED -- the key is in arm_key.json, do not open it until every row is scored",
+  "rubric": "MEANINGFUL / RELATED / NOISE per notes/foundation_grounding_sample_2026-08-12.md",
+  "instruction": "Score each row's (subject -> object) read-out as MEANINGFUL / RELATED / NOISE using source_sentences as context. Score all rows in ONE sitting. Do NOT open arm_key.json, blind_provenance_sealed.json or cooccurrence_control.json until every row is scored.",
+  "scored": false,
+  "blinding_caveat": "LABEL-blind but GENRE-VISIBLE: the corpus is the variable, so a context sentence can reveal which arm a row came from. Pre-reg sec 6 declares this limitation.",
+  "bands": {
+    "primary_statistic": "MEANINGFUL rate on the TEXTBOOK arm (Director blind hand-score, n=50/arm)",
+    "TEXT_HYPOTHESIS_SUPPORTED": "MEANINGFUL(TEXTBOOK) >= 0.20",
+    "MIXED": "MEANINGFUL(TEXTBOOK) in [0.10, 0.20)",
+    "MECHANISM_IS_BINDING": "MEANINGFUL(TEXTBOOK) < 0.10 AND RELATED(TEXTBOOK) >= RELATED(NEWS) + 0.10 -- pre-declared, expected, acceptable",
+    "NULL_NO_TEXT_EFFECT": "MEANINGFUL(TEXTBOOK) < 0.10 and RELATED not above NEWS by 0.10",
+    "secondary_reported_not_gated": "RELATED rate per arm and the MEANINGFUL:RELATED ratio per arm; under (A) the ratio shifts toward MEANINGFUL, under (B) it stays adjacency-dominated",
+    "power": "SE of a proportion at n=50, p~0.2 is 0.057; differences below ~0.10 are unresolvable",
+    "reference_point": "MEASURED@notes/director_handscore_readout_v1_2026-08-13.md -- 3 MEANINGFUL / 19 RELATED / 78 NOISE over 100 mixed-corpus rows"
+  },
+  "rows": [
+    {
+      "blind_id": 0,
+      "subject": "sensor",
+      "object": "let",
+      "source_sentences": [
+        "And, if youre staying home, you can upgrade your bedroom with everything from a mattress cover with a sensor that monitors your sleep ($249) to a sleeping mask that monitors your brainwaves and lets you nap more efficiently ($299)",
+        "And, if you’re staying home, you can improve your bedroom with a mattress cover with a sensor that monitors your sleep ($249) or a sleeping mask that monitors your brainwaves and lets you sleep more efficiently ($299)",
+        "By analysing the style and size of peoples footwear as they walk past the sensor, the system can identify a customers gender with 75-80% accuracy",
+        "The suit has 17 sensors that register movement up to 120 times per second in three dimensions for 23 joints"
+      ]
+    },
+    {
+      "blind_id": 1,
+      "subject": "agricultural",
+      "object": "land",
+      "source_sentences": [
+        "Guillaume Chapron from Sweden’s University of Agricultural Sciences and researchers across Europe found wolves living in suburban areas with up to 3,050 people per square kilometre",
+        "Regassa Feyissa, an Ethiopian agricultural scientist, says that, without careful planning, growing more teff for export may mean that farmers do not grow other important crops",
+        "The increase will put more pressure on agricultural land, water, forests, fisheries and resources, and also food and energy supplies",
+        "The increase will put more pressure on agricultural land, water, forests, fisheries and resources, as well as nutrients and energy supplies"
+      ]
+    },
+    {
+      "blind_id": 2,
+      "subject": "academy",
+      "object": "america",
+      "source_sentences": [
+        "Academy of Management Executive, 14, 129–139",
+        "National Academies Press",
+        "Proceedings of the National Academy of Sciences of the United States of America 1 no",
+        "Proceedings of the National Academy of Sciences of the United States of America 105 no",
+        "Proceedings of the National Academy of Sciences of the United States of America 109 no"
+      ]
+    },
+    {
+      "blind_id": 3,
+      "subject": "nuclear",
+      "object": "accident",
+      "source_sentences": [
+        "IUPAC said that a Russian-American team of scientists at the Joint Institute for Nuclear Research in Dubna and Lawrence Livermore National Laboratory in California had discovered elements 115, 117 and 118",
+        "If we understand it better, hopefully we can find a better way to deal with nuclear waste and things that are important in the real world",
+        "Japan is trying to persuade South Korea and other countries to lift a ban on food imports that began after the Fukushima nuclear accident",
+        "Japan is trying to persuade South Korea and other countries to start to buy Japanese food again after the Fukushima nuclear accident"
+      ]
+    },
+    {
+      "blind_id": 4,
+      "subject": "compact",
+      "object": "remodel",
+      "source_sentences": [
+        "Cancellous bone is spongy and less solid than compact bone",
+        "Compact bone is solid and has greater structural strength",
+        "It is lighter than compact bone and found in the interior of some bones and at the end of long bones"
+      ]
+    },
+    {
+      "blind_id": 5,
+      "subject": "flight",
+      "object": "fight",
+      "source_sentences": [
+        "A common example of neural stimuli is the activation of the fight-or-flight response by the sympathetic nervous system"
+      ]
+    },
+    {
+      "blind_id": 6,
+      "subject": "lied",
+      "object": "talk",
+      "source_sentences": [
+        "Others hid it and lied about it",
+        "Others lied about playing the game  they had only seen notes about it"
+      ]
+    },
+    {
+      "blind_id": 7,
+      "subject": "remodel",
+      "object": "month",
+      "source_sentences": [
+        "Bone may also be resorbed for remodeling, if the applied stresses have changed",
+        "Bone remodeling allows bones to adapt to stresses by becoming thicker and stronger when subjected to stress",
+        "Bone remodeling involves the processes of bone deposition by osteoblasts and bone resorption by osteoclasts",
+        "Bone remodeling is the replacement of old bone tissue by new bone tissue",
+        "Bones can grow in thickness throughout life, but after age 25, ossification functions primarily in bone remodeling and repair"
+      ]
+    },
+    {
+      "blind_id": 8,
+      "subject": "album",
+      "object": "people",
+      "source_sentences": [
+        "But his 1965 album, Live at the Regal, has become famous and influenced many younger musicians",
+        "In 2009, King received a Grammy award, for best traditional blues album, for One Kind Favor",
+        "The celebrations for his 80th birthday, in 2005, included an award-winning album with Clapton, Mark Knopfler, Roger Daltrey, Gloria Estefan and others, tributes from Bono, Amadou Bagayoko and Elton John, and a “goodbye tour” that was not a goodbye at all"
+      ]
+    },
+    {
+      "blind_id": 9,
+      "subject": "spermatogonia",
+      "object": "daughter",
+      "source_sentences": [
+        "(a) Mitosis of a spermatogonial stem cell involves a single cell division that results in two identical, diploid daughter cells (spermatogonia to primary spermatocyte)",
+        "However, mature gametes are haploid (1n), containing 23 chromosomes—meaning that daughter cells of spermatogonia must undergo a second cellular division through the process of meiosis",
+        "One production cycle, from spermatogonia through formed sperm, takes approximately 64 days",
+        "Spermatogonia are the stem cells of the testis, which means that they are still able to differentiate into a variety of different cell types throughout adulthood",
+        "Spermatogonia divide to produce primary and secondary spermatocytes, then spermatids, which finally produce formed sperm"
+      ]
+    },
+    {
+      "blind_id": 10,
+      "subject": "nonmetal",
+      "object": "consist",
+      "source_sentences": [
+        "A metalloid is an element that has properties that are between those of metals and nonmetals; these elements are typically semiconductors",
+        "Alkali metals react directly with all the nonmetals (except the noble gases) to yield binary ionic compounds containing 1+ metal ions",
+        "All nonmetals except fluorine form multiple oxides",
+        "Although hydrogen is in group 1 (and also in group 17), it is a nonmetal and deserves separate consideration later in this chapter",
+        "As expected, these metals react with both acids and nonmetals to form ionic compounds"
+      ]
+    },
+    {
+      "blind_id": 11,
+      "subject": "pesticide",
+      "object": "use",
+      "source_sentences": [
+        "Also, the higher levels of cadmium and pesticides in conventional produce were still well below regulatory limits",
+        "But, the researchers say cadmium accumulates over time in the body and that some people may wish to avoid this, and that pesticide limits are set individually, not for the cocktail of chemicals used on crops",
+        "Organic food has more of the antioxidant compounds linked to better health than regular food, and lower levels of toxic metals and pesticides, according to the most comprehensive scientific analysis to date",
+        "Pesticide residues were found on conventional crops four times more often than on organic food",
+        "The 2012 study did note that eating organic food might help people avoid pesticide residues"
+      ]
+    },
+    {
+      "blind_id": 12,
+      "subject": "bronchiole",
+      "object": "beat",
+      "source_sentences": [
+        "5 mm are the respiratory bronchioles",
+        "At the bronchioles, the cartilage is replaced with elastic fibers",
+        "Bronchi are innervated by nerves of both the parasympathetic and sympathetic nervous systems that control muscle contraction (parasympathetic) or relaxation (sympathetic) in the bronchi and bronchioles, depending on the nervous system’s cues",
+        "Each bronchus divides into secondary bronchi, then into tertiary bronchi, which in turn divide, creating smaller and smaller diameter bronchioles as they split and spread through the lung",
+        "If particulates do make it beyond the nose, or enter through the mouth, the bronchi and bronchioles of the lungs also contain several protective devices"
+      ]
+    },
+    {
+      "blind_id": 13,
+      "subject": "intramembranous",
+      "object": "control",
+      "source_sentences": [
+        "Intramembranous ossification is the process of bone development from fibrous membranes",
+        "The development of bone from fibrous membranes is called intramembranous ossification; development from hyaline cartilage is called endochondral ossification",
+        "intramembranous ossification: process of bone development from fibrous membranes"
+      ]
+    },
+    {
+      "blind_id": 14,
+      "subject": "synapsis",
+      "object": "matter",
+      "source_sentences": [
+        "The lower motor neuron is that cell in the gray matter of the spinal cord and its axon extends into the periphery where it synapses with a skeletal muscle in a neuromuscular junction",
+        "The sensory endings in the skin initiate an electrical signal that travels along the sensory axon within a nerve into the spinal cord, where it synapses with a neuron in the gray matter of the spinal cord",
+        "The upper motor neuron has its cell body in the cerebral cortex and synapses on a cell in the gray matter of the spinal cord",
+        "upper motor neuron: first neuron in the motor command pathway with its cell body in the cerebral cortex that synapses on the lower motor neuron in the spinal cord"
+      ]
+    },
+    {
+      "blind_id": 15,
+      "subject": "morita",
+      "object": "maybe",
+      "source_sentences": [
+        "And Steve Jobs was inspired by Akio Morita, the co-founder of Sony, and he inspired me, so maybe it will come in a circle",
+        "Kosuke Morita, who led the research at RIKEN, said his team now planned to look to the uncharted territory of element 119 and beyond",
+        "Kosuke Morita, who led the research at RIKEN, said his team now planned to “look to element 119 and beyond”"
+      ]
+    },
+    {
+      "blind_id": 16,
+      "subject": "wright",
+      "object": "peter",
+      "source_sentences": [
+        "In a concerted campaign – led, the panel found, by the Chief Constable, Peter Wright – the South Yorkshire Police put out their story that drunken supporters or those without tickets had caused the disaster",
+        "The Secretary of the South Yorkshire Police Federation branch, Constable Paul Middup, told the restaurant meeting before Wright turned up: “The Chief Constable had said the truth could not come from him, but had given the secretary a totally free hand and supported him,” as had many senior officers",
+        "The report found that even as the nightmare began for the families of the victims, Wright was meeting his police federation in a Sheffield restaurant to prepare “a defence” and “a rock- solid story ”"
+      ]
+    },
+    {
+      "blind_id": 17,
+      "subject": "antigen",
+      "object": "present",
+      "source_sentences": [
+        "A helper T cell recognizes the MHC II–antigen complex and activates the B cell",
+        "A memory cell is an antigen-specific B or T lymphocyte that does not differentiate into effector cells during the primary immune response, but that can immediately become effector cells upon reexposure to the same pathogen",
+        "A serotype is a strain of bacteria that carries a set of similar antigens on its cell surface, and there are often many different serotypes of a bacterial species",
+        "APCs display antigens via MHC molecules to complementary naïve T cells",
+        "APCs in the lymph nodes capture and process antigens and inform nearby lymphocytes about potential pathogens"
+      ]
+    },
+    {
+      "blind_id": 18,
+      "subject": "cognitive",
+      "object": "child",
+      "source_sentences": [
+        "As discussed at the beginning of this chapter, developmental psychologists often divide our development into three areas: physical development, cognitive development, and psychosocial development",
+        "He said that we pass through three levels of moral thinking that build on our cognitive development",
+        "Jean Piaget proposed a theory of cognitive development that explains how children think and reason as they move through various stages",
+        "Kohlberg believed that moral development, like cognitive development, follows a series of stages",
+        "One such theory, neuroconstructivism, suggests that neural brain development influences cognitive development"
+      ]
+    },
+    {
+      "blind_id": 19,
+      "subject": "donor",
+      "object": "chance",
+      "source_sentences": [
+        "Around a third of the Welsh population is on the organ donor register, but well over two-thirds in surveys say they are happy to be organ donors",
+        "Relatives will have a clear right of objection, giving them the chance to show that the deceased would not have wanted to be an organ donor",
+        "Relatives will have a “clear right of objection”, which will give them the chance to show that their relative did not want to be an organ donor",
+        "“About a third of the people who live in Wales are on the organ donor register, but more than two-thirds of people say they are happy to be organ donors"
+      ]
+    },
+    {
+      "blind_id": 20,
+      "subject": "scrivener",
+      "object": "richard",
+      "source_sentences": [
+        "Richard Scrivener, a former Assistant Strength and Conditioning Coach at Northampton Saints Rugby Club, says that while the benefits are clear, Tabatas are an addition, not a replacement, to a favoured sport or training method",
+        "Richard Scrivener, a former rugby fitness coach, says that while the benefits are clear, Tabatas are an addition, not a replacement, to a favoured sport or training method",
+        "Richard Scrivener, a former rugby fitness coach, says that you should not stop your usual training; Tabata training is something extra",
+        "Runners, for instance, need a high level of running economy, which comes from learning the skills and running for many miles, says Scrivener, But they could reduce the number of long runs and the overall mileage by introducing Tabata training",
+        "“Runners, for instance, need a high level of running economy, which comes from skill acquisition and putting in the miles,” says Scrivener, “But they could effectively ease off the long runs and reduce the overall mileage by introducing Tabata training"
+      ]
+    },
+    {
+      "blind_id": 21,
+      "subject": "mum",
+      "object": "dad",
+      "source_sentences": [
+        "It has been called 'the hotel of mum and dad' but few guesthouses have such favourable terms"
+      ]
+    },
+    {
+      "blind_id": 22,
+      "subject": "estate",
+      "object": "agent",
+      "source_sentences": [
+        "However, the most popular investments are still real estate  mainly within India  and jewellery",
+        "In the past, an estate and house supported the family and their lifestyle but, today, it is quite the reverse: the challenge is how Geordie and I can support Highclere",
+        "Intermediate \nAll six numbers match, so its time to buy that Audi, book the holiday in the US and phone the estate agent",
+        "Now, Chinese house hunters are following Russians and Kazakhs who have spent millions to get an address that estate agents tell them is as world famous as the Champs Elyses and Rodeo Drive",
+        "Now, Chinese house hunters are following Russians and Kazakhs who have spent millions to get an address that estate agents tell them is as world famous as the Champs Elysées and Rodeo Drive"
+      ]
+    },
+    {
+      "blind_id": 23,
+      "subject": "subunit",
+      "object": "small",
+      "source_sentences": [
+        "Additional factors use the energy in GTP hydrolysis to disassemble the large and small ribosomal subunits and mRNA",
+        "More than one polypeptide comprise most allosterically regulated enzymes, meaning that they have more than one protein subunit",
+        "The formation of each peptide bond is catalyzed by peptidyl transferase, an RNA-based enzyme that is integrated into the 50S ribosomal subunit",
+        "The large ribosomal subunit joins the small subunit, and a second tRNA is recruited",
+        "The small and large ribosomal subunits dissociate from the mRNA and from each other; they are recruited almost immediately into another translation initiation complex"
+      ]
+    },
+    {
+      "blind_id": 24,
+      "subject": "strain",
+      "object": "dangerous",
+      "source_sentences": [
+        "Most often, the condition results from repetitive motions over time that strain the tendons needed to perform the tasks"
+      ]
+    },
+    {
+      "blind_id": 25,
+      "subject": "organism",
+      "object": "people",
+      "source_sentences": [
+        "Enterobacteria, organisms usually found in the gut, had also acquired vancomycin resistance",
+        "It is in intensive care, my specialist area, that antibiotic resistant organisms are most common",
+        "This, the specialism in which I chose to train, is where antibiotic resistant organisms are most prevalent",
+        "Today, infections with formidable, highly resistant organisms are commonplace and the pharmaceutical industry is not keeping pace",
+        "Today, infections with highly resistant organisms are common and the pharmaceutical industry is not keeping up"
+      ]
+    },
+    {
+      "blind_id": 26,
+      "subject": "neurotransmitter",
+      "object": "inside",
+      "source_sentences": [
+        "At another synapse, neurotransmitter is released and binds to its receptor",
+        "The neurotransmitter diffuses across the short distance of the synapse and binds to a receptor protein of the target neuron",
+        "This type of channel is also known as an ionotropic receptor because when the ligand, known as a neurotransmitter in the nervous system, binds to the protein, ions cross the membrane changing its charge",
+        "When the ligand, in this case the neurotransmitter acetylcholine, binds to a specific location on the extracellular surface of the channel protein, the pore opens to allow select ions through",
+        "When this signal reaches the end bulbs, it causes the release of a signaling molecule called a neurotransmitter"
+      ]
+    },
+    {
+      "blind_id": 27,
+      "subject": "swabey",
+      "object": "blow",
+      "source_sentences": [
+        "A glimpse of an answer appears on the face of Lee Swabey moments after he blows the final whistle of a 2 –1 win for Grimsby over Woking, a match at level 5 of the English league system",
+        "As one of the group that is highly regarded by the Professional Game Match Officials Limited (PGMOL) for his potential, Swabey knew he was being watched at that match",
+        "Brooks, like Swabey, has clear ambitions to progress"
+      ]
+    },
+    {
+      "blind_id": 28,
+      "subject": "promoter",
+      "object": "work",
+      "source_sentences": [
+        "(a) In the presence of cAMP, CAP binds to the promoters of operons, like the lac operon, that encode genes for enzymes for the use of alternate substrates",
+        "A repressor is a transcription factor that suppresses transcription of a gene in response to an external stimulus by binding to a DNA sequence within the regulatory region called the operator, which is located between the RNA polymerase binding site of the promoter and the transcriptional start site of the first structural gene",
+        "Binding of the CAP-cAMP complex to this site increases the binding ability of RNA polymerase to the promoter region to initiate the transcription of the structural genes",
+        "Conversely, an activator is a transcription factor that increases the transcription of a gene in response to an external stimulus by facilitating RNA polymerase binding to the promoter",
+        "In bacteria and archaea, structural proteins with related functions are usually encoded together within the genome in a block called an operon and are transcribed together under the control of a single promoter, resulting in the formation of a polycistronic transcript"
+      ]
+    },
+    {
+      "blind_id": 29,
+      "subject": "farm",
+      "object": "absolutely",
+      "source_sentences": [
+        "24 farm workers, who were without weapons, were killed by British troops – their families are now fighting for a public inquiry",
+        "But some people criticize farmed fish – they say the fish can be inbred and have high levels of toxins",
+        "China is already building huge maggot farms",
+        "Chon began building a pool in which to farm fish",
+        "He raised money for the non-profit fish farm in the northeast of Monrovia, Liberia’s capital, and started learning about fish farming, doing an online course and speaking to other fish farmers in Africa"
+      ]
+    },
+    {
+      "blind_id": 30,
+      "subject": "operator",
+      "object": "talk",
+      "source_sentences": [
+        "Not only that, but a significant number of those subscribers come from bundled deals with mobile phone operators so it is debatable just how “active” its users are",
+        "Operators want to see vehicle status information; they want to see video on their handheld device or their laptop",
+        "People in the aircraft business have to remind ourselves that the operator doesnt really care about every little thing about the aircraft and wants instead to focus on the end result, he said",
+        "The study, commissioned by Camelot, the operators of the UK National Lottery, to mark the 3,000-winners milestone, was based on research from 100 £1m-plus winners",
+        "“Operators want to see vehicle status information; they want to see video on their handheld device or their laptop"
+      ]
+    },
+    {
+      "blind_id": 31,
+      "subject": "exclusively",
+      "object": "pay",
+      "source_sentences": [
+        "It already has AC/DC and the Beatles’ catalogues exclusively for download on iTunes but it remains to be seen if it can persuade these two to make the jump into streaming",
+        "Spotify paid a lot of money to get Led Zeppelin and Metallica exclusively",
+        "The type consumed differs, too: the wealthy almost exclusively eat the more expensive magna and white teff varieties; less well-off consumers tend to eat less-valuable red and mixed teff, and more than half combine it with cheaper cereals such as sorghum and maize"
+      ]
+    },
+    {
+      "blind_id": 32,
+      "subject": "female",
+      "object": "difference",
+      "source_sentences": [
+        "As a result, males and females experience different selective pressures, which can often lead to the evolution of phenotypic differences, or sexual dimorphisms, between the two",
+        "For example, male fireflies use specific light patterns to attract females",
+        "If a male of one species tried to attract the female of another, she would not recognize the light pattern and would not mate with the male",
+        "If one species tries to mate with the female of another, their body parts simply do not fit together",
+        "The shape of the male reproductive organ varies among male damselfly species, and is only compatible with the female of that species"
+      ]
+    },
+    {
+      "blind_id": 33,
+      "subject": "chromosome",
+      "object": "set",
+      "source_sentences": [
+        "Across a given chromosome, several recombination events may occur, causing extensive shuffling of alleles",
+        "Aneuploidy results when the gametes have too many or too few chromosomes due to nondisjunction during meiosis",
+        "As the distance between two genes increases, the probability of one or more crossovers between them increases, and the genes behave more like they are on separate chromosomes",
+        "At this stage, segments of homologous chromosomes exchange linear segments of genetic material",
+        "But unlike if the genes were on different chromosomes, there will be no gametes with tall and yellow alleles and no gametes with short and red alleles"
+      ]
+    },
+    {
+      "blind_id": 34,
+      "subject": "palm",
+      "object": "forward",
+      "source_sentences": [
+        "(g) Supination of the forearm turns the hand to the palm forward position in which the radius and ulna are parallel, while forearm pronation turns the hand to the palm backward position in which the radius crosses over the ulna to form an \"X",
+        "Body movements are always described in relation to the anatomical position of the body: upright stance, with upper limbs to the side of body and palms facing forward",
+        "For the thumb, abduction is the anterior movement that brings the thumb to a 90° perpendicular position, pointing straight out from the palm",
+        "For the thumb, extension moves the thumb away from the palm of the hand, within the same plane as the palm, while flexion brings the thumb back against the index finger or into the palm",
+        "In the anatomical position, the upper limb is held next to the body with the palm facing forward"
+      ]
+    },
+    {
+      "blind_id": 35,
+      "subject": "nutrient",
+      "object": "cute",
+      "source_sentences": [
+        "Never mind how cute a panda is or how stunning a tiger – it’s worms that are grinding up our waste and taking it deep into the soil to turn into nutrients, and bats that are catching mosquitoes and keeping malaria rates down"
+      ]
+    },
+    {
+      "blind_id": 36,
+      "subject": "foreign",
+      "object": "red",
+      "source_sentences": [
+        "Antibodies are synthesized and secreted by activated plasma cells in the spleen, and the spleen filters foreign substances and antibody-complexed pathogens from the blood",
+        "Foreign particles that make their way to MALT are taken up by absorptive epithelial cells called M cells and delivered to APCs located directly below the mucosal tissue",
+        "Immune tolerance is crucial for maintaining mucosal homeostasis given the tremendous number of foreign substances (such as food proteins) that APCs of the oral cavity, pharynx, and gastrointestinal mucosa encounter",
+        "Some leukocytes become macrophages that either stay at the same site or move through the bloodstream and gather at sites of infection or inflammation where they are attracted by chemical signals from foreign particles and damaged cells",
+        "The acquired ability to prevent an unnecessary or harmful immune response to a detected foreign substance known not to cause disease is described as immune tolerance"
+      ]
+    },
+    {
+      "blind_id": 37,
+      "subject": "product",
+      "object": "leave",
+      "source_sentences": [
+        "A chemical equation with a double headed arrow pointing towards both the reactants and products often denote these reversible reaction situations",
+        "After an enzyme catalyzes a reaction, it releases its product(s)",
+        "An intermediate complex is a temporary structure, and it allows one of the substrates (such as ATP) and reactants to more readily react with each other; in reactions involving ATP, ATP is one of the substrates and ADP is a product",
+        "At this point, product and reactant designations reverse",
+        "Even though all of the reactants and products of this reaction are molecules (each atom remains bonded to at least one other atom), in this reaction only hydrogen peroxide and water are representatives of compounds: they contain atoms of more than one type of element"
+      ]
+    },
+    {
+      "blind_id": 38,
+      "subject": "outermost",
+      "object": "need",
+      "source_sentences": [
+        "All elements are most stable when their outermost shell is filled with electrons according to the octet rule",
+        "Both ions now satisfy the octet rule and have complete outermost shells",
+        "Carbon has four electrons in its outermost shell and needs four more to fill it",
+        "However, since not all elements have enough electrons to fill their outermost shells, atoms form chemical bonds with other atoms thereby obtaining the electrons they need to attain a stable electron configuration",
+        "The hydrogen atoms each need one electron for their outermost shell, which is filled when it contains two electrons"
+      ]
+    },
+    {
+      "blind_id": 39,
+      "subject": "shortage",
+      "object": "problem",
+      "source_sentences": [
+        "And some people say the challenge caused a water shortage on the Scottish island of Colonsay",
+        "Food shortages in 2008 led to fighting and riots in 28 countries",
+        "More than 18 million people already have serious food shortages across the Sahel",
+        "More than 18 million people are already facing serious food shortages across the Sahel",
+        "There are warnings that water shortages will limit food production"
+      ]
+    },
+    {
+      "blind_id": 40,
+      "subject": "stirling",
+      "object": "running",
+      "source_sentences": [
+        "In Stirling alone, 30 schools have already started or will soon start the daily mile",
+        "Intermediate \nAs soon as the children at one primary school in Stirling, Scotland, hear the words daily mile, they put down their pencils and leave the classroom to start running around the school  eld",
+        "St Ninians pupils will be compared with children from another school in Stirling that hasnt yet started the scheme",
+        "The extent of the bene ts isnt known yet but researchers from Stirling University have launched a comparative study to look for evidence of the physical, cognitive and emotional bene ts of the daily mile"
+      ]
+    },
+    {
+      "blind_id": 41,
+      "subject": "irregular",
+      "object": "hard",
+      "source_sentences": [
+        "Its hard to sleep if youre one of the 15 million American shift workers who work irregular hours",
+        "It’s hard to sleep if you’re one of the 15 million American shift workers who work irregular hours",
+        "It’s hard to sleep if you’re one of the 15 million Americans who work irregular hours",
+        "One man was found to own a rifle, while another had recently been diagnosed with an irregular heartbeat"
+      ]
+    },
+    {
+      "blind_id": 42,
+      "subject": "singerer",
+      "object": "beer",
+      "source_sentences": [
+        "Every pub wants to learn how to reach women, adds Singerer",
+        "Intermediate \nAfter being told again that the beer she wanted would be too dark and too strong for you  have something sweeter, Rebecka Singerer was really annoyed",
+        "Now Singerer, a childminder, has joined FemAle, a group of female drinkers in Gothenburg, to make and sell beer",
+        "Now Singerer, a childminder, has joined FemAle, a group of like-minded drinkers in Gothenburg, to make and sell Swedens  rst beer made by women",
+        "Rebecka Singerer is often told that the beer she wants is too dark and too strong for her"
+      ]
+    },
+    {
+      "blind_id": 43,
+      "subject": "ashamed",
+      "object": "sorry",
+      "source_sentences": [
+        "And I just thought: You shouldnt be ashamed of this",
+        "And I thought: 'You shouldn’t be ashamed of this",
+        "The media, she said, is partly to blame for making the rich feel like they need to hide or feel ashamed",
+        "The media, she said, makes the rich “feel like they need to hide or feel ashamed”"
+      ]
+    },
+    {
+      "blind_id": 44,
+      "subject": "quinn",
+      "object": "elizabeth",
+      "source_sentences": [
+        "Elizabeth Gallagher, who calls herself Quinn, replied to an online posting from Axani and she was chosen",
+        "I do not think of Quinn in a romantic way at all",
+        "Jordan Axani, a 28-year-old Toronto charity founder, arrived back in Canada with Elizabeth Quinn Gallagher and said the pair had a brother-sister-like relationship",
+        "Jordan Axani, a 28-year-old from Toronto who started a charity, arrived back in Canada with Elizabeth Quinn Gallagher and said the pair were like brother and sister",
+        "This Elizabeth Gallagher, who calls herself Quinn, replied to an online posting from Axani and he chose her"
+      ]
+    },
+    {
+      "blind_id": 45,
+      "subject": "reactant",
+      "object": "group",
+      "source_sentences": [
+        "A chemical equation with a double headed arrow pointing towards both the reactants and products often denote these reversible reaction situations",
+        "A phosphate group is removed from an intermediate reactant in the pathway, and the free energy of the reaction is used to add the third phosphate to an available ADP molecule, producing ATP",
+        "An intermediate complex is a temporary structure, and it allows one of the substrates (such as ATP) and reactants to more readily react with each other; in reactions involving ATP, ATP is one of the substrates and ADP is a product",
+        "At this point, product and reactant designations reverse",
+        "Enzymes do this by binding to the reactant molecules, and holding them in such a way as to make the chemical bond-breaking and bond-forming processes take place more readily"
+      ]
+    },
+    {
+      "blind_id": 46,
+      "subject": "hydrochloric",
+      "object": "definitely",
+      "source_sentences": [
+        "Chlorous acid is not stable; it slowly decomposes in solution to yield chlorine dioxide, hydrochloric acid, and water",
+        "Part of the chlorine in your body is present as hydrochloric acid, which is a component of stomach acid"
+      ]
+    },
+    {
+      "blind_id": 47,
+      "subject": "convolute",
+      "object": "bed",
+      "source_sentences": [
+        "A portal system is formed when the blood flows through a second capillary bed surrounding the proximal and distal convoluted tubules and the loop of Henle",
+        "All of the renal corpuscles as well as both the proximal convoluted tubules (PCTs) and distal convoluted tubules are found here",
+        "The suture is frequently convoluted, forming a tight union that prevents most movement between the bones",
+        "When the bladder is empty, this epithelium is convoluted and has cuboidal apical cells with convex, umbrella shaped, apical surfaces",
+        "distal convoluted tubules: portions of the nephron distal to the loop of Henle that receive hyposmotic filtrate from the loop of Henle and empty into collecting ducts"
+      ]
+    },
+    {
+      "blind_id": 48,
+      "subject": "skype",
+      "object": "kid",
+      "source_sentences": [
+        "But the PRISM program makes that permission unnecessary, because it allows the agency to take the communications directly off the companies servers, communications that include email, video and voice chat, videos, photos, voice-over-IP (Skype, for example) chats, file transfers and social networking details",
+        "It was followed by Yahoo in 2008; Google, Facebook and PalTalk in 2009; YouTube in 2010; Skype and AOL in 2011; and finally Apple, which joined the program in 2012"
+      ]
+    },
+    {
+      "blind_id": 49,
+      "subject": "location",
+      "object": "kid",
+      "source_sentences": [
+        "This tells us that we could create a workable network of animal brains distributed in many different locations"
+      ]
+    },
+    {
+      "blind_id": 50,
+      "subject": "operon",
+      "object": "change",
+      "source_sentences": [
+        ", activating a regulon of operons) to an environmental stress"
+      ]
+    },
+    {
+      "blind_id": 51,
+      "subject": "visiting",
+      "object": "thinking",
+      "source_sentences": [
+        "Arif Sayani, the towns Director of Planning, said the town would be able to use the maps as a promotional tool for those thinking of visiting or moving to the area",
+        "But, now the football has started, visiting supporters want to enjoy the experience"
+      ]
+    },
+    {
+      "blind_id": 52,
+      "subject": "yoga",
+      "object": "people",
+      "source_sentences": [
+        "Air India, the national airline, has also said it will introduce yoga for trainee pilots",
+        "All across India you can see people doing yoga together",
+        "And, three million civil servants and their families will get free daily yoga lessons",
+        "Brazilians are usually too nice; they enjoy partying, not protesting, but something is changing,” said Deli Borsar, a 53-year-old yoga teacher",
+        "He said that, when you do yoga, you bring together mind and body, thought and action, and create harmony between man and nature"
+      ]
+    },
+    {
+      "blind_id": 53,
+      "subject": "gene",
+      "object": "agent",
+      "source_sentences": [
+        "A carotenoid enzyme, or desaturase, is responsible for the red coloration in certain aphids, and when mutation of this gene leads to formation of inactive enzyme, the aphids revert to their more common green color",
+        "According to DNA analysis, this ability is due to fungal genes transferring into the insect by HGT, presumably as the insect consumed fungi for food",
+        "As mentioned, some eukaryotic genes resemble those of Archaea; whereas, others resemble those from Bacteria",
+        "Both are members of the domain Eukarya and have cells containing many similar organelles, genes, and proteins",
+        "Conjugation: a hollow tube, or pilus transfers genes between organisms"
+      ]
+    },
+    {
+      "blind_id": 54,
+      "subject": "fishing",
+      "object": "boat",
+      "source_sentences": [
+        "Inky was brought to the National Aquarium several years ago by a local fisherman who found him in a fishing pot"
+      ]
+    },
+    {
+      "blind_id": 55,
+      "subject": "drifting",
+      "object": "boat",
+      "source_sentences": [
+        "In 2006, three Mexican fishermen were found drifting in a small boat near the Marshall Islands, nine months after setting out on a shark-fishing trip",
+        "In 2006, three Mexicans made international headlines when they were discovered drifting, also in a small fibreglass boat near the Marshall Islands",
+        "In 2006, three Mexicans made international headlines when they were found drifting near the Marshall Islands, also in a small boat",
+        "Inside the boat, they found an emaciated man with long hair and a beard, who said he had been drifting for 16 months after setting out from Mexico, more than 12,500km away"
+      ]
+    },
+    {
+      "blind_id": 56,
+      "subject": "hyperactivity",
+      "object": "attention",
+      "source_sentences": [
+        "(2015) Effect of Treatment Modality on Long-Term Outcomes in Attention-Deficit/Hyperactivity Disorder: A Systematic Review",
+        "Approximately three to five percent of children and adults are affected by attention deficit/hyperactivity disorder (ADHD)",
+        "Attention deficit hyperactivity disorder among children aged 5–17 years in the United States, 1998–2009 (NCHS data brief No",
+        "Clinical and functional outcome of childhood attention-deficit/hyperactivity disorder 33 years later",
+        "Some disorders like autism spectrum disorder and attention deficit/hyperactivity disorder have complex symptoms"
+      ]
+    },
+    {
+      "blind_id": 57,
+      "subject": "regulation",
+      "object": "difference",
+      "source_sentences": [
+        ") The regulation of pyruvate kinase involves phosphorylation by kinase, resulting in a less-active enzyme",
+        "As a result, the primary method to control what type of protein and how much of each protein is expressed in a prokaryotic cell is the regulation of DNA transcription",
+        "Differences in the Regulation of Gene Expression of Prokaryotic and Eukaryotic Organisms",
+        "Further regulation may occur through post-translational modifications of proteins in both prokaryotes and eukaryotes",
+        "Locations of gene regulation"
+      ]
+    },
+    {
+      "blind_id": 58,
+      "subject": "gas",
+      "object": "big",
+      "source_sentences": [
+        "Poor people can use the gas for cooking and lighting",
+        "The fourth element, 118, may be a gas"
+      ]
+    },
+    {
+      "blind_id": 59,
+      "subject": "fontanelle",
+      "object": "loose",
+      "source_sentences": [
+        "During birth, the fontanelles provide flexibility to the skull, allowing the bones to push closer together or to overlap slightly, thus aiding movement of the infant’s head through the birth canal",
+        "The fontanelles greatly decrease in width during the first year after birth as the skull bones enlarge",
+        "The fontanelles of a newborn’s skull are broad areas of fibrous connective tissue that form fibrous joints between the bones of the skull",
+        "These broad areas of connective tissue are called fontanelles",
+        "fontanelles: expanded areas of fibrous connective tissue that separate the braincase bones of the skull prior to birth and during the first year after birth"
+      ]
+    },
+    {
+      "blind_id": 60,
+      "subject": "sight",
+      "object": "pain",
+      "source_sentences": [
+        "The sight of the derelict properties can be agonizing for people who are struggling to keep a roof above their heads in one of the worlds most expensive cities",
+        "They were looking at this lovely sight",
+        "They were mental health problems, such as anxiety and depression, and disorders, such as arthritis and lower back pain, anaemia, sight and hearing loss and skin disease",
+        "They were mental health problems, such as anxiety and depression, disorders, such as arthritis and lower back pain, anaemia, sight and hearing loss and skin disease"
+      ]
+    },
+    {
+      "blind_id": 61,
+      "subject": "unpaid",
+      "object": "straight",
+      "source_sentences": [
+        "Most winners (59%) give up work straight away, but 19% carry on working and 31% do unpaid voluntary work",
+        "Part of the problem is unpaid taxes"
+      ]
+    },
+    {
+      "blind_id": 62,
+      "subject": "korean",
+      "object": "instead",
+      "source_sentences": [
+        "The books have celebrity fans like Zooey Deschanel, who shared a link about the book with her Facebook followers, and the South Korean pop star Kim Ki-Bum, who posted an image on Instagram for his 1",
+        "The list of fraudulent ingredients continues to grow: orange juice from cartons sold as freshly squeezed; Mont Blanc desserts topped with Korean chestnuts instead of the promised French ones; shop-bought chocolate cream that the menu said was home-made; imported beef sold as expensive wagyu",
+        "The list of fraudulent ingredients gets bigger: orange juice from cartons that was sold as freshly squeezed; Mont Blanc desserts with Korean chestnuts instead of the French ones on the menu; shop-bought chocolate cream that the menu said was home-made; imported beef sold as expensive wagyu beef",
+        "They have fans like Zooey Deschanel, who shared a link about the book with her Facebook followers, and the South Korean pop star Kim Ki- Bum, who posted an image on Instagram for his 1"
+      ]
+    },
+    {
+      "blind_id": 63,
+      "subject": "pump",
+      "object": "drive",
+      "source_sentences": [
+        "A large percentage of a cell’s ATP powers this pump, because cellular processes bring a considerable amount of sodium into the cell and potassium out of it",
+        "ATP alters the structure of the integral protein that functions as the pump, changing its affinity for sodium and potassium",
+        "Essentially, the energy released from the ATP hydrolysis couples with the energy required to power the pump and transport Na+ and K+ ions",
+        "In a phosphorylated state, the Na+/K+ pump has more free energy and is triggered to undergo a conformational change",
+        "In order for the pump to turn one cycle (exporting three Na+ ions and importing two K+ ions), one ATP molecule must hydrolyze"
+      ]
+    },
+    {
+      "blind_id": 64,
+      "subject": "proper",
+      "object": "little",
+      "source_sentences": [
+        "As you might expect, a fibrocyte, a less active form of fibroblast, is the second most common cell type in connective tissue proper",
+        "Cancellous bone looks like a sponge under the microscope and contains empty spaces between trabeculae, or arches of bone proper",
+        "Connective tissue proper includes loose connective tissue and dense connective tissue",
+        "Connective tissue proper includes the fixed cells fibrocytes, adipocytes, and mesenchymal cells",
+        "Connective tissue proper | Supportive connective tissue | Fluid connective tissue"
+      ]
+    },
+    {
+      "blind_id": 65,
+      "subject": "sane",
+      "object": "hit",
+      "source_sentences": [
+        "He had his first UK number 1 album with Aladdin Sane (1973), which included the hit singles The Jean Genie and Drive-in Saturday",
+        "He says that Himalayan lakes, spacewalks and the US presidential campaign helped him to stay sane during his mission",
+        "The news helped keep him sane, he said, and also work: “I looked forward to the next event – for example, the next spacewalk, the next science experiment"
+      ]
+    },
+    {
+      "blind_id": 66,
+      "subject": "pia",
+      "object": "world",
+      "source_sentences": [
+        "Between the arachnoid mater and pia mater is the subarachnoid space",
+        "The blood vessels that supply the brain with nutrients and other chemical substances lie on top of the pia mater",
+        "The innermost meningeal layer is a delicate membrane called the pia mater (literally tender mother)",
+        "The layers of tissue surrounding the human brain include three meningeal membranes: the dura mater, arachnoid mater, and pia mater",
+        "The skull and three meninges (the dura mater, arachnoid mater, and pia mater) protect the brain"
+      ]
+    },
+    {
+      "blind_id": 67,
+      "subject": "tutsi",
+      "object": "men",
+      "source_sentences": [
+        "Some are survivors of the 1994 genocide, during which almost a million Tutsis and Hutus were killed",
+        "Some are survivors of the 1994 genocide, when almost a million Tutsis and Hutus were killed",
+        "The musicians are Hutu and Tutsi women"
+      ]
+    },
+    {
+      "blind_id": 68,
+      "subject": "transform",
+      "object": "fix",
+      "source_sentences": [
+        "Denitrification is also performed by bacteria and transforms nitrate from soils into gaseous nitrogen compounds, such as N2O, NO, and N2",
+        "Gaseous nitrogen is transformed into ammonia through nitrogen fixation",
+        "Gaseous nitrogen is transformed, or “fixed” into more readily available forms, such as ammonia (NH3), through the process of nitrogen fixation",
+        "In the fifth step, an isomerase transforms the dihydroxyacetone-phosphate into its isomer, glyceraldehyde-3-phosphate",
+        "nitrogen fixation: process by which gaseous nitrogen is transformed, or “fixed” into more readily available forms such as ammonia"
+      ]
+    },
+    {
+      "blind_id": 69,
+      "subject": "swing",
+      "object": "beat",
+      "source_sentences": [
+        "In the presidential race, Romney won only one of the swing states, North Carolina, while Obama held New Hampshire, Virginia, Ohio, Wisconsin, Nevada, Iowa and Colorado",
+        "Obama easily beat his Republican opponent Mitt Romney (Obama kept lots of swing states), but the election showed again how divided America is",
+        "There was an audible intake of breath as a slide came up showing the base of his skull sliced off by one terrible blow, believed to be from a halberd, a fearsome medieval battle weapon with a razor-sharp iron axe blade weighing about two kilos, mounted on a wooden pole, which was swung at Richard at very close range",
+        "While Obama easily beat his Republican opponent Mitt Romney, holding swing state after swing state, the election showed again how divided America remains",
+        "While Obama easily beat off the challenge from his Republican opponent Mitt Romney, holding swing state after swing state, the election provided yet another reminder of just how divided America remains"
+      ]
+    },
+    {
+      "blind_id": 70,
+      "subject": "unusually",
+      "object": "ball",
+      "source_sentences": [
+        "According to Yarrell, Inky – who is about the size of a rugby ball – was an “unusually intelligent” octopus"
+      ]
+    },
+    {
+      "blind_id": 71,
+      "subject": "vesicle",
+      "object": "wonder",
+      "source_sentences": [
+        "A vesicle is a membranous sac—a spherical and hollow organelle bounded by a lipid bilayer membrane",
+        "Active transport may take place with the help of protein pumps or through the use of vesicles",
+        "If the product is to be exported from the cell, the vesicle migrates to the cell surface and fuses to the cell membrane, and the cargo is secreted",
+        "In contrast to phagocytosis, pinocytosis (“cell drinking”) brings fluid containing dissolved substances into a cell through membrane vesicles",
+        "Material destined for export is packaged into a vesicle inside the cell"
+      ]
+    },
+    {
+      "blind_id": 72,
+      "subject": "population",
+      "object": "course",
+      "source_sentences": [
+        "A geographically continuous population has a gene pool that is relatively homogeneous",
+        "Again, the basis to any changes in a group or population of organisms must be genetic for this is the only way to share and pass on traits",
+        "Allopatric speciation (allo- = \"other\"; -patric = \"homeland\") involves geographic separation of populations from a parent species and subsequent evolution",
+        "An endemic disease is a disease that is always present, usually at low incidence, in a population",
+        "As the population grows, competition for food increases"
+      ]
+    },
+    {
+      "blind_id": 73,
+      "subject": "trypanosomiasis",
+      "object": "early",
+      "source_sentences": [
+        "African sleeping sickness see human African trypanosomiasis",
+        "Trypanosoma brucei, the causative agent of African trypanosomiasis, spends part of its life cycle in the tsetse fly and part in humans",
+        "Trypanosoma | brucei | African sleeping sickness (African trypanosomiasis)",
+        "brucei, which causes African trypanosomiasis (African sleeping sickness and T",
+        "cruzi, which causes American trypanosomiasis (Chagas disease)"
+      ]
+    },
+    {
+      "blind_id": 74,
+      "subject": "archives",
+      "object": "follow",
+      "source_sentences": [
+        "Archives Italiennes de Biologie, 150, 107–121",
+        "Archives of General Psychiatry, 65, 146–152",
+        "Archives of General Psychiatry, 68, 555–561",
+        "Archives of General Psychiatry, 69, 1295–1303"
+      ]
+    },
+    {
+      "blind_id": 75,
+      "subject": "conserve",
+      "object": "ice",
+      "source_sentences": [
+        "Bicarbonate is the one ion that is not normally excreted in urine; instead, it is conserved by the kidneys for use in the body’s buffering systems",
+        "However, the matter that makes up living organisms is conserved and recycled",
+        "The kidneys can adjust the concentration of the urine to reflect the body’s water needs, conserving water if the body is dehydrated or making urine more dilute to expel excess water when necessary",
+        "The kidneys can regulate water levels in the body; they conserve water if you are dehydrated, and they can make urine more dilute to expel excess water if necessary",
+        "To conserve water, the hypothalamus of a dehydrated person also sends signals via the sympathetic nervous system to the salivary glands in the mouth"
+      ]
+    },
+    {
+      "blind_id": 76,
+      "subject": "dunworth",
+      "object": "gur",
+      "source_sentences": [
+        "But the fi gures also show the huge increase in use since May 2011,” said James Dunworth, of ecigarettedirect",
+        "But the ﬁgures also show the huge increase in use since May 2011,” said James Dunworth, of ecigarettedirect",
+        "While the  gures published this month by Smoking In England show that the use of electronic cigarettes by smokers has stopped rising, their data also shows the huge increase in use since May 2011, said James Dunworth, of ecigarettedirect",
+        "“While the figures published this month by Smoking In England show that the use of electronic cigarettes by smokers has levelled off, their data also shows the huge increase in use since May 2011,” said James Dunworth, director and co-founder of ecigarettedirect"
+      ]
+    },
+    {
+      "blind_id": 77,
+      "subject": "ossification",
+      "object": "remodel",
+      "source_sentences": [
+        "(a) Mesenchymal cells group into clusters, and ossification centers form",
+        "(e) Secondary ossification centers develop",
+        "After birth, this same sequence of events (matrix mineralization, death of chondrocytes, invasion of blood vessels from the periosteum, and seeding with osteogenic cells that become osteoblasts) occurs in the epiphyseal regions, and each of these centers of activity is referred to as a secondary ossification center (e)",
+        "Although they will ultimately be spread out by the formation of bone tissue, early osteoblasts appear in a cluster called an ossification center",
+        "Bones at the base of the skull and long bones form via endochondral ossification"
+      ]
+    },
+    {
+      "blind_id": 78,
+      "subject": "irv",
+      "object": "air",
+      "source_sentences": [
+        "0 | RV+ERV+TV+IRV",
+        "8 | ERV+TV+IRV",
+        "Conversely, the inspiratory reserve volume (IRV) is the additional amount of air that can be inhaled after a normal inhalation",
+        "Inspiratory reserve volume (IRV) | Amount of air that can be further inhaled after a normal inhalation | 3"
+      ]
+    },
+    {
+      "blind_id": 79,
+      "subject": "bypass",
+      "object": "bed",
+      "source_sentences": [
+        "If all of the precapillary sphincters in a capillary bed are closed, blood will flow from the metarteriole directly into a thoroughfare channel and then into the venous circulation, bypassing the capillary bed entirely",
+        "In addition, an arteriovenous anastomosis may bypass the capillary bed and lead directly to the venous system",
+        "arteriovenous anastomosis: short vessel connecting an arteriole directly to a venule and bypassing the capillary beds",
+        "thoroughfare channel: continuation of the metarteriole that enables blood to bypass a capillary bed and flow directly into a venule, creating a vascular shunt",
+        "vascular shunt: continuation of the metarteriole and thoroughfare channel that allows blood to bypass the capillary beds to flow directly from the arterial to the venous circulation"
+      ]
+    },
+    {
+      "blind_id": 80,
+      "subject": "pronation",
+      "object": "forward",
+      "source_sentences": [
+        "(g) Supination of the forearm turns the hand to the palm forward position in which the radius and ulna are parallel, while forearm pronation turns the hand to the palm backward position in which the radius crosses over the ulna to form an \"X",
+        "Pronation is the motion that moves the forearm from the supinated (anatomical) position to the pronated (palm backward) position",
+        "Supination and pronation are movements of the forearm",
+        "Supination and pronation are the movements of the forearm that go between these two positions",
+        "This joint allows for the radius to rotate along its length during pronation and supination movements of the forearm"
+      ]
+    },
+    {
+      "blind_id": 81,
+      "subject": "unlikely",
+      "object": "sure",
+      "source_sentences": [
+        "Others argue that a complete victory by either side is unlikely and hope for a political solution that comes from abroad",
+        "There are 1,001 hazards that would make his survival for so long very unlikely",
+        "Unlike after his election in 2008, the President is unlikely to get a honeymoon period"
+      ]
+    },
+    {
+      "blind_id": 82,
+      "subject": "welfare",
+      "object": "truck",
+      "source_sentences": [
+        "He grew up on welfare and became a truck driver, whereas his biological siblings – and the boy brought up in his place – attended private secondary schools and universities"
+      ]
+    },
+    {
+      "blind_id": 83,
+      "subject": "erythrocyte",
+      "object": "body",
+      "source_sentences": [
+        "Hemoglobin, or Hb, is a protein molecule found in red blood cells (erythrocytes) made of four subunits: two alpha subunits and two beta subunits",
+        "In mammals, the lack of organelles in erythrocytes leaves more room for the hemoglobin molecules, and the lack of mitochondria also prevents use of the oxygen for metabolic respiration",
+        "Lymph is a watery fluid that bathes tissues and organs with protective white blood cells and does not contain erythrocytes",
+        "Red blood cells, or erythrocytes (erythro- = “red”; -cyte = “cell”), are specialized cells that circulate through the body delivering oxygen to cells; they are formed from stem cells in the bone marrow",
+        "The majority of cells in the blood are erythrocytes (red blood cells)"
+      ]
+    },
+    {
+      "blind_id": 84,
+      "subject": "feedback",
+      "object": "control",
+      "source_sentences": [
+        "The improvements have been informed by extensive feedback from adopting faculty, curricular innovators, and equity experts"
+      ]
+    },
+    {
+      "blind_id": 85,
+      "subject": "servant",
+      "object": "lord",
+      "source_sentences": [
+        "And, three million civil servants and their families will get free daily yoga lessons",
+        "At Downton Abbey, Lord Grantham wants to reduce the number of servants",
+        "The neighbours are selling up their own stately home, while Lord Grantham wants to cut back on servants",
+        "They have said, too, that daily yoga lessons will be offered free to three million civil servants and their families"
+      ]
+    },
+    {
+      "blind_id": 86,
+      "subject": "inspiratory",
+      "object": "air",
+      "source_sentences": [
+        "Conversely, the inspiratory reserve volume (IRV) is the additional amount of air that can be inhaled after a normal inhalation",
+        "Inspiratory capacity (IC) | Volume of air that can be inhaled after a normal exhalation | 3",
+        "Inspiratory capacity is the amount of air taken in during a deep breath, and residual volume is the amount of air left in the lungs after forceful respiration",
+        "Inspiratory reserve volume (IRV) | Amount of air that can be further inhaled after a normal inhalation | 3",
+        "It is the sum of the expiratory reserve volume, tidal volume, and inspiratory reserve volume"
+      ]
+    },
+    {
+      "blind_id": 87,
+      "subject": "statement",
+      "object": "life",
+      "source_sentences": [
+        "Which of the following statements is false"
+      ]
+    },
+    {
+      "blind_id": 88,
+      "subject": "industriall",
+      "object": "fire",
+      "source_sentences": [
+        "Jenny Holdcroft, policy director for IndustriALL, which has been closely involved in the Accord, said that the agreement ensured that factories would not lose orders during closure because brands had committed to maintain orders with suppliers for two years",
+        "The problems come as hundreds of Bangladeshi clothing factories per month are inspected for fire- safety and structural problems under the Accord on Fire and Building Safety in Bangladesh, which is backed by over 170 international brands, including Primark and Marks & Spencer, and international trade unions, including IndustriALL"
+      ]
+    },
+    {
+      "blind_id": 89,
+      "subject": "stressful",
+      "object": "fight",
+      "source_sentences": [
+        "ABA accumulates as a response to stressful environmental conditions, such as dehydration, cold temperatures, or shortened day lengths",
+        "The sympathetic nervous system is activated in stressful situations to prepare the animal for a “fight or flight” response",
+        "While the sympathetic nervous system is activated in stressful situations, the parasympathetic nervous system allows an animal to “rest and digest",
+        "sympathetic nervous system: division of autonomic nervous system activated during stressful “fight or flight” situations"
+      ]
+    },
+    {
+      "blind_id": 90,
+      "subject": "bubonic",
+      "object": "black",
+      "source_sentences": [
+        "Although contracting bubonic plague before antibiotics meant almost certain death, the bacterium responds to several types of modern antibiotics, and mortality rates from plague are now very low",
+        "Among these are three viral diseases (dengue fever, yellow fever, and zika), and three bacterial diseases (diphtheria, cholera, and bubonic plague)",
+        "Astoundingly, bubonic plague would strike Europe more than once",
+        "Bubonic plague is caused by the bacterium Yersinia pestis",
+        "Bubonic plague struck London yet again in the mid-1600s"
+      ]
+    },
+    {
+      "blind_id": 91,
+      "subject": "nationalism",
+      "object": "talk",
+      "source_sentences": [
+        "One commentator called the event on 21 June “a mix of cultural nationalism, commercialization and subtle coercion”",
+        "One person called the event on 21 June a mix of cultural nationalism and commercialization",
+        "This wasnt about French nationalism or patriotism",
+        "“This wasn’t about French nationalism or patriotism"
+      ]
+    },
+    {
+      "blind_id": 92,
+      "subject": "promote",
+      "object": "act",
+      "source_sentences": [
+        "120 companies have joined our Think, Act, Report scheme, which encourages companies to improve the way they recruit, promote and pay women",
+        "After she retired, she wrote her memoirs and continued to promote her values around the world",
+        "The UNs Food and Agriculture Organization (FAO) has been funding projects since 2011 that aim to promote the eating and farming of insects in south-east Asia and Africa, where an estimated two billion people already eat insects and larvae as a regular part of their diet",
+        "The crisis has given dealers the possibility to promote a new, cheap drug, a cocaine for the poor, said Poulopoulos at a centre for addicts in Exarcheia, in Athens",
+        "We have signed up 120 companies to our Think, Act, Report scheme, which encourages companies to improve the way they recruit, promote and pay women"
+      ]
+    },
+    {
+      "blind_id": 93,
+      "subject": "liberalization",
+      "object": "danny",
+      "source_sentences": [
+        "The Bolivian move is inspirational and groundbreaking, said Danny Kushlick, of the Transform Drug Policy Foundation, which supports drug liberalization",
+        "The decision to ban coca chewing was based on 11 a 1950 report produced by the UN Commission of Inquiry on the Coca Leaf, which supporters of drug liberalization say was not based on evidence",
+        "The decision to ban coca chewing was based on a 1950 report produced by the UN Commission of Inquiry on the Coca Leaf, which proponents of drug liberalization say was not based on supporting evidence",
+        "“The Bolivian move is inspirational and groundbreaking,” said Danny Kushlick, Head of External Affairs at the Transform Drug Policy Foundation, which promotes drug liberalization"
+      ]
+    },
+    {
+      "blind_id": 94,
+      "subject": "musical",
+      "object": "york",
+      "source_sentences": [
+        "This new start in his private life coincided with a search for fresh musical inspiration",
+        "Throughout the 1970s, Bowie was a trailblazer of musical trends and pop fashion"
+      ]
+    },
+    {
+      "blind_id": 95,
+      "subject": "konstantinos",
+      "object": "agent",
+      "source_sentences": [
+        "“It started out as the best season in 30 years and, in one week, became the worst,” said Atzamis Konstantinos, a travel agent in Lemnos who used to earn €15,000 a month as a captain of petroleum tankers and other large ships but came home because he missed it so much"
+      ]
+    },
+    {
+      "blind_id": 96,
+      "subject": "eukaryote",
+      "object": "regulation",
+      "source_sentences": [
+        "Although found in both prokaryotes and eukaryotes, transposons are clinically relevant in bacterial pathogens for the movement of virulence factors, including antibiotic resistance genes",
+        "As with eukaryotes, topoisomerases are involved in supercoiling DNA",
+        "Eukaryotes and archaea use histone proteins, and bacteria use different proteins with similar function",
+        "Eukaryotes are diploid; DNA is organized into multiple linear chromosomes found in the nucleus",
+        "Extrachromosomal DNA in eukaryotes includes the chromosomes found within organelles of prokaryotic origin (mitochondria and chloroplasts) that evolved by endosymbiosis"
+      ]
+    },
+    {
+      "blind_id": 97,
+      "subject": "des",
+      "object": "ray",
+      "source_sentences": [
+        "Almost 60 years after Ray Kroc opened his first restaurant in Des Plaines, Illinois, consumers are losing their appetite for a Big Mac and fries"
+      ]
+    },
+    {
+      "blind_id": 98,
+      "subject": "trading",
+      "object": "suppose",
+      "source_sentences": [
+        "In Europe, the Emissions Trading Scheme was supposed to discourage high-carbon power generation by imposing a price on carbon dioxide emissions",
+        "This has made it more attractive, even in Europe where coal use was supposed to be discouraged by the Emissions Trading Scheme"
+      ]
+    },
+    {
+      "blind_id": 99,
+      "subject": "gradient",
+      "object": "high",
+      "source_sentences": [
+        "Diffusion is a process in which transport is driven by a concentration gradient",
+        "This concentration gradient allows for gas exchange during respiration"
+      ]
+    }
+  ]
+}

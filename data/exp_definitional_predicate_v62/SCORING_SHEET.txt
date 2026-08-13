@@ -1,0 +1,151 @@
+[01] VBNC state --ENABLING_CONDITION--> respond
+     "The VBNC state occurs when prokaryotes respond to environmental stressors by entering a dormant state that allows their survival"   [BIO:9092]
+
+[02] actor-observer bias --PROCESS_PATIENT--> behavior
+     "The actor-observer bias is the phenomenon of attributing other people's behavior to internal factors (fundamental attribution error) while attributing our ow..."   [PSY:9338]
+
+[03] allopolyploid --ENABLING_CONDITION--> combine
+     "The prefix "allo-" means "other" (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[04] allopolyploid --ENABLING_CONDITION_AGENT--> gamete
+     "The prefix "allo-" means "other" (recall from allopatric): therefore, an allopolyploid occurs when gametes from two different species combine"   [BIO:7753]
+
+[05] catabolism --PROCESS_ACTION--> break
+     "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"   [ANAT:448]
+
+[06] catabolism --PROCESS_PATIENT--> substance
+     "Catabolism is the process by which larger more complex substances are broken down into smaller simpler molecules"   [ANAT:448]
+
+[07] cellular respiration --PROCESS_ACTION--> convert
+     "In contrast, cellular respiration is the process in which the chemical energy stored in sugars is converted into ATP, a source of chemical energy that can be..."   [BIO:3878]
+
+[08] cellular respiration --PROCESS_PATIENT--> energy
+     "Cellular respiration is the process of making ATP using the chemical energy in glucose and other nutrients"   [BIO:1880]
+
+[09] chemical reaction --ENABLING_CONDITION_AGENT--> atom
+     "Chemical reactions occur when two or more atoms bond together to form molecules or when bonded atoms break apart"   [BIO:755]
+
+[10] conception --ENABLING_CONDITION--> fertilize
+     "Conception occurs when sperm fertilizes an egg and forms a zygote"   [PSY:6704]
+
+[11] cross-pollination --ENABLING_CONDITION--> transfer
+     "Cross-pollination occurs when pollen is transferred from one flower to another flower of another plant"   [BIO:14839]
+
+[12] cross-pollination --ENABLING_CONDITION_PATIENT--> pollen
+     "Cross-pollination occurs when pollen is transferred from one flower to another flower of another plant"   [BIO:14839]
+
+[13] diffusion --PROCESS_PATIENT--> transport
+     "Diffusion is a process in which transport is driven by a concentration gradient"   [BIO:18719]
+
+[14] elaborative rehearsal --PROCESS_ACTION--> link
+     "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"   [PSY:5518]
+
+[15] elaborative rehearsal --PROCESS_PATIENT--> information
+     "Alternatively, elaborative rehearsal is the act of linking new information you are trying to learn to existing information that you already know"   [PSY:5518]
+
+[16] elimination --ENABLING_CONDITION--> develop
+     "Elimination occurs when the immune response first develops toward tumor-specific antigens specific to the cancer and actively kills most cancer cells, follow..."   [ANAT:17373]
+
+[17] emulsification --PROCESS_ACTION--> break
+     "Emulsification is a process in which large lipid globules are broken down into several small lipid globules"   [BIO:15908]
+
+[18] encoding --PROCESS_PATIENT--> information
+     "Encoding is the act of getting information into our memory system through automatic or effortful processing"   [PSY:5588]
+
+[19] fibrinolysis --PROCESS_ACTION--> degrade
+     "Fibrinolysis is the process in which a clot is degraded in a healing vessel"   [ANAT:13595]
+
+[20] fibrinolysis --PROCESS_PATIENT--> clot
+     "Fibrinolysis is the process in which a clot is degraded in a healing vessel"   [ANAT:13595]
+
+[21] glycolysis --PROCESS_PATIENT--> atp
+     "Because erythrocytes do not contain mitochondria, glycolysis is the sole method by which these cells produce ATP"   [ANAT:18109]
+
+[22] gout --ENABLING_CONDITION--> make
+     "Gout occurs when the body makes too much uric acid or the kidneys do not properly excrete it"   [ANAT:6241]
+
+[23] gout --ENABLING_CONDITION_AGENT--> body
+     "Gout occurs when the body makes too much uric acid or the kidneys do not properly excrete it"   [ANAT:6241]
+
+[24] hemostasis --PROCESS_ACTION--> cease
+     "Hemostasis is the physiological process by which bleeding ceases"   [ANAT:13595]
+
+[25] incomplete block --ENABLING_CONDITION_AGENT--> impulse
+     "A second-degree or incomplete block occurs when some impulses from the SA node reach the AV node and continue, while others do not"   [ANAT:14271]
+
+[26] intestinal phase --ENABLING_CONDITION_AGENT--> chyme
+     "The intestinal phase begins when chyme enters the small intestine triggering digestive secretions"   [BIO:15996]
+
+[27] irish potato famine --ENABLING_CONDITION--> become
+     "The tragic Irish potato famine occurred when the single variety grown in Ireland became susceptible to a potato blight, wiping out the entire crop"   [BIO:23059]
+
+[28] layer --PROCESS_ACTION--> bend
+     "Layering is a method in which a stem attached to the plant is bent and covered with soil"   [BIO:14947]
+
+[29] micturition --PROCESS_PATIENT--> urine
+     "Micturition is the process of voiding the urine and involves both involuntary and voluntary actions"   [ANAT:20546]
+
+[30] neurotransmitter release --ENABLING_CONDITION--> alter
+     "Neurotransmitter release occurs when an action potential travels down the motor neuron's axon, resulting in altered permeability of the synaptic terminal mem..."   [BIO:18523]
+
+[31] nitrification --PROCESS_PATIENT--> nitrite
+     "Nitrification is the process by which nitrites (NO2-) are converted to ammonium ion (NH4+)"   [BIO:9391]
+
+[32] persuasion --PROCESS_PATIENT--> attitude
+     "Persuasion is the process of changing our attitude toward something based on some kind of communication"   [PSY:9513]
+
+[33] placebo effect --ENABLING_CONDITION--> influence
+     "The placebo effect occurs when people's expectations or beliefs influence or determine their experience in a given situation"   [PSY:1168]
+
+[34] polar molecule --ENABLING_CONDITION_AGENT--> atom
+     "Polar molecules occur when atoms share electrons unequally, in polar covalent bonds"   [ANAT:1058]
+
+[35] protraction --ENABLING_CONDITION--> push
+     "For the mandible, protraction occurs when the lower jaw is pushed forward, to stick out the chin, while retraction pulls the lower jaw backward"   [ANAT:6367]
+
+[36] protraction of scapula --ENABLING_CONDITION_PATIENT--> shoulder
+     "Protraction of the scapula occurs when the shoulder is moved forward, as when pushing against something or throwing a ball"   [ANAT:6367]
+
+[37] respiratory alkalosis --ENABLING_CONDITION_AGENT--> blood
+     "Respiratory alkalosis occurs when the blood is overly alkaline due to a deficiency in carbonic acid and CO2 levels in the blood"   [ANAT:21689]
+
+[38] scapegoat --PROCESS_ACTION--> blame
+     "Scapegoating is the act of blaming an out-group when the in-group experiences frustration or is blocked from obtaining a goal (Allport, 1954)"   [PSY:9830]
+
+[39] scapegoat --PROCESS_PATIENT--> out-group
+     "Scapegoating is the act of blaming an out-group when the in-group experiences frustration or is blocked from obtaining a goal (Allport, 1954)"   [PSY:9830]
+
+[40] semelparity --ENABLING_CONDITION--> reproduce
+     "Semelparity occurs when a species reproduces only once during its lifetime and then dies"   [BIO:21725]
+
+[41] sensation --ENABLING_CONDITION_AGENT--> receptor
+     "Sensation occurs when sensory receptors detect sensory stimuli"   [PSY:3345]
+
+[42] sensory activation --ENABLING_CONDITION_PATIENT--> stimulus
+     "A sensory activation occurs when a physical or chemical stimulus is processed into a neural signal (sensory transduction) by a sensory receptor"   [BIO:16746]
+
+[43] sexual reproduction --ENABLING_CONDITION--> generate
+     "Sexual reproduction in sponges occurs when gametes are generated"   [BIO:11906]
+
+[44] termination of translation --ENABLING_CONDITION--> encounter
+     "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered"   [BIO:6574]
+
+[45] termination of translation --ENABLING_CONDITION_PATIENT--> codon
+     "Termination of translation occurs when a nonsense codon (UAA, UAG, or UGA) is encountered"   [BIO:6574]
+
+[46] thirst response --ENABLING_CONDITION--> detect
+     "The thirst response begins when osmoreceptors detect a decrease in water levels in the blood"   [ANAT:21368]
+
+[47] transcription --PROCESS_PATIENT--> information
+     "Transcription is the process of copying the information in a cell's DNA into a special form of RNA called messenger RNA (mRNA); the cell uses information in ..."   [BIO:3956]
+
+[48] translation --PROCESS_ACTION--> synthesize
+     "Translation is the process of synthesizing a chain of amino acids called a polypeptide"   [ANAT:2084]
+
+[49] vascular shock --ENABLING_CONDITION--> lose
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+[50] vascular shock --ENABLING_CONDITION_AGENT--> arteriole
+     "Vascular shock occurs when arterioles lose their normal muscular tone and dilate dramatically"   [ANAT:15487]
+
+TOTAL ROWS: 50 | RELATIONS: ENABLING_CONDITION, PROCESS_PATIENT, ENABLING_CONDITION_AGENT, PROCESS_ACTION, ENABLING_CONDITION_PATIENT

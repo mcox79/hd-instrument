@@ -1,0 +1,9 @@
+{
+  "pid": 28820,
+  "ts_iso": "2026-08-13T05:00:43.385259+00:00",
+  "anchor_name": "grounding_text_vs_mechanism",
+  "run_mode": "full",
+  "arm": null,
+  "expected_n_units": 22,
+  "host": "FrameworkMPC"
+}

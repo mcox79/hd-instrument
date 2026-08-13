@@ -1,0 +1,706 @@
+{
+  "warning": "DO NOT OPEN UNTIL blind_sample.json IS FULLY SCORED",
+  "shuffle_seed": 42,
+  "rows": [
+    {
+      "blind_id": 0,
+      "arm": "NEWS",
+      "subject": "sensor",
+      "object": "let",
+      "fid": 1253
+    },
+    {
+      "blind_id": 1,
+      "arm": "NEWS",
+      "subject": "agricultural",
+      "object": "land",
+      "fid": 985
+    },
+    {
+      "blind_id": 2,
+      "arm": "TEXTBOOK",
+      "subject": "academy",
+      "object": "america",
+      "fid": 1271
+    },
+    {
+      "blind_id": 3,
+      "arm": "NEWS",
+      "subject": "nuclear",
+      "object": "accident",
+      "fid": 991
+    },
+    {
+      "blind_id": 4,
+      "arm": "TEXTBOOK",
+      "subject": "compact",
+      "object": "remodel",
+      "fid": 1103
+    },
+    {
+      "blind_id": 5,
+      "arm": "TEXTBOOK",
+      "subject": "flight",
+      "object": "fight",
+      "fid": 1213
+    },
+    {
+      "blind_id": 6,
+      "arm": "NEWS",
+      "subject": "lied",
+      "object": "talk",
+      "fid": 1001
+    },
+    {
+      "blind_id": 7,
+      "arm": "TEXTBOOK",
+      "subject": "remodel",
+      "object": "month",
+      "fid": 1005
+    },
+    {
+      "blind_id": 8,
+      "arm": "NEWS",
+      "subject": "album",
+      "object": "people",
+      "fid": 919
+    },
+    {
+      "blind_id": 9,
+      "arm": "TEXTBOOK",
+      "subject": "spermatogonia",
+      "object": "daughter",
+      "fid": 1245
+    },
+    {
+      "blind_id": 10,
+      "arm": "TEXTBOOK",
+      "subject": "nonmetal",
+      "object": "consist",
+      "fid": 1305
+    },
+    {
+      "blind_id": 11,
+      "arm": "NEWS",
+      "subject": "pesticide",
+      "object": "use",
+      "fid": 1579
+    },
+    {
+      "blind_id": 12,
+      "arm": "TEXTBOOK",
+      "subject": "bronchiole",
+      "object": "beat",
+      "fid": 1011
+    },
+    {
+      "blind_id": 13,
+      "arm": "TEXTBOOK",
+      "subject": "intramembranous",
+      "object": "control",
+      "fid": 1001
+    },
+    {
+      "blind_id": 14,
+      "arm": "TEXTBOOK",
+      "subject": "synapsis",
+      "object": "matter",
+      "fid": 1195
+    },
+    {
+      "blind_id": 15,
+      "arm": "NEWS",
+      "subject": "morita",
+      "object": "maybe",
+      "fid": 1157
+    },
+    {
+      "blind_id": 16,
+      "arm": "NEWS",
+      "subject": "wright",
+      "object": "peter",
+      "fid": 1357
+    },
+    {
+      "blind_id": 17,
+      "arm": "TEXTBOOK",
+      "subject": "antigen",
+      "object": "present",
+      "fid": 1059
+    },
+    {
+      "blind_id": 18,
+      "arm": "TEXTBOOK",
+      "subject": "cognitive",
+      "object": "child",
+      "fid": 1253
+    },
+    {
+      "blind_id": 19,
+      "arm": "NEWS",
+      "subject": "donor",
+      "object": "chance",
+      "fid": 1045
+    },
+    {
+      "blind_id": 20,
+      "arm": "NEWS",
+      "subject": "scrivener",
+      "object": "richard",
+      "fid": 1345
+    },
+    {
+      "blind_id": 21,
+      "arm": "NEWS",
+      "subject": "mum",
+      "object": "dad",
+      "fid": 1503
+    },
+    {
+      "blind_id": 22,
+      "arm": "NEWS",
+      "subject": "estate",
+      "object": "agent",
+      "fid": 1171
+    },
+    {
+      "blind_id": 23,
+      "arm": "TEXTBOOK",
+      "subject": "subunit",
+      "object": "small",
+      "fid": 935
+    },
+    {
+      "blind_id": 24,
+      "arm": "TEXTBOOK",
+      "subject": "strain",
+      "object": "dangerous",
+      "fid": 1101
+    },
+    {
+      "blind_id": 25,
+      "arm": "NEWS",
+      "subject": "organism",
+      "object": "people",
+      "fid": 1435
+    },
+    {
+      "blind_id": 26,
+      "arm": "TEXTBOOK",
+      "subject": "neurotransmitter",
+      "object": "inside",
+      "fid": 1187
+    },
+    {
+      "blind_id": 27,
+      "arm": "NEWS",
+      "subject": "swabey",
+      "object": "blow",
+      "fid": 1551
+    },
+    {
+      "blind_id": 28,
+      "arm": "TEXTBOOK",
+      "subject": "promoter",
+      "object": "work",
+      "fid": 1279
+    },
+    {
+      "blind_id": 29,
+      "arm": "NEWS",
+      "subject": "farm",
+      "object": "absolutely",
+      "fid": 893
+    },
+    {
+      "blind_id": 30,
+      "arm": "NEWS",
+      "subject": "operator",
+      "object": "talk",
+      "fid": 1641
+    },
+    {
+      "blind_id": 31,
+      "arm": "NEWS",
+      "subject": "exclusively",
+      "object": "pay",
+      "fid": 1633
+    },
+    {
+      "blind_id": 32,
+      "arm": "TEXTBOOK",
+      "subject": "female",
+      "object": "difference",
+      "fid": 939
+    },
+    {
+      "blind_id": 33,
+      "arm": "TEXTBOOK",
+      "subject": "chromosome",
+      "object": "set",
+      "fid": 931
+    },
+    {
+      "blind_id": 34,
+      "arm": "TEXTBOOK",
+      "subject": "palm",
+      "object": "forward",
+      "fid": 1173
+    },
+    {
+      "blind_id": 35,
+      "arm": "NEWS",
+      "subject": "nutrient",
+      "object": "cute",
+      "fid": 1505
+    },
+    {
+      "blind_id": 36,
+      "arm": "TEXTBOOK",
+      "subject": "foreign",
+      "object": "red",
+      "fid": 1063
+    },
+    {
+      "blind_id": 37,
+      "arm": "TEXTBOOK",
+      "subject": "product",
+      "object": "leave",
+      "fid": 899
+    },
+    {
+      "blind_id": 38,
+      "arm": "TEXTBOOK",
+      "subject": "outermost",
+      "object": "need",
+      "fid": 889
+    },
+    {
+      "blind_id": 39,
+      "arm": "NEWS",
+      "subject": "shortage",
+      "object": "problem",
+      "fid": 975
+    },
+    {
+      "blind_id": 40,
+      "arm": "NEWS",
+      "subject": "stirling",
+      "object": "running",
+      "fid": 1235
+    },
+    {
+      "blind_id": 41,
+      "arm": "NEWS",
+      "subject": "irregular",
+      "object": "hard",
+      "fid": 1461
+    },
+    {
+      "blind_id": 42,
+      "arm": "NEWS",
+      "subject": "singerer",
+      "object": "beer",
+      "fid": 1231
+    },
+    {
+      "blind_id": 43,
+      "arm": "NEWS",
+      "subject": "ashamed",
+      "object": "sorry",
+      "fid": 1275
+    },
+    {
+      "blind_id": 44,
+      "arm": "NEWS",
+      "subject": "quinn",
+      "object": "elizabeth",
+      "fid": 1109
+    },
+    {
+      "blind_id": 45,
+      "arm": "TEXTBOOK",
+      "subject": "reactant",
+      "object": "group",
+      "fid": 903
+    },
+    {
+      "blind_id": 46,
+      "arm": "TEXTBOOK",
+      "subject": "hydrochloric",
+      "object": "definitely",
+      "fid": 1303
+    },
+    {
+      "blind_id": 47,
+      "arm": "TEXTBOOK",
+      "subject": "convolute",
+      "object": "bed",
+      "fid": 1233
+    },
+    {
+      "blind_id": 48,
+      "arm": "NEWS",
+      "subject": "skype",
+      "object": "kid",
+      "fid": 1029
+    },
+    {
+      "blind_id": 49,
+      "arm": "NEWS",
+      "subject": "location",
+      "object": "kid",
+      "fid": 1049
+    },
+    {
+      "blind_id": 50,
+      "arm": "TEXTBOOK",
+      "subject": "operon",
+      "object": "change",
+      "fid": 1287
+    },
+    {
+      "blind_id": 51,
+      "arm": "NEWS",
+      "subject": "visiting",
+      "object": "thinking",
+      "fid": 931
+    },
+    {
+      "blind_id": 52,
+      "arm": "NEWS",
+      "subject": "yoga",
+      "object": "people",
+      "fid": 911
+    },
+    {
+      "blind_id": 53,
+      "arm": "TEXTBOOK",
+      "subject": "gene",
+      "object": "agent",
+      "fid": 943
+    },
+    {
+      "blind_id": 54,
+      "arm": "NEWS",
+      "subject": "fishing",
+      "object": "boat",
+      "fid": 917
+    },
+    {
+      "blind_id": 55,
+      "arm": "NEWS",
+      "subject": "drifting",
+      "object": "boat",
+      "fid": 1107
+    },
+    {
+      "blind_id": 56,
+      "arm": "TEXTBOOK",
+      "subject": "hyperactivity",
+      "object": "attention",
+      "fid": 1263
+    },
+    {
+      "blind_id": 57,
+      "arm": "TEXTBOOK",
+      "subject": "regulation",
+      "object": "difference",
+      "fid": 933
+    },
+    {
+      "blind_id": 58,
+      "arm": "NEWS",
+      "subject": "gas",
+      "object": "big",
+      "fid": 913
+    },
+    {
+      "blind_id": 59,
+      "arm": "TEXTBOOK",
+      "subject": "fontanelle",
+      "object": "loose",
+      "fid": 1165
+    },
+    {
+      "blind_id": 60,
+      "arm": "NEWS",
+      "subject": "sight",
+      "object": "pain",
+      "fid": 1089
+    },
+    {
+      "blind_id": 61,
+      "arm": "NEWS",
+      "subject": "unpaid",
+      "object": "straight",
+      "fid": 1137
+    },
+    {
+      "blind_id": 62,
+      "arm": "NEWS",
+      "subject": "korean",
+      "object": "instead",
+      "fid": 1115
+    },
+    {
+      "blind_id": 63,
+      "arm": "TEXTBOOK",
+      "subject": "pump",
+      "object": "drive",
+      "fid": 901
+    },
+    {
+      "blind_id": 64,
+      "arm": "TEXTBOOK",
+      "subject": "proper",
+      "object": "little",
+      "fid": 1115
+    },
+    {
+      "blind_id": 65,
+      "arm": "NEWS",
+      "subject": "sane",
+      "object": "hit",
+      "fid": 1125
+    },
+    {
+      "blind_id": 66,
+      "arm": "TEXTBOOK",
+      "subject": "pia",
+      "object": "world",
+      "fid": 1285
+    },
+    {
+      "blind_id": 67,
+      "arm": "NEWS",
+      "subject": "tutsi",
+      "object": "men",
+      "fid": 1239
+    },
+    {
+      "blind_id": 68,
+      "arm": "TEXTBOOK",
+      "subject": "transform",
+      "object": "fix",
+      "fid": 965
+    },
+    {
+      "blind_id": 69,
+      "arm": "NEWS",
+      "subject": "swing",
+      "object": "beat",
+      "fid": 1403
+    },
+    {
+      "blind_id": 70,
+      "arm": "NEWS",
+      "subject": "unusually",
+      "object": "ball",
+      "fid": 1541
+    },
+    {
+      "blind_id": 71,
+      "arm": "TEXTBOOK",
+      "subject": "vesicle",
+      "object": "wonder",
+      "fid": 1081
+    },
+    {
+      "blind_id": 72,
+      "arm": "TEXTBOOK",
+      "subject": "population",
+      "object": "course",
+      "fid": 957
+    },
+    {
+      "blind_id": 73,
+      "arm": "TEXTBOOK",
+      "subject": "trypanosomiasis",
+      "object": "early",
+      "fid": 1291
+    },
+    {
+      "blind_id": 74,
+      "arm": "TEXTBOOK",
+      "subject": "archives",
+      "object": "follow",
+      "fid": 1265
+    },
+    {
+      "blind_id": 75,
+      "arm": "TEXTBOOK",
+      "subject": "conserve",
+      "object": "ice",
+      "fid": 1241
+    },
+    {
+      "blind_id": 76,
+      "arm": "NEWS",
+      "subject": "dunworth",
+      "object": "gur",
+      "fid": 1619
+    },
+    {
+      "blind_id": 77,
+      "arm": "TEXTBOOK",
+      "subject": "ossification",
+      "object": "remodel",
+      "fid": 1145
+    },
+    {
+      "blind_id": 78,
+      "arm": "TEXTBOOK",
+      "subject": "irv",
+      "object": "air",
+      "fid": 1029
+    },
+    {
+      "blind_id": 79,
+      "arm": "TEXTBOOK",
+      "subject": "bypass",
+      "object": "bed",
+      "fid": 1219
+    },
+    {
+      "blind_id": 80,
+      "arm": "TEXTBOOK",
+      "subject": "pronation",
+      "object": "forward",
+      "fid": 1189
+    },
+    {
+      "blind_id": 81,
+      "arm": "NEWS",
+      "subject": "unlikely",
+      "object": "sure",
+      "fid": 1111
+    },
+    {
+      "blind_id": 82,
+      "arm": "NEWS",
+      "subject": "welfare",
+      "object": "truck",
+      "fid": 1605
+    },
+    {
+      "blind_id": 83,
+      "arm": "TEXTBOOK",
+      "subject": "erythrocyte",
+      "object": "body",
+      "fid": 1061
+    },
+    {
+      "blind_id": 84,
+      "arm": "TEXTBOOK",
+      "subject": "feedback",
+      "object": "control",
+      "fid": 1069
+    },
+    {
+      "blind_id": 85,
+      "arm": "NEWS",
+      "subject": "servant",
+      "object": "lord",
+      "fid": 1167
+    },
+    {
+      "blind_id": 86,
+      "arm": "TEXTBOOK",
+      "subject": "inspiratory",
+      "object": "air",
+      "fid": 1027
+    },
+    {
+      "blind_id": 87,
+      "arm": "TEXTBOOK",
+      "subject": "statement",
+      "object": "life",
+      "fid": 987
+    },
+    {
+      "blind_id": 88,
+      "arm": "NEWS",
+      "subject": "industriall",
+      "object": "fire",
+      "fid": 1445
+    },
+    {
+      "blind_id": 89,
+      "arm": "TEXTBOOK",
+      "subject": "stressful",
+      "object": "fight",
+      "fid": 997
+    },
+    {
+      "blind_id": 90,
+      "arm": "TEXTBOOK",
+      "subject": "bubonic",
+      "object": "black",
+      "fid": 967
+    },
+    {
+      "blind_id": 91,
+      "arm": "NEWS",
+      "subject": "nationalism",
+      "object": "talk",
+      "fid": 1491
+    },
+    {
+      "blind_id": 92,
+      "arm": "NEWS",
+      "subject": "promote",
+      "object": "act",
+      "fid": 981
+    },
+    {
+      "blind_id": 93,
+      "arm": "NEWS",
+      "subject": "liberalization",
+      "object": "danny",
+      "fid": 1315
+    },
+    {
+      "blind_id": 94,
+      "arm": "NEWS",
+      "subject": "musical",
+      "object": "york",
+      "fid": 1489
+    },
+    {
+      "blind_id": 95,
+      "arm": "NEWS",
+      "subject": "konstantinos",
+      "object": "agent",
+      "fid": 1601
+    },
+    {
+      "blind_id": 96,
+      "arm": "TEXTBOOK",
+      "subject": "eukaryote",
+      "object": "regulation",
+      "fid": 1273
+    },
+    {
+      "blind_id": 97,
+      "arm": "NEWS",
+      "subject": "des",
+      "object": "ray",
+      "fid": 1645
+    },
+    {
+      "blind_id": 98,
+      "arm": "NEWS",
+      "subject": "trading",
+      "object": "suppose",
+      "fid": 1319
+    },
+    {
+      "blind_id": 99,
+      "arm": "TEXTBOOK",
+      "subject": "gradient",
+      "object": "high",
+      "fid": 999
+    }
+  ]
+}

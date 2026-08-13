@@ -1,0 +1,254 @@
+{
+  "anchor_name": "grounding_text_vs_mechanism",
+  "run_mode": "full",
+  "ts_iso": "2026-08-13T05:00:48.755901+00:00",
+  "prereg": "preregs/2026-08-13_grounding_text_vs_mechanism.md",
+  "wire_status": "EXPERIMENT_LOCAL_NOT_WIRED",
+  "verdict": "STRUCTURAL_PASS_PENDING_B3",
+  "verdict_msg": "structural gates pass; 100 blind rows written for the Director's hand-score. THIS CELL MAKES NO QUALITY CLAIM. Matched N=20394 sentences per arm.",
+  "QUALITY_CLAIM": "NONE -- this cell emits no quality tier. The primary discriminator is a BLIND DIRECTOR HAND-SCORE on blind_sample.json / SCORING_SHEET.txt. MECHANISM_IS_BINDING is a pre-registered, expected, acceptable outcome (prereg sec 3).",
+  "quality_bands_recorded_not_evaluated": {
+    "primary_statistic": "MEANINGFUL rate on the TEXTBOOK arm (Director blind hand-score, n=50/arm)",
+    "TEXT_HYPOTHESIS_SUPPORTED": "MEANINGFUL(TEXTBOOK) >= 0.20",
+    "MIXED": "MEANINGFUL(TEXTBOOK) in [0.10, 0.20)",
+    "MECHANISM_IS_BINDING": "MEANINGFUL(TEXTBOOK) < 0.10 AND RELATED(TEXTBOOK) >= RELATED(NEWS) + 0.10 -- pre-declared, expected, acceptable",
+    "NULL_NO_TEXT_EFFECT": "MEANINGFUL(TEXTBOOK) < 0.10 and RELATED not above NEWS by 0.10",
+    "secondary_reported_not_gated": "RELATED rate per arm and the MEANINGFUL:RELATED ratio per arm; under (A) the ratio shifts toward MEANINGFUL, under (B) it stays adjacency-dominated",
+    "power": "SE of a proportion at n=50, p~0.2 is 0.057; differences below ~0.10 are unresolvable",
+    "reference_point": "MEASURED@notes/director_handscore_readout_v1_2026-08-13.md -- 3 MEANINGFUL / 19 RELATED / 78 NOISE over 100 mixed-corpus rows"
+  },
+  "cooccurrence_control_bands_recorded": {
+    "COOC_REPRODUCES_supports_B": "either_top1 >= 0.50 OR top5_containment >= 0.70, AND >= 0.20 above the permutation floor",
+    "COOC_PARTIAL": "either_top1 in [0.20, 0.50) or top5_containment in [0.40, 0.70), above the floor",
+    "COOC_DOES_NOT_EXPLAIN": "either_top1 < 0.20 and top5_containment < 0.40 -- the substrate output is NOT reproducible from plain co-occurrence; weakens (B)",
+    "note": "reported per arm; does NOT gate the primary. If the substrate largely REPRODUCES the baseline, (B) is supported regardless of the hand-score."
+  },
+  "cooccurrence_control_per_arm": {
+    "NEWS": {
+      "observed": {
+        "n": 50,
+        "pmi_top1_agreement": 0.04,
+        "freq_top1_agreement": 0.08,
+        "either_top1_agreement": 0.12,
+        "top5_containment": 0.44,
+        "pmi_top1_agreement_relaxed": 0.04,
+        "either_top1_agreement_relaxed": 0.12,
+        "top5_containment_relaxed": 0.46,
+        "n_subjects_using_relaxed_fallback": 1
+      },
+      "permutation_floor": {
+        "n": 50,
+        "pmi_top1_agreement": 0.0,
+        "freq_top1_agreement": 0.02,
+        "either_top1_agreement": 0.02,
+        "top5_containment": 0.04,
+        "pmi_top1_agreement_relaxed": 0.0,
+        "either_top1_agreement_relaxed": 0.02,
+        "top5_containment_relaxed": 0.04,
+        "n_subjects_using_relaxed_fallback": 1
+      },
+      "delta_either_top1": 0.1,
+      "delta_top5": 0.4
+    },
+    "TEXTBOOK": {
+      "observed": {
+        "n": 50,
+        "pmi_top1_agreement": 0.02,
+        "freq_top1_agreement": 0.04,
+        "either_top1_agreement": 0.04,
+        "top5_containment": 0.2,
+        "pmi_top1_agreement_relaxed": 0.02,
+        "either_top1_agreement_relaxed": 0.04,
+        "top5_containment_relaxed": 0.2,
+        "n_subjects_using_relaxed_fallback": 0
+      },
+      "permutation_floor": {
+        "n": 50,
+        "pmi_top1_agreement": 0.0,
+        "freq_top1_agreement": 0.0,
+        "either_top1_agreement": 0.0,
+        "top5_containment": 0.02,
+        "pmi_top1_agreement_relaxed": 0.0,
+        "either_top1_agreement_relaxed": 0.0,
+        "top5_containment_relaxed": 0.02,
+        "n_subjects_using_relaxed_fallback": 0
+      },
+      "delta_either_top1": 0.04,
+      "delta_top5": 0.18
+    }
+  },
+  "matched_n_per_arm": {
+    "NEWS": 20394,
+    "TEXTBOOK": 20394
+  },
+  "per_arm": {
+    "NEWS": {
+      "arm": "NEWS",
+      "corpus": "OneStopEnglish (Ele+Int+Adv)",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 20394,
+      "n_chunks": 136,
+      "n_grounded": 387,
+      "n_meaning_facts": 387,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 20058,
+      "pairs_digest": "6425339e38a1f4425c39092ff16a73e609243f1c9a9490c4eb73924d7c756f4b",
+      "elapsed_s": 791.53
+    },
+    "TEXTBOOK": {
+      "arm": "TEXTBOOK",
+      "corpus": "OpenStax (biology_2e, anatomy_physiology_2e, psychology_2e, microbiology, chemistry_2e)",
+      "readout": null,
+      "freeze_episode": false,
+      "n_sentences": 20394,
+      "n_chunks": 136,
+      "n_grounded": 212,
+      "n_meaning_facts": 212,
+      "n_tautology_facts": 0,
+      "n_closed_class_object_facts": 0,
+      "no_leak_violations": [],
+      "n_refusals": 7899,
+      "pairs_digest": "499dbddbbc06a49c689ffbc6cf6cafdb017eca9d0b5851084b6aca1f417d3c69",
+      "elapsed_s": 627.78
+    }
+  },
+  "per_arm_refusal_reasons": {
+    "NEWS": {
+      "CLOSED_CLASS_SUBJECT": 321,
+      "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 16915,
+      "NO_STANDING_HYPOTHESIS": 2822
+    },
+    "TEXTBOOK": {
+      "CLOSED_CLASS_SUBJECT": 72,
+      "HYPOTHESIS_BELOW_COMMIT_STRENGTH": 7245,
+      "NO_STANDING_HYPOTHESIS": 582
+    }
+  },
+  "structural_gates": {
+    "S1_cardinality": {
+      "ok": true,
+      "expected_n_units": 22,
+      "missing_units": [],
+      "missing_arms": []
+    },
+    "S2_integrity": {
+      "ok": true,
+      "per_arm": {
+        "NEWS": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        },
+        "TEXTBOOK": {
+          "n_tautology_facts": 0,
+          "n_closed_class_object_facts": 0,
+          "no_leak_violations": []
+        }
+      }
+    },
+    "S3_arms_differ": {
+      "ok": true,
+      "digests": {
+        "NEWS": "6425339e38a1f4425c39092ff16a73e609243f1c9a9490c4eb73924d7c756f4b",
+        "TEXTBOOK": "499dbddbbc06a49c689ffbc6cf6cafdb017eca9d0b5851084b6aca1f417d3c69"
+      }
+    },
+    "S4_matched_n": {
+      "ok": true,
+      "n_sentences_per_arm": {
+        "NEWS": 20394,
+        "TEXTBOOK": 20394
+      }
+    },
+    "S5_yield_floor": {
+      "ok": true,
+      "floor": 50,
+      "per_arm": {
+        "NEWS": 387,
+        "TEXTBOOK": 212
+      }
+    },
+    "S6_blind_hygiene": {
+      "ok": true,
+      "banned_tokens_found": [],
+      "structural_rerender_matches": true,
+      "n_context_lines": 100,
+      "n_row_header_lines": 100,
+      "expected_rows": 100,
+      "renderer_saw_arm_key": false,
+      "note": "render_scoring_sheet() is passed ONLY blind rows; arm_key.json is not opened by the renderer. Exactly one context sentence per row is enforced by the structural re-render, which is given only source_sentences[:1]."
+    }
+  },
+  "blind_material": {
+    "n_blind_rows": 100,
+    "per_arm_sample_n": {
+      "NEWS": 50,
+      "TEXTBOOK": 50
+    },
+    "cooc_per_arm": {
+      "NEWS": {
+        "observed": {
+          "n": 50,
+          "pmi_top1_agreement": 0.04,
+          "freq_top1_agreement": 0.08,
+          "either_top1_agreement": 0.12,
+          "top5_containment": 0.44,
+          "pmi_top1_agreement_relaxed": 0.04,
+          "either_top1_agreement_relaxed": 0.12,
+          "top5_containment_relaxed": 0.46,
+          "n_subjects_using_relaxed_fallback": 1
+        },
+        "permutation_floor": {
+          "n": 50,
+          "pmi_top1_agreement": 0.0,
+          "freq_top1_agreement": 0.02,
+          "either_top1_agreement": 0.02,
+          "top5_containment": 0.04,
+          "pmi_top1_agreement_relaxed": 0.0,
+          "either_top1_agreement_relaxed": 0.02,
+          "top5_containment_relaxed": 0.04,
+          "n_subjects_using_relaxed_fallback": 1
+        },
+        "delta_either_top1": 0.1,
+        "delta_top5": 0.4
+      },
+      "TEXTBOOK": {
+        "observed": {
+          "n": 50,
+          "pmi_top1_agreement": 0.02,
+          "freq_top1_agreement": 0.04,
+          "either_top1_agreement": 0.04,
+          "top5_containment": 0.2,
+          "pmi_top1_agreement_relaxed": 0.02,
+          "either_top1_agreement_relaxed": 0.04,
+          "top5_containment_relaxed": 0.2,
+          "n_subjects_using_relaxed_fallback": 0
+        },
+        "permutation_floor": {
+          "n": 50,
+          "pmi_top1_agreement": 0.0,
+          "freq_top1_agreement": 0.0,
+          "either_top1_agreement": 0.0,
+          "top5_containment": 0.02,
+          "pmi_top1_agreement_relaxed": 0.0,
+          "either_top1_agreement_relaxed": 0.0,
+          "top5_containment_relaxed": 0.02,
+          "n_subjects_using_relaxed_fallback": 0
+        },
+        "delta_either_top1": 0.04,
+        "delta_top5": 0.18
+      }
+    }
+  },
+  "files": {
+    "blind": "blind_sample.json",
+    "sheet": "SCORING_SHEET.txt",
+    "key_SEALED": "arm_key.json",
+    "provenance_SEALED": "blind_provenance_sealed.json",
+    "cooccurrence_control_SEALED": "cooccurrence_control.json"
+  },
+  "summary": "STRUCTURAL_PASS_PENDING_B3"
+}
